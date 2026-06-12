@@ -1,0 +1,1 @@
+cub unit list --space helm-ingress-nginx-admission-disabled-confighub-proof --where "Labels.Proof = 'ingress-nginx-admission-disabled-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

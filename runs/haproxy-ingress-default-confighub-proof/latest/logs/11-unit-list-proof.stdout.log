@@ -1,0 +1,530 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:12.464977Z",
+      "CursorID": 4707,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-haproxy-ingress-default-confighub-proof",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "UpdatedAt": "2026-06-12T17:31:13.095943Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a557e6ae56a6bb3ed5000c15943047304209d5c62376f31fd8fb70aef5d51343",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bd8bdacd-56de-41b3-bf61-8e8b447096c2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:12.464977Z",
+      "CursorID": 4707,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-haproxy-ingress-default-confighub-proof",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "UpdatedAt": "2026-06-12T17:31:13.095943Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "26660ae4a2eb4e0485cb7fa594b94d2b31643511273ab2416ed274f95810aa40",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "814dcc73-69c6-4a94-a74a-84a299026910",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:12.464977Z",
+      "CursorID": 4707,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-haproxy-ingress-default-confighub-proof",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "UpdatedAt": "2026-06-12T17:31:13.095943Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "296a27ab467b72f7607749d7add72ccc83ee4106bc85b6fde1f731c2c0cb5019",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2a2971ae-4fb4-46e0-bbdd-98637bdf128e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:12.464977Z",
+      "CursorID": 4707,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-haproxy-ingress-default-confighub-proof",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "UpdatedAt": "2026-06-12T17:31:13.095943Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "49a67e5a998062d4a0ad947b5d63da84b0f13bce50ef72da01cf7e47ac8161f4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "35db4be6-b184-43e6-b883-f25810df08d7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:12.464977Z",
+      "CursorID": 4707,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-haproxy-ingress-default-confighub-proof",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "UpdatedAt": "2026-06-12T17:31:13.095943Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5dd7155d6619808748072e7b92f9d1b1592b26fdca83bc1610cdf2d8f0d9019c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "ingressclass-haproxy",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "31b3b903-0199-4e66-8d87-e314e8361478",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 2
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:12.464977Z",
+      "CursorID": 4707,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-haproxy-ingress-default-confighub-proof",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "UpdatedAt": "2026-06-12T17:31:13.095943Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "86559893-8193-4874-9b9d-5352ca9b1052",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:12.464977Z",
+      "CursorID": 4707,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-haproxy-ingress-default-confighub-proof",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "UpdatedAt": "2026-06-12T17:31:13.095943Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "868f1d2395259d68467fc8b14058bc26d0fe9458e251b73671f796723d0358b7",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d4976806-2da4-4368-8b6f-853f23078160",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:12.464977Z",
+      "CursorID": 4707,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-haproxy-ingress-default-confighub-proof",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "UpdatedAt": "2026-06-12T17:31:13.095943Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2228bcfe0921d333eff313e9a913fa6ce3beac3ee0e2cbcb8d94bfa390051063",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "039e50ea-e8a2-4406-b46c-0a679fbb5046",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

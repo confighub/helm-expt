@@ -1,0 +1,1 @@
+cub installer setup --pull packages/percona/pg-operator/3.0.0 --base no-crds --work-dir .tmp/confighub-proof/pg-operator-no-crds --non-interactive --namespace default

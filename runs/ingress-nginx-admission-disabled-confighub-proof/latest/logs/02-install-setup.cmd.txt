@@ -1,0 +1,1 @@
+cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base admission-disabled --work-dir .tmp/confighub-proof/ingress-nginx-admission-disabled --non-interactive --namespace ingress-nginx

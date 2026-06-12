@@ -1,0 +1,1 @@
+cub unit diff daemonset-fluentd --space helm-fluentd-default-confighub-proof --from 1 --to HeadRevisionNum -u

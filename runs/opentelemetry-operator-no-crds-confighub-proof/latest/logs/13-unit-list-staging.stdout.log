@@ -1,0 +1,2465 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.544314Z",
+        "CursorID": 22779,
+        "DisplayName": "Upgrade certificate-default-opentelemetry-operator-serving-cert",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "481abb6f-bde0-4c95-96e7-b6bb53d67f75",
+        "LinkID": "c1639b0b-93ea-4be6-81f2-c1af557fd44b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-certificate-default-opentelemetry-operator-serving-cert",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "beada503-65ed-47d3-8030-71faffb801d3",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.544314Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'beada503-65ed-47d3-8030-71faffb801d3' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8a1eb5771a34ddf2a59668da42c19cd9c685e8ce9563ed329c8248cb46e9fd49",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c1639b0b-93ea-4be6-81f2-c1af557fd44b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "certificate-default-opentelemetry-operator-serving-cert",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "481abb6f-bde0-4c95-96e7-b6bb53d67f75",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "beada503-65ed-47d3-8030-71faffb801d3",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1618054883,
+      "CreatedAt": "2026-06-12T16:50:24.662416Z",
+      "CursorID": 27872,
+      "Data": "YXBpVmVyc2lvbjogY2VydC1tYW5hZ2VyLmlvL3YxCmtpbmQ6IENlcnRpZmljYXRlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogd2ViaG9vawogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMTUyLjAKICAgIGhlbG0uc2gvY2hhcnQ6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItMC4xMTQuMAogIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3Itc2VydmluZy1jZXJ0CiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgZG5zTmFtZXM6CiAgLSBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLXdlYmhvb2suZGVmYXVsdC5zdmMKICAtIG9wZW50ZWxlbWV0cnktb3BlcmF0b3Itd2ViaG9vay5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsCiAgaXNzdWVyUmVmOgogICAga2luZDogSXNzdWVyCiAgICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLXNlbGZzaWduZWQtaXNzdWVyCiAgc2VjcmV0TmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1jb250cm9sbGVyLW1hbmFnZXItc2VydmljZS1jZXJ0CiAgc3ViamVjdDoKICAgIG9yZ2FuaXphdGlvbmFsVW5pdHM6CiAgICAtIG9wZW50ZWxlbWV0cnktb3BlcmF0b3IK",
+      "DataHash": "8a1eb5771a34ddf2a59668da42c19cd9c685e8ce9563ed329c8248cb46e9fd49",
+      "DisplayName": "certificate-default-opentelemetry-operator-serving-cert",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opentelemetry-operator-serving-cert": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-serving-cert": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opentelemetry-operator-serving-cert",
+            "ResourceNameWithoutScope": "opentelemetry-operator-serving-cert",
+            "ResourceType": "cert-manager.io/v1/Certificate"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: cert-manager.io/v1\nkind: Certificate\nmetadata:\n  labels:\n    app.kubernetes.io/component: webhook\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-serving-cert\n  namespace: default\nspec:\n  dnsNames:\n  - opentelemetry-operator-webhook.default.svc\n  - opentelemetry-operator-webhook.default.svc.cluster.local\n  issuerRef:\n    kind: Issuer\n    name: opentelemetry-operator-selfsigned-issuer\n  secretName: opentelemetry-operator-controller-manager-service-cert\n  subject:\n    organizationalUnits:\n    - opentelemetry-operator\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "cert-manager.io/v1/Certificate"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "cert-manager.io/v1/Certificate"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opentelemetry-operator-serving-cert",
+          "ResourceNameWithoutScope": "opentelemetry-operator-serving-cert",
+          "ResourceType": "cert-manager.io/v1/Certificate"
+        }
+      ],
+      "Slug": "certificate-default-opentelemetry-operator-serving-cert",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "beada503-65ed-47d3-8030-71faffb801d3",
+      "UpdatedAt": "2026-06-12T16:51:11.524875Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.568023Z",
+        "CursorID": 22781,
+        "DisplayName": "Upgrade clusterrolebinding-opentelemetry-operator-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6ae2fa85-b07c-467b-b486-653202910650",
+        "LinkID": "d793f955-a5c8-4d1a-acdc-7cd0ebad4fc2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-opentelemetry-operator-manager",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "897e4e40-f289-434d-a297-b1c398f67956",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.568023Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '897e4e40-f289-434d-a297-b1c398f67956' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a8e7fad8282b3f0334528024f70ca00aae4bc7df0c87fb724beed5567c12144",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d793f955-a5c8-4d1a-acdc-7cd0ebad4fc2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-opentelemetry-operator-manager",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6ae2fa85-b07c-467b-b486-653202910650",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "897e4e40-f289-434d-a297-b1c398f67956",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1147267399,
+      "CreatedAt": "2026-06-12T16:50:30.676617Z",
+      "CursorID": 27883,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb250cm9sbGVyLW1hbmFnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjE1Mi4wCiAgICBoZWxtLnNoL2NoYXJ0OiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLTAuMTE0LjAKICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLW1hbmFnZXIKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1tYW5hZ2VyCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "7a8e7fad8282b3f0334528024f70ca00aae4bc7df0c87fb724beed5567c12144",
+      "DisplayName": "clusterrolebinding-opentelemetry-operator-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/opentelemetry-operator-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opentelemetry-operator-manager",
+            "ResourceNameWithoutScope": "opentelemetry-operator-manager",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-manager\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: opentelemetry-operator-manager\nsubjects:\n- kind: ServiceAccount\n  name: opentelemetry-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-opentelemetry-operator-manager",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "897e4e40-f289-434d-a297-b1c398f67956",
+      "UpdatedAt": "2026-06-12T16:51:14.825311Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.456113Z",
+        "CursorID": 22776,
+        "DisplayName": "Upgrade clusterrole-opentelemetry-operator-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a156d8b7-4a39-4be9-a83f-8102b67164d1",
+        "LinkID": "675eb473-c683-4c2a-8622-ad0af517a377",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-opentelemetry-operator-manager",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "c27db8b3-c4c8-41a9-b8e3-ab6e52272168",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.456113Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c27db8b3-c4c8-41a9-b8e3-ab6e52272168' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8f434998f7956fc344a85a9784694db007ce07a0b8095ac3cb2ba9be0c9b6f40",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "675eb473-c683-4c2a-8622-ad0af517a377"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-opentelemetry-operator-manager",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a156d8b7-4a39-4be9-a83f-8102b67164d1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c27db8b3-c4c8-41a9-b8e3-ab6e52272168",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1649905349,
+      "CreatedAt": "2026-06-12T16:50:26.764221Z",
+      "CursorID": 27876,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXItbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMTUyLjAKICAgIGhlbG0uc2gvY2hhcnQ6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItMC4xMTQuMAogIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbWFuYWdlcgpydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIGNvbmZpZ21hcHMKICAtIHBlcnNpc3RlbnR2b2x1bWVjbGFpbXMKICAtIHBlcnNpc3RlbnR2b2x1bWVzCiAgLSBwb2RzCiAgLSBzZXJ2aWNlYWNjb3VudHMKICAtIHNlcnZpY2VzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBuYW1lc3BhY2VzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gbmFtZXNwYWNlcy9zdGF0dXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIG5vZGVzL3NwZWMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHBvZHMvc3RhdHVzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSByZXBsaWNhdGlvbmNvbnRyb2xsZXJzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSByZXBsaWNhdGlvbmNvbnRyb2xsZXJzL3N0YXR1cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gcmVzb3VyY2VxdW90YXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgcmVzb3VyY2VzOgogIC0gZGFlbW9uc2V0cwogIC0gZGVwbG95bWVudHMKICAtIHN0YXRlZnVsc2V0cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgLSBleHRlbnNpb25zCiAgcmVzb3VyY2VzOgogIC0gcmVwbGljYXNldHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBleHRlbnNpb25zCiAgcmVzb3VyY2VzOgogIC0gZGFlbW9uc2V0cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGV4dGVuc2lvbnMKICByZXNvdXJjZXM6CiAgLSBkZXBsb3ltZW50cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGF1dG9zY2FsaW5nCiAgcmVzb3VyY2VzOgogIC0gaG9yaXpvbnRhbHBvZGF1dG9zY2FsZXJzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGJhdGNoCiAgcmVzb3VyY2VzOgogIC0gam9icwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGJhdGNoCiAgcmVzb3VyY2VzOgogIC0gY3JvbmpvYnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIG5vZGVzL3Byb3h5CiAgdmVyYnM6CiAgLSBnZXQKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIG5vZGVzL3N0YXRzCiAgdmVyYnM6CiAgLSBnZXQKLSBhcGlHcm91cHM6CiAgLSBjb25maWcub3BlbnNoaWZ0LmlvCiAgcmVzb3VyY2VzOgogIC0gaW5mcmFzdHJ1Y3R1cmVzCiAgLSBpbmZyYXN0cnVjdHVyZXMvc3RhdHVzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gY29vcmRpbmF0aW9uLms4cy5pbwogIHJlc291cmNlczoKICAtIGxlYXNlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGRpc2NvdmVyeS5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBlbmRwb2ludHNsaWNlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0Ci0gYXBpR3JvdXBzOgogIC0gZXZlbnRzLms4cy5pbwogIHJlc291cmNlczoKICAtIGV2ZW50cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBnYXRld2F5Lm5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gaHR0cHJvdXRlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBtb25pdG9yaW5nLmNvcmVvcy5jb20KICByZXNvdXJjZXM6CiAgLSBwb2Rtb25pdG9ycwogIC0gc2VydmljZW1vbml0b3JzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIG5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gaW5ncmVzc2VzCiAgLSBuZXR3b3JrcG9saWNpZXMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gb3BlbnRlbGVtZXRyeS5pbwogIHJlc291cmNlczoKICAtIGluc3RydW1lbnRhdGlvbnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBvcGVudGVsZW1ldHJ5LmlvCiAgcmVzb3VyY2VzOgogIC0gb3BhbXBicmlkZ2VzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIG9wZW50ZWxlbWV0cnkuaW8KICByZXNvdXJjZXM6CiAgLSBvcGFtcGJyaWRnZXMvZmluYWxpemVycwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gb3BlbnRlbGVtZXRyeS5pbwogIHJlc291cmNlczoKICAtIG9wYW1wYnJpZGdlcy9zdGF0dXMKICB2ZXJiczoKICAtIGdldAogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIG9wZW50ZWxlbWV0cnkuaW8KICByZXNvdXJjZXM6CiAgLSBvcGVudGVsZW1ldHJ5Y29sbGVjdG9ycwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIG9wZW50ZWxlbWV0cnkuaW8KICByZXNvdXJjZXM6CiAgLSBvcGVudGVsZW1ldHJ5Y29sbGVjdG9ycy9maW5hbGl6ZXJzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHBhdGNoCiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSBvcGVudGVsZW1ldHJ5LmlvCiAgcmVzb3VyY2VzOgogIC0gb3BlbnRlbGVtZXRyeWNvbGxlY3RvcnMvc3RhdHVzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHBhdGNoCiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSBwb2xpY3kKICByZXNvdXJjZXM6CiAgLSBwb2RkaXNydXB0aW9uYnVkZ2V0cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSByb3V0ZS5vcGVuc2hpZnQuaW8KICByZXNvdXJjZXM6CiAgLSByb3V0ZXMKICAtIHJvdXRlcy9jdXN0b20taG9zdAogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBvcGVudGVsZW1ldHJ5LmlvCiAgcmVzb3VyY2VzOgogIC0gdGFyZ2V0YWxsb2NhdG9ycwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBvcGVudGVsZW1ldHJ5LmlvCiAgcmVzb3VyY2VzOgogIC0gdGFyZ2V0YWxsb2NhdG9ycy9zdGF0dXMKICB2ZXJiczoKICAtIGdldAogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIG9wZW50ZWxlbWV0cnkuaW8KICByZXNvdXJjZXM6CiAgLSB0YXJnZXRhbGxvY2F0b3JzL2ZpbmFsaXplcnMKICB2ZXJiczoKICAtIGdldAogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGNlcnQtbWFuYWdlci5pbwogIHJlc291cmNlczoKICAtIGlzc3VlcnMKICAtIGNlcnRpZmljYXRlcmVxdWVzdHMKICAtIGNlcnRpZmljYXRlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSB1cGRhdGUKICAtIHBhdGNoCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBhdXRoZW50aWNhdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSB0b2tlbnJldmlld3MKICB2ZXJiczoKICAtIGNyZWF0ZQotIGFwaUdyb3VwczoKICAtIGF1dGhvcml6YXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gc3ViamVjdGFjY2Vzc3Jldmlld3MKICB2ZXJiczoKICAtIGNyZWF0ZQo=",
+      "DataHash": "8f434998f7956fc344a85a9784694db007ce07a0b8095ac3cb2ba9be0c9b6f40",
+      "DisplayName": "clusterrole-opentelemetry-operator-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/opentelemetry-operator-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opentelemetry-operator-manager",
+            "ResourceNameWithoutScope": "opentelemetry-operator-manager",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-manager\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - persistentvolumeclaims\n  - persistentvolumes\n  - pods\n  - serviceaccounts\n  - services\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  verbs:\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces/status\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes/spec\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - pods/status\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - replicationcontrollers\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - replicationcontrollers/status\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - resourcequotas\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - apps\n  resources:\n  - daemonsets\n  - deployments\n  - statefulsets\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - apps\n  - extensions\n  resources:\n  - replicasets\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - extensions\n  resources:\n  - daemonsets\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - extensions\n  resources:\n  - deployments\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - autoscaling\n  resources:\n  - horizontalpodautoscalers\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - batch\n  resources:\n  - jobs\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - batch\n  resources:\n  - cronjobs\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes/proxy\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes/stats\n  verbs:\n  - get\n- apiGroups:\n  - config.openshift.io\n  resources:\n  - infrastructures\n  - infrastructures/status\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n  - get\n  - list\n  - update\n- apiGroups:\n  - discovery.k8s.io\n  resources:\n  - endpointslices\n  verbs:\n  - get\n  - list\n- apiGroups:\n  - events.k8s.io\n  resources:\n  - events\n  verbs:\n  - create\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - gateway.networking.k8s.io\n  resources:\n  - httproutes\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - monitoring.coreos.com\n  resources:\n  - podmonitors\n  - servicemonitors\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - ingresses\n  - networkpolicies\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - instrumentations\n  verbs:\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - opampbridges\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - opampbridges/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - opampbridges/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - opentelemetrycollectors\n  verbs:\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - opentelemetrycollectors/finalizers\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - opentelemetrycollectors/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - route.openshift.io\n  resources:\n  - routes\n  - routes/custom-host\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - targetallocators\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - targetallocators/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - targetallocators/finalizers\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - cert-manager.io\n  resources:\n  - issuers\n  - certificaterequests\n  - certificates\n  verbs:\n  - create\n  - get\n  - list\n  - watch\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - authentication.k8s.io\n  resources:\n  - tokenreviews\n  verbs:\n  - create\n- apiGroups:\n  - authorization.k8s.io\n  resources:\n  - subjectaccessreviews\n  verbs:\n  - create\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/opentelemetry-operator-manager",
+          "ResourceNameWithoutScope": "opentelemetry-operator-manager",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-opentelemetry-operator-manager",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c27db8b3-c4c8-41a9-b8e3-ab6e52272168",
+      "UpdatedAt": "2026-06-12T16:50:45.578483Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.489839Z",
+        "CursorID": 22777,
+        "DisplayName": "Upgrade clusterrole-opentelemetry-operator-metrics",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d9097322-58de-4b4d-ac1d-f016cfc68601",
+        "LinkID": "1ea960e9-7ee8-40d4-8315-a0ff0f4f2740",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-opentelemetry-operator-metrics",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "65b665a9-9861-48e2-b2a0-cf447cc122c8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.489839Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '65b665a9-9861-48e2-b2a0-cf447cc122c8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "381840ed878c9990174db9174de93778f8d05e8ca76eaaa4988d7da413d565ba",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1ea960e9-7ee8-40d4-8315-a0ff0f4f2740"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-opentelemetry-operator-metrics",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d9097322-58de-4b4d-ac1d-f016cfc68601",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "65b665a9-9861-48e2-b2a0-cf447cc122c8",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1840096365,
+      "CreatedAt": "2026-06-12T16:50:27.764782Z",
+      "CursorID": 27878,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXItbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMTUyLjAKICAgIGhlbG0uc2gvY2hhcnQ6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItMC4xMTQuMAogIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbWV0cmljcwpydWxlczoKLSBub25SZXNvdXJjZVVSTHM6CiAgLSAvbWV0cmljcwogIHZlcmJzOgogIC0gZ2V0Cg==",
+      "DataHash": "381840ed878c9990174db9174de93778f8d05e8ca76eaaa4988d7da413d565ba",
+      "DisplayName": "clusterrole-opentelemetry-operator-metrics",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/opentelemetry-operator-metrics": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-metrics": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opentelemetry-operator-metrics",
+            "ResourceNameWithoutScope": "opentelemetry-operator-metrics",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-metrics\nrules:\n- nonResourceURLs:\n  - /metrics\n  verbs:\n  - get\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/opentelemetry-operator-metrics",
+          "ResourceNameWithoutScope": "opentelemetry-operator-metrics",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-opentelemetry-operator-metrics",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "65b665a9-9861-48e2-b2a0-cf447cc122c8",
+      "UpdatedAt": "2026-06-12T16:50:45.650913Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.608766Z",
+        "CursorID": 22782,
+        "DisplayName": "Upgrade deployment-default-opentelemetry-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "17d3d426-d5f8-410f-bd20-0e3c2d8e1ef9",
+        "LinkID": "3c89d2da-9060-4eeb-b4bf-9093d957adcb",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-opentelemetry-operator",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "53cc9187-b679-476c-b9e8-30d893e7b19d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.608766Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '53cc9187-b679-476c-b9e8-30d893e7b19d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a55365a65d6153135c8240cff72cbeb1d258322e20e439b3e0d67b0b41f81086",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3c89d2da-9060-4eeb-b4bf-9093d957adcb"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-opentelemetry-operator",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "17d3d426-d5f8-410f-bd20-0e3c2d8e1ef9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "53cc9187-b679-476c-b9e8-30d893e7b19d",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -233168590,
+      "CreatedAt": "2026-06-12T16:50:32.605475Z",
+      "CursorID": 27886,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlci1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4xNTIuMAogICAgaGVsbS5zaC9jaGFydDogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci0wLjExNC4wCiAgbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHJlcGxpY2FzOiAxCiAgcmV2aXNpb25IaXN0b3J5TGltaXQ6IDEwCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb250cm9sbGVyLW1hbmFnZXIKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGFubm90YXRpb25zOgogICAgICAgIGt1YmVjdGwua3ViZXJuZXRlcy5pby9kZWZhdWx0LWNvbnRhaW5lcjogbWFuYWdlcgogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb250cm9sbGVyLW1hbmFnZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMTUyLjAKICAgICAgICBoZWxtLnNoL2NoYXJ0OiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLTAuMTE0LjAKICAgIHNwZWM6CiAgICAgIGF1dG9tb3VudFNlcnZpY2VBY2NvdW50VG9rZW46IHRydWUKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gLS1tZXRyaWNzLWFkZHI9MC4wLjAuMDo4NDQzCiAgICAgICAgLSAtLW1ldHJpY3Mtc2VjdXJlPXRydWUKICAgICAgICAtIC0tZW5hYmxlLWxlYWRlci1lbGVjdGlvbgogICAgICAgIC0gLS1oZWFsdGgtcHJvYmUtYWRkcj06ODA4MQogICAgICAgIC0gLS13ZWJob29rLXBvcnQ9OTQ0MwogICAgICAgIC0gLS1jb2xsZWN0b3ItaW1hZ2U9Z2hjci5pby9vcGVuLXRlbGVtZXRyeS9vcGVudGVsZW1ldHJ5LWNvbGxlY3Rvci1yZWxlYXNlcy9vcGVudGVsZW1ldHJ5LWNvbGxlY3Rvci1rOHM6MC4xNTIuMQogICAgICAgIGNvbW1hbmQ6CiAgICAgICAgLSAvbWFuYWdlcgogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IFNFUlZJQ0VfQUNDT1VOVF9OQU1FCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogc3BlYy5zZXJ2aWNlQWNjb3VudE5hbWUKICAgICAgICAtIG5hbWU6IEVOQUJMRV9XRUJIT09LUwogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIGltYWdlOiBnaGNyLmlvL29wZW4tdGVsZW1ldHJ5L29wZW50ZWxlbWV0cnktb3BlcmF0b3Ivb3BlbnRlbGVtZXRyeS1vcGVyYXRvcjowLjE1Mi4wCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogODA4MQogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDIwCiAgICAgICAgbmFtZTogbWFuYWdlcgogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogODQ0MwogICAgICAgICAgbmFtZTogbWV0cmljcwogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIC0gY29udGFpbmVyUG9ydDogOTQ0MwogICAgICAgICAgbmFtZTogd2ViaG9vay1zZXJ2ZXIKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICByZWFkaW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9yZWFkeXoKICAgICAgICAgICAgcG9ydDogODA4MQogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogNQogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTAKICAgICAgICByZXNvdXJjZXM6IHt9CiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAtIEFMTAogICAgICAgICAgcnVuQXNOb25Sb290OiB0cnVlCiAgICAgICAgICBzZWNjb21wUHJvZmlsZToKICAgICAgICAgICAgdHlwZTogUnVudGltZURlZmF1bHQKICAgICAgICB2b2x1bWVNb3VudHM6CiAgICAgICAgLSBtb3VudFBhdGg6IC90bXAvazhzLXdlYmhvb2stc2VydmVyL3NlcnZpbmctY2VydHMKICAgICAgICAgIG5hbWU6IGNlcnQKICAgICAgICAgIHJlYWRPbmx5OiB0cnVlCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBub2RlU2VsZWN0b3I6CiAgICAgICAga3ViZXJuZXRlcy5pby9vczogbGludXgKICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIGZzR3JvdXA6IDY1NTMyCiAgICAgICAgcnVuQXNHcm91cDogNjU1MzIKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDY1NTMyCiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgICB0ZXJtaW5hdGlvbkdyYWNlUGVyaW9kU2Vjb25kczogMTAKICAgICAgdm9sdW1lczoKICAgICAgLSBuYW1lOiBjZXJ0CiAgICAgICAgc2VjcmV0OgogICAgICAgICAgZGVmYXVsdE1vZGU6IDQyMAogICAgICAgICAgc2VjcmV0TmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1jb250cm9sbGVyLW1hbmFnZXItc2VydmljZS1jZXJ0Cg==",
+      "DataHash": "a55365a65d6153135c8240cff72cbeb1d258322e20e439b3e0d67b0b41f81086",
+      "DisplayName": "deployment-default-opentelemetry-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opentelemetry-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opentelemetry-operator",
+            "ResourceNameWithoutScope": "opentelemetry-operator",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator\n  namespace: default\nspec:\n  replicas: 1\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app.kubernetes.io/component: controller-manager\n      app.kubernetes.io/name: opentelemetry-operator\n  template:\n    metadata:\n      annotations:\n        kubectl.kubernetes.io/default-container: manager\n      labels:\n        app.kubernetes.io/component: controller-manager\n        app.kubernetes.io/instance: opentelemetry-operator\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: opentelemetry-operator\n        app.kubernetes.io/part-of: opentelemetry-operator\n        app.kubernetes.io/version: 0.152.0\n        helm.sh/chart: opentelemetry-operator-0.114.0\n    spec:\n      automountServiceAccountToken: true\n      containers:\n      - args:\n        - --metrics-addr=0.0.0.0:8443\n        - --metrics-secure=true\n        - --enable-leader-election\n        - --health-probe-addr=:8081\n        - --webhook-port=9443\n        - --collector-image=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s:0.152.1\n        command:\n        - /manager\n        env:\n        - name: SERVICE_ACCOUNT_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: spec.serviceAccountName\n        - name: ENABLE_WEBHOOKS\n          value: \"true\"\n        image: ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.152.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /healthz\n            port: 8081\n          initialDelaySeconds: 15\n          periodSeconds: 20\n        name: manager\n        ports:\n        - containerPort: 8443\n          name: metrics\n          protocol: TCP\n        - containerPort: 9443\n          name: webhook-server\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /readyz\n            port: 8081\n          initialDelaySeconds: 5\n          periodSeconds: 10\n        resources: {}\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          runAsNonRoot: true\n          seccompProfile:\n            type: RuntimeDefault\n        volumeMounts:\n        - mountPath: /tmp/k8s-webhook-server/serving-certs\n          name: cert\n          readOnly: true\n      hostNetwork: false\n      nodeSelector:\n        kubernetes.io/os: linux\n      securityContext:\n        fsGroup: 65532\n        runAsGroup: 65532\n        runAsNonRoot: true\n        runAsUser: 65532\n      serviceAccountName: opentelemetry-operator\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - name: cert\n        secret:\n          defaultMode: 420\n          secretName: opentelemetry-operator-controller-manager-service-cert\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opentelemetry-operator",
+          "ResourceNameWithoutScope": "opentelemetry-operator",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-opentelemetry-operator",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "53cc9187-b679-476c-b9e8-30d893e7b19d",
+      "UpdatedAt": "2026-06-12T16:51:16.920755Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.384235Z",
+        "CursorID": 22775,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b7f49ff0-9f33-4959-b732-d5d529a739f4",
+        "LinkID": "c1e64142-c4e6-4cc6-b49c-4a843db53f74",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "f573cb45-6d03-43a4-b898-cf49f0d10d5c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.384236Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f573cb45-6d03-43a4-b898-cf49f0d10d5c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "931e55471561547055bd4ff2b7b98087dff7de186f3802c201cd238a93d8e585",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c1e64142-c4e6-4cc6-b49c-4a843db53f74"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b7f49ff0-9f33-4959-b732-d5d529a739f4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f573cb45-6d03-43a4-b898-cf49f0d10d5c",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "open-telemetry-opentelemetry-operator",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1614706121,
+      "CreatedAt": "2026-06-12T16:50:44.579504Z",
+      "CursorID": 27903,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogIm9wZW4tdGVsZW1ldHJ5LW9wZW50ZWxlbWV0cnktb3BlcmF0b3IiCiAgdmVyc2lvbjogIjAuMTE0LjAiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAib3Blbi10ZWxlbWV0cnkvb3BlbnRlbGVtZXRyeS1vcGVyYXRvciBkZWZhdWx0IHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBvcGVuLXRlbGVtZXRyeS9vcGVudGVsZW1ldHJ5LW9wZXJhdG9yQDAuMTE0LjAiCiAgICBleHRlcm5hbFJlcXVpcmVzOgogICAgLSBraW5kOiAiQ2x1c3RlckZlYXR1cmUiCiAgICAgIG5hbWU6ICJTZWNyZXQgZGVmYXVsdC9vcGVudGVsZW1ldHJ5LW9wZXJhdG9yLWNvbnRyb2xsZXItbWFuYWdlci1zZXJ2aWNlLWNlcnQga2V5cyB0bHMuY3J0LHRscy5rZXkiCiAgICAgIG5hbWVzcGFjZTogImRlZmF1bHQiCiAgICAgIHN1Z2dlc3RlZFNvdXJjZTogIlJ1biBjZXJ0LW1hbmFnZXIgY29udHJvbGxlciB0byBzYXRpc2Z5IHRoZSBjaGFydC1yZW5kZXJlZCBDZXJ0aWZpY2F0ZSwgb3Igc3RhZ2UgYSB2YWxpZCBUTFMgU2VjcmV0IGJlZm9yZSB3YWl0aW5nIGZvciB0aGUgb3BlcmF0b3IiCiAgICAtIGtpbmQ6ICJDbHVzdGVyRmVhdHVyZSIKICAgICAgbmFtZTogIkNSRCBjZXJ0aWZpY2F0ZXMuY2VydC1tYW5hZ2VyLmlvIgogICAgICBzdWdnZXN0ZWRTb3VyY2U6ICJrdWJlY3RsIGFwcGx5IC1mIDxjcmQtbWFuaWZlc3QueWFtbD4iCiAgICAtIGtpbmQ6ICJDbHVzdGVyRmVhdHVyZSIKICAgICAgbmFtZTogIkNSRCBpc3N1ZXJzLmNlcnQtbWFuYWdlci5pbyIKICAgICAgc3VnZ2VzdGVkU291cmNlOiAia3ViZWN0bCBhcHBseSAtZiA8Y3JkLW1hbmlmZXN0LnlhbWw+IgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIGRlc2NyaXB0aW9uOiAib3Blbi10ZWxlbWV0cnkvb3BlbnRlbGVtZXRyeS1vcGVyYXRvciBuby1jcmRzIHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBvcGVuLXRlbGVtZXRyeS9vcGVudGVsZW1ldHJ5LW9wZXJhdG9yQDAuMTE0LjAiCiAgICBleHRlcm5hbFJlcXVpcmVzOgogICAgLSBraW5kOiAiQ2x1c3RlckZlYXR1cmUiCiAgICAgIG5hbWU6ICJTZWNyZXQgZGVmYXVsdC9vcGVudGVsZW1ldHJ5LW9wZXJhdG9yLWNvbnRyb2xsZXItbWFuYWdlci1zZXJ2aWNlLWNlcnQga2V5cyB0bHMuY3J0LHRscy5rZXkiCiAgICAgIG5hbWVzcGFjZTogImRlZmF1bHQiCiAgICAgIHN1Z2dlc3RlZFNvdXJjZTogIlJ1biBjZXJ0LW1hbmFnZXIgY29udHJvbGxlciB0byBzYXRpc2Z5IHRoZSBjaGFydC1yZW5kZXJlZCBDZXJ0aWZpY2F0ZSwgb3Igc3RhZ2UgYSB2YWxpZCBUTFMgU2VjcmV0IGJlZm9yZSB3YWl0aW5nIGZvciB0aGUgb3BlcmF0b3IiCiAgICAtIGtpbmQ6ICJDbHVzdGVyRmVhdHVyZSIKICAgICAgbmFtZTogIkNSRCBjZXJ0aWZpY2F0ZXMuY2VydC1tYW5hZ2VyLmlvIgogICAgICBzdWdnZXN0ZWRTb3VyY2U6ICJrdWJlY3RsIGFwcGx5IC1mIDxjcmQtbWFuaWZlc3QueWFtbD4iCiAgICAtIGtpbmQ6ICJDbHVzdGVyRmVhdHVyZSIKICAgICAgbmFtZTogIkNSRCBpc3N1ZXJzLmNlcnQtbWFuYWdlci5pbyIKICAgICAgc3VnZ2VzdGVkU291cmNlOiAia3ViZWN0bCBhcHBseSAtZiA8Y3JkLW1hbmlmZXN0LnlhbWw+IgogICAgLSBraW5kOiAiQ2x1c3RlckZlYXR1cmUiCiAgICAgIG5hbWU6ICJDUkQgaW5zdHJ1bWVudGF0aW9ucy5vcGVudGVsZW1ldHJ5LmlvIgogICAgICBzdWdnZXN0ZWRTb3VyY2U6ICJrdWJlY3RsIGFwcGx5IC1mIDxjcmQtbWFuaWZlc3QueWFtbD4iCiAgICAtIGtpbmQ6ICJDbHVzdGVyRmVhdHVyZSIKICAgICAgbmFtZTogIkNSRCBvcGFtcGJyaWRnZXMub3BlbnRlbGVtZXRyeS5pbyIKICAgICAgc3VnZ2VzdGVkU291cmNlOiAia3ViZWN0bCBhcHBseSAtZiA8Y3JkLW1hbmlmZXN0LnlhbWw+IgogICAgLSBraW5kOiAiQ2x1c3RlckZlYXR1cmUiCiAgICAgIG5hbWU6ICJDUkQgb3BlbnRlbGVtZXRyeWNvbGxlY3RvcnMub3BlbnRlbGVtZXRyeS5pbyIKICAgICAgc3VnZ2VzdGVkU291cmNlOiAia3ViZWN0bCBhcHBseSAtZiA8Y3JkLW1hbmlmZXN0LnlhbWw+IgogICAgLSBraW5kOiAiQ2x1c3RlckZlYXR1cmUiCiAgICAgIG5hbWU6ICJDUkQgdGFyZ2V0YWxsb2NhdG9ycy5vcGVudGVsZW1ldHJ5LmlvIgogICAgICBzdWdnZXN0ZWRTb3VyY2U6ICJrdWJlY3RsIGFwcGx5IC1mIDxjcmQtbWFuaWZlc3QueWFtbD4iCiAgICBuYW1lOiAibm8tY3JkcyIKICAgIHBhdGg6ICJiYXNlcy9uby1jcmRzIgogIGNvbGxlY3RvcjoKICAgIGNvbW1hbmQ6ICIvYmluL3NoIgogICAgYXJnczoKICAgIC0gImNvbGxlY3Rvci90YXJnZXQtZmFjdHMuc2giCiAgICBkZXNjcmlwdGlvbjogIlJlY29yZHMgdGFyZ2V0LWZhY3QgYmluZGluZ3MgYW5kIGNhbiBsaXZlLWNoZWNrIGV4aXN0aW5nIFNlY3JldCByZXF1aXJlbWVudHMuIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRmFjdHMKbWV0YWRhdGE6CiAgbmFtZTogb3Blbi10ZWxlbWV0cnktb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1mYWN0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogb3Blbi10ZWxlbWV0cnktb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogIHZhbHVlczoKICAgIHRhcmdldEZhY3RDaGVja3M6CiAgICAgIGJhc2U6IG5vLWNyZHMKICAgICAgbW9kZTogcmVjb3JkCiAgICAgIHJlc3VsdDogcmVjb3JkZWQKICAgIHRhcmdldEZhY3RzOgogICAgICByZXF1aXJlZENSRHM6CiAgICAgIC0gZGVsaXZlcnlMYW5lczoKICAgICAgICAtIHJlZ3VsYXJIZWxtCiAgICAgICAgLSBjdWJJbnN0YWxsZXJBcHBseQogICAgICAgIC0gY29uZmlnSHViS3ViZWN0bEFwcGx5CiAgICAgICAgLSBjb25maWdIdWJPY2lBcmdvCiAgICAgICAgbmFtZTogY2VydGlmaWNhdGVzLmNlcnQtbWFuYWdlci5pbwogICAgICAgIHB1cnBvc2U6IGNlcnQtbWFuYWdlciBDZXJ0aWZpY2F0ZSBDUkQgcmVxdWlyZWQgYnkgdGhlIGNoYXJ0LXJlbmRlcmVkIHNlcnZpbmcgY2VydGlmaWNhdGUgb2JqZWN0CiAgICAgICAgc291cmNlUGF0aDogLi4vLi4vLi4vamV0c3RhY2svY2VydC1tYW5hZ2VyL3YxLjIwLjIvcmV2aXNpb25zL2NyZHMtZW5hYmxlZC9yMDAxL3JlbmRlcmVkL3JlbGVhc2Utb2JqZWN0cy55YW1sCiAgICAgICAgc291cmNlVmFyaWFudDogamV0c3RhY2svY2VydC1tYW5hZ2VyQHYxLjIwLjIvY3Jkcy1lbmFibGVkCiAgICAgICAgc3VnZ2VzdGVkU291cmNlOiBJbnN0YWxsIGNlcnQtbWFuYWdlciBvciBhcHBseSB0aGUgY2VydC1tYW5hZ2VyIENlcnRpZmljYXRlIENSRCBiZWZvcmUgYXBwbHlpbmcgdGhpcyBiYXNlCiAgICAgIC0gZGVsaXZlcnlMYW5lczoKICAgICAgICAtIHJlZ3VsYXJIZWxtCiAgICAgICAgLSBjdWJJbnN0YWxsZXJBcHBseQogICAgICAgIC0gY29uZmlnSHViS3ViZWN0bEFwcGx5CiAgICAgICAgLSBjb25maWdIdWJPY2lBcmdvCiAgICAgICAgbmFtZTogaXNzdWVycy5jZXJ0LW1hbmFnZXIuaW8KICAgICAgICBwdXJwb3NlOiBjZXJ0LW1hbmFnZXIgSXNzdWVyIENSRCByZXF1aXJlZCBieSB0aGUgY2hhcnQtcmVuZGVyZWQgc2VsZi1zaWduZWQgaXNzdWVyIG9iamVjdAogICAgICAgIHNvdXJjZVBhdGg6IC4uLy4uLy4uL2pldHN0YWNrL2NlcnQtbWFuYWdlci92MS4yMC4yL3JldmlzaW9ucy9jcmRzLWVuYWJsZWQvcjAwMS9yZW5kZXJlZC9yZWxlYXNlLW9iamVjdHMueWFtbAogICAgICAgIHNvdXJjZVZhcmlhbnQ6IGpldHN0YWNrL2NlcnQtbWFuYWdlckB2MS4yMC4yL2NyZHMtZW5hYmxlZAogICAgICAgIHN1Z2dlc3RlZFNvdXJjZTogSW5zdGFsbCBjZXJ0LW1hbmFnZXIgb3IgYXBwbHkgdGhlIGNlcnQtbWFuYWdlciBJc3N1ZXIgQ1JEIGJlZm9yZSBhcHBseWluZyB0aGlzIGJhc2UKICAgICAgLSBkZWxpdmVyeUxhbmVzOgogICAgICAgIC0gcmVndWxhckhlbG0KICAgICAgICAtIGN1Ykluc3RhbGxlckFwcGx5CiAgICAgICAgLSBjb25maWdIdWJLdWJlY3RsQXBwbHkKICAgICAgICAtIGNvbmZpZ0h1Yk9jaUFyZ28KICAgICAgICBuYW1lOiBpbnN0cnVtZW50YXRpb25zLm9wZW50ZWxlbWV0cnkuaW8KICAgICAgICBwdXJwb3NlOiBPcGVuVGVsZW1ldHJ5IE9wZXJhdG9yIENSRCBtYW5hZ2VkIG91dHNpZGUgdGhpcyBuby1jcmRzIGJhc2UKICAgICAgICBzb3VyY2VQYXRoOiByZXZpc2lvbnMvZGVmYXVsdC9yMDAxL3JlbmRlcmVkL3JlbGVhc2Utb2JqZWN0cy55YW1sCiAgICAgICAgc291cmNlVmFyaWFudDogZGVmYXVsdAogICAgICAgIHN1Z2dlc3RlZFNvdXJjZTogQXBwbHkgdGhlIGRlZmF1bHQgYmFzZSBDUkRzIG9yIGluc3RhbGwgdGhlIE9wZW5UZWxlbWV0cnkgT3BlcmF0b3IgQ1JEcyBiZWZvcmUgYXBwbHlpbmcgdGhpcyBiYXNlCiAgICAgIC0gZGVsaXZlcnlMYW5lczoKICAgICAgICAtIHJlZ3VsYXJIZWxtCiAgICAgICAgLSBjdWJJbnN0YWxsZXJBcHBseQogICAgICAgIC0gY29uZmlnSHViS3ViZWN0bEFwcGx5CiAgICAgICAgLSBjb25maWdIdWJPY2lBcmdvCiAgICAgICAgbmFtZTogb3BhbXBicmlkZ2VzLm9wZW50ZWxlbWV0cnkuaW8KICAgICAgICBwdXJwb3NlOiBPcGVuVGVsZW1ldHJ5IE9wZXJhdG9yIENSRCBtYW5hZ2VkIG91dHNpZGUgdGhpcyBuby1jcmRzIGJhc2UKICAgICAgICBzb3VyY2VQYXRoOiByZXZpc2lvbnMvZGVmYXVsdC9yMDAxL3JlbmRlcmVkL3JlbGVhc2Utb2JqZWN0cy55YW1sCiAgICAgICAgc291cmNlVmFyaWFudDogZGVmYXVsdAogICAgICAgIHN1Z2dlc3RlZFNvdXJjZTogQXBwbHkgdGhlIGRlZmF1bHQgYmFzZSBDUkRzIG9yIGluc3RhbGwgdGhlIE9wZW5UZWxlbWV0cnkgT3BlcmF0b3IgQ1JEcyBiZWZvcmUgYXBwbHlpbmcgdGhpcyBiYXNlCiAgICAgIC0gZGVsaXZlcnlMYW5lczoKICAgICAgICAtIHJlZ3VsYXJIZWxtCiAgICAgICAgLSBjdWJJbnN0YWxsZXJBcHBseQogICAgICAgIC0gY29uZmlnSHViS3ViZWN0bEFwcGx5CiAgICAgICAgLSBjb25maWdIdWJPY2lBcmdvCiAgICAgICAgbmFtZTogb3BlbnRlbGVtZXRyeWNvbGxlY3RvcnMub3BlbnRlbGVtZXRyeS5pbwogICAgICAgIHB1cnBvc2U6IE9wZW5UZWxlbWV0cnkgT3BlcmF0b3IgQ1JEIG1hbmFnZWQgb3V0c2lkZSB0aGlzIG5vLWNyZHMgYmFzZQogICAgICAgIHNvdXJjZVBhdGg6IHJldmlzaW9ucy9kZWZhdWx0L3IwMDEvcmVuZGVyZWQvcmVsZWFzZS1vYmplY3RzLnlhbWwKICAgICAgICBzb3VyY2VWYXJpYW50OiBkZWZhdWx0CiAgICAgICAgc3VnZ2VzdGVkU291cmNlOiBBcHBseSB0aGUgZGVmYXVsdCBiYXNlIENSRHMgb3IgaW5zdGFsbCB0aGUgT3BlblRlbGVtZXRyeSBPcGVyYXRvciBDUkRzIGJlZm9yZSBhcHBseWluZyB0aGlzIGJhc2UKICAgICAgLSBkZWxpdmVyeUxhbmVzOgogICAgICAgIC0gcmVndWxhckhlbG0KICAgICAgICAtIGN1Ykluc3RhbGxlckFwcGx5CiAgICAgICAgLSBjb25maWdIdWJLdWJlY3RsQXBwbHkKICAgICAgICAtIGNvbmZpZ0h1Yk9jaUFyZ28KICAgICAgICBuYW1lOiB0YXJnZXRhbGxvY2F0b3JzLm9wZW50ZWxlbWV0cnkuaW8KICAgICAgICBwdXJwb3NlOiBPcGVuVGVsZW1ldHJ5IE9wZXJhdG9yIENSRCBtYW5hZ2VkIG91dHNpZGUgdGhpcyBuby1jcmRzIGJhc2UKICAgICAgICBzb3VyY2VQYXRoOiByZXZpc2lvbnMvZGVmYXVsdC9yMDAxL3JlbmRlcmVkL3JlbGVhc2Utb2JqZWN0cy55YW1sCiAgICAgICAgc291cmNlVmFyaWFudDogZGVmYXVsdAogICAgICAgIHN1Z2dlc3RlZFNvdXJjZTogQXBwbHkgdGhlIGRlZmF1bHQgYmFzZSBDUkRzIG9yIGluc3RhbGwgdGhlIE9wZW5UZWxlbWV0cnkgT3BlcmF0b3IgQ1JEcyBiZWZvcmUgYXBwbHlpbmcgdGhpcyBiYXNlCiAgICAgIHJlcXVpcmVkU2VjcmV0czoKICAgICAgLSBkZWxpdmVyeUxhbmVzOgogICAgICAgIC0gcmVndWxhckhlbG0KICAgICAgICAtIGN1Ykluc3RhbGxlckFwcGx5CiAgICAgICAgLSBjb25maWdIdWJLdWJlY3RsQXBwbHkKICAgICAgICAtIGNvbmZpZ0h1Yk9jaUFyZ28KICAgICAgICBrZXlzOgogICAgICAgIC0gdGxzLmNydAogICAgICAgIC0gdGxzLmtleQogICAgICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItY29udHJvbGxlci1tYW5hZ2VyLXNlcnZpY2UtY2VydAogICAgICAgIG5hbWVzcGFjZTogZGVmYXVsdAogICAgICAgIHB1cnBvc2U6IFdlYmhvb2sgc2VydmluZyBjZXJ0aWZpY2F0ZSBTZWNyZXQgbW91bnRlZCBieSB0aGUgb3BlcmF0b3IgRGVwbG95bWVudAogICAgICAgIHN1Z2dlc3RlZFNvdXJjZTogUnVuIGNlcnQtbWFuYWdlciBjb250cm9sbGVyIHRvIHNhdGlzZnkgdGhlIGNoYXJ0LXJlbmRlcmVkIENlcnRpZmljYXRlLCBvciBzdGFnZSBhIHZhbGlkIFRMUyBTZWNyZXQgYmVmb3JlIHdhaXRpbmcgZm9yIHRoZSBvcGVyYXRvcgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiBvcGVuLXRlbGVtZXRyeS1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yLWZ1bmN0aW9uLWNoYWluCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBvcGVuLXRlbGVtZXRyeS1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IG9wZW4tdGVsZW1ldHJ5LW9wZW50ZWxlbWV0cnktb3BlcmF0b3ItaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBvcGVuLXRlbGVtZXRyeS1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgdmFsdWVzOiB7fQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogTWFuaWZlc3RJbmRleAptZXRhZGF0YToKICBuYW1lOiBvcGVuLXRlbGVtZXRyeS1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yLW1hbmlmZXN0LWluZGV4CiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBvcGVuLXRlbGVtZXRyeS1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogY2VydGlmaWNhdGUtZGVmYXVsdC1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yLXNlcnZpbmctY2VydC55YW1sCiAgICBzbHVnOiBjZXJ0aWZpY2F0ZS1kZWZhdWx0LW9wZW50ZWxlbWV0cnktb3BlcmF0b3Itc2VydmluZy1jZXJ0CiAgICBhcGlWZXJzaW9uOiBjZXJ0LW1hbmFnZXIuaW8vdjEKICAgIGtpbmQ6IENlcnRpZmljYXRlCiAgICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLXNlcnZpbmctY2VydAogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1tYW5hZ2VyLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlLW9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbWFuYWdlcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbWFuYWdlcgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLW9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbWV0cmljcy55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yLW1ldHJpY3MKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLW1ldHJpY3MKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1tYW5hZ2VyLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlYmluZGluZy1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yLW1hbmFnZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1tYW5hZ2VyCiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LW9wZW50ZWxlbWV0cnktb3BlcmF0b3IueWFtbAogICAgc2x1ZzogZGVwbG95bWVudC1kZWZhdWx0LW9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IGlzc3Vlci1kZWZhdWx0LW9wZW50ZWxlbWV0cnktb3BlcmF0b3Itc2VsZnNpZ25lZC1pc3N1ZXIueWFtbAogICAgc2x1ZzogaXNzdWVyLWRlZmF1bHQtb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1zZWxmc2lnbmVkLWlzc3VlcgogICAgYXBpVmVyc2lvbjogY2VydC1tYW5hZ2VyLmlvL3YxCiAgICBraW5kOiBJc3N1ZXIKICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3Itc2VsZnNpZ25lZC1pc3N1ZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG11dGF0aW5nd2ViaG9va2NvbmZpZ3VyYXRpb24tb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1tdXRhdGlvbi55YW1sCiAgICBzbHVnOiBtdXRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9uLW9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbXV0YXRpb24KICAgIGFwaVZlcnNpb246IGFkbWlzc2lvbnJlZ2lzdHJhdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IE11dGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbXV0YXRpb24KICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGUtZGVmYXVsdC1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yLWxlYWRlci1lbGVjdGlvbi55YW1sCiAgICBzbHVnOiByb2xlLWRlZmF1bHQtb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1sZWFkZXItZWxlY3Rpb24KICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGUKICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbGVhZGVyLWVsZWN0aW9uCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1kZWZhdWx0LW9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbGVhZGVyLWVsZWN0aW9uLnlhbWwKICAgIHNsdWc6IHJvbGViaW5kaW5nLWRlZmF1bHQtb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1sZWFkZXItZWxlY3Rpb24KICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGVCaW5kaW5nCiAgICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLWxlYWRlci1lbGVjdGlvbgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS1kZWZhdWx0LW9wZW50ZWxlbWV0cnktb3BlcmF0b3IueWFtbAogICAgc2x1Zzogc2VydmljZS1kZWZhdWx0LW9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWRlZmF1bHQtb3BlbnRlbGVtZXRyeS1vcGVyYXRvci13ZWJob29rLnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtZGVmYXVsdC1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yLXdlYmhvb2sKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLXdlYmhvb2sKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtb3BlbnRlbGVtZXRyeS1vcGVyYXRvci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LW9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogdmFsaWRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9uLW9wZW50ZWxlbWV0cnktb3BlcmF0b3ItdmFsaWRhdGlvbi55YW1sCiAgICBzbHVnOiB2YWxpZGF0aW5nd2ViaG9va2NvbmZpZ3VyYXRpb24tb3BlbnRlbGVtZXRyeS1vcGVyYXRvci12YWxpZGF0aW9uCiAgICBhcGlWZXJzaW9uOiBhZG1pc3Npb25yZWdpc3RyYXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBWYWxpZGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItdmFsaWRhdGlvbgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IG9wZW4tdGVsZW1ldHJ5LW9wZW50ZWxlbWV0cnktb3BlcmF0b3Itc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBvcGVuLXRlbGVtZXRyeS1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgYmFzZTogbm8tY3JkcwotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogVXBsb2FkCm1ldGFkYXRhOgogIG5hbWU6IG9wZW4tdGVsZW1ldHJ5LW9wZW50ZWxlbWV0cnktb3BlcmF0b3ItdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBvcGVuLXRlbGVtZXRyeS1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLW9wZW50ZWxlbWV0cnktb3BlcmF0b3Itbm8tY3Jkcy1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBvcGVuLXRlbGVtZXRyeS1vcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBzbHVnOiBoZWxtLW9wZW50ZWxlbWV0cnktb3BlcmF0b3Itbm8tY3Jkcy1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTY6NTA6MjBaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "931e55471561547055bd4ff2b7b98087dff7de186f3802c201cd238a93d8e585",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "open-telemetry-opentelemetry-operator"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/open-telemetry-opentelemetry-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "open-telemetry-opentelemetry-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/open-telemetry-opentelemetry-operator",
+            "ResourceNameWithoutScope": "open-telemetry-opentelemetry-operator",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"open-telemetry-opentelemetry-operator\"\n  version: \"0.114.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"open-telemetry/opentelemetry-operator default variant rendered from open-telemetry/opentelemetry-operator@0.114.0\"\n    externalRequires:\n    - kind: \"ClusterFeature\"\n      name: \"Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key\"\n      namespace: \"default\"\n      suggestedSource: \"Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator\"\n    - kind: \"ClusterFeature\"\n      name: \"CRD certificates.cert-manager.io\"\n      suggestedSource: \"kubectl apply -f \u003ccrd-manifest.yaml\u003e\"\n    - kind: \"ClusterFeature\"\n      name: \"CRD issuers.cert-manager.io\"\n      suggestedSource: \"kubectl apply -f \u003ccrd-manifest.yaml\u003e\"\n    name: \"default\"\n    path: \"bases/default\"\n  - description: \"open-telemetry/opentelemetry-operator no-crds variant rendered from open-telemetry/opentelemetry-operator@0.114.0\"\n    externalRequires:\n    - kind: \"ClusterFeature\"\n      name: \"Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key\"\n      namespace: \"default\"\n      suggestedSource: \"Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator\"\n    - kind: \"ClusterFeature\"\n      name: \"CRD certificates.cert-manager.io\"\n      suggestedSource: \"kubectl apply -f \u003ccrd-manifest.yaml\u003e\"\n    - kind: \"ClusterFeature\"\n      name: \"CRD issuers.cert-manager.io\"\n      suggestedSource: \"kubectl apply -f \u003ccrd-manifest.yaml\u003e\"\n    - kind: \"ClusterFeature\"\n      name: \"CRD instrumentations.opentelemetry.io\"\n      suggestedSource: \"kubectl apply -f \u003ccrd-manifest.yaml\u003e\"\n    - kind: \"ClusterFeature\"\n      name: \"CRD opampbridges.opentelemetry.io\"\n      suggestedSource: \"kubectl apply -f \u003ccrd-manifest.yaml\u003e\"\n    - kind: \"ClusterFeature\"\n      name: \"CRD opentelemetrycollectors.opentelemetry.io\"\n      suggestedSource: \"kubectl apply -f \u003ccrd-manifest.yaml\u003e\"\n    - kind: \"ClusterFeature\"\n      name: \"CRD targetallocators.opentelemetry.io\"\n      suggestedSource: \"kubectl apply -f \u003ccrd-manifest.yaml\u003e\"\n    name: \"no-crds\"\n    path: \"bases/no-crds\"\n  collector:\n    command: \"/bin/sh\"\n    args:\n    - \"collector/target-facts.sh\"\n    description: \"Records target-fact bindings and can live-check existing Secret requirements.\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/open-telemetry-opentelemetry-operator-facts": {}
+          },
+          "AliasesWithoutScopes": {
+            "open-telemetry-opentelemetry-operator-facts": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/open-telemetry-opentelemetry-operator-facts",
+            "ResourceNameWithoutScope": "open-telemetry-opentelemetry-operator-facts",
+            "ResourceType": "installer.confighub.com/v1alpha1/Facts"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Facts\nmetadata:\n  name: open-telemetry-opentelemetry-operator-facts\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: open-telemetry-opentelemetry-operator\n  values:\n    targetFactChecks:\n      base: no-crds\n      mode: record\n      result: recorded\n    targetFacts:\n      requiredCRDs:\n      - deliveryLanes:\n        - regularHelm\n        - cubInstallerApply\n        - configHubKubectlApply\n        - configHubOciArgo\n        name: certificates.cert-manager.io\n        purpose: cert-manager Certificate CRD required by the chart-rendered serving certificate object\n        sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml\n        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled\n        suggestedSource: Install cert-manager or apply the cert-manager Certificate CRD before applying this base\n      - deliveryLanes:\n        - regularHelm\n        - cubInstallerApply\n        - configHubKubectlApply\n        - configHubOciArgo\n        name: issuers.cert-manager.io\n        purpose: cert-manager Issuer CRD required by the chart-rendered self-signed issuer object\n        sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml\n        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled\n        suggestedSource: Install cert-manager or apply the cert-manager Issuer CRD before applying this base\n      - deliveryLanes:\n        - regularHelm\n        - cubInstallerApply\n        - configHubKubectlApply\n        - configHubOciArgo\n        name: instrumentations.opentelemetry.io\n        purpose: OpenTelemetry Operator CRD managed outside this no-crds base\n        sourcePath: revisions/default/r001/rendered/release-objects.yaml\n        sourceVariant: default\n        suggestedSource: Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base\n      - deliveryLanes:\n        - regularHelm\n        - cubInstallerApply\n        - configHubKubectlApply\n        - configHubOciArgo\n        name: opampbridges.opentelemetry.io\n        purpose: OpenTelemetry Operator CRD managed outside this no-crds base\n        sourcePath: revisions/default/r001/rendered/release-objects.yaml\n        sourceVariant: default\n        suggestedSource: Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base\n      - deliveryLanes:\n        - regularHelm\n        - cubInstallerApply\n        - configHubKubectlApply\n        - configHubOciArgo\n        name: opentelemetrycollectors.opentelemetry.io\n        purpose: OpenTelemetry Operator CRD managed outside this no-crds base\n        sourcePath: revisions/default/r001/rendered/release-objects.yaml\n        sourceVariant: default\n        suggestedSource: Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base\n      - deliveryLanes:\n        - regularHelm\n        - cubInstallerApply\n        - configHubKubectlApply\n        - configHubOciArgo\n        name: targetallocators.opentelemetry.io\n        purpose: OpenTelemetry Operator CRD managed outside this no-crds base\n        sourcePath: revisions/default/r001/rendered/release-objects.yaml\n        sourceVariant: default\n        suggestedSource: Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base\n      requiredSecrets:\n      - deliveryLanes:\n        - regularHelm\n        - cubInstallerApply\n        - configHubKubectlApply\n        - configHubOciArgo\n        keys:\n        - tls.crt\n        - tls.key\n        name: opentelemetry-operator-controller-manager-service-cert\n        namespace: default\n        purpose: Webhook serving certificate Secret mounted by the operator Deployment\n        suggestedSource: Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/open-telemetry-opentelemetry-operator-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "open-telemetry-opentelemetry-operator-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/open-telemetry-opentelemetry-operator-function-chain",
+            "ResourceNameWithoutScope": "open-telemetry-opentelemetry-operator-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: open-telemetry-opentelemetry-operator-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: open-telemetry-opentelemetry-operator\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/open-telemetry-opentelemetry-operator-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "open-telemetry-opentelemetry-operator-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/open-telemetry-opentelemetry-operator-inputs",
+            "ResourceNameWithoutScope": "open-telemetry-opentelemetry-operator-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: open-telemetry-opentelemetry-operator-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: open-telemetry-opentelemetry-operator\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/open-telemetry-opentelemetry-operator-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "open-telemetry-opentelemetry-operator-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/open-telemetry-opentelemetry-operator-manifest-index",
+            "ResourceNameWithoutScope": "open-telemetry-opentelemetry-operator-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: open-telemetry-opentelemetry-operator-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: open-telemetry-opentelemetry-operator\n  files:\n  - filename: certificate-default-opentelemetry-operator-serving-cert.yaml\n    slug: certificate-default-opentelemetry-operator-serving-cert\n    apiVersion: cert-manager.io/v1\n    kind: Certificate\n    name: opentelemetry-operator-serving-cert\n    namespace: default\n  - filename: clusterrole-opentelemetry-operator-manager.yaml\n    slug: clusterrole-opentelemetry-operator-manager\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: opentelemetry-operator-manager\n  - filename: clusterrole-opentelemetry-operator-metrics.yaml\n    slug: clusterrole-opentelemetry-operator-metrics\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: opentelemetry-operator-metrics\n  - filename: clusterrolebinding-opentelemetry-operator-manager.yaml\n    slug: clusterrolebinding-opentelemetry-operator-manager\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: opentelemetry-operator-manager\n  - filename: deployment-default-opentelemetry-operator.yaml\n    slug: deployment-default-opentelemetry-operator\n    apiVersion: apps/v1\n    kind: Deployment\n    name: opentelemetry-operator\n    namespace: default\n  - filename: issuer-default-opentelemetry-operator-selfsigned-issuer.yaml\n    slug: issuer-default-opentelemetry-operator-selfsigned-issuer\n    apiVersion: cert-manager.io/v1\n    kind: Issuer\n    name: opentelemetry-operator-selfsigned-issuer\n    namespace: default\n  - filename: mutatingwebhookconfiguration-opentelemetry-operator-mutation.yaml\n    slug: mutatingwebhookconfiguration-opentelemetry-operator-mutation\n    apiVersion: admissionregistration.k8s.io/v1\n    kind: MutatingWebhookConfiguration\n    name: opentelemetry-operator-mutation\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-opentelemetry-operator-leader-election.yaml\n    slug: role-default-opentelemetry-operator-leader-election\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: opentelemetry-operator-leader-election\n    namespace: default\n  - filename: rolebinding-default-opentelemetry-operator-leader-election.yaml\n    slug: rolebinding-default-opentelemetry-operator-leader-election\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: opentelemetry-operator-leader-election\n    namespace: default\n  - filename: service-default-opentelemetry-operator.yaml\n    slug: service-default-opentelemetry-operator\n    apiVersion: v1\n    kind: Service\n    name: opentelemetry-operator\n    namespace: default\n  - filename: service-default-opentelemetry-operator-webhook.yaml\n    slug: service-default-opentelemetry-operator-webhook\n    apiVersion: v1\n    kind: Service\n    name: opentelemetry-operator-webhook\n    namespace: default\n  - filename: serviceaccount-default-opentelemetry-operator.yaml\n    slug: serviceaccount-default-opentelemetry-operator\n    apiVersion: v1\n    kind: ServiceAccount\n    name: opentelemetry-operator\n    namespace: default\n  - filename: validatingwebhookconfiguration-opentelemetry-operator-validation.yaml\n    slug: validatingwebhookconfiguration-opentelemetry-operator-validation\n    apiVersion: admissionregistration.k8s.io/v1\n    kind: ValidatingWebhookConfiguration\n    name: opentelemetry-operator-validation\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/open-telemetry-opentelemetry-operator-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "open-telemetry-opentelemetry-operator-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/open-telemetry-opentelemetry-operator-selection",
+            "ResourceNameWithoutScope": "open-telemetry-opentelemetry-operator-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: open-telemetry-opentelemetry-operator-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: open-telemetry-opentelemetry-operator\n  base: no-crds\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/open-telemetry-opentelemetry-operator-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "open-telemetry-opentelemetry-operator-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/open-telemetry-opentelemetry-operator-upload",
+            "ResourceNameWithoutScope": "open-telemetry-opentelemetry-operator-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: open-telemetry-opentelemetry-operator-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: open-telemetry-opentelemetry-operator\n  spacePattern: helm-opentelemetry-operator-no-crds-confighub-proof\n  spaces:\n  - package: open-telemetry-opentelemetry-operator\n    slug: helm-opentelemetry-operator-no-crds-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:50:20Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f573cb45-6d03-43a4-b898-cf49f0d10d5c",
+      "UpdatedAt": "2026-06-12T16:50:45.834544Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.640933Z",
+        "CursorID": 22783,
+        "DisplayName": "Upgrade issuer-default-opentelemetry-operator-selfsigned-issuer",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "02dc31d7-1a71-4c2f-bfce-b10bac087fd6",
+        "LinkID": "348f3445-a571-42fb-84d0-41bca3796a90",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-issuer-default-opentelemetry-operator-selfsigned-issuer",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "6841a8cb-68c4-4a83-9c98-09e4d617dc76",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.640933Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '6841a8cb-68c4-4a83-9c98-09e4d617dc76' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8842231a2ec4fd87a562242861f5adf62d6f25fd0b1bf9de3c1610da93175492",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "348f3445-a571-42fb-84d0-41bca3796a90"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "issuer-default-opentelemetry-operator-selfsigned-issuer",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "02dc31d7-1a71-4c2f-bfce-b10bac087fd6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "6841a8cb-68c4-4a83-9c98-09e4d617dc76",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1075808894,
+      "CreatedAt": "2026-06-12T16:50:34.56847Z",
+      "CursorID": 27889,
+      "Data": "YXBpVmVyc2lvbjogY2VydC1tYW5hZ2VyLmlvL3YxCmtpbmQ6IElzc3VlcgptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHdlYmhvb2sKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjE1Mi4wCiAgICBoZWxtLnNoL2NoYXJ0OiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLTAuMTE0LjAKICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLXNlbGZzaWduZWQtaXNzdWVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgc2VsZlNpZ25lZDoge30K",
+      "DataHash": "8842231a2ec4fd87a562242861f5adf62d6f25fd0b1bf9de3c1610da93175492",
+      "DisplayName": "issuer-default-opentelemetry-operator-selfsigned-issuer",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 486 bytes; from issuer-default-opentelemetry-operator-selfsigned-issuer.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opentelemetry-operator-selfsigned-issuer": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-selfsigned-issuer": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opentelemetry-operator-selfsigned-issuer",
+            "ResourceNameWithoutScope": "opentelemetry-operator-selfsigned-issuer",
+            "ResourceType": "cert-manager.io/v1/Issuer"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: cert-manager.io/v1\nkind: Issuer\nmetadata:\n  labels:\n    app.kubernetes.io/component: webhook\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-selfsigned-issuer\n  namespace: default\nspec:\n  selfSigned: {}\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "cert-manager.io/v1/Issuer"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "cert-manager.io/v1/Issuer"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opentelemetry-operator-selfsigned-issuer",
+          "ResourceNameWithoutScope": "opentelemetry-operator-selfsigned-issuer",
+          "ResourceType": "cert-manager.io/v1/Issuer"
+        }
+      ],
+      "Slug": "issuer-default-opentelemetry-operator-selfsigned-issuer",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6841a8cb-68c4-4a83-9c98-09e4d617dc76",
+      "UpdatedAt": "2026-06-12T16:51:17.956038Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.671497Z",
+        "CursorID": 22784,
+        "DisplayName": "Upgrade mutatingwebhookconfiguration-opentelemetry-operator-mutation",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "e4d6f01f-60ab-4294-bf9c-514b8933ae86",
+        "LinkID": "7d4feb4b-d7d8-457d-9060-a18b523cb308",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-mutatingwebhookconfiguration-opentelemetry-operator-mutation",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "5b002386-45a5-4a82-8b42-bda8576b711d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.671497Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5b002386-45a5-4a82-8b42-bda8576b711d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a8c695edef9f2ce342d580c0c82fe9d41b7d84b361185230cd65f769a7f0141c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7d4feb4b-d7d8-457d-9060-a18b523cb308"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-opentelemetry-operator-mutation",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e4d6f01f-60ab-4294-bf9c-514b8933ae86",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5b002386-45a5-4a82-8b42-bda8576b711d",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1241351916,
+      "CreatedAt": "2026-06-12T16:50:36.06078Z",
+      "CursorID": 27890,
+      "Data": "YXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBNdXRhdGluZ1dlYmhvb2tDb25maWd1cmF0aW9uCm1ldGFkYXRhOgogIGFubm90YXRpb25zOgogICAgY2VydC1tYW5hZ2VyLmlvL2luamVjdC1jYS1mcm9tOiBkZWZhdWx0L29wZW50ZWxlbWV0cnktb3BlcmF0b3Itc2VydmluZy1jZXJ0CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiB3ZWJob29rCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4xNTIuMAogICAgaGVsbS5zaC9jaGFydDogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci0wLjExNC4wCiAgbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1tdXRhdGlvbgp3ZWJob29rczoKLSBhZG1pc3Npb25SZXZpZXdWZXJzaW9uczoKICAtIHYxCiAgY2xpZW50Q29uZmlnOgogICAgc2VydmljZToKICAgICAgbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci13ZWJob29rCiAgICAgIG5hbWVzcGFjZTogZGVmYXVsdAogICAgICBwYXRoOiAvbXV0YXRlLW9wZW50ZWxlbWV0cnktaW8tdjFhbHBoYTEtaW5zdHJ1bWVudGF0aW9uCiAgICAgIHBvcnQ6IDQ0MwogIGZhaWx1cmVQb2xpY3k6IEZhaWwKICBuYW1lOiBtaW5zdHJ1bWVudGF0aW9uLmtiLmlvCiAgcnVsZXM6CiAgLSBhcGlHcm91cHM6CiAgICAtIG9wZW50ZWxlbWV0cnkuaW8KICAgIGFwaVZlcnNpb25zOgogICAgLSB2MWFscGhhMQogICAgb3BlcmF0aW9uczoKICAgIC0gQ1JFQVRFCiAgICAtIFVQREFURQogICAgcmVzb3VyY2VzOgogICAgLSBpbnN0cnVtZW50YXRpb25zCiAgICBzY29wZTogTmFtZXNwYWNlZAogIHNpZGVFZmZlY3RzOiBOb25lCiAgdGltZW91dFNlY29uZHM6IDEwCi0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3Itd2ViaG9vawogICAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgICAgcGF0aDogL211dGF0ZS1vcGVudGVsZW1ldHJ5LWlvLXYxYmV0YTEtb3BlbnRlbGVtZXRyeWNvbGxlY3RvcgogICAgICBwb3J0OiA0NDMKICBmYWlsdXJlUG9saWN5OiBGYWlsCiAgbmFtZTogbW9wZW50ZWxlbWV0cnljb2xsZWN0b3JiZXRhLmtiLmlvCiAgcnVsZXM6CiAgLSBhcGlHcm91cHM6CiAgICAtIG9wZW50ZWxlbWV0cnkuaW8KICAgIGFwaVZlcnNpb25zOgogICAgLSB2MWJldGExCiAgICBvcGVyYXRpb25zOgogICAgLSBDUkVBVEUKICAgIC0gVVBEQVRFCiAgICByZXNvdXJjZXM6CiAgICAtIG9wZW50ZWxlbWV0cnljb2xsZWN0b3JzCiAgICBzY29wZTogTmFtZXNwYWNlZAogIHNpZGVFZmZlY3RzOiBOb25lCiAgdGltZW91dFNlY29uZHM6IDEwCi0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3Itd2ViaG9vawogICAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgICAgcGF0aDogL211dGF0ZS12MS1wb2QKICAgICAgcG9ydDogNDQzCiAgZmFpbHVyZVBvbGljeTogSWdub3JlCiAgbmFtZTogbXBvZC5rYi5pbwogIHJ1bGVzOgogIC0gYXBpR3JvdXBzOgogICAgLSAiIgogICAgYXBpVmVyc2lvbnM6CiAgICAtIHYxCiAgICBvcGVyYXRpb25zOgogICAgLSBDUkVBVEUKICAgIHJlc291cmNlczoKICAgIC0gcG9kcwogICAgc2NvcGU6IE5hbWVzcGFjZWQKICBzaWRlRWZmZWN0czogTm9uZQogIHRpbWVvdXRTZWNvbmRzOiAxMAo=",
+      "DataHash": "a8c695edef9f2ce342d580c0c82fe9d41b7d84b361185230cd65f769a7f0141c",
+      "DisplayName": "mutatingwebhookconfiguration-opentelemetry-operator-mutation",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/opentelemetry-operator-mutation": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-mutation": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opentelemetry-operator-mutation",
+            "ResourceNameWithoutScope": "opentelemetry-operator-mutation",
+            "ResourceType": "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: admissionregistration.k8s.io/v1\nkind: MutatingWebhookConfiguration\nmetadata:\n  annotations:\n    cert-manager.io/inject-ca-from: default/opentelemetry-operator-serving-cert\n  labels:\n    app.kubernetes.io/component: webhook\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-mutation\nwebhooks:\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: opentelemetry-operator-webhook\n      namespace: default\n      path: /mutate-opentelemetry-io-v1alpha1-instrumentation\n      port: 443\n  failurePolicy: Fail\n  name: minstrumentation.kb.io\n  rules:\n  - apiGroups:\n    - opentelemetry.io\n    apiVersions:\n    - v1alpha1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - instrumentations\n    scope: Namespaced\n  sideEffects: None\n  timeoutSeconds: 10\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: opentelemetry-operator-webhook\n      namespace: default\n      path: /mutate-opentelemetry-io-v1beta1-opentelemetrycollector\n      port: 443\n  failurePolicy: Fail\n  name: mopentelemetrycollectorbeta.kb.io\n  rules:\n  - apiGroups:\n    - opentelemetry.io\n    apiVersions:\n    - v1beta1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - opentelemetrycollectors\n    scope: Namespaced\n  sideEffects: None\n  timeoutSeconds: 10\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: opentelemetry-operator-webhook\n      namespace: default\n      path: /mutate-v1-pod\n      port: 443\n  failurePolicy: Ignore\n  name: mpod.kb.io\n  rules:\n  - apiGroups:\n    - \"\"\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    resources:\n    - pods\n    scope: Namespaced\n  sideEffects: None\n  timeoutSeconds: 10\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-opentelemetry-operator-mutation",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5b002386-45a5-4a82-8b42-bda8576b711d",
+      "UpdatedAt": "2026-06-12T16:51:20.455057Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.328713Z",
+        "CursorID": 22774,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "720cca60-3317-4352-9dc1-95111d183d25",
+        "LinkID": "7ba78377-c7c7-4752-88b4-21a2850d6b23",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "e824e975-9d2b-40fe-9c11-eb0e0dd823a5",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.328713Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e824e975-9d2b-40fe-9c11-eb0e0dd823a5' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7ba78377-c7c7-4752-88b4-21a2850d6b23"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "720cca60-3317-4352-9dc1-95111d183d25",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e824e975-9d2b-40fe-9c11-eb0e0dd823a5",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:50:36.879619Z",
+      "CursorID": 27892,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e824e975-9d2b-40fe-9c11-eb0e0dd823a5",
+      "UpdatedAt": "2026-06-12T16:50:36.904733Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.770412Z",
+        "CursorID": 22786,
+        "DisplayName": "Upgrade rolebinding-default-opentelemetry-operator-leader-election",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "062e01c0-2fd7-4c08-8928-3cb5ccc98edb",
+        "LinkID": "d3f68f7a-0a5f-48e2-a801-a7ed082ab84e",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-opentelemetry-operator-leader-election",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "f1c3979c-60c5-4ba9-825a-0714ed64844a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.770412Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f1c3979c-60c5-4ba9-825a-0714ed64844a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a8f6572af71fa2a448644bd0b7915a27d6c255ca828223850dd245838c72889",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d3f68f7a-0a5f-48e2-a801-a7ed082ab84e"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-opentelemetry-operator-leader-election",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "062e01c0-2fd7-4c08-8928-3cb5ccc98edb",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f1c3979c-60c5-4ba9-825a-0714ed64844a",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 662458077,
+      "CreatedAt": "2026-06-12T16:50:38.990423Z",
+      "CursorID": 27895,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXItbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMTUyLjAKICAgIGhlbG0uc2gvY2hhcnQ6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItMC4xMTQuMAogIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItbGVhZGVyLWVsZWN0aW9uCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBSb2xlCiAgbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1sZWFkZXItZWxlY3Rpb24Kc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "7a8f6572af71fa2a448644bd0b7915a27d6c255ca828223850dd245838c72889",
+      "DisplayName": "rolebinding-default-opentelemetry-operator-leader-election",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opentelemetry-operator-leader-election": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-leader-election": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opentelemetry-operator-leader-election",
+            "ResourceNameWithoutScope": "opentelemetry-operator-leader-election",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-leader-election\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: opentelemetry-operator-leader-election\nsubjects:\n- kind: ServiceAccount\n  name: opentelemetry-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-opentelemetry-operator-leader-election",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f1c3979c-60c5-4ba9-825a-0714ed64844a",
+      "UpdatedAt": "2026-06-12T16:51:25.269183Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.73149Z",
+        "CursorID": 22785,
+        "DisplayName": "Upgrade role-default-opentelemetry-operator-leader-election",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "53b2c3d3-0da5-4c24-9a22-890a18e1013c",
+        "LinkID": "d21fdaa8-b638-4301-9b82-36e1e2e496c7",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-opentelemetry-operator-leader-election",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "d2ff162d-6f13-4ebb-ab57-54d0a8f14c22",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.73149Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd2ff162d-6f13-4ebb-ab57-54d0a8f14c22' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b4a2d0708ad03cde0bb00322f8786341991cf07358909fa2f1e8ccd8ffbd6700",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d21fdaa8-b638-4301-9b82-36e1e2e496c7"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-opentelemetry-operator-leader-election",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "53b2c3d3-0da5-4c24-9a22-890a18e1013c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d2ff162d-6f13-4ebb-ab57-54d0a8f14c22",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 921013992,
+      "CreatedAt": "2026-06-12T16:50:37.877355Z",
+      "CursorID": 27894,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlci1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogb3BlbnRlbGVtZXRyeS1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4xNTIuMAogICAgaGVsbS5zaC9jaGFydDogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci0wLjExNC4wCiAgbmFtZTogb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1sZWFkZXItZWxlY3Rpb24KICBuYW1lc3BhY2U6IGRlZmF1bHQKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBjb25maWdtYXBzCiAgLSBwb2RzCiAgLSBzZXJ2aWNlYWNjb3VudHMKICAtIHNlcnZpY2VzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHBhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBuYW1lc3BhY2VzCiAgLSBzZWNyZXRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYXBwcwogIHJlc291cmNlczoKICAtIGRhZW1vbnNldHMKICAtIGRlcGxveW1lbnRzCiAgLSBzdGF0ZWZ1bHNldHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYXBwcwogIHJlc291cmNlczoKICAtIHJlcGxpY2FzZXRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYXV0b3NjYWxpbmcKICByZXNvdXJjZXM6CiAgLSBob3Jpem9udGFscG9kYXV0b3NjYWxlcnMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYmF0Y2gKICByZXNvdXJjZXM6CiAgLSBqb2JzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gY29uZmlnLm9wZW5zaGlmdC5pbwogIHJlc291cmNlczoKICAtIGluZnJhc3RydWN0dXJlcwogIC0gaW5mcmFzdHJ1Y3R1cmVzL3N0YXR1cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGNvb3JkaW5hdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBsZWFzZXMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSBtb25pdG9yaW5nLmNvcmVvcy5jb20KICByZXNvdXJjZXM6CiAgLSBwb2Rtb25pdG9ycwogIC0gc2VydmljZW1vbml0b3JzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIG5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gaW5ncmVzc2VzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIG9wZW50ZWxlbWV0cnkuaW8KICByZXNvdXJjZXM6CiAgLSBpbnN0cnVtZW50YXRpb25zCiAgLSBvcGVudGVsZW1ldHJ5Y29sbGVjdG9ycwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIG9wZW50ZWxlbWV0cnkuaW8KICByZXNvdXJjZXM6CiAgLSBvcGFtcGJyaWRnZXMKICAtIHRhcmdldGFsbG9jYXRvcnMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gb3BlbnRlbGVtZXRyeS5pbwogIHJlc291cmNlczoKICAtIG9wYW1wYnJpZGdlcy9maW5hbGl6ZXJzCiAgdmVyYnM6CiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSBvcGVudGVsZW1ldHJ5LmlvCiAgcmVzb3VyY2VzOgogIC0gb3BhbXBicmlkZ2VzL3N0YXR1cwogIC0gb3BlbnRlbGVtZXRyeWNvbGxlY3RvcnMvZmluYWxpemVycwogIC0gb3BlbnRlbGVtZXRyeWNvbGxlY3RvcnMvc3RhdHVzCiAgLSB0YXJnZXRhbGxvY2F0b3JzL3N0YXR1cwogIC0gdGFyZ2V0YWxsb2NhdG9ycy9maW5hbGl6ZXJzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHBhdGNoCiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSBwb2xpY3kKICByZXNvdXJjZXM6CiAgLSBwb2RkaXNydXB0aW9uYnVkZ2V0cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSByb3V0ZS5vcGVuc2hpZnQuaW8KICByZXNvdXJjZXM6CiAgLSByb3V0ZXMKICAtIHJvdXRlcy9jdXN0b20taG9zdAogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gK",
+      "DataHash": "b4a2d0708ad03cde0bb00322f8786341991cf07358909fa2f1e8ccd8ffbd6700",
+      "DisplayName": "role-default-opentelemetry-operator-leader-election",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opentelemetry-operator-leader-election": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-leader-election": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opentelemetry-operator-leader-election",
+            "ResourceNameWithoutScope": "opentelemetry-operator-leader-election",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-leader-election\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - pods\n  - serviceaccounts\n  - services\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  - secrets\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - apps\n  resources:\n  - daemonsets\n  - deployments\n  - statefulsets\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - apps\n  resources:\n  - replicasets\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - autoscaling\n  resources:\n  - horizontalpodautoscalers\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - batch\n  resources:\n  - jobs\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - config.openshift.io\n  resources:\n  - infrastructures\n  - infrastructures/status\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n  - get\n  - list\n  - update\n- apiGroups:\n  - monitoring.coreos.com\n  resources:\n  - podmonitors\n  - servicemonitors\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - ingresses\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - instrumentations\n  - opentelemetrycollectors\n  verbs:\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - opampbridges\n  - targetallocators\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - opampbridges/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - opentelemetry.io\n  resources:\n  - opampbridges/status\n  - opentelemetrycollectors/finalizers\n  - opentelemetrycollectors/status\n  - targetallocators/status\n  - targetallocators/finalizers\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - route.openshift.io\n  resources:\n  - routes\n  - routes/custom-host\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opentelemetry-operator-leader-election",
+          "ResourceNameWithoutScope": "opentelemetry-operator-leader-election",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-opentelemetry-operator-leader-election",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d2ff162d-6f13-4ebb-ab57-54d0a8f14c22",
+      "UpdatedAt": "2026-06-12T16:51:21.553717Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.221541Z",
+        "CursorID": 22772,
+        "DisplayName": "Upgrade serviceaccount-default-opentelemetry-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ead6c707-3100-44f6-ac72-7eeb7f28a1b4",
+        "LinkID": "3fd1c876-1944-4682-a42a-7451168084a0",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-opentelemetry-operator",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "eca7a9f2-8320-4f41-ae13-75ecd38cfd47",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.221541Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'eca7a9f2-8320-4f41-ae13-75ecd38cfd47' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2f61857fc403ba40b8c4ae4aa5bf17362dd4c07b4640fcf0eee40fbe0432aff7",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3fd1c876-1944-4682-a42a-7451168084a0"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-opentelemetry-operator",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ead6c707-3100-44f6-ac72-7eeb7f28a1b4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "eca7a9f2-8320-4f41-ae13-75ecd38cfd47",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1752707190,
+      "CreatedAt": "2026-06-12T16:50:41.865619Z",
+      "CursorID": 27900,
+      "Data": "YXBpVmVyc2lvbjogdjEKYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQpraW5kOiBTZXJ2aWNlQWNjb3VudAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXItbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMTUyLjAKICAgIGhlbG0uc2gvY2hhcnQ6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItMC4xMTQuMAogIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "2f61857fc403ba40b8c4ae4aa5bf17362dd4c07b4640fcf0eee40fbe0432aff7",
+      "DisplayName": "serviceaccount-default-opentelemetry-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 483 bytes; from serviceaccount-default-opentelemetry-operator.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opentelemetry-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opentelemetry-operator",
+            "ResourceNameWithoutScope": "opentelemetry-operator",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nautomountServiceAccountToken: true\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opentelemetry-operator",
+          "ResourceNameWithoutScope": "opentelemetry-operator",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-opentelemetry-operator",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "eca7a9f2-8320-4f41-ae13-75ecd38cfd47",
+      "UpdatedAt": "2026-06-12T16:51:30.905756Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.518725Z",
+        "CursorID": 22778,
+        "DisplayName": "Upgrade service-default-opentelemetry-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "4a4f2430-013b-4d7b-aeed-e7771495437a",
+        "LinkID": "b24ea009-5e0a-48d1-b251-84f51af10d63",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-opentelemetry-operator",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "73a25acd-76cb-4f01-b612-cf220a75161f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.518725Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '73a25acd-76cb-4f01-b612-cf220a75161f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b5a4d96b2946433d780446a7ae034d19579f4540c831bc3102b3f31b8d80a728",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b24ea009-5e0a-48d1-b251-84f51af10d63"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-opentelemetry-operator",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4a4f2430-013b-4d7b-aeed-e7771495437a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "73a25acd-76cb-4f01-b612-cf220a75161f",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1002273568,
+      "CreatedAt": "2026-06-12T16:50:40.814698Z",
+      "CursorID": 27898,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXItbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMTUyLjAKICAgIGhlbG0uc2gvY2hhcnQ6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItMC4xMTQuMAogIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IG1ldHJpY3MKICAgIHBvcnQ6IDg0NDMKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IG1ldHJpY3MKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlci1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCg==",
+      "DataHash": "b5a4d96b2946433d780446a7ae034d19579f4540c831bc3102b3f31b8d80a728",
+      "DisplayName": "service-default-opentelemetry-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opentelemetry-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opentelemetry-operator",
+            "ResourceNameWithoutScope": "opentelemetry-operator",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator\n  namespace: default\nspec:\n  ports:\n  - name: metrics\n    port: 8443\n    protocol: TCP\n    targetPort: metrics\n  selector:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/name: opentelemetry-operator\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opentelemetry-operator",
+          "ResourceNameWithoutScope": "opentelemetry-operator",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-opentelemetry-operator",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "73a25acd-76cb-4f01-b612-cf220a75161f",
+      "UpdatedAt": "2026-06-12T16:51:27.466238Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.159978Z",
+        "CursorID": 22771,
+        "DisplayName": "Upgrade service-default-opentelemetry-operator-webhook",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d775275e-7046-4c5b-ab46-b5f66430af76",
+        "LinkID": "aa49b5b2-907f-420f-ba8b-5619a0903abf",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-opentelemetry-operator-webhook",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "37ccd364-8574-4a03-8971-e1e5a291ce55",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.159979Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '37ccd364-8574-4a03-8971-e1e5a291ce55' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bb269d948d7b3c02f3bf443942fac7dfd2d76861f4d2835ed21b716e733eed5c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "aa49b5b2-907f-420f-ba8b-5619a0903abf"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-opentelemetry-operator-webhook",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d775275e-7046-4c5b-ab46-b5f66430af76",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "37ccd364-8574-4a03-8971-e1e5a291ce55",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -957371287,
+      "CreatedAt": "2026-06-12T16:50:39.992173Z",
+      "CursorID": 27896,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXItbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMTUyLjAKICAgIGhlbG0uc2gvY2hhcnQ6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3ItMC4xMTQuMAogIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3Itd2ViaG9vawogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHBvcnRzOgogIC0gcG9ydDogNDQzCiAgICBwcm90b2NvbDogVENQCiAgICB0YXJnZXRQb3J0OiB3ZWJob29rLXNlcnZlcgogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb250cm9sbGVyLW1hbmFnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3IK",
+      "DataHash": "bb269d948d7b3c02f3bf443942fac7dfd2d76861f4d2835ed21b716e733eed5c",
+      "DisplayName": "service-default-opentelemetry-operator-webhook",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opentelemetry-operator-webhook": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-webhook": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opentelemetry-operator-webhook",
+            "ResourceNameWithoutScope": "opentelemetry-operator-webhook",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-webhook\n  namespace: default\nspec:\n  ports:\n  - port: 443\n    protocol: TCP\n    targetPort: webhook-server\n  selector:\n    app.kubernetes.io/component: controller-manager\n    app.kubernetes.io/name: opentelemetry-operator\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opentelemetry-operator-webhook",
+          "ResourceNameWithoutScope": "opentelemetry-operator-webhook",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-opentelemetry-operator-webhook",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "37ccd364-8574-4a03-8971-e1e5a291ce55",
+      "UpdatedAt": "2026-06-12T16:51:29.793064Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:45.295279Z",
+        "CursorID": 22773,
+        "DisplayName": "Upgrade validatingwebhookconfiguration-opentelemetry-operator-validation",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a58c21c3-4ec3-45e9-9804-ef7040f397a2",
+        "LinkID": "d838f96d-6799-43fe-b1e7-0661708735b6",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-validatingwebhookconfiguration-opentelemetry-operator-validation",
+        "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+        "SpaceSlug": "OpenTelemetryOperator-no-crds-staging",
+        "ToSpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+        "ToUnitID": "1cd5857c-480a-4cdb-b759-f2fa145413fc",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:45.295279Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1cd5857c-480a-4cdb-b759-f2fa145413fc' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:44.915856Z",
+      "CursorID": 4602,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "OpenTelemetryOperator-no-crds-staging",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "UpdatedAt": "2026-06-12T16:51:44.915856Z",
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f3ffa4a905ffb679dd320b292f37374dd9b167423e0312264f64f58cbd7c1c6c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d838f96d-6799-43fe-b1e7-0661708735b6"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-opentelemetry-operator-validation",
+      "SpaceID": "28a8ce5d-0262-4113-85ad-fcc958f279de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a58c21c3-4ec3-45e9-9804-ef7040f397a2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1cd5857c-480a-4cdb-b759-f2fa145413fc",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1567534931,
+      "CreatedAt": "2026-06-12T16:50:43.377755Z",
+      "CursorID": 27901,
+      "Data": "YXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBWYWxpZGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KbWV0YWRhdGE6CiAgYW5ub3RhdGlvbnM6CiAgICBjZXJ0LW1hbmFnZXIuaW8vaW5qZWN0LWNhLWZyb206IGRlZmF1bHQvb3BlbnRlbGVtZXRyeS1vcGVyYXRvci1zZXJ2aW5nLWNlcnQKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHdlYmhvb2sKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjE1Mi4wCiAgICBoZWxtLnNoL2NoYXJ0OiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLTAuMTE0LjAKICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLXZhbGlkYXRpb24Kd2ViaG9va3M6Ci0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3Itd2ViaG9vawogICAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgICAgcGF0aDogL3ZhbGlkYXRlLW9wZW50ZWxlbWV0cnktaW8tdjFhbHBoYTEtaW5zdHJ1bWVudGF0aW9uCiAgICAgIHBvcnQ6IDQ0MwogIGZhaWx1cmVQb2xpY3k6IEZhaWwKICBuYW1lOiB2aW5zdHJ1bWVudGF0aW9uY3JlYXRldXBkYXRlLmtiLmlvCiAgcnVsZXM6CiAgLSBhcGlHcm91cHM6CiAgICAtIG9wZW50ZWxlbWV0cnkuaW8KICAgIGFwaVZlcnNpb25zOgogICAgLSB2MWFscGhhMQogICAgb3BlcmF0aW9uczoKICAgIC0gQ1JFQVRFCiAgICAtIFVQREFURQogICAgcmVzb3VyY2VzOgogICAgLSBpbnN0cnVtZW50YXRpb25zCiAgICBzY29wZTogTmFtZXNwYWNlZAogIHNpZGVFZmZlY3RzOiBOb25lCiAgdGltZW91dFNlY29uZHM6IDEwCi0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3Itd2ViaG9vawogICAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgICAgcGF0aDogL3ZhbGlkYXRlLW9wZW50ZWxlbWV0cnktaW8tdjFhbHBoYTEtaW5zdHJ1bWVudGF0aW9uCiAgICAgIHBvcnQ6IDQ0MwogIGZhaWx1cmVQb2xpY3k6IElnbm9yZQogIG5hbWU6IHZpbnN0cnVtZW50YXRpb25kZWxldGUua2IuaW8KICBydWxlczoKICAtIGFwaUdyb3VwczoKICAgIC0gb3BlbnRlbGVtZXRyeS5pbwogICAgYXBpVmVyc2lvbnM6CiAgICAtIHYxYWxwaGExCiAgICBvcGVyYXRpb25zOgogICAgLSBERUxFVEUKICAgIHJlc291cmNlczoKICAgIC0gaW5zdHJ1bWVudGF0aW9ucwogICAgc2NvcGU6IE5hbWVzcGFjZWQKICBzaWRlRWZmZWN0czogTm9uZQogIHRpbWVvdXRTZWNvbmRzOiAxMAotIGFkbWlzc2lvblJldmlld1ZlcnNpb25zOgogIC0gdjEKICBjbGllbnRDb25maWc6CiAgICBzZXJ2aWNlOgogICAgICBuYW1lOiBvcGVudGVsZW1ldHJ5LW9wZXJhdG9yLXdlYmhvb2sKICAgICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgICAgIHBhdGg6IC92YWxpZGF0ZS1vcGVudGVsZW1ldHJ5LWlvLXYxYmV0YTEtb3BlbnRlbGVtZXRyeWNvbGxlY3RvcgogICAgICBwb3J0OiA0NDMKICBmYWlsdXJlUG9saWN5OiBGYWlsCiAgbmFtZTogdm9wZW50ZWxlbWV0cnljb2xsZWN0b3JjcmVhdGV1cGRhdGViZXRhLmtiLmlvCiAgcnVsZXM6CiAgLSBhcGlHcm91cHM6CiAgICAtIG9wZW50ZWxlbWV0cnkuaW8KICAgIGFwaVZlcnNpb25zOgogICAgLSB2MWJldGExCiAgICBvcGVyYXRpb25zOgogICAgLSBDUkVBVEUKICAgIC0gVVBEQVRFCiAgICByZXNvdXJjZXM6CiAgICAtIG9wZW50ZWxlbWV0cnljb2xsZWN0b3JzCiAgICBzY29wZTogTmFtZXNwYWNlZAogIHNpZGVFZmZlY3RzOiBOb25lCiAgdGltZW91dFNlY29uZHM6IDEwCi0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IG9wZW50ZWxlbWV0cnktb3BlcmF0b3Itd2ViaG9vawogICAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgICAgcGF0aDogL3ZhbGlkYXRlLW9wZW50ZWxlbWV0cnktaW8tdjFiZXRhMS1vcGVudGVsZW1ldHJ5Y29sbGVjdG9yCiAgICAgIHBvcnQ6IDQ0MwogIGZhaWx1cmVQb2xpY3k6IElnbm9yZQogIG5hbWU6IHZvcGVudGVsZW1ldHJ5Y29sbGVjdG9yZGVsZXRlYmV0YS5rYi5pbwogIHJ1bGVzOgogIC0gYXBpR3JvdXBzOgogICAgLSBvcGVudGVsZW1ldHJ5LmlvCiAgICBhcGlWZXJzaW9uczoKICAgIC0gdjFiZXRhMQogICAgb3BlcmF0aW9uczoKICAgIC0gREVMRVRFCiAgICByZXNvdXJjZXM6CiAgICAtIG9wZW50ZWxlbWV0cnljb2xsZWN0b3JzCiAgICBzY29wZTogTmFtZXNwYWNlZAogIHNpZGVFZmZlY3RzOiBOb25lCiAgdGltZW91dFNlY29uZHM6IDEwCg==",
+      "DataHash": "f3ffa4a905ffb679dd320b292f37374dd9b167423e0312264f64f58cbd7c1c6c",
+      "DisplayName": "validatingwebhookconfiguration-opentelemetry-operator-validation",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "HelmChart": "open-telemetry-opentelemetry-operator",
+        "HelmChartVersion": "0.114.0",
+        "Package": "open-telemetry-opentelemetry-operator",
+        "Proof": "opentelemetry-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/opentelemetry-operator-validation": {}
+          },
+          "AliasesWithoutScopes": {
+            "opentelemetry-operator-validation": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opentelemetry-operator-validation",
+            "ResourceNameWithoutScope": "opentelemetry-operator-validation",
+            "ResourceType": "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: admissionregistration.k8s.io/v1\nkind: ValidatingWebhookConfiguration\nmetadata:\n  annotations:\n    cert-manager.io/inject-ca-from: default/opentelemetry-operator-serving-cert\n  labels:\n    app.kubernetes.io/component: webhook\n    app.kubernetes.io/instance: opentelemetry-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opentelemetry-operator\n    app.kubernetes.io/part-of: opentelemetry-operator\n    app.kubernetes.io/version: 0.152.0\n    helm.sh/chart: opentelemetry-operator-0.114.0\n  name: opentelemetry-operator-validation\nwebhooks:\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: opentelemetry-operator-webhook\n      namespace: default\n      path: /validate-opentelemetry-io-v1alpha1-instrumentation\n      port: 443\n  failurePolicy: Fail\n  name: vinstrumentationcreateupdate.kb.io\n  rules:\n  - apiGroups:\n    - opentelemetry.io\n    apiVersions:\n    - v1alpha1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - instrumentations\n    scope: Namespaced\n  sideEffects: None\n  timeoutSeconds: 10\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: opentelemetry-operator-webhook\n      namespace: default\n      path: /validate-opentelemetry-io-v1alpha1-instrumentation\n      port: 443\n  failurePolicy: Ignore\n  name: vinstrumentationdelete.kb.io\n  rules:\n  - apiGroups:\n    - opentelemetry.io\n    apiVersions:\n    - v1alpha1\n    operations:\n    - DELETE\n    resources:\n    - instrumentations\n    scope: Namespaced\n  sideEffects: None\n  timeoutSeconds: 10\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: opentelemetry-operator-webhook\n      namespace: default\n      path: /validate-opentelemetry-io-v1beta1-opentelemetrycollector\n      port: 443\n  failurePolicy: Fail\n  name: vopentelemetrycollectorcreateupdatebeta.kb.io\n  rules:\n  - apiGroups:\n    - opentelemetry.io\n    apiVersions:\n    - v1beta1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - opentelemetrycollectors\n    scope: Namespaced\n  sideEffects: None\n  timeoutSeconds: 10\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: opentelemetry-operator-webhook\n      namespace: default\n      path: /validate-opentelemetry-io-v1beta1-opentelemetrycollector\n      port: 443\n  failurePolicy: Ignore\n  name: vopentelemetrycollectordeletebeta.kb.io\n  rules:\n  - apiGroups:\n    - opentelemetry.io\n    apiVersions:\n    - v1beta1\n    operations:\n    - DELETE\n    resources:\n    - opentelemetrycollectors\n    scope: Namespaced\n  sideEffects: None\n  timeoutSeconds: 10\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-opentelemetry-operator-validation",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1cd5857c-480a-4cdb-b759-f2fa145413fc",
+      "UpdatedAt": "2026-06-12T16:51:32.995954Z",
+      "Version": 12
+    }
+  }
+]

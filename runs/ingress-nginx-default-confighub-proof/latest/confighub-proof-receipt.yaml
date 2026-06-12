@@ -1,0 +1,108 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "ingress-nginx-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/ingress-nginx/ingress-nginx/4.15.1"
+    name: "ingress-nginx-ingress-nginx"
+    chart: "ingress-nginx/ingress-nginx"
+    chartVersion: "4.15.1"
+    bases:
+      - "default"
+      - "admission-disabled"
+      - "internal-clusterip"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "default"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca"
+            namespace: "ingress-nginx"
+            suggestedSource: "kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=<value> --from-literal=key=<value> --from-literal=ca=<value>"
+  render:
+    command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir .tmp/confighub-proof/ingress-nginx-default --non-interactive --namespace ingress-nginx"
+    result: "pass"
+    manifestCount: 12
+    separatedSecretCount: 0
+    facts:
+      targetFactChecks:
+        base: "default"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+            keys:
+              - "cert"
+              - "key"
+              - "ca"
+            name: "ingress-nginx-admission"
+            namespace: "ingress-nginx"
+            purpose: "admission webhook certificate normally created by Helm hook jobs"
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/ingress-nginx-default"
+    result: "pass"
+    manifestCount: 12
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o .tmp/confighub-proof/ingress-nginx-default-archives/ingress-nginx-a.tgz"
+    sha256: "7a128d36ff637796c08d8aaa8d2bea2ac8dfc0bc9b4add8f6be0e7dd869551c5"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/ingress-nginx-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/ingress-nginx-default --space helm-ingress-nginx-default-confighub-proof --component IngressNGINX --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=IngressNGINX --unit-label HelmChart=ingress-nginx-ingress-nginx --unit-label HelmChartVersion=4.15.1 --unit-label Variant=default --unit-label Proof=ingress-nginx-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-ingress-nginx-default-confighub-proof"
+    unitCount: 13
+    kubernetesUnitCount: 12
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/ingress-nginx-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/ingress-nginx-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-ingress-nginx-default-confighub-proof (post-render):\n      Deployment/ingress-nginx-controller [controller] registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1"
+  serverSideVariant:
+    command: "cub variant create staging helm-ingress-nginx-default-confighub-proof --environment Staging --region local --space-name-pattern template:IngressNGINX-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-ingress-nginx-default-confighub-proof"
+    downstreamSpace: "IngressNGINX-default-staging"
+    clonedUnitCount: 13
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-ingress-nginx-ingress-nginx-controller"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-ingress-nginx-default-confighub-proof"
+      - "IngressNGINX-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

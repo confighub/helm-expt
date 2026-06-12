@@ -1,0 +1,1 @@
+cub unit data deployment-default-gateway --space helm-istio-gateway-default-confighub-proof

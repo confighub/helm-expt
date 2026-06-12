@@ -1,0 +1,464 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.496985Z",
+      "CursorID": 4627,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-reloader-default-confighub-proof",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "UpdatedAt": "2026-06-12T16:56:35.029004Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5a08ee2f4a46d82e3ce95285507e12e09034a0459db5f3e9c0d57dac6d42cc82",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-reloader-reloader-role-binding",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fc087e0f-b8e3-48be-8581-14eb78374c1c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.496985Z",
+      "CursorID": 4627,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-reloader-default-confighub-proof",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "UpdatedAt": "2026-06-12T16:56:35.029004Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4af2a2e31dc6b91d85b1b059072e7d6e1930588c132b7b019b6f5d3246f6c3c5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-reloader-reloader-role",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1365c46a-2ce0-45ca-88b1-4326f5ddb95e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.496985Z",
+      "CursorID": 4627,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-reloader-default-confighub-proof",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "UpdatedAt": "2026-06-12T16:56:35.029004Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3c12a6dbe6bd3951cb63d43aa075c4755e95432c7590db12b5e34a1c73427e38",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-reloader-reloader",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f8295e19-96af-4c4a-8476-26ba6144a11e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.496985Z",
+      "CursorID": 4627,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-reloader-default-confighub-proof",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "UpdatedAt": "2026-06-12T16:56:35.029004Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ce95be89-3f2e-4fef-966a-3df3b9c8aec5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.496985Z",
+      "CursorID": 4627,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-reloader-default-confighub-proof",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "UpdatedAt": "2026-06-12T16:56:35.029004Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e78903c721d9d1edc4b9d0f8df2c99b37b2c4384cb10c5dae4192fa165f3817b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-reloader-reloader-metadata-role-binding",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8d33036a-27e8-48a8-9f22-ccecb563c37b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.496985Z",
+      "CursorID": 4627,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-reloader-default-confighub-proof",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "UpdatedAt": "2026-06-12T16:56:35.029004Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d899dc82bee06314ce2df5e56a3b0068daaf76cf4708c5e913ee2f514d7b0ba9",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-reloader-reloader-metadata-role",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d3a88f4b-bb54-4e43-8879-94a32b84b4a3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.496985Z",
+      "CursorID": 4627,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-reloader-default-confighub-proof",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "UpdatedAt": "2026-06-12T16:56:35.029004Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f87238996afe970bb71555b49d4ed8a0956e7c0b78ffbafa9f691d55fa3e6ceb",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-reloader-reloader",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d1ec5aed-fcda-465f-8a52-50ec8211ea58",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

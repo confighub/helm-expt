@@ -1,0 +1,1 @@
+cub installer setup --pull packages/jetstack/trust-manager/v0.22.1 --base no-crds --work-dir .tmp/confighub-proof/trust-manager-no-crds --non-interactive --namespace default

@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-minio-operator-default-confighub-proof', 'MinioOperator-default-staging')

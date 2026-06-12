@@ -1,0 +1,1 @@
+cub unit diff deployment-default-jaeger-operator --space helm-jaeger-operator-default-confighub-proof --from 1 --to HeadRevisionNum -u

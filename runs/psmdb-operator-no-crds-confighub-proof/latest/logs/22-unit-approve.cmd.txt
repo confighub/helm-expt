@@ -1,0 +1,1 @@
+cub unit approve deployment-default-psmdb-operator --space helm-psmdb-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

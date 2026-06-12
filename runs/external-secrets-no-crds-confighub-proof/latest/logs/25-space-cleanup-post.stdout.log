@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-external-secrets-no-crds-confighub-proof', 'ExternalSecrets-no-crds-staging')

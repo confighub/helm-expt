@@ -1,0 +1,1 @@
+cub installer package packages/dex/dex/0.24.0 -o .tmp/confighub-proof/dex-default-archives/dex-b.tgz

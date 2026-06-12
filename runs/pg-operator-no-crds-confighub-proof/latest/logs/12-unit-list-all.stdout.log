@@ -1,0 +1,350 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:18.696783Z",
+      "CursorID": 4606,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pg-operator-no-crds-confighub-proof",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "UpdatedAt": "2026-06-12T16:52:19.32392Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fb18431592d837ee5fa9eec4fb59512836aca997bcfdea65f5ab2cf27a855b96",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-pg-operator",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "34a01794-cd5c-410b-83b1-22eb5851bdba",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:18.696783Z",
+      "CursorID": 4606,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pg-operator-no-crds-confighub-proof",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "UpdatedAt": "2026-06-12T16:52:19.32392Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5cb701f2049e8717f36239f3d6a0ab46e04008414b0dc4db56c6e117de92cd35",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2f32001a-ace6-4a78-9a09-fc4f05edcb5c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:18.696783Z",
+      "CursorID": 4606,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pg-operator-no-crds-confighub-proof",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "UpdatedAt": "2026-06-12T16:52:19.32392Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c79fc902-b634-4319-9294-cb0f73072cf6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:18.696783Z",
+      "CursorID": 4606,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pg-operator-no-crds-confighub-proof",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "UpdatedAt": "2026-06-12T16:52:19.32392Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f416905f3f70530a9509cd1603e37c9391b4d76a003757dfbf501fe45547e6ee",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-pg-operator",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "81e4cda2-4e68-42df-b978-e67c05df365a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:18.696783Z",
+      "CursorID": 4606,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pg-operator-no-crds-confighub-proof",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "UpdatedAt": "2026-06-12T16:52:19.32392Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "38d0124a87226dc2a763648833a7ac522482d2ee1bdbb678ee9266832c84e6df",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-pg-operator",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b3134fe2-5ed1-4bde-8a33-d60f5792997d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:18.696783Z",
+      "CursorID": 4606,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pg-operator-no-crds-confighub-proof",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "UpdatedAt": "2026-06-12T16:52:19.32392Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5e2b18759a30b960c0fe8f8e29ccdd315e96559067289262e2256c747e9b5d43",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-pg-operator",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aa328ae9-44c3-4510-a516-54605be9b68c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

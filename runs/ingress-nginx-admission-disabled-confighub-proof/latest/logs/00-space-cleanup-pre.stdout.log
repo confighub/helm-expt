@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-ingress-nginx-admission-disabled-confighub-proof', 'IngressNGINX-admission-disabled-staging')

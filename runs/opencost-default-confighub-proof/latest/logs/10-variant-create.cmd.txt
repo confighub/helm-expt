@@ -1,0 +1,1 @@
+cub variant create staging helm-opencost-default-confighub-proof --environment Staging --region local --space-name-pattern template:Opencost-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

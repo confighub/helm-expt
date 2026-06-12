@@ -1,0 +1,6 @@
+No changes.
+
+Images in helm-keda-no-crds-confighub-proof (post-render):
+      Deployment/keda-admission-webhooks [keda-admission-webhooks] ghcr.io/kedacore/keda-admission-webhooks:2.19.0
+      Deployment/keda-operator [keda-operator] ghcr.io/kedacore/keda:2.19.0
+      Deployment/keda-operator-metrics-apiserver [keda-operator-metrics-apiserver] ghcr.io/kedacore/keda-metrics-apiserver:2.19.0

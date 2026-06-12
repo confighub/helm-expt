@@ -1,0 +1,1 @@
+cub unit list --space helm-goldilocks-default-confighub-proof --where "Labels.Proof = 'goldilocks-default-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

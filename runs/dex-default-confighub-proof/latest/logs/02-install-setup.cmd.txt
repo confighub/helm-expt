@@ -1,0 +1,1 @@
+cub installer setup --pull packages/dex/dex/0.24.0 --base default --work-dir .tmp/confighub-proof/dex-default --non-interactive --namespace default

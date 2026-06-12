@@ -1,0 +1,398 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:06.591353Z",
+      "CursorID": 4610,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-falcosidekick-default-confighub-proof",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "UpdatedAt": "2026-06-12T16:53:07.510251Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d65178692cc0f63989c2d18563637a479b47357e028462caee7ede1068f1727e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b9d7c2c2-8ee1-4831-a54e-72cbaa9fe03c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:06.591353Z",
+      "CursorID": 4610,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-falcosidekick-default-confighub-proof",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "UpdatedAt": "2026-06-12T16:53:07.510251Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c635f2de-01bb-43a6-8d83-bd21c1f946e2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:06.591353Z",
+      "CursorID": 4610,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-falcosidekick-default-confighub-proof",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "UpdatedAt": "2026-06-12T16:53:07.510251Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8c7dae69ff90926224d9901a300093d89a5f3a56ed9bbf5fb1c6939905cbdf88",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8e0dceab-6801-4f5f-bade-3d88f79ba6f4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:06.591353Z",
+      "CursorID": 4610,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-falcosidekick-default-confighub-proof",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "UpdatedAt": "2026-06-12T16:53:07.510251Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a9c92c08fdfff55b0ea6d4cf541c0d191657bab0437e2efe5dd8b385228fa034",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "82559f59-06bc-4afe-96b4-f5cd78eb199d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:06.591353Z",
+      "CursorID": 4610,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-falcosidekick-default-confighub-proof",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "UpdatedAt": "2026-06-12T16:53:07.510251Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "52c45f9301cb3f28669be8fe1a2d18d4eeb01c0b2e1b7c599a70f89dece3a289",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b8cba53e-24e4-4bd4-801e-bdb395b4af33",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:06.591353Z",
+      "CursorID": 4610,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-falcosidekick-default-confighub-proof",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "UpdatedAt": "2026-06-12T16:53:07.510251Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5e3df9cb218c739c84e00759facb90eb498903b7f3136fa8716e65f253798547",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c5b5cd2f-92eb-45aa-8f37-3bf6fbad02c5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

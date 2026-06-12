@@ -1,0 +1,398 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:57.058745Z",
+      "CursorID": 4584,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-descheduler-default-confighub-proof",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "UpdatedAt": "2026-06-12T16:47:57.632534Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7f3a9fc8c502d976e57204aec841343b8adfd16521ae7dee3de02d1845314491",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cb55bbc6-ca2e-43ef-ad60-bb19e8f2e334",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:57.058745Z",
+      "CursorID": 4584,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-descheduler-default-confighub-proof",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "UpdatedAt": "2026-06-12T16:47:57.632534Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "192537339a64ca3087f5291cb9efd7d6cffc94690dd7f122388bb64fdc26b027",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8af4977e-fe0e-4c30-8d69-30fc2cc4ddc0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:57.058745Z",
+      "CursorID": 4584,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-descheduler-default-confighub-proof",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "UpdatedAt": "2026-06-12T16:47:57.632534Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6f68edc223765f301f4d8ec392d271232ee051ecc6385377eca1d7600a698f45",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "11a6312f-d5fd-4ac4-b50c-65da2f1d8d5d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:57.058745Z",
+      "CursorID": 4584,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-descheduler-default-confighub-proof",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "UpdatedAt": "2026-06-12T16:47:57.632534Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "cde0fef7f32f82c2e9bcb12137b52255ddf380680fcaded64864af3d5369c07a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "cronjob-default-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "34f1f588-0da1-4b5e-b735-2b4439edc647",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:57.058745Z",
+      "CursorID": 4584,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-descheduler-default-confighub-proof",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "UpdatedAt": "2026-06-12T16:47:57.632534Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e141ab9b-cd3d-4c9a-992b-2b805b40f897",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:57.058745Z",
+      "CursorID": 4584,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-descheduler-default-confighub-proof",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "UpdatedAt": "2026-06-12T16:47:57.632534Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "693bfc7c3481d66f1cc60fbe6273cb7bb3bc74f09e46b57a21d91b449579d36c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1f9403a5-3bee-4a23-a489-a1f8af67aba3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

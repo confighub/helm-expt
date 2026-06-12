@@ -1,0 +1,8 @@
+No changes.
+
+Images in helm-longhorn-ui-ingress-confighub-proof (post-render):
+      DaemonSet/longhorn-manager [longhorn-manager] docker.io/longhornio/longhorn-manager:v1.11.2
+      DaemonSet/longhorn-manager [pre-pull-share-manager-image] docker.io/longhornio/longhorn-share-manager:v1.11.2
+  init  Deployment/longhorn-driver-deployer [wait-longhorn-manager] docker.io/longhornio/longhorn-manager:v1.11.2
+      Deployment/longhorn-driver-deployer [longhorn-driver-deployer] docker.io/longhornio/longhorn-manager:v1.11.2
+      Deployment/longhorn-ui [longhorn-ui] docker.io/longhornio/longhorn-ui:v1.11.2

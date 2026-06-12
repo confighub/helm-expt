@@ -1,0 +1,1 @@
+cub changeset update jaeger-operator-safe-ops-20260527 --space helm-jaeger-operator-default-confighub-proof --description "Jaeger Operator safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

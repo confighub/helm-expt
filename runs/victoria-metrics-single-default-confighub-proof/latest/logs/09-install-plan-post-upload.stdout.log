@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-victoria-metrics-single-default-confighub-proof (post-render):
+      StatefulSet/victoria-metrics-single-server [vmsingle] victoriametrics/victoria-metrics:v1.144.0

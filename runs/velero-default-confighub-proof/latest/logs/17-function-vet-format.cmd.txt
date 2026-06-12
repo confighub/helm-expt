@@ -1,0 +1,1 @@
+cub function vet vet-format --space helm-velero-default-confighub-proof --where "Labels.Proof = 'velero-default-confighub-proof'" --quiet --wait --timeout 10m

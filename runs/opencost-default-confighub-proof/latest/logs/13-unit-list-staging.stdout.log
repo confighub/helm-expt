@@ -1,0 +1,1372 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:06:54.93585Z",
+        "CursorID": 23858,
+        "DisplayName": "Upgrade clusterrolebinding-opencost",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "849c2dcd-6b7b-4eb9-a904-cf4664565c24",
+        "LinkID": "162c47e0-e80c-46ed-8382-cdc67657c643",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-opencost",
+        "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+        "SpaceSlug": "Opencost-default-staging",
+        "ToSpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+        "ToUnitID": "3372a6d9-b26a-49d2-9f2a-0692bbbf9a09",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:06:54.935851Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '3372a6d9-b26a-49d2-9f2a-0692bbbf9a09' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:54.679436Z",
+      "CursorID": 4664,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Opencost-default-staging",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "UpdatedAt": "2026-06-12T17:06:54.679436Z",
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3e0f254754e95b1c19e346a91b5bf40e0905efa7a901a6016c1dd684e3eafedf",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "162c47e0-e80c-46ed-8382-cdc67657c643"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-opencost",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "849c2dcd-6b7b-4eb9-a904-cf4664565c24",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "3372a6d9-b26a-49d2-9f2a-0692bbbf9a09",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1694495987,
+      "CreatedAt": "2026-06-12T17:06:20.91275Z",
+      "CursorID": 28744,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG9wZW5jb3N0CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBvcGVuY29zdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogb3BlbmNvc3QKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMTIwLjIKICAgIGhlbG0uc2gvY2hhcnQ6IG9wZW5jb3N0LTIuNS4yMQogIG5hbWU6IG9wZW5jb3N0CnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IG9wZW5jb3N0CnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogb3BlbmNvc3QKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "3e0f254754e95b1c19e346a91b5bf40e0905efa7a901a6016c1dd684e3eafedf",
+      "DisplayName": "clusterrolebinding-opencost",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/opencost": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opencost",
+            "ResourceNameWithoutScope": "opencost",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: opencost\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opencost\n    app.kubernetes.io/part-of: opencost\n    app.kubernetes.io/version: 1.120.2\n    helm.sh/chart: opencost-2.5.21\n  name: opencost\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: opencost\nsubjects:\n- kind: ServiceAccount\n  name: opencost\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3372a6d9-b26a-49d2-9f2a-0692bbbf9a09",
+      "UpdatedAt": "2026-06-12T17:06:38.850053Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:06:55.037137Z",
+        "CursorID": 23859,
+        "DisplayName": "Upgrade clusterrole-opencost",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1d0e8215-45a1-41f3-8475-f76604f93b8b",
+        "LinkID": "e094b6ee-a32c-4dab-a85c-1d020810c192",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-opencost",
+        "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+        "SpaceSlug": "Opencost-default-staging",
+        "ToSpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+        "ToUnitID": "49d85c76-d476-47b0-ac20-dd844aa42506",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:06:55.037137Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '49d85c76-d476-47b0-ac20-dd844aa42506' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:54.679436Z",
+      "CursorID": 4664,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Opencost-default-staging",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "UpdatedAt": "2026-06-12T17:06:54.679436Z",
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4ecca97928655b85bd7332a97f7482586dc980c3c07a91ea154fe7313e924fe7",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e094b6ee-a32c-4dab-a85c-1d020810c192"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-opencost",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1d0e8215-45a1-41f3-8475-f76604f93b8b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "49d85c76-d476-47b0-ac20-dd844aa42506",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1432097833,
+      "CreatedAt": "2026-06-12T17:06:20.085386Z",
+      "CursorID": 28743,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogb3BlbmNvc3QKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW5jb3N0CiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBvcGVuY29zdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4xMjAuMgogICAgaGVsbS5zaC9jaGFydDogb3BlbmNvc3QtMi41LjIxCiAgbmFtZTogb3BlbmNvc3QKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBjb25maWdtYXBzCiAgLSBkZXBsb3ltZW50cwogIC0gbm9kZXMKICAtIHBvZHMKICAtIHNlcnZpY2VzCiAgLSByZXNvdXJjZXF1b3RhcwogIC0gcmVwbGljYXRpb25jb250cm9sbGVycwogIC0gbGltaXRyYW5nZXMKICAtIHBlcnNpc3RlbnR2b2x1bWVjbGFpbXMKICAtIHBlcnNpc3RlbnR2b2x1bWVzCiAgLSBuYW1lc3BhY2VzCiAgLSBlbmRwb2ludHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBleHRlbnNpb25zCiAgcmVzb3VyY2VzOgogIC0gZGFlbW9uc2V0cwogIC0gZGVwbG95bWVudHMKICAtIHJlcGxpY2FzZXRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYXBwcwogIHJlc291cmNlczoKICAtIHN0YXRlZnVsc2V0cwogIC0gZGVwbG95bWVudHMKICAtIGRhZW1vbnNldHMKICAtIHJlcGxpY2FzZXRzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGJhdGNoCiAgcmVzb3VyY2VzOgogIC0gY3JvbmpvYnMKICAtIGpvYnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhdXRvc2NhbGluZwogIHJlc291cmNlczoKICAtIGhvcml6b250YWxwb2RhdXRvc2NhbGVycwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHBvbGljeQogIHJlc291cmNlczoKICAtIHBvZGRpc3J1cHRpb25idWRnZXRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gc3RvcmFnZS5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBzdG9yYWdlY2xhc3NlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAo=",
+      "DataHash": "4ecca97928655b85bd7332a97f7482586dc980c3c07a91ea154fe7313e924fe7",
+      "DisplayName": "clusterrole-opencost",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/opencost": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opencost",
+            "ResourceNameWithoutScope": "opencost",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: opencost\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opencost\n    app.kubernetes.io/part-of: opencost\n    app.kubernetes.io/version: 1.120.2\n    helm.sh/chart: opencost-2.5.21\n  name: opencost\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - deployments\n  - nodes\n  - pods\n  - services\n  - resourcequotas\n  - replicationcontrollers\n  - limitranges\n  - persistentvolumeclaims\n  - persistentvolumes\n  - namespaces\n  - endpoints\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - extensions\n  resources:\n  - daemonsets\n  - deployments\n  - replicasets\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - apps\n  resources:\n  - statefulsets\n  - deployments\n  - daemonsets\n  - replicasets\n  verbs:\n  - list\n  - watch\n- apiGroups:\n  - batch\n  resources:\n  - cronjobs\n  - jobs\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - autoscaling\n  resources:\n  - horizontalpodautoscalers\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - storage.k8s.io\n  resources:\n  - storageclasses\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/opencost",
+          "ResourceNameWithoutScope": "opencost",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "49d85c76-d476-47b0-ac20-dd844aa42506",
+      "UpdatedAt": "2026-06-12T17:06:26.344068Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:06:55.115316Z",
+        "CursorID": 23860,
+        "DisplayName": "Upgrade configmap-default-opencost-ui-nginx-config",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ce988744-8672-4f03-950a-bcba2b2f39f1",
+        "LinkID": "719b1251-dce6-4a04-9c8f-4b6e128feffe",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-opencost-ui-nginx-config",
+        "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+        "SpaceSlug": "Opencost-default-staging",
+        "ToSpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+        "ToUnitID": "5c7da5d9-b7a1-48f5-9e7a-2738b44bcce0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:06:55.115316Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5c7da5d9-b7a1-48f5-9e7a-2738b44bcce0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:54.679436Z",
+      "CursorID": 4664,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Opencost-default-staging",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "UpdatedAt": "2026-06-12T17:06:54.679436Z",
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8298520b3a9b1ec0a0b7821e25974d7afa0868b5b2a611d438e4bb0d123b25bc",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "719b1251-dce6-4a04-9c8f-4b6e128feffe"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-opencost-ui-nginx-config",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ce988744-8672-4f03-950a-bcba2b2f39f1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5c7da5d9-b7a1-48f5-9e7a-2738b44bcce0",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 598254778,
+      "CreatedAt": "2026-06-12T17:06:21.660729Z",
+      "CursorID": 28745,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBuZ2lueC5jb25mOiB8CiAgICBnemlwX3N0YXRpYyAgb247CiAgICBnemlwIG9uOwogICAgZ3ppcF9taW5fbGVuZ3RoIDUwMDAwOwogICAgZ3ppcF9wcm94aWVkIGV4cGlyZWQgbm8tY2FjaGUgbm8tc3RvcmUgcHJpdmF0ZSBhdXRoOwogICAgZ3ppcF90eXBlcwogICAgICAgIGFwcGxpY2F0aW9uL2F0b20reG1sCiAgICAgICAgYXBwbGljYXRpb24vZ2VvK2pzb24KICAgICAgICBhcHBsaWNhdGlvbi9qYXZhc2NyaXB0CiAgICAgICAgYXBwbGljYXRpb24veC1qYXZhc2NyaXB0CiAgICAgICAgYXBwbGljYXRpb24vanNvbgogICAgICAgIGFwcGxpY2F0aW9uL2xkK2pzb24KICAgICAgICBhcHBsaWNhdGlvbi9tYW5pZmVzdCtqc29uCiAgICAgICAgYXBwbGljYXRpb24vcmRmK3htbAogICAgICAgIGFwcGxpY2F0aW9uL3Jzcyt4bWwKICAgICAgICBhcHBsaWNhdGlvbi92bmQubXMtZm9udG9iamVjdAogICAgICAgIGFwcGxpY2F0aW9uL3dhc20KICAgICAgICBhcHBsaWNhdGlvbi94LXdlYi1hcHAtbWFuaWZlc3QranNvbgogICAgICAgIGFwcGxpY2F0aW9uL3hodG1sK3htbAogICAgICAgIGFwcGxpY2F0aW9uL3htbAogICAgICAgIGZvbnQvZW90CiAgICAgICAgZm9udC9vdGYKICAgICAgICBmb250L3R0ZgogICAgICAgIGltYWdlL2JtcAogICAgICAgIGltYWdlL3N2Zyt4bWwKICAgICAgICB0ZXh0L2NhY2hlLW1hbmlmZXN0CiAgICAgICAgdGV4dC9jYWxlbmRhcgogICAgICAgIHRleHQvY3NzCiAgICAgICAgdGV4dC9qYXZhc2NyaXB0CiAgICAgICAgdGV4dC9tYXJrZG93bgogICAgICAgIHRleHQvcGxhaW4KICAgICAgICB0ZXh0L3htbAogICAgICAgIHRleHQveC1jb21wb25lbnQKICAgICAgICB0ZXh0L3gtY3Jvc3MtZG9tYWluLXBvbGljeTsKCiAgICB1cHN0cmVhbSBtb2RlbCB7CiAgICAgICAgICAgIHNlcnZlciBvcGVuY29zdC5kZWZhdWx0OjkwMDM7CiAgICB9CgogICAgc2VydmVyIHsKICAgICAgICBzZXJ2ZXJfbmFtZSBfOwogICAgICAgIHJvb3QgL3Zhci93d3c7CiAgICAgICAgaW5kZXggaW5kZXguaHRtbDsKICAgICAgICBsYXJnZV9jbGllbnRfaGVhZGVyX2J1ZmZlcnMgNCAzMms7CiAgICAgICAgYWRkX2hlYWRlciBDYWNoZS1Db250cm9sICJtdXN0LXJldmFsaWRhdGUiOwoKICAgICAgICBlcnJvcl9wYWdlIDUwNCAvY3VzdG9tXzUwNC5odG1sOwogICAgICAgIGxvY2F0aW9uID0gL2N1c3RvbV81MDQuaHRtbCB7CiAgICAgICAgICAgIGludGVybmFsOwogICAgICAgIH0KCiAgICAgICAgYWRkX2hlYWRlciBDYWNoZS1Db250cm9sICJtYXgtYWdlPTMwMCI7CiAgICAgICAgbG9jYXRpb24gLyB7CiAgICAgICAgICAgIGFsaWFzIC92YXIvd3d3LzsKICAgICAgICAgICAgdHJ5X2ZpbGVzICR1cmkgL2luZGV4Lmh0bWw7CiAgICAgICAgfQoKICAgICAgICBhZGRfaGVhZGVyIEVUYWcgIjEuOTYuMCI7CiAgICAgICAgbGlzdGVuIDkwOTA7CiAgICAgICAgbGlzdGVuIFs6Ol06OTA5MDsKICAgICAgICByZXNvbHZlciAxMjcuMC4wLjEgdmFsaWQ9NXM7CiAgICAgICAgbG9jYXRpb24gL2hlYWx0aHogewogICAgICAgICAgICBhY2Nlc3NfbG9nIC9kZXYvbnVsbDsKICAgICAgICAgICAgcmV0dXJuIDIwMCAnT0snOwogICAgICAgIH0KICAgICAgICBsb2NhdGlvbiAvbW9kZWwvIHsKICAgICAgICAgICAgcHJveHlfY29ubmVjdF90aW1lb3V0ICAgICAgIDE4MDsKICAgICAgICAgICAgcHJveHlfc2VuZF90aW1lb3V0ICAgICAgICAgIDE4MDsKICAgICAgICAgICAgcHJveHlfcmVhZF90aW1lb3V0ICAgICAgICAgIDE4MDsKICAgICAgICAgICAgcHJveHlfcGFzcyBodHRwOi8vbW9kZWwvOwogICAgICAgICAgICBwcm94eV9yZWRpcmVjdCBvZmY7CiAgICAgICAgICAgIHByb3h5X2h0dHBfdmVyc2lvbiAxLjE7CiAgICAgICAgICAgIHByb3h5X3NldF9oZWFkZXIgQ29ubmVjdGlvbiAiIjsKICAgICAgICAgICAgcHJveHlfc2V0X2hlYWRlciAgWC1SZWFsLUlQICAkcmVtb3RlX2FkZHI7CiAgICAgICAgICAgIHByb3h5X3NldF9oZWFkZXIgIFgtRm9yd2FyZGVkLUZvciAkcHJveHlfYWRkX3hfZm9yd2FyZGVkX2ZvcjsKICAgICAgICB9CiAgICB9CmtpbmQ6IENvbmZpZ01hcAptZXRhZGF0YToKICBuYW1lOiBvcGVuY29zdC11aS1uZ2lueC1jb25maWcKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "8298520b3a9b1ec0a0b7821e25974d7afa0868b5b2a611d438e4bb0d123b25bc",
+      "DisplayName": "configmap-default-opencost-ui-nginx-config",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 2166 bytes; from configmap-default-opencost-ui-nginx-config.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opencost-ui-nginx-config": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost-ui-nginx-config": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opencost-ui-nginx-config",
+            "ResourceNameWithoutScope": "opencost-ui-nginx-config",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  nginx.conf: |\n    gzip_static  on;\n    gzip on;\n    gzip_min_length 50000;\n    gzip_proxied expired no-cache no-store private auth;\n    gzip_types\n        application/atom+xml\n        application/geo+json\n        application/javascript\n        application/x-javascript\n        application/json\n        application/ld+json\n        application/manifest+json\n        application/rdf+xml\n        application/rss+xml\n        application/vnd.ms-fontobject\n        application/wasm\n        application/x-web-app-manifest+json\n        application/xhtml+xml\n        application/xml\n        font/eot\n        font/otf\n        font/ttf\n        image/bmp\n        image/svg+xml\n        text/cache-manifest\n        text/calendar\n        text/css\n        text/javascript\n        text/markdown\n        text/plain\n        text/xml\n        text/x-component\n        text/x-cross-domain-policy;\n\n    upstream model {\n            server opencost.default:9003;\n    }\n\n    server {\n        server_name _;\n        root /var/www;\n        index index.html;\n        large_client_header_buffers 4 32k;\n        add_header Cache-Control \"must-revalidate\";\n\n        error_page 504 /custom_504.html;\n        location = /custom_504.html {\n            internal;\n        }\n\n        add_header Cache-Control \"max-age=300\";\n        location / {\n            alias /var/www/;\n            try_files $uri /index.html;\n        }\n\n        add_header ETag \"1.96.0\";\n        listen 9090;\n        listen [::]:9090;\n        resolver 127.0.0.1 valid=5s;\n        location /healthz {\n            access_log /dev/null;\n            return 200 'OK';\n        }\n        location /model/ {\n            proxy_connect_timeout       180;\n            proxy_send_timeout          180;\n            proxy_read_timeout          180;\n            proxy_pass http://model/;\n            proxy_redirect off;\n            proxy_http_version 1.1;\n            proxy_set_header Connection \"\";\n            proxy_set_header  X-Real-IP  $remote_addr;\n            proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;\n        }\n    }\nkind: ConfigMap\nmetadata:\n  name: opencost-ui-nginx-config\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-nginx.conf": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opencost-ui-nginx-config",
+          "ResourceNameWithoutScope": "opencost-ui-nginx-config",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-opencost-ui-nginx-config",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c7da5d9-b7a1-48f5-9e7a-2738b44bcce0",
+      "UpdatedAt": "2026-06-12T17:06:39.797025Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:06:55.192235Z",
+        "CursorID": 23861,
+        "DisplayName": "Upgrade deployment-default-opencost",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "987441d6-f5b8-46ff-b171-9ba413be1473",
+        "LinkID": "8a45118d-aafa-4ab1-9359-cd273454bb55",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-opencost",
+        "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+        "SpaceSlug": "Opencost-default-staging",
+        "ToSpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+        "ToUnitID": "91dec64e-cd41-433d-b8ae-d8104cf625e0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:06:55.192235Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '91dec64e-cd41-433d-b8ae-d8104cf625e0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:54.679436Z",
+      "CursorID": 4664,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Opencost-default-staging",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "UpdatedAt": "2026-06-12T17:06:54.679436Z",
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d51ed316790bfeec72f689aff74c2166e5397c033d1fd57b17741ea7f93ec86f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8a45118d-aafa-4ab1-9359-cd273454bb55"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-opencost",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "987441d6-f5b8-46ff-b171-9ba413be1473",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "91dec64e-cd41-433d-b8ae-d8104cf625e0",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 2123948514,
+      "CreatedAt": "2026-06-12T17:06:22.711623Z",
+      "CursorID": 28746,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGFubm90YXRpb25zOgogICAgY2hlY2tzdW0vY29uZmlnczogY2VjMjY0OTBkNGQyZTFjYmFjNzcyYzQyY2JhZGI0MDU4NTQyMDEzNzEzMDJkNDEzNjY0ZjMyMTA3ZmEwNjExYwogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBvcGVuY29zdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogb3BlbmNvc3QKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IG9wZW5jb3N0CiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjEyMC4yCiAgICBoZWxtLnNoL2NoYXJ0OiBvcGVuY29zdC0yLjUuMjEKICBuYW1lOiBvcGVuY29zdAogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHJlcGxpY2FzOiAxCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG9wZW5jb3N0CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW5jb3N0CiAgc3RyYXRlZ3k6CiAgICByb2xsaW5nVXBkYXRlOgogICAgICBtYXhTdXJnZTogMQogICAgICBtYXhVbmF2YWlsYWJsZTogMQogICAgdHlwZTogUm9sbGluZ1VwZGF0ZQogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogb3BlbmNvc3QKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBvcGVuY29zdAogICAgc3BlYzoKICAgICAgYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6IG51bGwKICAgICAgICBlbnY6CiAgICAgICAgLSBuYW1lOiBMT0dfTEVWRUwKICAgICAgICAgIHZhbHVlOiBpbmZvCiAgICAgICAgLSBuYW1lOiBDVVNUT01fQ09TVF9FTkFCTEVECiAgICAgICAgICB2YWx1ZTogImZhbHNlIgogICAgICAgIC0gbmFtZTogSU5TVEFMTF9OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlOiBkZWZhdWx0CiAgICAgICAgLSBuYW1lOiBQUk9NRVRIRVVTX1FVRVJZX1JFU09MVVRJT05fU0VDT05EUwogICAgICAgICAgdmFsdWU6ICIzMDAiCiAgICAgICAgLSBuYW1lOiBBUElfUE9SVAogICAgICAgICAgdmFsdWU6ICI5MDAzIgogICAgICAgIC0gbmFtZTogUFJPTUVUSEVVU19TRVJWRVJfRU5EUE9JTlQKICAgICAgICAgIHZhbHVlOiBodHRwOi8vcHJvbWV0aGV1cy1zZXJ2ZXIucHJvbWV0aGV1cy1zeXN0ZW0uc3ZjLmNsdXN0ZXIubG9jYWw6ODAKICAgICAgICAtIG5hbWU6IElOU0VDVVJFX1NLSVBfVkVSSUZZCiAgICAgICAgICB2YWx1ZTogImZhbHNlIgogICAgICAgIC0gbmFtZTogQ0xVU1RFUl9JRAogICAgICAgICAgdmFsdWU6IGRlZmF1bHQtY2x1c3RlcgogICAgICAgIC0gbmFtZTogUkVTT0xVVElPTl8xRF9SRVRFTlRJT04KICAgICAgICAgIHZhbHVlOiAiMTUiCiAgICAgICAgLSBuYW1lOiBSRVNPTFVUSU9OXzFIX1JFVEVOVElPTgogICAgICAgICAgdmFsdWU6ICI0OSIKICAgICAgICAtIG5hbWU6IENMT1VEX0NPU1RfRU5BQkxFRAogICAgICAgICAgdmFsdWU6ICJmYWxzZSIKICAgICAgICAtIG5hbWU6IENMT1VEX0NPU1RfTU9OVEhfVE9fREFURV9JTlRFUlZBTAogICAgICAgICAgdmFsdWU6ICI2IgogICAgICAgIC0gbmFtZTogQ0xPVURfQ09TVF9SRUZSRVNIX1JBVEVfSE9VUlMKICAgICAgICAgIHZhbHVlOiAiNiIKICAgICAgICAtIG5hbWU6IENMT1VEX0NPU1RfUVVFUllfV0lORE9XX0RBWVMKICAgICAgICAgIHZhbHVlOiAiNyIKICAgICAgICAtIG5hbWU6IENMT1VEX0NPU1RfUlVOX1dJTkRPV19EQVlTCiAgICAgICAgICB2YWx1ZTogIjMiCiAgICAgICAgLSBuYW1lOiBNQ1BfU0VSVkVSX0VOQUJMRUQKICAgICAgICAgIHZhbHVlOiAidHJ1ZSIKICAgICAgICAtIG5hbWU6IE1DUF9IVFRQX1BPUlQKICAgICAgICAgIHZhbHVlOiAiODA4MSIKICAgICAgICBpbWFnZTogZ2hjci5pby9vcGVuY29zdC9vcGVuY29zdDoxLjEyMC4yQHNoYTI1Njo1ZjM3ZjY4OTU1N2RiYjY3MzdhOTE4MmI3MDYyNWJiYTU1YmJiYTg0M2EyY2FhYmE1YTc5NzQ2OTQ1YTU2Y2M2CiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMwogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogOTAwMwogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDIwCiAgICAgICAgbmFtZTogb3BlbmNvc3QKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDkwMDMKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgwODEKICAgICAgICAgIG5hbWU6IG1jcC1zZXJ2ZXIKICAgICAgICByZWFkaW5lc3NQcm9iZToKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDMKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgIHBvcnQ6IDkwMDMKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDEwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAxMAogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIGxpbWl0czoKICAgICAgICAgICAgbWVtb3J5OiAxR2kKICAgICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgICBjcHU6IDEwbQogICAgICAgICAgICBtZW1vcnk6IDU1TWkKICAgICAgICBzdGFydHVwUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzMAogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogOTAwMwogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgLSBlbnY6CiAgICAgICAgLSBuYW1lOiBBUElfUE9SVAogICAgICAgICAgdmFsdWU6ICI5MDAzIgogICAgICAgIC0gbmFtZTogVUlfUE9SVAogICAgICAgICAgdmFsdWU6ICI5MDkwIgogICAgICAgIGltYWdlOiBnaGNyLmlvL29wZW5jb3N0L29wZW5jb3N0LXVpOjEuMTIwLjJAc2hhMjU2OjNlN2ZjMTc2MzE1YTI1ZTdhY2NhNDdiNjcwZmE3OGIyNjIwNDgwOTgxZThkMzRjMmU4ZjY0Y2E2MzcxYzhiY2MKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoegogICAgICAgICAgICBwb3J0OiA5MDkwCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiAzMAogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTAKICAgICAgICBuYW1lOiBvcGVuY29zdC11aQogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogOTA5MAogICAgICAgICAgbmFtZTogaHR0cC11aQogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMwogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogOTA5MAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMzAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDEwCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgbGltaXRzOgogICAgICAgICAgICBtZW1vcnk6IDFHaQogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTBtCiAgICAgICAgICAgIG1lbW9yeTogNTVNaQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL2V0Yy9uZ2lueC9jb25mLmQvZGVmYXVsdC5uZ2lueC5jb25mCiAgICAgICAgICBuYW1lOiBvcGVuY29zdC11aS1uZ2lueC1jb25maWctdm9sdW1lCiAgICAgICAgICBzdWJQYXRoOiBkZWZhdWx0Lm5naW54LmNvbmYKICAgICAgaW5pdENvbnRhaW5lcnM6IG51bGwKICAgICAgc2VydmljZUFjY291bnROYW1lOiBvcGVuY29zdAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIGl0ZW1zOgogICAgICAgICAgLSBrZXk6IG5naW54LmNvbmYKICAgICAgICAgICAgcGF0aDogZGVmYXVsdC5uZ2lueC5jb25mCiAgICAgICAgICBuYW1lOiBvcGVuY29zdC11aS1uZ2lueC1jb25maWcKICAgICAgICBuYW1lOiBvcGVuY29zdC11aS1uZ2lueC1jb25maWctdm9sdW1lCg==",
+      "DataHash": "d51ed316790bfeec72f689aff74c2166e5397c033d1fd57b17741ea7f93ec86f",
+      "DisplayName": "deployment-default-opencost",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opencost": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opencost",
+            "ResourceNameWithoutScope": "opencost",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  annotations:\n    checksum/configs: cec26490d4d2e1cbac772c42cbadb405854201371302d413664f32107fa0611c\n  labels:\n    app.kubernetes.io/instance: opencost\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opencost\n    app.kubernetes.io/part-of: opencost\n    app.kubernetes.io/version: 1.120.2\n    helm.sh/chart: opencost-2.5.21\n  name: opencost\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: opencost\n      app.kubernetes.io/name: opencost\n  strategy:\n    rollingUpdate:\n      maxSurge: 1\n      maxUnavailable: 1\n    type: RollingUpdate\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/instance: opencost\n        app.kubernetes.io/name: opencost\n    spec:\n      automountServiceAccountToken: true\n      containers:\n      - args: null\n        env:\n        - name: LOG_LEVEL\n          value: info\n        - name: CUSTOM_COST_ENABLED\n          value: \"false\"\n        - name: INSTALL_NAMESPACE\n          value: default\n        - name: PROMETHEUS_QUERY_RESOLUTION_SECONDS\n          value: \"300\"\n        - name: API_PORT\n          value: \"9003\"\n        - name: PROMETHEUS_SERVER_ENDPOINT\n          value: http://prometheus-server.prometheus-system.svc.cluster.local:80\n        - name: INSECURE_SKIP_VERIFY\n          value: \"false\"\n        - name: CLUSTER_ID\n          value: default-cluster\n        - name: RESOLUTION_1D_RETENTION\n          value: \"15\"\n        - name: RESOLUTION_1H_RETENTION\n          value: \"49\"\n        - name: CLOUD_COST_ENABLED\n          value: \"false\"\n        - name: CLOUD_COST_MONTH_TO_DATE_INTERVAL\n          value: \"6\"\n        - name: CLOUD_COST_REFRESH_RATE_HOURS\n          value: \"6\"\n        - name: CLOUD_COST_QUERY_WINDOW_DAYS\n          value: \"7\"\n        - name: CLOUD_COST_RUN_WINDOW_DAYS\n          value: \"3\"\n        - name: MCP_SERVER_ENABLED\n          value: \"true\"\n        - name: MCP_HTTP_PORT\n          value: \"8081\"\n        image: ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 9003\n          initialDelaySeconds: 10\n          periodSeconds: 20\n        name: opencost\n        ports:\n        - containerPort: 9003\n          name: http\n        - containerPort: 8081\n          name: mcp-server\n        readinessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 9003\n          initialDelaySeconds: 10\n          periodSeconds: 10\n        resources:\n          limits:\n            memory: 1Gi\n          requests:\n            cpu: 10m\n            memory: 55Mi\n        startupProbe:\n          failureThreshold: 30\n          httpGet:\n            path: /healthz\n            port: 9003\n          initialDelaySeconds: 10\n          periodSeconds: 5\n      - env:\n        - name: API_PORT\n          value: \"9003\"\n        - name: UI_PORT\n          value: \"9090\"\n        image: ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 9090\n          initialDelaySeconds: 30\n          periodSeconds: 10\n        name: opencost-ui\n        ports:\n        - containerPort: 9090\n          name: http-ui\n        readinessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 9090\n          initialDelaySeconds: 30\n          periodSeconds: 10\n        resources:\n          limits:\n            memory: 1Gi\n          requests:\n            cpu: 10m\n            memory: 55Mi\n        volumeMounts:\n        - mountPath: /etc/nginx/conf.d/default.nginx.conf\n          name: opencost-ui-nginx-config-volume\n          subPath: default.nginx.conf\n      initContainers: null\n      serviceAccountName: opencost\n      volumes:\n      - configMap:\n          items:\n          - key: nginx.conf\n            path: default.nginx.conf\n          name: opencost-ui-nginx-config\n        name: opencost-ui-nginx-config-volume\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opencost",
+          "ResourceNameWithoutScope": "opencost",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "91dec64e-cd41-433d-b8ae-d8104cf625e0",
+      "UpdatedAt": "2026-06-12T17:06:42.766292Z",
+      "Version": 16
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:06:55.273393Z",
+        "CursorID": 23862,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "329605df-bcee-4f48-a26b-b8a66306165c",
+        "LinkID": "f7ea7a9d-b665-4092-9ef2-c246822558c3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+        "SpaceSlug": "Opencost-default-staging",
+        "ToSpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+        "ToUnitID": "c0e3e649-7670-4a9f-ba23-c2fdd058f6a4",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:06:55.273393Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c0e3e649-7670-4a9f-ba23-c2fdd058f6a4' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:54.679436Z",
+      "CursorID": 4664,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Opencost-default-staging",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "UpdatedAt": "2026-06-12T17:06:54.679436Z",
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "57127fff048e0bc8c00b4d81ed4d1cbc53bbea85229222270ea5770c5e7e51d3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f7ea7a9d-b665-4092-9ef2-c246822558c3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "329605df-bcee-4f48-a26b-b8a66306165c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c0e3e649-7670-4a9f-ba23-c2fdd058f6a4",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "opencost-opencost",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1334435463,
+      "CreatedAt": "2026-06-12T17:06:25.567413Z",
+      "CursorID": 28750,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogIm9wZW5jb3N0LW9wZW5jb3N0IgogIHZlcnNpb246ICIyLjUuMjEiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIG5hbWU6ICJkZWZhdWx0IgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQiCiAgICBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogIm9wZW5jb3N0L29wZW5jb3N0IGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIG9wZW5jb3N0L29wZW5jb3N0QDIuNS4yMSIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogb3BlbmNvc3Qtb3BlbmNvc3QtZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG9wZW5jb3N0LW9wZW5jb3N0CiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IG9wZW5jb3N0LW9wZW5jb3N0LWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogb3BlbmNvc3Qtb3BlbmNvc3QKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IG9wZW5jb3N0LW9wZW5jb3N0LW1hbmlmZXN0LWluZGV4CiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBvcGVuY29zdC1vcGVuY29zdAogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLW9wZW5jb3N0LnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlLW9wZW5jb3N0CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogb3BlbmNvc3QKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctb3BlbmNvc3QueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLW9wZW5jb3N0CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IG9wZW5jb3N0CiAgLSBmaWxlbmFtZTogY29uZmlnbWFwLWRlZmF1bHQtb3BlbmNvc3QtdWktbmdpbngtY29uZmlnLnlhbWwKICAgIHNsdWc6IGNvbmZpZ21hcC1kZWZhdWx0LW9wZW5jb3N0LXVpLW5naW54LWNvbmZpZwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IENvbmZpZ01hcAogICAgbmFtZTogb3BlbmNvc3QtdWktbmdpbngtY29uZmlnCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQtb3BlbmNvc3QueWFtbAogICAgc2x1ZzogZGVwbG95bWVudC1kZWZhdWx0LW9wZW5jb3N0CiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiBvcGVuY29zdAogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWRlZmF1bHQueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWRlZmF1bHQtb3BlbmNvc3QueWFtbAogICAgc2x1Zzogc2VydmljZS1kZWZhdWx0LW9wZW5jb3N0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogb3BlbmNvc3QKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtb3BlbmNvc3QueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1vcGVuY29zdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBvcGVuY29zdAogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogb3BlbmNvc3Qtb3BlbmNvc3Qtc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBvcGVuY29zdC1vcGVuY29zdAogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBvcGVuY29zdC1vcGVuY29zdC11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG9wZW5jb3N0LW9wZW5jb3N0CiAgc3BhY2VQYXR0ZXJuOiBoZWxtLW9wZW5jb3N0LWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgc3BhY2VzOgogIC0gcGFja2FnZTogb3BlbmNvc3Qtb3BlbmNvc3QKICAgIHNsdWc6IGhlbG0tb3BlbmNvc3QtZGVmYXVsdC1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTc6MDY6MThaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "57127fff048e0bc8c00b4d81ed4d1cbc53bbea85229222270ea5770c5e7e51d3",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "opencost-opencost"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/opencost-opencost": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost-opencost": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opencost-opencost",
+            "ResourceNameWithoutScope": "opencost-opencost",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"opencost-opencost\"\n  version: \"2.5.21\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"opencost/opencost default variant rendered from opencost/opencost@2.5.21\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/opencost-opencost-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost-opencost-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opencost-opencost-function-chain",
+            "ResourceNameWithoutScope": "opencost-opencost-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: opencost-opencost-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: opencost-opencost\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/opencost-opencost-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost-opencost-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opencost-opencost-inputs",
+            "ResourceNameWithoutScope": "opencost-opencost-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: opencost-opencost-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: opencost-opencost\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/opencost-opencost-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost-opencost-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opencost-opencost-manifest-index",
+            "ResourceNameWithoutScope": "opencost-opencost-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: opencost-opencost-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: opencost-opencost\n  files:\n  - filename: clusterrole-opencost.yaml\n    slug: clusterrole-opencost\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: opencost\n  - filename: clusterrolebinding-opencost.yaml\n    slug: clusterrolebinding-opencost\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: opencost\n  - filename: configmap-default-opencost-ui-nginx-config.yaml\n    slug: configmap-default-opencost-ui-nginx-config\n    apiVersion: v1\n    kind: ConfigMap\n    name: opencost-ui-nginx-config\n    namespace: default\n  - filename: deployment-default-opencost.yaml\n    slug: deployment-default-opencost\n    apiVersion: apps/v1\n    kind: Deployment\n    name: opencost\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: service-default-opencost.yaml\n    slug: service-default-opencost\n    apiVersion: v1\n    kind: Service\n    name: opencost\n    namespace: default\n  - filename: serviceaccount-default-opencost.yaml\n    slug: serviceaccount-default-opencost\n    apiVersion: v1\n    kind: ServiceAccount\n    name: opencost\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/opencost-opencost-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost-opencost-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opencost-opencost-selection",
+            "ResourceNameWithoutScope": "opencost-opencost-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: opencost-opencost-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: opencost-opencost\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/opencost-opencost-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost-opencost-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/opencost-opencost-upload",
+            "ResourceNameWithoutScope": "opencost-opencost-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: opencost-opencost-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: opencost-opencost\n  spacePattern: helm-opencost-default-confighub-proof\n  spaces:\n  - package: opencost-opencost\n    slug: helm-opencost-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:06:18Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c0e3e649-7670-4a9f-ba23-c2fdd058f6a4",
+      "UpdatedAt": "2026-06-12T17:06:26.404011Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:06:55.302307Z",
+        "CursorID": 23863,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "19736479-451d-4b80-b13f-b92061154732",
+        "LinkID": "9e2a6417-5cc2-4663-9421-e358964725c7",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+        "SpaceSlug": "Opencost-default-staging",
+        "ToSpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+        "ToUnitID": "4b7242f2-1584-44e8-b0e5-f0fcad4d5ab9",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:06:55.302307Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4b7242f2-1584-44e8-b0e5-f0fcad4d5ab9' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:54.679436Z",
+      "CursorID": 4664,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Opencost-default-staging",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "UpdatedAt": "2026-06-12T17:06:54.679436Z",
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "9e2a6417-5cc2-4663-9421-e358964725c7"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "19736479-451d-4b80-b13f-b92061154732",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4b7242f2-1584-44e8-b0e5-f0fcad4d5ab9",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:06:23.462281Z",
+      "CursorID": 28747,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4b7242f2-1584-44e8-b0e5-f0fcad4d5ab9",
+      "UpdatedAt": "2026-06-12T17:06:23.486198Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:06:55.327669Z",
+        "CursorID": 23864,
+        "DisplayName": "Upgrade serviceaccount-default-opencost",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6fa283f3-a224-4fd7-af49-58dfaf610870",
+        "LinkID": "eebb1810-52bd-4749-9f09-0212b7b1a988",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-opencost",
+        "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+        "SpaceSlug": "Opencost-default-staging",
+        "ToSpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+        "ToUnitID": "ef5f7a92-420e-447b-bb86-d77c88fd3467",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:06:55.327669Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ef5f7a92-420e-447b-bb86-d77c88fd3467' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:54.679436Z",
+      "CursorID": 4664,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Opencost-default-staging",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "UpdatedAt": "2026-06-12T17:06:54.679436Z",
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9155b84b6371589ba988e22b771fa8f3a6ced4fc8aa1e6f5a0efecbf816fbd28",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "eebb1810-52bd-4749-9f09-0212b7b1a988"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-opencost",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6fa283f3-a224-4fd7-af49-58dfaf610870",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ef5f7a92-420e-447b-bb86-d77c88fd3467",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 646176179,
+      "CreatedAt": "2026-06-12T17:06:24.81124Z",
+      "CursorID": 28749,
+      "Data": "YXBpVmVyc2lvbjogdjEKYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQpraW5kOiBTZXJ2aWNlQWNjb3VudAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogb3BlbmNvc3QKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW5jb3N0CiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBvcGVuY29zdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4xMjAuMgogICAgaGVsbS5zaC9jaGFydDogb3BlbmNvc3QtMi41LjIxCiAgbmFtZTogb3BlbmNvc3QKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "9155b84b6371589ba988e22b771fa8f3a6ced4fc8aa1e6f5a0efecbf816fbd28",
+      "DisplayName": "serviceaccount-default-opencost",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 360 bytes; from serviceaccount-default-opencost.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opencost": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opencost",
+            "ResourceNameWithoutScope": "opencost",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nautomountServiceAccountToken: true\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: opencost\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opencost\n    app.kubernetes.io/part-of: opencost\n    app.kubernetes.io/version: 1.120.2\n    helm.sh/chart: opencost-2.5.21\n  name: opencost\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opencost",
+          "ResourceNameWithoutScope": "opencost",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ef5f7a92-420e-447b-bb86-d77c88fd3467",
+      "UpdatedAt": "2026-06-12T17:06:46.410084Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:06:55.364306Z",
+        "CursorID": 23865,
+        "DisplayName": "Upgrade service-default-opencost",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "29d6b241-b10c-454b-9170-e363a30cecf4",
+        "LinkID": "7a3949fa-6cfe-410d-9545-c7c5cbe171bc",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-opencost",
+        "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+        "SpaceSlug": "Opencost-default-staging",
+        "ToSpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+        "ToUnitID": "b9808395-0e14-47f4-b4f3-103191d82794",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:06:55.364306Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b9808395-0e14-47f4-b4f3-103191d82794' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:54.679436Z",
+      "CursorID": 4664,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Opencost-default-staging",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "UpdatedAt": "2026-06-12T17:06:54.679436Z",
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2b8affc8f95469857db397dafb2d28e3a48c1ec4b1f34af61d05ceb6869307ce",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7a3949fa-6cfe-410d-9545-c7c5cbe171bc"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-opencost",
+      "SpaceID": "f9901d5e-b7e9-46c1-bbb3-7ae4edd3acb0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "29d6b241-b10c-454b-9170-e363a30cecf4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b9808395-0e14-47f4-b4f3-103191d82794",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1000775110,
+      "CreatedAt": "2026-06-12T17:06:24.157446Z",
+      "CursorID": 28748,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogb3BlbmNvc3QKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG9wZW5jb3N0CiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBvcGVuY29zdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4xMjAuMgogICAgaGVsbS5zaC9jaGFydDogb3BlbmNvc3QtMi41LjIxCiAgbmFtZTogb3BlbmNvc3QKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IGh0dHAKICAgIHBvcnQ6IDkwMDMKICAgIHRhcmdldFBvcnQ6IDkwMDMKICAtIG5hbWU6IG1jcC1zZXJ2ZXIKICAgIHBvcnQ6IDgwODEKICAgIHRhcmdldFBvcnQ6IDgwODEKICAtIG5hbWU6IGh0dHAtdWkKICAgIHBvcnQ6IDkwOTAKICAgIHRhcmdldFBvcnQ6IDkwOTAKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBvcGVuY29zdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogb3BlbmNvc3QKICB0eXBlOiBDbHVzdGVySVAK",
+      "DataHash": "2b8affc8f95469857db397dafb2d28e3a48c1ec4b1f34af61d05ceb6869307ce",
+      "DisplayName": "service-default-opencost",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/opencost": {}
+          },
+          "AliasesWithoutScopes": {
+            "opencost": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/opencost",
+            "ResourceNameWithoutScope": "opencost",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: opencost\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: opencost\n    app.kubernetes.io/part-of: opencost\n    app.kubernetes.io/version: 1.120.2\n    helm.sh/chart: opencost-2.5.21\n  name: opencost\n  namespace: default\nspec:\n  ports:\n  - name: http\n    port: 9003\n    targetPort: 9003\n  - name: mcp-server\n    port: 8081\n    targetPort: 8081\n  - name: http-ui\n    port: 9090\n    targetPort: 9090\n  selector:\n    app.kubernetes.io/instance: opencost\n    app.kubernetes.io/name: opencost\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/opencost",
+          "ResourceNameWithoutScope": "opencost",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b9808395-0e14-47f4-b4f3-103191d82794",
+      "UpdatedAt": "2026-06-12T17:06:45.369651Z",
+      "Version": 13
+    }
+  }
+]

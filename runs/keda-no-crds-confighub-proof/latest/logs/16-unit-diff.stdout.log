@@ -1,0 +1,175 @@
+--- helm-keda-no-crds-confighub-proof/deployment-default-keda-operator-metrics-apiserver/1
++++ helm-keda-no-crds-confighub-proof/deployment-default-keda-operator-metrics-apiserver/2
+@@ -32,83 +36,77 @@
+     spec:
+       automountServiceAccountToken: true
+       containers:
+-        - args:
+-            - --port=8080
+-            - --secure-port=6443
+-            - --logtostderr=true
+-            - --stderrthreshold=ERROR
+-            - --disable-compression=true
+-            - --metrics-service-address=keda-operator.default.svc.cluster.local:9666
+-            - --client-ca-file=/certs/ca.crt
+-            - --tls-cert-file=/certs/tls.crt
+-            - --tls-private-key-file=/certs/tls.key
+-            - --cert-dir=/certs
+-            - --v=0
+-            - --zap-log-level=info
+-            - --zap-encoder=console
+-            - --zap-time-encoding=rfc3339
+-          command:
+-            - /keda-adapter
+-          env:
+-            - name: WATCH_NAMESPACE
+-              value: ""
+-            - name: POD_NAMESPACE
+-              valueFrom:
+-                fieldRef:
+-                  fieldPath: metadata.namespace
+-            - name: KEDA_HTTP_DEFAULT_TIMEOUT
+-              value: "3000"
+-            - name: KEDA_HTTP_MIN_TLS_VERSION
+-              value: TLS12
+-          image: ghcr.io/kedacore/keda-metrics-apiserver:2.19.0
+-          imagePullPolicy: Always
+-          livenessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /healthz
+-              port: 6443
+-              scheme: HTTPS
+-            initialDelaySeconds: 5
+-            periodSeconds: 10
+-            successThreshold: 1
+-            timeoutSeconds: 1
+-          name: keda-operator-metrics-apiserver
+-          ports:
+-            - containerPort: 6443
+-              name: https
+-              protocol: TCP
+-            - containerPort: 8080
+-              name: metrics
+-              protocol: TCP
+-          readinessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /readyz
+-              port: 6443
+-              scheme: HTTPS
+-            initialDelaySeconds: 5
+-            periodSeconds: 3
+-            successThreshold: 1
+-            timeoutSeconds: 1
+-          resources:
+-            limits:
+-              cpu: 1
+-              memory: 1000Mi
+-            requests:
+-              cpu: 100m
+-              memory: 100Mi
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: true
+-            seccompProfile:
+-              type: RuntimeDefault
+-          volumeMounts:
+-            - mountPath: /certs
+-              name: certificates
+-              readOnly: true
++      - args:
++        - --port=8080
++        - --secure-port=6443
++        - --logtostderr=true
++        - --stderrthreshold=ERROR
++        - --disable-compression=true
++        - --metrics-service-address=keda-operator.default.svc.cluster.local:9666
++        - --client-ca-file=/certs/ca.crt
++        - --tls-cert-file=/certs/tls.crt
++        - --tls-private-key-file=/certs/tls.key
++        - --cert-dir=/certs
++        - --v=0
++        - --zap-log-level=info
++        - --zap-encoder=console
++        - --zap-time-encoding=rfc3339
++        command:
++        - /keda-adapter
++        env:
++        - name: WATCH_NAMESPACE
++          value: ""
++        - name: POD_NAMESPACE
++          valueFrom:
++            fieldRef:
++              fieldPath: metadata.namespace
++        - name: KEDA_HTTP_DEFAULT_TIMEOUT
++          value: "3000"
++        - name: KEDA_HTTP_MIN_TLS_VERSION
++          value: TLS12
++        image: ghcr.io/kedacore/keda-metrics-apiserver:2.19.0
++        imagePullPolicy: Always
++        livenessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /healthz
++            port: 6443
++            scheme: HTTPS
++          initialDelaySeconds: 5
++          periodSeconds: 10
++          successThreshold: 1
++          timeoutSeconds: 1
++        name: keda-operator-metrics-apiserver
++        ports:
++        - containerPort: 6443
++          name: https
++          protocol: TCP
++        - containerPort: 8080
++          name: metrics
++          protocol: TCP
++        readinessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /readyz
++            port: 6443
++            scheme: HTTPS
++          initialDelaySeconds: 5
++          periodSeconds: 3
++          successThreshold: 1
++          timeoutSeconds: 1
++        resources:
++          limits:
++            cpu: 1
++            memory: 1000Mi
++          requests:
++            cpu: 100m
++            memory: 100Mi
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++          seccompProfile:
++            type: RuntimeDefault
++        volumeMounts:
++        - mountPath: /certs
++          name: certificates
++          readOnly: true
+       dnsPolicy: ClusterFirst
+       enableServiceLinks: true
+       hostNetwork: false
+@@ -120,7 +124,4 @@
+         runAsNonRoot: true
+       serviceAccountName: keda-metrics-server
+       volumes:
+-        - name: certificates
+-          secret:
+-            defaultMode: 420
+-            secretName: kedaorg-certs
++      - name: certificates
++        secret:
++          defaultMode: 420
++          secretName: kedaorg-certs

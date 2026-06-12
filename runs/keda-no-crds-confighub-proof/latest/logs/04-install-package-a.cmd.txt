@@ -1,0 +1,1 @@
+cub installer package packages/kedacore/keda/2.19.0 -o .tmp/confighub-proof/keda-no-crds-archives/keda-a.tgz

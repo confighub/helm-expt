@@ -1,0 +1,902 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:00:20.156701Z",
+        "CursorID": 23560,
+        "DisplayName": "Upgrade deployment-jaeger",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9efe29db-ade1-4c62-8f47-b6e70ecdcfa7",
+        "LinkID": "1267e7ec-b709-4104-9c91-0c6212eacd26",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-jaeger",
+        "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+        "SpaceSlug": "Jaeger-default-staging",
+        "ToSpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+        "ToUnitID": "7324fd33-cbce-405e-a807-a3af560ec2f4",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:00:20.156701Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7324fd33-cbce-405e-a807-a3af560ec2f4' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:19.947205Z",
+      "CursorID": 4641,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Jaeger-default-staging",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "UpdatedAt": "2026-06-12T17:00:19.947205Z",
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7378491c4bd311f21c3264512c5a90a75deba58781b83b0e5815c5ed2e6dad12",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1267e7ec-b709-4104-9c91-0c6212eacd26"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-jaeger",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9efe29db-ade1-4c62-8f47-b6e70ecdcfa7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7324fd33-cbce-405e-a807-a3af560ec2f4",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1236308529,
+      "CreatedAt": "2026-06-12T17:00:03.555432Z",
+      "CursorID": 28388,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogYWxsLWluLW9uZQogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGphZWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogamFlZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAyLjE4LjAKICAgIGhlbG0uc2gvY2hhcnQ6IGphZWdlci00LjguMAogICAgcHJvbWV0aGV1cy5pby9wb3J0OiAiODg4OCIKICAgIHByb21ldGhldXMuaW8vc2NyYXBlOiAidHJ1ZSIKICBuYW1lOiBqYWVnZXIKc3BlYzoKICByZXBsaWNhczogMQogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogYWxsLWluLW9uZQogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogamFlZ2VyCiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGphZWdlcgogIHN0cmF0ZWd5OgogICAgdHlwZTogUmVjcmVhdGUKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczoKICAgICAgICBwcm9tZXRoZXVzLmlvL3BvcnQ6ICI4ODg4IgogICAgICAgIHByb21ldGhldXMuaW8vc2NyYXBlOiAidHJ1ZSIKICAgICAgbGFiZWxzOgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogYWxsLWluLW9uZQogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBqYWVnZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBqYWVnZXIKICAgIHNwZWM6CiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczogbnVsbAogICAgICAgIGVudjogbnVsbAogICAgICAgIGltYWdlOiBqYWVnZXJ0cmFjaW5nL2phZWdlcjoyLjE4LjAKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiA1CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvc3RhdHVzCiAgICAgICAgICAgIHBvcnQ6IDEzMTMzCiAgICAgICAgICAgIHNjaGVtZTogSFRUUAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogNQogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAxCiAgICAgICAgbmFtZTogamFlZ2VyCiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiA1Nzc1CiAgICAgICAgICBwcm90b2NvbDogVURQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA2ODMxCiAgICAgICAgICBwcm90b2NvbDogVURQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA2ODMyCiAgICAgICAgICBwcm90b2NvbDogVURQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA1Nzc4CiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiAxNjY4NgogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIC0gY29udGFpbmVyUG9ydDogMTY2ODUKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDk0MTEKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDQzMTcKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDQzMTgKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDEzMTMzCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4ODg4CiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvc3RhdHVzCiAgICAgICAgICAgIHBvcnQ6IDEzMTMzCiAgICAgICAgICAgIHNjaGVtZTogSFRUUAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMQogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTAKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAxCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OiB7fQogICAgICAgIHZvbHVtZU1vdW50czogbnVsbAogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMDEKICAgICAgICBydW5Bc0dyb3VwOiAxMDAwMQogICAgICAgIHJ1bkFzVXNlcjogMTAwMDEKICAgICAgc2VydmljZUFjY291bnROYW1lOiBqYWVnZXIKICAgICAgdm9sdW1lczogbnVsbAo=",
+      "DataHash": "7378491c4bd311f21c3264512c5a90a75deba58781b83b0e5815c5ed2e6dad12",
+      "DisplayName": "deployment-jaeger",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Jaeger",
+        "HelmChart": "jaegertracing-jaeger",
+        "HelmChartVersion": "4.8.0",
+        "Package": "jaegertracing-jaeger",
+        "Proof": "jaeger-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/jaeger": {}
+          },
+          "AliasesWithoutScopes": {
+            "jaeger": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jaeger",
+            "ResourceNameWithoutScope": "jaeger",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/component: all-in-one\n    app.kubernetes.io/instance: jaeger\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: jaeger\n    app.kubernetes.io/version: 2.18.0\n    helm.sh/chart: jaeger-4.8.0\n    prometheus.io/port: \"8888\"\n    prometheus.io/scrape: \"true\"\n  name: jaeger\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/component: all-in-one\n      app.kubernetes.io/instance: jaeger\n      app.kubernetes.io/name: jaeger\n  strategy:\n    type: Recreate\n  template:\n    metadata:\n      annotations:\n        prometheus.io/port: \"8888\"\n        prometheus.io/scrape: \"true\"\n      labels:\n        app.kubernetes.io/component: all-in-one\n        app.kubernetes.io/instance: jaeger\n        app.kubernetes.io/name: jaeger\n    spec:\n      containers:\n      - args: null\n        env: null\n        image: jaegertracing/jaeger:2.18.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 5\n          httpGet:\n            path: /status\n            port: 13133\n            scheme: HTTP\n          initialDelaySeconds: 5\n          periodSeconds: 15\n          successThreshold: 1\n          timeoutSeconds: 1\n        name: jaeger\n        ports:\n        - containerPort: 5775\n          protocol: UDP\n        - containerPort: 6831\n          protocol: UDP\n        - containerPort: 6832\n          protocol: UDP\n        - containerPort: 5778\n          protocol: TCP\n        - containerPort: 16686\n          protocol: TCP\n        - containerPort: 16685\n          protocol: TCP\n        - containerPort: 9411\n          protocol: TCP\n        - containerPort: 4317\n          protocol: TCP\n        - containerPort: 4318\n          protocol: TCP\n        - containerPort: 13133\n          protocol: TCP\n        - containerPort: 8888\n          protocol: TCP\n        readinessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /status\n            port: 13133\n            scheme: HTTP\n          initialDelaySeconds: 1\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 1\n        securityContext: {}\n        volumeMounts: null\n      securityContext:\n        fsGroup: 10001\n        runAsGroup: 10001\n        runAsUser: 10001\n      serviceAccountName: jaeger\n      volumes: null\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/jaeger",
+          "ResourceNameWithoutScope": "jaeger",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-jaeger",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7324fd33-cbce-405e-a807-a3af560ec2f4",
+      "UpdatedAt": "2026-06-12T17:00:13.998011Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:00:20.212889Z",
+        "CursorID": 23561,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "399ae004-4ee8-465d-8662-3c3ff9351524",
+        "LinkID": "33927c2a-32eb-4b23-937a-101795396771",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+        "SpaceSlug": "Jaeger-default-staging",
+        "ToSpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+        "ToUnitID": "6b969821-eb7c-48ea-86be-2c7942cf0a5a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:00:20.212889Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '6b969821-eb7c-48ea-86be-2c7942cf0a5a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:19.947205Z",
+      "CursorID": 4641,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Jaeger-default-staging",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "UpdatedAt": "2026-06-12T17:00:19.947205Z",
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fbe3ccb03fb5272ba3cc13ae12f74797d86c16c2bbbc40448460bbafc7bb84e7",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "33927c2a-32eb-4b23-937a-101795396771"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "399ae004-4ee8-465d-8662-3c3ff9351524",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "6b969821-eb7c-48ea-86be-2c7942cf0a5a",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "jaegertracing-jaeger",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1037850554,
+      "CreatedAt": "2026-06-12T17:00:07.135452Z",
+      "CursorID": 28424,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImphZWdlcnRyYWNpbmctamFlZ2VyIgogIHZlcnNpb246ICI0LjguMCIKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIGJhc2VzOgogIC0gbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAgIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAiamFlZ2VydHJhY2luZy9qYWVnZXIgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gamFlZ2VydHJhY2luZy9qYWVnZXJANC44LjAiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IGphZWdlcnRyYWNpbmctamFlZ2VyLWZ1bmN0aW9uLWNoYWluCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBqYWVnZXJ0cmFjaW5nLWphZWdlcgogIGdyb3VwczogW10KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IElucHV0cwptZXRhZGF0YToKICBuYW1lOiBqYWVnZXJ0cmFjaW5nLWphZWdlci1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGphZWdlcnRyYWNpbmctamFlZ2VyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgdmFsdWVzOiB7fQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogTWFuaWZlc3RJbmRleAptZXRhZGF0YToKICBuYW1lOiBqYWVnZXJ0cmFjaW5nLWphZWdlci1tYW5pZmVzdC1pbmRleAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogamFlZ2VydHJhY2luZy1qYWVnZXIKICBmaWxlczoKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWphZWdlci55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWphZWdlcgogICAgYXBpVmVyc2lvbjogYXBwcy92MQogICAga2luZDogRGVwbG95bWVudAogICAgbmFtZTogamFlZ2VyCiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWRlZmF1bHQueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWphZWdlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWphZWdlcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2UKICAgIG5hbWU6IGphZWdlcgogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWphZWdlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1qYWVnZXIKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZTogamFlZ2VyCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogamFlZ2VydHJhY2luZy1qYWVnZXItc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBqYWVnZXJ0cmFjaW5nLWphZWdlcgogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBqYWVnZXJ0cmFjaW5nLWphZWdlci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGphZWdlcnRyYWNpbmctamFlZ2VyCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLWphZWdlci1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IGphZWdlcnRyYWNpbmctamFlZ2VyCiAgICBzbHVnOiBoZWxtLWphZWdlci1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogICAgaXNQYXJlbnQ6IHRydWUKICB1cGxvYWRlZEF0OiAiMjAyNi0wNi0xMlQxNzowMDowMloiCiAgc2VydmVyOiBodHRwczovL2h1Yi5jb25maWdodWIuY29tCiAgb3JnYW5pemF0aW9uSUQ6IDU4YjIzYjg1LTk2OTktNDM4NC1iZDU3LTgwZWY2OTVhMWQ1OAo=",
+      "DataHash": "fbe3ccb03fb5272ba3cc13ae12f74797d86c16c2bbbc40448460bbafc7bb84e7",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "jaegertracing-jaeger"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/jaegertracing-jaeger": {}
+          },
+          "AliasesWithoutScopes": {
+            "jaegertracing-jaeger": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jaegertracing-jaeger",
+            "ResourceNameWithoutScope": "jaegertracing-jaeger",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"jaegertracing-jaeger\"\n  version: \"4.8.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"jaegertracing/jaeger default variant rendered from jaegertracing/jaeger@4.8.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jaegertracing-jaeger-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "jaegertracing-jaeger-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jaegertracing-jaeger-function-chain",
+            "ResourceNameWithoutScope": "jaegertracing-jaeger-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: jaegertracing-jaeger-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jaegertracing-jaeger\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jaegertracing-jaeger-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "jaegertracing-jaeger-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jaegertracing-jaeger-inputs",
+            "ResourceNameWithoutScope": "jaegertracing-jaeger-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: jaegertracing-jaeger-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jaegertracing-jaeger\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jaegertracing-jaeger-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "jaegertracing-jaeger-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jaegertracing-jaeger-manifest-index",
+            "ResourceNameWithoutScope": "jaegertracing-jaeger-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: jaegertracing-jaeger-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jaegertracing-jaeger\n  files:\n  - filename: deployment-jaeger.yaml\n    slug: deployment-jaeger\n    apiVersion: apps/v1\n    kind: Deployment\n    name: jaeger\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: service-jaeger.yaml\n    slug: service-jaeger\n    apiVersion: v1\n    kind: Service\n    name: jaeger\n  - filename: serviceaccount-jaeger.yaml\n    slug: serviceaccount-jaeger\n    apiVersion: v1\n    kind: ServiceAccount\n    name: jaeger\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jaegertracing-jaeger-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "jaegertracing-jaeger-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jaegertracing-jaeger-selection",
+            "ResourceNameWithoutScope": "jaegertracing-jaeger-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: jaegertracing-jaeger-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jaegertracing-jaeger\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jaegertracing-jaeger-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "jaegertracing-jaeger-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jaegertracing-jaeger-upload",
+            "ResourceNameWithoutScope": "jaegertracing-jaeger-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: jaegertracing-jaeger-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jaegertracing-jaeger\n  spacePattern: helm-jaeger-default-confighub-proof\n  spaces:\n  - package: jaegertracing-jaeger\n    slug: helm-jaeger-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:00:02Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6b969821-eb7c-48ea-86be-2c7942cf0a5a",
+      "UpdatedAt": "2026-06-12T17:00:08.173727Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:00:20.241646Z",
+        "CursorID": 23562,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f578e961-e67e-4aab-901f-c0d548b74176",
+        "LinkID": "ed43760e-cfdc-4c6f-8017-872925eb7666",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+        "SpaceSlug": "Jaeger-default-staging",
+        "ToSpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+        "ToUnitID": "7b9a9111-3338-47aa-b709-31b07a280a93",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:00:20.241646Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7b9a9111-3338-47aa-b709-31b07a280a93' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:19.947205Z",
+      "CursorID": 4641,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Jaeger-default-staging",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "UpdatedAt": "2026-06-12T17:00:19.947205Z",
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ed43760e-cfdc-4c6f-8017-872925eb7666"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f578e961-e67e-4aab-901f-c0d548b74176",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7b9a9111-3338-47aa-b709-31b07a280a93",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:00:04.294593Z",
+      "CursorID": 28390,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Jaeger",
+        "HelmChart": "jaegertracing-jaeger",
+        "HelmChartVersion": "4.8.0",
+        "Package": "jaegertracing-jaeger",
+        "Proof": "jaeger-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7b9a9111-3338-47aa-b709-31b07a280a93",
+      "UpdatedAt": "2026-06-12T17:00:04.32172Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:00:20.296739Z",
+        "CursorID": 23563,
+        "DisplayName": "Upgrade serviceaccount-jaeger",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b23b192a-3a9f-4c98-84a9-fe68bf88fd43",
+        "LinkID": "6c59360b-1524-44b1-bfd8-514a91725e80",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-jaeger",
+        "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+        "SpaceSlug": "Jaeger-default-staging",
+        "ToSpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+        "ToUnitID": "5c7b2bb1-9427-456b-9139-87ee90611d6e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:00:20.296739Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5c7b2bb1-9427-456b-9139-87ee90611d6e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:19.947205Z",
+      "CursorID": 4641,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Jaeger-default-staging",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "UpdatedAt": "2026-06-12T17:00:19.947205Z",
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "828d8931e8c05fa3a9318d3ca2577d513315818b659e2659abb489e7e8031509",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "6c59360b-1524-44b1-bfd8-514a91725e80"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-jaeger",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b23b192a-3a9f-4c98-84a9-fe68bf88fd43",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5c7b2bb1-9427-456b-9139-87ee90611d6e",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1101598611,
+      "CreatedAt": "2026-06-12T17:00:05.925775Z",
+      "CursorID": 28422,
+      "Data": "YXBpVmVyc2lvbjogdjEKYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQpraW5kOiBTZXJ2aWNlQWNjb3VudAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGFsbC1pbi1vbmUKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBqYWVnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGphZWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMi4xOC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBqYWVnZXItNC44LjAKICBuYW1lOiBqYWVnZXIK",
+      "DataHash": "828d8931e8c05fa3a9318d3ca2577d513315818b659e2659abb489e7e8031509",
+      "DisplayName": "serviceaccount-jaeger",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Jaeger",
+        "HelmChart": "jaegertracing-jaeger",
+        "HelmChartVersion": "4.8.0",
+        "Package": "jaegertracing-jaeger",
+        "Proof": "jaeger-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 333 bytes; from serviceaccount-jaeger.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/jaeger": {}
+          },
+          "AliasesWithoutScopes": {
+            "jaeger": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jaeger",
+            "ResourceNameWithoutScope": "jaeger",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nautomountServiceAccountToken: true\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/component: all-in-one\n    app.kubernetes.io/instance: jaeger\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: jaeger\n    app.kubernetes.io/version: 2.18.0\n    helm.sh/chart: jaeger-4.8.0\n  name: jaeger\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/jaeger",
+          "ResourceNameWithoutScope": "jaeger",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-jaeger",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c7b2bb1-9427-456b-9139-87ee90611d6e",
+      "UpdatedAt": "2026-06-12T17:00:05.995198Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:00:20.400843Z",
+        "CursorID": 23564,
+        "DisplayName": "Upgrade service-jaeger",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9178eeb7-26a9-47d4-a815-d874b95003bb",
+        "LinkID": "a7feb022-6bd4-4730-8d3d-2b9213e74c23",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-jaeger",
+        "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+        "SpaceSlug": "Jaeger-default-staging",
+        "ToSpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+        "ToUnitID": "088bcc33-a513-4e07-a357-f05555926a4a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:00:20.400843Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '088bcc33-a513-4e07-a357-f05555926a4a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:19.947205Z",
+      "CursorID": 4641,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Jaeger-default-staging",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "UpdatedAt": "2026-06-12T17:00:19.947205Z",
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ed06102db4c15f295fb0cbe9fb060c650a73db2735a229339a676b11b11c1ae9",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a7feb022-6bd4-4730-8d3d-2b9213e74c23"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-jaeger",
+      "SpaceID": "b1497113-3fd8-490e-a699-885922bb1e76",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9178eeb7-26a9-47d4-a815-d874b95003bb",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "088bcc33-a513-4e07-a357-f05555926a4a",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 910529681,
+      "CreatedAt": "2026-06-12T17:00:04.962529Z",
+      "CursorID": 28397,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGFsbC1pbi1vbmUKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBqYWVnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGphZWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMi4xOC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBqYWVnZXItNC44LjAKICBuYW1lOiBqYWVnZXIKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IHprLWNvbXBhY3QtdHJmdAogICAgcG9ydDogNTc3NQogICAgcHJvdG9jb2w6IFVEUAogICAgdGFyZ2V0UG9ydDogNTc3NQogIC0gbmFtZTogY29uZmlnLXJlc3QKICAgIHBvcnQ6IDU3NzgKICAgIHRhcmdldFBvcnQ6IDU3NzgKICAtIG5hbWU6IGpnLWNvbXBhY3QtdHJmdAogICAgcG9ydDogNjgzMQogICAgcHJvdG9jb2w6IFVEUAogICAgdGFyZ2V0UG9ydDogNjgzMQogIC0gbmFtZTogamctYmluYXJ5LXRyZnQKICAgIHBvcnQ6IDY4MzIKICAgIHByb3RvY29sOiBVRFAKICAgIHRhcmdldFBvcnQ6IDY4MzIKICAtIGFwcFByb3RvY29sOiBodHRwCiAgICBuYW1lOiBodHRwLXppcGtpbgogICAgcG9ydDogOTQxMQogICAgdGFyZ2V0UG9ydDogOTQxMQogIC0gYXBwUHJvdG9jb2w6IGdycGMKICAgIG5hbWU6IGdycGMtaHR0cAogICAgcG9ydDogMTQyNTAKICAgIHRhcmdldFBvcnQ6IDE0MjUwCiAgLSBuYW1lOiBjLXRjaGFuLXRyZnQKICAgIHBvcnQ6IDE0MjY3CiAgICB0YXJnZXRQb3J0OiAxNDI2NwogIC0gYXBwUHJvdG9jb2w6IGh0dHAKICAgIG5hbWU6IGh0dHAtYy1iaW5hcnktdHJmdAogICAgcG9ydDogMTQyNjgKICAgIHRhcmdldFBvcnQ6IDE0MjY4CiAgLSBhcHBQcm90b2NvbDogZ3JwYwogICAgbmFtZTogb3RscC1ncnBjCiAgICBwb3J0OiA0MzE3CiAgICB0YXJnZXRQb3J0OiA0MzE3CiAgLSBhcHBQcm90b2NvbDogaHR0cAogICAgbmFtZTogb3RscC1odHRwCiAgICBwb3J0OiA0MzE4CiAgICB0YXJnZXRQb3J0OiA0MzE4CiAgLSBuYW1lOiBodHRwLXF1ZXJ5CiAgICBwb3J0OiAxNjY4NgogICAgdGFyZ2V0UG9ydDogMTY2ODYKICAtIG5hbWU6IGdycGMtcXVlcnkKICAgIHBvcnQ6IDE2Njg1CiAgICB0YXJnZXRQb3J0OiAxNjY4NQogIC0gYXBwUHJvdG9jb2w6IGh0dHAKICAgIG5hbWU6IGludGVybmFsLW1ldHJpY3MKICAgIHBvcnQ6IDg4ODgKICAgIHRhcmdldFBvcnQ6IDg4ODgKICAtIGFwcFByb3RvY29sOiBodHRwCiAgICBuYW1lOiBzcGFuLW1ldHJpY3MKICAgIHBvcnQ6IDg4ODkKICAgIHRhcmdldFBvcnQ6IDg4ODkKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogYWxsLWluLW9uZQogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGphZWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogamFlZ2VyCiAgdHlwZTogQ2x1c3RlcklQCg==",
+      "DataHash": "ed06102db4c15f295fb0cbe9fb060c650a73db2735a229339a676b11b11c1ae9",
+      "DisplayName": "service-jaeger",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Jaeger",
+        "HelmChart": "jaegertracing-jaeger",
+        "HelmChartVersion": "4.8.0",
+        "Package": "jaegertracing-jaeger",
+        "Proof": "jaeger-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/jaeger": {}
+          },
+          "AliasesWithoutScopes": {
+            "jaeger": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jaeger",
+            "ResourceNameWithoutScope": "jaeger",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/component: all-in-one\n    app.kubernetes.io/instance: jaeger\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: jaeger\n    app.kubernetes.io/version: 2.18.0\n    helm.sh/chart: jaeger-4.8.0\n  name: jaeger\nspec:\n  ports:\n  - name: zk-compact-trft\n    port: 5775\n    protocol: UDP\n    targetPort: 5775\n  - name: config-rest\n    port: 5778\n    targetPort: 5778\n  - name: jg-compact-trft\n    port: 6831\n    protocol: UDP\n    targetPort: 6831\n  - name: jg-binary-trft\n    port: 6832\n    protocol: UDP\n    targetPort: 6832\n  - appProtocol: http\n    name: http-zipkin\n    port: 9411\n    targetPort: 9411\n  - appProtocol: grpc\n    name: grpc-http\n    port: 14250\n    targetPort: 14250\n  - name: c-tchan-trft\n    port: 14267\n    targetPort: 14267\n  - appProtocol: http\n    name: http-c-binary-trft\n    port: 14268\n    targetPort: 14268\n  - appProtocol: grpc\n    name: otlp-grpc\n    port: 4317\n    targetPort: 4317\n  - appProtocol: http\n    name: otlp-http\n    port: 4318\n    targetPort: 4318\n  - name: http-query\n    port: 16686\n    targetPort: 16686\n  - name: grpc-query\n    port: 16685\n    targetPort: 16685\n  - appProtocol: http\n    name: internal-metrics\n    port: 8888\n    targetPort: 8888\n  - appProtocol: http\n    name: span-metrics\n    port: 8889\n    targetPort: 8889\n  selector:\n    app.kubernetes.io/component: all-in-one\n    app.kubernetes.io/instance: jaeger\n    app.kubernetes.io/name: jaeger\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/jaeger",
+          "ResourceNameWithoutScope": "jaeger",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-jaeger",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "088bcc33-a513-4e07-a357-f05555926a4a",
+      "UpdatedAt": "2026-06-12T17:00:15.129107Z",
+      "Version": 10
+    }
+  }
+]

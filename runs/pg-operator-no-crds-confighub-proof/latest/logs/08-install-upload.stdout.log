@@ -1,0 +1,20 @@
+== percona-pg-operator@ → Space helm-pg-operator-no-crds-confighub-proof ==
+Successfully created unit deployment-default-pg-operator (34a01794-cd5c-410b-83b1-22eb5851bdba)
+Successfully created unit namespace-default (c79fc902-b634-4319-9294-cb0f73072cf6)
+Successfully created unit role-default-pg-operator (b3134fe2-5ed1-4bde-8a33-d60f5792997d)
+Successfully created unit rolebinding-default-pg-operator (81e4cda2-4e68-42df-b978-e67c05df365a)
+Successfully created unit serviceaccount-default-pg-operator (aa328ae9-44c3-4510-a516-54605be9b68c)
+Successfully created unit installer-record (2f32001a-ace6-4a78-9a09-fc4f05edcb5c)
+Linked deployment-default-pg-operator -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-pg-operator -> serviceaccount-default-pg-operator (reference:v1/ServiceAccount)
+Linked role-default-pg-operator -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-pg-operator -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-pg-operator -> serviceaccount-default-pg-operator (reference:v1/ServiceAccount)
+Linked serviceaccount-default-pg-operator -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - rolebinding-default-pg-operator -> rbac.authorization.k8s.io/v1/ClusterRole "pg-operator"

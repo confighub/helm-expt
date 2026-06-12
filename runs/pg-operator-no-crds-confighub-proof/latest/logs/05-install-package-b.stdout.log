@@ -1,0 +1,5 @@
+Bundled percona-pg-operator@
+  output: .tmp/confighub-proof/pg-operator-no-crds-archives/pg-operator-b.tgz
+  files:  6
+  size:   76201 bytes
+  digest: sha256:f35783bc9bec8ca739768c54c7fe382b4bcd6308955a83d3a0affab78f270604

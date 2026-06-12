@@ -1,0 +1,1343 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:17.879826Z",
+        "CursorID": 22842,
+        "DisplayName": "Upgrade clusterrolebinding-external-dns-viewer",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f49da6a4-fb5b-403b-ba89-50f4a07c5f50",
+        "LinkID": "623a5393-dde6-4711-853f-c8e501f743d2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-external-dns-viewer",
+        "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+        "SpaceSlug": "ExternalDNS-default-staging",
+        "ToSpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+        "ToUnitID": "d7e18f11-b3f5-4da0-aae7-4f5eb3a6b45f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:17.879827Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd7e18f11-b3f5-4da0-aae7-4f5eb3a6b45f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:17.687776Z",
+      "CursorID": 4605,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ExternalDNS-default-staging",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "UpdatedAt": "2026-06-12T16:52:17.687776Z",
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ce813bc1750877632687d8948e3c2826ff3d911b5cca42a2c19b8029f744c484",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "623a5393-dde6-4711-853f-c8e501f743d2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-external-dns-viewer",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f49da6a4-fb5b-403b-ba89-50f4a07c5f50",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d7e18f11-b3f5-4da0-aae7-4f5eb3a6b45f",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1281000396,
+      "CreatedAt": "2026-06-12T16:51:54.581896Z",
+      "CursorID": 27966,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGV4dGVybmFsLWRucwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZXh0ZXJuYWwtZG5zCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjIxLjAKICAgIGhlbG0uc2gvY2hhcnQ6IGV4dGVybmFsLWRucy0xLjIxLjEKICBuYW1lOiBleHRlcm5hbC1kbnMtdmlld2VyCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IGV4dGVybmFsLWRucwpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGV4dGVybmFsLWRucwogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "ce813bc1750877632687d8948e3c2826ff3d911b5cca42a2c19b8029f744c484",
+      "DisplayName": "clusterrolebinding-external-dns-viewer",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/external-dns-viewer": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns-viewer": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/external-dns-viewer",
+            "ResourceNameWithoutScope": "external-dns-viewer",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: external-dns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: external-dns\n    app.kubernetes.io/version: 0.21.0\n    helm.sh/chart: external-dns-1.21.1\n  name: external-dns-viewer\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: external-dns\nsubjects:\n- kind: ServiceAccount\n  name: external-dns\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-external-dns-viewer",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d7e18f11-b3f5-4da0-aae7-4f5eb3a6b45f",
+      "UpdatedAt": "2026-06-12T16:52:08.798487Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:17.9106Z",
+        "CursorID": 22843,
+        "DisplayName": "Upgrade clusterrole-external-dns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ec7505c3-dcc2-4f3f-bbc1-fe8384d557bd",
+        "LinkID": "67bb73bf-dcdb-4307-a412-b68d14202554",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-external-dns",
+        "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+        "SpaceSlug": "ExternalDNS-default-staging",
+        "ToSpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+        "ToUnitID": "e21a4e9b-4a4e-410b-8bdc-9f0219a0bde1",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:17.910601Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e21a4e9b-4a4e-410b-8bdc-9f0219a0bde1' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:17.687776Z",
+      "CursorID": 4605,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ExternalDNS-default-staging",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "UpdatedAt": "2026-06-12T16:52:17.687776Z",
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "26ed0868b51dd36ad6733cddf6d4c1c0645e40ec459314a59213be3176256ee4",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "67bb73bf-dcdb-4307-a412-b68d14202554"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-external-dns",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ec7505c3-dcc2-4f3f-bbc1-fe8384d557bd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e21a4e9b-4a4e-410b-8bdc-9f0219a0bde1",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1261206263,
+      "CreatedAt": "2026-06-12T16:51:53.812046Z",
+      "CursorID": 27965,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZXh0ZXJuYWwtZG5zCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBleHRlcm5hbC1kbnMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMjEuMAogICAgaGVsbS5zaC9jaGFydDogZXh0ZXJuYWwtZG5zLTEuMjEuMQogIG5hbWU6IGV4dGVybmFsLWRucwpydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIG5vZGVzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gcG9kcwogIHZlcmJzOgogIC0gZ2V0CiAgLSB3YXRjaAogIC0gbGlzdAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gc2VydmljZXMKICB2ZXJiczoKICAtIGdldAogIC0gd2F0Y2gKICAtIGxpc3QKLSBhcGlHcm91cHM6CiAgLSBkaXNjb3ZlcnkuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gZW5kcG9pbnRzbGljZXMKICB2ZXJiczoKICAtIGdldAogIC0gd2F0Y2gKICAtIGxpc3QKLSBhcGlHcm91cHM6CiAgLSBleHRlbnNpb25zCiAgLSBuZXR3b3JraW5nLms4cy5pbwogIHJlc291cmNlczoKICAtIGluZ3Jlc3NlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSB3YXRjaAogIC0gbGlzdAo=",
+      "DataHash": "26ed0868b51dd36ad6733cddf6d4c1c0645e40ec459314a59213be3176256ee4",
+      "DisplayName": "clusterrole-external-dns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/external-dns": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/external-dns",
+            "ResourceNameWithoutScope": "external-dns",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: external-dns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: external-dns\n    app.kubernetes.io/version: 0.21.0\n    helm.sh/chart: external-dns-1.21.1\n  name: external-dns\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes\n  verbs:\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  verbs:\n  - get\n  - watch\n  - list\n- apiGroups:\n  - \"\"\n  resources:\n  - services\n  verbs:\n  - get\n  - watch\n  - list\n- apiGroups:\n  - discovery.k8s.io\n  resources:\n  - endpointslices\n  verbs:\n  - get\n  - watch\n  - list\n- apiGroups:\n  - extensions\n  - networking.k8s.io\n  resources:\n  - ingresses\n  verbs:\n  - get\n  - watch\n  - list\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/external-dns",
+          "ResourceNameWithoutScope": "external-dns",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e21a4e9b-4a4e-410b-8bdc-9f0219a0bde1",
+      "UpdatedAt": "2026-06-12T16:51:59.893994Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:17.941563Z",
+        "CursorID": 22844,
+        "DisplayName": "Upgrade customresourcedefinition-dnsendpoints-externaldns-k8s-io",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3ebe9679-bb1a-4984-9dd3-30ea919f5fbe",
+        "LinkID": "b4138306-c8f6-4d39-ae10-c9c2465d1f93",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-customresourcedefinition-dnsendpoints-externaldns-k8s-io",
+        "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+        "SpaceSlug": "ExternalDNS-default-staging",
+        "ToSpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+        "ToUnitID": "4b6dc1d9-da01-4db9-8a8e-4bf3c4d1f599",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:17.941563Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4b6dc1d9-da01-4db9-8a8e-4bf3c4d1f599' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:17.687776Z",
+      "CursorID": 4605,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ExternalDNS-default-staging",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "UpdatedAt": "2026-06-12T16:52:17.687776Z",
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fd06fab5daa24d3c6a310ee5cb0c1d085999e0027e0b04235df704d7cacaa35e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b4138306-c8f6-4d39-ae10-c9c2465d1f93"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-dnsendpoints-externaldns-k8s-io",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3ebe9679-bb1a-4984-9dd3-30ea919f5fbe",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4b6dc1d9-da01-4db9-8a8e-4bf3c4d1f599",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -237749859,
+      "CreatedAt": "2026-06-12T16:51:55.316829Z",
+      "CursorID": 27967,
+      "Data": "YXBpVmVyc2lvbjogYXBpZXh0ZW5zaW9ucy5rOHMuaW8vdjEKa2luZDogQ3VzdG9tUmVzb3VyY2VEZWZpbml0aW9uCm1ldGFkYXRhOgogIGFubm90YXRpb25zOgogICAgYXBpLWFwcHJvdmVkLmt1YmVybmV0ZXMuaW86IGh0dHBzOi8vZ2l0aHViLmNvbS9rdWJlcm5ldGVzLXNpZ3MvZXh0ZXJuYWwtZG5zL3B1bGwvMjAwNwogIG5hbWU6IGRuc2VuZHBvaW50cy5leHRlcm5hbGRucy5rOHMuaW8Kc3BlYzoKICBncm91cDogZXh0ZXJuYWxkbnMuazhzLmlvCiAgbmFtZXM6CiAgICBraW5kOiBETlNFbmRwb2ludAogICAgbGlzdEtpbmQ6IEROU0VuZHBvaW50TGlzdAogICAgcGx1cmFsOiBkbnNlbmRwb2ludHMKICAgIHNpbmd1bGFyOiBkbnNlbmRwb2ludAogIHNjb3BlOiBOYW1lc3BhY2VkCiAgdmVyc2lvbnM6CiAgLSBuYW1lOiB2MWFscGhhMQogICAgc2NoZW1hOgogICAgICBvcGVuQVBJVjNTY2hlbWE6CiAgICAgICAgZGVzY3JpcHRpb246IHwtCiAgICAgICAgICBETlNFbmRwb2ludCBpcyBhIGNvbnRyYWN0IHRoYXQgYSB1c2VyLXNwZWNpZmllZCBDUkQgbXVzdCBpbXBsZW1lbnQgdG8gYmUgdXNlZCBhcyBhIHNvdXJjZSBmb3IgZXh0ZXJuYWwtZG5zLgogICAgICAgICAgVGhlIHVzZXItc3BlY2lmaWVkIENSRCBzaG91bGQgYWxzbyBoYXZlIHRoZSBzdGF0dXMgc3ViLXJlc291cmNlLgogICAgICAgIHByb3BlcnRpZXM6CiAgICAgICAgICBhcGlWZXJzaW9uOgogICAgICAgICAgICBkZXNjcmlwdGlvbjogfC0KICAgICAgICAgICAgICBBUElWZXJzaW9uIGRlZmluZXMgdGhlIHZlcnNpb25lZCBzY2hlbWEgb2YgdGhpcyByZXByZXNlbnRhdGlvbiBvZiBhbiBvYmplY3QuCiAgICAgICAgICAgICAgU2VydmVycyBzaG91bGQgY29udmVydCByZWNvZ25pemVkIHNjaGVtYXMgdG8gdGhlIGxhdGVzdCBpbnRlcm5hbCB2YWx1ZSwgYW5kCiAgICAgICAgICAgICAgbWF5IHJlamVjdCB1bnJlY29nbml6ZWQgdmFsdWVzLgogICAgICAgICAgICAgIE1vcmUgaW5mbzogaHR0cHM6Ly9naXQuazhzLmlvL2NvbW11bml0eS9jb250cmlidXRvcnMvZGV2ZWwvc2lnLWFyY2hpdGVjdHVyZS9hcGktY29udmVudGlvbnMubWQjcmVzb3VyY2VzCiAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAga2luZDoKICAgICAgICAgICAgZGVzY3JpcHRpb246IHwtCiAgICAgICAgICAgICAgS2luZCBpcyBhIHN0cmluZyB2YWx1ZSByZXByZXNlbnRpbmcgdGhlIFJFU1QgcmVzb3VyY2UgdGhpcyBvYmplY3QgcmVwcmVzZW50cy4KICAgICAgICAgICAgICBTZXJ2ZXJzIG1heSBpbmZlciB0aGlzIGZyb20gdGhlIGVuZHBvaW50IHRoZSBjbGllbnQgc3VibWl0cyByZXF1ZXN0cyB0by4KICAgICAgICAgICAgICBDYW5ub3QgYmUgdXBkYXRlZC4KICAgICAgICAgICAgICBJbiBDYW1lbENhc2UuCiAgICAgICAgICAgICAgTW9yZSBpbmZvOiBodHRwczovL2dpdC5rOHMuaW8vY29tbXVuaXR5L2NvbnRyaWJ1dG9ycy9kZXZlbC9zaWctYXJjaGl0ZWN0dXJlL2FwaS1jb252ZW50aW9ucy5tZCN0eXBlcy1raW5kcwogICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgIG1ldGFkYXRhOgogICAgICAgICAgICB0eXBlOiBvYmplY3QKICAgICAgICAgIHNwZWM6CiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBETlNFbmRwb2ludFNwZWMgZGVmaW5lcyB0aGUgZGVzaXJlZCBzdGF0ZSBvZiBETlNFbmRwb2ludAogICAgICAgICAgICBwcm9wZXJ0aWVzOgogICAgICAgICAgICAgIGVuZHBvaW50czoKICAgICAgICAgICAgICAgIGl0ZW1zOgogICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogRW5kcG9pbnQgaXMgYSBoaWdoLWxldmVsIHdheSBvZiBhIGNvbm5lY3Rpb24gYmV0d2VlbiBhIHNlcnZpY2UgYW5kIGFuIElQCiAgICAgICAgICAgICAgICAgIHByb3BlcnRpZXM6CiAgICAgICAgICAgICAgICAgICAgZG5zTmFtZToKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBUaGUgaG9zdG5hbWUgb2YgdGhlIEROUyByZWNvcmQKICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgICAgICAgIGxhYmVsczoKICAgICAgICAgICAgICAgICAgICAgIGFkZGl0aW9uYWxQcm9wZXJ0aWVzOgogICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBMYWJlbHMgc3RvcmVzIGxhYmVscyBkZWZpbmVkIGZvciB0aGUgRW5kcG9pbnQKICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IG9iamVjdAogICAgICAgICAgICAgICAgICAgIHByb3ZpZGVyU3BlY2lmaWM6CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogUHJvdmlkZXJTcGVjaWZpYyBzdG9yZXMgcHJvdmlkZXIgc3BlY2lmaWMgY29uZmlnCiAgICAgICAgICAgICAgICAgICAgICBpdGVtczoKICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFByb3ZpZGVyU3BlY2lmaWNQcm9wZXJ0eSBob2xkcyB0aGUgbmFtZSBhbmQgdmFsdWUgb2YgYSBjb25maWd1cmF0aW9uIHdoaWNoIGlzIHNwZWNpZmljIHRvIGluZGl2aWR1YWwgRE5TIHByb3ZpZGVycwogICAgICAgICAgICAgICAgICAgICAgICBwcm9wZXJ0aWVzOgogICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWU6CiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZToKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBvYmplY3QKICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IGFycmF5CiAgICAgICAgICAgICAgICAgICAgcmVjb3JkVFRMOgogICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFRUTCBmb3IgdGhlIHJlY29yZAogICAgICAgICAgICAgICAgICAgICAgZm9ybWF0OiBpbnQ2NAogICAgICAgICAgICAgICAgICAgICAgdHlwZTogaW50ZWdlcgogICAgICAgICAgICAgICAgICAgIHJlY29yZFR5cGU6CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogUmVjb3JkVHlwZSB0eXBlIG9mIHJlY29yZCwgZS5nLiBDTkFNRSwgQSwgQUFBQSwgU1JWLCBUWFQgZXRjCiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICBzZXRJZGVudGlmaWVyOgogICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IElkZW50aWZpZXIgdG8gZGlzdGluZ3Vpc2ggbXVsdGlwbGUgcmVjb3JkcyB3aXRoIHRoZSBzYW1lIG5hbWUgYW5kIHR5cGUgKGUuZy4gUm91dGU1MyByZWNvcmRzIHdpdGggcm91dGluZyBwb2xpY2llcyBvdGhlciB0aGFuICdzaW1wbGUnKQogICAgICAgICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgICAgICAgdGFyZ2V0czoKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBUaGUgdGFyZ2V0cyB0aGUgRE5TIHJlY29yZCBwb2ludHMgdG8KICAgICAgICAgICAgICAgICAgICAgIGl0ZW1zOgogICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IGFycmF5CiAgICAgICAgICAgICAgICAgIHR5cGU6IG9iamVjdAogICAgICAgICAgICAgICAgdHlwZTogYXJyYXkKICAgICAgICAgICAgdHlwZTogb2JqZWN0CiAgICAgICAgICBzdGF0dXM6CiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBETlNFbmRwb2ludFN0YXR1cyBkZWZpbmVzIHRoZSBvYnNlcnZlZCBzdGF0ZSBvZiBETlNFbmRwb2ludAogICAgICAgICAgICBwcm9wZXJ0aWVzOgogICAgICAgICAgICAgIG9ic2VydmVkR2VuZXJhdGlvbjoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBUaGUgZ2VuZXJhdGlvbiBvYnNlcnZlZCBieSB0aGUgZXh0ZXJuYWwtZG5zIGNvbnRyb2xsZXIuCiAgICAgICAgICAgICAgICBmb3JtYXQ6IGludDY0CiAgICAgICAgICAgICAgICB0eXBlOiBpbnRlZ2VyCiAgICAgICAgICAgIHR5cGU6IG9iamVjdAogICAgICAgIHR5cGU6IG9iamVjdAogICAgc2VydmVkOiB0cnVlCiAgICBzdG9yYWdlOiB0cnVlCiAgICBzdWJyZXNvdXJjZXM6CiAgICAgIHN0YXR1czoge30K",
+      "DataHash": "fd06fab5daa24d3c6a310ee5cb0c1d085999e0027e0b04235df704d7cacaa35e",
+      "DisplayName": "customresourcedefinition-dnsendpoints-externaldns-k8s-io",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/dnsendpoints.externaldns.k8s.io": {}
+          },
+          "AliasesWithoutScopes": {
+            "dnsendpoints.externaldns.k8s.io": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/dnsendpoints.externaldns.k8s.io",
+            "ResourceNameWithoutScope": "dnsendpoints.externaldns.k8s.io",
+            "ResourceType": "apiextensions.k8s.io/v1/CustomResourceDefinition"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apiextensions.k8s.io/v1\nkind: CustomResourceDefinition\nmetadata:\n  annotations:\n    api-approved.kubernetes.io: https://github.com/kubernetes-sigs/external-dns/pull/2007\n  name: dnsendpoints.externaldns.k8s.io\nspec:\n  group: externaldns.k8s.io\n  names:\n    kind: DNSEndpoint\n    listKind: DNSEndpointList\n    plural: dnsendpoints\n    singular: dnsendpoint\n  scope: Namespaced\n  versions:\n  - name: v1alpha1\n    schema:\n      openAPIV3Schema:\n        description: |-\n          DNSEndpoint is a contract that a user-specified CRD must implement to be used as a source for external-dns.\n          The user-specified CRD should also have the status sub-resource.\n        properties:\n          apiVersion:\n            description: |-\n              APIVersion defines the versioned schema of this representation of an object.\n              Servers should convert recognized schemas to the latest internal value, and\n              may reject unrecognized values.\n              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources\n            type: string\n          kind:\n            description: |-\n              Kind is a string value representing the REST resource this object represents.\n              Servers may infer this from the endpoint the client submits requests to.\n              Cannot be updated.\n              In CamelCase.\n              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds\n            type: string\n          metadata:\n            type: object\n          spec:\n            description: DNSEndpointSpec defines the desired state of DNSEndpoint\n            properties:\n              endpoints:\n                items:\n                  description: Endpoint is a high-level way of a connection between a service and an IP\n                  properties:\n                    dnsName:\n                      description: The hostname of the DNS record\n                      type: string\n                    labels:\n                      additionalProperties:\n                        type: string\n                      description: Labels stores labels defined for the Endpoint\n                      type: object\n                    providerSpecific:\n                      description: ProviderSpecific stores provider specific config\n                      items:\n                        description: ProviderSpecificProperty holds the name and value of a configuration which is specific to individual DNS providers\n                        properties:\n                          name:\n                            type: string\n                          value:\n                            type: string\n                        type: object\n                      type: array\n                    recordTTL:\n                      description: TTL for the record\n                      format: int64\n                      type: integer\n                    recordType:\n                      description: RecordType type of record, e.g. CNAME, A, AAAA, SRV, TXT etc\n                      type: string\n                    setIdentifier:\n                      description: Identifier to distinguish multiple records with the same name and type (e.g. Route53 records with routing policies other than 'simple')\n                      type: string\n                    targets:\n                      description: The targets the DNS record points to\n                      items:\n                        type: string\n                      type: array\n                  type: object\n                type: array\n            type: object\n          status:\n            description: DNSEndpointStatus defines the observed state of DNSEndpoint\n            properties:\n              observedGeneration:\n                description: The generation observed by the external-dns controller.\n                format: int64\n                type: integer\n            type: object\n        type: object\n    served: true\n    storage: true\n    subresources:\n      status: {}\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-dnsendpoints-externaldns-k8s-io",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4b6dc1d9-da01-4db9-8a8e-4bf3c4d1f599",
+      "UpdatedAt": "2026-06-12T16:51:59.928062Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:17.970372Z",
+        "CursorID": 22845,
+        "DisplayName": "Upgrade deployment-default-external-dns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "823bd916-bfa0-4347-b178-766f8e9a0489",
+        "LinkID": "da21835d-3d99-478d-acd5-fddea3ddd7d2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-external-dns",
+        "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+        "SpaceSlug": "ExternalDNS-default-staging",
+        "ToSpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+        "ToUnitID": "5c0b41c1-092a-435c-b503-6eb000fe8807",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:17.970373Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5c0b41c1-092a-435c-b503-6eb000fe8807' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:17.687776Z",
+      "CursorID": 4605,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ExternalDNS-default-staging",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "UpdatedAt": "2026-06-12T16:52:17.687776Z",
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "73d495c5c93657a6809b91470b47a4dbc45ad0ca38babe3b5feb92ce28c6bb0e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "da21835d-3d99-478d-acd5-fddea3ddd7d2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-external-dns",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "823bd916-bfa0-4347-b178-766f8e9a0489",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5c0b41c1-092a-435c-b503-6eb000fe8807",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1610789617,
+      "CreatedAt": "2026-06-12T16:51:56.199549Z",
+      "CursorID": 27968,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBleHRlcm5hbC1kbnMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGV4dGVybmFsLWRucwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4yMS4wCiAgICBoZWxtLnNoL2NoYXJ0OiBleHRlcm5hbC1kbnMtMS4yMS4xCiAgbmFtZTogZXh0ZXJuYWwtZG5zCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZXh0ZXJuYWwtZG5zCiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGV4dGVybmFsLWRucwogIHN0cmF0ZWd5OgogICAgdHlwZTogUmVjcmVhdGUKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGV4dGVybmFsLWRucwogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGV4dGVybmFsLWRucwogICAgc3BlYzoKICAgICAgYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSAtLWxvZy1sZXZlbD1pbmZvCiAgICAgICAgLSAtLWxvZy1mb3JtYXQ9dGV4dAogICAgICAgIC0gLS1pbnRlcnZhbD0xbQogICAgICAgIC0gLS1zb3VyY2U9c2VydmljZQogICAgICAgIC0gLS1zb3VyY2U9aW5ncmVzcwogICAgICAgIC0gLS1wb2xpY3k9dXBzZXJ0LW9ubHkKICAgICAgICAtIC0tcmVnaXN0cnk9dHh0CiAgICAgICAgLSAtLXByb3ZpZGVyPWF3cwogICAgICAgIGltYWdlOiByZWdpc3RyeS5rOHMuaW8vZXh0ZXJuYWwtZG5zL2V4dGVybmFsLWRuczp2MC4yMS4wCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogaHR0cAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDEwCiAgICAgICAgICBzdWNjZXNzVGhyZXNob2xkOiAxCiAgICAgICAgICB0aW1lb3V0U2Vjb25kczogNQogICAgICAgIG5hbWU6IGV4dGVybmFsLWRucwogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogNzk3OQogICAgICAgICAgbmFtZTogaHR0cAogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogNgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogaHR0cAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogNQogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTAKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAtIEFMTAogICAgICAgICAgcHJpdmlsZWdlZDogZmFsc2UKICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IHRydWUKICAgICAgICAgIHJ1bkFzR3JvdXA6IDY1NTMyCiAgICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICAgIHJ1bkFzVXNlcjogNjU1MzIKICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIGZzR3JvdXA6IDY1NTM0CiAgICAgICAgcnVuQXNOb25Sb290OiB0cnVlCiAgICAgICAgc2VjY29tcFByb2ZpbGU6CiAgICAgICAgICB0eXBlOiBSdW50aW1lRGVmYXVsdAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IGV4dGVybmFsLWRucwo=",
+      "DataHash": "73d495c5c93657a6809b91470b47a4dbc45ad0ca38babe3b5feb92ce28c6bb0e",
+      "DisplayName": "deployment-default-external-dns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/external-dns": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/external-dns",
+            "ResourceNameWithoutScope": "external-dns",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: external-dns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: external-dns\n    app.kubernetes.io/version: 0.21.0\n    helm.sh/chart: external-dns-1.21.1\n  name: external-dns\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: external-dns\n      app.kubernetes.io/name: external-dns\n  strategy:\n    type: Recreate\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/instance: external-dns\n        app.kubernetes.io/name: external-dns\n    spec:\n      automountServiceAccountToken: true\n      containers:\n      - args:\n        - --log-level=info\n        - --log-format=text\n        - --interval=1m\n        - --source=service\n        - --source=ingress\n        - --policy=upsert-only\n        - --registry=txt\n        - --provider=aws\n        image: registry.k8s.io/external-dns/external-dns:v0.21.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 2\n          httpGet:\n            path: /healthz\n            port: http\n          initialDelaySeconds: 10\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 5\n        name: external-dns\n        ports:\n        - containerPort: 7979\n          name: http\n          protocol: TCP\n        readinessProbe:\n          failureThreshold: 6\n          httpGet:\n            path: /healthz\n            port: http\n          initialDelaySeconds: 5\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 5\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          privileged: false\n          readOnlyRootFilesystem: true\n          runAsGroup: 65532\n          runAsNonRoot: true\n          runAsUser: 65532\n      securityContext:\n        fsGroup: 65534\n        runAsNonRoot: true\n        seccompProfile:\n          type: RuntimeDefault\n      serviceAccountName: external-dns\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/external-dns",
+          "ResourceNameWithoutScope": "external-dns",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c0b41c1-092a-435c-b503-6eb000fe8807",
+      "UpdatedAt": "2026-06-12T16:52:09.874706Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:18.008887Z",
+        "CursorID": 22846,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f92ec97d-9da0-4491-a73a-1249e49e8a0e",
+        "LinkID": "42194bfc-1062-448a-a603-9d5e406a7ac3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+        "SpaceSlug": "ExternalDNS-default-staging",
+        "ToSpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+        "ToUnitID": "f921c107-2602-4faa-b7f9-d359687b066a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:18.008887Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f921c107-2602-4faa-b7f9-d359687b066a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:17.687776Z",
+      "CursorID": 4605,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ExternalDNS-default-staging",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "UpdatedAt": "2026-06-12T16:52:17.687776Z",
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fd65a7a202d2acaf4addb8ee341d21cbc19fb2cde27e9e01877f8ce28b0989b7",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "42194bfc-1062-448a-a603-9d5e406a7ac3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f92ec97d-9da0-4491-a73a-1249e49e8a0e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f921c107-2602-4faa-b7f9-d359687b066a",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "external-dns-external-dns",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1297322892,
+      "CreatedAt": "2026-06-12T16:51:59.129972Z",
+      "CursorID": 27972,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImV4dGVybmFsLWRucy1leHRlcm5hbC1kbnMiCiAgdmVyc2lvbjogIjEuMjEuMSIKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIGJhc2VzOgogIC0gZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJleHRlcm5hbC1kbnMvZXh0ZXJuYWwtZG5zIGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIGV4dGVybmFsLWRucy9leHRlcm5hbC1kbnNAMS4yMS4xIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIGRlc2NyaXB0aW9uOiAiZXh0ZXJuYWwtZG5zL2V4dGVybmFsLWRucyBuby1jcmRzIHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBleHRlcm5hbC1kbnMvZXh0ZXJuYWwtZG5zQDEuMjEuMSIKICAgIG5hbWU6ICJuby1jcmRzIgogICAgcGF0aDogImJhc2VzL25vLWNyZHMiCiAgLSBuYW1lOiAiZHJ5LXJ1bi10eHQtcmVnaXN0cnkiCiAgICBwYXRoOiAiYmFzZXMvZHJ5LXJ1bi10eHQtcmVnaXN0cnkiCiAgICBkZXNjcmlwdGlvbjogImV4dGVybmFsLWRucy9leHRlcm5hbC1kbnMgZHJ5LXJ1bi10eHQtcmVnaXN0cnkgdmFyaWFudCByZW5kZXJlZCBmcm9tIGV4dGVybmFsLWRucy9leHRlcm5hbC1kbnNAMS4yMS4xIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiBleHRlcm5hbC1kbnMtZXh0ZXJuYWwtZG5zLWZ1bmN0aW9uLWNoYWluCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBleHRlcm5hbC1kbnMtZXh0ZXJuYWwtZG5zCiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IGV4dGVybmFsLWRucy1leHRlcm5hbC1kbnMtaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBleHRlcm5hbC1kbnMtZXh0ZXJuYWwtZG5zCiAgbmFtZXNwYWNlOiBleHRlcm5hbC1kbnMKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGV4dGVybmFsLWRucy1leHRlcm5hbC1kbnMtbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGV4dGVybmFsLWRucy1leHRlcm5hbC1kbnMKICBmaWxlczoKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS1leHRlcm5hbC1kbnMueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtZXh0ZXJuYWwtZG5zCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogZXh0ZXJuYWwtZG5zCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGViaW5kaW5nLWV4dGVybmFsLWRucy12aWV3ZXIueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLWV4dGVybmFsLWRucy12aWV3ZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogZXh0ZXJuYWwtZG5zLXZpZXdlcgogIC0gZmlsZW5hbWU6IGN1c3RvbXJlc291cmNlZGVmaW5pdGlvbi1kbnNlbmRwb2ludHMtZXh0ZXJuYWxkbnMtazhzLWlvLnlhbWwKICAgIHNsdWc6IGN1c3RvbXJlc291cmNlZGVmaW5pdGlvbi1kbnNlbmRwb2ludHMtZXh0ZXJuYWxkbnMtazhzLWlvCiAgICBhcGlWZXJzaW9uOiBhcGlleHRlbnNpb25zLms4cy5pby92MQogICAga2luZDogQ3VzdG9tUmVzb3VyY2VEZWZpbml0aW9uCiAgICBuYW1lOiBkbnNlbmRwb2ludHMuZXh0ZXJuYWxkbnMuazhzLmlvCiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LWV4dGVybmFsLWRucy55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtZXh0ZXJuYWwtZG5zCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiBleHRlcm5hbC1kbnMKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS1leHRlcm5hbC1kbnMueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWV4dGVybmFsLWRucwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZXh0ZXJuYWwtZG5zCiAgLSBmaWxlbmFtZTogc2VydmljZS1kZWZhdWx0LWV4dGVybmFsLWRucy55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWRlZmF1bHQtZXh0ZXJuYWwtZG5zCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogZXh0ZXJuYWwtZG5zCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWV4dGVybmFsLWRucy55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWV4dGVybmFsLWRucwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBleHRlcm5hbC1kbnMKICAgIG5hbWVzcGFjZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGV4dGVybmFsLWRucy1leHRlcm5hbC1kbnMtc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBleHRlcm5hbC1kbnMtZXh0ZXJuYWwtZG5zCiAgYmFzZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogVXBsb2FkCm1ldGFkYXRhOgogIG5hbWU6IGV4dGVybmFsLWRucy1leHRlcm5hbC1kbnMtdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBleHRlcm5hbC1kbnMtZXh0ZXJuYWwtZG5zCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLWV4dGVybmFsLWRucy1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IGV4dGVybmFsLWRucy1leHRlcm5hbC1kbnMKICAgIHNsdWc6IGhlbG0tZXh0ZXJuYWwtZG5zLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjUxOjUyWiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "fd65a7a202d2acaf4addb8ee341d21cbc19fb2cde27e9e01877f8ce28b0989b7",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "external-dns-external-dns"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/external-dns-external-dns": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns-external-dns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/external-dns-external-dns",
+            "ResourceNameWithoutScope": "external-dns-external-dns",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"external-dns-external-dns\"\n  version: \"1.21.1\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"external-dns/external-dns default variant rendered from external-dns/external-dns@1.21.1\"\n    name: \"default\"\n    path: \"bases/default\"\n  - description: \"external-dns/external-dns no-crds variant rendered from external-dns/external-dns@1.21.1\"\n    name: \"no-crds\"\n    path: \"bases/no-crds\"\n  - name: \"dry-run-txt-registry\"\n    path: \"bases/dry-run-txt-registry\"\n    description: \"external-dns/external-dns dry-run-txt-registry variant rendered from external-dns/external-dns@1.21.1\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/external-dns-external-dns-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns-external-dns-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/external-dns-external-dns-function-chain",
+            "ResourceNameWithoutScope": "external-dns-external-dns-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: external-dns-external-dns-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: external-dns-external-dns\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/external-dns-external-dns-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns-external-dns-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/external-dns-external-dns-inputs",
+            "ResourceNameWithoutScope": "external-dns-external-dns-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: external-dns-external-dns-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: external-dns-external-dns\n  namespace: external-dns\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/external-dns-external-dns-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns-external-dns-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/external-dns-external-dns-manifest-index",
+            "ResourceNameWithoutScope": "external-dns-external-dns-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: external-dns-external-dns-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: external-dns-external-dns\n  files:\n  - filename: clusterrole-external-dns.yaml\n    slug: clusterrole-external-dns\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: external-dns\n  - filename: clusterrolebinding-external-dns-viewer.yaml\n    slug: clusterrolebinding-external-dns-viewer\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: external-dns-viewer\n  - filename: customresourcedefinition-dnsendpoints-externaldns-k8s-io.yaml\n    slug: customresourcedefinition-dnsendpoints-externaldns-k8s-io\n    apiVersion: apiextensions.k8s.io/v1\n    kind: CustomResourceDefinition\n    name: dnsendpoints.externaldns.k8s.io\n  - filename: deployment-default-external-dns.yaml\n    slug: deployment-default-external-dns\n    apiVersion: apps/v1\n    kind: Deployment\n    name: external-dns\n    namespace: default\n  - filename: namespace-external-dns.yaml\n    slug: namespace-external-dns\n    apiVersion: v1\n    kind: Namespace\n    name: external-dns\n  - filename: service-default-external-dns.yaml\n    slug: service-default-external-dns\n    apiVersion: v1\n    kind: Service\n    name: external-dns\n    namespace: default\n  - filename: serviceaccount-default-external-dns.yaml\n    slug: serviceaccount-default-external-dns\n    apiVersion: v1\n    kind: ServiceAccount\n    name: external-dns\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/external-dns-external-dns-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns-external-dns-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/external-dns-external-dns-selection",
+            "ResourceNameWithoutScope": "external-dns-external-dns-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: external-dns-external-dns-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: external-dns-external-dns\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/external-dns-external-dns-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns-external-dns-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/external-dns-external-dns-upload",
+            "ResourceNameWithoutScope": "external-dns-external-dns-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: external-dns-external-dns-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: external-dns-external-dns\n  spacePattern: helm-external-dns-default-confighub-proof\n  spaces:\n  - package: external-dns-external-dns\n    slug: helm-external-dns-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:51:52Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f921c107-2602-4faa-b7f9-d359687b066a",
+      "UpdatedAt": "2026-06-12T16:52:00.001611Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:18.123663Z",
+        "CursorID": 22847,
+        "DisplayName": "Upgrade namespace-external-dns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "adef77b4-7be5-46a2-9234-1e455c8b835c",
+        "LinkID": "470184c8-b19a-4782-82f9-4c2e8937555b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-external-dns",
+        "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+        "SpaceSlug": "ExternalDNS-default-staging",
+        "ToSpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+        "ToUnitID": "35b3a713-4b0b-47dd-8ece-6247aaeed7b6",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:18.123663Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '35b3a713-4b0b-47dd-8ece-6247aaeed7b6' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:17.687776Z",
+      "CursorID": 4605,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ExternalDNS-default-staging",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "UpdatedAt": "2026-06-12T16:52:17.687776Z",
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b86dffeec9f1e74217436d2886a82aa46317c1b395359a099d1322e359813d12",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "470184c8-b19a-4782-82f9-4c2e8937555b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-external-dns",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "adef77b4-7be5-46a2-9234-1e455c8b835c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "35b3a713-4b0b-47dd-8ece-6247aaeed7b6",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1508431364,
+      "CreatedAt": "2026-06-12T16:51:56.90781Z",
+      "CursorID": 27969,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGV4dGVybmFsLWRucwo=",
+      "DataHash": "b86dffeec9f1e74217436d2886a82aa46317c1b395359a099d1322e359813d12",
+      "DisplayName": "namespace-external-dns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 62 bytes; from namespace-external-dns.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/external-dns": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/external-dns",
+            "ResourceNameWithoutScope": "external-dns",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: external-dns\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/external-dns",
+          "ResourceNameWithoutScope": "external-dns",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "35b3a713-4b0b-47dd-8ece-6247aaeed7b6",
+      "UpdatedAt": "2026-06-12T16:51:56.934145Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:18.167244Z",
+        "CursorID": 22848,
+        "DisplayName": "Upgrade serviceaccount-default-external-dns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2ded2f8a-e070-47fb-8892-494990c10c72",
+        "LinkID": "2b76df43-028c-417c-bcc5-38997f29719d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-external-dns",
+        "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+        "SpaceSlug": "ExternalDNS-default-staging",
+        "ToSpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+        "ToUnitID": "2eafe6b3-3498-48e1-805a-90221bab70e6",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:18.167244Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2eafe6b3-3498-48e1-805a-90221bab70e6' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:17.687776Z",
+      "CursorID": 4605,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ExternalDNS-default-staging",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "UpdatedAt": "2026-06-12T16:52:17.687776Z",
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e2d89adfabd02eb2d10a2d4ca8f51fe7e39f859efc82a7733238a047e80c02b9",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "2b76df43-028c-417c-bcc5-38997f29719d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-external-dns",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2ded2f8a-e070-47fb-8892-494990c10c72",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2eafe6b3-3498-48e1-805a-90221bab70e6",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 254264132,
+      "CreatedAt": "2026-06-12T16:51:58.457526Z",
+      "CursorID": 27971,
+      "Data": "YXBpVmVyc2lvbjogdjEKYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQpraW5kOiBTZXJ2aWNlQWNjb3VudAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZXh0ZXJuYWwtZG5zCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBleHRlcm5hbC1kbnMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMjEuMAogICAgaGVsbS5zaC9jaGFydDogZXh0ZXJuYWwtZG5zLTEuMjEuMQogIG5hbWU6IGV4dGVybmFsLWRucwogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "e2d89adfabd02eb2d10a2d4ca8f51fe7e39f859efc82a7733238a047e80c02b9",
+      "DisplayName": "serviceaccount-default-external-dns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 335 bytes; from serviceaccount-default-external-dns.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/external-dns": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/external-dns",
+            "ResourceNameWithoutScope": "external-dns",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nautomountServiceAccountToken: true\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: external-dns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: external-dns\n    app.kubernetes.io/version: 0.21.0\n    helm.sh/chart: external-dns-1.21.1\n  name: external-dns\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/external-dns",
+          "ResourceNameWithoutScope": "external-dns",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2eafe6b3-3498-48e1-805a-90221bab70e6",
+      "UpdatedAt": "2026-06-12T16:51:58.489702Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:18.228506Z",
+        "CursorID": 22849,
+        "DisplayName": "Upgrade service-default-external-dns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "fc31a228-0e8c-411c-a59e-a52450a57e4f",
+        "LinkID": "af054524-81ae-42ca-ba1f-5489752d6b22",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-external-dns",
+        "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+        "SpaceSlug": "ExternalDNS-default-staging",
+        "ToSpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+        "ToUnitID": "d1c053ba-ca56-4084-bb17-563e38ee9a75",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:18.228506Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd1c053ba-ca56-4084-bb17-563e38ee9a75' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:17.687776Z",
+      "CursorID": 4605,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ExternalDNS-default-staging",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "UpdatedAt": "2026-06-12T16:52:17.687776Z",
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "76f8d52c5deaf1fb9584673899429140445fa2c927a66cad8925e4fc7ca6c32c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "af054524-81ae-42ca-ba1f-5489752d6b22"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-external-dns",
+      "SpaceID": "0c245e88-18b6-4931-bad9-86f74928b01d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fc31a228-0e8c-411c-a59e-a52450a57e4f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d1c053ba-ca56-4084-bb17-563e38ee9a75",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 91043681,
+      "CreatedAt": "2026-06-12T16:51:57.707177Z",
+      "CursorID": 27970,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZXh0ZXJuYWwtZG5zCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBleHRlcm5hbC1kbnMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMjEuMAogICAgaGVsbS5zaC9jaGFydDogZXh0ZXJuYWwtZG5zLTEuMjEuMQogIG5hbWU6IGV4dGVybmFsLWRucwogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHBvcnRzOgogIC0gbmFtZTogaHR0cAogICAgcG9ydDogNzk3OQogICAgcHJvdG9jb2w6IFRDUAogICAgdGFyZ2V0UG9ydDogaHR0cAogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGV4dGVybmFsLWRucwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZXh0ZXJuYWwtZG5zCiAgdHlwZTogQ2x1c3RlcklQCg==",
+      "DataHash": "76f8d52c5deaf1fb9584673899429140445fa2c927a66cad8925e4fc7ca6c32c",
+      "DisplayName": "service-default-external-dns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/external-dns": {}
+          },
+          "AliasesWithoutScopes": {
+            "external-dns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/external-dns",
+            "ResourceNameWithoutScope": "external-dns",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: external-dns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: external-dns\n    app.kubernetes.io/version: 0.21.0\n    helm.sh/chart: external-dns-1.21.1\n  name: external-dns\n  namespace: default\nspec:\n  ports:\n  - name: http\n    port: 7979\n    protocol: TCP\n    targetPort: http\n  selector:\n    app.kubernetes.io/instance: external-dns\n    app.kubernetes.io/name: external-dns\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/external-dns",
+          "ResourceNameWithoutScope": "external-dns",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d1c053ba-ca56-4084-bb17-563e38ee9a75",
+      "UpdatedAt": "2026-06-12T16:52:11.168824Z",
+      "Version": 10
+    }
+  }
+]

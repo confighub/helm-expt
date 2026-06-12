@@ -1,0 +1,1 @@
+cub space delete --space "helm-traefik-default-confighub-proof,Traefik-default-staging" --recursive-force

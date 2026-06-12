@@ -1,0 +1,1 @@
+cub installer setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir .tmp/confighub-proof/haproxy-ingress-default --non-interactive --namespace default

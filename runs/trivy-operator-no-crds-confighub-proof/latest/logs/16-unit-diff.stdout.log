@@ -1,0 +1,110 @@
+--- helm-trivy-operator-no-crds-confighub-proof/deployment-default-trivy-operator/1
++++ helm-trivy-operator-no-crds-confighub-proof/deployment-default-trivy-operator/2
+@@ -27,56 +31,51 @@
+     spec:
+       automountServiceAccountToken: true
+       containers:
+-        - env:
+-            - name: OPERATOR_NAMESPACE
+-              value: default
+-            - name: OPERATOR_TARGET_NAMESPACES
+-              value: ""
+-            - name: OPERATOR_EXCLUDE_NAMESPACES
+-              value: ""
+-            - name: OPERATOR_TARGET_WORKLOADS
+-              value: pod,replicaset,replicationcontroller,statefulset,daemonset,cronjob,job
+-            - name: OPERATOR_SERVICE_ACCOUNT
+-              value: trivy-operator
+-          envFrom:
+-            - configMapRef:
+-                name: trivy-operator-config
+-          image: mirror.gcr.io/aquasec/trivy-operator:0.30.1
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            failureThreshold: 10
+-            httpGet:
+-              path: /healthz/
+-              port: probes
+-            initialDelaySeconds: 5
+-            periodSeconds: 10
+-            successThreshold: 1
+-          name: trivy-operator
+-          ports:
+-            - containerPort: 8080
+-              name: metrics
+-            - containerPort: 9090
+-              name: probes
+-          readinessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /readyz/
+-              port: probes
+-            initialDelaySeconds: 5
+-            periodSeconds: 10
+-            successThreshold: 1
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            privileged: false
+-            readOnlyRootFilesystem: true
+-          volumeMounts:
+-            - mountPath: /tmp
+-              name: cache-policies
+-              readOnly: false
++      - env:
++        - name: OPERATOR_NAMESPACE
++          value: default
++        - name: OPERATOR_TARGET_NAMESPACES
++          value: ""
++        - name: OPERATOR_EXCLUDE_NAMESPACES
++          value: ""
++        - name: OPERATOR_TARGET_WORKLOADS
++          value: pod,replicaset,replicationcontroller,statefulset,daemonset,cronjob,job
++        - name: OPERATOR_SERVICE_ACCOUNT
++          value: trivy-operator
++        envFrom:
++        - configMapRef:
++            name: trivy-operator-config
++        image: mirror.gcr.io/aquasec/trivy-operator:0.30.1
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          failureThreshold: 10
++          httpGet:
++            path: /healthz/
++            port: probes
++          initialDelaySeconds: 5
++          periodSeconds: 10
++          successThreshold: 1
++        name: trivy-operator
++        ports:
++        - containerPort: 8080
++          name: metrics
++        - containerPort: 9090
++          name: probes
++        readinessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /readyz/
++            port: probes
++          initialDelaySeconds: 5
++          periodSeconds: 10
++          successThreshold: 1
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          privileged: false
++          readOnlyRootFilesystem: true
++        volumeMounts:
++        - mountPath: /tmp
++          name: cache-policies
++          readOnly: false
+       serviceAccountName: trivy-operator
+       volumes:
+-        - emptyDir: {}
+-          name: cache-policies
++      - emptyDir: {}
++        name: cache-policies

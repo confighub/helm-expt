@@ -1,0 +1,18 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "jetstack-cert-manager-csi-driver"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "jetstack/cert-manager-csi-driver default variant rendered from jetstack/cert-manager-csi-driver@v0.14.0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-traefik-default-confighub-proof', 'Traefik-default-staging')

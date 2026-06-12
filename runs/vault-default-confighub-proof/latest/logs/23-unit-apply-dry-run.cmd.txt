@@ -1,0 +1,1 @@
+cub unit apply --space helm-vault-default-confighub-proof --where "Labels.Proof = 'vault-default-confighub-proof'" --dry-run --wait --timeout 2m

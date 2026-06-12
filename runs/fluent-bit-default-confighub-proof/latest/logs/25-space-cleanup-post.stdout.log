@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-fluent-bit-default-confighub-proof', 'FluentBit-default-staging')

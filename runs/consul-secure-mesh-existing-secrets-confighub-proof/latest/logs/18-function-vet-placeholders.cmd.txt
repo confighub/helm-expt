@@ -1,0 +1,1 @@
+cub function vet vet-placeholders --space helm-consul-secure-mesh-existing-secrets-confighub-proof --where "Labels.Proof = 'consul-secure-mesh-existing-secrets-confighub-proof'" --quiet --wait --timeout 10m

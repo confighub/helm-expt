@@ -1,0 +1,5 @@
+Bundled haproxytech-kubernetes-ingress@
+  output: .tmp/confighub-proof/haproxy-ingress-default-archives/haproxy-ingress-a.tgz
+  files:  4
+  size:   1987 bytes
+  digest: sha256:3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f

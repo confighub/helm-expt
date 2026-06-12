@@ -1,0 +1,81 @@
+--- helm-dex-default-confighub-proof/deployment-default-dex/1
++++ helm-dex-default-confighub-proof/deployment-default-dex/2
+@@ -25,42 +29,36 @@
+         app.kubernetes.io/name: dex
+     spec:
+       containers:
+-        - args:
+-            - dex
+-            - serve
+-            - --web-http-addr
+-            - 0.0.0.0:5556
+-            - --telemetry-addr
+-            - 0.0.0.0:5558
+-            - /etc/dex/config.yaml
+-          env: null
+-          image: ghcr.io/dexidp/dex:v2.44.0
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            httpGet:
+-              path: /healthz/live
+-              port: telemetry
+-          name: dex
+-          ports:
+-            - containerPort: 5556
+-              name: http
+-              protocol: TCP
+-            - containerPort: 5558
+-              name: telemetry
+-              protocol: TCP
+-          readinessProbe:
+-            httpGet:
+-              path: /healthz/ready
+-              port: telemetry
+-          resources: {}
+-          securityContext: {}
+-          volumeMounts:
+-            - mountPath: /etc/dex
+-              name: config
+-              readOnly: true
++      - args:
++        - dex
++        - serve
++        - --web-http-addr
++        - 0.0.0.0:5556
++        - --telemetry-addr
++        - 0.0.0.0:5558
++        - /etc/dex/config.yaml
++        env: null
++        image: ghcr.io/dexidp/dex:v2.44.0
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          httpGet:
++            path: /healthz/live
++            port: telemetry
++        name: dex
++        ports:
++        - containerPort: 5556
++          name: http
++          protocol: TCP
++        - containerPort: 5558
++          name: telemetry
++          protocol: TCP
++        readinessProbe:
++          httpGet:
++            path: /healthz/ready
++            port: telemetry
++        resources: {}
++        securityContext: {}
++        volumeMounts:
++        - mountPath: /etc/dex
++          name: config
++          readOnly: true
+       securityContext: {}
+       serviceAccountName: dex
+       volumes:
+-        - name: config
+-          secret:
+-            secretName: dex
++      - name: config
++        secret:
++          secretName: dex

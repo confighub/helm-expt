@@ -1,0 +1,221 @@
+--- helm-cert-manager-csi-driver-default-confighub-proof/daemonset-default-cert-manager-csi-driver/1
++++ helm-cert-manager-csi-driver-default-confighub-proof/daemonset-default-cert-manager-csi-driver/2
+@@ -26,94 +30,88 @@
+         helm.sh/chart: cert-manager-csi-driver-v0.14.0
+     spec:
+       containers:
+-        - args:
+-            - -v=1
+-            - --csi-address=/plugin/csi.sock
+-            - --kubelet-registration-path=/var/lib/kubelet/plugins/cert-manager-csi-driver/csi.sock
+-          env:
+-            - name: KUBE_NODE_NAME
+-              valueFrom:
+-                fieldRef:
+-                  fieldPath: spec.nodeName
+-          image: quay.io/jetstack/csi-node-driver-registrar:v2.16.0
+-          imagePullPolicy: IfNotPresent
+-          name: node-driver-registrar
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: true
+-            runAsUser: 0
+-          volumeMounts:
+-            - mountPath: /plugin
+-              name: plugin-dir
+-            - mountPath: /registration
+-              name: registration-dir
+-        - args:
+-            - --csi-address=/plugin/csi.sock
+-            - --probe-timeout=3s
+-            - --health-port=9809
+-            - -v=1
+-          image: quay.io/jetstack/livenessprobe:v2.18.0
+-          imagePullPolicy: IfNotPresent
+-          name: liveness-probe
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: true
+-            runAsUser: 0
+-          volumeMounts:
+-            - mountPath: /plugin
+-              name: plugin-dir
+-        - args:
+-            - --log-level=1
+-            - --driver-name=csi.cert-manager.io
+-            - --node-id=$(NODE_ID)
+-            - --endpoint=$(CSI_ENDPOINT)
+-            - --data-root=csi-data-dir
+-            - --use-token-request=false
+-            - --continue-on-not-ready=false
+-            - --metrics-bind-address=:9402
+-          env:
+-            - name: NODE_ID
+-              valueFrom:
+-                fieldRef:
+-                  fieldPath: spec.nodeName
+-            - name: CSI_ENDPOINT
+-              value: unix://plugin/csi.sock
+-          image: quay.io/jetstack/cert-manager-csi-driver:v0.14.0
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            httpGet:
+-              path: /healthz
+-              port: healthz
+-            initialDelaySeconds: 5
+-            timeoutSeconds: 5
+-          name: cert-manager-csi-driver
+-          ports:
+-            - containerPort: 9809
+-              name: healthz
+-            - containerPort: 9402
+-              name: http-metrics
+-          securityContext:
+-            capabilities:
+-              drop:
+-                - ALL
+-            privileged: true
+-            readOnlyRootFilesystem: true
+-            runAsUser: 0
+-          volumeMounts:
+-            - mountPath: /plugin
+-              name: plugin-dir
+-            - mountPath: /var/lib/kubelet/pods
+-              mountPropagation: Bidirectional
+-              name: pods-mount-dir
+-            - mountPath: /csi-data-dir
+-              mountPropagation: Bidirectional
+-              name: csi-data-dir
++      - args:
++        - -v=1
++        - --csi-address=/plugin/csi.sock
++        - --kubelet-registration-path=/var/lib/kubelet/plugins/cert-manager-csi-driver/csi.sock
++        env:
++        - name: KUBE_NODE_NAME
++          valueFrom:
++            fieldRef:
++              fieldPath: spec.nodeName
++        image: quay.io/jetstack/csi-node-driver-registrar:v2.16.0
++        imagePullPolicy: IfNotPresent
++        name: node-driver-registrar
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++          runAsUser: 0
++        volumeMounts:
++        - mountPath: /plugin
++          name: plugin-dir
++        - mountPath: /registration
++          name: registration-dir
++      - args:
++        - --csi-address=/plugin/csi.sock
++        - --probe-timeout=3s
++        - --health-port=9809
++        - -v=1
++        image: quay.io/jetstack/livenessprobe:v2.18.0
++        imagePullPolicy: IfNotPresent
++        name: liveness-probe
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++          runAsUser: 0
++        volumeMounts:
++        - mountPath: /plugin
++          name: plugin-dir
++      - args:
++        - --log-level=1
++        - --driver-name=csi.cert-manager.io
++        - --node-id=$(NODE_ID)
++        - --endpoint=$(CSI_ENDPOINT)
++        - --data-root=csi-data-dir
++        - --use-token-request=false
++        - --continue-on-not-ready=false
++        - --metrics-bind-address=:9402
++        env:
++        - name: NODE_ID
++          valueFrom:
++            fieldRef:
++              fieldPath: spec.nodeName
++        - name: CSI_ENDPOINT
++          value: unix://plugin/csi.sock
++        image: quay.io/jetstack/cert-manager-csi-driver:v0.14.0
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          httpGet:
++            path: /healthz
++            port: healthz
++          initialDelaySeconds: 5
++          timeoutSeconds: 5
++        name: cert-manager-csi-driver
++        ports:
++        - containerPort: 9809
++          name: healthz
++        - containerPort: 9402
++          name: http-metrics
++        securityContext:
++          capabilities:
++            drop:
++            - ALL
++          privileged: true
++          readOnlyRootFilesystem: true
++          runAsUser: 0
++        volumeMounts:
++        - mountPath: /plugin
++          name: plugin-dir
++        - mountPath: /var/lib/kubelet/pods
++          mountPropagation: Bidirectional
++          name: pods-mount-dir
++        - mountPath: /csi-data-dir
++          mountPropagation: Bidirectional
++          name: csi-data-dir
+       nodeSelector:
+         kubernetes.io/os: linux
+       securityContext:
+@@ -123,19 +127,16 @@
+           type: RuntimeDefault
+       serviceAccountName: cert-manager-csi-driver
+       volumes:
+-        - hostPath:
+-            path: /var/lib/kubelet/plugins/cert-manager-csi-driver
+-            type: DirectoryOrCreate
+-          name: plugin-dir
+-        - hostPath:
+-            path: /var/lib/kubelet/pods
+-            type: Directory
+-          name: pods-mount-dir
+-        - hostPath:
+-            path: /var/lib/kubelet/plugins_registry
+-            type: Directory
+-          name: registration-dir
+-        - hostPath:
+-            path: /tmp/cert-manager-csi-driver
+-            type: DirectoryOrCreate
+-          name: csi-data-dir
++      - hostPath:
++          path: /var/lib/kubelet/plugins/cert-manager-csi-driver
++          type: DirectoryOrCreate
++        name: plugin-dir
++      - hostPath:
++          path: /var/lib/kubelet/pods
++          type: Directory
++        name: pods-mount-dir
++      - hostPath:
++          path: /var/lib/kubelet/plugins_registry
++          type: Directory
++        name: registration-dir
++      - hostPath:
++          path: /tmp/cert-manager-csi-driver
++          type: DirectoryOrCreate
++        name: csi-data-dir

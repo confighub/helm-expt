@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "nats-surveyor"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "nats/surveyor default variant rendered from nats/surveyor@0.20.9"
+      },
+      {
+        "name": "default-reviewed",
+        "path": "bases/default-reviewed",
+        "description": "nats/surveyor default-reviewed useful base; aliases the default render with a named user start path"
+      }
+    ]
+  }
+}

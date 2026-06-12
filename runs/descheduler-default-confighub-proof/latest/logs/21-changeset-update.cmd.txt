@@ -1,0 +1,1 @@
+cub changeset update descheduler-safe-ops-20260527 --space helm-descheduler-default-confighub-proof --description "descheduler safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

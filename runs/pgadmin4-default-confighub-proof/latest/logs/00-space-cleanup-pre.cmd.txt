@@ -1,0 +1,1 @@
+cub space delete --space "helm-pgadmin4-default-confighub-proof,Pgadmin4-default-staging" --recursive-force

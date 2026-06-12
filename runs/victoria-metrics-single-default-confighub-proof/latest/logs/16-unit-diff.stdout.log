@@ -1,0 +1,98 @@
+--- helm-victoria-metrics-single-default-confighub-proof/statefulset-default-victoria-metrics-single-server/1
++++ helm-victoria-metrics-single-default-confighub-proof/statefulset-default-victoria-metrics-single-server/2
+@@ -30,52 +34,43 @@
+     spec:
+       automountServiceAccountToken: true
+       containers:
+-        - args:
+-            - --envflag.enable
+-            - --envflag.prefix=VM_
+-            - --httpListenAddr=:8428
+-            - --loggerFormat=json
+-            - --retentionPeriod=1
+-            - --storageDataPath=/storage
+-          image: victoriametrics/victoria-metrics:v1.144.0
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            failureThreshold: 10
+-            initialDelaySeconds: 30
+-            periodSeconds: 30
+-            tcpSocket:
+-              port: http
+-            timeoutSeconds: 5
+-          name: vmsingle
+-          ports:
+-            - containerPort: 8428
+-              name: http
+-          readinessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /health
+-              port: http
+-              scheme: HTTP
+-            initialDelaySeconds: 5
+-            periodSeconds: 15
+-            timeoutSeconds: 5
+-          securityContext: {}
+-          volumeMounts:
+-            - mountPath: /storage
+-              name: server-volume
++      - args:
++        - --envflag.enable
++        - --envflag.prefix=VM_
++        - --httpListenAddr=:8428
++        - --loggerFormat=json
++        - --retentionPeriod=1
++        - --storageDataPath=/storage
++        image: victoriametrics/victoria-metrics:v1.144.0
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          failureThreshold: 10
++          initialDelaySeconds: 30
++          periodSeconds: 30
++          tcpSocket:
++            port: http
++          timeoutSeconds: 5
++        name: vmsingle
++        ports:
++        - containerPort: 8428
++          name: http
++        readinessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /health
++            port: http
++            scheme: HTTP
++          initialDelaySeconds: 5
++          periodSeconds: 15
++          timeoutSeconds: 5
++        securityContext: {}
++        volumeMounts:
++        - mountPath: /storage
++          name: server-volume
+       securityContext: {}
+       serviceAccountName: victoria-metrics-single-server
+       terminationGracePeriodSeconds: 60
+       volumes: null
+   updateStrategy: {}
+   volumeClaimTemplates:
+-    - apiVersion: v1
+-      kind: PersistentVolumeClaim
+-      metadata:
+-        name: server-volume
+-      spec:
+-        accessModes:
+-          - ReadWriteOnce
+-        resources:
+-          requests:
+-            storage: 16Gi
++  - apiVersion: v1
++    kind: PersistentVolumeClaim
++    metadata:
++      name: server-volume
++    spec:
++      accessModes:
++      - ReadWriteOnce
++      resources:
++        requests:
++          storage: 16Gi

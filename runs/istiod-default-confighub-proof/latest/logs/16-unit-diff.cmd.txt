@@ -1,0 +1,1 @@
+cub unit diff deployment-default-istiod --space helm-istiod-default-confighub-proof --from 1 --to HeadRevisionNum -u

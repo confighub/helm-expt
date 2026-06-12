@@ -1,0 +1,1 @@
+cub space delete --space "helm-istiod-default-confighub-proof,Istiod-default-staging" --recursive-force

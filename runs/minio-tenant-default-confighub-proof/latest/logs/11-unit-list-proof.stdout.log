@@ -1,0 +1,134 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:04:37.806424Z",
+      "CursorID": 4658,
+      "DisplayName": "helm-minio-tenant-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MinioTenant",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-minio-tenant-default-confighub-proof",
+      "SpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+      "UpdatedAt": "2026-06-12T17:04:39.210771Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd4b12cd9-6208-4bb3-81b6-2789becf61f6'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "MinioTenant",
+        "HelmChart": "minio-operator-tenant",
+        "HelmChartVersion": "7.1.1",
+        "Package": "minio-operator-tenant",
+        "Proof": "minio-tenant-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4c495494-c73c-437b-9c56-727584b65a61",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:04:37.806424Z",
+      "CursorID": 4658,
+      "DisplayName": "helm-minio-tenant-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MinioTenant",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-minio-tenant-default-confighub-proof",
+      "SpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+      "UpdatedAt": "2026-06-12T17:04:39.210771Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd4b12cd9-6208-4bb3-81b6-2789becf61f6'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1b275268b5c84aa3bcefe4bb0609c82607138d105502b03673db85ac975b6cae",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MinioTenant",
+        "HelmChart": "minio-operator-tenant",
+        "HelmChartVersion": "7.1.1",
+        "Package": "minio-operator-tenant",
+        "Proof": "minio-tenant-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "tenant-myminio",
+      "SpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "150b1d76-709f-495d-8ab6-c328ddc3a6b1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

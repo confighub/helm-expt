@@ -1,0 +1,1 @@
+cub installer package packages/rook-release/rook-ceph/v1.19.5 -o .tmp/confighub-proof/rook-ceph-default-archives/rook-ceph-a.tgz

@@ -1,0 +1,23 @@
+== external-dns-external-dns@ → Space helm-external-dns-default-confighub-proof ==
+Successfully created unit clusterrole-external-dns (e21a4e9b-4a4e-410b-8bdc-9f0219a0bde1)
+Successfully created unit clusterrolebinding-external-dns-viewer (d7e18f11-b3f5-4da0-aae7-4f5eb3a6b45f)
+Successfully created unit customresourcedefinition-dnsendpoints-externaldns-k8s-io (4b6dc1d9-da01-4db9-8a8e-4bf3c4d1f599)
+Successfully created unit deployment-default-external-dns (5c0b41c1-092a-435c-b503-6eb000fe8807)
+Successfully created unit namespace-external-dns (35b3a713-4b0b-47dd-8ece-6247aaeed7b6)
+Successfully created unit service-default-external-dns (d1c053ba-ca56-4084-bb17-563e38ee9a75)
+Successfully created unit serviceaccount-default-external-dns (2eafe6b3-3498-48e1-805a-90221bab70e6)
+Successfully created unit installer-record (f921c107-2602-4faa-b7f9-d359687b066a)
+Linked clusterrolebinding-external-dns-viewer -> clusterrole-external-dns (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-external-dns-viewer -> serviceaccount-default-external-dns (reference:v1/ServiceAccount)
+Linked deployment-default-external-dns -> serviceaccount-default-external-dns (reference:v1/ServiceAccount)
+Linked service-default-external-dns -> deployment-default-external-dns (selector)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrolebinding-external-dns-viewer -> v1/Namespace "default"
+  - deployment-default-external-dns -> v1/Namespace "default"
+  - service-default-external-dns -> v1/Namespace "default"
+  - serviceaccount-default-external-dns -> v1/Namespace "default"

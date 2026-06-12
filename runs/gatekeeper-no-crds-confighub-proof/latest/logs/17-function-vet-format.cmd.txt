@@ -1,0 +1,1 @@
+cub function vet vet-format --space helm-gatekeeper-no-crds-confighub-proof --where "Labels.Proof = 'gatekeeper-no-crds-confighub-proof'" --quiet --wait --timeout 10m

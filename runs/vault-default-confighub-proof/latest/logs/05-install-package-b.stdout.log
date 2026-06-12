@@ -1,0 +1,5 @@
+Bundled hashicorp-vault@
+  output: .tmp/confighub-proof/vault-default-archives/vault-b.tgz
+  files:  9
+  size:   5673 bytes
+  digest: sha256:5aa3be3ba68c48d4851065a5dedcef9aac42b50400491b5858cc7bbb5f322d41

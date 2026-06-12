@@ -1,0 +1,5 @@
+Bundled jaegertracing-jaeger-operator@
+  output: .tmp/confighub-proof/jaeger-operator-default-archives/jaeger-operator-b.tgz
+  files:  6
+  size:   34650 bytes
+  digest: sha256:98780a2b5ca0546b5824def5ada44accfdd3af6d228b5991bef4db542f4c2e1d

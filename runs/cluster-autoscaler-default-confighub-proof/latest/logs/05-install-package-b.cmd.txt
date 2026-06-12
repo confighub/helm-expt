@@ -1,0 +1,1 @@
+cub installer package packages/autoscaler/cluster-autoscaler/9.57.0 -o .tmp/confighub-proof/cluster-autoscaler-default-archives/cluster-autoscaler-b.tgz

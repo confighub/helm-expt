@@ -1,0 +1,5 @@
+No changes.
+
+Images in helm-vault-default-confighub-proof (post-render):
+      Deployment/vault-agent-injector [sidecar-injector] hashicorp/vault-k8s:1.7.2
+      StatefulSet/vault [vault] hashicorp/vault:1.21.2

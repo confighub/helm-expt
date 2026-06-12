@@ -1,0 +1,1 @@
+cub unit data deployment-default-strimzi-cluster-operator --space helm-strimzi-kafka-operator-no-crds-confighub-proof

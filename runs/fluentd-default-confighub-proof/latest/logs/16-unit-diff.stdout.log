@@ -1,0 +1,96 @@
+--- helm-fluentd-default-confighub-proof/daemonset-fluentd/1
++++ helm-fluentd-default-confighub-proof/daemonset-fluentd/2
+@@ -22,50 +26,43 @@
+         app.kubernetes.io/name: fluentd
+     spec:
+       containers:
+-        - env:
+-            - name: FLUENTD_CONF
+-              value: ../../../etc/fluent/fluent.conf
+-          image: fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            httpGet:
+-              path: /metrics
+-              port: metrics
+-          name: fluentd
+-          ports:
+-            - containerPort: 24231
+-              name: metrics
+-              protocol: TCP
+-          readinessProbe:
+-            httpGet:
+-              path: /metrics
+-              port: metrics
+-          resources: {}
+-          securityContext: {}
+-          volumeMounts:
+-            - mountPath: /etc/fluent
+-              name: etcfluentd-main
+-            - mountPath: /etc/fluent/config.d/
+-              name: etcfluentd-config
+-            - mountPath: /var/log
+-              name: varlog
+-            - mountPath: /var/lib/docker/containers
+-              name: varlibdockercontainers
+-              readOnly: true
+-      securityContext: {}
+-      serviceAccountName: fluentd
+-      volumes:
+-        - configMap:
+-            defaultMode: 511
+-            name: fluentd-main-fluentd
++      - env:
++        - name: FLUENTD_CONF
++          value: ../../../etc/fluent/fluent.conf
++        image: fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          httpGet:
++            path: /metrics
++            port: metrics
++        name: fluentd
++        ports:
++        - containerPort: 24231
++          name: metrics
++          protocol: TCP
++        readinessProbe:
++          httpGet:
++            path: /metrics
++            port: metrics
++        resources: {}
++        securityContext: {}
++        volumeMounts:
++        - mountPath: /etc/fluent
+           name: etcfluentd-main
+-        - configMap:
+-            defaultMode: 511
+-            name: fluentd-config-fluentd
++        - mountPath: /etc/fluent/config.d/
+           name: etcfluentd-config
+-        - hostPath:
+-            path: /var/log
++        - mountPath: /var/log
+           name: varlog
+-        - hostPath:
+-            path: /var/lib/docker/containers
++        - mountPath: /var/lib/docker/containers
+           name: varlibdockercontainers
++          readOnly: true
++      securityContext: {}
++      serviceAccountName: fluentd
++      volumes:
++      - configMap:
++          defaultMode: 511
++          name: fluentd-main-fluentd
++        name: etcfluentd-main
++      - configMap:
++          defaultMode: 511
++          name: fluentd-config-fluentd
++        name: etcfluentd-config
++      - hostPath:
++          path: /var/log
++        name: varlog
++      - hostPath:
++          path: /var/lib/docker/containers
++        name: varlibdockercontainers

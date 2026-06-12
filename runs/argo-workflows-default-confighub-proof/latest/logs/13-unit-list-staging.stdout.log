@@ -1,0 +1,3409 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.353692Z",
+        "CursorID": 22470,
+        "DisplayName": "Upgrade clusterrolebinding-argo-workflows-workflow-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "eabfef12-b04c-4e1b-9c86-c62efba8498e",
+        "LinkID": "e4c934dd-572f-4030-8920-40f308dcbc21",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-argo-workflows-workflow-controller",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "c5ea643c-613d-4404-a695-233ceefda128",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.353692Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c5ea643c-613d-4404-a695-233ceefda128' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "78b3564bf8d5e6ba4128ad30aa37c49e687c97cf2e24adbfce7afac88dab4fd2",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e4c934dd-572f-4030-8920-40f308dcbc21"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-workflow-controller",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "eabfef12-b04c-4e1b-9c86-c62efba8498e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c5ea643c-613d-4404-a695-233ceefda128",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 342324983,
+      "CreatedAt": "2026-06-12T16:45:34.881564Z",
+      "CursorID": 27596,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiB3b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogYXJnby13b3JrZmxvd3MKICAgIGhlbG0uc2gvY2hhcnQ6IGFyZ28td29ya2Zsb3dzLTEuMC4xNAogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXIKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "78b3564bf8d5e6ba4128ad30aa37c49e687c97cf2e24adbfce7afac88dab4fd2",
+      "DisplayName": "clusterrolebinding-argo-workflows-workflow-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-workflow-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-workflow-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-workflow-controller",
+            "ResourceNameWithoutScope": "argo-workflows-workflow-controller",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-workflow-controller\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-workflow-controller\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: argo-workflows-workflow-controller\nsubjects:\n- kind: ServiceAccount\n  name: argo-workflows-workflow-controller\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-workflow-controller",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c5ea643c-613d-4404-a695-233ceefda128",
+      "UpdatedAt": "2026-06-12T16:46:07.082514Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.297511Z",
+        "CursorID": 22469,
+        "DisplayName": "Upgrade clusterrolebinding-argo-workflows-server-cluster-template",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6d015102-d7f5-43cc-8247-d5c534ed3229",
+        "LinkID": "94fc1d10-a36e-458f-bc50-cd7c01f2a5be",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-argo-workflows-server-cluster-template",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "263eb169-6a17-4ba1-88f3-aeab4773e979",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.297511Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '263eb169-6a17-4ba1-88f3-aeab4773e979' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "726d01f183e386c21d2e3ac2508f0f8a26364badeede08b74bc30f20ec71a98e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "94fc1d10-a36e-458f-bc50-cd7c01f2a5be"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-server-cluster-template",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6d015102-d7f5-43cc-8247-d5c534ed3229",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "263eb169-6a17-4ba1-88f3-aeab4773e979",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1972023836,
+      "CreatedAt": "2026-06-12T16:45:32.620992Z",
+      "CursorID": 27593,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBzZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogYXJnby13b3JrZmxvd3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogYXJnby13b3JrZmxvd3MKICAgIGhlbG0uc2gvY2hhcnQ6IGFyZ28td29ya2Zsb3dzLTEuMC4xNAogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlci1jbHVzdGVyLXRlbXBsYXRlCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlci1jbHVzdGVyLXRlbXBsYXRlCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "726d01f183e386c21d2e3ac2508f0f8a26364badeede08b74bc30f20ec71a98e",
+      "DisplayName": "clusterrolebinding-argo-workflows-server-cluster-template",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-server-cluster-template": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-server-cluster-template": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-server-cluster-template",
+            "ResourceNameWithoutScope": "argo-workflows-server-cluster-template",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app: server\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-server\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-server-cluster-template\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: argo-workflows-server-cluster-template\nsubjects:\n- kind: ServiceAccount\n  name: argo-workflows-server\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-server-cluster-template",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "263eb169-6a17-4ba1-88f3-aeab4773e979",
+      "UpdatedAt": "2026-06-12T16:46:04.00414Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:43.988488Z",
+        "CursorID": 22464,
+        "DisplayName": "Upgrade clusterrole-argo-workflows-workflow-controller-cluster-template",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "261670a5-c95c-4dcc-b58e-f1a46b59f024",
+        "LinkID": "bc70cae7-bcb3-4e66-843d-b6e4c62567bb",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-argo-workflows-workflow-controller-cluster-template",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "8860db08-8018-4317-8ce3-2acbb4f5219e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:43.988488Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8860db08-8018-4317-8ce3-2acbb4f5219e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "04f40c94e1ef205d76c891e048e2fa4f05c5d5e9799f7196ca27f3c5ae6731d3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "bc70cae7-bcb3-4e66-843d-b6e4c62567bb"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-workflow-controller-cluster-template",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "261670a5-c95c-4dcc-b58e-f1a46b59f024",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8860db08-8018-4317-8ce3-2acbb4f5219e",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2057866030,
+      "CreatedAt": "2026-06-12T16:45:30.932904Z",
+      "CursorID": 27591,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGFyZ28td29ya2Zsb3dzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBhcmdvLXdvcmtmbG93cwogICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlci1jbHVzdGVyLXRlbXBsYXRlCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtIGFyZ29wcm9qLmlvCiAgcmVzb3VyY2VzOgogIC0gY2x1c3RlcndvcmtmbG93dGVtcGxhdGVzCiAgLSBjbHVzdGVyd29ya2Zsb3d0ZW1wbGF0ZXMvZmluYWxpemVycwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAo=",
+      "DataHash": "04f40c94e1ef205d76c891e048e2fa4f05c5d5e9799f7196ca27f3c5ae6731d3",
+      "DisplayName": "clusterrole-argo-workflows-workflow-controller-cluster-template",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-workflow-controller-cluster-template": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-workflow-controller-cluster-template": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-workflow-controller-cluster-template",
+            "ResourceNameWithoutScope": "argo-workflows-workflow-controller-cluster-template",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-workflow-controller\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-workflow-controller-cluster-template\nrules:\n- apiGroups:\n  - argoproj.io\n  resources:\n  - clusterworkflowtemplates\n  - clusterworkflowtemplates/finalizers\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/argo-workflows-workflow-controller-cluster-template",
+          "ResourceNameWithoutScope": "argo-workflows-workflow-controller-cluster-template",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-argo-workflows-workflow-controller-cluster-template",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8860db08-8018-4317-8ce3-2acbb4f5219e",
+      "UpdatedAt": "2026-06-12T16:45:44.528479Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:42.972441Z",
+        "CursorID": 22456,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5f21ed84-f357-42d3-a5a5-6e1b8e834b79",
+        "LinkID": "54aa5326-70e7-41a5-a0e5-f3ab58f58dc8",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "84a2036c-37e0-4fe5-b030-ebb29c5960d2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:42.972441Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '84a2036c-37e0-4fe5-b030-ebb29c5960d2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "54aa5326-70e7-41a5-a0e5-f3ab58f58dc8"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5f21ed84-f357-42d3-a5a5-6e1b8e834b79",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "84a2036c-37e0-4fe5-b030-ebb29c5960d2",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:45:38.911029Z",
+      "CursorID": 27600,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "84a2036c-37e0-4fe5-b030-ebb29c5960d2",
+      "UpdatedAt": "2026-06-12T16:45:38.942356Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:43.147229Z",
+        "CursorID": 22457,
+        "DisplayName": "Upgrade role-default-argo-workflows-workflow",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "28f5989d-8e86-4870-9cf5-6d2b92ba7b78",
+        "LinkID": "fe100ffc-ad3a-49e5-8df7-4e539af9d832",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-argo-workflows-workflow",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "8c4aa614-e5e7-4dee-9572-66db9e2c77cd",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:43.147229Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8c4aa614-e5e7-4dee-9572-66db9e2c77cd' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3a08d322305a97c668ab0234cf1af44a73a3310eeda80bedc459745bf7b059e0",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "fe100ffc-ad3a-49e5-8df7-4e539af9d832"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-argo-workflows-workflow",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "28f5989d-8e86-4870-9cf5-6d2b92ba7b78",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8c4aa614-e5e7-4dee-9572-66db9e2c77cd",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -607456284,
+      "CreatedAt": "2026-06-12T16:45:39.61386Z",
+      "CursorID": 27601,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiB3b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogYXJnby13b3JrZmxvd3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGFyZ28td29ya2Zsb3dzCiAgICBoZWxtLnNoL2NoYXJ0OiBhcmdvLXdvcmtmbG93cy0xLjAuMTQKICBuYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdwogIG5hbWVzcGFjZTogZGVmYXVsdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSBhcmdvcHJvai5pbwogIHJlc291cmNlczoKICAtIHdvcmtmbG93dGFza3Jlc3VsdHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gcGF0Y2gK",
+      "DataHash": "3a08d322305a97c668ab0234cf1af44a73a3310eeda80bedc459745bf7b059e0",
+      "DisplayName": "role-default-argo-workflows-workflow",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/argo-workflows-workflow": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-workflow": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/argo-workflows-workflow",
+            "ResourceNameWithoutScope": "argo-workflows-workflow",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-workflow-controller\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-workflow\n  namespace: default\nrules:\n- apiGroups:\n  - argoproj.io\n  resources:\n  - workflowtaskresults\n  verbs:\n  - create\n  - patch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/argo-workflows-workflow",
+          "ResourceNameWithoutScope": "argo-workflows-workflow",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-argo-workflows-workflow",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8c4aa614-e5e7-4dee-9572-66db9e2c77cd",
+      "UpdatedAt": "2026-06-12T16:46:17.781016Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:43.320379Z",
+        "CursorID": 22458,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5f84227a-01a4-4e14-97f0-e0791810004c",
+        "LinkID": "dc39d72b-71fe-4dce-b613-766a8a518249",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "69bfc9f9-643c-4947-ad01-504e02129747",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:43.320379Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '69bfc9f9-643c-4947-ad01-504e02129747' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f25c5e42fb521bede4b04bb2221288962abafbe49798e8f7653d7e2153c70f4a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "dc39d72b-71fe-4dce-b613-766a8a518249"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5f84227a-01a4-4e14-97f0-e0791810004c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "69bfc9f9-643c-4947-ad01-504e02129747",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "argo-cd-argo-workflows",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 183567698,
+      "CreatedAt": "2026-06-12T16:45:43.594207Z",
+      "CursorID": 27606,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImFyZ28tY2QtYXJnby13b3JrZmxvd3MiCiAgdmVyc2lvbjogIjEuMC4xNCIKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIGJhc2VzOgogIC0gZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJhcmdvLWNkL2FyZ28td29ya2Zsb3dzIGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIGFyZ28tY2QvYXJnby13b3JrZmxvd3NAMS4wLjE0IgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJjb250cm9sbGVyLWRlZmF1bHQtcmV2aWV3ZWQiCiAgICBwYXRoOiAiYmFzZXMvY29udHJvbGxlci1kZWZhdWx0LXJldmlld2VkIgogICAgZGVmYXVsdDogZmFsc2UKICAgIGRlc2NyaXB0aW9uOiAiYXJnby1jZC9hcmdvLXdvcmtmbG93cyBjb250cm9sbGVyLWRlZmF1bHQtcmV2aWV3ZWQgdXNlZnVsIGJhc2U7IGFsaWFzZXMgdGhlIGRlZmF1bHQgcmVuZGVyIHdpdGggYSBuYW1lZCB1c2VyIHN0YXJ0IHBhdGgiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IGFyZ28tY2QtYXJnby13b3JrZmxvd3MtZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGFyZ28tY2QtYXJnby13b3JrZmxvd3MKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogYXJnby1jZC1hcmdvLXdvcmtmbG93cy1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGFyZ28tY2QtYXJnby13b3JrZmxvd3MKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGFyZ28tY2QtYXJnby13b3JrZmxvd3MtbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGFyZ28tY2QtYXJnby13b3JrZmxvd3MKICBmaWxlczoKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS1hcmdvLXdvcmtmbG93cy1hZG1pbi55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1hcmdvLXdvcmtmbG93cy1hZG1pbgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IGFyZ28td29ya2Zsb3dzLWFkbWluCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtYXJnby13b3JrZmxvd3MtZWRpdC55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1hcmdvLXdvcmtmbG93cy1lZGl0CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogYXJnby13b3JrZmxvd3MtZWRpdAogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWFyZ28td29ya2Zsb3dzLXNlcnZlci55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1hcmdvLXdvcmtmbG93cy1zZXJ2ZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBhcmdvLXdvcmtmbG93cy1zZXJ2ZXIKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS1hcmdvLXdvcmtmbG93cy1zZXJ2ZXItY2x1c3Rlci10ZW1wbGF0ZS55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1hcmdvLXdvcmtmbG93cy1zZXJ2ZXItY2x1c3Rlci10ZW1wbGF0ZQogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlci1jbHVzdGVyLXRlbXBsYXRlCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtYXJnby13b3JrZmxvd3Mtdmlldy55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1hcmdvLXdvcmtmbG93cy12aWV3CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogYXJnby13b3JrZmxvd3MtdmlldwogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXIueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXIKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS1hcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyLWNsdXN0ZXItdGVtcGxhdGUueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlci1jbHVzdGVyLXRlbXBsYXRlCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlci1jbHVzdGVyLXRlbXBsYXRlCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGViaW5kaW5nLWFyZ28td29ya2Zsb3dzLXNlcnZlci55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlcgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlYmluZGluZy1hcmdvLXdvcmtmbG93cy1zZXJ2ZXItY2x1c3Rlci10ZW1wbGF0ZS55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctYXJnby13b3JrZmxvd3Mtc2VydmVyLWNsdXN0ZXItdGVtcGxhdGUKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyLWNsdXN0ZXItdGVtcGxhdGUKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlci55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGVCaW5kaW5nCiAgICBuYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGViaW5kaW5nLWFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXItY2x1c3Rlci10ZW1wbGF0ZS55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlci1jbHVzdGVyLXRlbXBsYXRlCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXItY2x1c3Rlci10ZW1wbGF0ZQogIC0gZmlsZW5hbWU6IGNvbmZpZ21hcC1kZWZhdWx0LWFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXItY29uZmlnbWFwLnlhbWwKICAgIHNsdWc6IGNvbmZpZ21hcC1kZWZhdWx0LWFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXItY29uZmlnbWFwCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogQ29uZmlnTWFwCiAgICBuYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyLWNvbmZpZ21hcAogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LWFyZ28td29ya2Zsb3dzLXNlcnZlci55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiBhcmdvLXdvcmtmbG93cy1zZXJ2ZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IGRlcGxveW1lbnQtZGVmYXVsdC1hcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtZGVmYXVsdC1hcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGUtZGVmYXVsdC1hcmdvLXdvcmtmbG93cy13b3JrZmxvdy55YW1sCiAgICBzbHVnOiByb2xlLWRlZmF1bHQtYXJnby13b3JrZmxvd3Mtd29ya2Zsb3cKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGUKICAgIG5hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93CiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1kZWZhdWx0LWFyZ28td29ya2Zsb3dzLXdvcmtmbG93LnlhbWwKICAgIHNsdWc6IHJvbGViaW5kaW5nLWRlZmF1bHQtYXJnby13b3JrZmxvd3Mtd29ya2Zsb3cKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGVCaW5kaW5nCiAgICBuYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdwogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS1kZWZhdWx0LWFyZ28td29ya2Zsb3dzLXNlcnZlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWRlZmF1bHQtYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWFyZ28td29ya2Zsb3dzLXNlcnZlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWFyZ28td29ya2Zsb3dzLXNlcnZlcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBhcmdvLXdvcmtmbG93cy1zZXJ2ZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogYXJnby1jZC1hcmdvLXdvcmtmbG93cy1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGFyZ28tY2QtYXJnby13b3JrZmxvd3MKICBiYXNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogYXJnby1jZC1hcmdvLXdvcmtmbG93cy11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGFyZ28tY2QtYXJnby13b3JrZmxvd3MKICBzcGFjZVBhdHRlcm46IGhlbG0tYXJnby13b3JrZmxvd3MtZGVmYXVsdC1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBhcmdvLWNkLWFyZ28td29ya2Zsb3dzCiAgICBzbHVnOiBoZWxtLWFyZ28td29ya2Zsb3dzLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjQ1OjI0WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "f25c5e42fb521bede4b04bb2221288962abafbe49798e8f7653d7e2153c70f4a",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "argo-cd-argo-workflows"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-cd-argo-workflows": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-cd-argo-workflows": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-cd-argo-workflows",
+            "ResourceNameWithoutScope": "argo-cd-argo-workflows",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"argo-cd-argo-workflows\"\n  version: \"1.0.14\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"controller-default-reviewed\"\n    path: \"bases/controller-default-reviewed\"\n    default: false\n    description: \"argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/argo-cd-argo-workflows-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-cd-argo-workflows-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-cd-argo-workflows-function-chain",
+            "ResourceNameWithoutScope": "argo-cd-argo-workflows-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: argo-cd-argo-workflows-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: argo-cd-argo-workflows\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/argo-cd-argo-workflows-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-cd-argo-workflows-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-cd-argo-workflows-inputs",
+            "ResourceNameWithoutScope": "argo-cd-argo-workflows-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: argo-cd-argo-workflows-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: argo-cd-argo-workflows\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/argo-cd-argo-workflows-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-cd-argo-workflows-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-cd-argo-workflows-manifest-index",
+            "ResourceNameWithoutScope": "argo-cd-argo-workflows-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: argo-cd-argo-workflows-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: argo-cd-argo-workflows\n  files:\n  - filename: clusterrole-argo-workflows-admin.yaml\n    slug: clusterrole-argo-workflows-admin\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: argo-workflows-admin\n  - filename: clusterrole-argo-workflows-edit.yaml\n    slug: clusterrole-argo-workflows-edit\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: argo-workflows-edit\n  - filename: clusterrole-argo-workflows-server.yaml\n    slug: clusterrole-argo-workflows-server\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: argo-workflows-server\n  - filename: clusterrole-argo-workflows-server-cluster-template.yaml\n    slug: clusterrole-argo-workflows-server-cluster-template\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: argo-workflows-server-cluster-template\n  - filename: clusterrole-argo-workflows-view.yaml\n    slug: clusterrole-argo-workflows-view\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: argo-workflows-view\n  - filename: clusterrole-argo-workflows-workflow-controller.yaml\n    slug: clusterrole-argo-workflows-workflow-controller\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: argo-workflows-workflow-controller\n  - filename: clusterrole-argo-workflows-workflow-controller-cluster-template.yaml\n    slug: clusterrole-argo-workflows-workflow-controller-cluster-template\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: argo-workflows-workflow-controller-cluster-template\n  - filename: clusterrolebinding-argo-workflows-server.yaml\n    slug: clusterrolebinding-argo-workflows-server\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: argo-workflows-server\n  - filename: clusterrolebinding-argo-workflows-server-cluster-template.yaml\n    slug: clusterrolebinding-argo-workflows-server-cluster-template\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: argo-workflows-server-cluster-template\n  - filename: clusterrolebinding-argo-workflows-workflow-controller.yaml\n    slug: clusterrolebinding-argo-workflows-workflow-controller\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: argo-workflows-workflow-controller\n  - filename: clusterrolebinding-argo-workflows-workflow-controller-cluster-template.yaml\n    slug: clusterrolebinding-argo-workflows-workflow-controller-cluster-template\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: argo-workflows-workflow-controller-cluster-template\n  - filename: configmap-default-argo-workflows-workflow-controller-configmap.yaml\n    slug: configmap-default-argo-workflows-workflow-controller-configmap\n    apiVersion: v1\n    kind: ConfigMap\n    name: argo-workflows-workflow-controller-configmap\n    namespace: default\n  - filename: deployment-default-argo-workflows-server.yaml\n    slug: deployment-default-argo-workflows-server\n    apiVersion: apps/v1\n    kind: Deployment\n    name: argo-workflows-server\n    namespace: default\n  - filename: deployment-default-argo-workflows-workflow-controller.yaml\n    slug: deployment-default-argo-workflows-workflow-controller\n    apiVersion: apps/v1\n    kind: Deployment\n    name: argo-workflows-workflow-controller\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-argo-workflows-workflow.yaml\n    slug: role-default-argo-workflows-workflow\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: argo-workflows-workflow\n    namespace: default\n  - filename: rolebinding-default-argo-workflows-workflow.yaml\n    slug: rolebinding-default-argo-workflows-workflow\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: argo-workflows-workflow\n    namespace: default\n  - filename: service-default-argo-workflows-server.yaml\n    slug: service-default-argo-workflows-server\n    apiVersion: v1\n    kind: Service\n    name: argo-workflows-server\n    namespace: default\n  - filename: serviceaccount-default-argo-workflows-server.yaml\n    slug: serviceaccount-default-argo-workflows-server\n    apiVersion: v1\n    kind: ServiceAccount\n    name: argo-workflows-server\n    namespace: default\n  - filename: serviceaccount-default-argo-workflows-workflow-controller.yaml\n    slug: serviceaccount-default-argo-workflows-workflow-controller\n    apiVersion: v1\n    kind: ServiceAccount\n    name: argo-workflows-workflow-controller\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/argo-cd-argo-workflows-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-cd-argo-workflows-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-cd-argo-workflows-selection",
+            "ResourceNameWithoutScope": "argo-cd-argo-workflows-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: argo-cd-argo-workflows-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: argo-cd-argo-workflows\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/argo-cd-argo-workflows-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-cd-argo-workflows-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-cd-argo-workflows-upload",
+            "ResourceNameWithoutScope": "argo-cd-argo-workflows-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: argo-cd-argo-workflows-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: argo-cd-argo-workflows\n  spacePattern: helm-argo-workflows-default-confighub-proof\n  spaces:\n  - package: argo-cd-argo-workflows\n    slug: helm-argo-workflows-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:45:24Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "69bfc9f9-643c-4947-ad01-504e02129747",
+      "UpdatedAt": "2026-06-12T16:45:44.816512Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.456995Z",
+        "CursorID": 22472,
+        "DisplayName": "Upgrade rolebinding-default-argo-workflows-workflow",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "79536655-bde3-4001-a9e0-473952ad0e3a",
+        "LinkID": "e4fb1710-e16e-422a-b17b-58afa678ef53",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-argo-workflows-workflow",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "7f7fbeb4-4d86-409e-8176-070fc3289cf4",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.456995Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7f7fbeb4-4d86-409e-8176-070fc3289cf4' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "28178070c8caaac17a9427295fad2d9af2cd4bfdae2046d34e2c9235e3ccda35",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e4fb1710-e16e-422a-b17b-58afa678ef53"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-argo-workflows-workflow",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "79536655-bde3-4001-a9e0-473952ad0e3a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7f7fbeb4-4d86-409e-8176-070fc3289cf4",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -428801810,
+      "CreatedAt": "2026-06-12T16:45:40.500238Z",
+      "CursorID": 27602,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGFyZ28td29ya2Zsb3dzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBhcmdvLXdvcmtmbG93cwogICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3cKICBuYW1lc3BhY2U6IGRlZmF1bHQKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IFJvbGUKICBuYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdwpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGFyZ28td29ya2Zsb3cKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "28178070c8caaac17a9427295fad2d9af2cd4bfdae2046d34e2c9235e3ccda35",
+      "DisplayName": "rolebinding-default-argo-workflows-workflow",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/argo-workflows-workflow": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-workflow": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/argo-workflows-workflow",
+            "ResourceNameWithoutScope": "argo-workflows-workflow",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-workflow-controller\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-workflow\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: argo-workflows-workflow\nsubjects:\n- kind: ServiceAccount\n  name: argo-workflow\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-argo-workflows-workflow",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7f7fbeb4-4d86-409e-8176-070fc3289cf4",
+      "UpdatedAt": "2026-06-12T16:46:18.717628Z",
+      "Version": 9
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:43.534292Z",
+        "CursorID": 22459,
+        "DisplayName": "Upgrade clusterrole-argo-workflows-admin",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "93d3ec51-337c-48c7-818c-b0ceedfb9767",
+        "LinkID": "f852c104-67b1-4342-a500-cb53caac3ab1",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-argo-workflows-admin",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "e020f5d4-3f12-4b27-90fc-6f3090633c37",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:43.534292Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e020f5d4-3f12-4b27-90fc-6f3090633c37' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0691ef8db7ef8770fbde1ab22e1820dde975f9a8b41f7ca03836a181c0ee481e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f852c104-67b1-4342-a500-cb53caac3ab1"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-admin",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "93d3ec51-337c-48c7-818c-b0ceedfb9767",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e020f5d4-3f12-4b27-90fc-6f3090633c37",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1830554108,
+      "CreatedAt": "2026-06-12T16:45:26.381453Z",
+      "CursorID": 27586,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBzZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBhcmdvLXdvcmtmbG93cwogICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgICByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL2FnZ3JlZ2F0ZS10by1hZG1pbjogInRydWUiCiAgbmFtZTogYXJnby13b3JrZmxvd3MtYWRtaW4KcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gYXJnb3Byb2ouaW8KICByZXNvdXJjZXM6CiAgLSB3b3JrZmxvd3MKICAtIHdvcmtmbG93cy9maW5hbGl6ZXJzCiAgLSB3b3JrZmxvd2V2ZW50YmluZGluZ3MKICAtIHdvcmtmbG93ZXZlbnRiaW5kaW5ncy9maW5hbGl6ZXJzCiAgLSB3b3JrZmxvd3RlbXBsYXRlcwogIC0gd29ya2Zsb3d0ZW1wbGF0ZXMvZmluYWxpemVycwogIC0gY3JvbndvcmtmbG93cwogIC0gY3JvbndvcmtmbG93cy9maW5hbGl6ZXJzCiAgLSBjbHVzdGVyd29ya2Zsb3d0ZW1wbGF0ZXMKICAtIGNsdXN0ZXJ3b3JrZmxvd3RlbXBsYXRlcy9maW5hbGl6ZXJzCiAgLSB3b3JrZmxvd3Rhc2tzZXRzCiAgLSB3b3JrZmxvd3Rhc2tzZXRzL2ZpbmFsaXplcnMKICAtIHdvcmtmbG93dGFza3Jlc3VsdHMKICAtIHdvcmtmbG93dGFza3Jlc3VsdHMvZmluYWxpemVycwogIC0gd29ya2Zsb3dhcnRpZmFjdGdjdGFza3MKICAtIHdvcmtmbG93YXJ0aWZhY3RnY3Rhc2tzL2ZpbmFsaXplcnMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBkZWxldGVjb2xsZWN0aW9uCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCg==",
+      "DataHash": "0691ef8db7ef8770fbde1ab22e1820dde975f9a8b41f7ca03836a181c0ee481e",
+      "DisplayName": "clusterrole-argo-workflows-admin",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-admin": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-admin": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-admin",
+            "ResourceNameWithoutScope": "argo-workflows-admin",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: server\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-server\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n    rbac.authorization.k8s.io/aggregate-to-admin: \"true\"\n  name: argo-workflows-admin\nrules:\n- apiGroups:\n  - argoproj.io\n  resources:\n  - workflows\n  - workflows/finalizers\n  - workfloweventbindings\n  - workfloweventbindings/finalizers\n  - workflowtemplates\n  - workflowtemplates/finalizers\n  - cronworkflows\n  - cronworkflows/finalizers\n  - clusterworkflowtemplates\n  - clusterworkflowtemplates/finalizers\n  - workflowtasksets\n  - workflowtasksets/finalizers\n  - workflowtaskresults\n  - workflowtaskresults/finalizers\n  - workflowartifactgctasks\n  - workflowartifactgctasks/finalizers\n  verbs:\n  - create\n  - delete\n  - deletecollection\n  - get\n  - list\n  - patch\n  - update\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/argo-workflows-admin",
+          "ResourceNameWithoutScope": "argo-workflows-admin",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-argo-workflows-admin",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e020f5d4-3f12-4b27-90fc-6f3090633c37",
+      "UpdatedAt": "2026-06-12T16:45:44.33467Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:43.665343Z",
+        "CursorID": 22460,
+        "DisplayName": "Upgrade clusterrole-argo-workflows-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "afc08bbc-d713-4c58-8db7-c723812e978f",
+        "LinkID": "2a6f7932-1cf8-40cf-a2d0-087b860b21c3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-argo-workflows-server",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "d3f498e1-80c7-4e30-9d85-4accabd28b2c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:43.665343Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd3f498e1-80c7-4e30-9d85-4accabd28b2c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "492bb72f57faca7e10a883bd36d25e33d2561b5018969cea5332e8945f6af278",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "2a6f7932-1cf8-40cf-a2d0-087b860b21c3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-server",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "afc08bbc-d713-4c58-8db7-c723812e978f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d3f498e1-80c7-4e30-9d85-4accabd28b2c",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -33511256,
+      "CreatedAt": "2026-06-12T16:45:29.323309Z",
+      "CursorID": 27589,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBzZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBhcmdvLXdvcmtmbG93cwogICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gY29uZmlnbWFwcwogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHdhdGNoCiAgLSBsaXN0Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwb2RzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHBvZHMvbG9nCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHNlY3JldHMKICB2ZXJiczoKICAtIGdldAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSBwYXRjaAotIGFwaUdyb3VwczoKICAtIGFyZ29wcm9qLmlvCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzb3VyY2VzCiAgLSBzZW5zb3JzCiAgLSB3b3JrZmxvd3MKICAtIHdvcmtmbG93ZXZlbnRiaW5kaW5ncwogIC0gd29ya2Zsb3d0ZW1wbGF0ZXMKICAtIGNyb253b3JrZmxvd3MKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gdXBkYXRlCiAgLSBwYXRjaAogIC0gZGVsZXRlCg==",
+      "DataHash": "492bb72f57faca7e10a883bd36d25e33d2561b5018969cea5332e8945f6af278",
+      "DisplayName": "clusterrole-argo-workflows-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-server",
+            "ResourceNameWithoutScope": "argo-workflows-server",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: server\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-server\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-server\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - events\n  verbs:\n  - get\n  - watch\n  - list\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  verbs:\n  - get\n  - list\n  - watch\n  - delete\n- apiGroups:\n  - \"\"\n  resources:\n  - pods/log\n  verbs:\n  - get\n  - list\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - watch\n  - create\n  - patch\n- apiGroups:\n  - argoproj.io\n  resources:\n  - eventsources\n  - sensors\n  - workflows\n  - workfloweventbindings\n  - workflowtemplates\n  - cronworkflows\n  verbs:\n  - create\n  - get\n  - list\n  - watch\n  - update\n  - patch\n  - delete\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/argo-workflows-server",
+          "ResourceNameWithoutScope": "argo-workflows-server",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d3f498e1-80c7-4e30-9d85-4accabd28b2c",
+      "UpdatedAt": "2026-06-12T16:45:44.385871Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.511687Z",
+        "CursorID": 22474,
+        "DisplayName": "Upgrade serviceaccount-default-argo-workflows-workflow-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ad9bf6fc-7e14-466e-a598-24533f2892b0",
+        "LinkID": "a232421e-9ef9-440d-adf2-c748fa0a9403",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-argo-workflows-workflow-controller",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "c405c9c6-f8a0-4572-a03c-2c9b08383a9c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.511687Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c405c9c6-f8a0-4572-a03c-2c9b08383a9c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "518ffef54e0a1df5f7b5323c4cd755c6d2c00fddeb834a735ae04c9b1f628328",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a232421e-9ef9-440d-adf2-c748fa0a9403"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-argo-workflows-workflow-controller",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ad9bf6fc-7e14-466e-a598-24533f2892b0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c405c9c6-f8a0-4572-a03c-2c9b08383a9c",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -526259220,
+      "CreatedAt": "2026-06-12T16:45:42.849211Z",
+      "CursorID": 27605,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiB3b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogYXJnby13b3JrZmxvd3MKICAgIGhlbG0uc2gvY2hhcnQ6IGFyZ28td29ya2Zsb3dzLTEuMC4xNAogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "518ffef54e0a1df5f7b5323c4cd755c6d2c00fddeb834a735ae04c9b1f628328",
+      "DisplayName": "serviceaccount-default-argo-workflows-workflow-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 438 bytes; from serviceaccount-default-argo-workflows-workflow-controller.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/argo-workflows-workflow-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-workflow-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/argo-workflows-workflow-controller",
+            "ResourceNameWithoutScope": "argo-workflows-workflow-controller",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-workflow-controller\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-workflow-controller\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/argo-workflows-workflow-controller",
+          "ResourceNameWithoutScope": "argo-workflows-workflow-controller",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-argo-workflows-workflow-controller",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c405c9c6-f8a0-4572-a03c-2c9b08383a9c",
+      "UpdatedAt": "2026-06-12T16:46:22.687058Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:43.887154Z",
+        "CursorID": 22462,
+        "DisplayName": "Upgrade clusterrole-argo-workflows-view",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "fab796d5-65fb-40bf-a01a-e360fd8f673f",
+        "LinkID": "1dd727a2-249b-4a54-b496-bb4f59bbc65a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-argo-workflows-view",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "0c29666e-6e72-46c9-86c8-b448e5aeffd1",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:43.887154Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0c29666e-6e72-46c9-86c8-b448e5aeffd1' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a44b90fc93c9c7cdf994e75d5b85f86d7311a67b314f1fc81b927c4fa100a0b6",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1dd727a2-249b-4a54-b496-bb4f59bbc65a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-view",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fab796d5-65fb-40bf-a01a-e360fd8f673f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0c29666e-6e72-46c9-86c8-b448e5aeffd1",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1540969030,
+      "CreatedAt": "2026-06-12T16:45:30.150026Z",
+      "CursorID": 27590,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGFyZ28td29ya2Zsb3dzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBhcmdvLXdvcmtmbG93cwogICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgICByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL2FnZ3JlZ2F0ZS10by12aWV3OiAidHJ1ZSIKICBuYW1lOiBhcmdvLXdvcmtmbG93cy12aWV3CnJ1bGVzOgotIGFwaUdyb3VwczoKICAtIGFyZ29wcm9qLmlvCiAgcmVzb3VyY2VzOgogIC0gd29ya2Zsb3dzCiAgLSB3b3JrZmxvd3MvZmluYWxpemVycwogIC0gd29ya2Zsb3dldmVudGJpbmRpbmdzCiAgLSB3b3JrZmxvd2V2ZW50YmluZGluZ3MvZmluYWxpemVycwogIC0gd29ya2Zsb3d0ZW1wbGF0ZXMKICAtIHdvcmtmbG93dGVtcGxhdGVzL2ZpbmFsaXplcnMKICAtIGNyb253b3JrZmxvd3MKICAtIGNyb253b3JrZmxvd3MvZmluYWxpemVycwogIC0gY2x1c3RlcndvcmtmbG93dGVtcGxhdGVzCiAgLSBjbHVzdGVyd29ya2Zsb3d0ZW1wbGF0ZXMvZmluYWxpemVycwogIC0gd29ya2Zsb3d0YXNrc2V0cwogIC0gd29ya2Zsb3d0YXNrc2V0cy9maW5hbGl6ZXJzCiAgLSB3b3JrZmxvd3Rhc2tyZXN1bHRzCiAgLSB3b3JrZmxvd3Rhc2tyZXN1bHRzL2ZpbmFsaXplcnMKICAtIHdvcmtmbG93YXJ0aWZhY3RnY3Rhc2tzCiAgLSB3b3JrZmxvd2FydGlmYWN0Z2N0YXNrcy9maW5hbGl6ZXJzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCg==",
+      "DataHash": "a44b90fc93c9c7cdf994e75d5b85f86d7311a67b314f1fc81b927c4fa100a0b6",
+      "DisplayName": "clusterrole-argo-workflows-view",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-view": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-view": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-view",
+            "ResourceNameWithoutScope": "argo-workflows-view",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-workflow-controller\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n    rbac.authorization.k8s.io/aggregate-to-view: \"true\"\n  name: argo-workflows-view\nrules:\n- apiGroups:\n  - argoproj.io\n  resources:\n  - workflows\n  - workflows/finalizers\n  - workfloweventbindings\n  - workfloweventbindings/finalizers\n  - workflowtemplates\n  - workflowtemplates/finalizers\n  - cronworkflows\n  - cronworkflows/finalizers\n  - clusterworkflowtemplates\n  - clusterworkflowtemplates/finalizers\n  - workflowtasksets\n  - workflowtasksets/finalizers\n  - workflowtaskresults\n  - workflowtaskresults/finalizers\n  - workflowartifactgctasks\n  - workflowartifactgctasks/finalizers\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/argo-workflows-view",
+          "ResourceNameWithoutScope": "argo-workflows-view",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-argo-workflows-view",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0c29666e-6e72-46c9-86c8-b448e5aeffd1",
+      "UpdatedAt": "2026-06-12T16:45:44.460432Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:43.954531Z",
+        "CursorID": 22463,
+        "DisplayName": "Upgrade clusterrole-argo-workflows-workflow-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "647d29cd-84c2-4697-a786-44305d697d48",
+        "LinkID": "d17d0dff-e9ce-4bbf-bb52-f2f7d73c4174",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-argo-workflows-workflow-controller",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "2923ff19-bb6b-4d61-9bb2-a88f6160e113",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:43.954531Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2923ff19-bb6b-4d61-9bb2-a88f6160e113' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2de13cbf43872823c9393bc88a1e8df1bf35a95da9f792524ccdef354344435e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d17d0dff-e9ce-4bbf-bb52-f2f7d73c4174"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-workflow-controller",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "647d29cd-84c2-4697-a786-44305d697d48",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2923ff19-bb6b-4d61-9bb2-a88f6160e113",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 776850759,
+      "CreatedAt": "2026-06-12T16:45:31.696702Z",
+      "CursorID": 27592,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGFyZ28td29ya2Zsb3dzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBhcmdvLXdvcmtmbG93cwogICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgpydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHBvZHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gdXBkYXRlCiAgLSBwYXRjaAogIC0gZGVsZXRlCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwb2RzL2V4ZWMKICB2ZXJiczoKICAtIGNyZWF0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gY29uZmlnbWFwcwogIC0gbmFtZXNwYWNlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSB3YXRjaAogIC0gbGlzdAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gcGVyc2lzdGVudHZvbHVtZWNsYWltcwogIC0gcGVyc2lzdGVudHZvbHVtZWNsYWltcy9maW5hbGl6ZXJzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHVwZGF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKLSBhcGlHcm91cHM6CiAgLSBhcmdvcHJvai5pbwogIHJlc291cmNlczoKICAtIHdvcmtmbG93cwogIC0gd29ya2Zsb3dzL2ZpbmFsaXplcnMKICAtIHdvcmtmbG93dGFza3NldHMKICAtIHdvcmtmbG93dGFza3NldHMvZmluYWxpemVycwogIC0gd29ya2Zsb3d0YXNrc2V0cy9zdGF0dXMKICAtIHdvcmtmbG93YXJ0aWZhY3RnY3Rhc2tzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSB1cGRhdGUKICAtIHBhdGNoCiAgLSBkZWxldGUKICAtIGNyZWF0ZQotIGFwaUdyb3VwczoKICAtIGFyZ29wcm9qLmlvCiAgcmVzb3VyY2VzOgogIC0gd29ya2Zsb3d0ZW1wbGF0ZXMKICAtIHdvcmtmbG93dGVtcGxhdGVzL2ZpbmFsaXplcnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhcmdvcHJvai5pbwogIHJlc291cmNlczoKICAtIHdvcmtmbG93dGFza3Jlc3VsdHMKICAtIHdvcmtmbG93dGFza3Jlc3VsdHMvZmluYWxpemVycwogIHZlcmJzOgogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGRlbGV0ZWNvbGxlY3Rpb24KLSBhcGlHcm91cHM6CiAgLSBhcmdvcHJvai5pbwogIHJlc291cmNlczoKICAtIGNyb253b3JrZmxvd3MKICAtIGNyb253b3JrZmxvd3MvZmluYWxpemVycwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gdXBkYXRlCiAgLSBwYXRjaAogIC0gZGVsZXRlCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBldmVudHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gcGF0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHNlcnZpY2VhY2NvdW50cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0Ci0gYXBpR3JvdXBzOgogIC0gcG9saWN5CiAgcmVzb3VyY2VzOgogIC0gcG9kZGlzcnVwdGlvbmJ1ZGdldHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZ2V0CiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBjb29yZGluYXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gbGVhc2VzCiAgdmVyYnM6CiAgLSBjcmVhdGUKLSBhcGlHcm91cHM6CiAgLSBjb29yZGluYXRpb24uazhzLmlvCiAgcmVzb3VyY2VOYW1lczoKICAtIHdvcmtmbG93LWNvbnRyb2xsZXIKICAtIHdvcmtmbG93LWNvbnRyb2xsZXItbGVhc2UKICByZXNvdXJjZXM6CiAgLSBsZWFzZXMKICB2ZXJiczoKICAtIGdldAogIC0gd2F0Y2gKICAtIHVwZGF0ZQogIC0gcGF0Y2gKICAtIGRlbGV0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VOYW1lczoKICAtIGFyZ28td29ya2Zsb3dzLWFnZW50LWNhLWNlcnRpZmljYXRlcwogIHJlc291cmNlczoKICAtIHNlY3JldHMKICB2ZXJiczoKICAtIGdldAo=",
+      "DataHash": "2de13cbf43872823c9393bc88a1e8df1bf35a95da9f792524ccdef354344435e",
+      "DisplayName": "clusterrole-argo-workflows-workflow-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-workflow-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-workflow-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-workflow-controller",
+            "ResourceNameWithoutScope": "argo-workflows-workflow-controller",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-workflow-controller\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-workflow-controller\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  verbs:\n  - create\n  - get\n  - list\n  - watch\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - \"\"\n  resources:\n  - pods/exec\n  verbs:\n  - create\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - namespaces\n  verbs:\n  - get\n  - watch\n  - list\n- apiGroups:\n  - \"\"\n  resources:\n  - persistentvolumeclaims\n  - persistentvolumeclaims/finalizers\n  verbs:\n  - create\n  - update\n  - delete\n  - get\n- apiGroups:\n  - argoproj.io\n  resources:\n  - workflows\n  - workflows/finalizers\n  - workflowtasksets\n  - workflowtasksets/finalizers\n  - workflowtasksets/status\n  - workflowartifactgctasks\n  verbs:\n  - get\n  - list\n  - watch\n  - update\n  - patch\n  - delete\n  - create\n- apiGroups:\n  - argoproj.io\n  resources:\n  - workflowtemplates\n  - workflowtemplates/finalizers\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - argoproj.io\n  resources:\n  - workflowtaskresults\n  - workflowtaskresults/finalizers\n  verbs:\n  - list\n  - watch\n  - deletecollection\n- apiGroups:\n  - argoproj.io\n  resources:\n  - cronworkflows\n  - cronworkflows/finalizers\n  verbs:\n  - get\n  - list\n  - watch\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n- apiGroups:\n  - \"\"\n  resources:\n  - serviceaccounts\n  verbs:\n  - get\n  - list\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - create\n  - get\n  - delete\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n- apiGroups:\n  - coordination.k8s.io\n  resourceNames:\n  - workflow-controller\n  - workflow-controller-lease\n  resources:\n  - leases\n  verbs:\n  - get\n  - watch\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - \"\"\n  resourceNames:\n  - argo-workflows-agent-ca-certificates\n  resources:\n  - secrets\n  verbs:\n  - get\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/argo-workflows-workflow-controller",
+          "ResourceNameWithoutScope": "argo-workflows-workflow-controller",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-argo-workflows-workflow-controller",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2923ff19-bb6b-4d61-9bb2-a88f6160e113",
+      "UpdatedAt": "2026-06-12T16:45:44.491416Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.040662Z",
+        "CursorID": 22465,
+        "DisplayName": "Upgrade deployment-default-argo-workflows-workflow-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "41f9a8bf-e422-4d51-b592-c53ed005e118",
+        "LinkID": "ff584b16-4223-42f1-adb8-ceae3714a2df",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-argo-workflows-workflow-controller",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "e2168422-5a5e-4ec2-8868-15222e83758e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.040662Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e2168422-5a5e-4ec2-8868-15222e83758e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b86e3be09e6b50dd0fb315cef1b44ffb0283b02c14f3bf8df6c80f7071032340",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ff584b16-4223-42f1-adb8-ceae3714a2df"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-argo-workflows-workflow-controller",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "41f9a8bf-e422-4d51-b592-c53ed005e118",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e2168422-5a5e-4ec2-8868-15222e83758e",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 583087413,
+      "CreatedAt": "2026-06-12T16:45:38.147821Z",
+      "CursorID": 27599,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiB3b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogYXJnby13b3JrZmxvd3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGFyZ28td29ya2Zsb3dzCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2NC4wLjUKICAgIGhlbG0uc2gvY2hhcnQ6IGFyZ28td29ya2Zsb3dzLTEuMC4xNAogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICByZXBsaWNhczogMQogIHJldmlzaW9uSGlzdG9yeUxpbWl0OiAxMAogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyCiAgc3RyYXRlZ3k6CiAgICB0eXBlOiBSZWNyZWF0ZQogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGxhYmVsczoKICAgICAgICBhcHA6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogYXJnby13b3JrZmxvd3MKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGFyZ28td29ya2Zsb3dzCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjQuMC41CiAgICAgICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgICBzcGVjOgogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSAtLWNvbmZpZ21hcAogICAgICAgIC0gYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlci1jb25maWdtYXAKICAgICAgICAtIC0tZXhlY3V0b3ItaW1hZ2UKICAgICAgICAtIHF1YXkuaW8vYXJnb3Byb2ovYXJnb2V4ZWM6djQuMC41CiAgICAgICAgLSAtLWxvZ2xldmVsCiAgICAgICAgLSBpbmZvCiAgICAgICAgLSAtLWdsb2dsZXZlbAogICAgICAgIC0gIjAiCiAgICAgICAgLSAtLWxvZy1mb3JtYXQKICAgICAgICAtIHRleHQKICAgICAgICBjb21tYW5kOgogICAgICAgIC0gd29ya2Zsb3ctY29udHJvbGxlcgogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEFSR09fTkFNRVNQQUNFCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGFwaVZlcnNpb246IHYxCiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IExFQURFUl9FTEVDVElPTl9JREVOVElUWQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBhcGlWZXJzaW9uOiB2MQogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZQogICAgICAgIC0gbmFtZTogTEVBREVSX0VMRUNUSU9OX0RJU0FCTEUKICAgICAgICAgIHZhbHVlOiAidHJ1ZSIKICAgICAgICBpbWFnZTogcXVheS5pby9hcmdvcHJvai93b3JrZmxvdy1jb250cm9sbGVyOnY0LjAuNQogICAgICAgIGltYWdlUHVsbFBvbGljeTogQWx3YXlzCiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDMKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgIHBvcnQ6IDYwNjAKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDkwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiA2MAogICAgICAgICAgdGltZW91dFNlY29uZHM6IDMwCiAgICAgICAgbmFtZTogY29udHJvbGxlcgogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogOTA5MAogICAgICAgICAgbmFtZTogbWV0cmljcwogICAgICAgIC0gY29udGFpbmVyUG9ydDogNjA2MAogICAgICAgIHJlc291cmNlczoge30KICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBhbGxvd1ByaXZpbGVnZUVzY2FsYXRpb246IGZhbHNlCiAgICAgICAgICBjYXBhYmlsaXRpZXM6CiAgICAgICAgICAgIGRyb3A6CiAgICAgICAgICAgIC0gQUxMCiAgICAgICAgICByZWFkT25seVJvb3RGaWxlc3lzdGVtOiB0cnVlCiAgICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgbm9kZVNlbGVjdG9yOgogICAgICAgIGt1YmVybmV0ZXMuaW8vb3M6IGxpbnV4CiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgo=",
+      "DataHash": "b86e3be09e6b50dd0fb315cef1b44ffb0283b02c14f3bf8df6c80f7071032340",
+      "DisplayName": "deployment-default-argo-workflows-workflow-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/argo-workflows-workflow-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-workflow-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/argo-workflows-workflow-controller",
+            "ResourceNameWithoutScope": "argo-workflows-workflow-controller",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-workflow-controller\n    app.kubernetes.io/part-of: argo-workflows\n    app.kubernetes.io/version: v4.0.5\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-workflow-controller\n  namespace: default\nspec:\n  replicas: 1\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: argo-workflows\n      app.kubernetes.io/name: argo-workflows-workflow-controller\n  strategy:\n    type: Recreate\n  template:\n    metadata:\n      labels:\n        app: workflow-controller\n        app.kubernetes.io/component: workflow-controller\n        app.kubernetes.io/instance: argo-workflows\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: argo-workflows-workflow-controller\n        app.kubernetes.io/part-of: argo-workflows\n        app.kubernetes.io/version: v4.0.5\n        helm.sh/chart: argo-workflows-1.0.14\n    spec:\n      containers:\n      - args:\n        - --configmap\n        - argo-workflows-workflow-controller-configmap\n        - --executor-image\n        - quay.io/argoproj/argoexec:v4.0.5\n        - --loglevel\n        - info\n        - --gloglevel\n        - \"0\"\n        - --log-format\n        - text\n        command:\n        - workflow-controller\n        env:\n        - name: ARGO_NAMESPACE\n          valueFrom:\n            fieldRef:\n              apiVersion: v1\n              fieldPath: metadata.namespace\n        - name: LEADER_ELECTION_IDENTITY\n          valueFrom:\n            fieldRef:\n              apiVersion: v1\n              fieldPath: metadata.name\n        - name: LEADER_ELECTION_DISABLE\n          value: \"true\"\n        image: quay.io/argoproj/workflow-controller:v4.0.5\n        imagePullPolicy: Always\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 6060\n          initialDelaySeconds: 90\n          periodSeconds: 60\n          timeoutSeconds: 30\n        name: controller\n        ports:\n        - containerPort: 9090\n          name: metrics\n        - containerPort: 6060\n        resources: {}\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsNonRoot: true\n      nodeSelector:\n        kubernetes.io/os: linux\n      serviceAccountName: argo-workflows-workflow-controller\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/argo-workflows-workflow-controller",
+          "ResourceNameWithoutScope": "argo-workflows-workflow-controller",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-argo-workflows-workflow-controller",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e2168422-5a5e-4ec2-8868-15222e83758e",
+      "UpdatedAt": "2026-06-12T16:46:16.849463Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:43.782897Z",
+        "CursorID": 22461,
+        "DisplayName": "Upgrade clusterrole-argo-workflows-edit",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "74209c18-351c-4d4c-9303-fd94338a9cdd",
+        "LinkID": "829f9564-ac51-43a2-a48c-779c075f44ea",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-argo-workflows-edit",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "f4acaaf3-f338-438f-bd63-ff570190873a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:43.782898Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f4acaaf3-f338-438f-bd63-ff570190873a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8e50337c263b451151178c0479d3fa6c25f57784d604a22c19060d0ade191cb9",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "829f9564-ac51-43a2-a48c-779c075f44ea"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-edit",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "74209c18-351c-4d4c-9303-fd94338a9cdd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f4acaaf3-f338-438f-bd63-ff570190873a",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1370751380,
+      "CreatedAt": "2026-06-12T16:45:27.205367Z",
+      "CursorID": 27587,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBzZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBhcmdvLXdvcmtmbG93cwogICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgICByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL2FnZ3JlZ2F0ZS10by1lZGl0OiAidHJ1ZSIKICBuYW1lOiBhcmdvLXdvcmtmbG93cy1lZGl0CnJ1bGVzOgotIGFwaUdyb3VwczoKICAtIGFyZ29wcm9qLmlvCiAgcmVzb3VyY2VzOgogIC0gd29ya2Zsb3dzCiAgLSB3b3JrZmxvd3MvZmluYWxpemVycwogIC0gd29ya2Zsb3dldmVudGJpbmRpbmdzCiAgLSB3b3JrZmxvd2V2ZW50YmluZGluZ3MvZmluYWxpemVycwogIC0gd29ya2Zsb3d0ZW1wbGF0ZXMKICAtIHdvcmtmbG93dGVtcGxhdGVzL2ZpbmFsaXplcnMKICAtIGNyb253b3JrZmxvd3MKICAtIGNyb253b3JrZmxvd3MvZmluYWxpemVycwogIC0gY2x1c3RlcndvcmtmbG93dGVtcGxhdGVzCiAgLSBjbHVzdGVyd29ya2Zsb3d0ZW1wbGF0ZXMvZmluYWxpemVycwogIC0gd29ya2Zsb3d0YXNrc2V0cwogIC0gd29ya2Zsb3d0YXNrc2V0cy9maW5hbGl6ZXJzCiAgLSB3b3JrZmxvd3Rhc2tyZXN1bHRzCiAgLSB3b3JrZmxvd3Rhc2tyZXN1bHRzL2ZpbmFsaXplcnMKICAtIHdvcmtmbG93YXJ0aWZhY3RnY3Rhc2tzCiAgLSB3b3JrZmxvd2FydGlmYWN0Z2N0YXNrcy9maW5hbGl6ZXJzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZGVsZXRlY29sbGVjdGlvbgogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAo=",
+      "DataHash": "8e50337c263b451151178c0479d3fa6c25f57784d604a22c19060d0ade191cb9",
+      "DisplayName": "clusterrole-argo-workflows-edit",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-edit": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-edit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-edit",
+            "ResourceNameWithoutScope": "argo-workflows-edit",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: server\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-server\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n    rbac.authorization.k8s.io/aggregate-to-edit: \"true\"\n  name: argo-workflows-edit\nrules:\n- apiGroups:\n  - argoproj.io\n  resources:\n  - workflows\n  - workflows/finalizers\n  - workfloweventbindings\n  - workfloweventbindings/finalizers\n  - workflowtemplates\n  - workflowtemplates/finalizers\n  - cronworkflows\n  - cronworkflows/finalizers\n  - clusterworkflowtemplates\n  - clusterworkflowtemplates/finalizers\n  - workflowtasksets\n  - workflowtasksets/finalizers\n  - workflowtaskresults\n  - workflowtaskresults/finalizers\n  - workflowartifactgctasks\n  - workflowartifactgctasks/finalizers\n  verbs:\n  - create\n  - delete\n  - deletecollection\n  - get\n  - list\n  - patch\n  - update\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/argo-workflows-edit",
+          "ResourceNameWithoutScope": "argo-workflows-edit",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-argo-workflows-edit",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f4acaaf3-f338-438f-bd63-ff570190873a",
+      "UpdatedAt": "2026-06-12T16:45:44.434977Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.19063Z",
+        "CursorID": 22467,
+        "DisplayName": "Upgrade clusterrole-argo-workflows-server-cluster-template",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "7f88b4b7-e630-42ee-9e34-0f6e6ecd3308",
+        "LinkID": "66907d6d-78fc-4c9f-8b13-529e36a26a94",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-argo-workflows-server-cluster-template",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "e2538f78-fb67-40d0-88ba-341a442bebbc",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.19063Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e2538f78-fb67-40d0-88ba-341a442bebbc' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b089d1ad71fd23a6ae82323d217876a1934abb37c808c8d4270dacb656d51ca6",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "66907d6d-78fc-4c9f-8b13-529e36a26a94"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-server-cluster-template",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7f88b4b7-e630-42ee-9e34-0f6e6ecd3308",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e2538f78-fb67-40d0-88ba-341a442bebbc",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 133304512,
+      "CreatedAt": "2026-06-12T16:45:28.460265Z",
+      "CursorID": 27588,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBzZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBhcmdvLXdvcmtmbG93cwogICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyLWNsdXN0ZXItdGVtcGxhdGUKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gYXJnb3Byb2ouaW8KICByZXNvdXJjZXM6CiAgLSBjbHVzdGVyd29ya2Zsb3d0ZW1wbGF0ZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gdXBkYXRlCiAgLSBwYXRjaAogIC0gZGVsZXRlCg==",
+      "DataHash": "b089d1ad71fd23a6ae82323d217876a1934abb37c808c8d4270dacb656d51ca6",
+      "DisplayName": "clusterrole-argo-workflows-server-cluster-template",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-server-cluster-template": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-server-cluster-template": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-server-cluster-template",
+            "ResourceNameWithoutScope": "argo-workflows-server-cluster-template",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: server\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-server\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-server-cluster-template\nrules:\n- apiGroups:\n  - argoproj.io\n  resources:\n  - clusterworkflowtemplates\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/argo-workflows-server-cluster-template",
+          "ResourceNameWithoutScope": "argo-workflows-server-cluster-template",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-argo-workflows-server-cluster-template",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e2538f78-fb67-40d0-88ba-341a442bebbc",
+      "UpdatedAt": "2026-06-12T16:45:44.489595Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.427345Z",
+        "CursorID": 22471,
+        "DisplayName": "Upgrade clusterrolebinding-argo-workflows-workflow-controller-cluster-template",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "50bb0294-b360-4bb9-91a1-bbdb528973da",
+        "LinkID": "d8a028b7-1370-4eb3-822a-3bcaa959d4bb",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-argo-workflows-workflow-controller-cluster-template",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "0d3d277f-d2e1-4edd-af52-2bee7e53bb82",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.427345Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0d3d277f-d2e1-4edd-af52-2bee7e53bb82' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a8c15672070f0801a53508b293f161870d310ef51b204ce663cd1c48ef6c27af",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d8a028b7-1370-4eb3-822a-3bcaa959d4bb"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-workflow-controller-cluster-template",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "50bb0294-b360-4bb9-91a1-bbdb528973da",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0d3d277f-d2e1-4edd-af52-2bee7e53bb82",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -175184873,
+      "CreatedAt": "2026-06-12T16:45:34.117901Z",
+      "CursorID": 27595,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiB3b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtd29ya2Zsb3ctY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogYXJnby13b3JrZmxvd3MKICAgIGhlbG0uc2gvY2hhcnQ6IGFyZ28td29ya2Zsb3dzLTEuMC4xNAogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXItY2x1c3Rlci10ZW1wbGF0ZQpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyLWNsdXN0ZXItdGVtcGxhdGUKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "a8c15672070f0801a53508b293f161870d310ef51b204ce663cd1c48ef6c27af",
+      "DisplayName": "clusterrolebinding-argo-workflows-workflow-controller-cluster-template",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-workflow-controller-cluster-template": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-workflow-controller-cluster-template": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-workflow-controller-cluster-template",
+            "ResourceNameWithoutScope": "argo-workflows-workflow-controller-cluster-template",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-workflow-controller\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-workflow-controller-cluster-template\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: argo-workflows-workflow-controller-cluster-template\nsubjects:\n- kind: ServiceAccount\n  name: argo-workflows-workflow-controller\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-workflow-controller-cluster-template",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0d3d277f-d2e1-4edd-af52-2bee7e53bb82",
+      "UpdatedAt": "2026-06-12T16:46:10.375709Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.484648Z",
+        "CursorID": 22473,
+        "DisplayName": "Upgrade serviceaccount-default-argo-workflows-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3c3ef521-a215-4d78-8358-7ea8c5211c6a",
+        "LinkID": "770cd1c2-0d04-4bcd-a04e-5bfec70d14d1",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-argo-workflows-server",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "5c2fd41c-324a-4895-a846-aa604737a8ee",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.484648Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5c2fd41c-324a-4895-a846-aa604737a8ee' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "78d909998055b2e9a7532cf6d9c912e51030ba923ff29efb92ce52b5a63c1b94",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "770cd1c2-0d04-4bcd-a04e-5bfec70d14d1"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-argo-workflows-server",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3c3ef521-a215-4d78-8358-7ea8c5211c6a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5c2fd41c-324a-4895-a846-aa604737a8ee",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2008659307,
+      "CreatedAt": "2026-06-12T16:45:41.956322Z",
+      "CursorID": 27604,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBzZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogYXJnby13b3JrZmxvd3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogYXJnby13b3JrZmxvd3MKICAgIGhlbG0uc2gvY2hhcnQ6IGFyZ28td29ya2Zsb3dzLTEuMC4xNAogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "78d909998055b2e9a7532cf6d9c912e51030ba923ff29efb92ce52b5a63c1b94",
+      "DisplayName": "serviceaccount-default-argo-workflows-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 386 bytes; from serviceaccount-default-argo-workflows-server.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/argo-workflows-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/argo-workflows-server",
+            "ResourceNameWithoutScope": "argo-workflows-server",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app: server\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-server\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-server\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/argo-workflows-server",
+          "ResourceNameWithoutScope": "argo-workflows-server",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c2fd41c-324a-4895-a846-aa604737a8ee",
+      "UpdatedAt": "2026-06-12T16:46:21.75726Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.107532Z",
+        "CursorID": 22466,
+        "DisplayName": "Upgrade service-default-argo-workflows-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "bd39afc6-5696-45dd-b58d-0a40e8ea200c",
+        "LinkID": "5f740ec7-95ce-4230-bddb-c5dd20a16aa5",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-argo-workflows-server",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "6a0f59dc-6f34-44dd-a9cf-164697f64295",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.107532Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '6a0f59dc-6f34-44dd-a9cf-164697f64295' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "973675304cba69694570ccafa3581cfc63bcd9b2977404de61326d05074b9d35",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "5f740ec7-95ce-4230-bddb-c5dd20a16aa5"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-argo-workflows-server",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bd39afc6-5696-45dd-b58d-0a40e8ea200c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "6a0f59dc-6f34-44dd-a9cf-164697f64295",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1348246085,
+      "CreatedAt": "2026-06-12T16:45:41.242509Z",
+      "CursorID": 27603,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBzZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjQuMC41CiAgICBoZWxtLnNoL2NoYXJ0OiBhcmdvLXdvcmtmbG93cy0xLjAuMTQKICBuYW1lOiBhcmdvLXdvcmtmbG93cy1zZXJ2ZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIHBvcnQ6IDI3NDYKICAgIHRhcmdldFBvcnQ6IDI3NDYKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgc2Vzc2lvbkFmZmluaXR5OiBOb25lCiAgdHlwZTogQ2x1c3RlcklQCg==",
+      "DataHash": "973675304cba69694570ccafa3581cfc63bcd9b2977404de61326d05074b9d35",
+      "DisplayName": "service-default-argo-workflows-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/argo-workflows-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/argo-workflows-server",
+            "ResourceNameWithoutScope": "argo-workflows-server",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app: server\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-server\n    app.kubernetes.io/part-of: argo-workflows\n    app.kubernetes.io/version: v4.0.5\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-server\n  namespace: default\nspec:\n  ports:\n  - port: 2746\n    targetPort: 2746\n  selector:\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/name: argo-workflows-server\n  sessionAffinity: None\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/argo-workflows-server",
+          "ResourceNameWithoutScope": "argo-workflows-server",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6a0f59dc-6f34-44dd-a9cf-164697f64295",
+      "UpdatedAt": "2026-06-12T16:46:20.654582Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:42.537429Z",
+        "CursorID": 22443,
+        "DisplayName": "Upgrade deployment-default-argo-workflows-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "05027f10-07ae-456d-9307-9a570624dda1",
+        "LinkID": "2501d05d-aff1-4498-816b-aae28ff0d225",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-argo-workflows-server",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "d63f0e94-59b7-4e86-bc46-439b05da68e6",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:42.537429Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd63f0e94-59b7-4e86-bc46-439b05da68e6' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "db3c848a9c34eb834ebf99a872f099330d0589e8ede1c03ea6fdd2f3f9e7b29d",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "2501d05d-aff1-4498-816b-aae28ff0d225"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-argo-workflows-server",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "05027f10-07ae-456d-9307-9a570624dda1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d63f0e94-59b7-4e86-bc46-439b05da68e6",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1602524096,
+      "CreatedAt": "2026-06-12T16:45:37.39628Z",
+      "CursorID": 27598,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGFyZ28td29ya2Zsb3dzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhcmdvLXdvcmtmbG93cy1zZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGFyZ28td29ya2Zsb3dzCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2NC4wLjUKICAgIGhlbG0uc2gvY2hhcnQ6IGFyZ28td29ya2Zsb3dzLTEuMC4xNAogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlcgogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHJlcGxpY2FzOiAxCiAgcmV2aXNpb25IaXN0b3J5TGltaXQ6IDEwCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGFyZ28td29ya2Zsb3dzCiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlcgogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGFubm90YXRpb25zOgogICAgICAgIGNoZWNrc3VtL2NtOiBmY2NmYTU0M2Y5ZDA1YzEyZDFkMzlmZTI5MjcxNTUwMTFmOTAxNTk1MzM0YzU5YWIxOWNhYzViMWRlNTM5MGZlCiAgICAgIGxhYmVsczoKICAgICAgICBhcHA6IHNlcnZlcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogc2VydmVyCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGFyZ28td29ya2Zsb3dzCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGFyZ28td29ya2Zsb3dzCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjQuMC41CiAgICAgICAgaGVsbS5zaC9jaGFydDogYXJnby13b3JrZmxvd3MtMS4wLjE0CiAgICBzcGVjOgogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSBzZXJ2ZXIKICAgICAgICAtIC0tY29uZmlnbWFwPWFyZ28td29ya2Zsb3dzLXdvcmtmbG93LWNvbnRyb2xsZXItY29uZmlnbWFwCiAgICAgICAgLSAtLXNlY3VyZT1mYWxzZQogICAgICAgIC0gLS1sb2dsZXZlbAogICAgICAgIC0gaW5mbwogICAgICAgIC0gLS1nbG9nbGV2ZWwKICAgICAgICAtICIwIgogICAgICAgIC0gLS1sb2ctZm9ybWF0CiAgICAgICAgLSB0ZXh0CiAgICAgICAgZW52OgogICAgICAgIC0gbmFtZTogSU5fQ0xVU1RFUgogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogQVJHT19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgYXBpVmVyc2lvbjogdjEKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWVzcGFjZQogICAgICAgIC0gbmFtZTogQVJHT19CQVNFX0hSRUYKICAgICAgICAgIHZhbHVlOiAvCiAgICAgICAgaW1hZ2U6IHF1YXkuaW8vYXJnb3Byb2ovYXJnb2NsaTp2NC4wLjUKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IEFsd2F5cwogICAgICAgIG5hbWU6IGFyZ28tc2VydmVyCiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiAyNzQ2CiAgICAgICAgICBuYW1lOiB3ZWIKICAgICAgICByZWFkaW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC8KICAgICAgICAgICAgcG9ydDogMjc0NgogICAgICAgICAgICBzY2hlbWU6IEhUVFAKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDEwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAyMAogICAgICAgIHJlc291cmNlczoge30KICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBhbGxvd1ByaXZpbGVnZUVzY2FsYXRpb246IGZhbHNlCiAgICAgICAgICBjYXBhYmlsaXRpZXM6CiAgICAgICAgICAgIGRyb3A6CiAgICAgICAgICAgIC0gQUxMCiAgICAgICAgICByZWFkT25seVJvb3RGaWxlc3lzdGVtOiBmYWxzZQogICAgICAgICAgcnVuQXNOb25Sb290OiB0cnVlCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvdG1wCiAgICAgICAgICBuYW1lOiB0bXAKICAgICAgbm9kZVNlbGVjdG9yOgogICAgICAgIGt1YmVybmV0ZXMuaW8vb3M6IGxpbnV4CiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogYXJnby13b3JrZmxvd3Mtc2VydmVyCiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAzMAogICAgICB2b2x1bWVzOgogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IHRtcAo=",
+      "DataHash": "db3c848a9c34eb834ebf99a872f099330d0589e8ede1c03ea6fdd2f3f9e7b29d",
+      "DisplayName": "deployment-default-argo-workflows-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/argo-workflows-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/argo-workflows-server",
+            "ResourceNameWithoutScope": "argo-workflows-server",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app: server\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-server\n    app.kubernetes.io/part-of: argo-workflows\n    app.kubernetes.io/version: v4.0.5\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-server\n  namespace: default\nspec:\n  replicas: 1\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: argo-workflows\n      app.kubernetes.io/name: argo-workflows-server\n  template:\n    metadata:\n      annotations:\n        checksum/cm: fccfa543f9d05c12d1d39fe2927155011f901595334c59ab19cac5b1de5390fe\n      labels:\n        app: server\n        app.kubernetes.io/component: server\n        app.kubernetes.io/instance: argo-workflows\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: argo-workflows-server\n        app.kubernetes.io/part-of: argo-workflows\n        app.kubernetes.io/version: v4.0.5\n        helm.sh/chart: argo-workflows-1.0.14\n    spec:\n      containers:\n      - args:\n        - server\n        - --configmap=argo-workflows-workflow-controller-configmap\n        - --secure=false\n        - --loglevel\n        - info\n        - --gloglevel\n        - \"0\"\n        - --log-format\n        - text\n        env:\n        - name: IN_CLUSTER\n          value: \"true\"\n        - name: ARGO_NAMESPACE\n          valueFrom:\n            fieldRef:\n              apiVersion: v1\n              fieldPath: metadata.namespace\n        - name: ARGO_BASE_HREF\n          value: /\n        image: quay.io/argoproj/argocli:v4.0.5\n        imagePullPolicy: Always\n        name: argo-server\n        ports:\n        - containerPort: 2746\n          name: web\n        readinessProbe:\n          httpGet:\n            path: /\n            port: 2746\n            scheme: HTTP\n          initialDelaySeconds: 10\n          periodSeconds: 20\n        resources: {}\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: false\n          runAsNonRoot: true\n        volumeMounts:\n        - mountPath: /tmp\n          name: tmp\n      nodeSelector:\n        kubernetes.io/os: linux\n      serviceAccountName: argo-workflows-server\n      terminationGracePeriodSeconds: 30\n      volumes:\n      - emptyDir: {}\n        name: tmp\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/argo-workflows-server",
+          "ResourceNameWithoutScope": "argo-workflows-server",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d63f0e94-59b7-4e86-bc46-439b05da68e6",
+      "UpdatedAt": "2026-06-12T16:46:14.648921Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:44.253614Z",
+        "CursorID": 22468,
+        "DisplayName": "Upgrade clusterrolebinding-argo-workflows-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f74f861f-7446-4687-be5d-b8dedb26a1cf",
+        "LinkID": "a3b8435b-aff0-4499-9a9d-6951316f5a53",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-argo-workflows-server",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "8482ff7c-27d1-4c7e-8a8f-5e1801612387",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:44.253614Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8482ff7c-27d1-4c7e-8a8f-5e1801612387' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "222a4137d2886e8d87b25c956c8cc3f28a876ea39585da01930bcc0ee38c146e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a3b8435b-aff0-4499-9a9d-6951316f5a53"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-server",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f74f861f-7446-4687-be5d-b8dedb26a1cf",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8482ff7c-27d1-4c7e-8a8f-5e1801612387",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1267712314,
+      "CreatedAt": "2026-06-12T16:45:33.36897Z",
+      "CursorID": 27594,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBzZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogYXJnby13b3JrZmxvd3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogYXJnby13b3JrZmxvd3MKICAgIGhlbG0uc2gvY2hhcnQ6IGFyZ28td29ya2Zsb3dzLTEuMC4xNAogIG5hbWU6IGFyZ28td29ya2Zsb3dzLXNlcnZlcgpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBhcmdvLXdvcmtmbG93cy1zZXJ2ZXIKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBhcmdvLXdvcmtmbG93cy1zZXJ2ZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "222a4137d2886e8d87b25c956c8cc3f28a876ea39585da01930bcc0ee38c146e",
+      "DisplayName": "clusterrolebinding-argo-workflows-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/argo-workflows-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/argo-workflows-server",
+            "ResourceNameWithoutScope": "argo-workflows-server",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app: server\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-server\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-server\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: argo-workflows-server\nsubjects:\n- kind: ServiceAccount\n  name: argo-workflows-server\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8482ff7c-27d1-4c7e-8a8f-5e1801612387",
+      "UpdatedAt": "2026-06-12T16:46:01.004222Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:46:42.772557Z",
+        "CursorID": 22455,
+        "DisplayName": "Upgrade configmap-default-argo-workflows-workflow-controller-configmap",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "68164b30-d960-4ddc-8091-d6f246948fa4",
+        "LinkID": "4efe03b8-c761-4baa-9a5f-655388fa7df2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-argo-workflows-workflow-controller-configmap",
+        "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+        "SpaceSlug": "ArgoWorkflows-default-staging",
+        "ToSpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+        "ToUnitID": "44bf2a92-451e-43c8-9217-42217cae4af9",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:46:42.772557Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '44bf2a92-451e-43c8-9217-42217cae4af9' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:46:41.479705Z",
+      "CursorID": 4581,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ArgoWorkflows-default-staging",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "UpdatedAt": "2026-06-12T16:46:41.479705Z",
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d0047ea1a864e443958ab6b11440dd5caa0ae66e36c17f8cee507347362a8e8a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4efe03b8-c761-4baa-9a5f-655388fa7df2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-argo-workflows-workflow-controller-configmap",
+      "SpaceID": "82269fc5-66b3-4a43-a83f-32f55b474e4e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "68164b30-d960-4ddc-8091-d6f246948fa4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "44bf2a92-451e-43c8-9217-42217cae4af9",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -320146795,
+      "CreatedAt": "2026-06-12T16:45:35.650455Z",
+      "CursorID": 27597,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBjb25maWc6IHwKICAgIG5vZGVFdmVudHM6CiAgICAgIGVuYWJsZWQ6IHRydWUKICAgIHdvcmtmbG93RXZlbnRzOgogICAgICBlbmFibGVkOiB0cnVlCiAgICBmYWlsZWRQb2RSZXN0YXJ0OgogICAgICBlbmFibGVkOiBmYWxzZQogICAgICBtYXhSZXN0YXJ0czogMwpraW5kOiBDb25maWdNYXAKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiB3b3JrZmxvdy1jb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHdvcmtmbG93LWNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBhcmdvLXdvcmtmbG93cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXJnby13b3JrZmxvd3MtY20KICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGFyZ28td29ya2Zsb3dzCiAgICBoZWxtLnNoL2NoYXJ0OiBhcmdvLXdvcmtmbG93cy0xLjAuMTQKICBuYW1lOiBhcmdvLXdvcmtmbG93cy13b3JrZmxvdy1jb250cm9sbGVyLWNvbmZpZ21hcAogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "d0047ea1a864e443958ab6b11440dd5caa0ae66e36c17f8cee507347362a8e8a",
+      "DisplayName": "configmap-default-argo-workflows-workflow-controller-configmap",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "HelmChart": "argo-cd-argo-workflows",
+        "HelmChartVersion": "1.0.14",
+        "Package": "argo-cd-argo-workflows",
+        "Proof": "argo-workflows-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 584 bytes; from configmap-default-argo-workflows-workflow-controller-configmap.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/argo-workflows-workflow-controller-configmap": {}
+          },
+          "AliasesWithoutScopes": {
+            "argo-workflows-workflow-controller-configmap": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/argo-workflows-workflow-controller-configmap",
+            "ResourceNameWithoutScope": "argo-workflows-workflow-controller-configmap",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  config: |\n    nodeEvents:\n      enabled: true\n    workflowEvents:\n      enabled: true\n    failedPodRestart:\n      enabled: false\n      maxRestarts: 3\nkind: ConfigMap\nmetadata:\n  labels:\n    app: workflow-controller\n    app.kubernetes.io/component: workflow-controller\n    app.kubernetes.io/instance: argo-workflows\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: argo-workflows-cm\n    app.kubernetes.io/part-of: argo-workflows\n    helm.sh/chart: argo-workflows-1.0.14\n  name: argo-workflows-workflow-controller-configmap\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-config": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/argo-workflows-workflow-controller-configmap",
+          "ResourceNameWithoutScope": "argo-workflows-workflow-controller-configmap",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-argo-workflows-workflow-controller-configmap",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "44bf2a92-451e-43c8-9217-42217cae4af9",
+      "UpdatedAt": "2026-06-12T16:46:12.511751Z",
+      "Version": 6
+    }
+  }
+]

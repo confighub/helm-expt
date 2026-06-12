@@ -1,0 +1,1 @@
+cub space delete --space "helm-consul-secure-mesh-existing-secrets-confighub-proof,Consul-secure-mesh-existing-secrets-staging" --recursive-force

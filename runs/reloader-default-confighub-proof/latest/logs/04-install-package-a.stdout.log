@@ -1,0 +1,5 @@
+Bundled stakater-reloader@
+  output: .tmp/confighub-proof/reloader-default-archives/reloader-a.tgz
+  files:  6
+  size:   1713 bytes
+  digest: sha256:c6d0f3f0fffec34fdf8200acfc98757bba8a4f83d9e3bb87fcc999000b156ff1

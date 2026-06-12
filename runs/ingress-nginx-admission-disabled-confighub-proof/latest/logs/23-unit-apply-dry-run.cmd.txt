@@ -1,0 +1,1 @@
+cub unit apply --space helm-ingress-nginx-admission-disabled-confighub-proof --where "Labels.Proof = 'ingress-nginx-admission-disabled-confighub-proof'" --dry-run --wait --timeout 2m

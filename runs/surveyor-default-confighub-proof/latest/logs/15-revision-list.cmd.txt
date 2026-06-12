@@ -1,0 +1,1 @@
+cub revision list deployment-surveyor --space helm-surveyor-default-confighub-proof

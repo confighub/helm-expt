@@ -1,0 +1,1 @@
+cub installer setup --pull packages/vm/victoria-metrics-single/0.39.0 --base default --work-dir .tmp/confighub-proof/victoria-metrics-single-default --non-interactive --namespace default

@@ -1,0 +1,814 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1e9ad74787184e0207846ed87cafbeb1321cce9e70e184d4c4a6c622c53e6b00",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vault-agent-injector-clusterrole",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2a1aa631-c2b4-4999-aedb-73f45ba27672",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ab57341985beae19e9b08514c603b7ea6d418c69bc1c09c94ab48e651fa1a851",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-vault-vault-agent-injector",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9137044c-512c-49b9-bdfc-0aebb39a34a2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fc750b89d5cd6122d8f63263b098a6daee1dcc392e654df447ccbdff1888a29e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-vault",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bcb7388a-6925-44c0-bb33-fafa36aedda8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4242890ed62944a066aa27da4beb16d7babeb7474f5555a45a239e614381652a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c7091521-8f69-4b9b-9e3d-4d6fdadc907a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 19
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "19cea154573b9edaaf0a916414b4efbcfb09cccfe481a2537ac303cd763fab3f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f2f3906b-8681-4d27-859a-4cd932ef49c1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8f94bf37b5a2c1e0aa00eadecf5efc7d17f789bcd52a9b226b83507e017b3c02",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-vault-agent-injector-cfg",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c3dd6dd1-5ba3-442c-acd2-84b389052cf9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8b76cd13f7277cde27e31a864ce917b44004acdfa566df42d6b7ab305b7c0b8d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-internal",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "798054e0-49a5-4aa0-ba0d-1202bf7033a0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8b5b5c11236575c524e0acb8485856778d74dec45315bc3ea369b078536dd7da",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-vault-vault",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f923c23d-6398-450f-85da-33ecf6be8a68",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "94292a2e5b53ac3810f96f1b35b93315abd678512a13b441266ecd92112a000e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-vault-vault-agent-injector",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3f0b48ce-9f9f-4e34-a78c-a19fb705b21d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6577bf1dc532a7ca9a4c6d97690c517c330999d4ef47b72953eed2e72e7b82d8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vault-agent-injector-binding",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "21e5b742-99d1-44ea-8afc-8f5fa95ea48f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8543c5f09fdcba8826bf567ebfc474682cf38f23eb46248f605c9f7987ec616a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vault-server-binding",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ecc0be53-bd0c-41e7-a323-df16f3dd7e9f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f40dd3fb1d1034783a1422e13b7d98db1684c448642a9f0123bbca13acaae637",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-vault-vault-config",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "df770b8c-f189-4cb5-a2fa-cd50df8f073d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "192281d313c3c108f8d111978f4e061fc9d12d9518b02418fec6e6b8abdc828f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0730ccec-7f98-4604-b467-fdf88f18e817",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:37.872045Z",
+      "CursorID": 4672,
+      "DisplayName": "helm-vault-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-default-confighub-proof",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "UpdatedAt": "2026-06-12T17:10:38.447993Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'edcc224b-c570-488b-bef0-ab06e9fa287b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a12b31d1f78220b4df6cc43f07d865f78e2820fffcebd14bc24e496d61c9dd3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-agent-injector-svc",
+      "SpaceID": "edcc224b-c570-488b-bef0-ab06e9fa287b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a99e36cf-3c0f-4355-87ff-b952a2d99abd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

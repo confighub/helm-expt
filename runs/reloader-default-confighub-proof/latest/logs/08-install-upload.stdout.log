@@ -1,0 +1,25 @@
+== stakater-reloader@ → Space helm-reloader-default-confighub-proof ==
+Successfully created unit clusterrole-reloader-reloader-role (1365c46a-2ce0-45ca-88b1-4326f5ddb95e)
+Successfully created unit clusterrolebinding-reloader-reloader-role-binding (fc087e0f-b8e3-48be-8581-14eb78374c1c)
+Successfully created unit deployment-default-reloader-reloader (f8295e19-96af-4c4a-8476-26ba6144a11e)
+Successfully created unit namespace-default (ce95be89-3f2e-4fef-966a-3df3b9c8aec5)
+Successfully created unit role-default-reloader-reloader-metadata-role (d3a88f4b-bb54-4e43-8879-94a32b84b4a3)
+Successfully created unit rolebinding-default-reloader-reloader-metadata-role-binding (8d33036a-27e8-48a8-9f22-ccecb563c37b)
+Successfully created unit serviceaccount-default-reloader-reloader (d1ec5aed-fcda-465f-8a52-50ec8211ea58)
+Successfully created unit installer-record (ed4e6e44-6624-4f18-a13d-fd85fc14ac32)
+Linked clusterrolebinding-reloader-reloader-role-binding -> clusterrole-reloader-reloader-role (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-reloader-reloader-role-binding -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-reloader-reloader-role-binding -> serviceaccount-default-reloader-reloader (reference:v1/ServiceAccount)
+Linked deployment-default-reloader-reloader -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-reloader-reloader -> serviceaccount-default-reloader-reloader (reference:v1/ServiceAccount)
+Linked role-default-reloader-reloader-metadata-role -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-reloader-reloader-metadata-role-binding -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-reloader-reloader-metadata-role-binding -> serviceaccount-default-reloader-reloader (reference:v1/ServiceAccount)
+Linked serviceaccount-default-reloader-reloader -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - rolebinding-default-reloader-reloader-metadata-role-binding -> rbac.authorization.k8s.io/v1/ClusterRole "reloader-reloader-metadata-role"

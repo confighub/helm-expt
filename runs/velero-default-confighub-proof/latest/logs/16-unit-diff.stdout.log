@@ -1,0 +1,139 @@
+--- helm-velero-default-confighub-proof/deployment-default-velero/1
++++ helm-velero-default-confighub-proof/deployment-default-velero/2
+@@ -35,72 +39,64 @@
+     spec:
+       automountServiceAccountToken: true
+       containers:
+-        - args:
+-            - server
+-            - --uploader-type=kopia
+-            - --repo-maintenance-job-configmap=velero-repo-maintenance
+-          command:
+-            - /velero
+-          env:
+-            - name: VELERO_SCRATCH_DIR
+-              value: /scratch
+-            - name: VELERO_NAMESPACE
+-              valueFrom:
+-                fieldRef:
+-                  apiVersion: v1
+-                  fieldPath: metadata.namespace
+-            - name: LD_LIBRARY_PATH
+-              value: /plugins
+-            - name: AWS_SHARED_CREDENTIALS_FILE
+-              value: /credentials/cloud
+-            - name: GOOGLE_APPLICATION_CREDENTIALS
+-              value: /credentials/cloud
+-            - name: AZURE_CREDENTIALS_FILE
+-              value: /credentials/cloud
+-            - name: ALIBABA_CLOUD_CREDENTIALS_FILE
+-              value: /credentials/cloud
+-          image: docker.io/velero/velero:v1.18.0
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            failureThreshold: 5
+-            httpGet:
+-              path: /metrics
+-              port: http-monitoring
+-              scheme: HTTP
+-            initialDelaySeconds: 10
+-            periodSeconds: 30
+-            successThreshold: 1
+-            timeoutSeconds: 5
+-          name: velero
+-          ports:
+-            - containerPort: 8085
+-              name: http-monitoring
+-          readinessProbe:
+-            failureThreshold: 5
+-            httpGet:
+-              path: /metrics
+-              port: http-monitoring
+-              scheme: HTTP
+-            initialDelaySeconds: 10
+-            periodSeconds: 30
+-            successThreshold: 1
+-            timeoutSeconds: 5
+-          volumeMounts:
+-            - mountPath: /plugins
+-              name: plugins
+-            - mountPath: /credentials
+-              name: cloud-credentials
+-            - mountPath: /scratch
+-              name: scratch
++      - args:
++        - server
++        - --uploader-type=kopia
++        - --repo-maintenance-job-configmap=velero-repo-maintenance
++        command:
++        - /velero
++        env:
++        - name: VELERO_SCRATCH_DIR
++          value: /scratch
++        - name: VELERO_NAMESPACE
++          valueFrom:
++            fieldRef:
++              apiVersion: v1
++              fieldPath: metadata.namespace
++        - name: LD_LIBRARY_PATH
++          value: /plugins
++        - name: AWS_SHARED_CREDENTIALS_FILE
++          value: /credentials/cloud
++        - name: GOOGLE_APPLICATION_CREDENTIALS
++          value: /credentials/cloud
++        - name: AZURE_CREDENTIALS_FILE
++          value: /credentials/cloud
++        - name: ALIBABA_CLOUD_CREDENTIALS_FILE
++          value: /credentials/cloud
++        image: docker.io/velero/velero:v1.18.0
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          failureThreshold: 5
++          httpGet:
++            path: /metrics
++            port: http-monitoring
++            scheme: HTTP
++          initialDelaySeconds: 10
++          periodSeconds: 30
++          successThreshold: 1
++          timeoutSeconds: 5
++        name: velero
++        ports:
++        - containerPort: 8085
++          name: http-monitoring
++        readinessProbe:
++          failureThreshold: 5
++          httpGet:
++            path: /metrics
++            port: http-monitoring
++            scheme: HTTP
++          initialDelaySeconds: 10
++          periodSeconds: 30
++          successThreshold: 1
++          timeoutSeconds: 5
++        volumeMounts:
++        - mountPath: /plugins
++          name: plugins
++        - mountPath: /credentials
++          name: cloud-credentials
++        - mountPath: /scratch
++          name: scratch
+       dnsPolicy: ClusterFirst
+       restartPolicy: Always
+       serviceAccountName: velero-server
+       terminationGracePeriodSeconds: 3600
+       volumes:
+-        - name: cloud-credentials
+-          secret:
+-            secretName: velero
+-        - emptyDir: {}
+-          name: plugins
+-        - emptyDir: {}
+-          name: scratch
++      - name: cloud-credentials
++        secret:
++          secretName: velero
++      - emptyDir: {}
++        name: plugins
++      - emptyDir: {}
++        name: scratch

@@ -1,0 +1,1 @@
+cub space delete --space "helm-sealed-secrets-no-crds-confighub-proof,SealedSecrets-no-crds-staging" --recursive-force

@@ -1,0 +1,1 @@
+cub unit approve deployment-default-vpa-admission-controller --space helm-vpa-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

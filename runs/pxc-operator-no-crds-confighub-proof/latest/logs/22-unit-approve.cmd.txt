@@ -1,0 +1,1 @@
+cub unit approve deployment-default-pxc-operator --space helm-pxc-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

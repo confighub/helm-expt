@@ -1,0 +1,7 @@
+Wizard wrote /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/trivy-operator-no-crds/out/spec/selection.yaml and inputs.yaml
+Collector produced 2 fact(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/trivy-operator-no-crds/out/spec/facts.yaml
+Base: no-crds; components: []
+Namespace: default
+Rendered 20 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/trivy-operator-no-crds/out/manifests
+Rendered 2 secret(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/trivy-operator-no-crds/out/secrets (not uploaded)
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/trivy-operator-no-crds --space <slug>

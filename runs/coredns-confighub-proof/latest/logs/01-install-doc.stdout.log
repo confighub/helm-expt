@@ -1,0 +1,18 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "coredns-coredns"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "coredns/coredns default variant rendered from coredns/coredns@1.45.2"
+      }
+    ]
+  }
+}

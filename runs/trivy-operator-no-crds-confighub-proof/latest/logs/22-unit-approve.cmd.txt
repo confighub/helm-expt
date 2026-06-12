@@ -1,0 +1,1 @@
+cub unit approve deployment-default-trivy-operator --space helm-trivy-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

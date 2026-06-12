@@ -1,0 +1,1 @@
+cub unit cancel --space helm-haproxy-ingress-default-confighub-proof --where "Labels.Proof = 'haproxy-ingress-default-confighub-proof'"

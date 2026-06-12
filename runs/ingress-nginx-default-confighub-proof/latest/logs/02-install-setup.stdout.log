@@ -1,0 +1,6 @@
+Wizard wrote /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/ingress-nginx-default/out/spec/selection.yaml and inputs.yaml
+Collector produced 2 fact(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/ingress-nginx-default/out/spec/facts.yaml
+Base: default; components: []
+Namespace: ingress-nginx
+Rendered 12 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/ingress-nginx-default/out/manifests
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/ingress-nginx-default --space <slug>

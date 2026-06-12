@@ -1,0 +1,3 @@
+Rendered 14 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/trust-manager-no-crds/out/manifests
+Spec docs in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/trust-manager-no-crds/out/spec
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/trust-manager-no-crds --space <slug>

@@ -1,0 +1,1 @@
+cub installer doc packages/istio/gateway/1.30.0 --json

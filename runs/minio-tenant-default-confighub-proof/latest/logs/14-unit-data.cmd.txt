@@ -1,0 +1,1 @@
+cub unit data namespace-default --space helm-minio-tenant-default-confighub-proof

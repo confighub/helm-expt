@@ -1,0 +1,1 @@
+cub function vet vet-format --space helm-terraform-default-confighub-proof --where "Labels.Proof = 'terraform-default-confighub-proof'" --quiet --wait --timeout 10m

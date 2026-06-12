@@ -1,0 +1,5 @@
+Bundled nats-surveyor@
+  output: .tmp/confighub-proof/surveyor-default-archives/surveyor-b.tgz
+  files:  6
+  size:   1079 bytes
+  digest: sha256:477c5a5d1d55e272745e3948373b7577381dd50a19876d0165661cd81618284f

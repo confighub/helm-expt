@@ -1,0 +1,1 @@
+cub unit diff deployment-default-minio-operator --space helm-minio-operator-default-confighub-proof --from 1 --to HeadRevisionNum -u

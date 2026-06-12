@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 0 space(s)
+  Context: Slug IN ('helm-longhorn-ui-ingress-confighub-proof', 'Longhorn-ui-ingress-staging')

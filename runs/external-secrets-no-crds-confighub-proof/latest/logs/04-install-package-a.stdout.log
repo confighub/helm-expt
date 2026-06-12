@@ -1,0 +1,5 @@
+Bundled external-secrets-external-secrets@
+  output: .tmp/confighub-proof/external-secrets-no-crds-archives/external-secrets-a.tgz
+  files:  7
+  size:   147636 bytes
+  digest: sha256:2f93a84e205a330a232e716b2c440fb677d011a4e5fb18c1e4e6acc5cb9bd477

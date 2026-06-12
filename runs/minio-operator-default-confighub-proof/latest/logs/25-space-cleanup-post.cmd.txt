@@ -1,0 +1,1 @@
+cub space delete --space "helm-minio-operator-default-confighub-proof,MinioOperator-default-staging" --recursive-force

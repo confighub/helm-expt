@@ -1,0 +1,103 @@
+--- helm-argo-workflows-default-confighub-proof/deployment-default-argo-workflows-server/1
++++ helm-argo-workflows-default-confighub-proof/deployment-default-argo-workflows-server/2
+@@ -34,54 +38,46 @@
+         helm.sh/chart: argo-workflows-1.0.14
+     spec:
+       containers:
+-        - args:
+-            - server
+-            - --configmap=argo-workflows-workflow-controller-configmap
+-            - --secure=false
+-            - --loglevel
+-            - info
+-            - --gloglevel
+-            - "0"
+-            - --log-format
+-            - text
+-          env:
+-            - name: IN_CLUSTER
+-              value: "true"
+-            - name: ARGO_NAMESPACE
+-              valueFrom:
+-                fieldRef:
+-                  apiVersion: v1
+-                  fieldPath: metadata.namespace
+-            - name: ARGO_BASE_HREF
+-              value: /
+-          image: quay.io/argoproj/argocli:v4.0.5
+-          imagePullPolicy: Always
+-          name: argo-server
+-          ports:
+-            - containerPort: 2746
+-              name: web
+-          readinessProbe:
+-            httpGet:
+-              path: /
+-              port: 2746
+-              scheme: HTTP
+-            initialDelaySeconds: 10
+-            periodSeconds: 20
+-          resources: {}
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: false
+-            runAsNonRoot: true
+-          volumeMounts:
+-            - mountPath: /tmp
+-              name: tmp
++      - args:
++        - server
++        - --configmap=argo-workflows-workflow-controller-configmap
++        - --secure=false
++        - --loglevel
++        - info
++        - --gloglevel
++        - "0"
++        - --log-format
++        - text
++        env:
++        - name: IN_CLUSTER
++          value: "true"
++        - name: ARGO_NAMESPACE
++          valueFrom:
++            fieldRef:
++              apiVersion: v1
++              fieldPath: metadata.namespace
++        - name: ARGO_BASE_HREF
++          value: /
++        image: quay.io/argoproj/argocli:v4.0.5
++        imagePullPolicy: Always
++        name: argo-server
++        ports:
++        - containerPort: 2746
++          name: web
++        readinessProbe:
++          httpGet:
++            path: /
++            port: 2746
++            scheme: HTTP
++          initialDelaySeconds: 10
++          periodSeconds: 20
++        resources: {}
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: false
++          runAsNonRoot: true
++        volumeMounts:
++        - mountPath: /tmp
++          name: tmp
+       nodeSelector:
+         kubernetes.io/os: linux
+       serviceAccountName: argo-workflows-server
+       terminationGracePeriodSeconds: 30
+       volumes:
+-        - emptyDir: {}
+-          name: tmp
++      - emptyDir: {}
++        name: tmp

@@ -1,0 +1,1 @@
+cub changeset create velero-safe-ops-20260527 --space helm-velero-default-confighub-proof --description "Velero safe-ops proof: approve reviewed revisions, dry-run apply only" --label Proof=velero-default-confighub-proof --label Lane=safe-ops --annotation proof.confighub.com/scope=local-test --annotation proof.confighub.com/live-apply=false --allow-exists

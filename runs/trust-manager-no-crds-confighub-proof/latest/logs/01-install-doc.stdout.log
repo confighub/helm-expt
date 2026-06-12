@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "jetstack-trust-manager"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1"
+      },
+      {
+        "name": "no-crds",
+        "path": "bases/no-crds",
+        "description": "jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1"
+      }
+    ]
+  }
+}

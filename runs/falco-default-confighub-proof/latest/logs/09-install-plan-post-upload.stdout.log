@@ -1,0 +1,7 @@
+No changes.
+
+Images in helm-falco-default-confighub-proof (post-render):
+  init  DaemonSet/falco [falco-driver-loader] docker.io/falcosecurity/falco-driver-loader:0.44.0
+  init  DaemonSet/falco [falcoctl-artifact-install] docker.io/falcosecurity/falcoctl:0.13.0
+      DaemonSet/falco [falco] docker.io/falcosecurity/falco:0.44.0
+      DaemonSet/falco [falcoctl-artifact-follow] docker.io/falcosecurity/falcoctl:0.13.0

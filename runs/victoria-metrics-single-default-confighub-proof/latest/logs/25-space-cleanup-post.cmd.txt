@@ -1,0 +1,1 @@
+cub space delete --space "helm-victoria-metrics-single-default-confighub-proof,VictoriaMetricsSingle-default-staging" --recursive-force

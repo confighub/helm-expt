@@ -1,0 +1,1 @@
+cub installer package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o .tmp/confighub-proof/vertical-pod-autoscaler-default-archives/vertical-pod-autoscaler-b.tgz

@@ -1,0 +1,1508 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:44.755863Z",
+        "CursorID": 22658,
+        "DisplayName": "Upgrade clusterrolebinding-dex-cluster",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "af232508-3abf-43ea-aac5-d767efebc124",
+        "LinkID": "0c690e86-9b36-4af2-a8d7-a618593864f4",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-dex-cluster",
+        "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+        "SpaceSlug": "Dex-default-staging",
+        "ToSpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+        "ToUnitID": "4b2c96f3-b343-48bc-a524-ba4a1fba4dcc",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:44.755863Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4b2c96f3-b343-48bc-a524-ba4a1fba4dcc' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:44.28606Z",
+      "CursorID": 4594,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Dex-default-staging",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "UpdatedAt": "2026-06-12T16:49:44.28606Z",
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "70111338d8e4ccfbb1ae6db30a1afbcd1ca9224cb94dd872387cf4e905e8450c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0c690e86-9b36-4af2-a8d7-a618593864f4"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-dex-cluster",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "af232508-3abf-43ea-aac5-d767efebc124",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4b2c96f3-b343-48bc-a524-ba4a1fba4dcc",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -240915776,
+      "CreatedAt": "2026-06-12T16:49:09.064874Z",
+      "CursorID": 27782,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGRleAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZGV4CiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAyLjQ0LjAKICAgIGhlbG0uc2gvY2hhcnQ6IGRleC0wLjI0LjAKICBuYW1lOiBkZXgtY2x1c3Rlcgpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBkZXgKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBkZXgKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "70111338d8e4ccfbb1ae6db30a1afbcd1ca9224cb94dd872387cf4e905e8450c",
+      "DisplayName": "clusterrolebinding-dex-cluster",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Dex",
+        "HelmChart": "dex-dex",
+        "HelmChartVersion": "0.24.0",
+        "Package": "dex-dex",
+        "Proof": "dex-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/dex-cluster": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex-cluster": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/dex-cluster",
+            "ResourceNameWithoutScope": "dex-cluster",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: dex\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: dex\n    app.kubernetes.io/version: 2.44.0\n    helm.sh/chart: dex-0.24.0\n  name: dex-cluster\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: dex\nsubjects:\n- kind: ServiceAccount\n  name: dex\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-dex-cluster",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4b2c96f3-b343-48bc-a524-ba4a1fba4dcc",
+      "UpdatedAt": "2026-06-12T16:49:25.543497Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:44.630975Z",
+        "CursorID": 22655,
+        "DisplayName": "Upgrade clusterrole-dex",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "af416236-8320-4f3c-b50e-89abfa7b8971",
+        "LinkID": "a57a689b-afd4-46ff-bdfe-c531e90ac074",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-dex",
+        "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+        "SpaceSlug": "Dex-default-staging",
+        "ToSpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+        "ToUnitID": "70fdd81e-2920-4e97-a576-e5138580cb69",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:44.630975Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '70fdd81e-2920-4e97-a576-e5138580cb69' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:44.28606Z",
+      "CursorID": 4594,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Dex-default-staging",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "UpdatedAt": "2026-06-12T16:49:44.28606Z",
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b3057b5355d370bce5c764f965164bf9f3c8b5ba63449c3dfe44e6c23d6f9019",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a57a689b-afd4-46ff-bdfe-c531e90ac074"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-dex",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "af416236-8320-4f3c-b50e-89abfa7b8971",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "70fdd81e-2920-4e97-a576-e5138580cb69",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2137133998,
+      "CreatedAt": "2026-06-12T16:49:08.174113Z",
+      "CursorID": 27780,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZGV4CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBkZXgKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDIuNDQuMAogICAgaGVsbS5zaC9jaGFydDogZGV4LTAuMjQuMAogIG5hbWU6IGRleApydWxlczoKLSBhcGlHcm91cHM6CiAgLSBhcGlleHRlbnNpb25zLms4cy5pbwogIHJlc291cmNlczoKICAtIGN1c3RvbXJlc291cmNlZGVmaW5pdGlvbnMKICB2ZXJiczoKICAtIGxpc3QKICAtIGNyZWF0ZQo=",
+      "DataHash": "b3057b5355d370bce5c764f965164bf9f3c8b5ba63449c3dfe44e6c23d6f9019",
+      "DisplayName": "clusterrole-dex",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Dex",
+        "HelmChart": "dex-dex",
+        "HelmChartVersion": "0.24.0",
+        "Package": "dex-dex",
+        "Proof": "dex-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/dex": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/dex",
+            "ResourceNameWithoutScope": "dex",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: dex\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: dex\n    app.kubernetes.io/version: 2.44.0\n    helm.sh/chart: dex-0.24.0\n  name: dex\nrules:\n- apiGroups:\n  - apiextensions.k8s.io\n  resources:\n  - customresourcedefinitions\n  verbs:\n  - list\n  - create\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/dex",
+          "ResourceNameWithoutScope": "dex",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "70fdd81e-2920-4e97-a576-e5138580cb69",
+      "UpdatedAt": "2026-06-12T16:49:14.916184Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:44.792758Z",
+        "CursorID": 22659,
+        "DisplayName": "Upgrade deployment-default-dex",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5c6bc918-4aa7-4834-8010-95e495dfbb43",
+        "LinkID": "0170e517-e60d-410e-806f-15f24745a5fe",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-dex",
+        "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+        "SpaceSlug": "Dex-default-staging",
+        "ToSpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+        "ToUnitID": "19fd553e-06ae-4059-9161-fed91c823574",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:44.792758Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '19fd553e-06ae-4059-9161-fed91c823574' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:44.28606Z",
+      "CursorID": 4594,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Dex-default-staging",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "UpdatedAt": "2026-06-12T16:49:44.28606Z",
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c1655656a3e65cb5c0a9b866a1380561818a6f0aa078ab2a5ff1dd80cf815cd2",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0170e517-e60d-410e-806f-15f24745a5fe"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-dex",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c6bc918-4aa7-4834-8010-95e495dfbb43",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "19fd553e-06ae-4059-9161-fed91c823574",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1621590236,
+      "CreatedAt": "2026-06-12T16:49:09.831333Z",
+      "CursorID": 27784,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBkZXgKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGRleAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMi40NC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBkZXgtMC4yNC4wCiAgbmFtZTogZGV4CiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDEKICByZXZpc2lvbkhpc3RvcnlMaW1pdDogMTAKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZGV4CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGRleAogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGFubm90YXRpb25zOgogICAgICAgIGNoZWNrc3VtL2NvbmZpZzogM2VmM2UyZjEzYmEzMzdiOWJlZDM2NjkyNDA3YjA0MzBkZTk3MDBkYTI3YzIwNmUxN2E3OGYzNWU0MTFmM2ZmMgogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGRleAogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGRleAogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gZGV4CiAgICAgICAgLSBzZXJ2ZQogICAgICAgIC0gLS13ZWItaHR0cC1hZGRyCiAgICAgICAgLSAwLjAuMC4wOjU1NTYKICAgICAgICAtIC0tdGVsZW1ldHJ5LWFkZHIKICAgICAgICAtIDAuMC4wLjA6NTU1OAogICAgICAgIC0gL2V0Yy9kZXgvY29uZmlnLnlhbWwKICAgICAgICBlbnY6IG51bGwKICAgICAgICBpbWFnZTogZ2hjci5pby9kZXhpZHAvZGV4OnYyLjQ0LjAKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoei9saXZlCiAgICAgICAgICAgIHBvcnQ6IHRlbGVtZXRyeQogICAgICAgIG5hbWU6IGRleAogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogNTU1NgogICAgICAgICAgbmFtZTogaHR0cAogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIC0gY29udGFpbmVyUG9ydDogNTU1OAogICAgICAgICAgbmFtZTogdGVsZW1ldHJ5CiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoei9yZWFkeQogICAgICAgICAgICBwb3J0OiB0ZWxlbWV0cnkKICAgICAgICByZXNvdXJjZXM6IHt9CiAgICAgICAgc2VjdXJpdHlDb250ZXh0OiB7fQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL2V0Yy9kZXgKICAgICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAgICAgcmVhZE9ubHk6IHRydWUKICAgICAgc2VjdXJpdHlDb250ZXh0OiB7fQogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IGRleAogICAgICB2b2x1bWVzOgogICAgICAtIG5hbWU6IGNvbmZpZwogICAgICAgIHNlY3JldDoKICAgICAgICAgIHNlY3JldE5hbWU6IGRleAo=",
+      "DataHash": "c1655656a3e65cb5c0a9b866a1380561818a6f0aa078ab2a5ff1dd80cf815cd2",
+      "DisplayName": "deployment-default-dex",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Dex",
+        "HelmChart": "dex-dex",
+        "HelmChartVersion": "0.24.0",
+        "Package": "dex-dex",
+        "Proof": "dex-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/dex": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/dex",
+            "ResourceNameWithoutScope": "dex",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: dex\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: dex\n    app.kubernetes.io/version: 2.44.0\n    helm.sh/chart: dex-0.24.0\n  name: dex\n  namespace: default\nspec:\n  replicas: 1\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: dex\n      app.kubernetes.io/name: dex\n  template:\n    metadata:\n      annotations:\n        checksum/config: 3ef3e2f13ba337b9bed36692407b0430de9700da27c206e17a78f35e411f3ff2\n      labels:\n        app.kubernetes.io/instance: dex\n        app.kubernetes.io/name: dex\n    spec:\n      containers:\n      - args:\n        - dex\n        - serve\n        - --web-http-addr\n        - 0.0.0.0:5556\n        - --telemetry-addr\n        - 0.0.0.0:5558\n        - /etc/dex/config.yaml\n        env: null\n        image: ghcr.io/dexidp/dex:v2.44.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /healthz/live\n            port: telemetry\n        name: dex\n        ports:\n        - containerPort: 5556\n          name: http\n          protocol: TCP\n        - containerPort: 5558\n          name: telemetry\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /healthz/ready\n            port: telemetry\n        resources: {}\n        securityContext: {}\n        volumeMounts:\n        - mountPath: /etc/dex\n          name: config\n          readOnly: true\n      securityContext: {}\n      serviceAccountName: dex\n      volumes:\n      - name: config\n        secret:\n          secretName: dex\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/dex",
+          "ResourceNameWithoutScope": "dex",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "19fd553e-06ae-4059-9161-fed91c823574",
+      "UpdatedAt": "2026-06-12T16:49:27.619428Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:44.678517Z",
+        "CursorID": 22656,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "60ce023a-4e01-41c2-8b1c-39c1ac58be3a",
+        "LinkID": "3e55be65-d555-48be-8981-6eb82064167c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+        "SpaceSlug": "Dex-default-staging",
+        "ToSpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+        "ToUnitID": "95dfc40a-5383-4461-974c-09af8aecc3a7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:44.678518Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '95dfc40a-5383-4461-974c-09af8aecc3a7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:44.28606Z",
+      "CursorID": 4594,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Dex-default-staging",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "UpdatedAt": "2026-06-12T16:49:44.28606Z",
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8fdcaef560dbc6653929bb8f1a6781de689d7bee9aa0facf0fe48148fc6a6a0a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3e55be65-d555-48be-8981-6eb82064167c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "60ce023a-4e01-41c2-8b1c-39c1ac58be3a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "95dfc40a-5383-4461-974c-09af8aecc3a7",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "dex-dex",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 475485614,
+      "CreatedAt": "2026-06-12T16:49:14.121229Z",
+      "CursorID": 27796,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImRleC1kZXgiCiAgdmVyc2lvbjogIjAuMjQuMCIKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIGJhc2VzOgogIC0gbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAgIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAiZGV4L2RleCBkZWZhdWx0IHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBkZXgvZGV4QDAuMjQuMCIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogZGV4LWRleC1mdW5jdGlvbi1jaGFpbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZGV4LWRleAogIGdyb3VwczogW10KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IElucHV0cwptZXRhZGF0YToKICBuYW1lOiBkZXgtZGV4LWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZGV4LWRleAogIG5hbWVzcGFjZTogZGVmYXVsdAogIHZhbHVlczoge30KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IE1hbmlmZXN0SW5kZXgKbWV0YWRhdGE6CiAgbmFtZTogZGV4LWRleC1tYW5pZmVzdC1pbmRleAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZGV4LWRleAogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWRleC55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1kZXgKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBkZXgKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctZGV4LWNsdXN0ZXIueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLWRleC1jbHVzdGVyCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IGRleC1jbHVzdGVyCiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LWRleC55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtZGV4CiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiBkZXgKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1kZWZhdWx0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogTmFtZXNwYWNlCiAgICBuYW1lOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZS1kZWZhdWx0LWRleC55YW1sCiAgICBzbHVnOiByb2xlLWRlZmF1bHQtZGV4CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlCiAgICBuYW1lOiBkZXgKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGViaW5kaW5nLWRlZmF1bHQtZGV4LnlhbWwKICAgIHNsdWc6IHJvbGViaW5kaW5nLWRlZmF1bHQtZGV4CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogZGV4CiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWRlZmF1bHQtZGV4LnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtZGVmYXVsdC1kZXgKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiBkZXgKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtZGV4LnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtZGV4CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IGRleAogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogZGV4LWRleC1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGRleC1kZXgKICBiYXNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogZGV4LWRleC11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGRleC1kZXgKICBzcGFjZVBhdHRlcm46IGhlbG0tZGV4LWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgc3BhY2VzOgogIC0gcGFja2FnZTogZGV4LWRleAogICAgc2x1ZzogaGVsbS1kZXgtZGVmYXVsdC1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTY6NDk6MDVaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "8fdcaef560dbc6653929bb8f1a6781de689d7bee9aa0facf0fe48148fc6a6a0a",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "dex-dex"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/dex-dex": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex-dex": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/dex-dex",
+            "ResourceNameWithoutScope": "dex-dex",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"dex-dex\"\n  version: \"0.24.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"dex/dex default variant rendered from dex/dex@0.24.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/dex-dex-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex-dex-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/dex-dex-function-chain",
+            "ResourceNameWithoutScope": "dex-dex-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: dex-dex-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: dex-dex\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/dex-dex-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex-dex-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/dex-dex-inputs",
+            "ResourceNameWithoutScope": "dex-dex-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: dex-dex-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: dex-dex\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/dex-dex-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex-dex-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/dex-dex-manifest-index",
+            "ResourceNameWithoutScope": "dex-dex-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: dex-dex-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: dex-dex\n  files:\n  - filename: clusterrole-dex.yaml\n    slug: clusterrole-dex\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: dex\n  - filename: clusterrolebinding-dex-cluster.yaml\n    slug: clusterrolebinding-dex-cluster\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: dex-cluster\n  - filename: deployment-default-dex.yaml\n    slug: deployment-default-dex\n    apiVersion: apps/v1\n    kind: Deployment\n    name: dex\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-dex.yaml\n    slug: role-default-dex\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: dex\n    namespace: default\n  - filename: rolebinding-default-dex.yaml\n    slug: rolebinding-default-dex\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: dex\n    namespace: default\n  - filename: service-default-dex.yaml\n    slug: service-default-dex\n    apiVersion: v1\n    kind: Service\n    name: dex\n    namespace: default\n  - filename: serviceaccount-default-dex.yaml\n    slug: serviceaccount-default-dex\n    apiVersion: v1\n    kind: ServiceAccount\n    name: dex\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/dex-dex-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex-dex-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/dex-dex-selection",
+            "ResourceNameWithoutScope": "dex-dex-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: dex-dex-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: dex-dex\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/dex-dex-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex-dex-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/dex-dex-upload",
+            "ResourceNameWithoutScope": "dex-dex-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: dex-dex-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: dex-dex\n  spacePattern: helm-dex-default-confighub-proof\n  spaces:\n  - package: dex-dex\n    slug: helm-dex-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:49:05Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "95dfc40a-5383-4461-974c-09af8aecc3a7",
+      "UpdatedAt": "2026-06-12T16:49:14.979663Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:44.543675Z",
+        "CursorID": 22652,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "238b3ed2-3c87-44d3-9380-776a9d535291",
+        "LinkID": "390b011a-aa16-4ebe-a93f-01db5f2a42f4",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+        "SpaceSlug": "Dex-default-staging",
+        "ToSpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+        "ToUnitID": "bf81e118-fd35-4954-bff0-6e9edd9c56d1",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:44.543675Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'bf81e118-fd35-4954-bff0-6e9edd9c56d1' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:44.28606Z",
+      "CursorID": 4594,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Dex-default-staging",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "UpdatedAt": "2026-06-12T16:49:44.28606Z",
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "390b011a-aa16-4ebe-a93f-01db5f2a42f4"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "238b3ed2-3c87-44d3-9380-776a9d535291",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "bf81e118-fd35-4954-bff0-6e9edd9c56d1",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:49:10.620169Z",
+      "CursorID": 27786,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Dex",
+        "HelmChart": "dex-dex",
+        "HelmChartVersion": "0.24.0",
+        "Package": "dex-dex",
+        "Proof": "dex-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bf81e118-fd35-4954-bff0-6e9edd9c56d1",
+      "UpdatedAt": "2026-06-12T16:49:10.646009Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:44.576934Z",
+        "CursorID": 22653,
+        "DisplayName": "Upgrade rolebinding-default-dex",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2c6caaac-aedd-4b9e-98d2-4f026cabadf7",
+        "LinkID": "09516fc8-025d-4358-ac8a-9033fbf03819",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-dex",
+        "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+        "SpaceSlug": "Dex-default-staging",
+        "ToSpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+        "ToUnitID": "965228d8-4ee0-45ad-9aa1-a7dd74f32d29",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:44.576934Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '965228d8-4ee0-45ad-9aa1-a7dd74f32d29' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:44.28606Z",
+      "CursorID": 4594,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Dex-default-staging",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "UpdatedAt": "2026-06-12T16:49:44.28606Z",
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "328110ed624db01d4f7632a5c7395d4136061f5516590649f5c7174047f16bec",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "09516fc8-025d-4358-ac8a-9033fbf03819"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-dex",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2c6caaac-aedd-4b9e-98d2-4f026cabadf7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "965228d8-4ee0-45ad-9aa1-a7dd74f32d29",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 742118498,
+      "CreatedAt": "2026-06-12T16:49:11.996122Z",
+      "CursorID": 27790,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZGV4CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBkZXgKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDIuNDQuMAogICAgaGVsbS5zaC9jaGFydDogZGV4LTAuMjQuMAogIG5hbWU6IGRleAogIG5hbWVzcGFjZTogZGVmYXVsdApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogUm9sZQogIG5hbWU6IGRleApzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGRleAogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "328110ed624db01d4f7632a5c7395d4136061f5516590649f5c7174047f16bec",
+      "DisplayName": "rolebinding-default-dex",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Dex",
+        "HelmChart": "dex-dex",
+        "HelmChartVersion": "0.24.0",
+        "Package": "dex-dex",
+        "Proof": "dex-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/dex": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/dex",
+            "ResourceNameWithoutScope": "dex",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: dex\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: dex\n    app.kubernetes.io/version: 2.44.0\n    helm.sh/chart: dex-0.24.0\n  name: dex\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: dex\nsubjects:\n- kind: ServiceAccount\n  name: dex\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "965228d8-4ee0-45ad-9aa1-a7dd74f32d29",
+      "UpdatedAt": "2026-06-12T16:49:31.608331Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:44.721244Z",
+        "CursorID": 22657,
+        "DisplayName": "Upgrade role-default-dex",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2d1a5ada-504e-491b-9aba-60d48ada57cd",
+        "LinkID": "1981ffa1-16e4-480b-b9ff-9724b2768ff9",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-dex",
+        "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+        "SpaceSlug": "Dex-default-staging",
+        "ToSpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+        "ToUnitID": "a363b8e1-97bd-4c3f-896f-06bc704ab66d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:44.721244Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'a363b8e1-97bd-4c3f-896f-06bc704ab66d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:44.28606Z",
+      "CursorID": 4594,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Dex-default-staging",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "UpdatedAt": "2026-06-12T16:49:44.28606Z",
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "aaba58ce334cafce058ec4b2954f22315a21aac274c9944860b95096f7c26626",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1981ffa1-16e4-480b-b9ff-9724b2768ff9"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-dex",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2d1a5ada-504e-491b-9aba-60d48ada57cd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "a363b8e1-97bd-4c3f-896f-06bc704ab66d",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -109564312,
+      "CreatedAt": "2026-06-12T16:49:11.319477Z",
+      "CursorID": 27788,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBkZXgKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGRleAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMi40NC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBkZXgtMC4yNC4wCiAgbmFtZTogZGV4CiAgbmFtZXNwYWNlOiBkZWZhdWx0CnJ1bGVzOgotIGFwaUdyb3VwczoKICAtIGRleC5jb3Jlb3MuY29tCiAgcmVzb3VyY2VzOgogIC0gJyonCiAgdmVyYnM6CiAgLSAnKicK",
+      "DataHash": "aaba58ce334cafce058ec4b2954f22315a21aac274c9944860b95096f7c26626",
+      "DisplayName": "role-default-dex",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Dex",
+        "HelmChart": "dex-dex",
+        "HelmChartVersion": "0.24.0",
+        "Package": "dex-dex",
+        "Proof": "dex-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/dex": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/dex",
+            "ResourceNameWithoutScope": "dex",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: dex\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: dex\n    app.kubernetes.io/version: 2.44.0\n    helm.sh/chart: dex-0.24.0\n  name: dex\n  namespace: default\nrules:\n- apiGroups:\n  - dex.coreos.com\n  resources:\n  - '*'\n  verbs:\n  - '*'\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/dex",
+          "ResourceNameWithoutScope": "dex",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a363b8e1-97bd-4c3f-896f-06bc704ab66d",
+      "UpdatedAt": "2026-06-12T16:49:28.560812Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:44.849396Z",
+        "CursorID": 22660,
+        "DisplayName": "Upgrade serviceaccount-default-dex",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2ffd3d03-2eb4-4d71-bd4c-99e889c7da43",
+        "LinkID": "3c52928f-5d15-4255-8b6f-6971be679d72",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-dex",
+        "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+        "SpaceSlug": "Dex-default-staging",
+        "ToSpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+        "ToUnitID": "97be2390-6e65-4487-a588-e34b015625a2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:44.849396Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '97be2390-6e65-4487-a588-e34b015625a2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:44.28606Z",
+      "CursorID": 4594,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Dex-default-staging",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "UpdatedAt": "2026-06-12T16:49:44.28606Z",
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c3127d9a2643018d453507e03ae791130698439de43b46ec9470fc3418abd24f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3c52928f-5d15-4255-8b6f-6971be679d72"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-dex",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2ffd3d03-2eb4-4d71-bd4c-99e889c7da43",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "97be2390-6e65-4487-a588-e34b015625a2",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 615912495,
+      "CreatedAt": "2026-06-12T16:49:13.381989Z",
+      "CursorID": 27794,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGRleAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZGV4CiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAyLjQ0LjAKICAgIGhlbG0uc2gvY2hhcnQ6IGRleC0wLjI0LjAKICBuYW1lOiBkZXgKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "c3127d9a2643018d453507e03ae791130698439de43b46ec9470fc3418abd24f",
+      "DisplayName": "serviceaccount-default-dex",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Dex",
+        "HelmChart": "dex-dex",
+        "HelmChartVersion": "0.24.0",
+        "Package": "dex-dex",
+        "Proof": "dex-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 264 bytes; from serviceaccount-default-dex.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/dex": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/dex",
+            "ResourceNameWithoutScope": "dex",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: dex\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: dex\n    app.kubernetes.io/version: 2.44.0\n    helm.sh/chart: dex-0.24.0\n  name: dex\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/dex",
+          "ResourceNameWithoutScope": "dex",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "97be2390-6e65-4487-a588-e34b015625a2",
+      "UpdatedAt": "2026-06-12T16:49:35.07928Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:44.606076Z",
+        "CursorID": 22654,
+        "DisplayName": "Upgrade service-default-dex",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "42c435b9-9400-4519-8d09-e98ce9136c47",
+        "LinkID": "7caa7a55-c24a-486a-a948-a322012b3353",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-dex",
+        "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+        "SpaceSlug": "Dex-default-staging",
+        "ToSpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+        "ToUnitID": "6f887b81-ebd9-4e18-ba2c-84d6fd48c321",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:44.606076Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '6f887b81-ebd9-4e18-ba2c-84d6fd48c321' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:44.28606Z",
+      "CursorID": 4594,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Dex-default-staging",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "UpdatedAt": "2026-06-12T16:49:44.28606Z",
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a81c1eb66986127f49198fa8e49d573ecc5cf18ba087d6885e03dab9f24e4c09",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7caa7a55-c24a-486a-a948-a322012b3353"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-dex",
+      "SpaceID": "f8ddfdd9-fc4d-475a-8523-98424312b044",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "42c435b9-9400-4519-8d09-e98ce9136c47",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "6f887b81-ebd9-4e18-ba2c-84d6fd48c321",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1135633317,
+      "CreatedAt": "2026-06-12T16:49:12.657227Z",
+      "CursorID": 27792,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZGV4CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBkZXgKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDIuNDQuMAogICAgaGVsbS5zaC9jaGFydDogZGV4LTAuMjQuMAogIG5hbWU6IGRleAogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHBvcnRzOgogIC0gYXBwUHJvdG9jb2w6IGh0dHAKICAgIG5hbWU6IGh0dHAKICAgIHBvcnQ6IDU1NTYKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IGh0dHAKICAtIGFwcFByb3RvY29sOiBodHRwCiAgICBuYW1lOiB0ZWxlbWV0cnkKICAgIHBvcnQ6IDU1NTgKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IHRlbGVtZXRyeQogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGRleAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZGV4CiAgdHlwZTogQ2x1c3RlcklQCg==",
+      "DataHash": "a81c1eb66986127f49198fa8e49d573ecc5cf18ba087d6885e03dab9f24e4c09",
+      "DisplayName": "service-default-dex",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Dex",
+        "HelmChart": "dex-dex",
+        "HelmChartVersion": "0.24.0",
+        "Package": "dex-dex",
+        "Proof": "dex-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/dex": {}
+          },
+          "AliasesWithoutScopes": {
+            "dex": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/dex",
+            "ResourceNameWithoutScope": "dex",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: dex\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: dex\n    app.kubernetes.io/version: 2.44.0\n    helm.sh/chart: dex-0.24.0\n  name: dex\n  namespace: default\nspec:\n  ports:\n  - appProtocol: http\n    name: http\n    port: 5556\n    protocol: TCP\n    targetPort: http\n  - appProtocol: http\n    name: telemetry\n    port: 5558\n    protocol: TCP\n    targetPort: telemetry\n  selector:\n    app.kubernetes.io/instance: dex\n    app.kubernetes.io/name: dex\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/dex",
+          "ResourceNameWithoutScope": "dex",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6f887b81-ebd9-4e18-ba2c-84d6fd48c321",
+      "UpdatedAt": "2026-06-12T16:49:33.988802Z",
+      "Version": 13
+    }
+  }
+]

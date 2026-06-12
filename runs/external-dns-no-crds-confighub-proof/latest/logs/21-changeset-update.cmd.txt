@@ -1,0 +1,1 @@
+cub changeset update external-dns-safe-ops-20260527 --space helm-external-dns-no-crds-confighub-proof --description "ExternalDNS safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

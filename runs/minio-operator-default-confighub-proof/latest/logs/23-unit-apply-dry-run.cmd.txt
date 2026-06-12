@@ -1,0 +1,1 @@
+cub unit apply --space helm-minio-operator-default-confighub-proof --where "Labels.Proof = 'minio-operator-default-confighub-proof'" --dry-run --wait --timeout 2m

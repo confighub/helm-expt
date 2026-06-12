@@ -1,0 +1,2225 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.868698Z",
+        "CursorID": 23670,
+        "DisplayName": "Upgrade clusterrolebinding-gatekeeper-manager-rolebinding",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "53b8d422-db11-4892-9e9d-480639ad0b39",
+        "LinkID": "92d1049a-0d89-49d0-b0a6-46025a1ea0e8",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-gatekeeper-manager-rolebinding",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "740a2efb-ff9a-4a56-acaf-6e3f84bbf685",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.868698Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '740a2efb-ff9a-4a56-acaf-6e3f84bbf685' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "861fed109c074e8870e9daea728880ae96f3c19ca94127d4859a8c77944c69ad",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "92d1049a-0d89-49d0-b0a6-46025a1ea0e8"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-gatekeeper-manager-rolebinding",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "53b8d422-db11-4892-9e9d-480639ad0b39",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "740a2efb-ff9a-4a56-acaf-6e3f84bbf685",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1535060498,
+      "CreatedAt": "2026-06-12T17:00:27.382922Z",
+      "CursorID": 28431,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBnYXRla2VlcGVyCiAgICBjaGFydDogZ2F0ZWtlZXBlcgogICAgZ2F0ZWtlZXBlci5zaC9zeXN0ZW06ICJ5ZXMiCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogZ2F0ZWtlZXBlcgogIG5hbWU6IGdhdGVrZWVwZXItbWFuYWdlci1yb2xlYmluZGluZwpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBnYXRla2VlcGVyLW1hbmFnZXItcm9sZQpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGdhdGVrZWVwZXItYWRtaW4KICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "861fed109c074e8870e9daea728880ae96f3c19ca94127d4859a8c77944c69ad",
+      "DisplayName": "clusterrolebinding-gatekeeper-manager-rolebinding",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/gatekeeper-manager-rolebinding": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-manager-rolebinding": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-manager-rolebinding",
+            "ResourceNameWithoutScope": "gatekeeper-manager-rolebinding",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-manager-rolebinding\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: gatekeeper-manager-role\nsubjects:\n- kind: ServiceAccount\n  name: gatekeeper-admin\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-gatekeeper-manager-rolebinding",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "740a2efb-ff9a-4a56-acaf-6e3f84bbf685",
+      "UpdatedAt": "2026-06-12T17:00:55.280927Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.947287Z",
+        "CursorID": 23672,
+        "DisplayName": "Upgrade clusterrole-gatekeeper-manager-role",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "72d18596-f789-46c2-a9d5-c7d7f252ea14",
+        "LinkID": "dd97ab7c-6a50-442b-932f-f21386a8bbbb",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-gatekeeper-manager-role",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "94371d1a-66c0-4cc9-9b7e-ea70c1cf14bd",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.947288Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '94371d1a-66c0-4cc9-9b7e-ea70c1cf14bd' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "30933a142adc12356650feedbb77f00dff7062373f9fb6a7bbed86466aac7911",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "dd97ab7c-6a50-442b-932f-f21386a8bbbb"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-gatekeeper-manager-role",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "72d18596-f789-46c2-a9d5-c7d7f252ea14",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "94371d1a-66c0-4cc9-9b7e-ea70c1cf14bd",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1628626429,
+      "CreatedAt": "2026-06-12T17:00:26.6129Z",
+      "CursorID": 28430,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IGdhdGVrZWVwZXIKICAgIGNoYXJ0OiBnYXRla2VlcGVyCiAgICBnYXRla2VlcGVyLnNoL3N5c3RlbTogInllcyIKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBnYXRla2VlcGVyCiAgbmFtZTogZ2F0ZWtlZXBlci1tYW5hZ2VyLXJvbGUKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBldmVudHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gcGF0Y2gKLSBhcGlHcm91cHM6CiAgLSAnKicKICByZXNvdXJjZXM6CiAgLSAnKicKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhZG1pc3Npb25yZWdpc3RyYXRpb24uazhzLmlvCiAgcmVzb3VyY2VOYW1lczoKICAtIGdhdGVrZWVwZXItbXV0YXRpbmctd2ViaG9vay1jb25maWd1cmF0aW9uCiAgcmVzb3VyY2VzOgogIC0gbXV0YXRpbmd3ZWJob29rY29uZmlndXJhdGlvbnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhZG1pc3Npb25yZWdpc3RyYXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gdmFsaWRhdGluZ2FkbWlzc2lvbnBvbGljaWVzCiAgLSB2YWxpZGF0aW5nYWRtaXNzaW9ucG9saWN5YmluZGluZ3MKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pbwogIHJlc291cmNlczoKICAtIHZhbGlkYXRpbmd3ZWJob29rY29uZmlndXJhdGlvbnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhcGlleHRlbnNpb25zLms4cy5pbwogIHJlc291cmNlczoKICAtIGN1c3RvbXJlc291cmNlZGVmaW5pdGlvbnMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gY29uZmlnLmdhdGVrZWVwZXIuc2gKICByZXNvdXJjZXM6CiAgLSAnKicKICAtIGNvbmZpZ3MKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gY29uZmlnLmdhdGVrZWVwZXIuc2gKICByZXNvdXJjZXM6CiAgLSBjb25maWdzL3N0YXR1cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gY29ubmVjdGlvbi5nYXRla2VlcGVyLnNoCiAgLSBjb25zdHJhaW50cy5nYXRla2VlcGVyLnNoCiAgLSBleHBhbnNpb24uZ2F0ZWtlZXBlci5zaAogIC0gbXV0YXRpb25zLmdhdGVrZWVwZXIuc2gKICAtIHN0YXR1cy5nYXRla2VlcGVyLnNoCiAgcmVzb3VyY2VzOgogIC0gJyonCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGV4dGVybmFsZGF0YS5nYXRla2VlcGVyLnNoCiAgcmVzb3VyY2VzOgogIC0gcHJvdmlkZXJzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGV4dGVybmFsZGF0YS5nYXRla2VlcGVyLnNoCiAgcmVzb3VyY2VzOgogIC0gcHJvdmlkZXJzL3N0YXR1cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHRlbXBsYXRlcy5nYXRla2VlcGVyLnNoCiAgcmVzb3VyY2VzOgogIC0gY29uc3RyYWludHRlbXBsYXRlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSB0ZW1wbGF0ZXMuZ2F0ZWtlZXBlci5zaAogIHJlc291cmNlczoKICAtIGNvbnN0cmFpbnR0ZW1wbGF0ZXMvZmluYWxpemVycwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gdGVtcGxhdGVzLmdhdGVrZWVwZXIuc2gKICByZXNvdXJjZXM6CiAgLSBjb25zdHJhaW50dGVtcGxhdGVzL3N0YXR1cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pbwogIHJlc291cmNlTmFtZXM6CiAgLSBnYXRla2VlcGVyLXZhbGlkYXRpbmctd2ViaG9vay1jb25maWd1cmF0aW9uCiAgcmVzb3VyY2VzOgogIC0gdmFsaWRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9ucwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gK",
+      "DataHash": "30933a142adc12356650feedbb77f00dff7062373f9fb6a7bbed86466aac7911",
+      "DisplayName": "clusterrole-gatekeeper-manager-role",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/gatekeeper-manager-role": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-manager-role": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-manager-role",
+            "ResourceNameWithoutScope": "gatekeeper-manager-role",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-manager-role\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n- apiGroups:\n  - '*'\n  resources:\n  - '*'\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - admissionregistration.k8s.io\n  resourceNames:\n  - gatekeeper-mutating-webhook-configuration\n  resources:\n  - mutatingwebhookconfigurations\n  verbs:\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - admissionregistration.k8s.io\n  resources:\n  - validatingadmissionpolicies\n  - validatingadmissionpolicybindings\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - admissionregistration.k8s.io\n  resources:\n  - validatingwebhookconfigurations\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - apiextensions.k8s.io\n  resources:\n  - customresourcedefinitions\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - config.gatekeeper.sh\n  resources:\n  - '*'\n  - configs\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - config.gatekeeper.sh\n  resources:\n  - configs/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - connection.gatekeeper.sh\n  - constraints.gatekeeper.sh\n  - expansion.gatekeeper.sh\n  - mutations.gatekeeper.sh\n  - status.gatekeeper.sh\n  resources:\n  - '*'\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - externaldata.gatekeeper.sh\n  resources:\n  - providers\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - externaldata.gatekeeper.sh\n  resources:\n  - providers/status\n  verbs:\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - templates.gatekeeper.sh\n  resources:\n  - constrainttemplates\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - templates.gatekeeper.sh\n  resources:\n  - constrainttemplates/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - templates.gatekeeper.sh\n  resources:\n  - constrainttemplates/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - admissionregistration.k8s.io\n  resourceNames:\n  - gatekeeper-validating-webhook-configuration\n  resources:\n  - validatingwebhookconfigurations\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/gatekeeper-manager-role",
+          "ResourceNameWithoutScope": "gatekeeper-manager-role",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-gatekeeper-manager-role",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "94371d1a-66c0-4cc9-9b7e-ea70c1cf14bd",
+      "UpdatedAt": "2026-06-12T17:00:39.408625Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.903979Z",
+        "CursorID": 23671,
+        "DisplayName": "Upgrade deployment-default-gatekeeper-audit",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ec9e11ca-0c62-440a-9b26-f1f0ceb1865f",
+        "LinkID": "25e356e2-d71e-429a-bc31-0f24495b8614",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-gatekeeper-audit",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "2c86dadf-4ac3-4aba-a397-29933f8c0afa",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.903979Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2c86dadf-4ac3-4aba-a397-29933f8c0afa' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "274c57017ec0f52cf29c7f3f090104f209cd8b37124765930051bf0d9bd160c7",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "25e356e2-d71e-429a-bc31-0f24495b8614"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-gatekeeper-audit",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ec9e11ca-0c62-440a-9b26-f1f0ceb1865f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2c86dadf-4ac3-4aba-a397-29933f8c0afa",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -585276745,
+      "CreatedAt": "2026-06-12T17:00:28.114246Z",
+      "CursorID": 28432,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogZ2F0ZWtlZXBlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdhdGVrZWVwZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGdhdGVrZWVwZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDMuMjIuMgogICAgY2hhcnQ6IGdhdGVrZWVwZXIKICAgIGNvbnRyb2wtcGxhbmU6IGF1ZGl0LWNvbnRyb2xsZXIKICAgIGdhdGVrZWVwZXIuc2gvb3BlcmF0aW9uOiBhdWRpdAogICAgZ2F0ZWtlZXBlci5zaC9zeXN0ZW06ICJ5ZXMiCiAgICBoZWxtLnNoL2NoYXJ0OiBnYXRla2VlcGVyLTMuMjIuMgogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IGdhdGVrZWVwZXIKICBuYW1lOiBnYXRla2VlcGVyLWF1ZGl0CiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDEKICByZXZpc2lvbkhpc3RvcnlMaW1pdDogMTAKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHA6IGdhdGVrZWVwZXIKICAgICAgY2hhcnQ6IGdhdGVrZWVwZXIKICAgICAgY29udHJvbC1wbGFuZTogYXVkaXQtY29udHJvbGxlcgogICAgICBnYXRla2VlcGVyLnNoL29wZXJhdGlvbjogYXVkaXQKICAgICAgZ2F0ZWtlZXBlci5zaC9zeXN0ZW06ICJ5ZXMiCiAgICAgIGhlcml0YWdlOiBIZWxtCiAgICAgIHJlbGVhc2U6IGdhdGVrZWVwZXIKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwOiBnYXRla2VlcGVyCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdhdGVrZWVwZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ2F0ZWtlZXBlcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDMuMjIuMgogICAgICAgIGNoYXJ0OiBnYXRla2VlcGVyCiAgICAgICAgY29udHJvbC1wbGFuZTogYXVkaXQtY29udHJvbGxlcgogICAgICAgIGdhdGVrZWVwZXIuc2gvb3BlcmF0aW9uOiBhdWRpdAogICAgICAgIGdhdGVrZWVwZXIuc2gvc3lzdGVtOiAieWVzIgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IGdhdGVrZWVwZXItMy4yMi4yCiAgICAgICAgaGVyaXRhZ2U6IEhlbG0KICAgICAgICByZWxlYXNlOiBnYXRla2VlcGVyCiAgICBzcGVjOgogICAgICBhZmZpbml0eToge30KICAgICAgYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSAtLWF1ZGl0LWludGVydmFsPTYwCiAgICAgICAgLSAtLWxvZy1sZXZlbD1JTkZPCiAgICAgICAgLSAtLWNvbnN0cmFpbnQtdmlvbGF0aW9ucy1saW1pdD0yMAogICAgICAgIC0gLS12YWxpZGF0aW5nLXdlYmhvb2stY29uZmlndXJhdGlvbi1uYW1lPWdhdGVrZWVwZXItdmFsaWRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24KICAgICAgICAtIC0tbXV0YXRpbmctd2ViaG9vay1jb25maWd1cmF0aW9uLW5hbWU9Z2F0ZWtlZXBlci1tdXRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24KICAgICAgICAtIC0tYXVkaXQtZnJvbS1jYWNoZT1mYWxzZQogICAgICAgIC0gLS1hdWRpdC1jaHVuay1zaXplPTUwMAogICAgICAgIC0gLS1hdWRpdC1tYXRjaC1raW5kLW9ubHk9ZmFsc2UKICAgICAgICAtIC0tYXVkaXQtZXZlbnRzLWludm9sdmVkLW5hbWVzcGFjZT1mYWxzZQogICAgICAgIC0gLS1vcGVyYXRpb249Z2VuZXJhdGUKICAgICAgICAtIC0tb3BlcmF0aW9uPWF1ZGl0CiAgICAgICAgLSAtLW9wZXJhdGlvbj1zdGF0dXMKICAgICAgICAtIC0tb3BlcmF0aW9uPW11dGF0aW9uLXN0YXR1cwogICAgICAgIC0gLS1sb2d0b3N0ZGVycgogICAgICAgIC0gLS1oZWFsdGgtYWRkcj06OTA5MAogICAgICAgIC0gLS1wcm9tZXRoZXVzLXBvcnQ9ODg4OAogICAgICAgIC0gLS1lbmFibGUtZXh0ZXJuYWwtZGF0YT10cnVlCiAgICAgICAgLSAtLWVuYWJsZS1nZW5lcmF0b3ItcmVzb3VyY2UtZXhwYW5zaW9uPXRydWUKICAgICAgICAtIC0tbWV0cmljcy1iYWNrZW5kPXByb21ldGhldXMKICAgICAgICAtIC0tZGlzYWJsZS1jZXJ0LXJvdGF0aW9uPWZhbHNlCiAgICAgICAgLSAtLWV4dGVybmFsLWRhdGEtcHJvdmlkZXItcmVzcG9uc2UtY2FjaGUtdHRsPTNtCiAgICAgICAgLSAtLWVuYWJsZS1rOHMtbmF0aXZlLXZhbGlkYXRpb249dHJ1ZQogICAgICAgIGNvbW1hbmQ6CiAgICAgICAgLSAvbWFuYWdlcgogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IFBPRF9OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgYXBpVmVyc2lvbjogdjEKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWVzcGFjZQogICAgICAgIC0gbmFtZTogUE9EX05BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBOQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgYXBpVmVyc2lvbjogdjEKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWVzcGFjZQogICAgICAgIC0gbmFtZTogQ09OVEFJTkVSX05BTUUKICAgICAgICAgIHZhbHVlOiBtYW5hZ2VyCiAgICAgICAgLSBuYW1lOiBPVEVMX1JFU09VUkNFX0FUVFJJQlVURVMKICAgICAgICAgIHZhbHVlOiBrOHMucG9kLm5hbWU9JChQT0RfTkFNRSksazhzLm5hbWVzcGFjZS5uYW1lPSQoTkFNRVNQQUNFKSxrOHMuY29udGFpbmVyLm5hbWU9JChDT05UQUlORVJfTkFNRSkKICAgICAgICBpbWFnZTogb3BlbnBvbGljeWFnZW50L2dhdGVrZWVwZXI6djMuMjIuMgogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgIHBvcnQ6IDkwOTAKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAxCiAgICAgICAgbmFtZTogbWFuYWdlcgogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogODg4OAogICAgICAgICAgbmFtZTogbWV0cmljcwogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIC0gY29udGFpbmVyUG9ydDogOTA5MAogICAgICAgICAgbmFtZTogaGVhbHRoegogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL3JlYWR5egogICAgICAgICAgICBwb3J0OiA5MDkwCiAgICAgICAgICB0aW1lb3V0U2Vjb25kczogMQogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIGxpbWl0czoKICAgICAgICAgICAgbWVtb3J5OiA1MTJNaQogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTAwbQogICAgICAgICAgICBtZW1vcnk6IDUxMk1pCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAtIEFMTAogICAgICAgICAgcmVhZE9ubHlSb290RmlsZXN5c3RlbTogdHJ1ZQogICAgICAgICAgcnVuQXNHcm91cDogOTk5CiAgICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICAgIHJ1bkFzVXNlcjogMTAwMAogICAgICAgICAgc2VjY29tcFByb2ZpbGU6CiAgICAgICAgICAgIHR5cGU6IFJ1bnRpbWVEZWZhdWx0CiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvY2VydHMKICAgICAgICAgIG5hbWU6IGNlcnQKICAgICAgICAgIHJlYWRPbmx5OiB0cnVlCiAgICAgICAgLSBtb3VudFBhdGg6IC90bXAvYXVkaXQKICAgICAgICAgIG5hbWU6IHRtcC12b2x1bWUKICAgICAgZG5zUG9saWN5OiBDbHVzdGVyRmlyc3QKICAgICAgaG9zdE5ldHdvcms6IGZhbHNlCiAgICAgIGltYWdlUHVsbFNlY3JldHM6IFtdCiAgICAgIG5vZGVTZWxlY3RvcjoKICAgICAgICBrdWJlcm5ldGVzLmlvL29zOiBsaW51eAogICAgICBwcmlvcml0eUNsYXNzTmFtZTogc3lzdGVtLWNsdXN0ZXItY3JpdGljYWwKICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIGZzR3JvdXA6IDk5OQogICAgICAgIHN1cHBsZW1lbnRhbEdyb3VwczoKICAgICAgICAtIDk5OQogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IGdhdGVrZWVwZXItYWRtaW4KICAgICAgdGVybWluYXRpb25HcmFjZVBlcmlvZFNlY29uZHM6IDYwCiAgICAgIHRvbGVyYXRpb25zOiBbXQogICAgICB2b2x1bWVzOgogICAgICAtIG5hbWU6IGNlcnQKICAgICAgICBzZWNyZXQ6CiAgICAgICAgICBkZWZhdWx0TW9kZTogNDIwCiAgICAgICAgICBzZWNyZXROYW1lOiBnYXRla2VlcGVyLXdlYmhvb2stc2VydmVyLWNlcnQKICAgICAgLSBlbXB0eURpcjoge30KICAgICAgICBuYW1lOiB0bXAtdm9sdW1lCg==",
+      "DataHash": "274c57017ec0f52cf29c7f3f090104f209cd8b37124765930051bf0d9bd160c7",
+      "DisplayName": "deployment-default-gatekeeper-audit",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gatekeeper-audit": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-audit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gatekeeper-audit",
+            "ResourceNameWithoutScope": "gatekeeper-audit",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app: gatekeeper\n    app.kubernetes.io/instance: gatekeeper\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: gatekeeper\n    app.kubernetes.io/version: 3.22.2\n    chart: gatekeeper\n    control-plane: audit-controller\n    gatekeeper.sh/operation: audit\n    gatekeeper.sh/system: \"yes\"\n    helm.sh/chart: gatekeeper-3.22.2\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-audit\n  namespace: default\nspec:\n  replicas: 1\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app: gatekeeper\n      chart: gatekeeper\n      control-plane: audit-controller\n      gatekeeper.sh/operation: audit\n      gatekeeper.sh/system: \"yes\"\n      heritage: Helm\n      release: gatekeeper\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app: gatekeeper\n        app.kubernetes.io/instance: gatekeeper\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: gatekeeper\n        app.kubernetes.io/version: 3.22.2\n        chart: gatekeeper\n        control-plane: audit-controller\n        gatekeeper.sh/operation: audit\n        gatekeeper.sh/system: \"yes\"\n        helm.sh/chart: gatekeeper-3.22.2\n        heritage: Helm\n        release: gatekeeper\n    spec:\n      affinity: {}\n      automountServiceAccountToken: true\n      containers:\n      - args:\n        - --audit-interval=60\n        - --log-level=INFO\n        - --constraint-violations-limit=20\n        - --validating-webhook-configuration-name=gatekeeper-validating-webhook-configuration\n        - --mutating-webhook-configuration-name=gatekeeper-mutating-webhook-configuration\n        - --audit-from-cache=false\n        - --audit-chunk-size=500\n        - --audit-match-kind-only=false\n        - --audit-events-involved-namespace=false\n        - --operation=generate\n        - --operation=audit\n        - --operation=status\n        - --operation=mutation-status\n        - --logtostderr\n        - --health-addr=:9090\n        - --prometheus-port=8888\n        - --enable-external-data=true\n        - --enable-generator-resource-expansion=true\n        - --metrics-backend=prometheus\n        - --disable-cert-rotation=false\n        - --external-data-provider-response-cache-ttl=3m\n        - --enable-k8s-native-validation=true\n        command:\n        - /manager\n        env:\n        - name: POD_NAMESPACE\n          valueFrom:\n            fieldRef:\n              apiVersion: v1\n              fieldPath: metadata.namespace\n        - name: POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: NAMESPACE\n          valueFrom:\n            fieldRef:\n              apiVersion: v1\n              fieldPath: metadata.namespace\n        - name: CONTAINER_NAME\n          value: manager\n        - name: OTEL_RESOURCE_ATTRIBUTES\n          value: k8s.pod.name=$(POD_NAME),k8s.namespace.name=$(NAMESPACE),k8s.container.name=$(CONTAINER_NAME)\n        image: openpolicyagent/gatekeeper:v3.22.2\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /healthz\n            port: 9090\n          timeoutSeconds: 1\n        name: manager\n        ports:\n        - containerPort: 8888\n          name: metrics\n          protocol: TCP\n        - containerPort: 9090\n          name: healthz\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /readyz\n            port: 9090\n          timeoutSeconds: 1\n        resources:\n          limits:\n            memory: 512Mi\n          requests:\n            cpu: 100m\n            memory: 512Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsGroup: 999\n          runAsNonRoot: true\n          runAsUser: 1000\n          seccompProfile:\n            type: RuntimeDefault\n        volumeMounts:\n        - mountPath: /certs\n          name: cert\n          readOnly: true\n        - mountPath: /tmp/audit\n          name: tmp-volume\n      dnsPolicy: ClusterFirst\n      hostNetwork: false\n      imagePullSecrets: []\n      nodeSelector:\n        kubernetes.io/os: linux\n      priorityClassName: system-cluster-critical\n      securityContext:\n        fsGroup: 999\n        supplementalGroups:\n        - 999\n      serviceAccountName: gatekeeper-admin\n      terminationGracePeriodSeconds: 60\n      tolerations: []\n      volumes:\n      - name: cert\n        secret:\n          defaultMode: 420\n          secretName: gatekeeper-webhook-server-cert\n      - emptyDir: {}\n        name: tmp-volume\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gatekeeper-audit",
+          "ResourceNameWithoutScope": "gatekeeper-audit",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-gatekeeper-audit",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2c86dadf-4ac3-4aba-a397-29933f8c0afa",
+      "UpdatedAt": "2026-06-12T17:00:57.282545Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.99205Z",
+        "CursorID": 23673,
+        "DisplayName": "Upgrade deployment-default-gatekeeper-controller-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "88b7b59e-7b0b-403b-95df-876447ef8555",
+        "LinkID": "d82e663d-1239-4891-973a-1de712b9ef91",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-gatekeeper-controller-manager",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "0a313fc8-36ad-4887-8e8f-e67b0fdfe3b7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.99205Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0a313fc8-36ad-4887-8e8f-e67b0fdfe3b7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fa03981fc6072a3500993eb39009acc1c27512b8de082b9cadb9cbb8721db325",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d82e663d-1239-4891-973a-1de712b9ef91"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-gatekeeper-controller-manager",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "88b7b59e-7b0b-403b-95df-876447ef8555",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0a313fc8-36ad-4887-8e8f-e67b0fdfe3b7",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1243455371,
+      "CreatedAt": "2026-06-12T17:00:29.020104Z",
+      "CursorID": 28433,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogZ2F0ZWtlZXBlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdhdGVrZWVwZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGdhdGVrZWVwZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDMuMjIuMgogICAgY2hhcnQ6IGdhdGVrZWVwZXIKICAgIGNvbnRyb2wtcGxhbmU6IGNvbnRyb2xsZXItbWFuYWdlcgogICAgZ2F0ZWtlZXBlci5zaC9vcGVyYXRpb246IHdlYmhvb2sKICAgIGdhdGVrZWVwZXIuc2gvc3lzdGVtOiAieWVzIgogICAgaGVsbS5zaC9jaGFydDogZ2F0ZWtlZXBlci0zLjIyLjIKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBnYXRla2VlcGVyCiAgbmFtZTogZ2F0ZWtlZXBlci1jb250cm9sbGVyLW1hbmFnZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICByZXBsaWNhczogMwogIHJldmlzaW9uSGlzdG9yeUxpbWl0OiAxMAogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcDogZ2F0ZWtlZXBlcgogICAgICBjaGFydDogZ2F0ZWtlZXBlcgogICAgICBjb250cm9sLXBsYW5lOiBjb250cm9sbGVyLW1hbmFnZXIKICAgICAgZ2F0ZWtlZXBlci5zaC9vcGVyYXRpb246IHdlYmhvb2sKICAgICAgZ2F0ZWtlZXBlci5zaC9zeXN0ZW06ICJ5ZXMiCiAgICAgIGhlcml0YWdlOiBIZWxtCiAgICAgIHJlbGVhc2U6IGdhdGVrZWVwZXIKICBzdHJhdGVneToKICAgIHR5cGU6IFJvbGxpbmdVcGRhdGUKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwOiBnYXRla2VlcGVyCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdhdGVrZWVwZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ2F0ZWtlZXBlcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDMuMjIuMgogICAgICAgIGNoYXJ0OiBnYXRla2VlcGVyCiAgICAgICAgY29udHJvbC1wbGFuZTogY29udHJvbGxlci1tYW5hZ2VyCiAgICAgICAgZ2F0ZWtlZXBlci5zaC9vcGVyYXRpb246IHdlYmhvb2sKICAgICAgICBnYXRla2VlcGVyLnNoL3N5c3RlbTogInllcyIKICAgICAgICBoZWxtLnNoL2NoYXJ0OiBnYXRla2VlcGVyLTMuMjIuMgogICAgICAgIGhlcml0YWdlOiBIZWxtCiAgICAgICAgcmVsZWFzZTogZ2F0ZWtlZXBlcgogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcHJlZmVycmVkRHVyaW5nU2NoZWR1bGluZ0lnbm9yZWREdXJpbmdFeGVjdXRpb246CiAgICAgICAgICAtIHBvZEFmZmluaXR5VGVybToKICAgICAgICAgICAgICBsYWJlbFNlbGVjdG9yOgogICAgICAgICAgICAgICAgbWF0Y2hFeHByZXNzaW9uczoKICAgICAgICAgICAgICAgIC0ga2V5OiBnYXRla2VlcGVyLnNoL29wZXJhdGlvbgogICAgICAgICAgICAgICAgICBvcGVyYXRvcjogSW4KICAgICAgICAgICAgICAgICAgdmFsdWVzOgogICAgICAgICAgICAgICAgICAtIHdlYmhvb2sKICAgICAgICAgICAgICB0b3BvbG9neUtleToga3ViZXJuZXRlcy5pby9ob3N0bmFtZQogICAgICAgICAgICB3ZWlnaHQ6IDEwMAogICAgICBhdXRvbW91bnRTZXJ2aWNlQWNjb3VudFRva2VuOiB0cnVlCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIC0tcG9ydD04NDQzCiAgICAgICAgLSAtLWhlYWx0aC1hZGRyPTo5MDkwCiAgICAgICAgLSAtLXByb21ldGhldXMtcG9ydD04ODg4CiAgICAgICAgLSAtLWxvZ3Rvc3RkZXJyCiAgICAgICAgLSAtLWxvZy1kZW5pZXM9ZmFsc2UKICAgICAgICAtIC0tYWRtaXNzaW9uLWV2ZW50cy1pbnZvbHZlZC1uYW1lc3BhY2U9ZmFsc2UKICAgICAgICAtIC0tbG9nLWxldmVsPUlORk8KICAgICAgICAtIC0tZXhlbXB0LW5hbWVzcGFjZT1kZWZhdWx0CiAgICAgICAgLSAtLW9wZXJhdGlvbj13ZWJob29rCiAgICAgICAgLSAtLWVuYWJsZS1leHRlcm5hbC1kYXRhPXRydWUKICAgICAgICAtIC0tZW5hYmxlLWdlbmVyYXRvci1yZXNvdXJjZS1leHBhbnNpb249dHJ1ZQogICAgICAgIC0gLS1sb2ctbXV0YXRpb25zPWZhbHNlCiAgICAgICAgLSAtLW11dGF0aW9uLWFubm90YXRpb25zPWZhbHNlCiAgICAgICAgLSAtLWRpc2FibGUtY2VydC1yb3RhdGlvbj1mYWxzZQogICAgICAgIC0gLS1tYXgtc2VydmluZy10aHJlYWRzPS0xCiAgICAgICAgLSAtLXRscy1taW4tdmVyc2lvbj0xLjMKICAgICAgICAtIC0tdmFsaWRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24tbmFtZT1nYXRla2VlcGVyLXZhbGlkYXRpbmctd2ViaG9vay1jb25maWd1cmF0aW9uCiAgICAgICAgLSAtLW11dGF0aW5nLXdlYmhvb2stY29uZmlndXJhdGlvbi1uYW1lPWdhdGVrZWVwZXItbXV0YXRpbmctd2ViaG9vay1jb25maWd1cmF0aW9uCiAgICAgICAgLSAtLWV4dGVybmFsLWRhdGEtcHJvdmlkZXItcmVzcG9uc2UtY2FjaGUtdHRsPTNtCiAgICAgICAgLSAtLWVuYWJsZS1rOHMtbmF0aXZlLXZhbGlkYXRpb249dHJ1ZQogICAgICAgIC0gLS1tZXRyaWNzLWJhY2tlbmQ9cHJvbWV0aGV1cwogICAgICAgIC0gLS1vcGVyYXRpb249bXV0YXRpb24td2ViaG9vawogICAgICAgIC0gLS1kaXNhYmxlLW9wYS1idWlsdGluPXtodHRwLnNlbmR9CiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9tYW5hZ2VyCiAgICAgICAgZW52OgogICAgICAgIC0gbmFtZTogUE9EX05BTUVTUEFDRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBhcGlWZXJzaW9uOiB2MQogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZXNwYWNlCiAgICAgICAgLSBuYW1lOiBQT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IE5BTUVTUEFDRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBhcGlWZXJzaW9uOiB2MQogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZXNwYWNlCiAgICAgICAgLSBuYW1lOiBDT05UQUlORVJfTkFNRQogICAgICAgICAgdmFsdWU6IG1hbmFnZXIKICAgICAgICAtIG5hbWU6IE9URUxfUkVTT1VSQ0VfQVRUUklCVVRFUwogICAgICAgICAgdmFsdWU6IGs4cy5wb2QubmFtZT0kKFBPRF9OQU1FKSxrOHMubmFtZXNwYWNlLm5hbWU9JChOQU1FU1BBQ0UpLGs4cy5jb250YWluZXIubmFtZT0kKENPTlRBSU5FUl9OQU1FKQogICAgICAgIGltYWdlOiBvcGVucG9saWN5YWdlbnQvZ2F0ZWtlZXBlcjp2My4yMi4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogOTA5MAogICAgICAgICAgdGltZW91dFNlY29uZHM6IDEKICAgICAgICBuYW1lOiBtYW5hZ2VyCiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4NDQzCiAgICAgICAgICBuYW1lOiB3ZWJob29rLXNlcnZlcgogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIC0gY29udGFpbmVyUG9ydDogODg4OAogICAgICAgICAgbmFtZTogbWV0cmljcwogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIC0gY29udGFpbmVyUG9ydDogOTA5MAogICAgICAgICAgbmFtZTogaGVhbHRoegogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL3JlYWR5egogICAgICAgICAgICBwb3J0OiA5MDkwCiAgICAgICAgICB0aW1lb3V0U2Vjb25kczogMQogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIGxpbWl0czoKICAgICAgICAgICAgbWVtb3J5OiA1MTJNaQogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTAwbQogICAgICAgICAgICBtZW1vcnk6IDUxMk1pCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAtIEFMTAogICAgICAgICAgcmVhZE9ubHlSb290RmlsZXN5c3RlbTogdHJ1ZQogICAgICAgICAgcnVuQXNHcm91cDogOTk5CiAgICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICAgIHJ1bkFzVXNlcjogMTAwMAogICAgICAgICAgc2VjY29tcFByb2ZpbGU6CiAgICAgICAgICAgIHR5cGU6IFJ1bnRpbWVEZWZhdWx0CiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvY2VydHMKICAgICAgICAgIG5hbWU6IGNlcnQKICAgICAgICAgIHJlYWRPbmx5OiB0cnVlCiAgICAgIGRuc1BvbGljeTogQ2x1c3RlckZpcnN0CiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBpbWFnZVB1bGxTZWNyZXRzOiBbXQogICAgICBub2RlU2VsZWN0b3I6CiAgICAgICAga3ViZXJuZXRlcy5pby9vczogbGludXgKICAgICAgcHJpb3JpdHlDbGFzc05hbWU6IHN5c3RlbS1jbHVzdGVyLWNyaXRpY2FsCiAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICBmc0dyb3VwOiA5OTkKICAgICAgICBzdXBwbGVtZW50YWxHcm91cHM6CiAgICAgICAgLSA5OTkKICAgICAgc2VydmljZUFjY291bnROYW1lOiBnYXRla2VlcGVyLWFkbWluCiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiA2MAogICAgICB0b2xlcmF0aW9uczogW10KICAgICAgdG9wb2xvZ3lTcHJlYWRDb25zdHJhaW50czogW10KICAgICAgdm9sdW1lczoKICAgICAgLSBuYW1lOiBjZXJ0CiAgICAgICAgc2VjcmV0OgogICAgICAgICAgZGVmYXVsdE1vZGU6IDQyMAogICAgICAgICAgc2VjcmV0TmFtZTogZ2F0ZWtlZXBlci13ZWJob29rLXNlcnZlci1jZXJ0Cg==",
+      "DataHash": "fa03981fc6072a3500993eb39009acc1c27512b8de082b9cadb9cbb8721db325",
+      "DisplayName": "deployment-default-gatekeeper-controller-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gatekeeper-controller-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-controller-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gatekeeper-controller-manager",
+            "ResourceNameWithoutScope": "gatekeeper-controller-manager",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app: gatekeeper\n    app.kubernetes.io/instance: gatekeeper\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: gatekeeper\n    app.kubernetes.io/version: 3.22.2\n    chart: gatekeeper\n    control-plane: controller-manager\n    gatekeeper.sh/operation: webhook\n    gatekeeper.sh/system: \"yes\"\n    helm.sh/chart: gatekeeper-3.22.2\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-controller-manager\n  namespace: default\nspec:\n  replicas: 3\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app: gatekeeper\n      chart: gatekeeper\n      control-plane: controller-manager\n      gatekeeper.sh/operation: webhook\n      gatekeeper.sh/system: \"yes\"\n      heritage: Helm\n      release: gatekeeper\n  strategy:\n    type: RollingUpdate\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app: gatekeeper\n        app.kubernetes.io/instance: gatekeeper\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: gatekeeper\n        app.kubernetes.io/version: 3.22.2\n        chart: gatekeeper\n        control-plane: controller-manager\n        gatekeeper.sh/operation: webhook\n        gatekeeper.sh/system: \"yes\"\n        helm.sh/chart: gatekeeper-3.22.2\n        heritage: Helm\n        release: gatekeeper\n    spec:\n      affinity:\n        podAntiAffinity:\n          preferredDuringSchedulingIgnoredDuringExecution:\n          - podAffinityTerm:\n              labelSelector:\n                matchExpressions:\n                - key: gatekeeper.sh/operation\n                  operator: In\n                  values:\n                  - webhook\n              topologyKey: kubernetes.io/hostname\n            weight: 100\n      automountServiceAccountToken: true\n      containers:\n      - args:\n        - --port=8443\n        - --health-addr=:9090\n        - --prometheus-port=8888\n        - --logtostderr\n        - --log-denies=false\n        - --admission-events-involved-namespace=false\n        - --log-level=INFO\n        - --exempt-namespace=default\n        - --operation=webhook\n        - --enable-external-data=true\n        - --enable-generator-resource-expansion=true\n        - --log-mutations=false\n        - --mutation-annotations=false\n        - --disable-cert-rotation=false\n        - --max-serving-threads=-1\n        - --tls-min-version=1.3\n        - --validating-webhook-configuration-name=gatekeeper-validating-webhook-configuration\n        - --mutating-webhook-configuration-name=gatekeeper-mutating-webhook-configuration\n        - --external-data-provider-response-cache-ttl=3m\n        - --enable-k8s-native-validation=true\n        - --metrics-backend=prometheus\n        - --operation=mutation-webhook\n        - --disable-opa-builtin={http.send}\n        command:\n        - /manager\n        env:\n        - name: POD_NAMESPACE\n          valueFrom:\n            fieldRef:\n              apiVersion: v1\n              fieldPath: metadata.namespace\n        - name: POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: NAMESPACE\n          valueFrom:\n            fieldRef:\n              apiVersion: v1\n              fieldPath: metadata.namespace\n        - name: CONTAINER_NAME\n          value: manager\n        - name: OTEL_RESOURCE_ATTRIBUTES\n          value: k8s.pod.name=$(POD_NAME),k8s.namespace.name=$(NAMESPACE),k8s.container.name=$(CONTAINER_NAME)\n        image: openpolicyagent/gatekeeper:v3.22.2\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /healthz\n            port: 9090\n          timeoutSeconds: 1\n        name: manager\n        ports:\n        - containerPort: 8443\n          name: webhook-server\n          protocol: TCP\n        - containerPort: 8888\n          name: metrics\n          protocol: TCP\n        - containerPort: 9090\n          name: healthz\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /readyz\n            port: 9090\n          timeoutSeconds: 1\n        resources:\n          limits:\n            memory: 512Mi\n          requests:\n            cpu: 100m\n            memory: 512Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsGroup: 999\n          runAsNonRoot: true\n          runAsUser: 1000\n          seccompProfile:\n            type: RuntimeDefault\n        volumeMounts:\n        - mountPath: /certs\n          name: cert\n          readOnly: true\n      dnsPolicy: ClusterFirst\n      hostNetwork: false\n      imagePullSecrets: []\n      nodeSelector:\n        kubernetes.io/os: linux\n      priorityClassName: system-cluster-critical\n      securityContext:\n        fsGroup: 999\n        supplementalGroups:\n        - 999\n      serviceAccountName: gatekeeper-admin\n      terminationGracePeriodSeconds: 60\n      tolerations: []\n      topologySpreadConstraints: []\n      volumes:\n      - name: cert\n        secret:\n          defaultMode: 420\n          secretName: gatekeeper-webhook-server-cert\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gatekeeper-controller-manager",
+          "ResourceNameWithoutScope": "gatekeeper-controller-manager",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-gatekeeper-controller-manager",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0a313fc8-36ad-4887-8e8f-e67b0fdfe3b7",
+      "UpdatedAt": "2026-06-12T17:01:00.188528Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.649193Z",
+        "CursorID": 23664,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6098b1d6-b784-4d01-b3a9-83aa037070b0",
+        "LinkID": "14ead075-1038-4148-9b2b-be54d32feb0f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "1dd49adc-45e8-43ba-aba4-eef7eb7eae43",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.649193Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1dd49adc-45e8-43ba-aba4-eef7eb7eae43' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "64bdc47457f2c53403850a1e1ff85351c17bcda48913233f98f8b19394179212",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "14ead075-1038-4148-9b2b-be54d32feb0f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6098b1d6-b784-4d01-b3a9-83aa037070b0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1dd49adc-45e8-43ba-aba4-eef7eb7eae43",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "gatekeeper-gatekeeper",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 2093522118,
+      "CreatedAt": "2026-06-12T17:00:38.176025Z",
+      "CursorID": 28443,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImdhdGVrZWVwZXItZ2F0ZWtlZXBlciIKICB2ZXJzaW9uOiAiMy4yMi4yIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogImdhdGVrZWVwZXIvZ2F0ZWtlZXBlciBkZWZhdWx0IHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBnYXRla2VlcGVyL2dhdGVrZWVwZXJAMy4yMi4yIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJuby1jcmRzIgogICAgcGF0aDogImJhc2VzL25vLWNyZHMiCiAgICBkZXNjcmlwdGlvbjogImdhdGVrZWVwZXIvZ2F0ZWtlZXBlciBuby1jcmRzIHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBnYXRla2VlcGVyL2dhdGVrZWVwZXJAMy4yMi4yIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiBnYXRla2VlcGVyLWdhdGVrZWVwZXItZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGdhdGVrZWVwZXItZ2F0ZWtlZXBlcgogIGdyb3VwczogW10KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IElucHV0cwptZXRhZGF0YToKICBuYW1lOiBnYXRla2VlcGVyLWdhdGVrZWVwZXItaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBnYXRla2VlcGVyLWdhdGVrZWVwZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGdhdGVrZWVwZXItZ2F0ZWtlZXBlci1tYW5pZmVzdC1pbmRleAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZ2F0ZWtlZXBlci1nYXRla2VlcGVyCiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtZ2F0ZWtlZXBlci1tYW5hZ2VyLXJvbGUueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtZ2F0ZWtlZXBlci1tYW5hZ2VyLXJvbGUKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBnYXRla2VlcGVyLW1hbmFnZXItcm9sZQogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlYmluZGluZy1nYXRla2VlcGVyLW1hbmFnZXItcm9sZWJpbmRpbmcueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLWdhdGVrZWVwZXItbWFuYWdlci1yb2xlYmluZGluZwogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGVCaW5kaW5nCiAgICBuYW1lOiBnYXRla2VlcGVyLW1hbmFnZXItcm9sZWJpbmRpbmcKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQtZ2F0ZWtlZXBlci1hdWRpdC55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtZ2F0ZWtlZXBlci1hdWRpdAogICAgYXBpVmVyc2lvbjogYXBwcy92MQogICAga2luZDogRGVwbG95bWVudAogICAgbmFtZTogZ2F0ZWtlZXBlci1hdWRpdAogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LWdhdGVrZWVwZXItY29udHJvbGxlci1tYW5hZ2VyLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtZGVmYXVsdC1nYXRla2VlcGVyLWNvbnRyb2xsZXItbWFuYWdlcgogICAgYXBpVmVyc2lvbjogYXBwcy92MQogICAga2luZDogRGVwbG95bWVudAogICAgbmFtZTogZ2F0ZWtlZXBlci1jb250cm9sbGVyLW1hbmFnZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG11dGF0aW5nd2ViaG9va2NvbmZpZ3VyYXRpb24tZ2F0ZWtlZXBlci1tdXRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24ueWFtbAogICAgc2x1ZzogbXV0YXRpbmd3ZWJob29rY29uZmlndXJhdGlvbi1nYXRla2VlcGVyLW11dGF0aW5nLXdlYmhvb2stY29uZmlndXJhdGlvbgogICAgYXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQogICAga2luZDogTXV0YXRpbmdXZWJob29rQ29uZmlndXJhdGlvbgogICAgbmFtZTogZ2F0ZWtlZXBlci1tdXRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24KICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHBvZGRpc3J1cHRpb25idWRnZXQtZGVmYXVsdC1nYXRla2VlcGVyLWNvbnRyb2xsZXItbWFuYWdlci55YW1sCiAgICBzbHVnOiBwb2RkaXNydXB0aW9uYnVkZ2V0LWRlZmF1bHQtZ2F0ZWtlZXBlci1jb250cm9sbGVyLW1hbmFnZXIKICAgIGFwaVZlcnNpb246IHBvbGljeS92MQogICAga2luZDogUG9kRGlzcnVwdGlvbkJ1ZGdldAogICAgbmFtZTogZ2F0ZWtlZXBlci1jb250cm9sbGVyLW1hbmFnZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJlc291cmNlcXVvdGEtZGVmYXVsdC1nYXRla2VlcGVyLWNyaXRpY2FsLXBvZHMueWFtbAogICAgc2x1ZzogcmVzb3VyY2VxdW90YS1kZWZhdWx0LWdhdGVrZWVwZXItY3JpdGljYWwtcG9kcwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFJlc291cmNlUXVvdGEKICAgIG5hbWU6IGdhdGVrZWVwZXItY3JpdGljYWwtcG9kcwogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZS1kZWZhdWx0LWdhdGVrZWVwZXItbWFuYWdlci1yb2xlLnlhbWwKICAgIHNsdWc6IHJvbGUtZGVmYXVsdC1nYXRla2VlcGVyLW1hbmFnZXItcm9sZQogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogUm9sZQogICAgbmFtZTogZ2F0ZWtlZXBlci1tYW5hZ2VyLXJvbGUKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGViaW5kaW5nLWRlZmF1bHQtZ2F0ZWtlZXBlci1tYW5hZ2VyLXJvbGViaW5kaW5nLnlhbWwKICAgIHNsdWc6IHJvbGViaW5kaW5nLWRlZmF1bHQtZ2F0ZWtlZXBlci1tYW5hZ2VyLXJvbGViaW5kaW5nCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogZ2F0ZWtlZXBlci1tYW5hZ2VyLXJvbGViaW5kaW5nCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWRlZmF1bHQtZ2F0ZWtlZXBlci13ZWJob29rLXNlcnZpY2UueWFtbAogICAgc2x1Zzogc2VydmljZS1kZWZhdWx0LWdhdGVrZWVwZXItd2ViaG9vay1zZXJ2aWNlCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogZ2F0ZWtlZXBlci13ZWJob29rLXNlcnZpY2UKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtZ2F0ZWtlZXBlci1hZG1pbi55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWdhdGVrZWVwZXItYWRtaW4KICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZTogZ2F0ZWtlZXBlci1hZG1pbgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogdmFsaWRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9uLWdhdGVrZWVwZXItdmFsaWRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24ueWFtbAogICAgc2x1ZzogdmFsaWRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9uLWdhdGVrZWVwZXItdmFsaWRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24KICAgIGFwaVZlcnNpb246IGFkbWlzc2lvbnJlZ2lzdHJhdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFZhbGlkYXRpbmdXZWJob29rQ29uZmlndXJhdGlvbgogICAgbmFtZTogZ2F0ZWtlZXBlci12YWxpZGF0aW5nLXdlYmhvb2stY29uZmlndXJhdGlvbgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGdhdGVrZWVwZXItZ2F0ZWtlZXBlci1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGdhdGVrZWVwZXItZ2F0ZWtlZXBlcgogIGJhc2U6IG5vLWNyZHMKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBnYXRla2VlcGVyLWdhdGVrZWVwZXItdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBnYXRla2VlcGVyLWdhdGVrZWVwZXIKICBzcGFjZVBhdHRlcm46IGhlbG0tZ2F0ZWtlZXBlci1uby1jcmRzLWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IGdhdGVrZWVwZXItZ2F0ZWtlZXBlcgogICAgc2x1ZzogaGVsbS1nYXRla2VlcGVyLW5vLWNyZHMtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE3OjAwOjI0WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "64bdc47457f2c53403850a1e1ff85351c17bcda48913233f98f8b19394179212",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "gatekeeper-gatekeeper"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/gatekeeper-gatekeeper": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-gatekeeper": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-gatekeeper",
+            "ResourceNameWithoutScope": "gatekeeper-gatekeeper",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"gatekeeper-gatekeeper\"\n  version: \"3.22.2\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"gatekeeper/gatekeeper default variant rendered from gatekeeper/gatekeeper@3.22.2\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"no-crds\"\n    path: \"bases/no-crds\"\n    description: \"gatekeeper/gatekeeper no-crds variant rendered from gatekeeper/gatekeeper@3.22.2\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gatekeeper-gatekeeper-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-gatekeeper-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-gatekeeper-function-chain",
+            "ResourceNameWithoutScope": "gatekeeper-gatekeeper-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: gatekeeper-gatekeeper-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gatekeeper-gatekeeper\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gatekeeper-gatekeeper-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-gatekeeper-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-gatekeeper-inputs",
+            "ResourceNameWithoutScope": "gatekeeper-gatekeeper-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: gatekeeper-gatekeeper-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gatekeeper-gatekeeper\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gatekeeper-gatekeeper-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-gatekeeper-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-gatekeeper-manifest-index",
+            "ResourceNameWithoutScope": "gatekeeper-gatekeeper-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: gatekeeper-gatekeeper-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gatekeeper-gatekeeper\n  files:\n  - filename: clusterrole-gatekeeper-manager-role.yaml\n    slug: clusterrole-gatekeeper-manager-role\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: gatekeeper-manager-role\n  - filename: clusterrolebinding-gatekeeper-manager-rolebinding.yaml\n    slug: clusterrolebinding-gatekeeper-manager-rolebinding\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: gatekeeper-manager-rolebinding\n  - filename: deployment-default-gatekeeper-audit.yaml\n    slug: deployment-default-gatekeeper-audit\n    apiVersion: apps/v1\n    kind: Deployment\n    name: gatekeeper-audit\n    namespace: default\n  - filename: deployment-default-gatekeeper-controller-manager.yaml\n    slug: deployment-default-gatekeeper-controller-manager\n    apiVersion: apps/v1\n    kind: Deployment\n    name: gatekeeper-controller-manager\n    namespace: default\n  - filename: mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration.yaml\n    slug: mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration\n    apiVersion: admissionregistration.k8s.io/v1\n    kind: MutatingWebhookConfiguration\n    name: gatekeeper-mutating-webhook-configuration\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: poddisruptionbudget-default-gatekeeper-controller-manager.yaml\n    slug: poddisruptionbudget-default-gatekeeper-controller-manager\n    apiVersion: policy/v1\n    kind: PodDisruptionBudget\n    name: gatekeeper-controller-manager\n    namespace: default\n  - filename: resourcequota-default-gatekeeper-critical-pods.yaml\n    slug: resourcequota-default-gatekeeper-critical-pods\n    apiVersion: v1\n    kind: ResourceQuota\n    name: gatekeeper-critical-pods\n    namespace: default\n  - filename: role-default-gatekeeper-manager-role.yaml\n    slug: role-default-gatekeeper-manager-role\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: gatekeeper-manager-role\n    namespace: default\n  - filename: rolebinding-default-gatekeeper-manager-rolebinding.yaml\n    slug: rolebinding-default-gatekeeper-manager-rolebinding\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: gatekeeper-manager-rolebinding\n    namespace: default\n  - filename: service-default-gatekeeper-webhook-service.yaml\n    slug: service-default-gatekeeper-webhook-service\n    apiVersion: v1\n    kind: Service\n    name: gatekeeper-webhook-service\n    namespace: default\n  - filename: serviceaccount-default-gatekeeper-admin.yaml\n    slug: serviceaccount-default-gatekeeper-admin\n    apiVersion: v1\n    kind: ServiceAccount\n    name: gatekeeper-admin\n    namespace: default\n  - filename: validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration.yaml\n    slug: validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration\n    apiVersion: admissionregistration.k8s.io/v1\n    kind: ValidatingWebhookConfiguration\n    name: gatekeeper-validating-webhook-configuration\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gatekeeper-gatekeeper-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-gatekeeper-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-gatekeeper-selection",
+            "ResourceNameWithoutScope": "gatekeeper-gatekeeper-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: gatekeeper-gatekeeper-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gatekeeper-gatekeeper\n  base: no-crds\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gatekeeper-gatekeeper-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-gatekeeper-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-gatekeeper-upload",
+            "ResourceNameWithoutScope": "gatekeeper-gatekeeper-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: gatekeeper-gatekeeper-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gatekeeper-gatekeeper\n  spacePattern: helm-gatekeeper-no-crds-confighub-proof\n  spaces:\n  - package: gatekeeper-gatekeeper\n    slug: helm-gatekeeper-no-crds-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:00:24Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1dd49adc-45e8-43ba-aba4-eef7eb7eae43",
+      "UpdatedAt": "2026-06-12T17:00:39.471728Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.599515Z",
+        "CursorID": 23663,
+        "DisplayName": "Upgrade mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0c1d6415-2662-4a46-a27c-5bab942bfece",
+        "LinkID": "645ef608-a7cd-4e19-9867-6f3cc1873cb7",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "b1393e24-809e-41a2-b288-3fc05994d171",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.599515Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b1393e24-809e-41a2-b288-3fc05994d171' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c434d0f50386af702857c3da4dc0d546e207c29fb426c8a960f617aa21a52d1e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "645ef608-a7cd-4e19-9867-6f3cc1873cb7"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0c1d6415-2662-4a46-a27c-5bab942bfece",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b1393e24-809e-41a2-b288-3fc05994d171",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1008692270,
+      "CreatedAt": "2026-06-12T17:00:29.760449Z",
+      "CursorID": 28434,
+      "Data": "YXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBNdXRhdGluZ1dlYmhvb2tDb25maWd1cmF0aW9uCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogZ2F0ZWtlZXBlcgogICAgY2hhcnQ6IGdhdGVrZWVwZXIKICAgIGdhdGVrZWVwZXIuc2gvc3lzdGVtOiAieWVzIgogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IGdhdGVrZWVwZXIKICBuYW1lOiBnYXRla2VlcGVyLW11dGF0aW5nLXdlYmhvb2stY29uZmlndXJhdGlvbgp3ZWJob29rczoKLSBhZG1pc3Npb25SZXZpZXdWZXJzaW9uczoKICAtIHYxCiAgLSB2MWJldGExCiAgY2xpZW50Q29uZmlnOgogICAgc2VydmljZToKICAgICAgbmFtZTogZ2F0ZWtlZXBlci13ZWJob29rLXNlcnZpY2UKICAgICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgICAgIHBhdGg6IC92MS9tdXRhdGUKICBmYWlsdXJlUG9saWN5OiBJZ25vcmUKICBtYXRjaFBvbGljeTogRXhhY3QKICBuYW1lOiBtdXRhdGlvbi5nYXRla2VlcGVyLnNoCiAgbmFtZXNwYWNlU2VsZWN0b3I6CiAgICBtYXRjaEV4cHJlc3Npb25zOgogICAgLSBrZXk6IGFkbWlzc2lvbi5nYXRla2VlcGVyLnNoL2lnbm9yZQogICAgICBvcGVyYXRvcjogRG9lc05vdEV4aXN0CiAgICAtIGtleToga3ViZXJuZXRlcy5pby9tZXRhZGF0YS5uYW1lCiAgICAgIG9wZXJhdG9yOiBOb3RJbgogICAgICB2YWx1ZXM6CiAgICAgIC0gZGVmYXVsdAogIG9iamVjdFNlbGVjdG9yOiB7fQogIHJlaW52b2NhdGlvblBvbGljeTogTmV2ZXIKICBydWxlczoKICAtIGFwaUdyb3VwczoKICAgIC0gJyonCiAgICBhcGlWZXJzaW9uczoKICAgIC0gJyonCiAgICBvcGVyYXRpb25zOgogICAgLSBDUkVBVEUKICAgIC0gVVBEQVRFCiAgICByZXNvdXJjZXM6CiAgICAtICcqJwogICAgLSBwb2RzL2VwaGVtZXJhbGNvbnRhaW5lcnMKICAgIC0gcG9kcy9leGVjCiAgICAtIHBvZHMvbG9nCiAgICAtIHBvZHMvZXZpY3Rpb24KICAgIC0gcG9kcy9wb3J0Zm9yd2FyZAogICAgLSBwb2RzL3Byb3h5CiAgICAtIHBvZHMvYXR0YWNoCiAgICAtIHBvZHMvYmluZGluZwogICAgLSBkZXBsb3ltZW50cy9zY2FsZQogICAgLSByZXBsaWNhc2V0cy9zY2FsZQogICAgLSBzdGF0ZWZ1bHNldHMvc2NhbGUKICAgIC0gcmVwbGljYXRpb25jb250cm9sbGVycy9zY2FsZQogICAgLSBzZXJ2aWNlcy9wcm94eQogICAgLSBub2Rlcy9wcm94eQogICAgLSBzZXJ2aWNlcy9zdGF0dXMKICAgIHNjb3BlOiAnKicKICBzaWRlRWZmZWN0czogTm9uZQogIHRpbWVvdXRTZWNvbmRzOiAxCg==",
+      "DataHash": "c434d0f50386af702857c3da4dc0d546e207c29fb426c8a960f617aa21a52d1e",
+      "DisplayName": "mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/gatekeeper-mutating-webhook-configuration": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-mutating-webhook-configuration": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-mutating-webhook-configuration",
+            "ResourceNameWithoutScope": "gatekeeper-mutating-webhook-configuration",
+            "ResourceType": "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: admissionregistration.k8s.io/v1\nkind: MutatingWebhookConfiguration\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-mutating-webhook-configuration\nwebhooks:\n- admissionReviewVersions:\n  - v1\n  - v1beta1\n  clientConfig:\n    service:\n      name: gatekeeper-webhook-service\n      namespace: default\n      path: /v1/mutate\n  failurePolicy: Ignore\n  matchPolicy: Exact\n  name: mutation.gatekeeper.sh\n  namespaceSelector:\n    matchExpressions:\n    - key: admission.gatekeeper.sh/ignore\n      operator: DoesNotExist\n    - key: kubernetes.io/metadata.name\n      operator: NotIn\n      values:\n      - default\n  objectSelector: {}\n  reinvocationPolicy: Never\n  rules:\n  - apiGroups:\n    - '*'\n    apiVersions:\n    - '*'\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - '*'\n    - pods/ephemeralcontainers\n    - pods/exec\n    - pods/log\n    - pods/eviction\n    - pods/portforward\n    - pods/proxy\n    - pods/attach\n    - pods/binding\n    - deployments/scale\n    - replicasets/scale\n    - statefulsets/scale\n    - replicationcontrollers/scale\n    - services/proxy\n    - nodes/proxy\n    - services/status\n    scope: '*'\n  sideEffects: None\n  timeoutSeconds: 1\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b1393e24-809e-41a2-b288-3fc05994d171",
+      "UpdatedAt": "2026-06-12T17:01:02.788744Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:31.028945Z",
+        "CursorID": 23674,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "e35098f8-1bd0-4432-92c4-db6017f9c09e",
+        "LinkID": "66d14ee3-d2a9-47fb-a34f-a3559d613908",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "0d559e75-08a2-4af8-ace1-56dae296a834",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:31.028945Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0d559e75-08a2-4af8-ace1-56dae296a834' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "66d14ee3-d2a9-47fb-a34f-a3559d613908"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e35098f8-1bd0-4432-92c4-db6017f9c09e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0d559e75-08a2-4af8-ace1-56dae296a834",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:00:30.444274Z",
+      "CursorID": 28435,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0d559e75-08a2-4af8-ace1-56dae296a834",
+      "UpdatedAt": "2026-06-12T17:00:30.471657Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.687163Z",
+        "CursorID": 23665,
+        "DisplayName": "Upgrade poddisruptionbudget-default-gatekeeper-controller-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b6a18485-7fbc-4968-a5ad-9a0a983120a3",
+        "LinkID": "92f708f7-bd98-4a62-9e91-1015dc202d9e",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-poddisruptionbudget-default-gatekeeper-controller-manager",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "f51524e2-2ad7-47d4-ac5d-5c13dd4b4f0f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.687163Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f51524e2-2ad7-47d4-ac5d-5c13dd4b4f0f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d38485a5f1625c02c8384f92eb7f1ea61987318e780acc24cbb54f0b23a1e65c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "92f708f7-bd98-4a62-9e91-1015dc202d9e"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-default-gatekeeper-controller-manager",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b6a18485-7fbc-4968-a5ad-9a0a983120a3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f51524e2-2ad7-47d4-ac5d-5c13dd4b4f0f",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -625053082,
+      "CreatedAt": "2026-06-12T17:00:31.159004Z",
+      "CursorID": 28436,
+      "Data": "YXBpVmVyc2lvbjogcG9saWN5L3YxCmtpbmQ6IFBvZERpc3J1cHRpb25CdWRnZXQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBnYXRla2VlcGVyCiAgICBjaGFydDogZ2F0ZWtlZXBlcgogICAgZ2F0ZWtlZXBlci5zaC9zeXN0ZW06ICJ5ZXMiCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogZ2F0ZWtlZXBlcgogIG5hbWU6IGdhdGVrZWVwZXItY29udHJvbGxlci1tYW5hZ2VyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgbWluQXZhaWxhYmxlOiAxCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwOiBnYXRla2VlcGVyCiAgICAgIGNoYXJ0OiBnYXRla2VlcGVyCiAgICAgIGNvbnRyb2wtcGxhbmU6IGNvbnRyb2xsZXItbWFuYWdlcgogICAgICBnYXRla2VlcGVyLnNoL29wZXJhdGlvbjogd2ViaG9vawogICAgICBnYXRla2VlcGVyLnNoL3N5c3RlbTogInllcyIKICAgICAgaGVyaXRhZ2U6IEhlbG0KICAgICAgcmVsZWFzZTogZ2F0ZWtlZXBlcgo=",
+      "DataHash": "d38485a5f1625c02c8384f92eb7f1ea61987318e780acc24cbb54f0b23a1e65c",
+      "DisplayName": "poddisruptionbudget-default-gatekeeper-controller-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 503 bytes; from poddisruptionbudget-default-gatekeeper-controller-manager.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gatekeeper-controller-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-controller-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gatekeeper-controller-manager",
+            "ResourceNameWithoutScope": "gatekeeper-controller-manager",
+            "ResourceType": "policy/v1/PodDisruptionBudget"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: policy/v1\nkind: PodDisruptionBudget\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-controller-manager\n  namespace: default\nspec:\n  minAvailable: 1\n  selector:\n    matchLabels:\n      app: gatekeeper\n      chart: gatekeeper\n      control-plane: controller-manager\n      gatekeeper.sh/operation: webhook\n      gatekeeper.sh/system: \"yes\"\n      heritage: Helm\n      release: gatekeeper\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-default-gatekeeper-controller-manager",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f51524e2-2ad7-47d4-ac5d-5c13dd4b4f0f",
+      "UpdatedAt": "2026-06-12T17:01:04.663122Z",
+      "Version": 8
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:31.296681Z",
+        "CursorID": 23675,
+        "DisplayName": "Upgrade resourcequota-default-gatekeeper-critical-pods",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3fbe1ea8-a89d-4111-8891-5d245db417ba",
+        "LinkID": "4fbe976d-105a-4270-8a7e-4bc9aa4efb0a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-resourcequota-default-gatekeeper-critical-pods",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "0d2b91cd-5bc5-4cd6-8d02-57174d89012a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:31.296681Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0d2b91cd-5bc5-4cd6-8d02-57174d89012a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "91a16caf20a3000d7ec4370a12024ac0d0b8feb7625ef29033567cc81beac923",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4fbe976d-105a-4270-8a7e-4bc9aa4efb0a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "resourcequota-default-gatekeeper-critical-pods",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3fbe1ea8-a89d-4111-8891-5d245db417ba",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0d2b91cd-5bc5-4cd6-8d02-57174d89012a",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1653605415,
+      "CreatedAt": "2026-06-12T17:00:31.913182Z",
+      "CursorID": 28437,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogUmVzb3VyY2VRdW90YQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IGdhdGVrZWVwZXIKICAgIGNoYXJ0OiBnYXRla2VlcGVyCiAgICBnYXRla2VlcGVyLnNoL3N5c3RlbTogInllcyIKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBnYXRla2VlcGVyCiAgbmFtZTogZ2F0ZWtlZXBlci1jcml0aWNhbC1wb2RzCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgaGFyZDoKICAgIHBvZHM6IDEwMAogIHNjb3BlU2VsZWN0b3I6CiAgICBtYXRjaEV4cHJlc3Npb25zOgogICAgLSBvcGVyYXRvcjogSW4KICAgICAgc2NvcGVOYW1lOiBQcmlvcml0eUNsYXNzCiAgICAgIHZhbHVlczoKICAgICAgLSBzeXN0ZW0tY2x1c3Rlci1jcml0aWNhbAogICAgICAtIHN5c3RlbS1jbHVzdGVyLWNyaXRpY2FsCg==",
+      "DataHash": "91a16caf20a3000d7ec4370a12024ac0d0b8feb7625ef29033567cc81beac923",
+      "DisplayName": "resourcequota-default-gatekeeper-critical-pods",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gatekeeper-critical-pods": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-critical-pods": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gatekeeper-critical-pods",
+            "ResourceNameWithoutScope": "gatekeeper-critical-pods",
+            "ResourceType": "v1/ResourceQuota"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ResourceQuota\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-critical-pods\n  namespace: default\nspec:\n  hard:\n    pods: 100\n  scopeSelector:\n    matchExpressions:\n    - operator: In\n      scopeName: PriorityClass\n      values:\n      - system-cluster-critical\n      - system-cluster-critical\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "resourcequota-default-gatekeeper-critical-pods",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0d2b91cd-5bc5-4cd6-8d02-57174d89012a",
+      "UpdatedAt": "2026-06-12T17:01:05.613893Z",
+      "Version": 9
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.769665Z",
+        "CursorID": 23667,
+        "DisplayName": "Upgrade rolebinding-default-gatekeeper-manager-rolebinding",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "47496523-3053-4e99-b580-578583752b82",
+        "LinkID": "b1a75a46-6996-4da9-946e-d5bcf15c193d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-gatekeeper-manager-rolebinding",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "89e307f3-6159-4f7d-b651-370c1ad0f580",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.769665Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '89e307f3-6159-4f7d-b651-370c1ad0f580' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a8aa6d559b16ad702e414ef741cfed1560036afb8dbc8c3a996e4b1bfab14de",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b1a75a46-6996-4da9-946e-d5bcf15c193d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-gatekeeper-manager-rolebinding",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "47496523-3053-4e99-b580-578583752b82",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "89e307f3-6159-4f7d-b651-370c1ad0f580",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 122291799,
+      "CreatedAt": "2026-06-12T17:00:33.536888Z",
+      "CursorID": 28439,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IGdhdGVrZWVwZXIKICAgIGNoYXJ0OiBnYXRla2VlcGVyCiAgICBnYXRla2VlcGVyLnNoL3N5c3RlbTogInllcyIKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBnYXRla2VlcGVyCiAgbmFtZTogZ2F0ZWtlZXBlci1tYW5hZ2VyLXJvbGViaW5kaW5nCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBSb2xlCiAgbmFtZTogZ2F0ZWtlZXBlci1tYW5hZ2VyLXJvbGUKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBnYXRla2VlcGVyLWFkbWluCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "7a8aa6d559b16ad702e414ef741cfed1560036afb8dbc8c3a996e4b1bfab14de",
+      "DisplayName": "rolebinding-default-gatekeeper-manager-rolebinding",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gatekeeper-manager-rolebinding": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-manager-rolebinding": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gatekeeper-manager-rolebinding",
+            "ResourceNameWithoutScope": "gatekeeper-manager-rolebinding",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-manager-rolebinding\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: gatekeeper-manager-role\nsubjects:\n- kind: ServiceAccount\n  name: gatekeeper-admin\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-gatekeeper-manager-rolebinding",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "89e307f3-6159-4f7d-b651-370c1ad0f580",
+      "UpdatedAt": "2026-06-12T17:01:11.567562Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.736431Z",
+        "CursorID": 23666,
+        "DisplayName": "Upgrade role-default-gatekeeper-manager-role",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c30d4082-3b9c-4db9-92ea-303318574d2b",
+        "LinkID": "98019aaf-66e2-4791-b504-2ef403440cd1",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-gatekeeper-manager-role",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "7447db9c-a6a4-428e-adc5-5128d68fc489",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.736431Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7447db9c-a6a4-428e-adc5-5128d68fc489' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f5225e24875780b110953f5fbcca5055984d1b5a01396036d4744c5c2baf19b3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "98019aaf-66e2-4791-b504-2ef403440cd1"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-gatekeeper-manager-role",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c30d4082-3b9c-4db9-92ea-303318574d2b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7447db9c-a6a4-428e-adc5-5128d68fc489",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -356452932,
+      "CreatedAt": "2026-06-12T17:00:32.593836Z",
+      "CursorID": 28438,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogZ2F0ZWtlZXBlcgogICAgY2hhcnQ6IGdhdGVrZWVwZXIKICAgIGdhdGVrZWVwZXIuc2gvc3lzdGVtOiAieWVzIgogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IGdhdGVrZWVwZXIKICBuYW1lOiBnYXRla2VlcGVyLW1hbmFnZXItcm9sZQogIG5hbWVzcGFjZTogZGVmYXVsdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIGV2ZW50cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBwYXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gc2VjcmV0cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gK",
+      "DataHash": "f5225e24875780b110953f5fbcca5055984d1b5a01396036d4744c5c2baf19b3",
+      "DisplayName": "role-default-gatekeeper-manager-role",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gatekeeper-manager-role": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-manager-role": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gatekeeper-manager-role",
+            "ResourceNameWithoutScope": "gatekeeper-manager-role",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-manager-role\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gatekeeper-manager-role",
+          "ResourceNameWithoutScope": "gatekeeper-manager-role",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-gatekeeper-manager-role",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7447db9c-a6a4-428e-adc5-5128d68fc489",
+      "UpdatedAt": "2026-06-12T17:01:06.835027Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:31.395488Z",
+        "CursorID": 23676,
+        "DisplayName": "Upgrade serviceaccount-default-gatekeeper-admin",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f8f993ad-3bd5-4b22-ba5d-c5e3f16135ca",
+        "LinkID": "2438492c-6d0d-4dde-9455-08a754ffa114",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-gatekeeper-admin",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "ba80df65-d5e3-4267-80bf-9e6e19f6a133",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:31.395488Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ba80df65-d5e3-4267-80bf-9e6e19f6a133' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5481151639f4e7ca325e7483abf35fb4a1a9a8990b4ead8c64d1a477efcd268f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "2438492c-6d0d-4dde-9455-08a754ffa114"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-gatekeeper-admin",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f8f993ad-3bd5-4b22-ba5d-c5e3f16135ca",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ba80df65-d5e3-4267-80bf-9e6e19f6a133",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1714407626,
+      "CreatedAt": "2026-06-12T17:00:36.420963Z",
+      "CursorID": 28441,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBnYXRla2VlcGVyCiAgICBjaGFydDogZ2F0ZWtlZXBlcgogICAgZ2F0ZWtlZXBlci5zaC9zeXN0ZW06ICJ5ZXMiCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogZ2F0ZWtlZXBlcgogIG5hbWU6IGdhdGVrZWVwZXItYWRtaW4KICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "5481151639f4e7ca325e7483abf35fb4a1a9a8990b4ead8c64d1a477efcd268f",
+      "DisplayName": "serviceaccount-default-gatekeeper-admin",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 219 bytes; from serviceaccount-default-gatekeeper-admin.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gatekeeper-admin": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-admin": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gatekeeper-admin",
+            "ResourceNameWithoutScope": "gatekeeper-admin",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-admin\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gatekeeper-admin",
+          "ResourceNameWithoutScope": "gatekeeper-admin",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-gatekeeper-admin",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ba80df65-d5e3-4267-80bf-9e6e19f6a133",
+      "UpdatedAt": "2026-06-12T17:01:16.172685Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.813252Z",
+        "CursorID": 23668,
+        "DisplayName": "Upgrade service-default-gatekeeper-webhook-service",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2e05ba0d-3974-4ef8-a0b7-0490b9d14395",
+        "LinkID": "0299118a-7b0f-441d-a609-ab1391c7b572",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-gatekeeper-webhook-service",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "c5c99a9f-7845-459a-af72-b178822b525b",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.813252Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c5c99a9f-7845-459a-af72-b178822b525b' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "21a6bf1fd282f8f5c93387e159e193c3a8d5ecff4e2803ce941f6aeb683e7059",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0299118a-7b0f-441d-a609-ab1391c7b572"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-gatekeeper-webhook-service",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2e05ba0d-3974-4ef8-a0b7-0490b9d14395",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c5c99a9f-7845-459a-af72-b178822b525b",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1307607591,
+      "CreatedAt": "2026-06-12T17:00:35.267183Z",
+      "CursorID": 28440,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IGdhdGVrZWVwZXIKICAgIGNoYXJ0OiBnYXRla2VlcGVyCiAgICBnYXRla2VlcGVyLnNoL3N5c3RlbTogInllcyIKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBnYXRla2VlcGVyCiAgbmFtZTogZ2F0ZWtlZXBlci13ZWJob29rLXNlcnZpY2UKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IGh0dHBzLXdlYmhvb2stc2VydmVyCiAgICBwb3J0OiA0NDMKICAgIHRhcmdldFBvcnQ6IHdlYmhvb2stc2VydmVyCiAgc2VsZWN0b3I6CiAgICBhcHA6IGdhdGVrZWVwZXIKICAgIGNoYXJ0OiBnYXRla2VlcGVyCiAgICBjb250cm9sLXBsYW5lOiBjb250cm9sbGVyLW1hbmFnZXIKICAgIGdhdGVrZWVwZXIuc2gvb3BlcmF0aW9uOiB3ZWJob29rCiAgICBnYXRla2VlcGVyLnNoL3N5c3RlbTogInllcyIKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBnYXRla2VlcGVyCg==",
+      "DataHash": "21a6bf1fd282f8f5c93387e159e193c3a8d5ecff4e2803ce941f6aeb683e7059",
+      "DisplayName": "service-default-gatekeeper-webhook-service",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gatekeeper-webhook-service": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-webhook-service": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gatekeeper-webhook-service",
+            "ResourceNameWithoutScope": "gatekeeper-webhook-service",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-webhook-service\n  namespace: default\nspec:\n  ports:\n  - name: https-webhook-server\n    port: 443\n    targetPort: webhook-server\n  selector:\n    app: gatekeeper\n    chart: gatekeeper\n    control-plane: controller-manager\n    gatekeeper.sh/operation: webhook\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gatekeeper-webhook-service",
+          "ResourceNameWithoutScope": "gatekeeper-webhook-service",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-gatekeeper-webhook-service",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c5c99a9f-7845-459a-af72-b178822b525b",
+      "UpdatedAt": "2026-06-12T17:01:15.213271Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:30.840543Z",
+        "CursorID": 23669,
+        "DisplayName": "Upgrade validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "88e0df78-b942-475c-a4b9-c8e0b6e6845b",
+        "LinkID": "810b9920-74c6-4508-a1ed-7ef0259d7c79",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration",
+        "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+        "SpaceSlug": "Gatekeeper-no-crds-staging",
+        "ToSpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+        "ToUnitID": "27f5a0ec-8f4d-4068-a1da-a1b9f17ca577",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:30.840544Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '27f5a0ec-8f4d-4068-a1da-a1b9f17ca577' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:30.399606Z",
+      "CursorID": 4646,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Gatekeeper-no-crds-staging",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "UpdatedAt": "2026-06-12T17:01:30.399607Z",
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4107dde6480e2cef80351987659e5c634a0234655a0f045f37cb7c216099ed40",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "810b9920-74c6-4508-a1ed-7ef0259d7c79"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration",
+      "SpaceID": "d14af94e-39eb-4268-8356-149a0f7c7564",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "88e0df78-b942-475c-a4b9-c8e0b6e6845b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "27f5a0ec-8f4d-4068-a1da-a1b9f17ca577",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -901701212,
+      "CreatedAt": "2026-06-12T17:00:37.33959Z",
+      "CursorID": 28442,
+      "Data": "YXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBWYWxpZGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBnYXRla2VlcGVyCiAgICBjaGFydDogZ2F0ZWtlZXBlcgogICAgZ2F0ZWtlZXBlci5zaC9zeXN0ZW06ICJ5ZXMiCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogZ2F0ZWtlZXBlcgogIG5hbWU6IGdhdGVrZWVwZXItdmFsaWRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24Kd2ViaG9va3M6Ci0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIC0gdjFiZXRhMQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IGdhdGVrZWVwZXItd2ViaG9vay1zZXJ2aWNlCiAgICAgIG5hbWVzcGFjZTogZGVmYXVsdAogICAgICBwYXRoOiAvdjEvYWRtaXQKICBmYWlsdXJlUG9saWN5OiBJZ25vcmUKICBtYXRjaFBvbGljeTogRXhhY3QKICBuYW1lOiB2YWxpZGF0aW9uLmdhdGVrZWVwZXIuc2gKICBuYW1lc3BhY2VTZWxlY3RvcjoKICAgIG1hdGNoRXhwcmVzc2lvbnM6CiAgICAtIGtleTogYWRtaXNzaW9uLmdhdGVrZWVwZXIuc2gvaWdub3JlCiAgICAgIG9wZXJhdG9yOiBEb2VzTm90RXhpc3QKICAgIC0ga2V5OiBrdWJlcm5ldGVzLmlvL21ldGFkYXRhLm5hbWUKICAgICAgb3BlcmF0b3I6IE5vdEluCiAgICAgIHZhbHVlczoKICAgICAgLSBkZWZhdWx0CiAgb2JqZWN0U2VsZWN0b3I6IHt9CiAgcnVsZXM6CiAgLSBhcGlHcm91cHM6CiAgICAtICcqJwogICAgYXBpVmVyc2lvbnM6CiAgICAtICcqJwogICAgb3BlcmF0aW9uczoKICAgIC0gQ1JFQVRFCiAgICAtIFVQREFURQogICAgcmVzb3VyY2VzOgogICAgLSAnKicKICAgIC0gcG9kcy9lcGhlbWVyYWxjb250YWluZXJzCiAgICAtIHBvZHMvZXhlYwogICAgLSBwb2RzL2xvZwogICAgLSBwb2RzL2V2aWN0aW9uCiAgICAtIHBvZHMvcG9ydGZvcndhcmQKICAgIC0gcG9kcy9wcm94eQogICAgLSBwb2RzL2F0dGFjaAogICAgLSBwb2RzL2JpbmRpbmcKICAgIC0gcG9kcy9yZXNpemUKICAgIC0gZGVwbG95bWVudHMvc2NhbGUKICAgIC0gcmVwbGljYXNldHMvc2NhbGUKICAgIC0gc3RhdGVmdWxzZXRzL3NjYWxlCiAgICAtIHJlcGxpY2F0aW9uY29udHJvbGxlcnMvc2NhbGUKICAgIC0gc2VydmljZXMvcHJveHkKICAgIC0gbm9kZXMvcHJveHkKICAgIC0gc2VydmljZXMvc3RhdHVzCiAgICBzY29wZTogJyonCiAgc2lkZUVmZmVjdHM6IE5vbmUKICB0aW1lb3V0U2Vjb25kczogMwotIGFkbWlzc2lvblJldmlld1ZlcnNpb25zOgogIC0gdjEKICAtIHYxYmV0YTEKICBjbGllbnRDb25maWc6CiAgICBzZXJ2aWNlOgogICAgICBuYW1lOiBnYXRla2VlcGVyLXdlYmhvb2stc2VydmljZQogICAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgICAgcGF0aDogL3YxL2FkbWl0bGFiZWwKICBmYWlsdXJlUG9saWN5OiBGYWlsCiAgbWF0Y2hQb2xpY3k6IEV4YWN0CiAgbmFtZTogY2hlY2staWdub3JlLWxhYmVsLmdhdGVrZWVwZXIuc2gKICBuYW1lc3BhY2VTZWxlY3RvcjoKICAgIG1hdGNoRXhwcmVzc2lvbnM6CiAgICAtIGtleToga3ViZXJuZXRlcy5pby9tZXRhZGF0YS5uYW1lCiAgICAgIG9wZXJhdG9yOiBOb3RJbgogICAgICB2YWx1ZXM6CiAgICAgIC0gZGVmYXVsdAogIHJ1bGVzOgogIC0gYXBpR3JvdXBzOgogICAgLSAiIgogICAgYXBpVmVyc2lvbnM6CiAgICAtICcqJwogICAgb3BlcmF0aW9uczoKICAgIC0gQ1JFQVRFCiAgICAtIFVQREFURQogICAgcmVzb3VyY2VzOgogICAgLSBuYW1lc3BhY2VzCiAgICBzY29wZTogJyonCiAgc2lkZUVmZmVjdHM6IE5vbmUKICB0aW1lb3V0U2Vjb25kczogMwo=",
+      "DataHash": "4107dde6480e2cef80351987659e5c634a0234655a0f045f37cb7c216099ed40",
+      "DisplayName": "validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/gatekeeper-validating-webhook-configuration": {}
+          },
+          "AliasesWithoutScopes": {
+            "gatekeeper-validating-webhook-configuration": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gatekeeper-validating-webhook-configuration",
+            "ResourceNameWithoutScope": "gatekeeper-validating-webhook-configuration",
+            "ResourceType": "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: admissionregistration.k8s.io/v1\nkind: ValidatingWebhookConfiguration\nmetadata:\n  labels:\n    app: gatekeeper\n    chart: gatekeeper\n    gatekeeper.sh/system: \"yes\"\n    heritage: Helm\n    release: gatekeeper\n  name: gatekeeper-validating-webhook-configuration\nwebhooks:\n- admissionReviewVersions:\n  - v1\n  - v1beta1\n  clientConfig:\n    service:\n      name: gatekeeper-webhook-service\n      namespace: default\n      path: /v1/admit\n  failurePolicy: Ignore\n  matchPolicy: Exact\n  name: validation.gatekeeper.sh\n  namespaceSelector:\n    matchExpressions:\n    - key: admission.gatekeeper.sh/ignore\n      operator: DoesNotExist\n    - key: kubernetes.io/metadata.name\n      operator: NotIn\n      values:\n      - default\n  objectSelector: {}\n  rules:\n  - apiGroups:\n    - '*'\n    apiVersions:\n    - '*'\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - '*'\n    - pods/ephemeralcontainers\n    - pods/exec\n    - pods/log\n    - pods/eviction\n    - pods/portforward\n    - pods/proxy\n    - pods/attach\n    - pods/binding\n    - pods/resize\n    - deployments/scale\n    - replicasets/scale\n    - statefulsets/scale\n    - replicationcontrollers/scale\n    - services/proxy\n    - nodes/proxy\n    - services/status\n    scope: '*'\n  sideEffects: None\n  timeoutSeconds: 3\n- admissionReviewVersions:\n  - v1\n  - v1beta1\n  clientConfig:\n    service:\n      name: gatekeeper-webhook-service\n      namespace: default\n      path: /v1/admitlabel\n  failurePolicy: Fail\n  matchPolicy: Exact\n  name: check-ignore-label.gatekeeper.sh\n  namespaceSelector:\n    matchExpressions:\n    - key: kubernetes.io/metadata.name\n      operator: NotIn\n      values:\n      - default\n  rules:\n  - apiGroups:\n    - \"\"\n    apiVersions:\n    - '*'\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - namespaces\n    scope: '*'\n  sideEffects: None\n  timeoutSeconds: 3\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "27f5a0ec-8f4d-4068-a1da-a1b9f17ca577",
+      "UpdatedAt": "2026-06-12T17:01:18.160212Z",
+      "Version": 12
+    }
+  }
+]

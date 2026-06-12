@@ -1,0 +1,14 @@
+No changes.
+
+Images in helm-aws-ebs-csi-driver-default-confighub-proof (post-render):
+      DaemonSet/ebs-csi-node [ebs-plugin] public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1
+      DaemonSet/ebs-csi-node [liveness-probe] public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6
+      DaemonSet/ebs-csi-node [node-driver-registrar] public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6
+      DaemonSet/ebs-csi-node-windows [ebs-plugin] public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1
+      DaemonSet/ebs-csi-node-windows [liveness-probe] public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6
+      DaemonSet/ebs-csi-node-windows [node-driver-registrar] public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6
+      Deployment/ebs-csi-controller [csi-attacher] public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6
+      Deployment/ebs-csi-controller [csi-provisioner] public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5
+      Deployment/ebs-csi-controller [csi-resizer] public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6
+      Deployment/ebs-csi-controller [ebs-plugin] public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1
+      Deployment/ebs-csi-controller [liveness-probe] public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6

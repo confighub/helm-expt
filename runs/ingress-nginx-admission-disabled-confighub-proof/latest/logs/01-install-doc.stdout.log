@@ -1,0 +1,57 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "ingress-nginx-ingress-nginx"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1",
+        "externalRequires": [
+          {
+            "kind": "ClusterFeature",
+            "name": "Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca",
+            "namespace": "ingress-nginx",
+            "suggestedSource": "kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=\u003cvalue\u003e --from-literal=key=\u003cvalue\u003e --from-literal=ca=\u003cvalue\u003e"
+          }
+        ]
+      },
+      {
+        "name": "admission-disabled",
+        "path": "bases/admission-disabled",
+        "description": "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+      },
+      {
+        "name": "internal-clusterip",
+        "path": "bases/internal-clusterip",
+        "description": "ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+      }
+    ],
+    "collector": {
+      "command": "/bin/sh",
+      "args": [
+        "collector/target-facts.sh"
+      ],
+      "description": "Records target-fact bindings and can live-check existing Secret requirements."
+    },
+    "transformers": [
+      {
+        "toolchain": "Kubernetes/YAML",
+        "invocations": [
+          {
+            "name": "set-namespace",
+            "args": [
+              "{{ .Namespace }}"
+            ]
+          }
+        ],
+        "description": "Set the namespace on every namespaced resource."
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+Bundled jaegertracing-jaeger@
+  output: .tmp/confighub-proof/jaeger-default-archives/jaeger-b.tgz
+  files:  4
+  size:   1401 bytes
+  digest: sha256:da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac

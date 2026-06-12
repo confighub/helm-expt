@@ -1,0 +1,52 @@
+== crossplane-stable-crossplane@ → Space helm-crossplane-default-confighub-proof ==
+Successfully created unit clusterrole-crossplane-admin (4277ae3d-866d-4183-86df-95b824ba8415)
+Successfully created unit clusterrole-crossplane-browse (a4c70ecf-b52c-49da-99f0-cc7faf367200)
+Successfully created unit clusterrole-crossplane-edit (d45a155d-aa89-42d0-b10a-c9ab1fbe3626)
+Successfully created unit clusterrole-crossplane-rbac-manager (8ab05eeb-dfc4-4f9e-9f0f-1a249ed75330)
+Successfully created unit clusterrole-crossplane-view (bcdfa102-3b85-4164-9c9d-e47c95ae3d3e)
+Successfully created unit clusterrole-crossplane (98d4d36e-3f52-4906-a719-220fd53491ec)
+Successfully created unit clusterrole-crossplaneaggregate-to-admin (6ff2ea75-ffe1-4445-90dc-8a0d7cd57d90)
+Successfully created unit clusterrole-crossplaneaggregate-to-browse (34dbba1e-4b55-4006-83cd-d077c8130954)
+Successfully created unit clusterrole-crossplaneaggregate-to-edit (256d5c45-f40b-4979-8ae6-d3bc02526a53)
+Successfully created unit clusterrole-crossplaneaggregate-to-view (d972665a-6146-447c-bdb5-0f5ccf3f655a)
+Successfully created unit clusterrole-crossplaneallowed-provider-permissions (97d2f535-22a0-4503-81fb-d997245755a5)
+Successfully created unit clusterrole-crossplanesystemaggregate-to-crossplane (ea844ec6-be34-4d5b-81d1-bd88ea47cbe6)
+Successfully created unit clusterrolebinding-crossplane-admin (a35c3474-178c-4b84-b327-7eba6b2b924d)
+Successfully created unit clusterrolebinding-crossplane-rbac-manager (3b659528-f841-4e0d-a037-d2da863452f3)
+Successfully created unit clusterrolebinding-crossplane (a83862ab-b9f5-4846-ab1d-776ee0865086)
+Successfully created unit deployment-default-crossplane-rbac-manager (fc5d000b-8365-42d3-971a-b3294ffa1184)
+Successfully created unit deployment-default-crossplane (1a89ab99-cd0b-4331-b6bf-cd4eed2b84c8)
+Successfully created unit namespace-default (d8e565ae-0c12-40d9-8379-73309abf35a1)
+Successfully created unit service-default-crossplane-webhooks (8532abc9-4e71-4e4d-83bc-76b484c188e6)
+Successfully created unit serviceaccount-default-crossplane (22b87078-d9b6-4897-9979-57bb4fdc9627)
+Successfully created unit serviceaccount-default-rbac-manager (abf8728b-1099-428a-ab68-ed3a76b156d4)
+Successfully created unit installer-record (a0710f55-e7c8-4a74-b792-d4b86ec1b4f0)
+Linked clusterrolebinding-crossplane -> clusterrole-crossplane (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-crossplane -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-crossplane -> serviceaccount-default-crossplane (reference:v1/ServiceAccount)
+Linked clusterrolebinding-crossplane-admin -> clusterrole-crossplane-admin (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-crossplane-rbac-manager -> clusterrole-crossplane-rbac-manager (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-crossplane-rbac-manager -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-crossplane-rbac-manager -> serviceaccount-default-rbac-manager (reference:v1/ServiceAccount)
+Linked deployment-default-crossplane -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-crossplane -> serviceaccount-default-crossplane (reference:v1/ServiceAccount)
+Linked deployment-default-crossplane-rbac-manager -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-crossplane-rbac-manager -> serviceaccount-default-rbac-manager (reference:v1/ServiceAccount)
+Linked service-default-crossplane-webhooks -> deployment-default-crossplane (selector)
+Linked service-default-crossplane-webhooks -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-crossplane -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-rbac-manager -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrolebinding-crossplane-admin -> v1/ServiceAccount "crossplane:masters"
+
+Note: 3 rendered Secret(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/crossplane-default/out/secrets were NOT uploaded to ConfigHub.
+Apply them out-of-band (e.g., `kubectl apply -f`) or stage them however your
+environment manages secrets:
+  - v1/Secret "default/crossplane-root-ca" (secret-default-crossplane-root-ca.yaml)
+  - v1/Secret "default/crossplane-tls-client" (secret-default-crossplane-tls-client.yaml)
+  - v1/Secret "default/crossplane-tls-server" (secret-default-crossplane-tls-server.yaml)

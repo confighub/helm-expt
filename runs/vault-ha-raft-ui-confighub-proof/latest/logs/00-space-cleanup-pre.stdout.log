@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-vault-ha-raft-ui-confighub-proof', 'Vault-ha-raft-ui-staging')

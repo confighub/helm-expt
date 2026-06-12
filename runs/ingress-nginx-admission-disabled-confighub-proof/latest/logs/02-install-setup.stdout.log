@@ -1,0 +1,6 @@
+Wizard wrote /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/ingress-nginx-admission-disabled/out/spec/selection.yaml and inputs.yaml
+Collector produced 2 fact(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/ingress-nginx-admission-disabled/out/spec/facts.yaml
+Base: admission-disabled; components: []
+Namespace: ingress-nginx
+Rendered 10 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/ingress-nginx-admission-disabled/out/manifests
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/ingress-nginx-admission-disabled --space <slug>

@@ -1,0 +1,1 @@
+cub unit apply --space helm-linkerd-crds-default-confighub-proof --where "Labels.Proof = 'linkerd-crds-default-confighub-proof'" --dry-run --wait --timeout 2m

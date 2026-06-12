@@ -1,0 +1,1 @@
+cub space delete --space "helm-coredns-confighub-proof,Coredns-staging" --recursive-force

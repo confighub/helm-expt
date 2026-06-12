@@ -1,0 +1,95 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cloudnative-pg-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cloudnative-pg-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'cloudnative-pg-no-crds-confighub-proof'"
+  subject:
+    chart: "cloudnative-pg/cloudnative-pg"
+    chartVersion: "0.28.2"
+    packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
+    variant: "no-crds"
+    configHubUnitCount: 12
+  unitRevisionBindings:
+    -
+      slug: "serviceaccount-default-cloudnative-pg"
+      headRevisionNum: 1
+      dataHash: "0a615849b3105bc47cf78c7d42ca0b523512eb286a81fc926509980b9fe73446"
+    -
+      slug: "namespace-cnpg-system"
+      headRevisionNum: 1
+      dataHash: "ac03889db7a19858010b171478907a725914ce2a111aa88e05e483a18740cc21"
+    -
+      slug: "validatingwebhookconfiguration-cnpg-validating-webhook-configuration"
+      headRevisionNum: 2
+      dataHash: "6eeb7ad0207ac0caad03741c9850e1a3a8840e58a7dc1855cdbbb99f47128f6e"
+    -
+      slug: "clusterrole-cloudnative-pg-edit"
+      headRevisionNum: 2
+      dataHash: "fe2328179ecfe48f35135cbcedea4cd552a1e575a33aaa3bd29ba8f9dee27217"
+    -
+      slug: "clusterrolebinding-cloudnative-pg"
+      headRevisionNum: 2
+      dataHash: "419f728974f5ed98e37cd58360c29500815d36697bfdc46933cd2faa00373e0b"
+    -
+      slug: "service-default-cnpg-webhook-service"
+      headRevisionNum: 2
+      dataHash: "eb2754354c2d74e5fa4461a3602d3817e90fa76422640ba9cfde68fa6eb48f2a"
+    -
+      slug: "clusterrole-cloudnative-pg-view"
+      headRevisionNum: 2
+      dataHash: "d5f2d4c0e2d8bf6ea7db62e1854e5dcacdce5752b1d767b275887243955d1c3f"
+    -
+      slug: "clusterrole-cloudnative-pg"
+      headRevisionNum: 2
+      dataHash: "863b5d755efe0a6e2450a91283e4c7d8cd4c3b01bf1687f82b781ba51c40a8d8"
+    -
+      slug: "configmap-default-cnpg-controller-manager-config"
+      headRevisionNum: 1
+      dataHash: "4a825b814dead8a3228c814a9a3b80d6f1b937390715a3aa8cdf827263815c3f"
+    -
+      slug: "configmap-default-cnpg-default-monitoring"
+      headRevisionNum: 1
+      dataHash: "1325b85bc024f248899b40efb21be939bfcb60f1be4f76dd9de1ee55744e3211"
+    -
+      slug: "deployment-default-cloudnative-pg"
+      headRevisionNum: 2
+      dataHash: "1dbcfaa37654fa5518fca7fc5e03c5cc0e8980caa11420eefb58bbc1d724baa9"
+    -
+      slug: "mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration"
+      headRevisionNum: 2
+      dataHash: "9edf77a72d513ff8c6ec421c5b4a215f8c62226e6e43b1bb4685cd2e4389a258"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

@@ -1,0 +1,1 @@
+cub installer package packages/rook-release/rook-ceph-cluster/v1.19.5 -o .tmp/confighub-proof/rook-ceph-cluster-default-archives/rook-ceph-cluster-a.tgz

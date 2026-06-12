@@ -1,0 +1,35 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "hashicorp-vault"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "dev-mode",
+        "path": "bases/dev-mode",
+        "default": true,
+        "description": "vault dev server without init/unseal variant rendered from hashicorp/vault@0.32.0"
+      },
+      {
+        "name": "default",
+        "path": "bases/default",
+        "description": "vault default server with injector variant rendered from hashicorp/vault@0.32.0"
+      },
+      {
+        "name": "ha-raft-ui",
+        "path": "bases/ha-raft-ui",
+        "description": "vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0"
+      }
+    ],
+    "collector": {
+      "command": "/bin/sh",
+      "args": [
+        "collector/target-facts.sh"
+      ],
+      "description": "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."
+    }
+  }
+}

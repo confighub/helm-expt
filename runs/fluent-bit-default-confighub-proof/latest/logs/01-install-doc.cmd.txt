@@ -1,0 +1,1 @@
+cub installer doc packages/fluent/fluent-bit/0.57.6 --json

@@ -1,0 +1,2444 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.356014Z",
+        "CursorID": 24853,
+        "DisplayName": "Upgrade certificate-default-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "bf785b43-da0e-4721-b709-644dc927bb70",
+        "LinkID": "f3495692-3d07-4e8e-858b-63f69898e572",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-certificate-default-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "fe37d6c6-1568-489a-85b0-80b2c2014bba",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.356014Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'fe37d6c6-1568-489a-85b0-80b2c2014bba' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d42dd30a963b26ee14f9ed72c80e8c1ded10a5828bb1c0213ab24bb4bd8c0116",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f3495692-3d07-4e8e-858b-63f69898e572"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "certificate-default-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bf785b43-da0e-4721-b709-644dc927bb70",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "fe37d6c6-1568-489a-85b0-80b2c2014bba",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1881481759,
+      "CreatedAt": "2026-06-12T17:23:22.409397Z",
+      "CursorID": 29498,
+      "Data": "YXBpVmVyc2lvbjogY2VydC1tYW5hZ2VyLmlvL3YxCmtpbmQ6IENlcnRpZmljYXRlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MC4yMi4xCiAgICBoZWxtLnNoL2NoYXJ0OiB0cnVzdC1tYW5hZ2VyLXYwLjIyLjEKICBuYW1lOiB0cnVzdC1tYW5hZ2VyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgY29tbW9uTmFtZTogdHJ1c3QtbWFuYWdlci5kZWZhdWx0LnN2YwogIGRuc05hbWVzOgogIC0gdHJ1c3QtbWFuYWdlci5kZWZhdWx0LnN2YwogIGlzc3VlclJlZjoKICAgIGdyb3VwOiBjZXJ0LW1hbmFnZXIuaW8KICAgIGtpbmQ6IElzc3VlcgogICAgbmFtZTogdHJ1c3QtbWFuYWdlcgogIHByaXZhdGVLZXk6CiAgICByb3RhdGlvblBvbGljeTogQWx3YXlzCiAgcmV2aXNpb25IaXN0b3J5TGltaXQ6IDEKICBzZWNyZXROYW1lOiB0cnVzdC1tYW5hZ2VyLXRscwo=",
+      "DataHash": "d42dd30a963b26ee14f9ed72c80e8c1ded10a5828bb1c0213ab24bb4bd8c0116",
+      "DisplayName": "certificate-default-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "cert-manager.io/v1/Certificate"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: cert-manager.io/v1\nkind: Certificate\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\n  namespace: default\nspec:\n  commonName: trust-manager.default.svc\n  dnsNames:\n  - trust-manager.default.svc\n  issuerRef:\n    group: cert-manager.io\n    kind: Issuer\n    name: trust-manager\n  privateKey:\n    rotationPolicy: Always\n  revisionHistoryLimit: 1\n  secretName: trust-manager-tls\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "cert-manager.io/v1/Certificate"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "cert-manager.io/v1/Certificate"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/trust-manager",
+          "ResourceNameWithoutScope": "trust-manager",
+          "ResourceType": "cert-manager.io/v1/Certificate"
+        }
+      ],
+      "Slug": "certificate-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fe37d6c6-1568-489a-85b0-80b2c2014bba",
+      "UpdatedAt": "2026-06-12T17:23:44.954522Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.598043Z",
+        "CursorID": 24859,
+        "DisplayName": "Upgrade clusterrolebinding-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "e0c40289-0409-4a5e-8411-90feabf32a04",
+        "LinkID": "372b1cd0-cef4-4920-9e5d-62f7e71486f3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "99be0803-c102-4dac-bce2-eed45f50ebc2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.598043Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '99be0803-c102-4dac-bce2-eed45f50ebc2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2d7f26649cd4fe2c3c9b0c789029e67600dce3bba0f123c57171aa419bb300ce",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "372b1cd0-cef4-4920-9e5d-62f7e71486f3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e0c40289-0409-4a5e-8411-90feabf32a04",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "99be0803-c102-4dac-bce2-eed45f50ebc2",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1346240766,
+      "CreatedAt": "2026-06-12T17:23:24.017439Z",
+      "CursorID": 29500,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHRydXN0LW1hbmFnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHRydXN0LW1hbmFnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IHYwLjIyLjEKICAgIGhlbG0uc2gvY2hhcnQ6IHRydXN0LW1hbmFnZXItdjAuMjIuMQogIG5hbWU6IHRydXN0LW1hbmFnZXIKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogdHJ1c3QtbWFuYWdlcgpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IHRydXN0LW1hbmFnZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "2d7f26649cd4fe2c3c9b0c789029e67600dce3bba0f123c57171aa419bb300ce",
+      "DisplayName": "clusterrolebinding-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: trust-manager\nsubjects:\n- kind: ServiceAccount\n  name: trust-manager\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "99be0803-c102-4dac-bce2-eed45f50ebc2",
+      "UpdatedAt": "2026-06-12T17:23:47.971344Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.135728Z",
+        "CursorID": 24847,
+        "DisplayName": "Upgrade clusterrole-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f44715be-701e-4b8f-883e-090c42dc3f1a",
+        "LinkID": "27615581-e62a-48fc-9966-1dc5857eff21",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "36771178-6b5b-4e8d-967a-deb41e384696",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.135728Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '36771178-6b5b-4e8d-967a-deb41e384696' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6b17fc8b4bff3250affefe711748c609a8c7559e7b793f75241fe295042fcf5b",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "27615581-e62a-48fc-9966-1dc5857eff21"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f44715be-701e-4b8f-883e-090c42dc3f1a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "36771178-6b5b-4e8d-967a-deb41e384696",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 710318902,
+      "CreatedAt": "2026-06-12T17:23:23.252528Z",
+      "CursorID": 29499,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjAuMjIuMQogICAgaGVsbS5zaC9jaGFydDogdHJ1c3QtbWFuYWdlci12MC4yMi4xCiAgbmFtZTogdHJ1c3QtbWFuYWdlcgpydWxlczoKLSBhcGlHcm91cHM6CiAgLSB0cnVzdC5jZXJ0LW1hbmFnZXIuaW8KICByZXNvdXJjZXM6CiAgLSBidW5kbGVzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gdHJ1c3QuY2VydC1tYW5hZ2VyLmlvCiAgcmVzb3VyY2VzOgogIC0gYnVuZGxlcy9maW5hbGl6ZXJzCiAgdmVyYnM6CiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSB0cnVzdC5jZXJ0LW1hbmFnZXIuaW8KICByZXNvdXJjZXM6CiAgLSBidW5kbGVzL3N0YXR1cwogIHZlcmJzOgogIC0gcGF0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIG5hbWVzcGFjZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIGNvbmZpZ21hcHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gY3JlYXRlCiAgLSBwYXRjaAogIC0gd2F0Y2gKICAtIGRlbGV0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgLSBldmVudHMuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHBhdGNoCg==",
+      "DataHash": "6b17fc8b4bff3250affefe711748c609a8c7559e7b793f75241fe295042fcf5b",
+      "DisplayName": "clusterrole-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\nrules:\n- apiGroups:\n  - trust.cert-manager.io\n  resources:\n  - bundles\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - trust.cert-manager.io\n  resources:\n  - bundles/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - trust.cert-manager.io\n  resources:\n  - bundles/status\n  verbs:\n  - patch\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  verbs:\n  - get\n  - list\n  - create\n  - patch\n  - watch\n  - delete\n- apiGroups:\n  - \"\"\n  - events.k8s.io\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/trust-manager",
+          "ResourceNameWithoutScope": "trust-manager",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "36771178-6b5b-4e8d-967a-deb41e384696",
+      "UpdatedAt": "2026-06-12T17:23:33.864603Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.39018Z",
+        "CursorID": 24854,
+        "DisplayName": "Upgrade deployment-default-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "7e1dd0b3-cfa3-4dd0-b7e4-dcac855d519c",
+        "LinkID": "2468704a-939a-4fdb-8726-5a1bae842b43",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "7b9974d5-75ab-48c8-a36b-ea62f25e9067",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.390181Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7b9974d5-75ab-48c8-a36b-ea62f25e9067' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "528de66fa02629a3e82acb90379d532ca9e29aa705f2754b1a3f950a98eeec00",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "2468704a-939a-4fdb-8726-5a1bae842b43"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7e1dd0b3-cfa3-4dd0-b7e4-dcac855d519c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7b9974d5-75ab-48c8-a36b-ea62f25e9067",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1415414276,
+      "CreatedAt": "2026-06-12T17:23:24.781813Z",
+      "CursorID": 29501,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MC4yMi4xCiAgICBoZWxtLnNoL2NoYXJ0OiB0cnVzdC1tYW5hZ2VyLXYwLjIyLjEKICBuYW1lOiB0cnVzdC1tYW5hZ2VyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDEKICByZXZpc2lvbkhpc3RvcnlMaW1pdDogMTAKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHA6IHRydXN0LW1hbmFnZXIKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBsYWJlbHM6CiAgICAgICAgYXBwOiB0cnVzdC1tYW5hZ2VyCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHRydXN0LW1hbmFnZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IHYwLjIyLjEKICAgICAgICBoZWxtLnNoL2NoYXJ0OiB0cnVzdC1tYW5hZ2VyLXYwLjIyLjEKICAgIHNwZWM6CiAgICAgIGF1dG9tb3VudFNlcnZpY2VBY2NvdW50VG9rZW46IHRydWUKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gLS1sb2ctZm9ybWF0PXRleHQKICAgICAgICAtIC0tbG9nLWxldmVsPTEKICAgICAgICAtIC0tbWV0cmljcy1wb3J0PTk0MDIKICAgICAgICAtIC0tcmVhZGluZXNzLXByb2JlLXBvcnQ9NjA2MAogICAgICAgIC0gLS1yZWFkaW5lc3MtcHJvYmUtcGF0aD0vcmVhZHl6CiAgICAgICAgLSAtLWxlYWRlci1lbGVjdD10cnVlCiAgICAgICAgLSAtLWxlYWRlci1lbGVjdGlvbi1sZWFzZS1kdXJhdGlvbj0xNXMKICAgICAgICAtIC0tbGVhZGVyLWVsZWN0aW9uLXJlbmV3LWRlYWRsaW5lPTEwcwogICAgICAgIC0gLS10cnVzdC1uYW1lc3BhY2U9Y2VydC1tYW5hZ2VyCiAgICAgICAgLSAtLXdlYmhvb2staG9zdD0wLjAuMC4wCiAgICAgICAgLSAtLXdlYmhvb2stcG9ydD02NDQzCiAgICAgICAgLSAtLXdlYmhvb2stY2VydGlmaWNhdGUtZGlyPS90bHMKICAgICAgICAtIC0tZGVmYXVsdC1wYWNrYWdlLWxvY2F0aW9uPS9wYWNrYWdlcy9jZXJ0LW1hbmFnZXItcGFja2FnZS1kZWJpYW4uanNvbgogICAgICAgIGltYWdlOiBxdWF5LmlvL2pldHN0YWNrL3RydXN0LW1hbmFnZXI6djAuMjIuMQogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogNjQ0MwogICAgICAgICAgbmFtZTogd2ViaG9vawogICAgICAgIC0gY29udGFpbmVyUG9ydDogOTQwMgogICAgICAgICAgbmFtZTogbWV0cmljcwogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL3JlYWR5egogICAgICAgICAgICBwb3J0OiA2MDYwCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiAzCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiA3CiAgICAgICAgcmVzb3VyY2VzOiB7fQogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICAgIGNhcGFiaWxpdGllczoKICAgICAgICAgICAgZHJvcDoKICAgICAgICAgICAgLSBBTEwKICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IHRydWUKICAgICAgICAgIHJ1bkFzTm9uUm9vdDogdHJ1ZQogICAgICAgICAgc2VjY29tcFByb2ZpbGU6CiAgICAgICAgICAgIHR5cGU6IFJ1bnRpbWVEZWZhdWx0CiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvdGxzCiAgICAgICAgICBuYW1lOiB0bHMKICAgICAgICAgIHJlYWRPbmx5OiB0cnVlCiAgICAgICAgLSBtb3VudFBhdGg6IC9wYWNrYWdlcwogICAgICAgICAgbmFtZTogcGFja2FnZXMKICAgICAgICAgIHJlYWRPbmx5OiB0cnVlCiAgICAgIGluaXRDb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSAvY29weWFuZG1heWJlcGF1c2UKICAgICAgICAtIC9kZWJpYW4tcGFja2FnZQogICAgICAgIC0gL3BhY2thZ2VzCiAgICAgICAgaW1hZ2U6IHF1YXkuaW8vamV0c3RhY2svdHJ1c3QtcGtnLWRlYmlhbi1ib29rd29ybToyMDIzMDMxMS1kZWIxMnUxLjYKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIG5hbWU6IGNlcnQtbWFuYWdlci1wYWNrYWdlLWRlYmlhbgogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICAgIGNhcGFiaWxpdGllczoKICAgICAgICAgICAgZHJvcDoKICAgICAgICAgICAgLSBBTEwKICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IHRydWUKICAgICAgICAgIHJ1bkFzTm9uUm9vdDogdHJ1ZQogICAgICAgICAgc2VjY29tcFByb2ZpbGU6CiAgICAgICAgICAgIHR5cGU6IFJ1bnRpbWVEZWZhdWx0CiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvcGFja2FnZXMKICAgICAgICAgIG5hbWU6IHBhY2thZ2VzCiAgICAgICAgICByZWFkT25seTogZmFsc2UKICAgICAgbm9kZVNlbGVjdG9yOgogICAgICAgIGt1YmVybmV0ZXMuaW8vb3M6IGxpbnV4CiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogdHJ1c3QtbWFuYWdlcgogICAgICB2b2x1bWVzOgogICAgICAtIGVtcHR5RGlyOgogICAgICAgICAgc2l6ZUxpbWl0OiA1ME0KICAgICAgICBuYW1lOiBwYWNrYWdlcwogICAgICAtIG5hbWU6IHRscwogICAgICAgIHNlY3JldDoKICAgICAgICAgIGRlZmF1bHRNb2RlOiA0MjAKICAgICAgICAgIHNlY3JldE5hbWU6IHRydXN0LW1hbmFnZXItdGxzCg==",
+      "DataHash": "528de66fa02629a3e82acb90379d532ca9e29aa705f2754b1a3f950a98eeec00",
+      "DisplayName": "deployment-default-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\n  namespace: default\nspec:\n  replicas: 1\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app: trust-manager\n  template:\n    metadata:\n      labels:\n        app: trust-manager\n        app.kubernetes.io/instance: trust-manager\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: trust-manager\n        app.kubernetes.io/version: v0.22.1\n        helm.sh/chart: trust-manager-v0.22.1\n    spec:\n      automountServiceAccountToken: true\n      containers:\n      - args:\n        - --log-format=text\n        - --log-level=1\n        - --metrics-port=9402\n        - --readiness-probe-port=6060\n        - --readiness-probe-path=/readyz\n        - --leader-elect=true\n        - --leader-election-lease-duration=15s\n        - --leader-election-renew-deadline=10s\n        - --trust-namespace=cert-manager\n        - --webhook-host=0.0.0.0\n        - --webhook-port=6443\n        - --webhook-certificate-dir=/tls\n        - --default-package-location=/packages/cert-manager-package-debian.json\n        image: quay.io/jetstack/trust-manager:v0.22.1\n        imagePullPolicy: IfNotPresent\n        name: trust-manager\n        ports:\n        - containerPort: 6443\n          name: webhook\n        - containerPort: 9402\n          name: metrics\n        readinessProbe:\n          httpGet:\n            path: /readyz\n            port: 6060\n          initialDelaySeconds: 3\n          periodSeconds: 7\n        resources: {}\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsNonRoot: true\n          seccompProfile:\n            type: RuntimeDefault\n        volumeMounts:\n        - mountPath: /tls\n          name: tls\n          readOnly: true\n        - mountPath: /packages\n          name: packages\n          readOnly: true\n      initContainers:\n      - args:\n        - /copyandmaybepause\n        - /debian-package\n        - /packages\n        image: quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6\n        imagePullPolicy: IfNotPresent\n        name: cert-manager-package-debian\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsNonRoot: true\n          seccompProfile:\n            type: RuntimeDefault\n        volumeMounts:\n        - mountPath: /packages\n          name: packages\n          readOnly: false\n      nodeSelector:\n        kubernetes.io/os: linux\n      serviceAccountName: trust-manager\n      volumes:\n      - emptyDir:\n          sizeLimit: 50M\n        name: packages\n      - name: tls\n        secret:\n          defaultMode: 420\n          secretName: trust-manager-tls\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/trust-manager",
+          "ResourceNameWithoutScope": "trust-manager",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7b9974d5-75ab-48c8-a36b-ea62f25e9067",
+      "UpdatedAt": "2026-06-12T17:23:50.029182Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.425625Z",
+        "CursorID": 24855,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "387496d7-b606-4c88-9587-a911ad6de06b",
+        "LinkID": "41032687-d902-48a5-b98b-7c1a935d0b78",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "005391f0-fdf1-43fb-989e-796d2baa85ba",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.425625Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '005391f0-fdf1-43fb-989e-796d2baa85ba' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b8912b0c327be727c946a39cd93dc2355459db162f371cbe3a5977c7afdc5e06",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "41032687-d902-48a5-b98b-7c1a935d0b78"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "387496d7-b606-4c88-9587-a911ad6de06b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "005391f0-fdf1-43fb-989e-796d2baa85ba",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "jetstack-trust-manager",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1342591016,
+      "CreatedAt": "2026-06-12T17:23:33.017877Z",
+      "CursorID": 29512,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImpldHN0YWNrLXRydXN0LW1hbmFnZXIiCiAgdmVyc2lvbjogInYwLjIyLjEiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAiamV0c3RhY2svdHJ1c3QtbWFuYWdlciBkZWZhdWx0IHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBqZXRzdGFjay90cnVzdC1tYW5hZ2VyQHYwLjIyLjEiCiAgICBuYW1lOiAiZGVmYXVsdCIKICAgIHBhdGg6ICJiYXNlcy9kZWZhdWx0IgogIC0gbmFtZTogIm5vLWNyZHMiCiAgICBwYXRoOiAiYmFzZXMvbm8tY3JkcyIKICAgIGRlc2NyaXB0aW9uOiAiamV0c3RhY2svdHJ1c3QtbWFuYWdlciBuby1jcmRzIHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBqZXRzdGFjay90cnVzdC1tYW5hZ2VyQHYwLjIyLjEiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IGpldHN0YWNrLXRydXN0LW1hbmFnZXItZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGpldHN0YWNrLXRydXN0LW1hbmFnZXIKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogamV0c3RhY2stdHJ1c3QtbWFuYWdlci1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGpldHN0YWNrLXRydXN0LW1hbmFnZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGpldHN0YWNrLXRydXN0LW1hbmFnZXItbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGpldHN0YWNrLXRydXN0LW1hbmFnZXIKICBmaWxlczoKICAtIGZpbGVuYW1lOiBjZXJ0aWZpY2F0ZS1kZWZhdWx0LXRydXN0LW1hbmFnZXIueWFtbAogICAgc2x1ZzogY2VydGlmaWNhdGUtZGVmYXVsdC10cnVzdC1tYW5hZ2VyCiAgICBhcGlWZXJzaW9uOiBjZXJ0LW1hbmFnZXIuaW8vdjEKICAgIGtpbmQ6IENlcnRpZmljYXRlCiAgICBuYW1lOiB0cnVzdC1tYW5hZ2VyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS10cnVzdC1tYW5hZ2VyLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlLXRydXN0LW1hbmFnZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiB0cnVzdC1tYW5hZ2VyCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGViaW5kaW5nLXRydXN0LW1hbmFnZXIueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLXRydXN0LW1hbmFnZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogdHJ1c3QtbWFuYWdlcgogIC0gZmlsZW5hbWU6IGRlcGxveW1lbnQtZGVmYXVsdC10cnVzdC1tYW5hZ2VyLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtZGVmYXVsdC10cnVzdC1tYW5hZ2VyCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiB0cnVzdC1tYW5hZ2VyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBpc3N1ZXItZGVmYXVsdC10cnVzdC1tYW5hZ2VyLnlhbWwKICAgIHNsdWc6IGlzc3Vlci1kZWZhdWx0LXRydXN0LW1hbmFnZXIKICAgIGFwaVZlcnNpb246IGNlcnQtbWFuYWdlci5pby92MQogICAga2luZDogSXNzdWVyCiAgICBuYW1lOiB0cnVzdC1tYW5hZ2VyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGUtY2VydC1tYW5hZ2VyLXRydXN0LW1hbmFnZXIueWFtbAogICAgc2x1Zzogcm9sZS1jZXJ0LW1hbmFnZXItdHJ1c3QtbWFuYWdlcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogUm9sZQogICAgbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgbmFtZXNwYWNlOiBjZXJ0LW1hbmFnZXIKICAtIGZpbGVuYW1lOiByb2xlLWRlZmF1bHQtdHJ1c3QtbWFuYWdlcmxlYWRlcmVsZWN0aW9uLnlhbWwKICAgIHNsdWc6IHJvbGUtZGVmYXVsdC10cnVzdC1tYW5hZ2VybGVhZGVyZWxlY3Rpb24KICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGUKICAgIG5hbWU6IHRydXN0LW1hbmFnZXI6bGVhZGVyZWxlY3Rpb24KICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGViaW5kaW5nLWNlcnQtbWFuYWdlci10cnVzdC1tYW5hZ2VyLnlhbWwKICAgIHNsdWc6IHJvbGViaW5kaW5nLWNlcnQtbWFuYWdlci10cnVzdC1tYW5hZ2VyCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgbmFtZXNwYWNlOiBjZXJ0LW1hbmFnZXIKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1kZWZhdWx0LXRydXN0LW1hbmFnZXJsZWFkZXJlbGVjdGlvbi55YW1sCiAgICBzbHVnOiByb2xlYmluZGluZy1kZWZhdWx0LXRydXN0LW1hbmFnZXJsZWFkZXJlbGVjdGlvbgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogUm9sZUJpbmRpbmcKICAgIG5hbWU6IHRydXN0LW1hbmFnZXI6bGVhZGVyZWxlY3Rpb24KICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2UtZGVmYXVsdC10cnVzdC1tYW5hZ2VyLnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtZGVmYXVsdC10cnVzdC1tYW5hZ2VyCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS1kZWZhdWx0LXRydXN0LW1hbmFnZXItbWV0cmljcy55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWRlZmF1bHQtdHJ1c3QtbWFuYWdlci1tZXRyaWNzCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogdHJ1c3QtbWFuYWdlci1tZXRyaWNzCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LXRydXN0LW1hbmFnZXIueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC10cnVzdC1tYW5hZ2VyCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IHRydXN0LW1hbmFnZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHZhbGlkYXRpbmd3ZWJob29rY29uZmlndXJhdGlvbi10cnVzdC1tYW5hZ2VyLnlhbWwKICAgIHNsdWc6IHZhbGlkYXRpbmd3ZWJob29rY29uZmlndXJhdGlvbi10cnVzdC1tYW5hZ2VyCiAgICBhcGlWZXJzaW9uOiBhZG1pc3Npb25yZWdpc3RyYXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBWYWxpZGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KICAgIG5hbWU6IHRydXN0LW1hbmFnZXIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFNlbGVjdGlvbgptZXRhZGF0YToKICBuYW1lOiBqZXRzdGFjay10cnVzdC1tYW5hZ2VyLXNlbGVjdGlvbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogamV0c3RhY2stdHJ1c3QtbWFuYWdlcgogIGJhc2U6IG5vLWNyZHMKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBqZXRzdGFjay10cnVzdC1tYW5hZ2VyLXVwbG9hZAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogamV0c3RhY2stdHJ1c3QtbWFuYWdlcgogIHNwYWNlUGF0dGVybjogaGVsbS10cnVzdC1tYW5hZ2VyLW5vLWNyZHMtY29uZmlnaHViLXByb29mCiAgc3BhY2VzOgogIC0gcGFja2FnZTogamV0c3RhY2stdHJ1c3QtbWFuYWdlcgogICAgc2x1ZzogaGVsbS10cnVzdC1tYW5hZ2VyLW5vLWNyZHMtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE3OjIzOjIwWiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "b8912b0c327be727c946a39cd93dc2355459db162f371cbe3a5977c7afdc5e06",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "jetstack-trust-manager"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/jetstack-trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-trust-manager",
+            "ResourceNameWithoutScope": "jetstack-trust-manager",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"jetstack-trust-manager\"\n  version: \"v0.22.1\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"no-crds\"\n    path: \"bases/no-crds\"\n    description: \"jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-trust-manager-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-trust-manager-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-trust-manager-function-chain",
+            "ResourceNameWithoutScope": "jetstack-trust-manager-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: jetstack-trust-manager-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-trust-manager\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-trust-manager-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-trust-manager-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-trust-manager-inputs",
+            "ResourceNameWithoutScope": "jetstack-trust-manager-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: jetstack-trust-manager-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-trust-manager\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-trust-manager-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-trust-manager-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-trust-manager-manifest-index",
+            "ResourceNameWithoutScope": "jetstack-trust-manager-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: jetstack-trust-manager-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-trust-manager\n  files:\n  - filename: certificate-default-trust-manager.yaml\n    slug: certificate-default-trust-manager\n    apiVersion: cert-manager.io/v1\n    kind: Certificate\n    name: trust-manager\n    namespace: default\n  - filename: clusterrole-trust-manager.yaml\n    slug: clusterrole-trust-manager\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: trust-manager\n  - filename: clusterrolebinding-trust-manager.yaml\n    slug: clusterrolebinding-trust-manager\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: trust-manager\n  - filename: deployment-default-trust-manager.yaml\n    slug: deployment-default-trust-manager\n    apiVersion: apps/v1\n    kind: Deployment\n    name: trust-manager\n    namespace: default\n  - filename: issuer-default-trust-manager.yaml\n    slug: issuer-default-trust-manager\n    apiVersion: cert-manager.io/v1\n    kind: Issuer\n    name: trust-manager\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-cert-manager-trust-manager.yaml\n    slug: role-cert-manager-trust-manager\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: trust-manager\n    namespace: cert-manager\n  - filename: role-default-trust-managerleaderelection.yaml\n    slug: role-default-trust-managerleaderelection\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: trust-manager:leaderelection\n    namespace: default\n  - filename: rolebinding-cert-manager-trust-manager.yaml\n    slug: rolebinding-cert-manager-trust-manager\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: trust-manager\n    namespace: cert-manager\n  - filename: rolebinding-default-trust-managerleaderelection.yaml\n    slug: rolebinding-default-trust-managerleaderelection\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: trust-manager:leaderelection\n    namespace: default\n  - filename: service-default-trust-manager.yaml\n    slug: service-default-trust-manager\n    apiVersion: v1\n    kind: Service\n    name: trust-manager\n    namespace: default\n  - filename: service-default-trust-manager-metrics.yaml\n    slug: service-default-trust-manager-metrics\n    apiVersion: v1\n    kind: Service\n    name: trust-manager-metrics\n    namespace: default\n  - filename: serviceaccount-default-trust-manager.yaml\n    slug: serviceaccount-default-trust-manager\n    apiVersion: v1\n    kind: ServiceAccount\n    name: trust-manager\n    namespace: default\n  - filename: validatingwebhookconfiguration-trust-manager.yaml\n    slug: validatingwebhookconfiguration-trust-manager\n    apiVersion: admissionregistration.k8s.io/v1\n    kind: ValidatingWebhookConfiguration\n    name: trust-manager\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-trust-manager-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-trust-manager-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-trust-manager-selection",
+            "ResourceNameWithoutScope": "jetstack-trust-manager-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: jetstack-trust-manager-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-trust-manager\n  base: no-crds\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-trust-manager-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-trust-manager-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-trust-manager-upload",
+            "ResourceNameWithoutScope": "jetstack-trust-manager-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: jetstack-trust-manager-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-trust-manager\n  spacePattern: helm-trust-manager-no-crds-confighub-proof\n  spaces:\n  - package: jetstack-trust-manager\n    slug: helm-trust-manager-no-crds-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:23:20Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "005391f0-fdf1-43fb-989e-796d2baa85ba",
+      "UpdatedAt": "2026-06-12T17:23:33.942153Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.213838Z",
+        "CursorID": 24848,
+        "DisplayName": "Upgrade issuer-default-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b484bc43-2215-4341-a6da-1c7c8b0314e3",
+        "LinkID": "659a1f06-845c-4871-870d-e60e94b536a4",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-issuer-default-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "7b2f893a-2c87-4c0d-b196-a52c9596bc5c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.213838Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7b2f893a-2c87-4c0d-b196-a52c9596bc5c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ac2fc809cb1edc28ff749c7020b1a227174eeb7fd837710dd2489133bd7c39ac",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "659a1f06-845c-4871-870d-e60e94b536a4"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "issuer-default-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b484bc43-2215-4341-a6da-1c7c8b0314e3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7b2f893a-2c87-4c0d-b196-a52c9596bc5c",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1939140729,
+      "CreatedAt": "2026-06-12T17:23:25.620832Z",
+      "CursorID": 29502,
+      "Data": "YXBpVmVyc2lvbjogY2VydC1tYW5hZ2VyLmlvL3YxCmtpbmQ6IElzc3VlcgptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjAuMjIuMQogICAgaGVsbS5zaC9jaGFydDogdHJ1c3QtbWFuYWdlci12MC4yMi4xCiAgbmFtZTogdHJ1c3QtbWFuYWdlcgogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHNlbGZTaWduZWQ6IHt9Cg==",
+      "DataHash": "ac2fc809cb1edc28ff749c7020b1a227174eeb7fd837710dd2489133bd7c39ac",
+      "DisplayName": "issuer-default-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 337 bytes; from issuer-default-trust-manager.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "cert-manager.io/v1/Issuer"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: cert-manager.io/v1\nkind: Issuer\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\n  namespace: default\nspec:\n  selfSigned: {}\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "cert-manager.io/v1/Issuer"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "cert-manager.io/v1/Issuer"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/trust-manager",
+          "ResourceNameWithoutScope": "trust-manager",
+          "ResourceType": "cert-manager.io/v1/Issuer"
+        }
+      ],
+      "Slug": "issuer-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7b2f893a-2c87-4c0d-b196-a52c9596bc5c",
+      "UpdatedAt": "2026-06-12T17:23:51.213695Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.241869Z",
+        "CursorID": 24849,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c0265c92-5449-47c0-b7a3-ef9442b1aa58",
+        "LinkID": "66370362-89e9-4453-8256-52530f5bda41",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "d00007a5-845f-4457-9230-8a3b057f7a39",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.241869Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd00007a5-845f-4457-9230-8a3b057f7a39' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "66370362-89e9-4453-8256-52530f5bda41"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c0265c92-5449-47c0-b7a3-ef9442b1aa58",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d00007a5-845f-4457-9230-8a3b057f7a39",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:23:26.349005Z",
+      "CursorID": 29503,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d00007a5-845f-4457-9230-8a3b057f7a39",
+      "UpdatedAt": "2026-06-12T17:23:26.374075Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.267866Z",
+        "CursorID": 24850,
+        "DisplayName": "Upgrade rolebinding-cert-manager-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c47a3aed-f06b-46a7-8b52-f074e29b817b",
+        "LinkID": "a323f912-d45e-4da7-be3d-8a2ec090c3cc",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-cert-manager-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "aac24b4c-c94e-4ed9-8224-dd94426eac96",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.267866Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'aac24b4c-c94e-4ed9-8224-dd94426eac96' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "93b7d3e5f5bc6e57679931e98e614150adca16342de150dee38381149d3dc28c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a323f912-d45e-4da7-be3d-8a2ec090c3cc"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-cert-manager-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c47a3aed-f06b-46a7-8b52-f074e29b817b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "aac24b4c-c94e-4ed9-8224-dd94426eac96",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 670692138,
+      "CreatedAt": "2026-06-12T17:23:28.486354Z",
+      "CursorID": 29506,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjAuMjIuMQogICAgaGVsbS5zaC9jaGFydDogdHJ1c3QtbWFuYWdlci12MC4yMi4xCiAgbmFtZTogdHJ1c3QtbWFuYWdlcgogIG5hbWVzcGFjZTogY2VydC1tYW5hZ2VyCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBSb2xlCiAgbmFtZTogdHJ1c3QtbWFuYWdlcgpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IHRydXN0LW1hbmFnZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "93b7d3e5f5bc6e57679931e98e614150adca16342de150dee38381149d3dc28c",
+      "DisplayName": "rolebinding-cert-manager-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "cert-manager/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "cert-manager/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\n  namespace: cert-manager\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: trust-manager\nsubjects:\n- kind: ServiceAccount\n  name: trust-manager\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-cert-manager-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aac24b4c-c94e-4ed9-8224-dd94426eac96",
+      "UpdatedAt": "2026-06-12T17:23:55.203078Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.449533Z",
+        "CursorID": 24856,
+        "DisplayName": "Upgrade rolebinding-default-trust-managerleaderelection",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d106c3a6-ed7b-4e7d-a841-932c0974176d",
+        "LinkID": "561ec387-0e2d-41a1-a787-9fb3b3213242",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-trust-managerleaderelection",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "10c2d11f-e4e1-41a4-9c03-aa1307e789d1",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.449533Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '10c2d11f-e4e1-41a4-9c03-aa1307e789d1' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4bebab6f80b544031a932ba4e293a8cdea7d9fbd6ad42f2325ebab91dcc86d6c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "561ec387-0e2d-41a1-a787-9fb3b3213242"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-trust-managerleaderelection",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d106c3a6-ed7b-4e7d-a841-932c0974176d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "10c2d11f-e4e1-41a4-9c03-aa1307e789d1",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1998552973,
+      "CreatedAt": "2026-06-12T17:23:29.235857Z",
+      "CursorID": 29507,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjAuMjIuMQogICAgaGVsbS5zaC9jaGFydDogdHJ1c3QtbWFuYWdlci12MC4yMi4xCiAgbmFtZTogdHJ1c3QtbWFuYWdlcjpsZWFkZXJlbGVjdGlvbgogIG5hbWVzcGFjZTogZGVmYXVsdApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogUm9sZQogIG5hbWU6IHRydXN0LW1hbmFnZXI6bGVhZGVyZWxlY3Rpb24Kc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiB0cnVzdC1tYW5hZ2VyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "4bebab6f80b544031a932ba4e293a8cdea7d9fbd6ad42f2325ebab91dcc86d6c",
+      "DisplayName": "rolebinding-default-trust-managerleaderelection",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/trust-manager:leaderelection": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager:leaderelection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/trust-manager:leaderelection",
+            "ResourceNameWithoutScope": "trust-manager:leaderelection",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager:leaderelection\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: trust-manager:leaderelection\nsubjects:\n- kind: ServiceAccount\n  name: trust-manager\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-trust-managerleaderelection",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "10c2d11f-e4e1-41a4-9c03-aa1307e789d1",
+      "UpdatedAt": "2026-06-12T17:23:58.092288Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.526405Z",
+        "CursorID": 24858,
+        "DisplayName": "Upgrade role-cert-manager-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "616b2eb5-2862-4c6a-8284-a32892f5bfac",
+        "LinkID": "6eb105fc-8003-4543-b323-d3df2f41734f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-cert-manager-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "0b8d2ae5-bb91-43b5-ab43-f29c9869e3b2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.526405Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0b8d2ae5-bb91-43b5-ab43-f29c9869e3b2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5c74cca37660a3f1c86dd554390edac75358bcec9d2c93762a140c60489db708",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "6eb105fc-8003-4543-b323-d3df2f41734f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-cert-manager-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "616b2eb5-2862-4c6a-8284-a32892f5bfac",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0b8d2ae5-bb91-43b5-ab43-f29c9869e3b2",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 645359469,
+      "CreatedAt": "2026-06-12T17:23:27.097096Z",
+      "CursorID": 29504,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MC4yMi4xCiAgICBoZWxtLnNoL2NoYXJ0OiB0cnVzdC1tYW5hZ2VyLXYwLjIyLjEKICBuYW1lOiB0cnVzdC1tYW5hZ2VyCiAgbmFtZXNwYWNlOiBjZXJ0LW1hbmFnZXIKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBzZWNyZXRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCg==",
+      "DataHash": "5c74cca37660a3f1c86dd554390edac75358bcec9d2c93762a140c60489db708",
+      "DisplayName": "role-cert-manager-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "cert-manager/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "cert-manager/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\n  namespace: cert-manager\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "cert-manager/trust-manager",
+          "ResourceNameWithoutScope": "trust-manager",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-cert-manager-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0b8d2ae5-bb91-43b5-ab43-f29c9869e3b2",
+      "UpdatedAt": "2026-06-12T17:23:34.12815Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.68426Z",
+        "CursorID": 24860,
+        "DisplayName": "Upgrade role-default-trust-managerleaderelection",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "54744844-3bd8-453e-9823-6167a4a1543e",
+        "LinkID": "798aa0e9-6085-4b9d-9f9b-88f952ca4a5e",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-trust-managerleaderelection",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "e3690f3c-9c64-46f7-9f14-0c536df19cec",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.68426Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e3690f3c-9c64-46f7-9f14-0c536df19cec' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b814b96100a93994c84c2470eb091138bb71e0874aef11c2c0466d0bd2339024",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "798aa0e9-6085-4b9d-9f9b-88f952ca4a5e"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-trust-managerleaderelection",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "54744844-3bd8-453e-9823-6167a4a1543e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e3690f3c-9c64-46f7-9f14-0c536df19cec",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 309505227,
+      "CreatedAt": "2026-06-12T17:23:27.774826Z",
+      "CursorID": 29505,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MC4yMi4xCiAgICBoZWxtLnNoL2NoYXJ0OiB0cnVzdC1tYW5hZ2VyLXYwLjIyLjEKICBuYW1lOiB0cnVzdC1tYW5hZ2VyOmxlYWRlcmVsZWN0aW9uCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnJ1bGVzOgotIGFwaUdyb3VwczoKICAtIGNvb3JkaW5hdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBsZWFzZXMKICB2ZXJiczoKICAtIGdldAogIC0gY3JlYXRlCiAgLSB1cGRhdGUKICAtIHdhdGNoCiAgLSBsaXN0Cg==",
+      "DataHash": "b814b96100a93994c84c2470eb091138bb71e0874aef11c2c0466d0bd2339024",
+      "DisplayName": "role-default-trust-managerleaderelection",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/trust-manager:leaderelection": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager:leaderelection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/trust-manager:leaderelection",
+            "ResourceNameWithoutScope": "trust-manager:leaderelection",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager:leaderelection\n  namespace: default\nrules:\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - get\n  - create\n  - update\n  - watch\n  - list\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/trust-manager:leaderelection",
+          "ResourceNameWithoutScope": "trust-manager:leaderelection",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-trust-managerleaderelection",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e3690f3c-9c64-46f7-9f14-0c536df19cec",
+      "UpdatedAt": "2026-06-12T17:23:52.181419Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.744039Z",
+        "CursorID": 24861,
+        "DisplayName": "Upgrade serviceaccount-default-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6e2e26a4-863b-4221-9aaa-cd1bca7e1f10",
+        "LinkID": "77a9400f-8157-4667-b5bc-df82a97cd3e0",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "1682220d-13d8-48f5-a47b-5223ab81fcbb",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.744039Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1682220d-13d8-48f5-a47b-5223ab81fcbb' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0c088da7f6ecfa7077dad4c1f7ec302603ce9b4a839fdce68334d7f39d35cafb",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "77a9400f-8157-4667-b5bc-df82a97cd3e0"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6e2e26a4-863b-4221-9aaa-cd1bca7e1f10",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1682220d-13d8-48f5-a47b-5223ab81fcbb",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -724284060,
+      "CreatedAt": "2026-06-12T17:23:31.495006Z",
+      "CursorID": 29510,
+      "Data": "YXBpVmVyc2lvbjogdjEKYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQpraW5kOiBTZXJ2aWNlQWNjb3VudAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjAuMjIuMQogICAgaGVsbS5zaC9jaGFydDogdHJ1c3QtbWFuYWdlci12MC4yMi4xCiAgbmFtZTogdHJ1c3QtbWFuYWdlcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "0c088da7f6ecfa7077dad4c1f7ec302603ce9b4a839fdce68334d7f39d35cafb",
+      "DisplayName": "serviceaccount-default-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 341 bytes; from serviceaccount-default-trust-manager.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nautomountServiceAccountToken: true\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/trust-manager",
+          "ResourceNameWithoutScope": "trust-manager",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1682220d-13d8-48f5-a47b-5223ab81fcbb",
+      "UpdatedAt": "2026-06-12T17:24:02.963219Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.479411Z",
+        "CursorID": 24857,
+        "DisplayName": "Upgrade service-default-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5896e16c-431d-40d1-be6b-62f4adb55815",
+        "LinkID": "eff17ae4-7379-4c67-93e6-3adb0807f9b5",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "a0aa6bdb-69b8-4066-ab6a-2f59dea34a37",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.479411Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'a0aa6bdb-69b8-4066-ab6a-2f59dea34a37' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6131d719db588f2e8a8293b8d8d94db96f2b1a29f883bba7957570e080e5a8d5",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "eff17ae4-7379-4c67-93e6-3adb0807f9b5"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5896e16c-431d-40d1-be6b-62f4adb55815",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "a0aa6bdb-69b8-4066-ab6a-2f59dea34a37",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1177767596,
+      "CreatedAt": "2026-06-12T17:23:30.76033Z",
+      "CursorID": 29509,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHRydXN0LW1hbmFnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MC4yMi4xCiAgICBoZWxtLnNoL2NoYXJ0OiB0cnVzdC1tYW5hZ2VyLXYwLjIyLjEKICBuYW1lOiB0cnVzdC1tYW5hZ2VyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcG9ydHM6CiAgLSBuYW1lOiB3ZWJob29rCiAgICBwb3J0OiA0NDMKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IDY0NDMKICBzZWxlY3RvcjoKICAgIGFwcDogdHJ1c3QtbWFuYWdlcgogIHR5cGU6IENsdXN0ZXJJUAo=",
+      "DataHash": "6131d719db588f2e8a8293b8d8d94db96f2b1a29f883bba7957570e080e5a8d5",
+      "DisplayName": "service-default-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app: trust-manager\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\n  namespace: default\nspec:\n  ports:\n  - name: webhook\n    port: 443\n    protocol: TCP\n    targetPort: 6443\n  selector:\n    app: trust-manager\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/trust-manager",
+          "ResourceNameWithoutScope": "trust-manager",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a0aa6bdb-69b8-4066-ab6a-2f59dea34a37",
+      "UpdatedAt": "2026-06-12T17:23:59.959499Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.296085Z",
+        "CursorID": 24851,
+        "DisplayName": "Upgrade service-default-trust-manager-metrics",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9c453e6e-c9e8-4db0-aa64-ff62d8d427f7",
+        "LinkID": "8a1b64d9-ebf1-4bce-9609-7b979d854a68",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-trust-manager-metrics",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "32e46f79-96cc-47b3-9ba3-baf649d87c87",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.296085Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '32e46f79-96cc-47b3-9ba3-baf649d87c87' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ff409e8bee532c5c83986e7f6e23778a495401bbd817ef9c58369dfa8a496d6b",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8a1b64d9-ebf1-4bce-9609-7b979d854a68"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-trust-manager-metrics",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9c453e6e-c9e8-4db0-aa64-ff62d8d427f7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "32e46f79-96cc-47b3-9ba3-baf649d87c87",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 71941882,
+      "CreatedAt": "2026-06-12T17:23:29.974059Z",
+      "CursorID": 29508,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHRydXN0LW1hbmFnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB0cnVzdC1tYW5hZ2VyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MC4yMi4xCiAgICBoZWxtLnNoL2NoYXJ0OiB0cnVzdC1tYW5hZ2VyLXYwLjIyLjEKICBuYW1lOiB0cnVzdC1tYW5hZ2VyLW1ldHJpY3MKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IG1ldHJpY3MKICAgIHBvcnQ6IDk0MDIKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IDk0MDIKICBzZWxlY3RvcjoKICAgIGFwcDogdHJ1c3QtbWFuYWdlcgogIHR5cGU6IENsdXN0ZXJJUAo=",
+      "DataHash": "ff409e8bee532c5c83986e7f6e23778a495401bbd817ef9c58369dfa8a496d6b",
+      "DisplayName": "service-default-trust-manager-metrics",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/trust-manager-metrics": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager-metrics": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/trust-manager-metrics",
+            "ResourceNameWithoutScope": "trust-manager-metrics",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app: trust-manager\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager-metrics\n  namespace: default\nspec:\n  ports:\n  - name: metrics\n    port: 9402\n    protocol: TCP\n    targetPort: 9402\n  selector:\n    app: trust-manager\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/trust-manager-metrics",
+          "ResourceNameWithoutScope": "trust-manager-metrics",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-trust-manager-metrics",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "32e46f79-96cc-47b3-9ba3-baf649d87c87",
+      "UpdatedAt": "2026-06-12T17:24:01.883989Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:24:18.329117Z",
+        "CursorID": 24852,
+        "DisplayName": "Upgrade validatingwebhookconfiguration-trust-manager",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5d0e0f3a-77a2-498f-b2c6-bac7bb125725",
+        "LinkID": "a3130155-88d6-4308-81ca-3e776462d067",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-validatingwebhookconfiguration-trust-manager",
+        "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+        "SpaceSlug": "TrustManager-no-crds-staging",
+        "ToSpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+        "ToUnitID": "46ff17dd-0423-4697-83e0-612567cd8f68",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:24:18.329117Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '46ff17dd-0423-4697-83e0-612567cd8f68' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:24:17.836163Z",
+      "CursorID": 4701,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TrustManager-no-crds-staging",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "UpdatedAt": "2026-06-12T17:24:17.836163Z",
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ffc834ed48b36c48f168a30d7eb526f635eee4cfb97b66ce8249d5411d20fe75",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a3130155-88d6-4308-81ca-3e776462d067"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-trust-manager",
+      "SpaceID": "acd6f033-82b6-44cd-899d-bf641ce866fc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5d0e0f3a-77a2-498f-b2c6-bac7bb125725",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "46ff17dd-0423-4697-83e0-612567cd8f68",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 276653808,
+      "CreatedAt": "2026-06-12T17:23:32.261129Z",
+      "CursorID": 29511,
+      "Data": "YXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBWYWxpZGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KbWV0YWRhdGE6CiAgYW5ub3RhdGlvbnM6CiAgICBjZXJ0LW1hbmFnZXIuaW8vaW5qZWN0LWNhLWZyb206IGRlZmF1bHQvdHJ1c3QtbWFuYWdlcgogIGxhYmVsczoKICAgIGFwcDogdHJ1c3QtbWFuYWdlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHRydXN0LW1hbmFnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHRydXN0LW1hbmFnZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IHYwLjIyLjEKICAgIGhlbG0uc2gvY2hhcnQ6IHRydXN0LW1hbmFnZXItdjAuMjIuMQogIG5hbWU6IHRydXN0LW1hbmFnZXIKd2ViaG9va3M6Ci0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IHRydXN0LW1hbmFnZXIKICAgICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgICAgIHBhdGg6IC92YWxpZGF0ZS10cnVzdC1jZXJ0LW1hbmFnZXItaW8tdjFhbHBoYTEtYnVuZGxlCiAgZmFpbHVyZVBvbGljeTogRmFpbAogIG5hbWU6IHRydXN0LmNlcnQtbWFuYWdlci5pbwogIHJ1bGVzOgogIC0gYXBpR3JvdXBzOgogICAgLSB0cnVzdC5jZXJ0LW1hbmFnZXIuaW8KICAgIGFwaVZlcnNpb25zOgogICAgLSB2MWFscGhhMQogICAgb3BlcmF0aW9uczoKICAgIC0gQ1JFQVRFCiAgICAtIFVQREFURQogICAgcmVzb3VyY2VzOgogICAgLSBidW5kbGVzCiAgc2lkZUVmZmVjdHM6IE5vbmUKICB0aW1lb3V0U2Vjb25kczogNQo=",
+      "DataHash": "ffc834ed48b36c48f168a30d7eb526f635eee4cfb97b66ce8249d5411d20fe75",
+      "DisplayName": "validatingwebhookconfiguration-trust-manager",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/trust-manager": {}
+          },
+          "AliasesWithoutScopes": {
+            "trust-manager": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/trust-manager",
+            "ResourceNameWithoutScope": "trust-manager",
+            "ResourceType": "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: admissionregistration.k8s.io/v1\nkind: ValidatingWebhookConfiguration\nmetadata:\n  annotations:\n    cert-manager.io/inject-ca-from: default/trust-manager\n  labels:\n    app: trust-manager\n    app.kubernetes.io/instance: trust-manager\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: trust-manager\n    app.kubernetes.io/version: v0.22.1\n    helm.sh/chart: trust-manager-v0.22.1\n  name: trust-manager\nwebhooks:\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: trust-manager\n      namespace: default\n      path: /validate-trust-cert-manager-io-v1alpha1-bundle\n  failurePolicy: Fail\n  name: trust.cert-manager.io\n  rules:\n  - apiGroups:\n    - trust.cert-manager.io\n    apiVersions:\n    - v1alpha1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - bundles\n  sideEffects: None\n  timeoutSeconds: 5\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "46ff17dd-0423-4697-83e0-612567cd8f68",
+      "UpdatedAt": "2026-06-12T17:24:05.108028Z",
+      "Version": 12
+    }
+  }
+]

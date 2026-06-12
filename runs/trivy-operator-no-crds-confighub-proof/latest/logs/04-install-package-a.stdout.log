@@ -1,0 +1,5 @@
+Bundled aqua-trivy-operator@
+  output: .tmp/confighub-proof/trivy-operator-no-crds-archives/trivy-operator-a.tgz
+  files:  7
+  size:   30781 bytes
+  digest: sha256:1173b06d9073953455f7b9b4dd7abb5fc11c43bdba94685841e31a3139da0b9e

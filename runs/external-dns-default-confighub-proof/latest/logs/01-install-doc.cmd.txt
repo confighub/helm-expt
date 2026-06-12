@@ -1,0 +1,1 @@
+cub installer doc packages/external-dns/external-dns/1.21.1 --json

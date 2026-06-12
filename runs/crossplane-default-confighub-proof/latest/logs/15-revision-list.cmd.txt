@@ -1,0 +1,1 @@
+cub revision list deployment-default-crossplane-rbac-manager --space helm-crossplane-default-confighub-proof

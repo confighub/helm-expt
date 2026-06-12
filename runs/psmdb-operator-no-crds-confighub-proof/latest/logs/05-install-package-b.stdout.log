@@ -1,0 +1,5 @@
+Bundled percona-psmdb-operator@
+  output: .tmp/confighub-proof/psmdb-operator-no-crds-archives/psmdb-operator-b.tgz
+  files:  6
+  size:   62579 bytes
+  digest: sha256:29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8

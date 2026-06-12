@@ -1,0 +1,1 @@
+cub unit approve deployment-default-sealed-secrets --space helm-sealed-secrets-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

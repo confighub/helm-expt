@@ -1,0 +1,1 @@
+cub unit data deployment-default-kubernetes-ingress --space helm-haproxy-ingress-default-confighub-proof

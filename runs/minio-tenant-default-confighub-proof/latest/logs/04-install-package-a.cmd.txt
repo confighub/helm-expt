@@ -1,0 +1,1 @@
+cub installer package packages/minio-operator/tenant/7.1.1 -o .tmp/confighub-proof/minio-tenant-default-archives/minio-tenant-a.tgz

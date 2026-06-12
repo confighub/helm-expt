@@ -1,0 +1,1 @@
+cub installer doc packages/linkerd/linkerd-crds/1.8.0 --json

@@ -1,0 +1,1 @@
+cub unit approve deployment-surveyor --space helm-surveyor-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-metrics-server-external-tls-ca-confighub-proof (post-render):
+      Deployment/metrics-server [metrics-server] registry.k8s.io/metrics-server/metrics-server:v0.8.0

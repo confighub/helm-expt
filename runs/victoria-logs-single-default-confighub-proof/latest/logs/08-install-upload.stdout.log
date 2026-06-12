@@ -1,0 +1,9 @@
+== vm-victoria-logs-single@ → Space helm-victoria-logs-single-default-confighub-proof ==
+Successfully created unit namespace-default (d4b6b291-6685-4c71-92df-388a5defef06)
+Successfully created unit service-default-victoria-logs-single-server (8556d6d0-6cfd-453a-9c69-5f952cdd739a)
+Successfully created unit statefulset-default-victoria-logs-single-server (660a7ef2-becb-44db-8008-dc210ffcee5a)
+Successfully created unit installer-record (4985d20f-8b43-4557-a9a5-ec4557570097)
+Linked service-default-victoria-logs-single-server -> namespace-default (reference:v1/Namespace)
+Linked service-default-victoria-logs-single-server -> statefulset-default-victoria-logs-single-server (selector)
+Linked statefulset-default-victoria-logs-single-server -> namespace-default (reference:v1/Namespace)
+Linked statefulset-default-victoria-logs-single-server -> service-default-victoria-logs-single-server (reference:v1/Service)

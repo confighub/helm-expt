@@ -1,0 +1,6 @@
+No changes.
+
+Images in helm-vertical-pod-autoscaler-default-confighub-proof (post-render):
+      Deployment/vertical-pod-autoscaler-admission-controller [admission-controller] registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0
+      Deployment/vertical-pod-autoscaler-recommender [recommender] registry.k8s.io/autoscaling/vpa-recommender:1.6.0
+      Deployment/vertical-pod-autoscaler-updater [updater] registry.k8s.io/autoscaling/vpa-updater:1.6.0

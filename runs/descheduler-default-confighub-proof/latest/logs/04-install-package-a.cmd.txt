@@ -1,0 +1,1 @@
+cub installer package packages/descheduler/descheduler/0.36.0 -o .tmp/confighub-proof/descheduler-default-archives/descheduler-a.tgz

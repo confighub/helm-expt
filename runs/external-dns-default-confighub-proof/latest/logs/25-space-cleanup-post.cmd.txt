@@ -1,0 +1,1 @@
+cub space delete --space "helm-external-dns-default-confighub-proof,ExternalDNS-default-staging" --recursive-force

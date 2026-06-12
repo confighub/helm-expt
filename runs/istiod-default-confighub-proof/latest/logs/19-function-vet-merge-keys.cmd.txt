@@ -1,0 +1,1 @@
+cub function vet vet-merge-keys --space helm-istiod-default-confighub-proof --where "Labels.Proof = 'istiod-default-confighub-proof'" --quiet --wait --timeout 10m

@@ -1,0 +1,398 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:49.983939Z",
+      "CursorID": 4643,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "UpdatedAt": "2026-06-12T17:00:50.670636Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c668b1101e1b7ded11b340043009a76198a4b931cd59a3a4871a410c99209e4c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-cert-manager-csi-driver",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2696fcd6-cdea-406a-a37e-f9fe51419457",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:49.983939Z",
+      "CursorID": 4643,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "UpdatedAt": "2026-06-12T17:00:50.670636Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "23391684d2c45f571a1afd2c4d827bdea00dfeec31aa647336e38a5ec3c5fe62",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cert-manager-csi-driver",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b05ab1a2-6497-475f-be16-d414b8fc14f7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:49.983939Z",
+      "CursorID": 4643,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "UpdatedAt": "2026-06-12T17:00:50.670636Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "02b739f9096d397655ef9344e7103a8aff40aecf9d55e9d954909e1b5798d3fe",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "csidriver-csi-cert-manager-io",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8cb9c3f8-6b8b-4143-9112-f9dbfb66bef8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:49.983939Z",
+      "CursorID": 4643,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "UpdatedAt": "2026-06-12T17:00:50.670636Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "07b67f795d1cf1cac88e22edfed7ade3ddd112789088091d05ddb86215bee42a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-cert-manager-csi-driver",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "20b1d489-aa6a-4a52-9075-fe4887dbbdff",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:49.983939Z",
+      "CursorID": 4643,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "UpdatedAt": "2026-06-12T17:00:50.670636Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "660d1643-f371-4ae9-b21c-0d74a988ae71",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:49.983939Z",
+      "CursorID": 4643,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "UpdatedAt": "2026-06-12T17:00:50.670636Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bbbb30e831ba03c8771e0cfb18a576b15c10f9b4c21725b6f9fb518be4e288ef",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-cert-manager-csi-driver",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2bf39c65-b30a-47b0-9967-8d43039d6825",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

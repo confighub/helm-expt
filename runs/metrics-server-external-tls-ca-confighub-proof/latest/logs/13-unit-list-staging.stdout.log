@@ -1,0 +1,1805 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.787172Z",
+        "CursorID": 22618,
+        "DisplayName": "Upgrade service-kube-system-metrics-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9c7741e4-d13f-4ef1-9ce1-9e720ca8d262",
+        "LinkID": "c7010cea-075d-491c-820f-9581df82e773",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-kube-system-metrics-server",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "3f5ca2db-76d6-4046-bacb-740ada10930d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.787172Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '3f5ca2db-76d6-4046-bacb-740ada10930d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1b1e7b8cc5ceaaa156df6c4f04fbc4ad6f3234bb7d86b19533cc7b836b3db265",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c7010cea-075d-491c-820f-9581df82e773"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-kube-system-metrics-server",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9c7741e4-d13f-4ef1-9ce1-9e720ca8d262",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "3f5ca2db-76d6-4046-bacb-740ada10930d",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 100926177,
+      "CreatedAt": "2026-06-12T16:48:08.076923Z",
+      "CursorID": 27740,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogbWV0cmljcy1zZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG1ldHJpY3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjguMAogICAgaGVsbS5zaC9jaGFydDogbWV0cmljcy1zZXJ2ZXItMy4xMy4wCiAgbmFtZTogbWV0cmljcy1zZXJ2ZXIKICBuYW1lc3BhY2U6IGt1YmUtc3lzdGVtCnNwZWM6CiAgcG9ydHM6CiAgLSBhcHBQcm90b2NvbDogaHR0cHMKICAgIG5hbWU6IGh0dHBzCiAgICBwb3J0OiA0NDMKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IGh0dHBzCiAgc2VsZWN0b3I6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogbWV0cmljcy1zZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG1ldHJpY3Mtc2VydmVyCiAgdHlwZTogQ2x1c3RlcklQCg==",
+      "DataHash": "1b1e7b8cc5ceaaa156df6c4f04fbc4ad6f3234bb7d86b19533cc7b836b3db265",
+      "DisplayName": "service-kube-system-metrics-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "kube-system/metrics-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "kube-system/metrics-server",
+            "ResourceNameWithoutScope": "metrics-server",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: metrics-server\n    app.kubernetes.io/version: 0.8.0\n    helm.sh/chart: metrics-server-3.13.0\n  name: metrics-server\n  namespace: kube-system\nspec:\n  ports:\n  - appProtocol: https\n    name: https\n    port: 443\n    protocol: TCP\n    targetPort: https\n  selector:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/name: metrics-server\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "kube-system/metrics-server",
+          "ResourceNameWithoutScope": "metrics-server",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-kube-system-metrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3f5ca2db-76d6-4046-bacb-740ada10930d",
+      "UpdatedAt": "2026-06-12T16:48:43.966892Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.730513Z",
+        "CursorID": 22616,
+        "DisplayName": "Upgrade deployment-kube-system-metrics-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "42ab377d-2dff-4c43-b072-45fc9f465d03",
+        "LinkID": "e1db07c3-1a5a-457d-9c98-e3ada59af0e4",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-kube-system-metrics-server",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "295ad048-17bd-4566-b055-47ab2997caa8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.730513Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '295ad048-17bd-4566-b055-47ab2997caa8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9c8262d3610cec8b10df4d105ba250a418c7648cfd2640f92ff0cc26cd60c341",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e1db07c3-1a5a-457d-9c98-e3ada59af0e4"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-kube-system-metrics-server",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "42ab377d-2dff-4c43-b072-45fc9f465d03",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "295ad048-17bd-4566-b055-47ab2997caa8",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1392696185,
+      "CreatedAt": "2026-06-12T16:48:05.556761Z",
+      "CursorID": 27737,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBtZXRyaWNzLXNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogbWV0cmljcy1zZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuOC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBtZXRyaWNzLXNlcnZlci0zLjEzLjAKICBuYW1lOiBtZXRyaWNzLXNlcnZlcgogIG5hbWVzcGFjZToga3ViZS1zeXN0ZW0Kc3BlYzoKICByZXBsaWNhczogMQogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBtZXRyaWNzLXNlcnZlcgogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBtZXRyaWNzLXNlcnZlcgogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogbWV0cmljcy1zZXJ2ZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBtZXRyaWNzLXNlcnZlcgogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gLS1zZWN1cmUtcG9ydD0xMDI1MAogICAgICAgIC0gLS1jZXJ0LWRpcj0vdG1wCiAgICAgICAgLSAtLWt1YmVsZXQtcHJlZmVycmVkLWFkZHJlc3MtdHlwZXM9SW50ZXJuYWxJUCxFeHRlcm5hbElQLEhvc3RuYW1lCiAgICAgICAgLSAtLWt1YmVsZXQtdXNlLW5vZGUtc3RhdHVzLXBvcnQKICAgICAgICAtIC0tbWV0cmljLXJlc29sdXRpb249MTVzCiAgICAgICAgLSAtLXRscy1jZXJ0LWZpbGU9L3RtcC90bHMtY2VydHMvdGxzLmNydAogICAgICAgIC0gLS10bHMtcHJpdmF0ZS1rZXktZmlsZT0vdG1wL3Rscy1jZXJ0cy90bHMua2V5CiAgICAgICAgLSAtLWt1YmVsZXQtaW5zZWN1cmUtdGxzCiAgICAgICAgaW1hZ2U6IHJlZ2lzdHJ5Lms4cy5pby9tZXRyaWNzLXNlcnZlci9tZXRyaWNzLXNlcnZlcjp2MC44LjAKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvbGl2ZXoKICAgICAgICAgICAgcG9ydDogaHR0cHMKICAgICAgICAgICAgc2NoZW1lOiBIVFRQUwogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMAogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTAKICAgICAgICBuYW1lOiBtZXRyaWNzLXNlcnZlcgogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogMTAyNTAKICAgICAgICAgIG5hbWU6IGh0dHBzCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvcmVhZHl6CiAgICAgICAgICAgIHBvcnQ6IGh0dHBzCiAgICAgICAgICAgIHNjaGVtZTogSFRUUFMKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDIwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAxMAogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgICBjcHU6IDEwMG0KICAgICAgICAgICAgbWVtb3J5OiAyMDBNaQogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICAgIGNhcGFiaWxpdGllczoKICAgICAgICAgICAgZHJvcDoKICAgICAgICAgICAgLSBBTEwKICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IHRydWUKICAgICAgICAgIHJ1bkFzTm9uUm9vdDogdHJ1ZQogICAgICAgICAgcnVuQXNVc2VyOiAxMDAwCiAgICAgICAgICBzZWNjb21wUHJvZmlsZToKICAgICAgICAgICAgdHlwZTogUnVudGltZURlZmF1bHQKICAgICAgICB2b2x1bWVNb3VudHM6CiAgICAgICAgLSBtb3VudFBhdGg6IC90bXAKICAgICAgICAgIG5hbWU6IHRtcAogICAgICAgIC0gbW91bnRQYXRoOiAvdG1wL3Rscy1jZXJ0cwogICAgICAgICAgbmFtZTogY2VydHMKICAgICAgICAgIHJlYWRPbmx5OiB0cnVlCiAgICAgIHByaW9yaXR5Q2xhc3NOYW1lOiBzeXN0ZW0tY2x1c3Rlci1jcml0aWNhbAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IG1ldHJpY3Mtc2VydmVyCiAgICAgIHZvbHVtZXM6CiAgICAgIC0gZW1wdHlEaXI6IHt9CiAgICAgICAgbmFtZTogdG1wCiAgICAgIC0gbmFtZTogY2VydHMKICAgICAgICBzZWNyZXQ6CiAgICAgICAgICBzZWNyZXROYW1lOiBtZXRyaWNzLXNlcnZlci10bHMK",
+      "DataHash": "9c8262d3610cec8b10df4d105ba250a418c7648cfd2640f92ff0cc26cd60c341",
+      "DisplayName": "deployment-kube-system-metrics-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "kube-system/metrics-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "kube-system/metrics-server",
+            "ResourceNameWithoutScope": "metrics-server",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: metrics-server\n    app.kubernetes.io/version: 0.8.0\n    helm.sh/chart: metrics-server-3.13.0\n  name: metrics-server\n  namespace: kube-system\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: metrics-server\n      app.kubernetes.io/name: metrics-server\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/instance: metrics-server\n        app.kubernetes.io/name: metrics-server\n    spec:\n      containers:\n      - args:\n        - --secure-port=10250\n        - --cert-dir=/tmp\n        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname\n        - --kubelet-use-node-status-port\n        - --metric-resolution=15s\n        - --tls-cert-file=/tmp/tls-certs/tls.crt\n        - --tls-private-key-file=/tmp/tls-certs/tls.key\n        - --kubelet-insecure-tls\n        image: registry.k8s.io/metrics-server/metrics-server:v0.8.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /livez\n            port: https\n            scheme: HTTPS\n          initialDelaySeconds: 0\n          periodSeconds: 10\n        name: metrics-server\n        ports:\n        - containerPort: 10250\n          name: https\n          protocol: TCP\n        readinessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /readyz\n            port: https\n            scheme: HTTPS\n          initialDelaySeconds: 20\n          periodSeconds: 10\n        resources:\n          requests:\n            cpu: 100m\n            memory: 200Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsNonRoot: true\n          runAsUser: 1000\n          seccompProfile:\n            type: RuntimeDefault\n        volumeMounts:\n        - mountPath: /tmp\n          name: tmp\n        - mountPath: /tmp/tls-certs\n          name: certs\n          readOnly: true\n      priorityClassName: system-cluster-critical\n      serviceAccountName: metrics-server\n      volumes:\n      - emptyDir: {}\n        name: tmp\n      - name: certs\n        secret:\n          secretName: metrics-server-tls\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "kube-system/metrics-server",
+          "ResourceNameWithoutScope": "metrics-server",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-kube-system-metrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "295ad048-17bd-4566-b055-47ab2997caa8",
+      "UpdatedAt": "2026-06-12T16:48:38.181862Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.627524Z",
+        "CursorID": 22615,
+        "DisplayName": "Upgrade serviceaccount-kube-system-metrics-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d5c88038-b9b6-4698-963b-e9de745aa0b1",
+        "LinkID": "83c8fc02-7bff-4dcd-8e89-fe3b91e1d6a1",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-kube-system-metrics-server",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "0b891e82-a047-4d0d-a473-efac6ca9e5f3",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.627524Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0b891e82-a047-4d0d-a473-efac6ca9e5f3' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5c495395c7c99ac3fac6e4bb6e72947f023c85ae8a0459e1694373460421a71e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "83c8fc02-7bff-4dcd-8e89-fe3b91e1d6a1"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-kube-system-metrics-server",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d5c88038-b9b6-4698-963b-e9de745aa0b1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0b891e82-a047-4d0d-a473-efac6ca9e5f3",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1814054908,
+      "CreatedAt": "2026-06-12T16:48:08.825166Z",
+      "CursorID": 27741,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG1ldHJpY3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBtZXRyaWNzLXNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC44LjAKICAgIGhlbG0uc2gvY2hhcnQ6IG1ldHJpY3Mtc2VydmVyLTMuMTMuMAogIG5hbWU6IG1ldHJpY3Mtc2VydmVyCiAgbmFtZXNwYWNlOiBrdWJlLXN5c3RlbQo=",
+      "DataHash": "5c495395c7c99ac3fac6e4bb6e72947f023c85ae8a0459e1694373460421a71e",
+      "DisplayName": "serviceaccount-kube-system-metrics-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Initial Data: 311 bytes; from serviceaccount-kube-system-metrics-server.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "kube-system/metrics-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "kube-system/metrics-server",
+            "ResourceNameWithoutScope": "metrics-server",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: metrics-server\n    app.kubernetes.io/version: 0.8.0\n    helm.sh/chart: metrics-server-3.13.0\n  name: metrics-server\n  namespace: kube-system\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "kube-system/metrics-server",
+          "ResourceNameWithoutScope": "metrics-server",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-kube-system-metrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0b891e82-a047-4d0d-a473-efac6ca9e5f3",
+      "UpdatedAt": "2026-06-12T16:48:45.336302Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.895312Z",
+        "CursorID": 22621,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0765a916-a8b2-480e-aff7-899ef1e9f76a",
+        "LinkID": "19dcdd7e-983e-4104-be87-ee11bbefd073",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "cab7106d-cd6a-4ebd-88df-606dfd682fa2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.895312Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'cab7106d-cd6a-4ebd-88df-606dfd682fa2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0af8e526bcc3e61f585a790e4f7cbd018fb315c469ebefe07b6a1b94ad8ef726",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "19dcdd7e-983e-4104-be87-ee11bbefd073"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0765a916-a8b2-480e-aff7-899ef1e9f76a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "cab7106d-cd6a-4ebd-88df-606dfd682fa2",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "metrics-server-metrics-server",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 316984259,
+      "CreatedAt": "2026-06-12T16:48:09.57663Z",
+      "CursorID": 27742,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogIm1ldHJpY3Mtc2VydmVyLW1ldHJpY3Mtc2VydmVyIgogIHZlcnNpb246ICIzLjEzLjAiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAibWV0cmljcy1zZXJ2ZXIgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gbWV0cmljcy1zZXJ2ZXIvbWV0cmljcy1zZXJ2ZXJAMy4xMy4wIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIGRlc2NyaXB0aW9uOiAibWV0cmljcy1zZXJ2ZXIgZXh0ZXJuYWwgVExTIHdpdGggZXhwbGljaXQgQ0EgdmFyaWFudCByZW5kZXJlZCBmcm9tIG1ldHJpY3Mtc2VydmVyL21ldHJpY3Mtc2VydmVyQDMuMTMuMCIKICAgIGV4dGVybmFsUmVxdWlyZXM6CiAgICAtIGtpbmQ6ICJDbHVzdGVyRmVhdHVyZSIKICAgICAgbmFtZTogIlNlY3JldCBrdWJlLXN5c3RlbS9tZXRyaWNzLXNlcnZlci10bHMga2V5cyB0bHMuY3J0LHRscy5rZXkiCiAgICAgIG5hbWVzcGFjZTogImt1YmUtc3lzdGVtIgogICAgICBzdWdnZXN0ZWRTb3VyY2U6ICJrdWJlY3RsIC1uIGt1YmUtc3lzdGVtIGNyZWF0ZSBzZWNyZXQgZ2VuZXJpYyBtZXRyaWNzLXNlcnZlci10bHMgLS1mcm9tLWxpdGVyYWw9dGxzLmNydD08dmFsdWU+IC0tZnJvbS1saXRlcmFsPXRscy5rZXk9PHZhbHVlPiIKICAgIG5hbWU6ICJleHRlcm5hbC10bHMtY2EiCiAgICBwYXRoOiAiYmFzZXMvZXh0ZXJuYWwtdGxzLWNhIgogIGNvbGxlY3RvcjoKICAgIGNvbW1hbmQ6ICIvYmluL3NoIgogICAgYXJnczoKICAgIC0gImNvbGxlY3Rvci90YXJnZXQtZmFjdHMuc2giCiAgICBkZXNjcmlwdGlvbjogIlJlY29yZHMgdGFyZ2V0LWZhY3QgYmluZGluZ3MgYW5kIGNhbiBsaXZlLWNoZWNrIGV4aXN0aW5nIFNlY3JldCByZXF1aXJlbWVudHMuIgogIGlucHV0czoKICAtIGRlZmF1bHQ6ICJZMjl1Wm1sbmFIVmlMVzFsZEhKcFkzTXRjMlZ5ZG1WeUxXTmgiCiAgICBkZXNjcmlwdGlvbjogIlVzZWQgYnkgdGhlIGV4dGVybmFsLXRscy1jYSBiYXNlLiBNdXN0IG1hdGNoIHRoZSBDQSB0aGF0IGlzc3VlZCBrdWJlLXN5c3RlbS9tZXRyaWNzLXNlcnZlci10bHMuIgogICAgbmFtZTogImFwaVNlcnZpY2VDYUJ1bmRsZSIKICAgIHByb21wdDogIkJhc2U2NC1lbmNvZGVkIENBIGJ1bmRsZSBmb3IgdGhlIE1ldHJpY3MgU2VydmVyIEFQSVNlcnZpY2UiCiAgICB0eXBlOiAic3RyaW5nIgogIHRyYW5zZm9ybWVyczoKICAtIGRlc2NyaXB0aW9uOiAiU2V0IHRoZSBuYW1lc3BhY2Ugb24gZXZlcnkgbmFtZXNwYWNlZCByZXNvdXJjZS4iCiAgICBpbnZvY2F0aW9uczoKICAgIC0gYXJnczoKICAgICAgLSAie3sgLk5hbWVzcGFjZSB9fSIKICAgICAgbmFtZTogInNldC1uYW1lc3BhY2UiCiAgICB0b29sY2hhaW46ICJLdWJlcm5ldGVzL1lBTUwiCiAgICB3aGVyZVJlc291cmNlOiAiIgogIC0gZGVzY3JpcHRpb246ICJCaW5kIHRoZSBNZXRyaWNzIFNlcnZlciBBUElTZXJ2aWNlIGNhQnVuZGxlIGZyb20gdGhlIGluc3RhbGxlciBpbnB1dC4iCiAgICBpbnZvY2F0aW9uczoKICAgIC0gYXJnczoKICAgICAgLSAiYXBpcmVnaXN0cmF0aW9uLms4cy5pby92MS9BUElTZXJ2aWNlIgogICAgICAtICJzcGVjLmNhQnVuZGxlIgogICAgICAtICJ7eyAuSW5wdXRzLmFwaVNlcnZpY2VDYUJ1bmRsZSB9fSIKICAgICAgbmFtZTogInNldC1zdHJpbmctcGF0aCIKICAgIHRvb2xjaGFpbjogIkt1YmVybmV0ZXMvWUFNTCIKICAgIHdoZXJlUmVzb3VyY2U6ICJ7eyBpZiBlcSAuU2VsZWN0aW9uLkJhc2UgXCJleHRlcm5hbC10bHMtY2FcIiB9fUNvbmZpZ0h1Yi5SZXNvdXJjZVR5cGUgPSAnYXBpcmVnaXN0cmF0aW9uLms4cy5pby92MS9BUElTZXJ2aWNlJ3t7IGVsc2UgfX1Db25maWdIdWIuUmVzb3VyY2VUeXBlID0gJ2hlbG0tZXhwdC5pbnZhbGlkL3YxL05ldmVyJ3t7IGVuZCB9fSIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZhY3RzCm1ldGFkYXRhOgogIG5hbWU6IG1ldHJpY3Mtc2VydmVyLW1ldHJpY3Mtc2VydmVyLWZhY3RzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBtZXRyaWNzLXNlcnZlci1tZXRyaWNzLXNlcnZlcgogIHZhbHVlczoKICAgIHRhcmdldEZhY3RDaGVja3M6CiAgICAgIGJhc2U6IGV4dGVybmFsLXRscy1jYQogICAgICBtb2RlOiByZWNvcmQKICAgICAgcmVzdWx0OiByZWNvcmRlZAogICAgdGFyZ2V0RmFjdHM6CiAgICAgIHJlcXVpcmVkQ1JEczogW10KICAgICAgcmVxdWlyZWRTZWNyZXRzOgogICAgICAtIGtleXM6CiAgICAgICAgLSB0bHMuY3J0CiAgICAgICAgLSB0bHMua2V5CiAgICAgICAgbmFtZTogbWV0cmljcy1zZXJ2ZXItdGxzCiAgICAgICAgbmFtZXNwYWNlOiBrdWJlLXN5c3RlbQogICAgICAgIHB1cnBvc2U6IG1ldHJpY3Mtc2VydmVyIHNlcnZpbmcgY2VydGlmaWNhdGUKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogbWV0cmljcy1zZXJ2ZXItbWV0cmljcy1zZXJ2ZXItZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG1ldHJpY3Mtc2VydmVyLW1ldHJpY3Mtc2VydmVyCiAgZ3JvdXBzOgogIC0gdG9vbGNoYWluOiBLdWJlcm5ldGVzL1lBTUwKICAgIGludm9jYXRpb25zOgogICAgLSBuYW1lOiBzZXQtbmFtZXNwYWNlCiAgICAgIGFyZ3M6CiAgICAgIC0ga3ViZS1zeXN0ZW0KICAgIGRlc2NyaXB0aW9uOiBTZXQgdGhlIG5hbWVzcGFjZSBvbiBldmVyeSBuYW1lc3BhY2VkIHJlc291cmNlLgogIC0gdG9vbGNoYWluOiBLdWJlcm5ldGVzL1lBTUwKICAgIHdoZXJlUmVzb3VyY2U6IENvbmZpZ0h1Yi5SZXNvdXJjZVR5cGUgPSAnYXBpcmVnaXN0cmF0aW9uLms4cy5pby92MS9BUElTZXJ2aWNlJwogICAgaW52b2NhdGlvbnM6CiAgICAtIG5hbWU6IHNldC1zdHJpbmctcGF0aAogICAgICBhcmdzOgogICAgICAtIGFwaXJlZ2lzdHJhdGlvbi5rOHMuaW8vdjEvQVBJU2VydmljZQogICAgICAtIHNwZWMuY2FCdW5kbGUKICAgICAgLSBZMjl1Wm1sbmFIVmlMVzFsZEhKcFkzTXRjMlZ5ZG1WeUxXTmgKICAgIGRlc2NyaXB0aW9uOiBCaW5kIHRoZSBNZXRyaWNzIFNlcnZlciBBUElTZXJ2aWNlIGNhQnVuZGxlIGZyb20gdGhlIGluc3RhbGxlciBpbnB1dC4KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IElucHV0cwptZXRhZGF0YToKICBuYW1lOiBtZXRyaWNzLXNlcnZlci1tZXRyaWNzLXNlcnZlci1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG1ldHJpY3Mtc2VydmVyLW1ldHJpY3Mtc2VydmVyCiAgbmFtZXNwYWNlOiBrdWJlLXN5c3RlbQogIHZhbHVlczoKICAgIGFwaVNlcnZpY2VDYUJ1bmRsZTogWTI5dVptbG5hSFZpTFcxbGRISnBZM010YzJWeWRtVnlMV05oCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IG1ldHJpY3Mtc2VydmVyLW1ldHJpY3Mtc2VydmVyLW1hbmlmZXN0LWluZGV4CiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBtZXRyaWNzLXNlcnZlci1tZXRyaWNzLXNlcnZlcgogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGFwaXNlcnZpY2UtdjFiZXRhMS1tZXRyaWNzLWs4cy1pby55YW1sCiAgICBzbHVnOiBhcGlzZXJ2aWNlLXYxYmV0YTEtbWV0cmljcy1rOHMtaW8KICAgIGFwaVZlcnNpb246IGFwaXJlZ2lzdHJhdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IEFQSVNlcnZpY2UKICAgIG5hbWU6IHYxYmV0YTEubWV0cmljcy5rOHMuaW8KICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS1zeXN0ZW1tZXRyaWNzLXNlcnZlci55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1zeXN0ZW1tZXRyaWNzLXNlcnZlcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IHN5c3RlbTptZXRyaWNzLXNlcnZlcgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLXN5c3RlbW1ldHJpY3Mtc2VydmVyLWFnZ3JlZ2F0ZWQtcmVhZGVyLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlLXN5c3RlbW1ldHJpY3Mtc2VydmVyLWFnZ3JlZ2F0ZWQtcmVhZGVyCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogc3lzdGVtOm1ldHJpY3Mtc2VydmVyLWFnZ3JlZ2F0ZWQtcmVhZGVyCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGViaW5kaW5nLW1ldHJpY3Mtc2VydmVyc3lzdGVtYXV0aC1kZWxlZ2F0b3IueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLW1ldHJpY3Mtc2VydmVyc3lzdGVtYXV0aC1kZWxlZ2F0b3IKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogbWV0cmljcy1zZXJ2ZXI6c3lzdGVtOmF1dGgtZGVsZWdhdG9yCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGViaW5kaW5nLXN5c3RlbW1ldHJpY3Mtc2VydmVyLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlYmluZGluZy1zeXN0ZW1tZXRyaWNzLXNlcnZlcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGVCaW5kaW5nCiAgICBuYW1lOiBzeXN0ZW06bWV0cmljcy1zZXJ2ZXIKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWt1YmUtc3lzdGVtLW1ldHJpY3Mtc2VydmVyLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQta3ViZS1zeXN0ZW0tbWV0cmljcy1zZXJ2ZXIKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IG1ldHJpY3Mtc2VydmVyCiAgICBuYW1lc3BhY2U6IGt1YmUtc3lzdGVtCiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWt1YmUtc3lzdGVtLnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1rdWJlLXN5c3RlbQogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZToga3ViZS1zeXN0ZW0KICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1rdWJlLXN5c3RlbS1tZXRyaWNzLXNlcnZlci1hdXRoLXJlYWRlci55YW1sCiAgICBzbHVnOiByb2xlYmluZGluZy1rdWJlLXN5c3RlbS1tZXRyaWNzLXNlcnZlci1hdXRoLXJlYWRlcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogUm9sZUJpbmRpbmcKICAgIG5hbWU6IG1ldHJpY3Mtc2VydmVyLWF1dGgtcmVhZGVyCiAgICBuYW1lc3BhY2U6IGt1YmUtc3lzdGVtCiAgLSBmaWxlbmFtZTogc2VydmljZS1rdWJlLXN5c3RlbS1tZXRyaWNzLXNlcnZlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWt1YmUtc3lzdGVtLW1ldHJpY3Mtc2VydmVyCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogbWV0cmljcy1zZXJ2ZXIKICAgIG5hbWVzcGFjZToga3ViZS1zeXN0ZW0KICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1rdWJlLXN5c3RlbS1tZXRyaWNzLXNlcnZlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1rdWJlLXN5c3RlbS1tZXRyaWNzLXNlcnZlcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBtZXRyaWNzLXNlcnZlcgogICAgbmFtZXNwYWNlOiBrdWJlLXN5c3RlbQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IG1ldHJpY3Mtc2VydmVyLW1ldHJpY3Mtc2VydmVyLXNlbGVjdGlvbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogbWV0cmljcy1zZXJ2ZXItbWV0cmljcy1zZXJ2ZXIKICBiYXNlOiBleHRlcm5hbC10bHMtY2EKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBtZXRyaWNzLXNlcnZlci1tZXRyaWNzLXNlcnZlci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG1ldHJpY3Mtc2VydmVyLW1ldHJpY3Mtc2VydmVyCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLW1ldHJpY3Mtc2VydmVyLWV4dGVybmFsLXRscy1jYS1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBtZXRyaWNzLXNlcnZlci1tZXRyaWNzLXNlcnZlcgogICAgc2x1ZzogaGVsbS1tZXRyaWNzLXNlcnZlci1leHRlcm5hbC10bHMtY2EtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjQ4OjAwWiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "0af8e526bcc3e61f585a790e4f7cbd018fb315c469ebefe07b6a1b94ad8ef726",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "metrics-server-metrics-server"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/metrics-server-metrics-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server-metrics-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/metrics-server-metrics-server",
+            "ResourceNameWithoutScope": "metrics-server-metrics-server",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"metrics-server-metrics-server\"\n  version: \"3.13.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"metrics-server default variant rendered from metrics-server/metrics-server@3.13.0\"\n    name: \"default\"\n    path: \"bases/default\"\n  - description: \"metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0\"\n    externalRequires:\n    - kind: \"ClusterFeature\"\n      name: \"Secret kube-system/metrics-server-tls keys tls.crt,tls.key\"\n      namespace: \"kube-system\"\n      suggestedSource: \"kubectl -n kube-system create secret generic metrics-server-tls --from-literal=tls.crt=\u003cvalue\u003e --from-literal=tls.key=\u003cvalue\u003e\"\n    name: \"external-tls-ca\"\n    path: \"bases/external-tls-ca\"\n  collector:\n    command: \"/bin/sh\"\n    args:\n    - \"collector/target-facts.sh\"\n    description: \"Records target-fact bindings and can live-check existing Secret requirements.\"\n  inputs:\n  - default: \"Y29uZmlnaHViLW1ldHJpY3Mtc2VydmVyLWNh\"\n    description: \"Used by the external-tls-ca base. Must match the CA that issued kube-system/metrics-server-tls.\"\n    name: \"apiServiceCaBundle\"\n    prompt: \"Base64-encoded CA bundle for the Metrics Server APIService\"\n    type: \"string\"\n  transformers:\n  - description: \"Set the namespace on every namespaced resource.\"\n    invocations:\n    - args:\n      - \"{{ .Namespace }}\"\n      name: \"set-namespace\"\n    toolchain: \"Kubernetes/YAML\"\n    whereResource: \"\"\n  - description: \"Bind the Metrics Server APIService caBundle from the installer input.\"\n    invocations:\n    - args:\n      - \"apiregistration.k8s.io/v1/APIService\"\n      - \"spec.caBundle\"\n      - \"{{ .Inputs.apiServiceCaBundle }}\"\n      name: \"set-string-path\"\n    toolchain: \"Kubernetes/YAML\"\n    whereResource: \"{{ if eq .Selection.Base \\\"external-tls-ca\\\" }}ConfigHub.ResourceType = 'apiregistration.k8s.io/v1/APIService'{{ else }}ConfigHub.ResourceType = 'helm-expt.invalid/v1/Never'{{ end }}\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/metrics-server-metrics-server-facts": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server-metrics-server-facts": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/metrics-server-metrics-server-facts",
+            "ResourceNameWithoutScope": "metrics-server-metrics-server-facts",
+            "ResourceType": "installer.confighub.com/v1alpha1/Facts"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Facts\nmetadata:\n  name: metrics-server-metrics-server-facts\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: metrics-server-metrics-server\n  values:\n    targetFactChecks:\n      base: external-tls-ca\n      mode: record\n      result: recorded\n    targetFacts:\n      requiredCRDs: []\n      requiredSecrets:\n      - keys:\n        - tls.crt\n        - tls.key\n        name: metrics-server-tls\n        namespace: kube-system\n        purpose: metrics-server serving certificate\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/metrics-server-metrics-server-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server-metrics-server-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/metrics-server-metrics-server-function-chain",
+            "ResourceNameWithoutScope": "metrics-server-metrics-server-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: metrics-server-metrics-server-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: metrics-server-metrics-server\n  groups:\n  - toolchain: Kubernetes/YAML\n    invocations:\n    - name: set-namespace\n      args:\n      - kube-system\n    description: Set the namespace on every namespaced resource.\n  - toolchain: Kubernetes/YAML\n    whereResource: ConfigHub.ResourceType = 'apiregistration.k8s.io/v1/APIService'\n    invocations:\n    - name: set-string-path\n      args:\n      - apiregistration.k8s.io/v1/APIService\n      - spec.caBundle\n      - Y29uZmlnaHViLW1ldHJpY3Mtc2VydmVyLWNh\n    description: Bind the Metrics Server APIService caBundle from the installer input.\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/metrics-server-metrics-server-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server-metrics-server-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/metrics-server-metrics-server-inputs",
+            "ResourceNameWithoutScope": "metrics-server-metrics-server-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: metrics-server-metrics-server-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: metrics-server-metrics-server\n  namespace: kube-system\n  values:\n    apiServiceCaBundle: Y29uZmlnaHViLW1ldHJpY3Mtc2VydmVyLWNh\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/metrics-server-metrics-server-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server-metrics-server-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/metrics-server-metrics-server-manifest-index",
+            "ResourceNameWithoutScope": "metrics-server-metrics-server-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: metrics-server-metrics-server-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: metrics-server-metrics-server\n  files:\n  - filename: apiservice-v1beta1-metrics-k8s-io.yaml\n    slug: apiservice-v1beta1-metrics-k8s-io\n    apiVersion: apiregistration.k8s.io/v1\n    kind: APIService\n    name: v1beta1.metrics.k8s.io\n  - filename: clusterrole-systemmetrics-server.yaml\n    slug: clusterrole-systemmetrics-server\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: system:metrics-server\n  - filename: clusterrole-systemmetrics-server-aggregated-reader.yaml\n    slug: clusterrole-systemmetrics-server-aggregated-reader\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: system:metrics-server-aggregated-reader\n  - filename: clusterrolebinding-metrics-serversystemauth-delegator.yaml\n    slug: clusterrolebinding-metrics-serversystemauth-delegator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: metrics-server:system:auth-delegator\n  - filename: clusterrolebinding-systemmetrics-server.yaml\n    slug: clusterrolebinding-systemmetrics-server\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: system:metrics-server\n  - filename: deployment-kube-system-metrics-server.yaml\n    slug: deployment-kube-system-metrics-server\n    apiVersion: apps/v1\n    kind: Deployment\n    name: metrics-server\n    namespace: kube-system\n  - filename: namespace-kube-system.yaml\n    slug: namespace-kube-system\n    apiVersion: v1\n    kind: Namespace\n    name: kube-system\n  - filename: rolebinding-kube-system-metrics-server-auth-reader.yaml\n    slug: rolebinding-kube-system-metrics-server-auth-reader\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: metrics-server-auth-reader\n    namespace: kube-system\n  - filename: service-kube-system-metrics-server.yaml\n    slug: service-kube-system-metrics-server\n    apiVersion: v1\n    kind: Service\n    name: metrics-server\n    namespace: kube-system\n  - filename: serviceaccount-kube-system-metrics-server.yaml\n    slug: serviceaccount-kube-system-metrics-server\n    apiVersion: v1\n    kind: ServiceAccount\n    name: metrics-server\n    namespace: kube-system\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/metrics-server-metrics-server-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server-metrics-server-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/metrics-server-metrics-server-selection",
+            "ResourceNameWithoutScope": "metrics-server-metrics-server-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: metrics-server-metrics-server-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: metrics-server-metrics-server\n  base: external-tls-ca\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/metrics-server-metrics-server-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server-metrics-server-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/metrics-server-metrics-server-upload",
+            "ResourceNameWithoutScope": "metrics-server-metrics-server-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: metrics-server-metrics-server-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: metrics-server-metrics-server\n  spacePattern: helm-metrics-server-external-tls-ca-confighub-proof\n  spaces:\n  - package: metrics-server-metrics-server\n    slug: helm-metrics-server-external-tls-ca-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:48:00Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cab7106d-cd6a-4ebd-88df-606dfd682fa2",
+      "UpdatedAt": "2026-06-12T16:48:11.614059Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.81161Z",
+        "CursorID": 22619,
+        "DisplayName": "Upgrade clusterrole-systemmetrics-server-aggregated-reader",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "36b3b408-84a1-4b49-88cf-3ba49c72c724",
+        "LinkID": "a99e44b8-ffd4-42d1-9882-94af0237bf1f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-systemmetrics-server-aggregated-reader",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "5a405137-fd74-438f-b7a5-b83f045d8320",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.81161Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5a405137-fd74-438f-b7a5-b83f045d8320' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f6eebb9be53987508b62a5df8cb2a874997e2c8c3ffa592b2cf65f264d75eda5",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a99e44b8-ffd4-42d1-9882-94af0237bf1f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-systemmetrics-server-aggregated-reader",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "36b3b408-84a1-4b49-88cf-3ba49c72c724",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5a405137-fd74-438f-b7a5-b83f045d8320",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2084630546,
+      "CreatedAt": "2026-06-12T16:48:02.713226Z",
+      "CursorID": 27732,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogbWV0cmljcy1zZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG1ldHJpY3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjguMAogICAgaGVsbS5zaC9jaGFydDogbWV0cmljcy1zZXJ2ZXItMy4xMy4wCiAgICByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL2FnZ3JlZ2F0ZS10by1hZG1pbjogInRydWUiCiAgICByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL2FnZ3JlZ2F0ZS10by1lZGl0OiAidHJ1ZSIKICAgIHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vYWdncmVnYXRlLXRvLXZpZXc6ICJ0cnVlIgogIG5hbWU6IHN5c3RlbTptZXRyaWNzLXNlcnZlci1hZ2dyZWdhdGVkLXJlYWRlcgpydWxlczoKLSBhcGlHcm91cHM6CiAgLSBtZXRyaWNzLms4cy5pbwogIHJlc291cmNlczoKICAtIHBvZHMKICAtIG5vZGVzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCg==",
+      "DataHash": "f6eebb9be53987508b62a5df8cb2a874997e2c8c3ffa592b2cf65f264d75eda5",
+      "DisplayName": "clusterrole-systemmetrics-server-aggregated-reader",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/system:metrics-server-aggregated-reader": {}
+          },
+          "AliasesWithoutScopes": {
+            "system:metrics-server-aggregated-reader": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/system:metrics-server-aggregated-reader",
+            "ResourceNameWithoutScope": "system:metrics-server-aggregated-reader",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: metrics-server\n    app.kubernetes.io/version: 0.8.0\n    helm.sh/chart: metrics-server-3.13.0\n    rbac.authorization.k8s.io/aggregate-to-admin: \"true\"\n    rbac.authorization.k8s.io/aggregate-to-edit: \"true\"\n    rbac.authorization.k8s.io/aggregate-to-view: \"true\"\n  name: system:metrics-server-aggregated-reader\nrules:\n- apiGroups:\n  - metrics.k8s.io\n  resources:\n  - pods\n  - nodes\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/system:metrics-server-aggregated-reader",
+          "ResourceNameWithoutScope": "system:metrics-server-aggregated-reader",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-systemmetrics-server-aggregated-reader",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5a405137-fd74-438f-b7a5-b83f045d8320",
+      "UpdatedAt": "2026-06-12T16:48:11.526438Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.925564Z",
+        "CursorID": 22622,
+        "DisplayName": "Upgrade clusterrole-systemmetrics-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9bf22955-a892-461a-82a2-f55b15edfa79",
+        "LinkID": "ea4d47d5-45e5-4541-a07a-2650c078172a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-systemmetrics-server",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "648da4a5-823e-4a5b-8600-10cb59a37bd8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.925564Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '648da4a5-823e-4a5b-8600-10cb59a37bd8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "861bc6169896034ee0ad0838e0c5525b73d4d5eb8886016e5629a2d588cadfac",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ea4d47d5-45e5-4541-a07a-2650c078172a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-systemmetrics-server",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9bf22955-a892-461a-82a2-f55b15edfa79",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "648da4a5-823e-4a5b-8600-10cb59a37bd8",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1172996474,
+      "CreatedAt": "2026-06-12T16:48:03.455978Z",
+      "CursorID": 27734,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogbWV0cmljcy1zZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG1ldHJpY3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjguMAogICAgaGVsbS5zaC9jaGFydDogbWV0cmljcy1zZXJ2ZXItMy4xMy4wCiAgbmFtZTogc3lzdGVtOm1ldHJpY3Mtc2VydmVyCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gbm9kZXMvbWV0cmljcwogIHZlcmJzOgogIC0gZ2V0Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwb2RzCiAgLSBub2RlcwogIC0gbmFtZXNwYWNlcwogIC0gY29uZmlnbWFwcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAo=",
+      "DataHash": "861bc6169896034ee0ad0838e0c5525b73d4d5eb8886016e5629a2d588cadfac",
+      "DisplayName": "clusterrole-systemmetrics-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/system:metrics-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "system:metrics-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/system:metrics-server",
+            "ResourceNameWithoutScope": "system:metrics-server",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: metrics-server\n    app.kubernetes.io/version: 0.8.0\n    helm.sh/chart: metrics-server-3.13.0\n  name: system:metrics-server\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes/metrics\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  - nodes\n  - namespaces\n  - configmaps\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/system:metrics-server",
+          "ResourceNameWithoutScope": "system:metrics-server",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-systemmetrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "648da4a5-823e-4a5b-8600-10cb59a37bd8",
+      "UpdatedAt": "2026-06-12T16:48:11.498304Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.848377Z",
+        "CursorID": 22620,
+        "DisplayName": "Upgrade namespace-kube-system",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a02d8adb-5084-4133-85d1-cf7f72b86acd",
+        "LinkID": "d4c9cf62-3f3a-4d86-8183-e4b1f4b77e93",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-kube-system",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "0d96b78c-45c7-42cf-8b05-6f8995135e27",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.848377Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0d96b78c-45c7-42cf-8b05-6f8995135e27' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4484776d2c3d810f7db9de9221ee6e5016f86c3884527327420acf9e833bd251",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d4c9cf62-3f3a-4d86-8183-e4b1f4b77e93"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-kube-system",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a02d8adb-5084-4133-85d1-cf7f72b86acd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0d96b78c-45c7-42cf-8b05-6f8995135e27",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1855791203,
+      "CreatedAt": "2026-06-12T16:48:06.321913Z",
+      "CursorID": 27738,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGt1YmUtc3lzdGVtCg==",
+      "DataHash": "4484776d2c3d810f7db9de9221ee6e5016f86c3884527327420acf9e833bd251",
+      "DisplayName": "namespace-kube-system",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Initial Data: 61 bytes; from namespace-kube-system.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/kube-system": {}
+          },
+          "AliasesWithoutScopes": {
+            "kube-system": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/kube-system",
+            "ResourceNameWithoutScope": "kube-system",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: kube-system\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/kube-system",
+          "ResourceNameWithoutScope": "kube-system",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-kube-system",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0d96b78c-45c7-42cf-8b05-6f8995135e27",
+      "UpdatedAt": "2026-06-12T16:48:06.345328Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.950848Z",
+        "CursorID": 22623,
+        "DisplayName": "Upgrade apiservice-v1beta1-metrics-k8s-io",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6737cdfe-c4af-451b-8f43-4146beb60fc6",
+        "LinkID": "176acfa9-3fef-4175-88fe-bf6f5509d6ef",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-apiservice-v1beta1-metrics-k8s-io",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "ead5aab1-6d9f-4238-bfa9-8549f03c27cc",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.950849Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ead5aab1-6d9f-4238-bfa9-8549f03c27cc' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ba76e38cf77503f85a7ad82a4b0fdeea6cfb9fddbf341fcac5d6af00aa99ffa6",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "176acfa9-3fef-4175-88fe-bf6f5509d6ef"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "apiservice-v1beta1-metrics-k8s-io",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6737cdfe-c4af-451b-8f43-4146beb60fc6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ead5aab1-6d9f-4238-bfa9-8549f03c27cc",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1421766011,
+      "CreatedAt": "2026-06-12T16:48:01.811988Z",
+      "CursorID": 27730,
+      "Data": "YXBpVmVyc2lvbjogYXBpcmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBBUElTZXJ2aWNlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBtZXRyaWNzLXNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogbWV0cmljcy1zZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuOC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBtZXRyaWNzLXNlcnZlci0zLjEzLjAKICBuYW1lOiB2MWJldGExLm1ldHJpY3MuazhzLmlvCnNwZWM6CiAgY2FCdW5kbGU6IFkyOXVabWxuYUhWaUxXMWxkSEpwWTNNdGMyVnlkbVZ5TFdOaAogIGdyb3VwOiBtZXRyaWNzLms4cy5pbwogIGdyb3VwUHJpb3JpdHlNaW5pbXVtOiAxMDAKICBpbnNlY3VyZVNraXBUTFNWZXJpZnk6IGZhbHNlCiAgc2VydmljZToKICAgIG5hbWU6IG1ldHJpY3Mtc2VydmVyCiAgICBuYW1lc3BhY2U6IGt1YmUtc3lzdGVtCiAgICBwb3J0OiA0NDMKICB2ZXJzaW9uOiB2MWJldGExCiAgdmVyc2lvblByaW9yaXR5OiAxMDAK",
+      "DataHash": "ba76e38cf77503f85a7ad82a4b0fdeea6cfb9fddbf341fcac5d6af00aa99ffa6",
+      "DisplayName": "apiservice-v1beta1-metrics-k8s-io",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Initial Data: 570 bytes; from apiservice-v1beta1-metrics-k8s-io.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/v1beta1.metrics.k8s.io": {}
+          },
+          "AliasesWithoutScopes": {
+            "v1beta1.metrics.k8s.io": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/v1beta1.metrics.k8s.io",
+            "ResourceNameWithoutScope": "v1beta1.metrics.k8s.io",
+            "ResourceType": "apiregistration.k8s.io/v1/APIService"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apiregistration.k8s.io/v1\nkind: APIService\nmetadata:\n  labels:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: metrics-server\n    app.kubernetes.io/version: 0.8.0\n    helm.sh/chart: metrics-server-3.13.0\n  name: v1beta1.metrics.k8s.io\nspec:\n  caBundle: Y29uZmlnaHViLW1ldHJpY3Mtc2VydmVyLWNh\n  group: metrics.k8s.io\n  groupPriorityMinimum: 100\n  insecureSkipTLSVerify: false\n  service:\n    name: metrics-server\n    namespace: kube-system\n    port: 443\n  version: v1beta1\n  versionPriority: 100\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "apiservice-v1beta1-metrics-k8s-io",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ead5aab1-6d9f-4238-bfa9-8549f03c27cc",
+      "UpdatedAt": "2026-06-12T16:48:27.699172Z",
+      "Version": 8
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.97484Z",
+        "CursorID": 22624,
+        "DisplayName": "Upgrade clusterrolebinding-metrics-serversystemauth-delegator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c3ad2e67-776e-49bb-938d-5f65b6002a23",
+        "LinkID": "4cbe716e-03f5-4652-8ade-648a1ec908d1",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-metrics-serversystemauth-delegator",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "fadd33d3-9266-4178-8b69-bf4f2931a065",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.97484Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'fadd33d3-9266-4178-8b69-bf4f2931a065' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "dfbe6f8ceb61aa20186f90bc147b5d66ecd8b57e2b86d963767d2ded86e3efcf",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4cbe716e-03f5-4652-8ade-648a1ec908d1"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-metrics-serversystemauth-delegator",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c3ad2e67-776e-49bb-938d-5f65b6002a23",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "fadd33d3-9266-4178-8b69-bf4f2931a065",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1468582613,
+      "CreatedAt": "2026-06-12T16:48:04.162597Z",
+      "CursorID": 27735,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG1ldHJpY3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBtZXRyaWNzLXNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC44LjAKICAgIGhlbG0uc2gvY2hhcnQ6IG1ldHJpY3Mtc2VydmVyLTMuMTMuMAogIG5hbWU6IG1ldHJpY3Mtc2VydmVyOnN5c3RlbTphdXRoLWRlbGVnYXRvcgpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBzeXN0ZW06YXV0aC1kZWxlZ2F0b3IKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBtZXRyaWNzLXNlcnZlcgogIG5hbWVzcGFjZToga3ViZS1zeXN0ZW0K",
+      "DataHash": "dfbe6f8ceb61aa20186f90bc147b5d66ecd8b57e2b86d963767d2ded86e3efcf",
+      "DisplayName": "clusterrolebinding-metrics-serversystemauth-delegator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/metrics-server:system:auth-delegator": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server:system:auth-delegator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/metrics-server:system:auth-delegator",
+            "ResourceNameWithoutScope": "metrics-server:system:auth-delegator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: metrics-server\n    app.kubernetes.io/version: 0.8.0\n    helm.sh/chart: metrics-server-3.13.0\n  name: metrics-server:system:auth-delegator\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: system:auth-delegator\nsubjects:\n- kind: ServiceAccount\n  name: metrics-server\n  namespace: kube-system\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-metrics-serversystemauth-delegator",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fadd33d3-9266-4178-8b69-bf4f2931a065",
+      "UpdatedAt": "2026-06-12T16:48:31.522652Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:56.759989Z",
+        "CursorID": 22617,
+        "DisplayName": "Upgrade rolebinding-kube-system-metrics-server-auth-reader",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "65a65f1c-23bf-4369-b33d-2d87e46cc6f1",
+        "LinkID": "5d5cf388-9262-4d7f-a406-f30fc2057e08",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-kube-system-metrics-server-auth-reader",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "6c4c2439-13d1-43af-8c90-68e28f9690e0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:56.759989Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '6c4c2439-13d1-43af-8c90-68e28f9690e0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3401b10b938a6360cd399c6884899be8e4f01865eed3f67e61cf8224abafd2e4",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "5d5cf388-9262-4d7f-a406-f30fc2057e08"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-kube-system-metrics-server-auth-reader",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "65a65f1c-23bf-4369-b33d-2d87e46cc6f1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "6c4c2439-13d1-43af-8c90-68e28f9690e0",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 622785220,
+      "CreatedAt": "2026-06-12T16:48:07.073684Z",
+      "CursorID": 27739,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogbWV0cmljcy1zZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IG1ldHJpY3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjguMAogICAgaGVsbS5zaC9jaGFydDogbWV0cmljcy1zZXJ2ZXItMy4xMy4wCiAgbmFtZTogbWV0cmljcy1zZXJ2ZXItYXV0aC1yZWFkZXIKICBuYW1lc3BhY2U6IGt1YmUtc3lzdGVtCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBSb2xlCiAgbmFtZTogZXh0ZW5zaW9uLWFwaXNlcnZlci1hdXRoZW50aWNhdGlvbi1yZWFkZXIKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBtZXRyaWNzLXNlcnZlcgogIG5hbWVzcGFjZToga3ViZS1zeXN0ZW0K",
+      "DataHash": "3401b10b938a6360cd399c6884899be8e4f01865eed3f67e61cf8224abafd2e4",
+      "DisplayName": "rolebinding-kube-system-metrics-server-auth-reader",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "kube-system/metrics-server-auth-reader": {}
+          },
+          "AliasesWithoutScopes": {
+            "metrics-server-auth-reader": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "kube-system/metrics-server-auth-reader",
+            "ResourceNameWithoutScope": "metrics-server-auth-reader",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: metrics-server\n    app.kubernetes.io/version: 0.8.0\n    helm.sh/chart: metrics-server-3.13.0\n  name: metrics-server-auth-reader\n  namespace: kube-system\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: extension-apiserver-authentication-reader\nsubjects:\n- kind: ServiceAccount\n  name: metrics-server\n  namespace: kube-system\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-kube-system-metrics-server-auth-reader",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6c4c2439-13d1-43af-8c90-68e28f9690e0",
+      "UpdatedAt": "2026-06-12T16:48:40.705153Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:57.004729Z",
+        "CursorID": 22625,
+        "DisplayName": "Upgrade clusterrolebinding-systemmetrics-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "8e2618ed-e67a-4e8e-bd4a-b251a5c1b455",
+        "LinkID": "46aa3ac8-ef89-4f3c-90e7-14d60dcb1174",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-systemmetrics-server",
+        "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+        "SpaceSlug": "MetricsServer-external-tls-ca-staging",
+        "ToSpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+        "ToUnitID": "7e3f5135-1ec5-4425-99fb-f7d6b8246d20",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:57.00473Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7e3f5135-1ec5-4425-99fb-f7d6b8246d20' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:56.10484Z",
+      "CursorID": 4590,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MetricsServer-external-tls-ca-staging",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "UpdatedAt": "2026-06-12T16:48:56.10484Z",
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ad6f512e8c2207ce53763ebb36964c8a7f5a1e2c421792f1d007d1dd4f1d1303",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "46aa3ac8-ef89-4f3c-90e7-14d60dcb1174"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-systemmetrics-server",
+      "SpaceID": "dcedfa7e-2bea-4cc0-a769-9d9bb6893150",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8e2618ed-e67a-4e8e-bd4a-b251a5c1b455",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7e3f5135-1ec5-4425-99fb-f7d6b8246d20",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1647555364,
+      "CreatedAt": "2026-06-12T16:48:04.84783Z",
+      "CursorID": 27736,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IG1ldHJpY3Mtc2VydmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBtZXRyaWNzLXNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC44LjAKICAgIGhlbG0uc2gvY2hhcnQ6IG1ldHJpY3Mtc2VydmVyLTMuMTMuMAogIG5hbWU6IHN5c3RlbTptZXRyaWNzLXNlcnZlcgpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBzeXN0ZW06bWV0cmljcy1zZXJ2ZXIKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBtZXRyaWNzLXNlcnZlcgogIG5hbWVzcGFjZToga3ViZS1zeXN0ZW0K",
+      "DataHash": "ad6f512e8c2207ce53763ebb36964c8a7f5a1e2c421792f1d007d1dd4f1d1303",
+      "DisplayName": "clusterrolebinding-systemmetrics-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/system:metrics-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "system:metrics-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/system:metrics-server",
+            "ResourceNameWithoutScope": "system:metrics-server",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: metrics-server\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: metrics-server\n    app.kubernetes.io/version: 0.8.0\n    helm.sh/chart: metrics-server-3.13.0\n  name: system:metrics-server\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: system:metrics-server\nsubjects:\n- kind: ServiceAccount\n  name: metrics-server\n  namespace: kube-system\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-systemmetrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7e3f5135-1ec5-4425-99fb-f7d6b8246d20",
+      "UpdatedAt": "2026-06-12T16:48:35.058602Z",
+      "Version": 15
+    }
+  }
+]

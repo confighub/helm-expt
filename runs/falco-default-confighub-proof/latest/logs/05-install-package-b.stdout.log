@@ -1,0 +1,5 @@
+Bundled falcosecurity-falco@
+  output: .tmp/confighub-proof/falco-default-archives/falco-b.tgz
+  files:  4
+  size:   3329 bytes
+  digest: sha256:a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b

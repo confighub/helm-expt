@@ -1,0 +1,926 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6b17fc8b4bff3250affefe711748c609a8c7559e7b793f75241fe295042fcf5b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "36771178-6b5b-4e8d-967a-deb41e384696",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ac2fc809cb1edc28ff749c7020b1a227174eeb7fd837710dd2489133bd7c39ac",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "issuer-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7b2f893a-2c87-4c0d-b196-a52c9596bc5c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d00007a5-845f-4457-9230-8a3b057f7a39",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "93b7d3e5f5bc6e57679931e98e614150adca16342de150dee38381149d3dc28c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-cert-manager-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aac24b4c-c94e-4ed9-8224-dd94426eac96",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ff409e8bee532c5c83986e7f6e23778a495401bbd817ef9c58369dfa8a496d6b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-trust-manager-metrics",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "32e46f79-96cc-47b3-9ba3-baf649d87c87",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ffc834ed48b36c48f168a30d7eb526f635eee4cfb97b66ce8249d5411d20fe75",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "46ff17dd-0423-4697-83e0-612567cd8f68",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d42dd30a963b26ee14f9ed72c80e8c1ded10a5828bb1c0213ab24bb4bd8c0116",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "certificate-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fe37d6c6-1568-489a-85b0-80b2c2014bba",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "528de66fa02629a3e82acb90379d532ca9e29aa705f2754b1a3f950a98eeec00",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7b9974d5-75ab-48c8-a36b-ea62f25e9067",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4bebab6f80b544031a932ba4e293a8cdea7d9fbd6ad42f2325ebab91dcc86d6c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-trust-managerleaderelection",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "10c2d11f-e4e1-41a4-9c03-aa1307e789d1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6131d719db588f2e8a8293b8d8d94db96f2b1a29f883bba7957570e080e5a8d5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a0aa6bdb-69b8-4066-ab6a-2f59dea34a37",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5c74cca37660a3f1c86dd554390edac75358bcec9d2c93762a140c60489db708",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-cert-manager-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0b8d2ae5-bb91-43b5-ab43-f29c9869e3b2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2d7f26649cd4fe2c3c9b0c789029e67600dce3bba0f123c57171aa419bb300ce",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "99be0803-c102-4dac-bce2-eed45f50ebc2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b814b96100a93994c84c2470eb091138bb71e0874aef11c2c0466d0bd2339024",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-trust-managerleaderelection",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e3690f3c-9c64-46f7-9f14-0c536df19cec",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:23:21.313898Z",
+      "CursorID": 4700,
+      "DisplayName": "helm-trust-manager-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrustManager",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trust-manager-no-crds-confighub-proof",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "UpdatedAt": "2026-06-12T17:23:21.849055Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cea68842-29c8-4f23-9e7e-e686c4a37a73'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0c088da7f6ecfa7077dad4c1f7ec302603ce9b4a839fdce68334d7f39d35cafb",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrustManager",
+        "HelmChart": "jetstack-trust-manager",
+        "HelmChartVersion": "v0.22.1",
+        "Package": "jetstack-trust-manager",
+        "Proof": "trust-manager-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-trust-manager",
+      "SpaceID": "cea68842-29c8-4f23-9e7e-e686c4a37a73",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1682220d-13d8-48f5-a47b-5223ab81fcbb",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

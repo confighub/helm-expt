@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-fluentd-default-confighub-proof (post-render):
+      DaemonSet/fluentd [fluentd] fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2

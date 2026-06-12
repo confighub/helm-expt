@@ -1,0 +1,1 @@
+cub installer package packages/crossplane-stable/crossplane/2.3.1 -o .tmp/confighub-proof/crossplane-default-archives/crossplane-a.tgz

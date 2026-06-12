@@ -1,0 +1,18 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "gitlab-gitlab-runner"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "gitlab/gitlab-runner default variant rendered from gitlab/gitlab-runner@0.89.0"
+      }
+    ]
+  }
+}

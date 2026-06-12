@@ -1,0 +1,1 @@
+cub revision list deployment-ingress-nginx-ingress-nginx-controller --space helm-ingress-nginx-default-confighub-proof

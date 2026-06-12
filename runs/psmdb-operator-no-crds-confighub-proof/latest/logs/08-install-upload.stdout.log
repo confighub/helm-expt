@@ -1,0 +1,20 @@
+== percona-psmdb-operator@ → Space helm-psmdb-operator-no-crds-confighub-proof ==
+Successfully created unit deployment-default-psmdb-operator (cd26a779-90d0-4304-8191-7f8455543b39)
+Successfully created unit namespace-default (5de7d6d7-e21a-4456-9656-8cf718f589ab)
+Successfully created unit role-default-psmdb-operator (5fc4bad9-e5ef-4a89-84e1-06e8538882d7)
+Successfully created unit rolebinding-default-service-account-psmdb-operator (a35b145a-7416-4214-9344-9b9707aa02e2)
+Successfully created unit serviceaccount-default-psmdb-operator (af8eedb4-7b12-4cae-91be-425a75a0f0b4)
+Successfully created unit installer-record (73503a08-9dd4-48a7-820a-c85711aba5c9)
+Linked deployment-default-psmdb-operator -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-psmdb-operator -> serviceaccount-default-psmdb-operator (reference:v1/ServiceAccount)
+Linked role-default-psmdb-operator -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-service-account-psmdb-operator -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-service-account-psmdb-operator -> serviceaccount-default-psmdb-operator (reference:v1/ServiceAccount)
+Linked serviceaccount-default-psmdb-operator -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - rolebinding-default-service-account-psmdb-operator -> rbac.authorization.k8s.io/v1/ClusterRole "psmdb-operator"

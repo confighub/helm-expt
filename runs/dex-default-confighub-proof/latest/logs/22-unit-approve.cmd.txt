@@ -1,0 +1,1 @@
+cub unit approve deployment-default-dex --space helm-dex-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

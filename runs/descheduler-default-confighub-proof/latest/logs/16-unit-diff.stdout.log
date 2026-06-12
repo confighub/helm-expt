@@ -1,0 +1,12 @@
+--- helm-descheduler-default-confighub-proof/clusterrolebinding-descheduler/1
++++ helm-descheduler-default-confighub-proof/clusterrolebinding-descheduler/2
+@@ -13,6 +17,3 @@
+   kind: ClusterRole
+   name: descheduler
+ subjects:
+-  - kind: ServiceAccount
+-    name: descheduler
+-    namespace: default
++- kind: ServiceAccount
++  name: descheduler
++  namespace: default

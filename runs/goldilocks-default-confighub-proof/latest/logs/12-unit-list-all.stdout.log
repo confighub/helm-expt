@@ -1,0 +1,640 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "749b71ec9a97005b913dd2e91718df09deb66466dc63db08d596fe999e54b47c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-goldilocks-controller",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8f22c947-a522-4dde-b14a-d27a1386be71",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "687cf3bdfe263951ad0bf14fe4286a2d7dd92a69a16ea1ba87717d9eb833df93",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "38b85f27-0162-45df-97de-e5851d3c344e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ebd50e70eef5f21085754166502120e9b93542367f25d7e7a286644509a9bd60",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8b82f141-1e05-425b-affe-91abd235f960",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "16ee9963de97f59df470c1220f6f9a65326e9fe4940d7320b1f2340c629e5dd1",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "00f8db5b-60f0-47c7-a2f3-e58872df1531",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bd6ff656-aec4-478a-810f-45c0a824cc2c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0566500739dbc12f200fb1e3d7f24fb51c56b4d03362f0fd466b91dc777a9802",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-goldilocks-controller",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "94ea7a05-0333-4886-80da-a95d56795944",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b74b8fd7fa93bda8acde38a2718fe2a8916a7f7f01ba5e7f251cf36fcc01c356",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-goldilocks-controller",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c1f58908-c951-4029-82e8-f4276a79d087",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "adef7b180d2dd3cc450329d0d598dfbcf3fa5696544684ca388446359ee1d304",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "06e3fb9f-952a-4165-b996-4a175536d2e5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e60bd8eceb4064ad8f4e243503d3394ee8d5b490ec3f1bb704151c9e4d120900",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c2fd6b40-d7c5-4c32-adc8-383c8caf2a83",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "83ed2e2245e26f104eac730ac8a5c414ee374a87f524aa2f74150865a7947829",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-goldilocks-controller",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d3fc94e7-212b-4e9f-8829-c755d0b7ac31",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:18.740006Z",
+      "CursorID": 4597,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-goldilocks-default-confighub-proof",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "UpdatedAt": "2026-06-12T16:50:19.582064Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3468458a0e784f53e48cac00980cdb45151d49960d769e79b99ea20ffb8beea3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "01006572-fd51-413d-b2f0-93f5663793b1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

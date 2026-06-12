@@ -1,0 +1,1 @@
+cub variant create staging helm-pgadmin4-default-confighub-proof --environment Staging --region local --space-name-pattern template:Pgadmin4-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

@@ -1,0 +1,45 @@
+== open-telemetry-opentelemetry-operator@ → Space helm-opentelemetry-operator-no-crds-confighub-proof ==
+Successfully created unit certificate-default-opentelemetry-operator-serving-cert (beada503-65ed-47d3-8030-71faffb801d3)
+Successfully created unit clusterrole-opentelemetry-operator-manager (c27db8b3-c4c8-41a9-b8e3-ab6e52272168)
+Successfully created unit clusterrole-opentelemetry-operator-metrics (65b665a9-9861-48e2-b2a0-cf447cc122c8)
+Successfully created unit clusterrolebinding-opentelemetry-operator-manager (897e4e40-f289-434d-a297-b1c398f67956)
+Successfully created unit deployment-default-opentelemetry-operator (53cc9187-b679-476c-b9e8-30d893e7b19d)
+Successfully created unit issuer-default-opentelemetry-operator-selfsigned-issuer (6841a8cb-68c4-4a83-9c98-09e4d617dc76)
+Successfully created unit mutatingwebhookconfiguration-opentelemetry-operator-mutation (5b002386-45a5-4a82-8b42-bda8576b711d)
+Successfully created unit namespace-default (e824e975-9d2b-40fe-9c11-eb0e0dd823a5)
+Successfully created unit role-default-opentelemetry-operator-leader-election (d2ff162d-6f13-4ebb-ab57-54d0a8f14c22)
+Successfully created unit rolebinding-default-opentelemetry-operator-leader-election (f1c3979c-60c5-4ba9-825a-0714ed64844a)
+Successfully created unit service-default-opentelemetry-operator-webhook (37ccd364-8574-4a03-8971-e1e5a291ce55)
+Successfully created unit service-default-opentelemetry-operator (73a25acd-76cb-4f01-b612-cf220a75161f)
+Successfully created unit serviceaccount-default-opentelemetry-operator (eca7a9f2-8320-4f41-ae13-75ecd38cfd47)
+Successfully created unit validatingwebhookconfiguration-opentelemetry-operator-validation (1cd5857c-480a-4cdb-b759-f2fa145413fc)
+Successfully created unit installer-record (f573cb45-6d03-43a4-b898-cf49f0d10d5c)
+Linked certificate-default-opentelemetry-operator-serving-cert -> issuer-default-opentelemetry-operator-selfsigned-issuer (reference:cert-manager.io/v1/Issuer)
+Linked certificate-default-opentelemetry-operator-serving-cert -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-opentelemetry-operator-manager -> clusterrole-opentelemetry-operator-manager (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-opentelemetry-operator-manager -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-opentelemetry-operator-manager -> serviceaccount-default-opentelemetry-operator (reference:v1/ServiceAccount)
+Linked deployment-default-opentelemetry-operator -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-opentelemetry-operator -> serviceaccount-default-opentelemetry-operator (reference:v1/ServiceAccount)
+Linked issuer-default-opentelemetry-operator-selfsigned-issuer -> namespace-default (reference:v1/Namespace)
+Linked mutatingwebhookconfiguration-opentelemetry-operator-mutation -> namespace-default (reference:v1/Namespace)
+Linked mutatingwebhookconfiguration-opentelemetry-operator-mutation -> service-default-opentelemetry-operator-webhook (reference:v1/Service)
+Linked role-default-opentelemetry-operator-leader-election -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-opentelemetry-operator-leader-election -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-opentelemetry-operator-leader-election -> role-default-opentelemetry-operator-leader-election (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-opentelemetry-operator-leader-election -> serviceaccount-default-opentelemetry-operator (reference:v1/ServiceAccount)
+Linked service-default-opentelemetry-operator -> deployment-default-opentelemetry-operator (selector)
+Linked service-default-opentelemetry-operator -> namespace-default (reference:v1/Namespace)
+Linked service-default-opentelemetry-operator-webhook -> deployment-default-opentelemetry-operator (selector)
+Linked service-default-opentelemetry-operator-webhook -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-opentelemetry-operator -> namespace-default (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-opentelemetry-operator-validation -> namespace-default (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-opentelemetry-operator-validation -> service-default-opentelemetry-operator-webhook (reference:v1/Service)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - certificate-default-opentelemetry-operator-serving-cert -> v1/Secret "opentelemetry-operator-controller-manager-service-cert"
+  - deployment-default-opentelemetry-operator -> v1/Secret "opentelemetry-operator-controller-manager-service-cert"

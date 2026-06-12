@@ -1,0 +1,1 @@
+cub revision list deployment-default-pg-operator --space helm-pg-operator-no-crds-confighub-proof

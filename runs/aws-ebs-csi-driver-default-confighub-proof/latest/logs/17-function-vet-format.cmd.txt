@@ -1,0 +1,1 @@
+cub function vet vet-format --space helm-aws-ebs-csi-driver-default-confighub-proof --where "Labels.Proof = 'aws-ebs-csi-driver-default-confighub-proof'" --quiet --wait --timeout 10m

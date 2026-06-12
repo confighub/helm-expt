@@ -1,0 +1,51 @@
+== gatekeeper-gatekeeper@ → Space helm-gatekeeper-no-crds-confighub-proof ==
+Successfully created unit clusterrole-gatekeeper-manager-role (94371d1a-66c0-4cc9-9b7e-ea70c1cf14bd)
+Successfully created unit clusterrolebinding-gatekeeper-manager-rolebinding (740a2efb-ff9a-4a56-acaf-6e3f84bbf685)
+Successfully created unit deployment-default-gatekeeper-audit (2c86dadf-4ac3-4aba-a397-29933f8c0afa)
+Successfully created unit deployment-default-gatekeeper-controller-manager (0a313fc8-36ad-4887-8e8f-e67b0fdfe3b7)
+Successfully created unit mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration (b1393e24-809e-41a2-b288-3fc05994d171)
+Successfully created unit namespace-default (0d559e75-08a2-4af8-ace1-56dae296a834)
+Successfully created unit poddisruptionbudget-default-gatekeeper-controller-manager (f51524e2-2ad7-47d4-ac5d-5c13dd4b4f0f)
+Successfully created unit resourcequota-default-gatekeeper-critical-pods (0d2b91cd-5bc5-4cd6-8d02-57174d89012a)
+Successfully created unit role-default-gatekeeper-manager-role (7447db9c-a6a4-428e-adc5-5128d68fc489)
+Successfully created unit rolebinding-default-gatekeeper-manager-rolebinding (89e307f3-6159-4f7d-b651-370c1ad0f580)
+Successfully created unit service-default-gatekeeper-webhook-service (c5c99a9f-7845-459a-af72-b178822b525b)
+Successfully created unit serviceaccount-default-gatekeeper-admin (ba80df65-d5e3-4267-80bf-9e6e19f6a133)
+Successfully created unit validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration (27f5a0ec-8f4d-4068-a1da-a1b9f17ca577)
+Successfully created unit installer-record (1dd49adc-45e8-43ba-aba4-eef7eb7eae43)
+Linked clusterrolebinding-gatekeeper-manager-rolebinding -> clusterrole-gatekeeper-manager-role (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-gatekeeper-manager-rolebinding -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-gatekeeper-manager-rolebinding -> serviceaccount-default-gatekeeper-admin (reference:v1/ServiceAccount)
+Linked deployment-default-gatekeeper-audit -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-gatekeeper-audit -> serviceaccount-default-gatekeeper-admin (reference:v1/ServiceAccount)
+Linked deployment-default-gatekeeper-controller-manager -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-gatekeeper-controller-manager -> serviceaccount-default-gatekeeper-admin (reference:v1/ServiceAccount)
+Linked mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration -> namespace-default (reference:v1/Namespace)
+Linked mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration -> service-default-gatekeeper-webhook-service (reference:v1/Service)
+Linked poddisruptionbudget-default-gatekeeper-controller-manager -> deployment-default-gatekeeper-controller-manager (selector)
+Linked poddisruptionbudget-default-gatekeeper-controller-manager -> namespace-default (reference:v1/Namespace)
+Linked resourcequota-default-gatekeeper-critical-pods -> namespace-default (reference:v1/Namespace)
+Linked role-default-gatekeeper-manager-role -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-gatekeeper-manager-rolebinding -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-gatekeeper-manager-rolebinding -> role-default-gatekeeper-manager-role (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-gatekeeper-manager-rolebinding -> serviceaccount-default-gatekeeper-admin (reference:v1/ServiceAccount)
+Linked service-default-gatekeeper-webhook-service -> deployment-default-gatekeeper-controller-manager (selector)
+Linked service-default-gatekeeper-webhook-service -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-gatekeeper-admin -> namespace-default (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration -> namespace-default (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration -> service-default-gatekeeper-webhook-service (reference:v1/Service)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrole-gatekeeper-manager-role -> v1/Secret "gatekeeper-mutating-webhook-configuration"
+  - clusterrole-gatekeeper-manager-role -> v1/Secret "gatekeeper-validating-webhook-configuration"
+  - deployment-default-gatekeeper-audit -> scheduling.k8s.io/v1/PriorityClass "system-cluster-critical"
+  - deployment-default-gatekeeper-controller-manager -> scheduling.k8s.io/v1/PriorityClass "system-cluster-critical"
+
+Note: 1 rendered Secret(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/gatekeeper-no-crds/out/secrets were NOT uploaded to ConfigHub.
+Apply them out-of-band (e.g., `kubectl apply -f`) or stage them however your
+environment manages secrets:
+  - v1/Secret "default/gatekeeper-webhook-server-cert" (secret-default-gatekeeper-webhook-server-cert.yaml)

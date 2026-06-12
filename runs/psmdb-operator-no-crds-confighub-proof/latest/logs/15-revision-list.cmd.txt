@@ -1,0 +1,1 @@
+cub revision list deployment-default-psmdb-operator --space helm-psmdb-operator-no-crds-confighub-proof

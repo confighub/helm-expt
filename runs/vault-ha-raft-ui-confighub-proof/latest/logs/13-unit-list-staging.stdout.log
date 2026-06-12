@@ -1,0 +1,3265 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:54.780276Z",
+        "CursorID": 24552,
+        "DisplayName": "Upgrade namespace-vault",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "76ff3817-74d8-4b1c-8f77-1ed6d6628979",
+        "LinkID": "96af5cd7-eb96-44a2-8a78-13eeef30f2ef",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-vault",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "2ff71c2c-c671-415d-8950-d002d829217b",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:54.780276Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2ff71c2c-c671-415d-8950-d002d829217b' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fc750b89d5cd6122d8f63263b098a6daee1dcc392e654df447ccbdff1888a29e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "96af5cd7-eb96-44a2-8a78-13eeef30f2ef"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-vault",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "76ff3817-74d8-4b1c-8f77-1ed6d6628979",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2ff71c2c-c671-415d-8950-d002d829217b",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1254730242,
+      "CreatedAt": "2026-06-12T17:14:28.011692Z",
+      "CursorID": 29174,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IHZhdWx0Cg==",
+      "DataHash": "fc750b89d5cd6122d8f63263b098a6daee1dcc392e654df447ccbdff1888a29e",
+      "DisplayName": "namespace-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Initial Data: 55 bytes; from namespace-vault.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: vault\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2ff71c2c-c671-415d-8950-d002d829217b",
+      "UpdatedAt": "2026-06-12T17:14:28.133048Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:54.828879Z",
+        "CursorID": 24553,
+        "DisplayName": "Upgrade statefulset-vault-vault",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9cf04e9b-fbd2-41c1-b97a-4692afb71c32",
+        "LinkID": "67175a08-ddd2-4236-9a3f-4d20cf6cd508",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-statefulset-vault-vault",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "3166888a-9d5b-4815-a398-d035dd0b514f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:54.828879Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '3166888a-9d5b-4815-a398-d035dd0b514f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7f2a201eaa513ec23b8abb420eb5490fc0c7da30f77a8061af779e28646e13f3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "67175a08-ddd2-4236-9a3f-4d20cf6cd508"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9cf04e9b-fbd2-41c1-b97a-4692afb71c32",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "3166888a-9d5b-4815-a398-d035dd0b514f",
+      "Version": 8
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1643929846,
+      "CreatedAt": "2026-06-12T17:14:38.9819Z",
+      "CursorID": 29186,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0CnNwZWM6CiAgcG9kTWFuYWdlbWVudFBvbGljeTogUGFyYWxsZWwKICByZXBsaWNhczogMwogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdAogICAgICBjb21wb25lbnQ6IHNlcnZlcgogIHNlcnZpY2VOYW1lOiB2YXVsdC1pbnRlcm5hbAogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGFubm90YXRpb25zOiBudWxsCiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdAogICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgaGVsbS5zaC9jaGFydDogdmF1bHQtMC4zMi4wCiAgICBzcGVjOgogICAgICBhZmZpbml0eToKICAgICAgICBwb2RBbnRpQWZmaW5pdHk6CiAgICAgICAgICByZXF1aXJlZER1cmluZ1NjaGVkdWxpbmdJZ25vcmVkRHVyaW5nRXhlY3V0aW9uOgogICAgICAgICAgLSBsYWJlbFNlbGVjdG9yOgogICAgICAgICAgICAgIG1hdGNoTGFiZWxzOgogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdAogICAgICAgICAgICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICAgICAgICAgICAgdG9wb2xvZ3lLZXk6IGt1YmVybmV0ZXMuaW8vaG9zdG5hbWUKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gfAogICAgICAgICAgY3AgL3ZhdWx0L2NvbmZpZy9leHRyYWNvbmZpZy1mcm9tLXZhbHVlcy5oY2wgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVF9JUH0iIF0gJiYgc2VkIC1FaSAic3xIT1NUX0lQfCR7SE9TVF9JUD99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke1BPRF9JUH0iIF0gJiYgc2VkIC1FaSAic3xQT0RfSVB8JHtQT0RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtIT1NUTkFNRX0iIF0gJiYgc2VkIC1FaSAic3xIT1NUTkFNRXwke0hPU1ROQU1FP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7QVBJX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8QVBJX0FERFJ8JHtBUElfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke1RSQU5TSVRfQUREUn0iIF0gJiYgc2VkIC1FaSAic3xUUkFOU0lUX0FERFJ8JHtUUkFOU0lUX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtSQUZUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8UkFGVF9BRERSfCR7UkFGVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIC91c3IvbG9jYWwvYmluL2RvY2tlci1lbnRyeXBvaW50LnNoIHZhdWx0IHNlcnZlciAtY29uZmlnPS90bXAvc3RvcmFnZWNvbmZpZy5oY2wKICAgICAgICBjb21tYW5kOgogICAgICAgIC0gL2Jpbi9zaAogICAgICAgIC0gLWVjCiAgICAgICAgZW52OgogICAgICAgIC0gbmFtZTogSE9TVF9JUAogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IHN0YXR1cy5ob3N0SVAKICAgICAgICAtIG5hbWU6IFBPRF9JUAogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IHN0YXR1cy5wb2RJUAogICAgICAgIC0gbmFtZTogVkFVTFRfSzhTX1BPRF9OQU1FCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZQogICAgICAgIC0gbmFtZTogVkFVTFRfSzhTX05BTUVTUEFDRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWVzcGFjZQogICAgICAgIC0gbmFtZTogVkFVTFRfQUREUgogICAgICAgICAgdmFsdWU6IGh0dHA6Ly8xMjcuMC4wLjE6ODIwMAogICAgICAgIC0gbmFtZTogVkFVTFRfQVBJX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vJChQT0RfSVApOjgyMDAKICAgICAgICAtIG5hbWU6IFNLSVBfQ0hPV04KICAgICAgICAgIHZhbHVlOiAidHJ1ZSIKICAgICAgICAtIG5hbWU6IFNLSVBfU0VUQ0FQCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBIT1NUTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0NMVVNURVJfQUREUgogICAgICAgICAgdmFsdWU6IGh0dHBzOi8vJChIT1NUTkFNRSkudmF1bHQtaW50ZXJuYWw6ODIwMQogICAgICAgIC0gbmFtZTogSE9NRQogICAgICAgICAgdmFsdWU6IC9ob21lL3ZhdWx0CiAgICAgICAgaW1hZ2U6IGhhc2hpY29ycC92YXVsdDoxLjIxLjIKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpZmVjeWNsZToKICAgICAgICAgIHByZVN0b3A6CiAgICAgICAgICAgIGV4ZWM6CiAgICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgICAtIC9iaW4vc2gKICAgICAgICAgICAgICAtIC1jCiAgICAgICAgICAgICAgLSBzbGVlcCA1ICYmIGtpbGwgLVNJR1RFUk0gJChwaWRvZiB2YXVsdCkKICAgICAgICBuYW1lOiB2YXVsdAogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogODIwMAogICAgICAgICAgbmFtZTogaHR0cAogICAgICAgIC0gY29udGFpbmVyUG9ydDogODIwMQogICAgICAgICAgbmFtZTogaHR0cHMtaW50ZXJuYWwKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDIKICAgICAgICAgIG5hbWU6IGh0dHAtcmVwCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBleGVjOgogICAgICAgICAgICBjb21tYW5kOgogICAgICAgICAgICAtIC9iaW4vc2gKICAgICAgICAgICAgLSAtZWMKICAgICAgICAgICAgLSB2YXVsdCBzdGF0dXMgLXRscy1za2lwLXZlcmlmeQogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMgogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogNQogICAgICAgICAgcGVyaW9kU2Vjb25kczogNQogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDMKICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBhbGxvd1ByaXZpbGVnZUVzY2FsYXRpb246IGZhbHNlCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvdmF1bHQvZGF0YQogICAgICAgICAgbmFtZTogZGF0YQogICAgICAgIC0gbW91bnRQYXRoOiAvdmF1bHQvY29uZmlnCiAgICAgICAgICBuYW1lOiBjb25maWcKICAgICAgICAtIG1vdW50UGF0aDogL2hvbWUvdmF1bHQKICAgICAgICAgIG5hbWU6IGhvbWUKICAgICAgaG9zdE5ldHdvcms6IGZhbHNlCiAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICBmc0dyb3VwOiAxMDAwCiAgICAgICAgcnVuQXNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzTm9uUm9vdDogdHJ1ZQogICAgICAgIHJ1bkFzVXNlcjogMTAwCiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogdmF1bHQKICAgICAgdGVybWluYXRpb25HcmFjZVBlcmlvZFNlY29uZHM6IDEwCiAgICAgIHZvbHVtZXM6CiAgICAgIC0gY29uZmlnTWFwOgogICAgICAgICAgbmFtZTogdmF1bHQtY29uZmlnCiAgICAgICAgbmFtZTogY29uZmlnCiAgICAgIC0gZW1wdHlEaXI6IHt9CiAgICAgICAgbmFtZTogaG9tZQogIHVwZGF0ZVN0cmF0ZWd5OgogICAgdHlwZTogT25EZWxldGUKICB2b2x1bWVDbGFpbVRlbXBsYXRlczoKICAtIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBQZXJzaXN0ZW50Vm9sdW1lQ2xhaW0KICAgIG1ldGFkYXRhOgogICAgICBuYW1lOiBkYXRhCiAgICBzcGVjOgogICAgICBhY2Nlc3NNb2RlczoKICAgICAgLSBSZWFkV3JpdGVPbmNlCiAgICAgIHJlc291cmNlczoKICAgICAgICByZXF1ZXN0czoKICAgICAgICAgIHN0b3JhZ2U6IDEwR2kK",
+      "DataHash": "7f2a201eaa513ec23b8abb420eb5490fc0c7da30f77a8061af779e28646e13f3",
+      "DisplayName": "statefulset-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault\nspec:\n  podManagementPolicy: Parallel\n  replicas: 3\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/StatefulSet"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/StatefulSet"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "apps/v1/StatefulSet"
+        }
+      ],
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3166888a-9d5b-4815-a398-d035dd0b514f",
+      "UpdatedAt": "2026-06-12T17:15:39.731527Z",
+      "Version": 19
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:54.894117Z",
+        "CursorID": 24554,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c032fe9d-38f6-496d-a5c5-75af94bf1e26",
+        "LinkID": "4ef2e287-c568-4ed3-9641-9d44fb6a5305",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "347ec0c1-a43b-420e-89c0-1c50ff3ffd83",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:54.894117Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '347ec0c1-a43b-420e-89c0-1c50ff3ffd83' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5c1379b73053ff2f4ebd356eb4764b4208f502ea28dba3dc447ec462af790f03",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4ef2e287-c568-4ed3-9641-9d44fb6a5305"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c032fe9d-38f6-496d-a5c5-75af94bf1e26",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "347ec0c1-a43b-420e-89c0-1c50ff3ffd83",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "hashicorp-vault",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 329822618,
+      "CreatedAt": "2026-06-12T17:14:39.857585Z",
+      "CursorID": 29187,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImhhc2hpY29ycC12YXVsdCIKICB2ZXJzaW9uOiAiMC4zMi4wIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBuYW1lOiAiZGV2LW1vZGUiCiAgICBwYXRoOiAiYmFzZXMvZGV2LW1vZGUiCiAgICBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogInZhdWx0IGRldiBzZXJ2ZXIgd2l0aG91dCBpbml0L3Vuc2VhbCB2YXJpYW50IHJlbmRlcmVkIGZyb20gaGFzaGljb3JwL3ZhdWx0QDAuMzIuMCIKICAtIG5hbWU6ICJkZWZhdWx0IgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQiCiAgICBkZXNjcmlwdGlvbjogInZhdWx0IGRlZmF1bHQgc2VydmVyIHdpdGggaW5qZWN0b3IgdmFyaWFudCByZW5kZXJlZCBmcm9tIGhhc2hpY29ycC92YXVsdEAwLjMyLjAiCiAgLSBuYW1lOiAiaGEtcmFmdC11aSIKICAgIHBhdGg6ICJiYXNlcy9oYS1yYWZ0LXVpIgogICAgZGVzY3JpcHRpb246ICJ2YXVsdCBIQSBSYWZ0IHdpdGggVUkgdmFyaWFudCByZW5kZXJlZCBmcm9tIGhhc2hpY29ycC92YXVsdEAwLjMyLjAiCiAgY29sbGVjdG9yOgogICAgY29tbWFuZDogIi9iaW4vc2giCiAgICBhcmdzOgogICAgLSAiY29sbGVjdG9yL3RhcmdldC1mYWN0cy5zaCIKICAgIGRlc2NyaXB0aW9uOiAiUmVjb3JkcyB0YXJnZXQtZmFjdCBiaW5kaW5ncyBhbmQgY2FuIGxpdmUtY2hlY2sgY2x1c3Rlci12aXNpYmxlIFNlY3JldCBhbmQgQ1JEIHJlcXVpcmVtZW50cy4iCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGYWN0cwptZXRhZGF0YToKICBuYW1lOiBoYXNoaWNvcnAtdmF1bHQtZmFjdHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGhhc2hpY29ycC12YXVsdAogIHZhbHVlczoKICAgIHRhcmdldEZhY3RDaGVja3M6CiAgICAgIGJhc2U6IGhhLXJhZnQtdWkKICAgICAgbW9kZTogcmVjb3JkCiAgICAgIHJlc3VsdDogcmVjb3JkZWQKICAgIHRhcmdldEZhY3RzOgogICAgICByZXF1aXJlZENSRHM6IFtdCiAgICAgIHJlcXVpcmVkT2JqZWN0U3RvcmVzOiBbXQogICAgICByZXF1aXJlZFNlY3JldHM6IFtdCiAgICAgIHJlcXVpcmVkVG9wb2xvZ3k6CiAgICAgICAgbWluaW11bVNjaGVkdWxhYmxlTm9kZXM6IDMKICAgICAgICBwdXJwb3NlOiBzY2hlZHVsZSB0aGUgdGhyZWUgVmF1bHQgc2VydmVyIHJlcGxpY2FzIHJlbmRlcmVkIGJ5IHRoZSBIQSBSYWZ0IGJhc2UKICAgICAgcmVxdWlyZWRWYWx1ZXM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IGhhc2hpY29ycC12YXVsdC1mdW5jdGlvbi1jaGFpbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogaGFzaGljb3JwLXZhdWx0CiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IGhhc2hpY29ycC12YXVsdC1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGhhc2hpY29ycC12YXVsdAogIG5hbWVzcGFjZTogdmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGhhc2hpY29ycC12YXVsdC1tYW5pZmVzdC1pbmRleAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogaGFzaGljb3JwLXZhdWx0CiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtdmF1bHQtYWdlbnQtaW5qZWN0b3ItY2x1c3RlcnJvbGUueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtdmF1bHQtYWdlbnQtaW5qZWN0b3ItY2x1c3RlcnJvbGUKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiB2YXVsdC1hZ2VudC1pbmplY3Rvci1jbHVzdGVycm9sZQogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlYmluZGluZy12YXVsdC1hZ2VudC1pbmplY3Rvci1iaW5kaW5nLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlYmluZGluZy12YXVsdC1hZ2VudC1pbmplY3Rvci1iaW5kaW5nCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yLWJpbmRpbmcKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctdmF1bHQtc2VydmVyLWJpbmRpbmcueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLXZhdWx0LXNlcnZlci1iaW5kaW5nCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IHZhdWx0LXNlcnZlci1iaW5kaW5nCiAgLSBmaWxlbmFtZTogY29uZmlnbWFwLXZhdWx0LXZhdWx0LWNvbmZpZy55YW1sCiAgICBzbHVnOiBjb25maWdtYXAtdmF1bHQtdmF1bHQtY29uZmlnCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogQ29uZmlnTWFwCiAgICBuYW1lOiB2YXVsdC1jb25maWcKICAgIG5hbWVzcGFjZTogdmF1bHQKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LXZhdWx0LXZhdWx0LWFnZW50LWluamVjdG9yLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtdmF1bHQtdmF1bHQtYWdlbnQtaW5qZWN0b3IKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yCiAgICBuYW1lc3BhY2U6IHZhdWx0CiAgLSBmaWxlbmFtZTogbXV0YXRpbmd3ZWJob29rY29uZmlndXJhdGlvbi12YXVsdC1hZ2VudC1pbmplY3Rvci1jZmcueWFtbAogICAgc2x1ZzogbXV0YXRpbmd3ZWJob29rY29uZmlndXJhdGlvbi12YXVsdC1hZ2VudC1pbmplY3Rvci1jZmcKICAgIGFwaVZlcnNpb246IGFkbWlzc2lvbnJlZ2lzdHJhdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IE11dGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KICAgIG5hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yLWNmZwogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS12YXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtdmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IHZhdWx0CiAgLSBmaWxlbmFtZTogcG9kZGlzcnVwdGlvbmJ1ZGdldC12YXVsdC12YXVsdC55YW1sCiAgICBzbHVnOiBwb2RkaXNydXB0aW9uYnVkZ2V0LXZhdWx0LXZhdWx0CiAgICBhcGlWZXJzaW9uOiBwb2xpY3kvdjEKICAgIGtpbmQ6IFBvZERpc3J1cHRpb25CdWRnZXQKICAgIG5hbWU6IHZhdWx0CiAgICBuYW1lc3BhY2U6IHZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZS12YXVsdC12YXVsdC1kaXNjb3Zlcnktcm9sZS55YW1sCiAgICBzbHVnOiByb2xlLXZhdWx0LXZhdWx0LWRpc2NvdmVyeS1yb2xlCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlCiAgICBuYW1lOiB2YXVsdC1kaXNjb3Zlcnktcm9sZQogICAgbmFtZXNwYWNlOiB2YXVsdAogIC0gZmlsZW5hbWU6IHJvbGViaW5kaW5nLXZhdWx0LXZhdWx0LWRpc2NvdmVyeS1yb2xlYmluZGluZy55YW1sCiAgICBzbHVnOiByb2xlYmluZGluZy12YXVsdC12YXVsdC1kaXNjb3Zlcnktcm9sZWJpbmRpbmcKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGVCaW5kaW5nCiAgICBuYW1lOiB2YXVsdC1kaXNjb3Zlcnktcm9sZWJpbmRpbmcKICAgIG5hbWVzcGFjZTogdmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLXZhdWx0LXZhdWx0LnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtdmF1bHQtdmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiB2YXVsdAogICAgbmFtZXNwYWNlOiB2YXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2UtdmF1bHQtdmF1bHQtYWN0aXZlLnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtdmF1bHQtdmF1bHQtYWN0aXZlCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogdmF1bHQtYWN0aXZlCiAgICBuYW1lc3BhY2U6IHZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS12YXVsdC12YXVsdC1hZ2VudC1pbmplY3Rvci1zdmMueWFtbAogICAgc2x1Zzogc2VydmljZS12YXVsdC12YXVsdC1hZ2VudC1pbmplY3Rvci1zdmMKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiB2YXVsdC1hZ2VudC1pbmplY3Rvci1zdmMKICAgIG5hbWVzcGFjZTogdmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLXZhdWx0LXZhdWx0LWludGVybmFsLnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtdmF1bHQtdmF1bHQtaW50ZXJuYWwKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiB2YXVsdC1pbnRlcm5hbAogICAgbmFtZXNwYWNlOiB2YXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2UtdmF1bHQtdmF1bHQtc3RhbmRieS55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLXZhdWx0LXZhdWx0LXN0YW5kYnkKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiB2YXVsdC1zdGFuZGJ5CiAgICBuYW1lc3BhY2U6IHZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS12YXVsdC12YXVsdC11aS55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLXZhdWx0LXZhdWx0LXVpCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogdmF1bHQtdWkKICAgIG5hbWVzcGFjZTogdmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC12YXVsdC12YXVsdC55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC12YXVsdC12YXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiB2YXVsdAogICAgbmFtZXNwYWNlOiB2YXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LXZhdWx0LXZhdWx0LWFnZW50LWluamVjdG9yLnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LXZhdWx0LXZhdWx0LWFnZW50LWluamVjdG9yCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yCiAgICBuYW1lc3BhY2U6IHZhdWx0CiAgLSBmaWxlbmFtZTogc3RhdGVmdWxzZXQtdmF1bHQtdmF1bHQueWFtbAogICAgc2x1Zzogc3RhdGVmdWxzZXQtdmF1bHQtdmF1bHQKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IFN0YXRlZnVsU2V0CiAgICBuYW1lOiB2YXVsdAogICAgbmFtZXNwYWNlOiB2YXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGhhc2hpY29ycC12YXVsdC1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGhhc2hpY29ycC12YXVsdAogIGJhc2U6IGhhLXJhZnQtdWkKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBoYXNoaWNvcnAtdmF1bHQtdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBoYXNoaWNvcnAtdmF1bHQKICBzcGFjZVBhdHRlcm46IGhlbG0tdmF1bHQtaGEtcmFmdC11aS1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBoYXNoaWNvcnAtdmF1bHQKICAgIHNsdWc6IGhlbG0tdmF1bHQtaGEtcmFmdC11aS1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTc6MTQ6MjBaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "5c1379b73053ff2f4ebd356eb4764b4208f502ea28dba3dc447ec462af790f03",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "hashicorp-vault"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/hashicorp-vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-vault": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-vault",
+            "ResourceNameWithoutScope": "hashicorp-vault",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"hashicorp-vault\"\n  version: \"0.32.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"dev-mode\"\n    path: \"bases/dev-mode\"\n    default: true\n    description: \"vault dev server without init/unseal variant rendered from hashicorp/vault@0.32.0\"\n  - name: \"default\"\n    path: \"bases/default\"\n    description: \"vault default server with injector variant rendered from hashicorp/vault@0.32.0\"\n  - name: \"ha-raft-ui\"\n    path: \"bases/ha-raft-ui\"\n    description: \"vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0\"\n  collector:\n    command: \"/bin/sh\"\n    args:\n    - \"collector/target-facts.sh\"\n    description: \"Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements.\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-vault-facts": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-vault-facts": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-vault-facts",
+            "ResourceNameWithoutScope": "hashicorp-vault-facts",
+            "ResourceType": "installer.confighub.com/v1alpha1/Facts"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Facts\nmetadata:\n  name: hashicorp-vault-facts\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-vault\n  values:\n    targetFactChecks:\n      base: ha-raft-ui\n      mode: record\n      result: recorded\n    targetFacts:\n      requiredCRDs: []\n      requiredObjectStores: []\n      requiredSecrets: []\n      requiredTopology:\n        minimumSchedulableNodes: 3\n        purpose: schedule the three Vault server replicas rendered by the HA Raft base\n      requiredValues: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-vault-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-vault-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-vault-function-chain",
+            "ResourceNameWithoutScope": "hashicorp-vault-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: hashicorp-vault-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-vault\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-vault-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-vault-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-vault-inputs",
+            "ResourceNameWithoutScope": "hashicorp-vault-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: hashicorp-vault-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-vault\n  namespace: vault\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-vault-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-vault-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-vault-manifest-index",
+            "ResourceNameWithoutScope": "hashicorp-vault-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: hashicorp-vault-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-vault\n  files:\n  - filename: clusterrole-vault-agent-injector-clusterrole.yaml\n    slug: clusterrole-vault-agent-injector-clusterrole\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: vault-agent-injector-clusterrole\n  - filename: clusterrolebinding-vault-agent-injector-binding.yaml\n    slug: clusterrolebinding-vault-agent-injector-binding\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: vault-agent-injector-binding\n  - filename: clusterrolebinding-vault-server-binding.yaml\n    slug: clusterrolebinding-vault-server-binding\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: vault-server-binding\n  - filename: configmap-vault-vault-config.yaml\n    slug: configmap-vault-vault-config\n    apiVersion: v1\n    kind: ConfigMap\n    name: vault-config\n    namespace: vault\n  - filename: deployment-vault-vault-agent-injector.yaml\n    slug: deployment-vault-vault-agent-injector\n    apiVersion: apps/v1\n    kind: Deployment\n    name: vault-agent-injector\n    namespace: vault\n  - filename: mutatingwebhookconfiguration-vault-agent-injector-cfg.yaml\n    slug: mutatingwebhookconfiguration-vault-agent-injector-cfg\n    apiVersion: admissionregistration.k8s.io/v1\n    kind: MutatingWebhookConfiguration\n    name: vault-agent-injector-cfg\n  - filename: namespace-vault.yaml\n    slug: namespace-vault\n    apiVersion: v1\n    kind: Namespace\n    name: vault\n  - filename: poddisruptionbudget-vault-vault.yaml\n    slug: poddisruptionbudget-vault-vault\n    apiVersion: policy/v1\n    kind: PodDisruptionBudget\n    name: vault\n    namespace: vault\n  - filename: role-vault-vault-discovery-role.yaml\n    slug: role-vault-vault-discovery-role\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: vault-discovery-role\n    namespace: vault\n  - filename: rolebinding-vault-vault-discovery-rolebinding.yaml\n    slug: rolebinding-vault-vault-discovery-rolebinding\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: vault-discovery-rolebinding\n    namespace: vault\n  - filename: service-vault-vault.yaml\n    slug: service-vault-vault\n    apiVersion: v1\n    kind: Service\n    name: vault\n    namespace: vault\n  - filename: service-vault-vault-active.yaml\n    slug: service-vault-vault-active\n    apiVersion: v1\n    kind: Service\n    name: vault-active\n    namespace: vault\n  - filename: service-vault-vault-agent-injector-svc.yaml\n    slug: service-vault-vault-agent-injector-svc\n    apiVersion: v1\n    kind: Service\n    name: vault-agent-injector-svc\n    namespace: vault\n  - filename: service-vault-vault-internal.yaml\n    slug: service-vault-vault-internal\n    apiVersion: v1\n    kind: Service\n    name: vault-internal\n    namespace: vault\n  - filename: service-vault-vault-standby.yaml\n    slug: service-vault-vault-standby\n    apiVersion: v1\n    kind: Service\n    name: vault-standby\n    namespace: vault\n  - filename: service-vault-vault-ui.yaml\n    slug: service-vault-vault-ui\n    apiVersion: v1\n    kind: Service\n    name: vault-ui\n    namespace: vault\n  - filename: serviceaccount-vault-vault.yaml\n    slug: serviceaccount-vault-vault\n    apiVersion: v1\n    kind: ServiceAccount\n    name: vault\n    namespace: vault\n  - filename: serviceaccount-vault-vault-agent-injector.yaml\n    slug: serviceaccount-vault-vault-agent-injector\n    apiVersion: v1\n    kind: ServiceAccount\n    name: vault-agent-injector\n    namespace: vault\n  - filename: statefulset-vault-vault.yaml\n    slug: statefulset-vault-vault\n    apiVersion: apps/v1\n    kind: StatefulSet\n    name: vault\n    namespace: vault\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-vault-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-vault-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-vault-selection",
+            "ResourceNameWithoutScope": "hashicorp-vault-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: hashicorp-vault-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-vault\n  base: ha-raft-ui\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-vault-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-vault-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-vault-upload",
+            "ResourceNameWithoutScope": "hashicorp-vault-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: hashicorp-vault-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-vault\n  spacePattern: helm-vault-ha-raft-ui-confighub-proof\n  spaces:\n  - package: hashicorp-vault\n    slug: helm-vault-ha-raft-ui-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:14:20Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "347ec0c1-a43b-420e-89c0-1c50ff3ffd83",
+      "UpdatedAt": "2026-06-12T17:14:41.012417Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:54.930122Z",
+        "CursorID": 24555,
+        "DisplayName": "Upgrade clusterrole-vault-agent-injector-clusterrole",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2739f074-04e6-41ab-9c84-be6e8070e392",
+        "LinkID": "5b0d2f69-5d19-49b5-9338-9c630aab37b8",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-vault-agent-injector-clusterrole",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "da01c08f-04fd-434b-955c-b331794ea993",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:54.930122Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'da01c08f-04fd-434b-955c-b331794ea993' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1e9ad74787184e0207846ed87cafbeb1321cce9e70e184d4c4a6c622c53e6b00",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "5b0d2f69-5d19-49b5-9338-9c630aab37b8"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vault-agent-injector-clusterrole",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2739f074-04e6-41ab-9c84-be6e8070e392",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "da01c08f-04fd-434b-955c-b331794ea993",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1636706435,
+      "CreatedAt": "2026-06-12T17:14:22.061035Z",
+      "CursorID": 29164,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yCiAgbmFtZTogdmF1bHQtYWdlbnQtaW5qZWN0b3ItY2x1c3RlcnJvbGUKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pbwogIHJlc291cmNlczoKICAtIG11dGF0aW5nd2ViaG9va2NvbmZpZ3VyYXRpb25zCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBwYXRjaAo=",
+      "DataHash": "1e9ad74787184e0207846ed87cafbeb1321cce9e70e184d4c4a6c622c53e6b00",
+      "DisplayName": "clusterrole-vault-agent-injector-clusterrole",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/vault-agent-injector-clusterrole": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-agent-injector-clusterrole": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vault-agent-injector-clusterrole",
+            "ResourceNameWithoutScope": "vault-agent-injector-clusterrole",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault-agent-injector\n  name: vault-agent-injector-clusterrole\nrules:\n- apiGroups:\n  - admissionregistration.k8s.io\n  resources:\n  - mutatingwebhookconfigurations\n  verbs:\n  - get\n  - list\n  - watch\n  - patch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/vault-agent-injector-clusterrole",
+          "ResourceNameWithoutScope": "vault-agent-injector-clusterrole",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-vault-agent-injector-clusterrole",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "da01c08f-04fd-434b-955c-b331794ea993",
+      "UpdatedAt": "2026-06-12T17:14:40.951045Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.027491Z",
+        "CursorID": 24558,
+        "DisplayName": "Upgrade configmap-vault-vault-config",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "97582ae1-827a-4bdf-9fa4-fc5402d60396",
+        "LinkID": "c4a0d1e8-01be-4988-bac1-513a52d2bc66",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-vault-vault-config",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "6af9cfa5-074b-4bb6-b0f4-6cadd6b9eedd",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.027491Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '6af9cfa5-074b-4bb6-b0f4-6cadd6b9eedd' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "318fd740c91194023cae2396873bd768cc31eade99d46e18339ae2eba4976078",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c4a0d1e8-01be-4988-bac1-513a52d2bc66"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-vault-vault-config",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "97582ae1-827a-4bdf-9fa4-fc5402d60396",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "6af9cfa5-074b-4bb6-b0f4-6cadd6b9eedd",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1403711322,
+      "CreatedAt": "2026-06-12T17:14:24.329828Z",
+      "CursorID": 29170,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBleHRyYWNvbmZpZy1mcm9tLXZhbHVlcy5oY2w6IHwtCiAgICB1aSA9IHRydWUKCiAgICBsaXN0ZW5lciAidGNwIiB7CiAgICAgIHRsc19kaXNhYmxlID0gMQogICAgICBhZGRyZXNzID0gIls6Ol06ODIwMCIKICAgICAgY2x1c3Rlcl9hZGRyZXNzID0gIls6Ol06ODIwMSIKICAgICAgIyBFbmFibGUgdW5hdXRoZW50aWNhdGVkIG1ldHJpY3MgYWNjZXNzIChuZWNlc3NhcnkgZm9yIFByb21ldGhldXMgT3BlcmF0b3IpCiAgICAgICN0ZWxlbWV0cnkgewogICAgICAjICB1bmF1dGhlbnRpY2F0ZWRfbWV0cmljc19hY2Nlc3MgPSAidHJ1ZSIKICAgICAgI30KICAgIH0KCiAgICBzdG9yYWdlICJyYWZ0IiB7CiAgICAgIHBhdGggPSAiL3ZhdWx0L2RhdGEiCiAgICB9CgogICAgc2VydmljZV9yZWdpc3RyYXRpb24gImt1YmVybmV0ZXMiIHt9CgogICAgZGlzYWJsZV9tbG9jayA9IHRydWUKa2luZDogQ29uZmlnTWFwCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogIG5hbWU6IHZhdWx0LWNvbmZpZwogIG5hbWVzcGFjZTogdmF1bHQK",
+      "DataHash": "318fd740c91194023cae2396873bd768cc31eade99d46e18339ae2eba4976078",
+      "DisplayName": "configmap-vault-vault-config",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Initial Data: 684 bytes; from configmap-vault-vault-config.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-config": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-config": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-config",
+            "ResourceNameWithoutScope": "vault-config",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  extraconfig-from-values.hcl: |-\n    ui = true\n\n    listener \"tcp\" {\n      tls_disable = 1\n      address = \"[::]:8200\"\n      cluster_address = \"[::]:8201\"\n      # Enable unauthenticated metrics access (necessary for Prometheus Operator)\n      #telemetry {\n      #  unauthenticated_metrics_access = \"true\"\n      #}\n    }\n\n    storage \"raft\" {\n      path = \"/vault/data\"\n    }\n\n    service_registration \"kubernetes\" {}\n\n    disable_mlock = true\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n  name: vault-config\n  namespace: vault\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "vault",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-extraconfig-from-values.hcl": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault-config",
+          "ResourceNameWithoutScope": "vault-config",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-vault-vault-config",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6af9cfa5-074b-4bb6-b0f4-6cadd6b9eedd",
+      "UpdatedAt": "2026-06-12T17:15:05.6172Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.247646Z",
+        "CursorID": 24561,
+        "DisplayName": "Upgrade poddisruptionbudget-vault-vault",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ce4cbef9-56a2-407f-a3cc-26071ad0b56c",
+        "LinkID": "7df2a837-c53a-427b-b8ac-0fda74256c37",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-poddisruptionbudget-vault-vault",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "d34e0c5a-5ef0-4254-bb16-0d097339624f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.247646Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd34e0c5a-5ef0-4254-bb16-0d097339624f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "af3b86148996fc629418b095878a1ed22326216159e7408c860461a53420a56c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7df2a837-c53a-427b-b8ac-0fda74256c37"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-vault-vault",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ce4cbef9-56a2-407f-a3cc-26071ad0b56c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d34e0c5a-5ef0-4254-bb16-0d097339624f",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1014293654,
+      "CreatedAt": "2026-06-12T17:14:29.191378Z",
+      "CursorID": 29175,
+      "Data": "YXBpVmVyc2lvbjogcG9saWN5L3YxCmtpbmQ6IFBvZERpc3J1cHRpb25CdWRnZXQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdAogICAgaGVsbS5zaC9jaGFydDogdmF1bHQtMC4zMi4wCiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0CnNwZWM6CiAgbWF4VW5hdmFpbGFibGU6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIK",
+      "DataHash": "af3b86148996fc629418b095878a1ed22326216159e7408c860461a53420a56c",
+      "DisplayName": "poddisruptionbudget-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Initial Data: 399 bytes; from poddisruptionbudget-vault-vault.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "policy/v1/PodDisruptionBudget"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: policy/v1\nkind: PodDisruptionBudget\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n  name: vault\n  namespace: vault\nspec:\n  maxUnavailable: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-vault-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d34e0c5a-5ef0-4254-bb16-0d097339624f",
+      "UpdatedAt": "2026-06-12T17:15:19.009876Z",
+      "Version": 8
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.298401Z",
+        "CursorID": 24562,
+        "DisplayName": "Upgrade role-vault-vault-discovery-role",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2eb7c2cd-8f57-40f7-b877-20557897c7a2",
+        "LinkID": "0b01aec0-02ef-495f-a77f-b4fc9b5986f3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-vault-vault-discovery-role",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "18d1e889-5d1b-49f4-9a8b-e528cca9b1ce",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.298402Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '18d1e889-5d1b-49f4-9a8b-e528cca9b1ce' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "657e89dd6b6f059bf47b2f28ecaadac8bf98d7af1840ad9ad20de7030854a58f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0b01aec0-02ef-495f-a77f-b4fc9b5986f3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-vault-vault-discovery-role",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2eb7c2cd-8f57-40f7-b877-20557897c7a2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "18d1e889-5d1b-49f4-9a8b-e528cca9b1ce",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -927825861,
+      "CreatedAt": "2026-06-12T17:14:30.146548Z",
+      "CursorID": 29176,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogIG5hbWU6IHZhdWx0LWRpc2NvdmVyeS1yb2xlCiAgbmFtZXNwYWNlOiB2YXVsdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHBvZHMKICB2ZXJiczoKICAtIGdldAogIC0gd2F0Y2gKICAtIGxpc3QKICAtIHVwZGF0ZQogIC0gcGF0Y2gK",
+      "DataHash": "657e89dd6b6f059bf47b2f28ecaadac8bf98d7af1840ad9ad20de7030854a58f",
+      "DisplayName": "role-vault-vault-discovery-role",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-discovery-role": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-discovery-role": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-discovery-role",
+            "ResourceNameWithoutScope": "vault-discovery-role",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n  name: vault-discovery-role\n  namespace: vault\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  verbs:\n  - get\n  - watch\n  - list\n  - update\n  - patch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault-discovery-role",
+          "ResourceNameWithoutScope": "vault-discovery-role",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-vault-vault-discovery-role",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "18d1e889-5d1b-49f4-9a8b-e528cca9b1ce",
+      "UpdatedAt": "2026-06-12T17:15:20.101857Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.339593Z",
+        "CursorID": 24563,
+        "DisplayName": "Upgrade rolebinding-vault-vault-discovery-rolebinding",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "fce865a8-760c-4f1a-8533-bcc238a3eff8",
+        "LinkID": "5ca65bdd-a6b6-4267-ba8c-356269ac1490",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-vault-vault-discovery-rolebinding",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "7ce1a6ae-29c2-45e8-926c-222fe01ffbec",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.339593Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7ce1a6ae-29c2-45e8-926c-222fe01ffbec' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8fa9a15e1187c6d039bca72af8eab45122d0b4feb06fe6b0376e82cafcd7dcc5",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "5ca65bdd-a6b6-4267-ba8c-356269ac1490"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-vault-vault-discovery-rolebinding",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fce865a8-760c-4f1a-8533-bcc238a3eff8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7ce1a6ae-29c2-45e8-926c-222fe01ffbec",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -228673559,
+      "CreatedAt": "2026-06-12T17:14:31.196763Z",
+      "CursorID": 29177,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICBoZWxtLnNoL2NoYXJ0OiB2YXVsdC0wLjMyLjAKICBuYW1lOiB2YXVsdC1kaXNjb3Zlcnktcm9sZWJpbmRpbmcKICBuYW1lc3BhY2U6IHZhdWx0CnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBSb2xlCiAgbmFtZTogdmF1bHQtZGlzY292ZXJ5LXJvbGUKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiB2YXVsdAogIG5hbWVzcGFjZTogdmF1bHQK",
+      "DataHash": "8fa9a15e1187c6d039bca72af8eab45122d0b4feb06fe6b0376e82cafcd7dcc5",
+      "DisplayName": "rolebinding-vault-vault-discovery-rolebinding",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-discovery-rolebinding": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-discovery-rolebinding": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-discovery-rolebinding",
+            "ResourceNameWithoutScope": "vault-discovery-rolebinding",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n  name: vault-discovery-rolebinding\n  namespace: vault\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: vault-discovery-role\nsubjects:\n- kind: ServiceAccount\n  name: vault\n  namespace: vault\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-vault-vault-discovery-rolebinding",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7ce1a6ae-29c2-45e8-926c-222fe01ffbec",
+      "UpdatedAt": "2026-06-12T17:15:22.107513Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.428096Z",
+        "CursorID": 24564,
+        "DisplayName": "Upgrade service-vault-vault",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "cac0f2f6-d27c-4841-8235-fc4087bcc741",
+        "LinkID": "6cd849d1-a11b-424e-adb7-3c7a8dfb1d6d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-vault-vault",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "0bcc68dd-a6d5-48f4-b60b-ed5291830463",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.428096Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0bcc68dd-a6d5-48f4-b60b-ed5291830463' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "192281d313c3c108f8d111978f4e061fc9d12d9518b02418fec6e6b8abdc828f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "6cd849d1-a11b-424e-adb7-3c7a8dfb1d6d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cac0f2f6-d27c-4841-8235-fc4087bcc741",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0bcc68dd-a6d5-48f4-b60b-ed5291830463",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1298847062,
+      "CreatedAt": "2026-06-12T17:14:36.841305Z",
+      "CursorID": 29183,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICBoZWxtLnNoL2NoYXJ0OiB2YXVsdC0wLjMyLjAKICBuYW1lOiB2YXVsdAogIG5hbWVzcGFjZTogdmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IGh0dHAKICAgIHBvcnQ6IDgyMDAKICAgIHRhcmdldFBvcnQ6IDgyMDAKICAtIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICBwb3J0OiA4MjAxCiAgICB0YXJnZXRQb3J0OiA4MjAxCiAgcHVibGlzaE5vdFJlYWR5QWRkcmVzc2VzOiB0cnVlCiAgc2VsZWN0b3I6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICBjb21wb25lbnQ6IHNlcnZlcgo=",
+      "DataHash": "192281d313c3c108f8d111978f4e061fc9d12d9518b02418fec6e6b8abdc828f",
+      "DisplayName": "service-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n  name: vault\n  namespace: vault\nspec:\n  ports:\n  - name: http\n    port: 8200\n    targetPort: 8200\n  - name: https-internal\n    port: 8201\n    targetPort: 8201\n  publishNotReadyAddresses: true\n  selector:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/name: vault\n    component: server\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-vault-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0bcc68dd-a6d5-48f4-b60b-ed5291830463",
+      "UpdatedAt": "2026-06-12T17:15:24.10156Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.50159Z",
+        "CursorID": 24565,
+        "DisplayName": "Upgrade service-vault-vault-active",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1b517bee-4e45-4444-8ebc-46210630e683",
+        "LinkID": "dea66ee2-7414-49a2-bd65-0c2f364fda55",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-vault-vault-active",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "8ef73e1a-245d-4321-9910-30f12a1760fc",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.501591Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8ef73e1a-245d-4321-9910-30f12a1760fc' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c55910981e31de7e2f9a99adfe8a0e2f64e4fd8e4b1b59bd0986f8b3ebf6d811",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "dea66ee2-7414-49a2-bd65-0c2f364fda55"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-active",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1b517bee-4e45-4444-8ebc-46210630e683",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8ef73e1a-245d-4321-9910-30f12a1760fc",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -874223915,
+      "CreatedAt": "2026-06-12T17:14:32.975245Z",
+      "CursorID": 29178,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICBoZWxtLnNoL2NoYXJ0OiB2YXVsdC0wLjMyLjAKICAgIHZhdWx0LWFjdGl2ZTogInRydWUiCiAgbmFtZTogdmF1bHQtYWN0aXZlCiAgbmFtZXNwYWNlOiB2YXVsdApzcGVjOgogIHBvcnRzOgogIC0gbmFtZTogaHR0cAogICAgcG9ydDogODIwMAogICAgdGFyZ2V0UG9ydDogODIwMAogIC0gbmFtZTogaHR0cHMtaW50ZXJuYWwKICAgIHBvcnQ6IDgyMDEKICAgIHRhcmdldFBvcnQ6IDgyMDEKICBwdWJsaXNoTm90UmVhZHlBZGRyZXNzZXM6IHRydWUKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgIGNvbXBvbmVudDogc2VydmVyCiAgICB2YXVsdC1hY3RpdmU6ICJ0cnVlIgo=",
+      "DataHash": "c55910981e31de7e2f9a99adfe8a0e2f64e4fd8e4b1b59bd0986f8b3ebf6d811",
+      "DisplayName": "service-vault-vault-active",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-active": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-active": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-active",
+            "ResourceNameWithoutScope": "vault-active",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n    vault-active: \"true\"\n  name: vault-active\n  namespace: vault\nspec:\n  ports:\n  - name: http\n    port: 8200\n    targetPort: 8200\n  - name: https-internal\n    port: 8201\n    targetPort: 8201\n  publishNotReadyAddresses: true\n  selector:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/name: vault\n    component: server\n    vault-active: \"true\"\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault-active",
+          "ResourceNameWithoutScope": "vault-active",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-vault-vault-active",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8ef73e1a-245d-4321-9910-30f12a1760fc",
+      "UpdatedAt": "2026-06-12T17:15:25.16433Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.534895Z",
+        "CursorID": 24566,
+        "DisplayName": "Upgrade service-vault-vault-agent-injector-svc",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ec3d968e-c843-494b-8191-a512eb5870e5",
+        "LinkID": "f98dca72-27c1-4541-b42a-3636d8e3b1b2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-vault-vault-agent-injector-svc",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "4fb5ec2e-a0c6-4f22-8c20-597f2c7c50c7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.534895Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4fb5ec2e-a0c6-4f22-8c20-597f2c7c50c7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a12b31d1f78220b4df6cc43f07d865f78e2820fffcebd14bc24e496d61c9dd3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f98dca72-27c1-4541-b42a-3636d8e3b1b2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-agent-injector-svc",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ec3d968e-c843-494b-8191-a512eb5870e5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4fb5ec2e-a0c6-4f22-8c20-597f2c7c50c7",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1466158192,
+      "CreatedAt": "2026-06-12T17:14:33.839694Z",
+      "CursorID": 29179,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yCiAgbmFtZTogdmF1bHQtYWdlbnQtaW5qZWN0b3Itc3ZjCiAgbmFtZXNwYWNlOiB2YXVsdApzcGVjOgogIHBvcnRzOgogIC0gbmFtZTogaHR0cHMKICAgIHBvcnQ6IDQ0MwogICAgdGFyZ2V0UG9ydDogODA4MAogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdC1hZ2VudC1pbmplY3RvcgogICAgY29tcG9uZW50OiB3ZWJob29rCg==",
+      "DataHash": "7a12b31d1f78220b4df6cc43f07d865f78e2820fffcebd14bc24e496d61c9dd3",
+      "DisplayName": "service-vault-vault-agent-injector-svc",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-agent-injector-svc": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-agent-injector-svc": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-agent-injector-svc",
+            "ResourceNameWithoutScope": "vault-agent-injector-svc",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault-agent-injector\n  name: vault-agent-injector-svc\n  namespace: vault\nspec:\n  ports:\n  - name: https\n    port: 443\n    targetPort: 8080\n  selector:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/name: vault-agent-injector\n    component: webhook\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault-agent-injector-svc",
+          "ResourceNameWithoutScope": "vault-agent-injector-svc",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-vault-vault-agent-injector-svc",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4fb5ec2e-a0c6-4f22-8c20-597f2c7c50c7",
+      "UpdatedAt": "2026-06-12T17:15:27.145331Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.629939Z",
+        "CursorID": 24568,
+        "DisplayName": "Upgrade service-vault-vault-standby",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "e1ccc0dc-e633-40b7-929d-52448aa8a8aa",
+        "LinkID": "8723d70d-f11c-491a-9387-0b07a42c6c8c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-vault-vault-standby",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "30142ad5-d2ee-4e2e-9d22-271d18225c8f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.629939Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '30142ad5-d2ee-4e2e-9d22-271d18225c8f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2ec1bbd6a4362668f730b537c048b453bf292c60388a420bd83ddfcbbdca3589",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8723d70d-f11c-491a-9387-0b07a42c6c8c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-standby",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e1ccc0dc-e633-40b7-929d-52448aa8a8aa",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "30142ad5-d2ee-4e2e-9d22-271d18225c8f",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1695071995,
+      "CreatedAt": "2026-06-12T17:14:35.376884Z",
+      "CursorID": 29181,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICBoZWxtLnNoL2NoYXJ0OiB2YXVsdC0wLjMyLjAKICBuYW1lOiB2YXVsdC1zdGFuZGJ5CiAgbmFtZXNwYWNlOiB2YXVsdApzcGVjOgogIHBvcnRzOgogIC0gbmFtZTogaHR0cAogICAgcG9ydDogODIwMAogICAgdGFyZ2V0UG9ydDogODIwMAogIC0gbmFtZTogaHR0cHMtaW50ZXJuYWwKICAgIHBvcnQ6IDgyMDEKICAgIHRhcmdldFBvcnQ6IDgyMDEKICBwdWJsaXNoTm90UmVhZHlBZGRyZXNzZXM6IHRydWUKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgIGNvbXBvbmVudDogc2VydmVyCiAgICB2YXVsdC1hY3RpdmU6ICJmYWxzZSIK",
+      "DataHash": "2ec1bbd6a4362668f730b537c048b453bf292c60388a420bd83ddfcbbdca3589",
+      "DisplayName": "service-vault-vault-standby",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-standby": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-standby": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-standby",
+            "ResourceNameWithoutScope": "vault-standby",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n  name: vault-standby\n  namespace: vault\nspec:\n  ports:\n  - name: http\n    port: 8200\n    targetPort: 8200\n  - name: https-internal\n    port: 8201\n    targetPort: 8201\n  publishNotReadyAddresses: true\n  selector:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/name: vault\n    component: server\n    vault-active: \"false\"\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault-standby",
+          "ResourceNameWithoutScope": "vault-standby",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-vault-vault-standby",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "30142ad5-d2ee-4e2e-9d22-271d18225c8f",
+      "UpdatedAt": "2026-06-12T17:15:31.215544Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.725325Z",
+        "CursorID": 24570,
+        "DisplayName": "Upgrade serviceaccount-vault-vault",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "400bcaa2-791e-49d3-aeea-4501ef8bb4fd",
+        "LinkID": "8e9c3323-0e0e-40fc-8032-837940db78db",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-vault-vault",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "929940a4-b9bb-4c1a-b98f-bb83a1a22bc7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.725325Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '929940a4-b9bb-4c1a-b98f-bb83a1a22bc7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8b5b5c11236575c524e0acb8485856778d74dec45315bc3ea369b078536dd7da",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8e9c3323-0e0e-40fc-8032-837940db78db"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-vault-vault",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "400bcaa2-791e-49d3-aeea-4501ef8bb4fd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "929940a4-b9bb-4c1a-b98f-bb83a1a22bc7",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1136429213,
+      "CreatedAt": "2026-06-12T17:14:38.227064Z",
+      "CursorID": 29185,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdAogICAgaGVsbS5zaC9jaGFydDogdmF1bHQtMC4zMi4wCiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0Cg==",
+      "DataHash": "8b5b5c11236575c524e0acb8485856778d74dec45315bc3ea369b078536dd7da",
+      "DisplayName": "serviceaccount-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Initial Data: 232 bytes; from serviceaccount-vault-vault.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n  name: vault\n  namespace: vault\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-vault-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "929940a4-b9bb-4c1a-b98f-bb83a1a22bc7",
+      "UpdatedAt": "2026-06-12T17:15:34.595742Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.077545Z",
+        "CursorID": 24559,
+        "DisplayName": "Upgrade deployment-vault-vault-agent-injector",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2d904b0d-2ed9-4db8-af4d-897b35b9edfd",
+        "LinkID": "ed8c55e9-668e-4c1d-9f2c-aae53fb8e0bd",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-vault-vault-agent-injector",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "9e848f31-29f8-4fa8-88dc-abd39bd405de",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.077545Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '9e848f31-29f8-4fa8-88dc-abd39bd405de' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ab57341985beae19e9b08514c603b7ea6d418c69bc1c09c94ab48e651fa1a851",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ed8c55e9-668e-4c1d-9f2c-aae53fb8e0bd"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-vault-vault-agent-injector",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2d904b0d-2ed9-4db8-af4d-897b35b9edfd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "9e848f31-29f8-4fa8-88dc-abd39bd405de",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -755258312,
+      "CreatedAt": "2026-06-12T17:14:25.204868Z",
+      "CursorID": 29172,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQtYWdlbnQtaW5qZWN0b3IKICAgIGNvbXBvbmVudDogd2ViaG9vawogIG5hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yCiAgbmFtZXNwYWNlOiB2YXVsdApzcGVjOgogIHJlcGxpY2FzOiAxCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yCiAgICAgIGNvbXBvbmVudDogd2ViaG9vawogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdC1hZ2VudC1pbmplY3RvcgogICAgICAgIGNvbXBvbmVudDogd2ViaG9vawogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQtYWdlbnQtaW5qZWN0b3IKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogd2ViaG9vawogICAgICAgICAgICB0b3BvbG9neUtleToga3ViZXJuZXRlcy5pby9ob3N0bmFtZQogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSBhZ2VudC1pbmplY3QKICAgICAgICAtIDI+JjEKICAgICAgICBlbnY6CiAgICAgICAgLSBuYW1lOiBBR0VOVF9JTkpFQ1RfTElTVEVOCiAgICAgICAgICB2YWx1ZTogOjgwODAKICAgICAgICAtIG5hbWU6IEFHRU5UX0lOSkVDVF9MT0dfTEVWRUwKICAgICAgICAgIHZhbHVlOiBpbmZvCiAgICAgICAgLSBuYW1lOiBBR0VOVF9JTkpFQ1RfVkFVTFRfQUREUgogICAgICAgICAgdmFsdWU6IGh0dHA6Ly92YXVsdC52YXVsdC5zdmM6ODIwMAogICAgICAgIC0gbmFtZTogQUdFTlRfSU5KRUNUX1ZBVUxUX0FVVEhfUEFUSAogICAgICAgICAgdmFsdWU6IGF1dGgva3ViZXJuZXRlcwogICAgICAgIC0gbmFtZTogQUdFTlRfSU5KRUNUX1ZBVUxUX0lNQUdFCiAgICAgICAgICB2YWx1ZTogaGFzaGljb3JwL3ZhdWx0OjEuMjEuMgogICAgICAgIC0gbmFtZTogQUdFTlRfSU5KRUNUX1RMU19BVVRPCiAgICAgICAgICB2YWx1ZTogdmF1bHQtYWdlbnQtaW5qZWN0b3ItY2ZnCiAgICAgICAgLSBuYW1lOiBBR0VOVF9JTkpFQ1RfVExTX0FVVE9fSE9TVFMKICAgICAgICAgIHZhbHVlOiB2YXVsdC1hZ2VudC1pbmplY3Rvci1zdmMsdmF1bHQtYWdlbnQtaW5qZWN0b3Itc3ZjLnZhdWx0LHZhdWx0LWFnZW50LWluamVjdG9yLXN2Yy52YXVsdC5zdmMKICAgICAgICAtIG5hbWU6IEFHRU5UX0lOSkVDVF9MT0dfRk9STUFUCiAgICAgICAgICB2YWx1ZTogc3RhbmRhcmQKICAgICAgICAtIG5hbWU6IEFHRU5UX0lOSkVDVF9SRVZPS0VfT05fU0hVVERPV04KICAgICAgICAgIHZhbHVlOiAiZmFsc2UiCiAgICAgICAgLSBuYW1lOiBBR0VOVF9JTkpFQ1RfQ1BVX1JFUVVFU1QKICAgICAgICAgIHZhbHVlOiAyNTBtCiAgICAgICAgLSBuYW1lOiBBR0VOVF9JTkpFQ1RfQ1BVX0xJTUlUCiAgICAgICAgICB2YWx1ZTogNTAwbQogICAgICAgIC0gbmFtZTogQUdFTlRfSU5KRUNUX01FTV9SRVFVRVNUCiAgICAgICAgICB2YWx1ZTogNjRNaQogICAgICAgIC0gbmFtZTogQUdFTlRfSU5KRUNUX01FTV9MSU1JVAogICAgICAgICAgdmFsdWU6IDEyOE1pCiAgICAgICAgLSBuYW1lOiBBR0VOVF9JTkpFQ1RfREVGQVVMVF9URU1QTEFURQogICAgICAgICAgdmFsdWU6IG1hcAogICAgICAgIC0gbmFtZTogQUdFTlRfSU5KRUNUX1RFTVBMQVRFX0NPTkZJR19FWElUX09OX1JFVFJZX0ZBSUxVUkUKICAgICAgICAgIHZhbHVlOiAidHJ1ZSIKICAgICAgICAtIG5hbWU6IFBPRF9OQU1FCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZQogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQtazhzOjEuNy4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aC9yZWFkeQogICAgICAgICAgICBwb3J0OiA4MDgwCiAgICAgICAgICAgIHNjaGVtZTogSFRUUFMKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDIKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgbmFtZTogc2lkZWNhci1pbmplY3RvcgogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aC9yZWFkeQogICAgICAgICAgICBwb3J0OiA4MDgwCiAgICAgICAgICAgIHNjaGVtZTogSFRUUFMKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDIKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAtIEFMTAogICAgICAgIHN0YXJ0dXBQcm9iZToKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDEyCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoL3JlYWR5CiAgICAgICAgICAgIHBvcnQ6IDgwODAKICAgICAgICAgICAgc2NoZW1lOiBIVFRQUwogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogNQogICAgICAgICAgcGVyaW9kU2Vjb25kczogNQogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDUKICAgICAgaG9zdE5ldHdvcms6IGZhbHNlCiAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICBmc0dyb3VwOiAxMDAwCiAgICAgICAgcnVuQXNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzTm9uUm9vdDogdHJ1ZQogICAgICAgIHJ1bkFzVXNlcjogMTAwCiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogdmF1bHQtYWdlbnQtaW5qZWN0b3IK",
+      "DataHash": "ab57341985beae19e9b08514c603b7ea6d418c69bc1c09c94ab48e651fa1a851",
+      "DisplayName": "deployment-vault-vault-agent-injector",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-agent-injector": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-agent-injector": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-agent-injector",
+            "ResourceNameWithoutScope": "vault-agent-injector",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault-agent-injector\n    component: webhook\n  name: vault-agent-injector\n  namespace: vault\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault-agent-injector\n      component: webhook\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault-agent-injector\n        component: webhook\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault-agent-injector\n                component: webhook\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - agent-inject\n        - 2\u003e\u00261\n        env:\n        - name: AGENT_INJECT_LISTEN\n          value: :8080\n        - name: AGENT_INJECT_LOG_LEVEL\n          value: info\n        - name: AGENT_INJECT_VAULT_ADDR\n          value: http://vault.vault.svc:8200\n        - name: AGENT_INJECT_VAULT_AUTH_PATH\n          value: auth/kubernetes\n        - name: AGENT_INJECT_VAULT_IMAGE\n          value: hashicorp/vault:1.21.2\n        - name: AGENT_INJECT_TLS_AUTO\n          value: vault-agent-injector-cfg\n        - name: AGENT_INJECT_TLS_AUTO_HOSTS\n          value: vault-agent-injector-svc,vault-agent-injector-svc.vault,vault-agent-injector-svc.vault.svc\n        - name: AGENT_INJECT_LOG_FORMAT\n          value: standard\n        - name: AGENT_INJECT_REVOKE_ON_SHUTDOWN\n          value: \"false\"\n        - name: AGENT_INJECT_CPU_REQUEST\n          value: 250m\n        - name: AGENT_INJECT_CPU_LIMIT\n          value: 500m\n        - name: AGENT_INJECT_MEM_REQUEST\n          value: 64Mi\n        - name: AGENT_INJECT_MEM_LIMIT\n          value: 128Mi\n        - name: AGENT_INJECT_DEFAULT_TEMPLATE\n          value: map\n        - name: AGENT_INJECT_TEMPLATE_CONFIG_EXIT_ON_RETRY_FAILURE\n          value: \"true\"\n        - name: POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        image: hashicorp/vault-k8s:1.7.2\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 2\n          httpGet:\n            path: /health/ready\n            port: 8080\n            scheme: HTTPS\n          initialDelaySeconds: 5\n          periodSeconds: 2\n          successThreshold: 1\n          timeoutSeconds: 5\n        name: sidecar-injector\n        readinessProbe:\n          failureThreshold: 2\n          httpGet:\n            path: /health/ready\n            port: 8080\n            scheme: HTTPS\n          initialDelaySeconds: 5\n          periodSeconds: 2\n          successThreshold: 1\n          timeoutSeconds: 5\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n        startupProbe:\n          failureThreshold: 12\n          httpGet:\n            path: /health/ready\n            port: 8080\n            scheme: HTTPS\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 5\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault-agent-injector\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault-agent-injector",
+          "ResourceNameWithoutScope": "vault-agent-injector",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-vault-vault-agent-injector",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9e848f31-29f8-4fa8-88dc-abd39bd405de",
+      "UpdatedAt": "2026-06-12T17:15:14.212956Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.561417Z",
+        "CursorID": 24567,
+        "DisplayName": "Upgrade service-vault-vault-internal",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "622dcc61-d982-4213-9128-355e9a7850ea",
+        "LinkID": "dff1e876-8c54-4007-bfa4-a6b67215d045",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-vault-vault-internal",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "e5b75b44-51b2-4568-9915-f615c24b32b8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.561417Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e5b75b44-51b2-4568-9915-f615c24b32b8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8b76cd13f7277cde27e31a864ce917b44004acdfa566df42d6b7ab305b7c0b8d",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "dff1e876-8c54-4007-bfa4-a6b67215d045"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-internal",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "622dcc61-d982-4213-9128-355e9a7850ea",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e5b75b44-51b2-4568-9915-f615c24b32b8",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1938076945,
+      "CreatedAt": "2026-06-12T17:14:34.565781Z",
+      "CursorID": 29180,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICBoZWxtLnNoL2NoYXJ0OiB2YXVsdC0wLjMyLjAKICAgIHZhdWx0LWludGVybmFsOiAidHJ1ZSIKICBuYW1lOiB2YXVsdC1pbnRlcm5hbAogIG5hbWVzcGFjZTogdmF1bHQKc3BlYzoKICBjbHVzdGVySVA6IE5vbmUKICBwb3J0czoKICAtIG5hbWU6IGh0dHAKICAgIHBvcnQ6IDgyMDAKICAgIHRhcmdldFBvcnQ6IDgyMDAKICAtIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICBwb3J0OiA4MjAxCiAgICB0YXJnZXRQb3J0OiA4MjAxCiAgcHVibGlzaE5vdFJlYWR5QWRkcmVzc2VzOiB0cnVlCiAgc2VsZWN0b3I6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICBjb21wb25lbnQ6IHNlcnZlcgo=",
+      "DataHash": "8b76cd13f7277cde27e31a864ce917b44004acdfa566df42d6b7ab305b7c0b8d",
+      "DisplayName": "service-vault-vault-internal",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-internal": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-internal": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-internal",
+            "ResourceNameWithoutScope": "vault-internal",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n    vault-internal: \"true\"\n  name: vault-internal\n  namespace: vault\nspec:\n  clusterIP: None\n  ports:\n  - name: http\n    port: 8200\n    targetPort: 8200\n  - name: https-internal\n    port: 8201\n    targetPort: 8201\n  publishNotReadyAddresses: true\n  selector:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/name: vault\n    component: server\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault-internal",
+          "ResourceNameWithoutScope": "vault-internal",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-vault-vault-internal",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e5b75b44-51b2-4568-9915-f615c24b32b8",
+      "UpdatedAt": "2026-06-12T17:15:30.130608Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.662593Z",
+        "CursorID": 24569,
+        "DisplayName": "Upgrade service-vault-vault-ui",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "26e0c5c5-ead8-4dd9-b873-57e610b4897e",
+        "LinkID": "50c84893-4c7b-405d-8c6b-2bf03e50342f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-vault-vault-ui",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "5fb3a430-75ee-45f8-aa9f-dd9b0b66588a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.662593Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5fb3a430-75ee-45f8-aa9f-dd9b0b66588a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7b46e3cccb5426f6f5e3316feb21b65b056ba20331fdbe9e2b75cb2722e211bd",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "50c84893-4c7b-405d-8c6b-2bf03e50342f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-ui",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "26e0c5c5-ead8-4dd9-b873-57e610b4897e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5fb3a430-75ee-45f8-aa9f-dd9b0b66588a",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1706312531,
+      "CreatedAt": "2026-06-12T17:14:36.105339Z",
+      "CursorID": 29182,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0LXVpCiAgICBoZWxtLnNoL2NoYXJ0OiB2YXVsdC0wLjMyLjAKICBuYW1lOiB2YXVsdC11aQogIG5hbWVzcGFjZTogdmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IGh0dHAKICAgIHBvcnQ6IDgyMDAKICAgIHRhcmdldFBvcnQ6IDgyMDAKICBwdWJsaXNoTm90UmVhZHlBZGRyZXNzZXM6IHRydWUKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgIGNvbXBvbmVudDogc2VydmVyCiAgdHlwZTogQ2x1c3RlcklQCg==",
+      "DataHash": "7b46e3cccb5426f6f5e3316feb21b65b056ba20331fdbe9e2b75cb2722e211bd",
+      "DisplayName": "service-vault-vault-ui",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-ui": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-ui": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-ui",
+            "ResourceNameWithoutScope": "vault-ui",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault-ui\n    helm.sh/chart: vault-0.32.0\n  name: vault-ui\n  namespace: vault\nspec:\n  ports:\n  - name: http\n    port: 8200\n    targetPort: 8200\n  publishNotReadyAddresses: true\n  selector:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/name: vault\n    component: server\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault-ui",
+          "ResourceNameWithoutScope": "vault-ui",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-vault-vault-ui",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5fb3a430-75ee-45f8-aa9f-dd9b0b66588a",
+      "UpdatedAt": "2026-06-12T17:15:33.447083Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.138432Z",
+        "CursorID": 24560,
+        "DisplayName": "Upgrade mutatingwebhookconfiguration-vault-agent-injector-cfg",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "e3de2bb0-c1fc-4438-9300-054ae98a1bb1",
+        "LinkID": "54b6af87-fea7-41ee-9136-aa8cbbb5180d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-mutatingwebhookconfiguration-vault-agent-injector-cfg",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "4093223e-15f5-4276-9104-6fa71f6b4e3c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.138432Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4093223e-15f5-4276-9104-6fa71f6b4e3c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8f94bf37b5a2c1e0aa00eadecf5efc7d17f789bcd52a9b226b83507e017b3c02",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "54b6af87-fea7-41ee-9136-aa8cbbb5180d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-vault-agent-injector-cfg",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e3de2bb0-c1fc-4438-9300-054ae98a1bb1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4093223e-15f5-4276-9104-6fa71f6b4e3c",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1564804664,
+      "CreatedAt": "2026-06-12T17:14:26.562256Z",
+      "CursorID": 29173,
+      "Data": "YXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBNdXRhdGluZ1dlYmhvb2tDb25maWd1cmF0aW9uCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQtYWdlbnQtaW5qZWN0b3IKICBuYW1lOiB2YXVsdC1hZ2VudC1pbmplY3Rvci1jZmcKd2ViaG9va3M6Ci0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIC0gdjFiZXRhMQogIGNsaWVudENvbmZpZzoKICAgIGNhQnVuZGxlOiAiIgogICAgc2VydmljZToKICAgICAgbmFtZTogdmF1bHQtYWdlbnQtaW5qZWN0b3Itc3ZjCiAgICAgIG5hbWVzcGFjZTogdmF1bHQKICAgICAgcGF0aDogL211dGF0ZQogIGZhaWx1cmVQb2xpY3k6IElnbm9yZQogIG1hdGNoUG9saWN5OiBFeGFjdAogIG5hbWU6IHZhdWx0Lmhhc2hpY29ycC5jb20KICBvYmplY3RTZWxlY3RvcjoKICAgIG1hdGNoRXhwcmVzc2lvbnM6CiAgICAtIGtleTogYXBwLmt1YmVybmV0ZXMuaW8vbmFtZQogICAgICBvcGVyYXRvcjogTm90SW4KICAgICAgdmFsdWVzOgogICAgICAtIHZhdWx0LWFnZW50LWluamVjdG9yCiAgcnVsZXM6CiAgLSBhcGlHcm91cHM6CiAgICAtICIiCiAgICBhcGlWZXJzaW9uczoKICAgIC0gdjEKICAgIG9wZXJhdGlvbnM6CiAgICAtIENSRUFURQogICAgcmVzb3VyY2VzOgogICAgLSBwb2RzCiAgICBzY29wZTogTmFtZXNwYWNlZAogIHNpZGVFZmZlY3RzOiBOb25lCiAgdGltZW91dFNlY29uZHM6IDMwCg==",
+      "DataHash": "8f94bf37b5a2c1e0aa00eadecf5efc7d17f789bcd52a9b226b83507e017b3c02",
+      "DisplayName": "mutatingwebhookconfiguration-vault-agent-injector-cfg",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/vault-agent-injector-cfg": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-agent-injector-cfg": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vault-agent-injector-cfg",
+            "ResourceNameWithoutScope": "vault-agent-injector-cfg",
+            "ResourceType": "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: admissionregistration.k8s.io/v1\nkind: MutatingWebhookConfiguration\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault-agent-injector\n  name: vault-agent-injector-cfg\nwebhooks:\n- admissionReviewVersions:\n  - v1\n  - v1beta1\n  clientConfig:\n    caBundle: \"\"\n    service:\n      name: vault-agent-injector-svc\n      namespace: vault\n      path: /mutate\n  failurePolicy: Ignore\n  matchPolicy: Exact\n  name: vault.hashicorp.com\n  objectSelector:\n    matchExpressions:\n    - key: app.kubernetes.io/name\n      operator: NotIn\n      values:\n      - vault-agent-injector\n  rules:\n  - apiGroups:\n    - \"\"\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    resources:\n    - pods\n    scope: Namespaced\n  sideEffects: None\n  timeoutSeconds: 30\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-vault-agent-injector-cfg",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4093223e-15f5-4276-9104-6fa71f6b4e3c",
+      "UpdatedAt": "2026-06-12T17:15:17.07102Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:55.779468Z",
+        "CursorID": 24571,
+        "DisplayName": "Upgrade serviceaccount-vault-vault-agent-injector",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9279d507-aa84-42e6-8d16-b5da0e2d2b83",
+        "LinkID": "c80ec44e-3f35-4925-a719-bf7d9b194a09",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-vault-vault-agent-injector",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "1cd7b708-9a57-42e7-8e50-91928a90daec",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:55.779469Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1cd7b708-9a57-42e7-8e50-91928a90daec' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "94292a2e5b53ac3810f96f1b35b93315abd678512a13b441266ecd92112a000e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c80ec44e-3f35-4925-a719-bf7d9b194a09"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-vault-vault-agent-injector",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9279d507-aa84-42e6-8d16-b5da0e2d2b83",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1cd7b708-9a57-42e7-8e50-91928a90daec",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 532819535,
+      "CreatedAt": "2026-06-12T17:14:37.548915Z",
+      "CursorID": 29184,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdC1hZ2VudC1pbmplY3RvcgogIG5hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yCiAgbmFtZXNwYWNlOiB2YXVsdAo=",
+      "DataHash": "94292a2e5b53ac3810f96f1b35b93315abd678512a13b441266ecd92112a000e",
+      "DisplayName": "serviceaccount-vault-vault-agent-injector",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Initial Data: 230 bytes; from serviceaccount-vault-vault-agent-injector.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault/vault-agent-injector": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-agent-injector": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault/vault-agent-injector",
+            "ResourceNameWithoutScope": "vault-agent-injector",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault-agent-injector\n  name: vault-agent-injector\n  namespace: vault\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault/vault-agent-injector",
+          "ResourceNameWithoutScope": "vault-agent-injector",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-vault-vault-agent-injector",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1cd7b708-9a57-42e7-8e50-91928a90daec",
+      "UpdatedAt": "2026-06-12T17:15:35.616439Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:54.957338Z",
+        "CursorID": 24556,
+        "DisplayName": "Upgrade clusterrolebinding-vault-agent-injector-binding",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5396d9d7-7230-423b-b466-f38928482937",
+        "LinkID": "f8981004-ce55-4a8a-9729-4c25bc8770ca",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-vault-agent-injector-binding",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "87db9806-54be-4701-a6b4-d1822f63a55c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:54.957338Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '87db9806-54be-4701-a6b4-d1822f63a55c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6577bf1dc532a7ca9a4c6d97690c517c330999d4ef47b72953eed2e72e7b82d8",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f8981004-ce55-4a8a-9729-4c25bc8770ca"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vault-agent-injector-binding",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5396d9d7-7230-423b-b466-f38928482937",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "87db9806-54be-4701-a6b4-d1822f63a55c",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1898954796,
+      "CreatedAt": "2026-06-12T17:14:22.869675Z",
+      "CursorID": 29166,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdC1hZ2VudC1pbmplY3RvcgogIG5hbWU6IHZhdWx0LWFnZW50LWluamVjdG9yLWJpbmRpbmcKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogdmF1bHQtYWdlbnQtaW5qZWN0b3ItY2x1c3RlcnJvbGUKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiB2YXVsdC1hZ2VudC1pbmplY3RvcgogIG5hbWVzcGFjZTogdmF1bHQK",
+      "DataHash": "6577bf1dc532a7ca9a4c6d97690c517c330999d4ef47b72953eed2e72e7b82d8",
+      "DisplayName": "clusterrolebinding-vault-agent-injector-binding",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/vault-agent-injector-binding": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-agent-injector-binding": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vault-agent-injector-binding",
+            "ResourceNameWithoutScope": "vault-agent-injector-binding",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault-agent-injector\n  name: vault-agent-injector-binding\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: vault-agent-injector-clusterrole\nsubjects:\n- kind: ServiceAccount\n  name: vault-agent-injector\n  namespace: vault\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vault-agent-injector-binding",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "87db9806-54be-4701-a6b4-d1822f63a55c",
+      "UpdatedAt": "2026-06-12T17:15:01.863439Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:54.989217Z",
+        "CursorID": 24557,
+        "DisplayName": "Upgrade clusterrolebinding-vault-server-binding",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f8303cda-699a-449e-8d3c-aa42e573019f",
+        "LinkID": "651b8c97-40f8-461a-8af0-2fc24731b299",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-vault-server-binding",
+        "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+        "SpaceSlug": "Vault-ha-raft-ui-staging",
+        "ToSpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+        "ToUnitID": "4b879074-31d5-4856-8df7-241c2c185247",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:54.989217Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4b879074-31d5-4856-8df7-241c2c185247' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:54.566554Z",
+      "CursorID": 4685,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Vault-ha-raft-ui-staging",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "UpdatedAt": "2026-06-12T17:15:54.566554Z",
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8543c5f09fdcba8826bf567ebfc474682cf38f23eb46248f605c9f7987ec616a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "651b8c97-40f8-461a-8af0-2fc24731b299"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vault-server-binding",
+      "SpaceID": "969a89ee-cedd-4be7-a683-4725c03a0968",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f8303cda-699a-449e-8d3c-aa42e573019f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4b879074-31d5-4856-8df7-241c2c185247",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1432437532,
+      "CreatedAt": "2026-06-12T17:14:23.589947Z",
+      "CursorID": 29168,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdAogICAgaGVsbS5zaC9jaGFydDogdmF1bHQtMC4zMi4wCiAgbmFtZTogdmF1bHQtc2VydmVyLWJpbmRpbmcKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogc3lzdGVtOmF1dGgtZGVsZWdhdG9yCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0Cg==",
+      "DataHash": "8543c5f09fdcba8826bf567ebfc474682cf38f23eb46248f605c9f7987ec616a",
+      "DisplayName": "clusterrolebinding-vault-server-binding",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/vault-server-binding": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault-server-binding": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vault-server-binding",
+            "ResourceNameWithoutScope": "vault-server-binding",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n    helm.sh/chart: vault-0.32.0\n  name: vault-server-binding\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: system:auth-delegator\nsubjects:\n- kind: ServiceAccount\n  name: vault\n  namespace: vault\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vault-server-binding",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4b879074-31d5-4856-8df7-241c2c185247",
+      "UpdatedAt": "2026-06-12T17:15:04.052814Z",
+      "Version": 12
+    }
+  }
+]

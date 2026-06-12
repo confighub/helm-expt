@@ -1,0 +1,1 @@
+cub function vet vet-merge-keys --space helm-cluster-autoscaler-default-confighub-proof --where "Labels.Proof = 'cluster-autoscaler-default-confighub-proof'" --quiet --wait --timeout 10m

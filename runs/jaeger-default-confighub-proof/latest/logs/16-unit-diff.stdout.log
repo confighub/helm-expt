@@ -1,0 +1,109 @@
+--- helm-jaeger-default-confighub-proof/deployment-jaeger/1
++++ helm-jaeger-default-confighub-proof/deployment-jaeger/2
+@@ -31,56 +35,50 @@
+         app.kubernetes.io/name: jaeger
+     spec:
+       containers:
+-        - args: null
+-          env: null
+-          image: jaegertracing/jaeger:2.18.0
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            failureThreshold: 5
+-            httpGet:
+-              path: /status
+-              port: 13133
+-              scheme: HTTP
+-            initialDelaySeconds: 5
+-            periodSeconds: 15
+-            successThreshold: 1
+-            timeoutSeconds: 1
+-          name: jaeger
+-          ports:
+-            - containerPort: 5775
+-              protocol: UDP
+-            - containerPort: 6831
+-              protocol: UDP
+-            - containerPort: 6832
+-              protocol: UDP
+-            - containerPort: 5778
+-              protocol: TCP
+-            - containerPort: 16686
+-              protocol: TCP
+-            - containerPort: 16685
+-              protocol: TCP
+-            - containerPort: 9411
+-              protocol: TCP
+-            - containerPort: 4317
+-              protocol: TCP
+-            - containerPort: 4318
+-              protocol: TCP
+-            - containerPort: 13133
+-              protocol: TCP
+-            - containerPort: 8888
+-              protocol: TCP
+-          readinessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /status
+-              port: 13133
+-              scheme: HTTP
+-            initialDelaySeconds: 1
+-            periodSeconds: 10
+-            successThreshold: 1
+-            timeoutSeconds: 1
+-          securityContext: {}
+-          volumeMounts: null
++      - args: null
++        env: null
++        image: jaegertracing/jaeger:2.18.0
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          failureThreshold: 5
++          httpGet:
++            path: /status
++            port: 13133
++            scheme: HTTP
++          initialDelaySeconds: 5
++          periodSeconds: 15
++          successThreshold: 1
++          timeoutSeconds: 1
++        name: jaeger
++        ports:
++        - containerPort: 5775
++          protocol: UDP
++        - containerPort: 6831
++          protocol: UDP
++        - containerPort: 6832
++          protocol: UDP
++        - containerPort: 5778
++          protocol: TCP
++        - containerPort: 16686
++          protocol: TCP
++        - containerPort: 16685
++          protocol: TCP
++        - containerPort: 9411
++          protocol: TCP
++        - containerPort: 4317
++          protocol: TCP
++        - containerPort: 4318
++          protocol: TCP
++        - containerPort: 13133
++          protocol: TCP
++        - containerPort: 8888
++          protocol: TCP
++        readinessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /status
++            port: 13133
++            scheme: HTTP
++          initialDelaySeconds: 1
++          periodSeconds: 10
++          successThreshold: 1
++          timeoutSeconds: 1
++        securityContext: {}
++        volumeMounts: null
+       securityContext:
+         fsGroup: 10001
+         runAsGroup: 10001

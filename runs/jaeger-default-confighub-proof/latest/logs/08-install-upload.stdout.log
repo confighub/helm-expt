@@ -1,0 +1,8 @@
+== jaegertracing-jaeger@ → Space helm-jaeger-default-confighub-proof ==
+Successfully created unit deployment-jaeger (7324fd33-cbce-405e-a807-a3af560ec2f4)
+Successfully created unit namespace-default (7b9a9111-3338-47aa-b709-31b07a280a93)
+Successfully created unit service-jaeger (088bcc33-a513-4e07-a357-f05555926a4a)
+Successfully created unit serviceaccount-jaeger (5c7b2bb1-9427-456b-9139-87ee90611d6e)
+Successfully created unit installer-record (6b969821-eb7c-48ea-86be-2c7942cf0a5a)
+Linked deployment-jaeger -> serviceaccount-jaeger (reference:v1/ServiceAccount)
+Linked service-jaeger -> deployment-jaeger (selector)

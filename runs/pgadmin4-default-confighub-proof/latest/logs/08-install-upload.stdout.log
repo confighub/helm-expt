@@ -1,0 +1,19 @@
+== runix-pgadmin4@ → Space helm-pgadmin4-default-confighub-proof ==
+Successfully created unit deployment-default-pgadmin4 (052a0954-d74a-4b91-b1b8-7f69968b9f83)
+Successfully created unit namespace-default (179dc0f3-43f2-47d6-a7d5-75be6e8cecd3)
+Successfully created unit networkpolicy-default-pgadmin4 (4353c6c5-9a31-4cfd-9a08-e1eca2aafe0d)
+Successfully created unit persistentvolumeclaim-default-pgadmin4 (ca0cfccd-193f-4442-a53d-c6a5a2b4b720)
+Successfully created unit service-default-pgadmin4 (99e9004e-56da-4f8a-8eb3-4608b88d991a)
+Successfully created unit installer-record (70576200-94ad-4b58-9618-ad6bfbc0f8e5)
+Linked deployment-default-pgadmin4 -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-pgadmin4 -> persistentvolumeclaim-default-pgadmin4 (reference:v1/PersistentVolumeClaim)
+Linked networkpolicy-default-pgadmin4 -> deployment-default-pgadmin4 (selector)
+Linked networkpolicy-default-pgadmin4 -> namespace-default (reference:v1/Namespace)
+Linked persistentvolumeclaim-default-pgadmin4 -> namespace-default (reference:v1/Namespace)
+Linked service-default-pgadmin4 -> deployment-default-pgadmin4 (selector)
+Linked service-default-pgadmin4 -> namespace-default (reference:v1/Namespace)
+
+Note: 1 rendered Secret(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/pgadmin4-default/out/secrets were NOT uploaded to ConfigHub.
+Apply them out-of-band (e.g., `kubectl apply -f`) or stage them however your
+environment manages secrets:
+  - v1/Secret "default/pgadmin4" (secret-default-pgadmin4.yaml)

@@ -1,0 +1,1 @@
+cub installer setup --pull packages/strimzi/strimzi-kafka-operator/1.0.0 --base no-crds --work-dir .tmp/confighub-proof/strimzi-kafka-operator-no-crds --non-interactive --namespace default

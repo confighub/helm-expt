@@ -1,0 +1,5 @@
+Bundled strimzi-strimzi-kafka-operator@
+  output: .tmp/confighub-proof/strimzi-kafka-operator-no-crds-archives/strimzi-kafka-operator-b.tgz
+  files:  6
+  size:   83508 bytes
+  digest: sha256:fa58a5630e9116cbddbd678f38d00055b0dc4e65514a092a2ca5cd58a374e73e

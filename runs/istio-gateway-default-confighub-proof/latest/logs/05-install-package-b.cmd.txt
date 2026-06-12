@@ -1,0 +1,1 @@
+cub installer package packages/istio/gateway/1.30.0 -o .tmp/confighub-proof/istio-gateway-default-archives/istio-gateway-b.tgz

@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-gatekeeper-no-crds-confighub-proof', 'Gatekeeper-no-crds-staging')

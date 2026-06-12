@@ -1,0 +1,1 @@
+cub unit data deployment-default-opencost --space helm-opencost-default-confighub-proof

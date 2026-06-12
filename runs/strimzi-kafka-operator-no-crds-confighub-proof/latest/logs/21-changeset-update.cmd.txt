@@ -1,0 +1,1 @@
+cub changeset update strimzi-kafka-operator-safe-ops-20260527 --space helm-strimzi-kafka-operator-no-crds-confighub-proof --description "Strimzi Kafka Operator safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

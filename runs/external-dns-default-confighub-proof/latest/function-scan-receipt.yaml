@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "external-dns-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-external-dns-default-confighub-proof"
+    selector: "Labels.Proof = 'external-dns-default-confighub-proof'"
+  subject:
+    chart: "external-dns/external-dns"
+    chartVersion: "1.21.1"
+    packagePath: "packages/external-dns/external-dns/1.21.1"
+    variant: "default"
+    configHubUnitCount: 7
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-external-dns-viewer"
+      headRevisionNum: 2
+      dataHash: "ce813bc1750877632687d8948e3c2826ff3d911b5cca42a2c19b8029f744c484"
+    -
+      slug: "clusterrole-external-dns"
+      headRevisionNum: 2
+      dataHash: "26ed0868b51dd36ad6733cddf6d4c1c0645e40ec459314a59213be3176256ee4"
+    -
+      slug: "customresourcedefinition-dnsendpoints-externaldns-k8s-io"
+      headRevisionNum: 2
+      dataHash: "fd06fab5daa24d3c6a310ee5cb0c1d085999e0027e0b04235df704d7cacaa35e"
+    -
+      slug: "deployment-default-external-dns"
+      headRevisionNum: 2
+      dataHash: "73d495c5c93657a6809b91470b47a4dbc45ad0ca38babe3b5feb92ce28c6bb0e"
+    -
+      slug: "namespace-external-dns"
+      headRevisionNum: 1
+      dataHash: "b86dffeec9f1e74217436d2886a82aa46317c1b395359a099d1322e359813d12"
+    -
+      slug: "serviceaccount-default-external-dns"
+      headRevisionNum: 1
+      dataHash: "e2d89adfabd02eb2d10a2d4ca8f51fe7e39f859efc82a7733238a047e80c02b9"
+    -
+      slug: "service-default-external-dns"
+      headRevisionNum: 2
+      dataHash: "76f8d52c5deaf1fb9584673899429140445fa2c927a66cad8925e4fc7ca6c32c"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

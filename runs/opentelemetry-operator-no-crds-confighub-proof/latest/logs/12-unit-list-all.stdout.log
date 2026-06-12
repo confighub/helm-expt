@@ -1,0 +1,872 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bb269d948d7b3c02f3bf443942fac7dfd2d76861f4d2835ed21b716e733eed5c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-opentelemetry-operator-webhook",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "37ccd364-8574-4a03-8971-e1e5a291ce55",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2f61857fc403ba40b8c4ae4aa5bf17362dd4c07b4640fcf0eee40fbe0432aff7",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-opentelemetry-operator",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "eca7a9f2-8320-4f41-ae13-75ecd38cfd47",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f3ffa4a905ffb679dd320b292f37374dd9b167423e0312264f64f58cbd7c1c6c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-opentelemetry-operator-validation",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1cd5857c-480a-4cdb-b759-f2fa145413fc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e824e975-9d2b-40fe-9c11-eb0e0dd823a5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "931e55471561547055bd4ff2b7b98087dff7de186f3802c201cd238a93d8e585",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f573cb45-6d03-43a4-b898-cf49f0d10d5c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8f434998f7956fc344a85a9784694db007ce07a0b8095ac3cb2ba9be0c9b6f40",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-opentelemetry-operator-manager",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c27db8b3-c4c8-41a9-b8e3-ab6e52272168",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "381840ed878c9990174db9174de93778f8d05e8ca76eaaa4988d7da413d565ba",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-opentelemetry-operator-metrics",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "65b665a9-9861-48e2-b2a0-cf447cc122c8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b5a4d96b2946433d780446a7ae034d19579f4540c831bc3102b3f31b8d80a728",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-opentelemetry-operator",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "73a25acd-76cb-4f01-b612-cf220a75161f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8a1eb5771a34ddf2a59668da42c19cd9c685e8ce9563ed329c8248cb46e9fd49",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "certificate-default-opentelemetry-operator-serving-cert",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "beada503-65ed-47d3-8030-71faffb801d3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a8e7fad8282b3f0334528024f70ca00aae4bc7df0c87fb724beed5567c12144",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-opentelemetry-operator-manager",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "897e4e40-f289-434d-a297-b1c398f67956",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a55365a65d6153135c8240cff72cbeb1d258322e20e439b3e0d67b0b41f81086",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-opentelemetry-operator",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "53cc9187-b679-476c-b9e8-30d893e7b19d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8842231a2ec4fd87a562242861f5adf62d6f25fd0b1bf9de3c1610da93175492",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "issuer-default-opentelemetry-operator-selfsigned-issuer",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6841a8cb-68c4-4a83-9c98-09e4d617dc76",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a8c695edef9f2ce342d580c0c82fe9d41b7d84b361185230cd65f769a7f0141c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-opentelemetry-operator-mutation",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5b002386-45a5-4a82-8b42-bda8576b711d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b4a2d0708ad03cde0bb00322f8786341991cf07358909fa2f1e8ccd8ffbd6700",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-opentelemetry-operator-leader-election",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d2ff162d-6f13-4ebb-ab57-54d0a8f14c22",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:22.01755Z",
+      "CursorID": 4598,
+      "DisplayName": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "OpenTelemetryOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opentelemetry-operator-no-crds-confighub-proof",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "UpdatedAt": "2026-06-12T16:50:23.221923Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '1480e1de-f636-48d5-bbfd-aa618fdc4f6c'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a8f6572af71fa2a448644bd0b7915a27d6c255ca828223850dd245838c72889",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-opentelemetry-operator-leader-election",
+      "SpaceID": "1480e1de-f636-48d5-bbfd-aa618fdc4f6c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f1c3979c-60c5-4ba9-825a-0714ed64844a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

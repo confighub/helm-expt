@@ -1,0 +1,1 @@
+cub unit approve service-default-cluster-autoscaler-aws-cluster-autoscaler --space helm-cluster-autoscaler-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

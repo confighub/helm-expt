@@ -1,0 +1,1 @@
+cub unit list --space helm-psmdb-operator-no-crds-confighub-proof --where "Labels.Proof = 'psmdb-operator-no-crds-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

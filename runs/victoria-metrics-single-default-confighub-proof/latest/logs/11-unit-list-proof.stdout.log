@@ -1,0 +1,266 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:02:07.083058Z",
+      "CursorID": 4649,
+      "DisplayName": "helm-victoria-metrics-single-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-victoria-metrics-single-default-confighub-proof",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "UpdatedAt": "2026-06-12T17:02:07.616566Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'afc7ae69-02dc-41c8-bdea-a25a48e6b03d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "HelmChart": "vm-victoria-metrics-single",
+        "HelmChartVersion": "0.39.0",
+        "Package": "vm-victoria-metrics-single",
+        "Proof": "victoria-metrics-single-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "06f160a5-c82b-4915-977e-4de934444b86",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:02:07.083058Z",
+      "CursorID": 4649,
+      "DisplayName": "helm-victoria-metrics-single-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-victoria-metrics-single-default-confighub-proof",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "UpdatedAt": "2026-06-12T17:02:07.616566Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'afc7ae69-02dc-41c8-bdea-a25a48e6b03d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a205b9feda1f31389e2ee61caf93bbeb75be2714c697bd346f52ad0b7c3c83b4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "HelmChart": "vm-victoria-metrics-single",
+        "HelmChartVersion": "0.39.0",
+        "Package": "vm-victoria-metrics-single",
+        "Proof": "victoria-metrics-single-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-victoria-metrics-single-server",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6d141667-045d-4602-9576-f08f8cf74f72",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:02:07.083058Z",
+      "CursorID": 4649,
+      "DisplayName": "helm-victoria-metrics-single-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-victoria-metrics-single-default-confighub-proof",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "UpdatedAt": "2026-06-12T17:02:07.616566Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'afc7ae69-02dc-41c8-bdea-a25a48e6b03d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "85e8489cac528fb7c4807e33cf475ca8c0f1cf7b123129a52e7c4a6e46a5f038",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "HelmChart": "vm-victoria-metrics-single",
+        "HelmChartVersion": "0.39.0",
+        "Package": "vm-victoria-metrics-single",
+        "Proof": "victoria-metrics-single-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-victoria-metrics-single-server",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "97ad763b-9622-4e62-bd3e-b706771e19aa",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:02:07.083058Z",
+      "CursorID": 4649,
+      "DisplayName": "helm-victoria-metrics-single-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-victoria-metrics-single-default-confighub-proof",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "UpdatedAt": "2026-06-12T17:02:07.616566Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'afc7ae69-02dc-41c8-bdea-a25a48e6b03d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e1d9d4a11af97796c84d1b75c9a8a2b051ba1e26e5d5c5127baabbce4bc860aa",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "HelmChart": "vm-victoria-metrics-single",
+        "HelmChartVersion": "0.39.0",
+        "Package": "vm-victoria-metrics-single",
+        "Proof": "victoria-metrics-single-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "statefulset-default-victoria-metrics-single-server",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f3474cd9-bc99-46ea-bfd8-d5436381eb70",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 16
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

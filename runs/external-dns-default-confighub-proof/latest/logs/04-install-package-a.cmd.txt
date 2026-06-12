@@ -1,0 +1,1 @@
+cub installer package packages/external-dns/external-dns/1.21.1 -o .tmp/confighub-proof/external-dns-default-archives/external-dns-a.tgz

@@ -1,0 +1,159 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "rook-ceph-cluster-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-rook-ceph-cluster-default-confighub-proof"
+    selector: "Labels.Proof = 'rook-ceph-cluster-default-confighub-proof'"
+  subject:
+    chart: "rook-release/rook-ceph-cluster"
+    chartVersion: "v1.19.5"
+    packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5"
+    variant: "default"
+    configHubUnitCount: 28
+  unitRevisionBindings:
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "storageclass-ceph-block"
+      headRevisionNum: 1
+      dataHash: "6ff0d0ea5cab2747dd31cd4cdfc911f304145b246a2470365f3b68e8927f3008"
+    -
+      slug: "storageclass-ceph-bucket"
+      headRevisionNum: 1
+      dataHash: "d663eb40c29d4c7a3a65f574128d61ecbc3dc155e18c4aae2c33a5d1e15e3056"
+    -
+      slug: "storageclass-ceph-filesystem"
+      headRevisionNum: 1
+      dataHash: "3ef813b384cc1c2851d2b607762dc8ffc980d17258945dd13ced8e929fcade95"
+    -
+      slug: "cephfilesystem-default-ceph-filesystem"
+      headRevisionNum: 2
+      dataHash: "e87ec64a6fc648143ebd6e3b3cd8b90fb8ffb06a685d5604cf8b488d40d6a966"
+    -
+      slug: "clusterrolebinding-rook-ceph-osd-default"
+      headRevisionNum: 2
+      dataHash: "b9530b693a3e78aff8eb0dcf4f053a20eab7ce9b3d78d3391626d5b54b328128"
+    -
+      slug: "rolebinding-default-rook-ceph-cluster-mgmt"
+      headRevisionNum: 2
+      dataHash: "88f12df8cec7569f57f3fec25a18c4a612c85d4abc5e9b65df01f6e1551a39dc"
+    -
+      slug: "role-default-rook-ceph-osd"
+      headRevisionNum: 2
+      dataHash: "8f7814806ab1dacb14507721c5cf355cb061e2a87323bb77e34b96ec3ae75b2c"
+    -
+      slug: "cephblockpool-default-ceph-blockpool"
+      headRevisionNum: 1
+      dataHash: "5cfd2de7f6c2b077e4dad58e76657f9c7d390691634318b5166cfec355b07748"
+    -
+      slug: "cephcluster-default-default"
+      headRevisionNum: 1
+      dataHash: "b4bcf1a2d6d950e99856fedeb68b1376186dab52e559bb205dc1b919f81d97c4"
+    -
+      slug: "cephfilesystemsubvolumegroup-default-ceph-filesystem-csi"
+      headRevisionNum: 1
+      dataHash: "4bc579a0e2d070a10340a2b68182fd83b4ac7aac81a266d4bcee0151c4ba7093"
+    -
+      slug: "cephobjectstore-default-ceph-objectstore"
+      headRevisionNum: 1
+      dataHash: "b6f504e4416cc2b55107012082c3bb68769b50f01f763cb4eb153c86f48a115e"
+    -
+      slug: "role-default-rook-ceph-cmd-reporter"
+      headRevisionNum: 2
+      dataHash: "ff2435bc7334f6dcd502eb4c6b4b9600e546ad5162be975f6899e89e38299882"
+    -
+      slug: "role-default-rook-ceph-mgr"
+      headRevisionNum: 2
+      dataHash: "e8f11ae014b8a8b4cbb37caf6b3bc1015af659d668f945a0f9a3676a99b482df"
+    -
+      slug: "role-default-rook-ceph-purge-osd"
+      headRevisionNum: 2
+      dataHash: "8efe2570246b221a29cde00e50057689ad5323b2867d3d403d7882940f18eb5a"
+    -
+      slug: "rolebinding-default-rook-ceph-cmd-reporter"
+      headRevisionNum: 2
+      dataHash: "f46091ad32b25df2daad3bb54a33d44eecbcccf31d755a194a349c3849863ce2"
+    -
+      slug: "rolebinding-default-rook-ceph-mgr"
+      headRevisionNum: 2
+      dataHash: "d200baef422333cba74209e1c15676d72b0438659f2aa41686522f397bd729d2"
+    -
+      slug: "clusterrolebinding-rook-ceph-mgr-cluster-default"
+      headRevisionNum: 2
+      dataHash: "878cd75d081fbc5f98b83f03b62683f7f1d2c22e4c906889e2ed3a472e983c52"
+    -
+      slug: "rolebinding-default-rook-ceph-osd"
+      headRevisionNum: 2
+      dataHash: "800610aaea1235566d38d47c0028de3a2e749d5d76c1977f6c9fccfed5832c0a"
+    -
+      slug: "rolebinding-default-rook-ceph-purge-osd"
+      headRevisionNum: 2
+      dataHash: "73377a2e43d9d0948b3481ce1281f8cc342256e396af96a1a7462b509b94dee4"
+    -
+      slug: "rolebinding-rook-ceph-rook-ceph-mgr-system-default"
+      headRevisionNum: 2
+      dataHash: "a240646d07e74de7f3d4dc5772e0fcf24372dd0983a3c76229aa32594a697e5b"
+    -
+      slug: "serviceaccount-default-rook-ceph-cmd-reporter"
+      headRevisionNum: 1
+      dataHash: "c58ec9b7df48099a323247724b82dc783298ca3a1695e9d40d239483949fb73e"
+    -
+      slug: "serviceaccount-default-rook-ceph-default"
+      headRevisionNum: 1
+      dataHash: "a94e0794988979738d19497486dcccd645a2b9e0017566835bb5920b407f3cdb"
+    -
+      slug: "serviceaccount-default-rook-ceph-mgr"
+      headRevisionNum: 1
+      dataHash: "4018cb3601eaf1bf248967324c39f67fc6428590c562072d1185ab226e17922a"
+    -
+      slug: "serviceaccount-default-rook-ceph-nvmeof"
+      headRevisionNum: 1
+      dataHash: "efc6a2c91327809fc9ddd02a74bcf68fd6d8b3db85da9e5e658fbe6076b62322"
+    -
+      slug: "serviceaccount-default-rook-ceph-osd"
+      headRevisionNum: 1
+      dataHash: "ff417b15cb2f1327d3a0b13936afb02d59e8e408b34acc413709a22ab35d2000"
+    -
+      slug: "serviceaccount-default-rook-ceph-purge-osd"
+      headRevisionNum: 1
+      dataHash: "ca6d61e2f146243478266ce95bf211684d9aad5c113eea1e1900d4682443cb37"
+    -
+      slug: "serviceaccount-default-rook-ceph-rgw"
+      headRevisionNum: 1
+      dataHash: "28621a73f57de378e35fd31ae644b2ee851ea647f7e11f6e7139bada5475b68f"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 28
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 28
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 28
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

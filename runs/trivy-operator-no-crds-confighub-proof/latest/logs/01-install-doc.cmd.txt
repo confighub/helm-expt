@@ -1,0 +1,1 @@
+cub installer doc packages/aqua/trivy-operator/0.32.1 --json

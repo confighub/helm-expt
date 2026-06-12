@@ -1,0 +1,1 @@
+cub unit cancel --space helm-minio-tenant-default-confighub-proof --where "Labels.Proof = 'minio-tenant-default-confighub-proof'"

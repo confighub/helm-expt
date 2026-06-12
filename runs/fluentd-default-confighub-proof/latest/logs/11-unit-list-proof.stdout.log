@@ -1,0 +1,728 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ba629d7554069553151f8b80b8cd6451566c8f41b224de0d10bfde711e899065",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-fluentd-config-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b5ff7564-ced2-41b8-8241-0e13e968e8f2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2c4d8c9eb6bcb08841f38cd9384106abd76f727fed495f20ac2944cd2a479562",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-fluentd-main-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "53799d73-2def-4465-9c1b-f42d9fb6f1d3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b355fbc8ff9beed112a66343faddc65d433ac26f8f9ac64ec1349448fb13969a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-fluentd-prometheus-conf-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "acd3428d-3155-42ed-b5d6-2b50c26ffd0b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "04012ffb30019363633a43dd5bc4152905a63d32ecb58f021f8b2cdaf31f2ebe",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-fluentd-systemd-conf-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "61ef9f84-3a5d-4f11-877d-b411145352e7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "af11593c-bd55-4bfe-954a-44efc74bc8c7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "dad4913156c2d0d2e0fa3c60e89a634f0add9ed6ed04ffd2ffa6d0ade1867d7c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bb8ba8de-44f2-4fec-acc8-e417eb3562a0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0e8d1d0a8cac400d6fde7d4a6f349d1ac7af516889a0e203691dcb8408d6dca8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c6f173f6-e9df-443e-a8e6-9a24846afc99",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8df24caf7ea52ffdb2609b9fadb91db34ed49f539193c348a4d5738d5e957f55",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9e46e4c5-c500-40fb-81ed-1df44f2e532e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3c284623276dfdeb7d215ed3edaa9de24423101866d764e43bef041dc77d3fbf",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-dashboard-fluentd-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b4f1db10-6548-45c7-be29-b8b69a1d8bd2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3078740e45cf7e4803813f2c41ac66b6920661881de9976617a8b202ae89f041",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "218acfa7-39f2-412a-b96f-43696c93f33c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:16.378206Z",
+      "CursorID": 4622,
+      "DisplayName": "helm-fluentd-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Fluentd",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluentd-default-confighub-proof",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "UpdatedAt": "2026-06-12T16:55:16.944922Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '666668f5-572e-4802-ae64-28a544e9afac'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c311ba36c224102e29900ca05267fff456fbb41b07ddcc0c145bd3e9264101fa",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Fluentd",
+        "HelmChart": "fluent-fluentd",
+        "HelmChartVersion": "0.5.3",
+        "Package": "fluent-fluentd",
+        "Proof": "fluentd-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-fluentd",
+      "SpaceID": "666668f5-572e-4802-ae64-28a544e9afac",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ba4000e8-7344-4bdb-8c3d-ba4e3582e5fc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

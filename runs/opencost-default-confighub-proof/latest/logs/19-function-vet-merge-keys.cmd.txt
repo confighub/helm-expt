@@ -1,0 +1,1 @@
+cub function vet vet-merge-keys --space helm-opencost-default-confighub-proof --where "Labels.Proof = 'opencost-default-confighub-proof'" --quiet --wait --timeout 10m

@@ -1,0 +1,1 @@
+cub installer setup --pull packages/rook-release/rook-ceph/v1.19.5 --base default --work-dir .tmp/confighub-proof/rook-ceph-default --non-interactive --namespace default

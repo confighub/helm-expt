@@ -1,0 +1,1 @@
+cub installer setup --pull packages/gitlab/gitlab-runner/0.89.0 --base default --work-dir .tmp/confighub-proof/gitlab-runner-default --non-interactive --namespace default

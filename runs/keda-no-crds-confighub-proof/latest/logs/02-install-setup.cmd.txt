@@ -1,0 +1,1 @@
+cub installer setup --pull packages/kedacore/keda/2.19.0 --base no-crds --work-dir .tmp/confighub-proof/keda-no-crds --non-interactive --namespace default

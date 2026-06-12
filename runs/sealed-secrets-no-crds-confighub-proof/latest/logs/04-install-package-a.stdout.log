@@ -1,0 +1,5 @@
+Bundled sealed-secrets-sealed-secrets@
+  output: .tmp/confighub-proof/sealed-secrets-no-crds-archives/sealed-secrets-a.tgz
+  files:  6
+  size:   3304 bytes
+  digest: sha256:a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508

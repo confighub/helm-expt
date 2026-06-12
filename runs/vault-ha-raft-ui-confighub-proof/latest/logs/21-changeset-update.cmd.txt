@@ -1,0 +1,1 @@
+cub changeset update vault-safe-ops-20260527 --space helm-vault-ha-raft-ui-confighub-proof --description "Vault safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

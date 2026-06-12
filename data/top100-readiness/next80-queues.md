@@ -76,14 +76,14 @@ They should not disappear into a generic promotion-review queue.
 
 | Chart | Candidate bases | Evidence | Proof focus | Gap | Next action |
 | --- | --- | --- | --- | --- | --- |
-| `gitlab/gitlab-runner@0.89.0` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
+| `gitlab/gitlab-runner@0.89.0` | `default` | `in-confighub-proof` | - | - | add at least one user-shaped variant before catalog promotion |
 | `fluent/fluent-bit@0.57.6` | `default` | `local-kubernetes-live` | - | - | add at least one user-shaped variant before catalog promotion |
 | `runix/pgadmin4@1.62.0` | `default` | `local-kubernetes-live` | - | - | add at least one user-shaped variant before catalog promotion |
-| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
+| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `default` | `in-confighub-proof` | - | - | add at least one user-shaped variant before catalog promotion |
 | `elastic/kibana@8.5.1` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 | `descheduler/descheduler@0.36.0` | `default` | `two-cluster-kind-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 | `jaegertracing/jaeger@4.8.0` | `default` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | add at least one user-shaped variant before catalog promotion |
-| `dex/dex@0.24.0` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
+| `dex/dex@0.24.0` | `default` | `in-confighub-proof` | - | - | add at least one user-shaped variant before catalog promotion |
 
 ## How This Relates To Top100
 

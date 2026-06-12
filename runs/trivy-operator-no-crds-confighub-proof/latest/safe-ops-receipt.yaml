@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "trivy-operator-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-trivy-operator-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'trivy-operator-no-crds-confighub-proof'"
+  subject:
+    chart: "aqua/trivy-operator"
+    chartVersion: "0.32.1"
+    packagePath: "packages/aqua/trivy-operator/0.32.1"
+    variant: "no-crds"
+  changeset:
+    slug: "trivy-operator-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Trivy Operator safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "trivy-operator-no-crds-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-trivy-operator --space helm-trivy-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-trivy-operator"
+    output: "Unit deployment-default-trivy-operator (5cb703c1-6775-4a4a-bcfc-2286e4e09fc9) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-trivy-operator-no-crds-confighub-proof --where \"Labels.Proof = 'trivy-operator-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req badkrSuIAWZiUmQeikiAdCxzdpBwqoAF: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-trivy-operator-no-crds-confighub-proof --where \"Labels.Proof = 'trivy-operator-no-crds-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

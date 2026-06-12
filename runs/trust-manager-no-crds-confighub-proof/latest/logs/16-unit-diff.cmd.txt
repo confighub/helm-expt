@@ -1,0 +1,1 @@
+cub unit diff deployment-default-trust-manager --space helm-trust-manager-no-crds-confighub-proof --from 1 --to HeadRevisionNum -u

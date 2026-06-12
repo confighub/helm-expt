@@ -1,0 +1,1040 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:41.927742Z",
+        "CursorID": 22949,
+        "DisplayName": "Upgrade deployment-default-psmdb-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b5e2bc9f-ada1-45e9-9fbc-1296bfe503d3",
+        "LinkID": "dd0876db-03eb-4c7f-966a-117fa566cc40",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-psmdb-operator",
+        "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+        "SpaceSlug": "PerconaPSMDBOperator-no-crds-staging",
+        "ToSpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+        "ToUnitID": "cd26a779-90d0-4304-8191-7f8455543b39",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:41.927742Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'cd26a779-90d0-4304-8191-7f8455543b39' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:41.73001Z",
+      "CursorID": 4614,
+      "DisplayName": "helm-psmdb-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPSMDBOperator-no-crds-staging",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "UpdatedAt": "2026-06-12T16:53:41.73001Z",
+      "WhereTrigger": "SpaceID = 'a9a92595-f451-4e19-a0af-db872c156291'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "23e08976f1af6e0bbe299d19c3cdc9f5caaa5e59ca05ee639bf62cf13d8d3455",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "dd0876db-03eb-4c7f-966a-117fa566cc40"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-psmdb-operator",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b5e2bc9f-ada1-45e9-9fbc-1296bfe503d3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "cd26a779-90d0-4304-8191-7f8455543b39",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -378810586,
+      "CreatedAt": "2026-06-12T16:53:20.278514Z",
+      "CursorID": 28031,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBwc21kYi1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogcHNtZGItb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMjIuMAogICAgaGVsbS5zaC9jaGFydDogcHNtZGItb3BlcmF0b3ItMS4yMi4wCiAgbmFtZTogcHNtZGItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICByZXBsaWNhczogMQogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBwc21kYi1vcGVyYXRvcgogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBwc21kYi1vcGVyYXRvcgogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogcHNtZGItb3BlcmF0b3IKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBwc21kYi1vcGVyYXRvcgogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBjb21tYW5kOgogICAgICAgIC0gcGVyY29uYS1zZXJ2ZXItbW9uZ29kYi1vcGVyYXRvcgogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IExPR19TVFJVQ1RVUkVECiAgICAgICAgICB2YWx1ZTogImZhbHNlIgogICAgICAgIC0gbmFtZTogTE9HX0xFVkVMCiAgICAgICAgICB2YWx1ZTogSU5GTwogICAgICAgIC0gbmFtZTogV0FUQ0hfTkFNRVNQQUNFCiAgICAgICAgICB2YWx1ZTogZGVmYXVsdAogICAgICAgIC0gbmFtZTogUE9EX05BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBPUEVSQVRPUl9OQU1FCiAgICAgICAgICB2YWx1ZTogcGVyY29uYS1zZXJ2ZXItbW9uZ29kYi1vcGVyYXRvcgogICAgICAgIC0gbmFtZTogUkVTWU5DX1BFUklPRAogICAgICAgICAgdmFsdWU6IDVzCiAgICAgICAgLSBuYW1lOiBESVNBQkxFX1RFTEVNRVRSWQogICAgICAgICAgdmFsdWU6ICJmYWxzZSIKICAgICAgICAtIG5hbWU6IE1BWF9DT05DVVJSRU5UX1JFQ09OQ0lMRVMKICAgICAgICAgIHZhbHVlOiAiMSIKICAgICAgICBpbWFnZTogcGVyY29uYS9wZXJjb25hLXNlcnZlci1tb25nb2RiLW9wZXJhdG9yOjEuMjIuMAogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgIHBvcnQ6IGhlYWx0aAogICAgICAgIG5hbWU6IHBzbWRiLW9wZXJhdG9yCiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MDgwCiAgICAgICAgICBuYW1lOiBtZXRyaWNzCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MDgxCiAgICAgICAgICBuYW1lOiBoZWFsdGgKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICByZWFkaW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgIHBvcnQ6IGhlYWx0aAogICAgICAgIHJlc291cmNlczoge30KICAgICAgICBzZWN1cml0eUNvbnRleHQ6IHt9CiAgICAgIHNlY3VyaXR5Q29udGV4dDoge30KICAgICAgc2VydmljZUFjY291bnROYW1lOiBwc21kYi1vcGVyYXRvcgo=",
+      "DataHash": "23e08976f1af6e0bbe299d19c3cdc9f5caaa5e59ca05ee639bf62cf13d8d3455",
+      "DisplayName": "deployment-default-psmdb-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "HelmChart": "percona-psmdb-operator",
+        "HelmChartVersion": "1.22.0",
+        "Package": "percona-psmdb-operator",
+        "Proof": "psmdb-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/psmdb-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "psmdb-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/psmdb-operator",
+            "ResourceNameWithoutScope": "psmdb-operator",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: psmdb-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: psmdb-operator\n    app.kubernetes.io/version: 1.22.0\n    helm.sh/chart: psmdb-operator-1.22.0\n  name: psmdb-operator\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: psmdb-operator\n      app.kubernetes.io/name: psmdb-operator\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/instance: psmdb-operator\n        app.kubernetes.io/name: psmdb-operator\n    spec:\n      containers:\n      - command:\n        - percona-server-mongodb-operator\n        env:\n        - name: LOG_STRUCTURED\n          value: \"false\"\n        - name: LOG_LEVEL\n          value: INFO\n        - name: WATCH_NAMESPACE\n          value: default\n        - name: POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: OPERATOR_NAME\n          value: percona-server-mongodb-operator\n        - name: RESYNC_PERIOD\n          value: 5s\n        - name: DISABLE_TELEMETRY\n          value: \"false\"\n        - name: MAX_CONCURRENT_RECONCILES\n          value: \"1\"\n        image: percona/percona-server-mongodb-operator:1.22.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /healthz\n            port: health\n        name: psmdb-operator\n        ports:\n        - containerPort: 8080\n          name: metrics\n          protocol: TCP\n        - containerPort: 8081\n          name: health\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /healthz\n            port: health\n        resources: {}\n        securityContext: {}\n      securityContext: {}\n      serviceAccountName: psmdb-operator\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/psmdb-operator",
+          "ResourceNameWithoutScope": "psmdb-operator",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-psmdb-operator",
+      "SpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cd26a779-90d0-4304-8191-7f8455543b39",
+      "UpdatedAt": "2026-06-12T16:53:31.703423Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:41.960977Z",
+        "CursorID": 22950,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6a7319de-6366-4050-a747-f92b56cf9946",
+        "LinkID": "56ebbfa1-ee81-4595-bb6a-56d795ec82bc",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+        "SpaceSlug": "PerconaPSMDBOperator-no-crds-staging",
+        "ToSpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+        "ToUnitID": "73503a08-9dd4-48a7-820a-c85711aba5c9",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:41.960978Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '73503a08-9dd4-48a7-820a-c85711aba5c9' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:41.73001Z",
+      "CursorID": 4614,
+      "DisplayName": "helm-psmdb-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPSMDBOperator-no-crds-staging",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "UpdatedAt": "2026-06-12T16:53:41.73001Z",
+      "WhereTrigger": "SpaceID = 'a9a92595-f451-4e19-a0af-db872c156291'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c79167e21b071cc59ca07cdecb2a51e485cc1118673d4ac5b33f9e302b5d9ecf",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "56ebbfa1-ee81-4595-bb6a-56d795ec82bc"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6a7319de-6366-4050-a747-f92b56cf9946",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "73503a08-9dd4-48a7-820a-c85711aba5c9",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "percona-psmdb-operator",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1220509857,
+      "CreatedAt": "2026-06-12T16:53:23.99Z",
+      "CursorID": 28036,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogInBlcmNvbmEtcHNtZGItb3BlcmF0b3IiCiAgdmVyc2lvbjogIjEuMjIuMCIKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIGJhc2VzOgogIC0gZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJwZXJjb25hL3BzbWRiLW9wZXJhdG9yIGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIHBlcmNvbmEvcHNtZGItb3BlcmF0b3JAMS4yMi4wIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJuby1jcmRzIgogICAgcGF0aDogImJhc2VzL25vLWNyZHMiCiAgICBkZXNjcmlwdGlvbjogInBlcmNvbmEvcHNtZGItb3BlcmF0b3Igbm8tY3JkcyB2YXJpYW50IHJlbmRlcmVkIGZyb20gcGVyY29uYS9wc21kYi1vcGVyYXRvckAxLjIyLjAiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IHBlcmNvbmEtcHNtZGItb3BlcmF0b3ItZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcHNtZGItb3BlcmF0b3IKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogcGVyY29uYS1wc21kYi1vcGVyYXRvci1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcHNtZGItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IHBlcmNvbmEtcHNtZGItb3BlcmF0b3ItbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcHNtZGItb3BlcmF0b3IKICBmaWxlczoKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQtcHNtZGItb3BlcmF0b3IueWFtbAogICAgc2x1ZzogZGVwbG95bWVudC1kZWZhdWx0LXBzbWRiLW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiBwc21kYi1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWRlZmF1bHQueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlLWRlZmF1bHQtcHNtZGItb3BlcmF0b3IueWFtbAogICAgc2x1Zzogcm9sZS1kZWZhdWx0LXBzbWRiLW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlCiAgICBuYW1lOiBwc21kYi1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZWJpbmRpbmctZGVmYXVsdC1zZXJ2aWNlLWFjY291bnQtcHNtZGItb3BlcmF0b3IueWFtbAogICAgc2x1Zzogcm9sZWJpbmRpbmctZGVmYXVsdC1zZXJ2aWNlLWFjY291bnQtcHNtZGItb3BlcmF0b3IKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGVCaW5kaW5nCiAgICBuYW1lOiBzZXJ2aWNlLWFjY291bnQtcHNtZGItb3BlcmF0b3IKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtcHNtZGItb3BlcmF0b3IueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1wc21kYi1vcGVyYXRvcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBwc21kYi1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogcGVyY29uYS1wc21kYi1vcGVyYXRvci1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcHNtZGItb3BlcmF0b3IKICBiYXNlOiBuby1jcmRzCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogcGVyY29uYS1wc21kYi1vcGVyYXRvci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcHNtZGItb3BlcmF0b3IKICBzcGFjZVBhdHRlcm46IGhlbG0tcHNtZGItb3BlcmF0b3Itbm8tY3Jkcy1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBwZXJjb25hLXBzbWRiLW9wZXJhdG9yCiAgICBzbHVnOiBoZWxtLXBzbWRiLW9wZXJhdG9yLW5vLWNyZHMtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjUzOjE4WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "c79167e21b071cc59ca07cdecb2a51e485cc1118673d4ac5b33f9e302b5d9ecf",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "percona-psmdb-operator"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/percona-psmdb-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-psmdb-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-psmdb-operator",
+            "ResourceNameWithoutScope": "percona-psmdb-operator",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"percona-psmdb-operator\"\n  version: \"1.22.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"percona/psmdb-operator default variant rendered from percona/psmdb-operator@1.22.0\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"no-crds\"\n    path: \"bases/no-crds\"\n    description: \"percona/psmdb-operator no-crds variant rendered from percona/psmdb-operator@1.22.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-psmdb-operator-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-psmdb-operator-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-psmdb-operator-function-chain",
+            "ResourceNameWithoutScope": "percona-psmdb-operator-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: percona-psmdb-operator-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-psmdb-operator\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-psmdb-operator-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-psmdb-operator-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-psmdb-operator-inputs",
+            "ResourceNameWithoutScope": "percona-psmdb-operator-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: percona-psmdb-operator-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-psmdb-operator\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-psmdb-operator-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-psmdb-operator-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-psmdb-operator-manifest-index",
+            "ResourceNameWithoutScope": "percona-psmdb-operator-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: percona-psmdb-operator-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-psmdb-operator\n  files:\n  - filename: deployment-default-psmdb-operator.yaml\n    slug: deployment-default-psmdb-operator\n    apiVersion: apps/v1\n    kind: Deployment\n    name: psmdb-operator\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-psmdb-operator.yaml\n    slug: role-default-psmdb-operator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: psmdb-operator\n    namespace: default\n  - filename: rolebinding-default-service-account-psmdb-operator.yaml\n    slug: rolebinding-default-service-account-psmdb-operator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: service-account-psmdb-operator\n    namespace: default\n  - filename: serviceaccount-default-psmdb-operator.yaml\n    slug: serviceaccount-default-psmdb-operator\n    apiVersion: v1\n    kind: ServiceAccount\n    name: psmdb-operator\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-psmdb-operator-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-psmdb-operator-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-psmdb-operator-selection",
+            "ResourceNameWithoutScope": "percona-psmdb-operator-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: percona-psmdb-operator-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-psmdb-operator\n  base: no-crds\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-psmdb-operator-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-psmdb-operator-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-psmdb-operator-upload",
+            "ResourceNameWithoutScope": "percona-psmdb-operator-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: percona-psmdb-operator-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-psmdb-operator\n  spacePattern: helm-psmdb-operator-no-crds-confighub-proof\n  spaces:\n  - package: percona-psmdb-operator\n    slug: helm-psmdb-operator-no-crds-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:53:18Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "73503a08-9dd4-48a7-820a-c85711aba5c9",
+      "UpdatedAt": "2026-06-12T16:53:24.869029Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:41.983546Z",
+        "CursorID": 22951,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c6f15ec7-654d-41f3-a7c3-14f97c34e7bd",
+        "LinkID": "ddf367c5-eac4-42f2-be41-b3d012cd9d3a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+        "SpaceSlug": "PerconaPSMDBOperator-no-crds-staging",
+        "ToSpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+        "ToUnitID": "5de7d6d7-e21a-4456-9656-8cf718f589ab",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:41.983546Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5de7d6d7-e21a-4456-9656-8cf718f589ab' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:41.73001Z",
+      "CursorID": 4614,
+      "DisplayName": "helm-psmdb-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPSMDBOperator-no-crds-staging",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "UpdatedAt": "2026-06-12T16:53:41.73001Z",
+      "WhereTrigger": "SpaceID = 'a9a92595-f451-4e19-a0af-db872c156291'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ddf367c5-eac4-42f2-be41-b3d012cd9d3a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c6f15ec7-654d-41f3-a7c3-14f97c34e7bd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5de7d6d7-e21a-4456-9656-8cf718f589ab",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:53:21.081424Z",
+      "CursorID": 28032,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "HelmChart": "percona-psmdb-operator",
+        "HelmChartVersion": "1.22.0",
+        "Package": "percona-psmdb-operator",
+        "Proof": "psmdb-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5de7d6d7-e21a-4456-9656-8cf718f589ab",
+      "UpdatedAt": "2026-06-12T16:53:21.107022Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:42.01127Z",
+        "CursorID": 22952,
+        "DisplayName": "Upgrade rolebinding-default-service-account-psmdb-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1ae35673-f18e-4c04-aac6-84475c33ec8c",
+        "LinkID": "cad18bc3-456e-4b3d-8486-72d94f8ad459",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-service-account-psmdb-operator",
+        "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+        "SpaceSlug": "PerconaPSMDBOperator-no-crds-staging",
+        "ToSpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+        "ToUnitID": "a35b145a-7416-4214-9344-9b9707aa02e2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:42.01127Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'a35b145a-7416-4214-9344-9b9707aa02e2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:41.73001Z",
+      "CursorID": 4614,
+      "DisplayName": "helm-psmdb-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPSMDBOperator-no-crds-staging",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "UpdatedAt": "2026-06-12T16:53:41.73001Z",
+      "WhereTrigger": "SpaceID = 'a9a92595-f451-4e19-a0af-db872c156291'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d4848f8084c2804e39e34ad406512858f18d59f3930ac947ca230fc2e55af76b",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "cad18bc3-456e-4b3d-8486-72d94f8ad459"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-service-account-psmdb-operator",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1ae35673-f18e-4c04-aac6-84475c33ec8c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "a35b145a-7416-4214-9344-9b9707aa02e2",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 359219726,
+      "CreatedAt": "2026-06-12T16:53:22.545211Z",
+      "CursorID": 28034,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogcHNtZGItb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHBzbWRiLW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjIyLjAKICAgIGhlbG0uc2gvY2hhcnQ6IHBzbWRiLW9wZXJhdG9yLTEuMjIuMAogIG5hbWU6IHNlcnZpY2UtYWNjb3VudC1wc21kYi1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogUm9sZQogIG5hbWU6IHBzbWRiLW9wZXJhdG9yCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogcHNtZGItb3BlcmF0b3IK",
+      "DataHash": "d4848f8084c2804e39e34ad406512858f18d59f3930ac947ca230fc2e55af76b",
+      "DisplayName": "rolebinding-default-service-account-psmdb-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "HelmChart": "percona-psmdb-operator",
+        "HelmChartVersion": "1.22.0",
+        "Package": "percona-psmdb-operator",
+        "Proof": "psmdb-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/service-account-psmdb-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "service-account-psmdb-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/service-account-psmdb-operator",
+            "ResourceNameWithoutScope": "service-account-psmdb-operator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: psmdb-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: psmdb-operator\n    app.kubernetes.io/version: 1.22.0\n    helm.sh/chart: psmdb-operator-1.22.0\n  name: service-account-psmdb-operator\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: psmdb-operator\nsubjects:\n- kind: ServiceAccount\n  name: psmdb-operator\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-service-account-psmdb-operator",
+      "SpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a35b145a-7416-4214-9344-9b9707aa02e2",
+      "UpdatedAt": "2026-06-12T16:53:35.363929Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:42.052792Z",
+        "CursorID": 22953,
+        "DisplayName": "Upgrade role-default-psmdb-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b7322921-ca14-4bd6-8f2c-60457bc02299",
+        "LinkID": "a32f9307-1763-4dd0-933f-9dea7df131e8",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-psmdb-operator",
+        "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+        "SpaceSlug": "PerconaPSMDBOperator-no-crds-staging",
+        "ToSpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+        "ToUnitID": "5fc4bad9-e5ef-4a89-84e1-06e8538882d7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:42.052792Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5fc4bad9-e5ef-4a89-84e1-06e8538882d7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:41.73001Z",
+      "CursorID": 4614,
+      "DisplayName": "helm-psmdb-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPSMDBOperator-no-crds-staging",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "UpdatedAt": "2026-06-12T16:53:41.73001Z",
+      "WhereTrigger": "SpaceID = 'a9a92595-f451-4e19-a0af-db872c156291'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "dac5d430cecbae73168fe4ee349eaa641b19a12481803ea1c0f9f9bdb09abeee",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a32f9307-1763-4dd0-933f-9dea7df131e8"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-psmdb-operator",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b7322921-ca14-4bd6-8f2c-60457bc02299",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5fc4bad9-e5ef-4a89-84e1-06e8538882d7",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1345514741,
+      "CreatedAt": "2026-06-12T16:53:21.8002Z",
+      "CursorID": 28033,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBwc21kYi1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogcHNtZGItb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMjIuMAogICAgaGVsbS5zaC9jaGFydDogcHNtZGItb3BlcmF0b3ItMS4yMi4wCiAgbmFtZTogcHNtZGItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gcHNtZGIucGVyY29uYS5jb20KICByZXNvdXJjZXM6CiAgLSBwZXJjb25hc2VydmVybW9uZ29kYnMKICAtIHBlcmNvbmFzZXJ2ZXJtb25nb2Ricy9zdGF0dXMKICAtIHBlcmNvbmFzZXJ2ZXJtb25nb2Ricy9maW5hbGl6ZXJzCiAgLSBwZXJjb25hc2VydmVybW9uZ29kYmJhY2t1cHMKICAtIHBlcmNvbmFzZXJ2ZXJtb25nb2RiYmFja3Vwcy9zdGF0dXMKICAtIHBlcmNvbmFzZXJ2ZXJtb25nb2RiYmFja3Vwcy9maW5hbGl6ZXJzCiAgLSBwZXJjb25hc2VydmVybW9uZ29kYnJlc3RvcmVzCiAgLSBwZXJjb25hc2VydmVybW9uZ29kYnJlc3RvcmVzL3N0YXR1cwogIC0gcGVyY29uYXNlcnZlcm1vbmdvZGJyZXN0b3Jlcy9maW5hbGl6ZXJzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBjcmVhdGUKICAtIHVwZGF0ZQogIC0gcGF0Y2gKICAtIGRlbGV0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gcG9kcwogIC0gcG9kcy9leGVjCiAgLSBzZXJ2aWNlcwogIC0gcGVyc2lzdGVudHZvbHVtZWNsYWltcwogIC0gc2VjcmV0cwogIC0gY29uZmlnbWFwcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSB1cGRhdGUKICAtIHBhdGNoCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgcmVzb3VyY2VzOgogIC0gZGVwbG95bWVudHMKICAtIHJlcGxpY2FzZXRzCiAgLSBzdGF0ZWZ1bHNldHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gdXBkYXRlCiAgLSBwYXRjaAogIC0gZGVsZXRlCi0gYXBpR3JvdXBzOgogIC0gYmF0Y2gKICByZXNvdXJjZXM6CiAgLSBjcm9uam9icwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSB1cGRhdGUKICAtIHBhdGNoCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBwb2xpY3kKICByZXNvdXJjZXM6CiAgLSBwb2RkaXNydXB0aW9uYnVkZ2V0cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSB1cGRhdGUKICAtIHBhdGNoCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBjb29yZGluYXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gbGVhc2VzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBjcmVhdGUKICAtIHVwZGF0ZQogIC0gcGF0Y2gKICAtIGRlbGV0ZQotIGFwaUdyb3VwczoKICAtIGV2ZW50cy5rOHMuaW8KICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBjcmVhdGUKICAtIHBhdGNoCi0gYXBpR3JvdXBzOgogIC0gY2VydG1hbmFnZXIuazhzLmlvCiAgLSBjZXJ0LW1hbmFnZXIuaW8KICByZXNvdXJjZXM6CiAgLSBpc3N1ZXJzCiAgLSBjZXJ0aWZpY2F0ZXMKICAtIGNlcnRpZmljYXRlcmVxdWVzdHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gdXBkYXRlCiAgLSBwYXRjaAogIC0gZGVsZXRlCiAgLSBkZWxldGVjb2xsZWN0aW9uCi0gYXBpR3JvdXBzOgogIC0gbmV0LmdrZS5pbwogIC0gbXVsdGljbHVzdGVyLngtazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gc2VydmljZWV4cG9ydHMKICAtIHNlcnZpY2VpbXBvcnRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBjcmVhdGUKICAtIHVwZGF0ZQogIC0gcGF0Y2gKICAtIGRlbGV0ZQogIC0gZGVsZXRlY29sbGVjdGlvbgo=",
+      "DataHash": "dac5d430cecbae73168fe4ee349eaa641b19a12481803ea1c0f9f9bdb09abeee",
+      "DisplayName": "role-default-psmdb-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "HelmChart": "percona-psmdb-operator",
+        "HelmChartVersion": "1.22.0",
+        "Package": "percona-psmdb-operator",
+        "Proof": "psmdb-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/psmdb-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "psmdb-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/psmdb-operator",
+            "ResourceNameWithoutScope": "psmdb-operator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: psmdb-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: psmdb-operator\n    app.kubernetes.io/version: 1.22.0\n    helm.sh/chart: psmdb-operator-1.22.0\n  name: psmdb-operator\n  namespace: default\nrules:\n- apiGroups:\n  - psmdb.percona.com\n  resources:\n  - perconaservermongodbs\n  - perconaservermongodbs/status\n  - perconaservermongodbs/finalizers\n  - perconaservermongodbbackups\n  - perconaservermongodbbackups/status\n  - perconaservermongodbbackups/finalizers\n  - perconaservermongodbrestores\n  - perconaservermongodbrestores/status\n  - perconaservermongodbrestores/finalizers\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  - pods/exec\n  - services\n  - persistentvolumeclaims\n  - secrets\n  - configmaps\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - apps\n  resources:\n  - deployments\n  - replicasets\n  - statefulsets\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - batch\n  resources:\n  - cronjobs\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - events.k8s.io\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - patch\n- apiGroups:\n  - certmanager.k8s.io\n  - cert-manager.io\n  resources:\n  - issuers\n  - certificates\n  - certificaterequests\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n  - deletecollection\n- apiGroups:\n  - net.gke.io\n  - multicluster.x-k8s.io\n  resources:\n  - serviceexports\n  - serviceimports\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n  - deletecollection\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/psmdb-operator",
+          "ResourceNameWithoutScope": "psmdb-operator",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-psmdb-operator",
+      "SpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5fc4bad9-e5ef-4a89-84e1-06e8538882d7",
+      "UpdatedAt": "2026-06-12T16:53:33.275901Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:42.118558Z",
+        "CursorID": 22954,
+        "DisplayName": "Upgrade serviceaccount-default-psmdb-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9103ad1e-16f0-47f7-91a0-7c05c82ece8a",
+        "LinkID": "c39cfef4-129b-4cd2-b5f9-318639659c8d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-psmdb-operator",
+        "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+        "SpaceSlug": "PerconaPSMDBOperator-no-crds-staging",
+        "ToSpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+        "ToUnitID": "af8eedb4-7b12-4cae-91be-425a75a0f0b4",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:42.118559Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'af8eedb4-7b12-4cae-91be-425a75a0f0b4' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:41.73001Z",
+      "CursorID": 4614,
+      "DisplayName": "helm-psmdb-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPSMDBOperator-no-crds-staging",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "UpdatedAt": "2026-06-12T16:53:41.73001Z",
+      "WhereTrigger": "SpaceID = 'a9a92595-f451-4e19-a0af-db872c156291'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ed3fa2efc5e9b1ee9b0074c262a5eefefb341f437baf546b8c6d5f38b7d35ba1",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c39cfef4-129b-4cd2-b5f9-318639659c8d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-psmdb-operator",
+      "SpaceID": "0a13bfdc-109b-4de9-aced-142f0a23ad11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9103ad1e-16f0-47f7-91a0-7c05c82ece8a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "af8eedb4-7b12-4cae-91be-425a75a0f0b4",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2061910777,
+      "CreatedAt": "2026-06-12T16:53:23.243965Z",
+      "CursorID": 28035,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbmFtZTogcHNtZGItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "ed3fa2efc5e9b1ee9b0074c262a5eefefb341f437baf546b8c6d5f38b7d35ba1",
+      "DisplayName": "serviceaccount-default-psmdb-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "PerconaPSMDBOperator",
+        "HelmChart": "percona-psmdb-operator",
+        "HelmChartVersion": "1.22.0",
+        "Package": "percona-psmdb-operator",
+        "Proof": "psmdb-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 90 bytes; from serviceaccount-default-psmdb-operator.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/psmdb-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "psmdb-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/psmdb-operator",
+            "ResourceNameWithoutScope": "psmdb-operator",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: psmdb-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/psmdb-operator",
+          "ResourceNameWithoutScope": "psmdb-operator",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-psmdb-operator",
+      "SpaceID": "a9a92595-f451-4e19-a0af-db872c156291",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "af8eedb4-7b12-4cae-91be-425a75a0f0b4",
+      "UpdatedAt": "2026-06-12T16:53:36.749857Z",
+      "Version": 6
+    }
+  }
+]

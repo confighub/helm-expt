@@ -1,0 +1,5 @@
+Bundled fluent-fluent-bit@
+  output: .tmp/confighub-proof/fluent-bit-default-archives/fluent-bit-b.tgz
+  files:  4
+  size:   1764 bytes
+  digest: sha256:927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d

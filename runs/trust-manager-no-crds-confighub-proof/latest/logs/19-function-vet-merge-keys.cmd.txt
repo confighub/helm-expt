@@ -1,0 +1,1 @@
+cub function vet vet-merge-keys --space helm-trust-manager-no-crds-confighub-proof --where "Labels.Proof = 'trust-manager-no-crds-confighub-proof'" --quiet --wait --timeout 10m

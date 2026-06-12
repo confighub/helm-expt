@@ -1,0 +1,27 @@
+== dex-dex@ → Space helm-dex-default-confighub-proof ==
+Successfully created unit clusterrole-dex (70fdd81e-2920-4e97-a576-e5138580cb69)
+Successfully created unit clusterrolebinding-dex-cluster (4b2c96f3-b343-48bc-a524-ba4a1fba4dcc)
+Successfully created unit deployment-default-dex (19fd553e-06ae-4059-9161-fed91c823574)
+Successfully created unit namespace-default (bf81e118-fd35-4954-bff0-6e9edd9c56d1)
+Successfully created unit role-default-dex (a363b8e1-97bd-4c3f-896f-06bc704ab66d)
+Successfully created unit rolebinding-default-dex (965228d8-4ee0-45ad-9aa1-a7dd74f32d29)
+Successfully created unit service-default-dex (6f887b81-ebd9-4e18-ba2c-84d6fd48c321)
+Successfully created unit serviceaccount-default-dex (97be2390-6e65-4487-a588-e34b015625a2)
+Successfully created unit installer-record (95dfc40a-5383-4461-974c-09af8aecc3a7)
+Linked clusterrolebinding-dex-cluster -> clusterrole-dex (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-dex-cluster -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-dex-cluster -> serviceaccount-default-dex (reference:v1/ServiceAccount)
+Linked deployment-default-dex -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-dex -> serviceaccount-default-dex (reference:v1/ServiceAccount)
+Linked role-default-dex -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-dex -> clusterrole-dex (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked rolebinding-default-dex -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-dex -> serviceaccount-default-dex (reference:v1/ServiceAccount)
+Linked service-default-dex -> deployment-default-dex (selector)
+Linked service-default-dex -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-dex -> namespace-default (reference:v1/Namespace)
+
+Note: 1 rendered Secret(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/dex-default/out/secrets were NOT uploaded to ConfigHub.
+Apply them out-of-band (e.g., `kubectl apply -f`) or stage them however your
+environment manages secrets:
+  - v1/Secret "default/dex" (secret-default-dex.yaml)

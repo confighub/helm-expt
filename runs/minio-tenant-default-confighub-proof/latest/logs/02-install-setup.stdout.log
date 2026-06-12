@@ -1,0 +1,6 @@
+Wizard wrote /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/minio-tenant-default/out/spec/selection.yaml and inputs.yaml
+Base: default; components: []
+Namespace: default
+Rendered 2 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/minio-tenant-default/out/manifests
+Rendered 1 secret(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/minio-tenant-default/out/secrets (not uploaded)
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/minio-tenant-default --space <slug>

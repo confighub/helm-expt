@@ -1,0 +1,332 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:08.242503Z",
+      "CursorID": 4617,
+      "DisplayName": "helm-pxc-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pxc-operator-no-crds-confighub-proof",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "UpdatedAt": "2026-06-12T16:54:08.803283Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '812c6bc8-d9bf-4de5-96a3-d38bb030a748'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c582345f3699616c26d000543fc84402a0fd08900305548ed31315f5c39b776b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "HelmChart": "percona-pxc-operator",
+        "HelmChartVersion": "1.19.1",
+        "Package": "percona-pxc-operator",
+        "Proof": "pxc-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-pxc-operator",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4dd0356e-e0cb-4838-8f20-20eed58bb33d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:08.242503Z",
+      "CursorID": 4617,
+      "DisplayName": "helm-pxc-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pxc-operator-no-crds-confighub-proof",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "UpdatedAt": "2026-06-12T16:54:08.803283Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '812c6bc8-d9bf-4de5-96a3-d38bb030a748'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "HelmChart": "percona-pxc-operator",
+        "HelmChartVersion": "1.19.1",
+        "Package": "percona-pxc-operator",
+        "Proof": "pxc-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "99278cf5-5e2d-4ff6-b90b-4e419ba5e76b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:08.242503Z",
+      "CursorID": 4617,
+      "DisplayName": "helm-pxc-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pxc-operator-no-crds-confighub-proof",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "UpdatedAt": "2026-06-12T16:54:08.803283Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '812c6bc8-d9bf-4de5-96a3-d38bb030a748'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "037287181680c7ce9f48378adb3b85a5cf2bc528d00da0289dbe08dba11aeae4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "HelmChart": "percona-pxc-operator",
+        "HelmChartVersion": "1.19.1",
+        "Package": "percona-pxc-operator",
+        "Proof": "pxc-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-pxc-operator",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "be91d210-4db2-4c5d-aed3-0485def0d4e1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:08.242503Z",
+      "CursorID": 4617,
+      "DisplayName": "helm-pxc-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pxc-operator-no-crds-confighub-proof",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "UpdatedAt": "2026-06-12T16:54:08.803283Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '812c6bc8-d9bf-4de5-96a3-d38bb030a748'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f3402fe25febf5680bd4c37565c34144031e273c9bfaff1c33ac152a44b62198",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "HelmChart": "percona-pxc-operator",
+        "HelmChartVersion": "1.19.1",
+        "Package": "percona-pxc-operator",
+        "Proof": "pxc-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-pxc-operator",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c7afa2a6-ce0e-4640-9a70-1b4ad71aa771",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:08.242503Z",
+      "CursorID": 4617,
+      "DisplayName": "helm-pxc-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-pxc-operator-no-crds-confighub-proof",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "UpdatedAt": "2026-06-12T16:54:08.803283Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '812c6bc8-d9bf-4de5-96a3-d38bb030a748'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8cdfa23b687f0ee7444a113077fe79e52c96bc377a54d55f7d62cb10441895ef",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "PerconaPXCOperator",
+        "HelmChart": "percona-pxc-operator",
+        "HelmChartVersion": "1.19.1",
+        "Package": "percona-pxc-operator",
+        "Proof": "pxc-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-pxc-operator",
+      "SpaceID": "812c6bc8-d9bf-4de5-96a3-d38bb030a748",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ca8c25bd-832f-4535-b58a-bd3a0e406d07",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

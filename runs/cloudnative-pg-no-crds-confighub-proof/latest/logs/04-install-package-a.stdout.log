@@ -1,0 +1,5 @@
+Bundled cloudnative-pg-cloudnative-pg@
+  output: .tmp/confighub-proof/cloudnative-pg-no-crds-archives/cloudnative-pg-a.tgz
+  files:  6
+  size:   163206 bytes
+  digest: sha256:a3460212e4810a3fb20b55146bdbd6ebb499b3ed0e05c6f3bd7242baa0c7a7ec

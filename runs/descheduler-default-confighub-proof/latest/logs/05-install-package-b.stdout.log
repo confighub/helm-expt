@@ -1,0 +1,5 @@
+Bundled descheduler-descheduler@
+  output: .tmp/confighub-proof/descheduler-default-archives/descheduler-b.tgz
+  files:  4
+  size:   1865 bytes
+  digest: sha256:ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490

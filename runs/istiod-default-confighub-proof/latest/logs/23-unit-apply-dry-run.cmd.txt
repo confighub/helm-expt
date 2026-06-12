@@ -1,0 +1,1 @@
+cub unit apply --space helm-istiod-default-confighub-proof --where "Labels.Proof = 'istiod-default-confighub-proof'" --dry-run --wait --timeout 2m

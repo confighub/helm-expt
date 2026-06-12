@@ -1,0 +1,1 @@
+cub unit cancel --space helm-pg-operator-no-crds-confighub-proof --where "Labels.Proof = 'pg-operator-no-crds-confighub-proof'"

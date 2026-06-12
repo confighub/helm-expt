@@ -1,0 +1,5 @@
+Bundled coredns-coredns@
+  output: .tmp/confighub-proof/coredns-archives/coredns-a.tgz
+  files:  4
+  size:   1793 bytes
+  digest: sha256:795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e

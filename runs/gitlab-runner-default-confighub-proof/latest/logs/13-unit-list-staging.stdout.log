@@ -1,0 +1,744 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:00.280066Z",
+        "CursorID": 23170,
+        "DisplayName": "Upgrade configmap-default-gitlab-runner",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9f439383-a302-4852-9c50-3c032285e6f8",
+        "LinkID": "c141e8cf-21c4-4084-a938-aba13a74ceb9",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-gitlab-runner",
+        "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+        "SpaceSlug": "GitlabRunner-default-staging",
+        "ToSpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+        "ToUnitID": "632dd122-fd55-4012-a22e-1ab2b2bb6b5a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:00.280066Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '632dd122-fd55-4012-a22e-1ab2b2bb6b5a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:59.999702Z",
+      "CursorID": 4628,
+      "DisplayName": "helm-gitlab-runner-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "GitlabRunner",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "GitlabRunner-default-staging",
+      "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+      "UpdatedAt": "2026-06-12T16:56:59.999702Z",
+      "WhereTrigger": "SpaceID = '084e11be-1331-49c1-b04d-a3a90ac03915'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9a82772ddd8b812e63f0df69019de0af0b94b4df27c5a9e0543b866cb750ce5a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c141e8cf-21c4-4084-a938-aba13a74ceb9"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-gitlab-runner",
+      "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9f439383-a302-4852-9c50-3c032285e6f8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "632dd122-fd55-4012-a22e-1ab2b2bb6b5a",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1439900035,
+      "CreatedAt": "2026-06-12T16:56:35.557589Z",
+      "CursorID": 28194,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBjaGVjay1saXZlOiB8CiAgICAjIS9iaW4vYmFzaAogICAgc2V0IC1lb3UgcGlwZWZhaWwKCiAgICAjIGRlZmF1bHQgdGltZW91dCBpcyAzIHNlY29uZHMsIGNhbiBiZSBvdmVycmlkZW4KICAgIFZFUklGWV9USU1FT1VUPSR7MTotJHtWRVJJRllfVElNRU9VVDotM319CgogICAgaWYgISAvdXNyL2Jpbi9wZ3JlcCAtZiAiLipyZWdpc3Rlci10aGUtcnVubmVyIiAgPiAvZGV2L251bGwgJiYgISAvdXNyL2Jpbi9wZ3JlcCAtZiAiZ2l0bGFiLipydW5uZXIiICA+IC9kZXYvbnVsbCA7IHRoZW4KICAgICAgZXhpdCAxCiAgICBmaQoKICAgIHN0YXR1cz0wCiAgICAjIGVtcHR5IC0tdXJsPSBoZWxwcyBgZ2l0bGFiLXJ1bm5lciB2ZXJpZnlgIHNlbGVjdCBhbGwgY29uZmlndXJlZCBydW5uZXJzIChvdGhlcndpc2UgZmlsdGVycyBmb3IgJENJX1NFUlZFUl9VUkwpCiAgICB2ZXJpZnlfb3V0cHV0PSQodGltZW91dCAiJHtWRVJJRllfVElNRU9VVH0iIGdpdGxhYi1ydW5uZXIgdmVyaWZ5IC0tdXJsPSAyPiYxKSB8fCBzdGF0dXM9JD8KCiAgICAjIHRpbWVvdXQgZXhpdCBjb2RlIGlzIDE0MyB3aXRoIGJ1c3lib3gsIGFuZCAxMjQgd2l0aCBjb3JldXRpbHMKICAgIGlmICgoIHN0YXR1cyA9PSAxNDMgKSkgfHwgKCggc3RhdHVzID09IDEyNCApKSA7IHRoZW4KICAgICAgZWNobyAiJ2dpdGxhYi1ydW5uZXIgdmVyaWZ5JyB0ZXJtaW5hdGVkIGJ5IHRpbWVvdXQsIG5vdCBhIGNvbmNsdXNpdmUgZmFpbHVyZSIgPiYyCiAgICAgIGV4aXQgMAogICAgZWxpZiAoKCBzdGF0dXMgPiAwICkpIDsgdGhlbgogICAgICBleGl0ICR7c3RhdHVzfQogICAgZmkKCiAgICBncmVwIC1xRSAiaXMgKGFsaXZlfHZhbGlkKSIgPDw8IiR7dmVyaWZ5X291dHB1dH0iCiAgY29uZmlnLnRlbXBsYXRlLnRvbWw6IHwKICAgIFtbcnVubmVyc11dCiAgICAgIFtydW5uZXJzLmt1YmVybmV0ZXNdCiAgICAgICAgbmFtZXNwYWNlID0gImRlZmF1bHQiCiAgICAgICAgaW1hZ2UgPSAiYWxwaW5lIgogIGNvbmZpZy50b21sOiB8CiAgICBzaHV0ZG93bl90aW1lb3V0ID0gMAogICAgY29uY3VycmVudCA9IDEwCiAgICBjaGVja19pbnRlcnZhbCA9IDMKICAgIGxvZ19sZXZlbCA9ICJpbmZvIgogIGVudHJ5cG9pbnQ6IHwKICAgICMhL2Jpbi9iYXNoCiAgICBzZXQgLWUKCiAgICBleHBvcnQgQ09ORklHX1BBVEhfRk9SX0lOSVQ9Ii9ob21lL2dpdGxhYi1ydW5uZXIvLmdpdGxhYi1ydW5uZXIvIgogICAgbWtkaXIgLXAgJHtDT05GSUdfUEFUSF9GT1JfSU5JVH0KICAgIGNwIC9jb25maWdtYXBzL2NvbmZpZy50b21sICR7Q09ORklHX1BBVEhfRk9SX0lOSVR9CiAgICAjIFNldCB1cCBlbnZpcm9ubWVudCB2YXJpYWJsZXMgZm9yIGNhY2hlCiAgICBpZiBbWyAtZiAvc2VjcmV0cy9hY2Nlc3NrZXkgJiYgLWYgL3NlY3JldHMvc2VjcmV0a2V5IF1dOyB0aGVuCiAgICAgIGV4cG9ydCBDQUNIRV9TM19BQ0NFU1NfS0VZPSQoY2F0IC9zZWNyZXRzL2FjY2Vzc2tleSkKICAgICAgZXhwb3J0IENBQ0hFX1MzX1NFQ1JFVF9LRVk9JChjYXQgL3NlY3JldHMvc2VjcmV0a2V5KQogICAgZmkKCiAgICBpZiBbWyAtZiAvc2VjcmV0cy9nY3MtYXBwbGljYXRvbi1jcmVkZW50aWFscy1maWxlIF1dOyB0aGVuCiAgICAgIGV4cG9ydCBHT09HTEVfQVBQTElDQVRJT05fQ1JFREVOVElBTFM9Ii9zZWNyZXRzL2djcy1hcHBsaWNhdG9uLWNyZWRlbnRpYWxzLWZpbGUiCiAgICBlbGlmIFtbIC1mIC9zZWNyZXRzL2djcy1hcHBsaWNhdGlvbi1jcmVkZW50aWFscy1maWxlIF1dOyB0aGVuCiAgICAgIGV4cG9ydCBHT09HTEVfQVBQTElDQVRJT05fQ1JFREVOVElBTFM9Ii9zZWNyZXRzL2djcy1hcHBsaWNhdGlvbi1jcmVkZW50aWFscy1maWxlIgogICAgZWxzZQogICAgICBpZiBbWyAtZiAvc2VjcmV0cy9nY3MtYWNjZXNzLWlkICYmIC1mIC9zZWNyZXRzL2djcy1wcml2YXRlLWtleSBdXTsgdGhlbgogICAgICAgIGV4cG9ydCBDQUNIRV9HQ1NfQUNDRVNTX0lEPSQoY2F0IC9zZWNyZXRzL2djcy1hY2Nlc3MtaWQpCiAgICAgICAgIyBlY2hvIC1lIHVzZWQgdG8gbWFrZSBwcml2YXRlIGtleSBtdWx0aWxpbmUgKGluIGdvb2dsZSBqc29uIGF1dGgga2V5IHByaXZhdGUga2V5IGlzIG9uZWxpbmUgd2l0aCBcbikKICAgICAgICBleHBvcnQgQ0FDSEVfR0NTX1BSSVZBVEVfS0VZPSQoZWNobyAtZSAkKGNhdCAvc2VjcmV0cy9nY3MtcHJpdmF0ZS1rZXkpKQogICAgICBmaQogICAgZmkKCiAgICBpZiBbWyAtZiAvc2VjcmV0cy9henVyZS1hY2NvdW50LW5hbWUgJiYgLWYgL3NlY3JldHMvYXp1cmUtYWNjb3VudC1rZXkgXV07IHRoZW4KICAgICAgZXhwb3J0IENBQ0hFX0FaVVJFX0FDQ09VTlRfTkFNRT0kKGNhdCAvc2VjcmV0cy9henVyZS1hY2NvdW50LW5hbWUpCiAgICAgIGV4cG9ydCBDQUNIRV9BWlVSRV9BQ0NPVU5UX0tFWT0kKGNhdCAvc2VjcmV0cy9henVyZS1hY2NvdW50LWtleSkKICAgIGZpCgogICAgaWYgW1sgLWYgL3NlY3JldHMvcnVubmVyLXJlZ2lzdHJhdGlvbi10b2tlbiBdXTsgdGhlbgogICAgICBleHBvcnQgUkVHSVNUUkFUSU9OX1RPS0VOPSQoY2F0IC9zZWNyZXRzL3J1bm5lci1yZWdpc3RyYXRpb24tdG9rZW4pCiAgICBmaQoKICAgIGlmIFtbIC1mIC9zZWNyZXRzL3J1bm5lci10b2tlbiBdXTsgdGhlbgogICAgICBleHBvcnQgQ0lfU0VSVkVSX1RPS0VOPSQoY2F0IC9zZWNyZXRzL3J1bm5lci10b2tlbikKICAgIGZpCiAgICBpZiAhIHNoIC9jb25maWdtYXBzL3JlZ2lzdGVyLXRoZS1ydW5uZXI7IHRoZW4KICAgICAgZXhpdCAxCiAgICBmaQoKICAgICMgUnVuIHByZS1lbnRyeXBvaW50LXNjcmlwdAogICAgaWYgISBiYXNoIC9jb25maWdtYXBzL3ByZS1lbnRyeXBvaW50LXNjcmlwdDsgdGhlbgogICAgICBleGl0IDEKICAgIGZpCgogICAgIyBTdGFydCB0aGUgcnVubmVyCiAgICBleGVjIC9lbnRyeXBvaW50IHJ1biBcCiAgICAgIC0td29ya2luZy1kaXJlY3Rvcnk9L2hvbWUvZ2l0bGFiLXJ1bm5lcgogIHByZS1lbnRyeXBvaW50LXNjcmlwdDogIiIKICByZWdpc3Rlci10aGUtcnVubmVyOiB8CiAgICAjIS9iaW4vc2gKICAgIHNpZ25hbF9oYW5kbGVyKCkgewogICAgICBpZiBbICEgLWQgIi9wcm9jLyRyZWdpc3Rlcl9waWQiIF07IHRoZW4KICAgICAgICB3YWl0ICRyZWdpc3Rlcl9waWQKICAgICAgZmkKICAgICAgZXhpdAogICAgfQogICAgdHJhcCAnc2lnbmFsX2hhbmRsZXInIFFVSVQgSU5UCgogICAgTUFYX1JFR0lTVEVSX0FUVEVNUFRTPTMwCgogICAgIyBSZXNldC91bnNldCB0aGUgbm90IG5lZWRlZCBmbGFncyB3aGVuIGFuIGF1dGhlbnRpY2F0aW9uIHRva2VuCiAgICBSVU5fVU5UQUdHRUQ9IiIKICAgIEFDQ0VTU19MRVZFTD0iIgoKICAgIGlmIFsgLW4gIiRDSV9TRVJWRVJfVE9LRU4iIF0gJiYgWyAiJHtDSV9TRVJWRVJfVE9LRU4jZ2xydC19IiAhPSAiJENJX1NFUlZFUl9UT0tFTiIgXTsgdGhlbgogICAgICBSVU5fVU5UQUdHRUQ9IiIKICAgICAgQUNDRVNTX0xFVkVMPSIiCiAgICAgIHVuc2V0IFJFR0lTVEVSX0xPQ0tFRAogICAgICB1bnNldCBSVU5ORVJfVEFHX0xJU1QKICAgIGZpCgogICAgZm9yIGkgaW4gJChzZXEgMSAiJHtNQVhfUkVHSVNURVJfQVRURU1QVFN9Iik7IGRvCiAgICAgIGVjaG8gIlJlZ2lzdHJhdGlvbiBhdHRlbXB0ICR7aX0gb2YgJHtNQVhfUkVHSVNURVJfQVRURU1QVFN9IgogICAgICAvZW50cnlwb2ludCByZWdpc3RlciBcCiAgICAgICAgJHtSVU5fVU5UQUdHRUR9IFwKICAgICAgICAke0FDQ0VTU19MRVZFTH0gXAogICAgICAgIC0tdGVtcGxhdGUtY29uZmlnIC9jb25maWdtYXBzL2NvbmZpZy50ZW1wbGF0ZS50b21sIFwKICAgICAgICAtLW5vbi1pbnRlcmFjdGl2ZSAmCgogICAgICByZWdpc3Rlcl9waWQ9JCEKICAgICAgd2FpdCAkcmVnaXN0ZXJfcGlkCiAgICAgIHJldHZhbD0kPwoKICAgICAgaWYgWyAke3JldHZhbH0gPSAwIF07IHRoZW4KICAgICAgICBicmVhawogICAgICBlbGlmIFsgJHtpfSA9ICR7TUFYX1JFR0lTVEVSX0FUVEVNUFRTfSBdOyB0aGVuCiAgICAgICAgZXhpdCAxCiAgICAgIGZpCgogICAgICBzbGVlcCA1CiAgICBkb25lCmtpbmQ6IENvbmZpZ01hcAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IGdpdGxhYi1ydW5uZXIKICAgIGNoYXJ0OiBnaXRsYWItcnVubmVyLTAuODkuMAogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IGdpdGxhYi1ydW5uZXIKICBuYW1lOiBnaXRsYWItcnVubmVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "9a82772ddd8b812e63f0df69019de0af0b94b4df27c5a9e0543b866cb750ce5a",
+      "DisplayName": "configmap-default-gitlab-runner",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "GitlabRunner",
+        "HelmChart": "gitlab-gitlab-runner",
+        "HelmChartVersion": "0.89.0",
+        "Package": "gitlab-gitlab-runner",
+        "Proof": "gitlab-runner-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 4234 bytes; from configmap-default-gitlab-runner.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gitlab-runner": {}
+          },
+          "AliasesWithoutScopes": {
+            "gitlab-runner": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gitlab-runner",
+            "ResourceNameWithoutScope": "gitlab-runner",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  check-live: |\n    #!/bin/bash\n    set -eou pipefail\n\n    # default timeout is 3 seconds, can be overriden\n    VERIFY_TIMEOUT=${1:-${VERIFY_TIMEOUT:-3}}\n\n    if ! /usr/bin/pgrep -f \".*register-the-runner\"  \u003e /dev/null \u0026\u0026 ! /usr/bin/pgrep -f \"gitlab.*runner\"  \u003e /dev/null ; then\n      exit 1\n    fi\n\n    status=0\n    # empty --url= helps `gitlab-runner verify` select all configured runners (otherwise filters for $CI_SERVER_URL)\n    verify_output=$(timeout \"${VERIFY_TIMEOUT}\" gitlab-runner verify --url= 2\u003e\u00261) || status=$?\n\n    # timeout exit code is 143 with busybox, and 124 with coreutils\n    if (( status == 143 )) || (( status == 124 )) ; then\n      echo \"'gitlab-runner verify' terminated by timeout, not a conclusive failure\" \u003e\u00262\n      exit 0\n    elif (( status \u003e 0 )) ; then\n      exit ${status}\n    fi\n\n    grep -qE \"is (alive|valid)\" \u003c\u003c\u003c\"${verify_output}\"\n  config.template.toml: |\n    [[runners]]\n      [runners.kubernetes]\n        namespace = \"default\"\n        image = \"alpine\"\n  config.toml: |\n    shutdown_timeout = 0\n    concurrent = 10\n    check_interval = 3\n    log_level = \"info\"\n  entrypoint: |\n    #!/bin/bash\n    set -e\n\n    export CONFIG_PATH_FOR_INIT=\"/home/gitlab-runner/.gitlab-runner/\"\n    mkdir -p ${CONFIG_PATH_FOR_INIT}\n    cp /configmaps/config.toml ${CONFIG_PATH_FOR_INIT}\n    # Set up environment variables for cache\n    if [[ -f /secrets/accesskey \u0026\u0026 -f /secrets/secretkey ]]; then\n      export CACHE_S3_ACCESS_KEY=$(cat /secrets/accesskey)\n      export CACHE_S3_SECRET_KEY=$(cat /secrets/secretkey)\n    fi\n\n    if [[ -f /secrets/gcs-applicaton-credentials-file ]]; then\n      export GOOGLE_APPLICATION_CREDENTIALS=\"/secrets/gcs-applicaton-credentials-file\"\n    elif [[ -f /secrets/gcs-application-credentials-file ]]; then\n      export GOOGLE_APPLICATION_CREDENTIALS=\"/secrets/gcs-application-credentials-file\"\n    else\n      if [[ -f /secrets/gcs-access-id \u0026\u0026 -f /secrets/gcs-private-key ]]; then\n        export CACHE_GCS_ACCESS_ID=$(cat /secrets/gcs-access-id)\n        # echo -e used to make private key multiline (in google json auth key private key is oneline with \\n)\n        export CACHE_GCS_PRIVATE_KEY=$(echo -e $(cat /secrets/gcs-private-key))\n      fi\n    fi\n\n    if [[ -f /secrets/azure-account-name \u0026\u0026 -f /secrets/azure-account-key ]]; then\n      export CACHE_AZURE_ACCOUNT_NAME=$(cat /secrets/azure-account-name)\n      export CACHE_AZURE_ACCOUNT_KEY=$(cat /secrets/azure-account-key)\n    fi\n\n    if [[ -f /secrets/runner-registration-token ]]; then\n      export REGISTRATION_TOKEN=$(cat /secrets/runner-registration-token)\n    fi\n\n    if [[ -f /secrets/runner-token ]]; then\n      export CI_SERVER_TOKEN=$(cat /secrets/runner-token)\n    fi\n    if ! sh /configmaps/register-the-runner; then\n      exit 1\n    fi\n\n    # Run pre-entrypoint-script\n    if ! bash /configmaps/pre-entrypoint-script; then\n      exit 1\n    fi\n\n    # Start the runner\n    exec /entrypoint run \\\n      --working-directory=/home/gitlab-runner\n  pre-entrypoint-script: \"\"\n  register-the-runner: |\n    #!/bin/sh\n    signal_handler() {\n      if [ ! -d \"/proc/$register_pid\" ]; then\n        wait $register_pid\n      fi\n      exit\n    }\n    trap 'signal_handler' QUIT INT\n\n    MAX_REGISTER_ATTEMPTS=30\n\n    # Reset/unset the not needed flags when an authentication token\n    RUN_UNTAGGED=\"\"\n    ACCESS_LEVEL=\"\"\n\n    if [ -n \"$CI_SERVER_TOKEN\" ] \u0026\u0026 [ \"${CI_SERVER_TOKEN#glrt-}\" != \"$CI_SERVER_TOKEN\" ]; then\n      RUN_UNTAGGED=\"\"\n      ACCESS_LEVEL=\"\"\n      unset REGISTER_LOCKED\n      unset RUNNER_TAG_LIST\n    fi\n\n    for i in $(seq 1 \"${MAX_REGISTER_ATTEMPTS}\"); do\n      echo \"Registration attempt ${i} of ${MAX_REGISTER_ATTEMPTS}\"\n      /entrypoint register \\\n        ${RUN_UNTAGGED} \\\n        ${ACCESS_LEVEL} \\\n        --template-config /configmaps/config.template.toml \\\n        --non-interactive \u0026\n\n      register_pid=$!\n      wait $register_pid\n      retval=$?\n\n      if [ ${retval} = 0 ]; then\n        break\n      elif [ ${i} = ${MAX_REGISTER_ATTEMPTS} ]; then\n        exit 1\n      fi\n\n      sleep 5\n    done\nkind: ConfigMap\nmetadata:\n  labels:\n    app: gitlab-runner\n    chart: gitlab-runner-0.89.0\n    heritage: Helm\n    release: gitlab-runner\n  name: gitlab-runner\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-check-live": "true",
+              "SubPath-config.template.toml": "true",
+              "SubPath-config.toml": "true",
+              "SubPath-entrypoint": "true",
+              "SubPath-pre-entrypoint-script": "true",
+              "SubPath-register-the-runner": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gitlab-runner",
+          "ResourceNameWithoutScope": "gitlab-runner",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-gitlab-runner",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "632dd122-fd55-4012-a22e-1ab2b2bb6b5a",
+      "UpdatedAt": "2026-06-12T16:56:52.734236Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:00.312725Z",
+        "CursorID": 23171,
+        "DisplayName": "Upgrade deployment-default-gitlab-runner",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "8d09faf0-c2c6-4ac2-9c1d-b9bd0e09a3e9",
+        "LinkID": "a38864a0-f6b2-4ffe-a989-711d80df2d57",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-gitlab-runner",
+        "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+        "SpaceSlug": "GitlabRunner-default-staging",
+        "ToSpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+        "ToUnitID": "7887b5f3-5ca6-43a7-b178-d2aba9ed671e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:00.312725Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7887b5f3-5ca6-43a7-b178-d2aba9ed671e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:59.999702Z",
+      "CursorID": 4628,
+      "DisplayName": "helm-gitlab-runner-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "GitlabRunner",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "GitlabRunner-default-staging",
+      "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+      "UpdatedAt": "2026-06-12T16:56:59.999702Z",
+      "WhereTrigger": "SpaceID = '084e11be-1331-49c1-b04d-a3a90ac03915'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f1bc903deb6fcd3fafc9ceb541a824b98b665aade9ee566b27bdd8325dda02b5",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a38864a0-f6b2-4ffe-a989-711d80df2d57"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-gitlab-runner",
+      "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8d09faf0-c2c6-4ac2-9c1d-b9bd0e09a3e9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7887b5f3-5ca6-43a7-b178-d2aba9ed671e",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1896758079,
+      "CreatedAt": "2026-06-12T16:56:36.365791Z",
+      "CursorID": 28196,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogZ2l0bGFiLXJ1bm5lcgogICAgY2hhcnQ6IGdpdGxhYi1ydW5uZXItMC44OS4wCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogZ2l0bGFiLXJ1bm5lcgogIG5hbWU6IGdpdGxhYi1ydW5uZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICByZXZpc2lvbkhpc3RvcnlMaW1pdDogMTAKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHA6IGdpdGxhYi1ydW5uZXIKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczoKICAgICAgICBjaGVja3N1bS9jb25maWdtYXA6IGFlYmYxNzU2NTE5ZTI5N2JiYWRhODNjYWQ1MjVlMTc0ZTg5N2M4YjVhYjBkNmNlZTc1ZjFkYjU5ZjRhMWVhMTAKICAgICAgbGFiZWxzOgogICAgICAgIGFwcDogZ2l0bGFiLXJ1bm5lcgogICAgICAgIGNoYXJ0OiBnaXRsYWItcnVubmVyLTAuODkuMAogICAgICAgIGhlcml0YWdlOiBIZWxtCiAgICAgICAgcmVsZWFzZTogZ2l0bGFiLXJ1bm5lcgogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBjb21tYW5kOgogICAgICAgIC0gL3Vzci9iaW4vZHVtYi1pbml0CiAgICAgICAgLSAtLQogICAgICAgIC0gL2Jpbi9iYXNoCiAgICAgICAgLSAvY29uZmlnbWFwcy9lbnRyeXBvaW50CiAgICAgICAgZW52OgogICAgICAgIC0gbmFtZTogQ0lfU0VSVkVSX1VSTAogICAgICAgICAgdmFsdWU6IG51bGwKICAgICAgICAtIG5hbWU6IFJVTk5FUl9FWEVDVVRPUgogICAgICAgICAgdmFsdWU6IGt1YmVybmV0ZXMKICAgICAgICAtIG5hbWU6IFJFR0lTVEVSX0xPQ0tFRAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogUlVOTkVSX1RBR19MSVNUCiAgICAgICAgICB2YWx1ZTogIiIKICAgICAgICAtIG5hbWU6IFNFU1NJT05fU0VSVkVSX0FERFJFU1MKICAgICAgICAgIHZhbHVlOiBudWxsCiAgICAgICAgaW1hZ2U6IHJlZ2lzdHJ5LmdpdGxhYi5jb20vZ2l0bGFiLW9yZy9naXRsYWItcnVubmVyOmFscGluZS12MTkuMC4wCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvZW50cnlwb2ludAogICAgICAgICAgICAgIC0gdW5yZWdpc3RlcgogICAgICAgICAgICAgIC0gLS1hbGwtcnVubmVycwogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBleGVjOgogICAgICAgICAgICBjb21tYW5kOgogICAgICAgICAgICAtIC9iaW4vYmFzaAogICAgICAgICAgICAtIC9jb25maWdtYXBzL2NoZWNrLWxpdmUKICAgICAgICAgICAgLSAiMyIKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDMKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDYwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiA2MAogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDQKICAgICAgICBuYW1lOiBnaXRsYWItcnVubmVyCiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiA5MjUyCiAgICAgICAgICBuYW1lOiBtZXRyaWNzCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBleGVjOgogICAgICAgICAgICBjb21tYW5kOgogICAgICAgICAgICAtIC91c3IvYmluL3BncmVwCiAgICAgICAgICAgIC0gZ2l0bGFiLipydW5uZXIKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDMKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDYwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiA2MAogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDQKICAgICAgICByZXNvdXJjZXM6IHt9CiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAtIEFMTAogICAgICAgICAgcHJpdmlsZWdlZDogZmFsc2UKICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IGZhbHNlCiAgICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICB2b2x1bWVNb3VudHM6CiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL2dpdGxhYi1ydW5uZXIvLmdpdGxhYi1ydW5uZXIKICAgICAgICAgIG5hbWU6IGV0Yy1naXRsYWItcnVubmVyCiAgICAgICAgLSBtb3VudFBhdGg6IC9jb25maWdtYXBzCiAgICAgICAgICBuYW1lOiBjb25maWdtYXBzCiAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICBmc0dyb3VwOiA2NTUzMwogICAgICAgIHJ1bkFzVXNlcjogMTAwCiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogIiIKICAgICAgdGVybWluYXRpb25HcmFjZVBlcmlvZFNlY29uZHM6IDM2MDAKICAgICAgdm9sdW1lczoKICAgICAgLSBlbXB0eURpcjoKICAgICAgICAgIG1lZGl1bTogTWVtb3J5CiAgICAgICAgbmFtZTogcnVubmVyLXNlY3JldHMKICAgICAgLSBlbXB0eURpcjoKICAgICAgICAgIG1lZGl1bTogTWVtb3J5CiAgICAgICAgbmFtZTogZXRjLWdpdGxhYi1ydW5uZXIKICAgICAgLSBjb25maWdNYXA6CiAgICAgICAgICBuYW1lOiBnaXRsYWItcnVubmVyCiAgICAgICAgbmFtZTogY29uZmlnbWFwcwo=",
+      "DataHash": "f1bc903deb6fcd3fafc9ceb541a824b98b665aade9ee566b27bdd8325dda02b5",
+      "DisplayName": "deployment-default-gitlab-runner",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "GitlabRunner",
+        "HelmChart": "gitlab-gitlab-runner",
+        "HelmChartVersion": "0.89.0",
+        "Package": "gitlab-gitlab-runner",
+        "Proof": "gitlab-runner-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gitlab-runner": {}
+          },
+          "AliasesWithoutScopes": {
+            "gitlab-runner": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gitlab-runner",
+            "ResourceNameWithoutScope": "gitlab-runner",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app: gitlab-runner\n    chart: gitlab-runner-0.89.0\n    heritage: Helm\n    release: gitlab-runner\n  name: gitlab-runner\n  namespace: default\nspec:\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app: gitlab-runner\n  template:\n    metadata:\n      annotations:\n        checksum/configmap: aebf1756519e297bbada83cad525e174e897c8b5ab0d6cee75f1db59f4a1ea10\n      labels:\n        app: gitlab-runner\n        chart: gitlab-runner-0.89.0\n        heritage: Helm\n        release: gitlab-runner\n    spec:\n      containers:\n      - command:\n        - /usr/bin/dumb-init\n        - --\n        - /bin/bash\n        - /configmaps/entrypoint\n        env:\n        - name: CI_SERVER_URL\n          value: null\n        - name: RUNNER_EXECUTOR\n          value: kubernetes\n        - name: REGISTER_LOCKED\n          value: \"true\"\n        - name: RUNNER_TAG_LIST\n          value: \"\"\n        - name: SESSION_SERVER_ADDRESS\n          value: null\n        image: registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /entrypoint\n              - unregister\n              - --all-runners\n        livenessProbe:\n          exec:\n            command:\n            - /bin/bash\n            - /configmaps/check-live\n            - \"3\"\n          failureThreshold: 3\n          initialDelaySeconds: 60\n          periodSeconds: 60\n          successThreshold: 1\n          timeoutSeconds: 4\n        name: gitlab-runner\n        ports:\n        - containerPort: 9252\n          name: metrics\n        readinessProbe:\n          exec:\n            command:\n            - /usr/bin/pgrep\n            - gitlab.*runner\n          failureThreshold: 3\n          initialDelaySeconds: 60\n          periodSeconds: 60\n          successThreshold: 1\n          timeoutSeconds: 4\n        resources: {}\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          privileged: false\n          readOnlyRootFilesystem: false\n          runAsNonRoot: true\n        volumeMounts:\n        - mountPath: /home/gitlab-runner/.gitlab-runner\n          name: etc-gitlab-runner\n        - mountPath: /configmaps\n          name: configmaps\n      securityContext:\n        fsGroup: 65533\n        runAsUser: 100\n      serviceAccountName: \"\"\n      terminationGracePeriodSeconds: 3600\n      volumes:\n      - emptyDir:\n          medium: Memory\n        name: runner-secrets\n      - emptyDir:\n          medium: Memory\n        name: etc-gitlab-runner\n      - configMap:\n          name: gitlab-runner\n        name: configmaps\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gitlab-runner",
+          "ResourceNameWithoutScope": "gitlab-runner",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-gitlab-runner",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7887b5f3-5ca6-43a7-b178-d2aba9ed671e",
+      "UpdatedAt": "2026-06-12T16:56:55.189559Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:00.350015Z",
+        "CursorID": 23172,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b04cd0f1-cd2e-49f2-afe4-44d5b154ccc6",
+        "LinkID": "896883d0-6f79-4b06-ba97-1117148d294f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+        "SpaceSlug": "GitlabRunner-default-staging",
+        "ToSpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+        "ToUnitID": "ab064415-75b4-4da5-bc7e-8e0eaa39b18a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:00.350015Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ab064415-75b4-4da5-bc7e-8e0eaa39b18a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:59.999702Z",
+      "CursorID": 4628,
+      "DisplayName": "helm-gitlab-runner-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "GitlabRunner",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "GitlabRunner-default-staging",
+      "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+      "UpdatedAt": "2026-06-12T16:56:59.999702Z",
+      "WhereTrigger": "SpaceID = '084e11be-1331-49c1-b04d-a3a90ac03915'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8b9a44ecc7c85e69e6d2e877372e963e3772d2ecb70dcf756a42ae29ec638201",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "896883d0-6f79-4b06-ba97-1117148d294f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b04cd0f1-cd2e-49f2-afe4-44d5b154ccc6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ab064415-75b4-4da5-bc7e-8e0eaa39b18a",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "gitlab-gitlab-runner",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1577521885,
+      "CreatedAt": "2026-06-12T16:56:40.787465Z",
+      "CursorID": 28201,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImdpdGxhYi1naXRsYWItcnVubmVyIgogIHZlcnNpb246ICIwLjg5LjAiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIG5hbWU6ICJkZWZhdWx0IgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQiCiAgICBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogImdpdGxhYi9naXRsYWItcnVubmVyIGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIGdpdGxhYi9naXRsYWItcnVubmVyQDAuODkuMCIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogZ2l0bGFiLWdpdGxhYi1ydW5uZXItZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGdpdGxhYi1naXRsYWItcnVubmVyCiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IGdpdGxhYi1naXRsYWItcnVubmVyLWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZ2l0bGFiLWdpdGxhYi1ydW5uZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGdpdGxhYi1naXRsYWItcnVubmVyLW1hbmlmZXN0LWluZGV4CiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBnaXRsYWItZ2l0bGFiLXJ1bm5lcgogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNvbmZpZ21hcC1kZWZhdWx0LWdpdGxhYi1ydW5uZXIueWFtbAogICAgc2x1ZzogY29uZmlnbWFwLWRlZmF1bHQtZ2l0bGFiLXJ1bm5lcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IENvbmZpZ01hcAogICAgbmFtZTogZ2l0bGFiLXJ1bm5lcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LWdpdGxhYi1ydW5uZXIueWFtbAogICAgc2x1ZzogZGVwbG95bWVudC1kZWZhdWx0LWdpdGxhYi1ydW5uZXIKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IGdpdGxhYi1ydW5uZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1kZWZhdWx0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogTmFtZXNwYWNlCiAgICBuYW1lOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogZ2l0bGFiLWdpdGxhYi1ydW5uZXItc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBnaXRsYWItZ2l0bGFiLXJ1bm5lcgogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBnaXRsYWItZ2l0bGFiLXJ1bm5lci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGdpdGxhYi1naXRsYWItcnVubmVyCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLWdpdGxhYi1ydW5uZXItZGVmYXVsdC1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBnaXRsYWItZ2l0bGFiLXJ1bm5lcgogICAgc2x1ZzogaGVsbS1naXRsYWItcnVubmVyLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjU2OjM0WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "8b9a44ecc7c85e69e6d2e877372e963e3772d2ecb70dcf756a42ae29ec638201",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "gitlab-gitlab-runner"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/gitlab-gitlab-runner": {}
+          },
+          "AliasesWithoutScopes": {
+            "gitlab-gitlab-runner": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gitlab-gitlab-runner",
+            "ResourceNameWithoutScope": "gitlab-gitlab-runner",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"gitlab-gitlab-runner\"\n  version: \"0.89.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"gitlab/gitlab-runner default variant rendered from gitlab/gitlab-runner@0.89.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gitlab-gitlab-runner-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "gitlab-gitlab-runner-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gitlab-gitlab-runner-function-chain",
+            "ResourceNameWithoutScope": "gitlab-gitlab-runner-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: gitlab-gitlab-runner-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gitlab-gitlab-runner\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gitlab-gitlab-runner-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "gitlab-gitlab-runner-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gitlab-gitlab-runner-inputs",
+            "ResourceNameWithoutScope": "gitlab-gitlab-runner-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: gitlab-gitlab-runner-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gitlab-gitlab-runner\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gitlab-gitlab-runner-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "gitlab-gitlab-runner-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gitlab-gitlab-runner-manifest-index",
+            "ResourceNameWithoutScope": "gitlab-gitlab-runner-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: gitlab-gitlab-runner-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gitlab-gitlab-runner\n  files:\n  - filename: configmap-default-gitlab-runner.yaml\n    slug: configmap-default-gitlab-runner\n    apiVersion: v1\n    kind: ConfigMap\n    name: gitlab-runner\n    namespace: default\n  - filename: deployment-default-gitlab-runner.yaml\n    slug: deployment-default-gitlab-runner\n    apiVersion: apps/v1\n    kind: Deployment\n    name: gitlab-runner\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gitlab-gitlab-runner-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "gitlab-gitlab-runner-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gitlab-gitlab-runner-selection",
+            "ResourceNameWithoutScope": "gitlab-gitlab-runner-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: gitlab-gitlab-runner-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gitlab-gitlab-runner\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/gitlab-gitlab-runner-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "gitlab-gitlab-runner-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/gitlab-gitlab-runner-upload",
+            "ResourceNameWithoutScope": "gitlab-gitlab-runner-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: gitlab-gitlab-runner-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: gitlab-gitlab-runner\n  spacePattern: helm-gitlab-runner-default-confighub-proof\n  spaces:\n  - package: gitlab-gitlab-runner\n    slug: helm-gitlab-runner-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:56:34Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ab064415-75b4-4da5-bc7e-8e0eaa39b18a",
+      "UpdatedAt": "2026-06-12T16:56:42.620221Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:00.374128Z",
+        "CursorID": 23173,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6f18f50f-ee7e-449b-9633-3972554a313c",
+        "LinkID": "b0879d56-fe57-4f0a-a0c3-403a287cdea3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+        "SpaceSlug": "GitlabRunner-default-staging",
+        "ToSpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+        "ToUnitID": "a63f023c-9dc9-400f-b4ce-db8ad90336dd",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:00.374128Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'a63f023c-9dc9-400f-b4ce-db8ad90336dd' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:59.999702Z",
+      "CursorID": 4628,
+      "DisplayName": "helm-gitlab-runner-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "GitlabRunner",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "GitlabRunner-default-staging",
+      "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+      "UpdatedAt": "2026-06-12T16:56:59.999702Z",
+      "WhereTrigger": "SpaceID = '084e11be-1331-49c1-b04d-a3a90ac03915'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b0879d56-fe57-4f0a-a0c3-403a287cdea3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "cd24b298-9c43-4011-9a25-88fbfd7b7c02",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6f18f50f-ee7e-449b-9633-3972554a313c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "a63f023c-9dc9-400f-b4ce-db8ad90336dd",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:56:37.317265Z",
+      "CursorID": 28198,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "GitlabRunner",
+        "HelmChart": "gitlab-gitlab-runner",
+        "HelmChartVersion": "0.89.0",
+        "Package": "gitlab-gitlab-runner",
+        "Proof": "gitlab-runner-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a63f023c-9dc9-400f-b4ce-db8ad90336dd",
+      "UpdatedAt": "2026-06-12T16:56:37.406954Z",
+      "Version": 3
+    }
+  }
+]

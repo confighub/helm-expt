@@ -1,0 +1,5 @@
+Wizard wrote /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/keda-no-crds/out/spec/selection.yaml and inputs.yaml
+Base: no-crds; components: []
+Namespace: default
+Rendered 24 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/keda-no-crds/out/manifests
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/keda-no-crds --space <slug>

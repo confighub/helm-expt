@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-ingress-nginx-admission-disabled-confighub-proof (post-render):
+      Deployment/ingress-nginx-controller [controller] registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1

@@ -1,0 +1,10 @@
+== minio-operator-tenant@ → Space helm-minio-tenant-default-confighub-proof ==
+Successfully created unit namespace-default (4c495494-c73c-437b-9c56-727584b65a61)
+Successfully created unit tenant-myminio (150b1d76-709f-495d-8ab6-c328ddc3a6b1)
+Successfully created unit installer-record (221b1aff-60f6-4d62-a21e-64c91b0bece3)
+No links to create.
+
+Note: 1 rendered Secret(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/minio-tenant-default/out/secrets were NOT uploaded to ConfigHub.
+Apply them out-of-band (e.g., `kubectl apply -f`) or stage them however your
+environment manages secrets:
+  - v1/Secret "myminio-env-configuration" (secret-myminio-env-configuration.yaml)

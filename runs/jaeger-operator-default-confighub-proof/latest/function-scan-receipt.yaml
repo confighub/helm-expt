@@ -1,0 +1,95 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "jaeger-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-jaeger-operator-default-confighub-proof"
+    selector: "Labels.Proof = 'jaeger-operator-default-confighub-proof'"
+  subject:
+    chart: "jaegertracing/jaeger-operator"
+    chartVersion: "2.57.0"
+    packagePath: "packages/jaegertracing/jaeger-operator/2.57.0"
+    variant: "default"
+    configHubUnitCount: 12
+  unitRevisionBindings:
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "customresourcedefinition-jaegers-jaegertracing-io"
+      headRevisionNum: 2
+      dataHash: "34529a4c1bf21fb8163dc7734cc7eb82342d70709352a4458595837e555d7dbe"
+    -
+      slug: "certificate-default-jaeger-operator-service-cert"
+      headRevisionNum: 2
+      dataHash: "9951864e5b1ba03e2939e6021f9d8da6b815cedbdf0b41da947c9912c90619e9"
+    -
+      slug: "deployment-default-jaeger-operator"
+      headRevisionNum: 2
+      dataHash: "d4bd2172ed6f9c6da737ff76a5a9eee7349a8ba7fbf28e9161d721ad3acefad8"
+    -
+      slug: "issuer-default-selfsigned-issuer"
+      headRevisionNum: 1
+      dataHash: "fdba160b80cf05a0641c6009704f3093f183b9b29f0b488dfee3a867c1836178"
+    -
+      slug: "mutatingwebhookconfiguration-jaeger-operator-mutating-webhook-configuration"
+      headRevisionNum: 2
+      dataHash: "517a1bca396f633516a210b2500f766d922ee6c22fd01d11ef7ad564119ede6b"
+    -
+      slug: "role-default-jaeger-operator"
+      headRevisionNum: 2
+      dataHash: "deccda321a3a0b037b905be81f66f3b292597c7b11b8be25312eb4fa53da7a5f"
+    -
+      slug: "rolebinding-default-jaeger-operator"
+      headRevisionNum: 2
+      dataHash: "87ef2ce406505310dfa3b01b3d7f2ebeac125f21d9f6a46bbf376897e5fbbb03"
+    -
+      slug: "service-default-jaeger-operator-metrics"
+      headRevisionNum: 2
+      dataHash: "44d099688b69c903dba8cf70b8a2ed2dbd8de1f69bd8dd1ed3b95f1362f67ec9"
+    -
+      slug: "service-default-jaeger-operator-webhook-service"
+      headRevisionNum: 2
+      dataHash: "25367380b633eedc9fe56aab8b7d361d0a4260c91e14068a184187f08d38e8a8"
+    -
+      slug: "serviceaccount-default-jaeger-operator"
+      headRevisionNum: 1
+      dataHash: "3813e1214b3c141f436e73c9ad35c062031b4c5d6fd6204a170fa06ac1f53980"
+    -
+      slug: "validatingwebhookconfiguration-jaeger-operator-validating-webhook-configuration"
+      headRevisionNum: 2
+      dataHash: "7a0bac79ae3a9b142b551e11c27a549321bb11c42885558f597ff24c7d375f39"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

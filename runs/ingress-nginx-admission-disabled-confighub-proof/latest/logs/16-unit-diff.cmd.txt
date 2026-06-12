@@ -1,0 +1,1 @@
+cub unit diff deployment-ingress-nginx-ingress-nginx-controller --space helm-ingress-nginx-admission-disabled-confighub-proof --from 1 --to HeadRevisionNum -u

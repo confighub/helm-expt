@@ -1,0 +1,1 @@
+cub unit approve deployment-default-traefik --space helm-traefik-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

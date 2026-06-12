@@ -1,0 +1,1 @@
+cub space delete --space "helm-argo-workflows-default-confighub-proof,ArgoWorkflows-default-staging" --recursive-force

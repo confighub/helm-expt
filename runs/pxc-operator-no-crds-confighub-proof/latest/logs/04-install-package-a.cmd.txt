@@ -1,0 +1,1 @@
+cub installer package packages/percona/pxc-operator/1.19.1 -o .tmp/confighub-proof/pxc-operator-no-crds-archives/pxc-operator-a.tgz

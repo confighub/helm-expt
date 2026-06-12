@@ -1,0 +1,3 @@
+NUM    UNIT                                   CHANGESET    TIME                                    USER                    SOURCE           DESCRIPTION                                                                APPLY-GATES    TAGS 
+2      deployment-default-gatekeeper-audit                 2026-06-12 17:00:39.359131 +0000 UTC    alexis@confighub.com    Invoke           Functions: get-resources                                                   None           None    
+1      deployment-default-gatekeeper-audit                 2026-06-12 17:00:28.123157 +0000 UTC    alexis@confighub.com    MergeExternal    Initial Data: 4900 bytes; from deployment-default-gatekeeper-audit.yaml    None           None    

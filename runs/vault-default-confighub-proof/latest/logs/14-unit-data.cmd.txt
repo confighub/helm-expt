@@ -1,0 +1,1 @@
+cub unit data statefulset-vault-vault --space helm-vault-default-confighub-proof

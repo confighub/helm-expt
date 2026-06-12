@@ -1,0 +1,1 @@
+cub unit cancel --space helm-tigera-operator-default-confighub-proof --where "Labels.Proof = 'tigera-operator-default-confighub-proof'"

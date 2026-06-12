@@ -1,0 +1,466 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:52.678897Z",
+      "CursorID": 4603,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-default-confighub-proof",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "UpdatedAt": "2026-06-12T16:51:53.244397Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ce813bc1750877632687d8948e3c2826ff3d911b5cca42a2c19b8029f744c484",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-external-dns-viewer",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d7e18f11-b3f5-4da0-aae7-4f5eb3a6b45f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:52.678897Z",
+      "CursorID": 4603,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-default-confighub-proof",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "UpdatedAt": "2026-06-12T16:51:53.244397Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "26ed0868b51dd36ad6733cddf6d4c1c0645e40ec459314a59213be3176256ee4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e21a4e9b-4a4e-410b-8bdc-9f0219a0bde1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:52.678897Z",
+      "CursorID": 4603,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-default-confighub-proof",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "UpdatedAt": "2026-06-12T16:51:53.244397Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fd06fab5daa24d3c6a310ee5cb0c1d085999e0027e0b04235df704d7cacaa35e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-dnsendpoints-externaldns-k8s-io",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4b6dc1d9-da01-4db9-8a8e-4bf3c4d1f599",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:52.678897Z",
+      "CursorID": 4603,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-default-confighub-proof",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "UpdatedAt": "2026-06-12T16:51:53.244397Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "73d495c5c93657a6809b91470b47a4dbc45ad0ca38babe3b5feb92ce28c6bb0e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c0b41c1-092a-435c-b503-6eb000fe8807",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:52.678897Z",
+      "CursorID": 4603,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-default-confighub-proof",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "UpdatedAt": "2026-06-12T16:51:53.244397Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fd65a7a202d2acaf4addb8ee341d21cbc19fb2cde27e9e01877f8ce28b0989b7",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f921c107-2602-4faa-b7f9-d359687b066a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:52.678897Z",
+      "CursorID": 4603,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-default-confighub-proof",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "UpdatedAt": "2026-06-12T16:51:53.244397Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b86dffeec9f1e74217436d2886a82aa46317c1b395359a099d1322e359813d12",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "35b3a713-4b0b-47dd-8ece-6247aaeed7b6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:52.678897Z",
+      "CursorID": 4603,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-default-confighub-proof",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "UpdatedAt": "2026-06-12T16:51:53.244397Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e2d89adfabd02eb2d10a2d4ca8f51fe7e39f859efc82a7733238a047e80c02b9",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2eafe6b3-3498-48e1-805a-90221bab70e6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:52.678897Z",
+      "CursorID": 4603,
+      "DisplayName": "helm-external-dns-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-default-confighub-proof",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "UpdatedAt": "2026-06-12T16:51:53.244397Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd864e39c-79b6-432b-9b4d-7814826a213d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "76f8d52c5deaf1fb9584673899429140445fa2c927a66cad8925e4fc7ca6c32c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-external-dns",
+      "SpaceID": "d864e39c-79b6-432b-9b4d-7814826a213d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d1c053ba-ca56-4084-bb17-563e38ee9a75",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

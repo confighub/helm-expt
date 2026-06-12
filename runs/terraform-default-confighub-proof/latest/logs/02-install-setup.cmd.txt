@@ -1,0 +1,1 @@
+cub installer setup --pull packages/hashicorp/terraform/1.1.2 --base default --work-dir .tmp/confighub-proof/terraform-default --non-interactive --namespace default

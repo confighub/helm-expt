@@ -1,0 +1,1 @@
+cub space delete --space "helm-falcosidekick-default-confighub-proof,Falcosidekick-default-staging" --recursive-force

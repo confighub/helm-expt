@@ -1,0 +1,1 @@
+cub space delete --space "helm-surveyor-default-confighub-proof,NATSSurveyor-default-staging" --recursive-force

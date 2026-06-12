@@ -1,0 +1,860 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c434d0f50386af702857c3da4dc0d546e207c29fb426c8a960f617aa21a52d1e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b1393e24-809e-41a2-b288-3fc05994d171",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d38485a5f1625c02c8384f92eb7f1ea61987318e780acc24cbb54f0b23a1e65c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-default-gatekeeper-controller-manager",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f51524e2-2ad7-47d4-ac5d-5c13dd4b4f0f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 8
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f5225e24875780b110953f5fbcca5055984d1b5a01396036d4744c5c2baf19b3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-gatekeeper-manager-role",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7447db9c-a6a4-428e-adc5-5128d68fc489",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a8aa6d559b16ad702e414ef741cfed1560036afb8dbc8c3a996e4b1bfab14de",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-gatekeeper-manager-rolebinding",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "89e307f3-6159-4f7d-b651-370c1ad0f580",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "21a6bf1fd282f8f5c93387e159e193c3a8d5ecff4e2803ce941f6aeb683e7059",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-gatekeeper-webhook-service",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c5c99a9f-7845-459a-af72-b178822b525b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4107dde6480e2cef80351987659e5c634a0234655a0f045f37cb7c216099ed40",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "27f5a0ec-8f4d-4068-a1da-a1b9f17ca577",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "861fed109c074e8870e9daea728880ae96f3c19ca94127d4859a8c77944c69ad",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-gatekeeper-manager-rolebinding",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "740a2efb-ff9a-4a56-acaf-6e3f84bbf685",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "274c57017ec0f52cf29c7f3f090104f209cd8b37124765930051bf0d9bd160c7",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-gatekeeper-audit",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2c86dadf-4ac3-4aba-a397-29933f8c0afa",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "30933a142adc12356650feedbb77f00dff7062373f9fb6a7bbed86466aac7911",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-gatekeeper-manager-role",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "94371d1a-66c0-4cc9-9b7e-ea70c1cf14bd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fa03981fc6072a3500993eb39009acc1c27512b8de082b9cadb9cbb8721db325",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-gatekeeper-controller-manager",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0a313fc8-36ad-4887-8e8f-e67b0fdfe3b7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0d559e75-08a2-4af8-ace1-56dae296a834",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "91a16caf20a3000d7ec4370a12024ac0d0b8feb7625ef29033567cc81beac923",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "resourcequota-default-gatekeeper-critical-pods",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0d2b91cd-5bc5-4cd6-8d02-57174d89012a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:25.451167Z",
+      "CursorID": 4642,
+      "DisplayName": "helm-gatekeeper-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Gatekeeper",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gatekeeper-no-crds-confighub-proof",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "UpdatedAt": "2026-06-12T17:00:26.076043Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd01fc4e6-d813-4a47-8e7e-c451d8b86ae0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5481151639f4e7ca325e7483abf35fb4a1a9a8990b4ead8c64d1a477efcd268f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Gatekeeper",
+        "HelmChart": "gatekeeper-gatekeeper",
+        "HelmChartVersion": "3.22.2",
+        "Package": "gatekeeper-gatekeeper",
+        "Proof": "gatekeeper-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-gatekeeper-admin",
+      "SpaceID": "d01fc4e6-d813-4a47-8e7e-c451d8b86ae0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ba80df65-d5e3-4267-80bf-9e6e19f6a133",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

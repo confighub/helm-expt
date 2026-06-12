@@ -1,0 +1,1205 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:35.877347Z",
+        "CursorID": 22933,
+        "DisplayName": "Upgrade deployment-default-falcosidekick",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "599c033c-6e0d-4fbb-9377-d0799b8c3566",
+        "LinkID": "8b371ca6-4a03-4d2c-97e7-fc3527f62c4d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-falcosidekick",
+        "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+        "SpaceSlug": "Falcosidekick-default-staging",
+        "ToSpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+        "ToUnitID": "b9d7c2c2-8ee1-4831-a54e-72cbaa9fe03c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:35.877347Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b9d7c2c2-8ee1-4831-a54e-72cbaa9fe03c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:35.683568Z",
+      "CursorID": 4613,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falcosidekick-default-staging",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "UpdatedAt": "2026-06-12T16:53:35.683568Z",
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d65178692cc0f63989c2d18563637a479b47357e028462caee7ede1068f1727e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8b371ca6-4a03-4d2c-97e7-fc3527f62c4d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-falcosidekick",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "599c033c-6e0d-4fbb-9377-d0799b8c3566",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b9d7c2c2-8ee1-4831-a54e-72cbaa9fe03c",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -19958995,
+      "CreatedAt": "2026-06-12T16:53:08.83369Z",
+      "CursorID": 28017,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29yZQogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZhbGNvc2lkZWtpY2sKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGZhbGNvc2lkZWtpY2sKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGZhbGNvc2lkZWtpY2sKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDIuMzEuMQogICAgaGVsbS5zaC9jaGFydDogZmFsY29zaWRla2ljay0wLjEzLjEKICBuYW1lOiBmYWxjb3NpZGVraWNrCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDIKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvcmUKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZhbGNvc2lkZWtpY2sKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZmFsY29zaWRla2ljawogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGFubm90YXRpb25zOgogICAgICAgIGNoZWNrc3VtL2NvbmZpZzogZDk3YmFiZjBiMjZjMTExYTJiMjZkODc1MTFiZTJhMWVkNmU5ZWU0OTViYTQ0MmY2NmEwNTc3MWZmYmI2OWQ0MQogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb3JlCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZhbGNvc2lkZWtpY2sKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZmFsY29zaWRla2ljawogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGZhbGNvc2lkZWtpY2sKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAyLjMxLjEKICAgICAgICBoZWxtLnNoL2NoYXJ0OiBmYWxjb3NpZGVraWNrLTAuMTMuMQogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBlbnY6CiAgICAgICAgLSBuYW1lOiBERUJVRwogICAgICAgICAgdmFsdWU6ICJmYWxzZSIKICAgICAgICAtIG5hbWU6IENVU1RPTUZJRUxEUwogICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgLSBuYW1lOiBURU1QTEFURURGSUVMRFMKICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgIC0gbmFtZTogQ1VTVE9NVEFHUwogICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgLSBuYW1lOiBPVVRQVVRGSUVMREZPUk1BVAogICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgLSBuYW1lOiBCUkFDS0VUUkVQTEFDRVIKICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgIC0gbmFtZTogTVVUVUFMVExTRklMRVNQQVRICiAgICAgICAgICB2YWx1ZTogL2V0Yy9jZXJ0cwogICAgICAgIC0gbmFtZTogTVVUVUFMVExTQ0xJRU5UX0NFUlRGSUxFCiAgICAgICAgICB2YWx1ZTogIiIKICAgICAgICAtIG5hbWU6IE1VVFVBTFRMU0NMSUVOVF9LRVlGSUxFCiAgICAgICAgICB2YWx1ZTogIiIKICAgICAgICAtIG5hbWU6IE1VVFVBTFRMU0NMSUVOVF9DQUNFUlRGSUxFCiAgICAgICAgICB2YWx1ZTogIiIKICAgICAgICAtIG5hbWU6IFRMU0NMSUVOVF9DQUNFUlRGSUxFCiAgICAgICAgICB2YWx1ZTogIiIKICAgICAgICBlbnZGcm9tOgogICAgICAgIC0gc2VjcmV0UmVmOgogICAgICAgICAgICBuYW1lOiBmYWxjb3NpZGVraWNrCiAgICAgICAgaW1hZ2U6IGRvY2tlci5pby9mYWxjb3NlY3VyaXR5L2ZhbGNvc2lkZWtpY2s6Mi4zMi4wCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL3BpbmcKICAgICAgICAgICAgcG9ydDogaHR0cAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICBuYW1lOiBmYWxjb3NpZGVraWNrCiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiAyODAxCiAgICAgICAgICBuYW1lOiBodHRwCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvcGluZwogICAgICAgICAgICBwb3J0OiBodHRwCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiAxMAogICAgICAgICAgcGVyaW9kU2Vjb25kczogNQogICAgICAgIHJlc291cmNlczoge30KICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIGZzR3JvdXA6IDEyMzQKICAgICAgICBydW5Bc1VzZXI6IDEyMzQKICAgICAgc2VydmljZUFjY291bnROYW1lOiBmYWxjb3NpZGVraWNrCg==",
+      "DataHash": "d65178692cc0f63989c2d18563637a479b47357e028462caee7ede1068f1727e",
+      "DisplayName": "deployment-default-falcosidekick",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falcosidekick": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosidekick": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falcosidekick",
+            "ResourceNameWithoutScope": "falcosidekick",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/component: core\n    app.kubernetes.io/instance: falcosidekick\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falcosidekick\n    app.kubernetes.io/part-of: falcosidekick\n    app.kubernetes.io/version: 2.31.1\n    helm.sh/chart: falcosidekick-0.13.1\n  name: falcosidekick\n  namespace: default\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app.kubernetes.io/component: core\n      app.kubernetes.io/instance: falcosidekick\n      app.kubernetes.io/name: falcosidekick\n  template:\n    metadata:\n      annotations:\n        checksum/config: d97babf0b26c111a2b26d87511be2a1ed6e9ee495ba442f66a05771ffbb69d41\n      labels:\n        app.kubernetes.io/component: core\n        app.kubernetes.io/instance: falcosidekick\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: falcosidekick\n        app.kubernetes.io/part-of: falcosidekick\n        app.kubernetes.io/version: 2.31.1\n        helm.sh/chart: falcosidekick-0.13.1\n    spec:\n      containers:\n      - env:\n        - name: DEBUG\n          value: \"false\"\n        - name: CUSTOMFIELDS\n          value: \"\"\n        - name: TEMPLATEDFIELDS\n          value: \"\"\n        - name: CUSTOMTAGS\n          value: \"\"\n        - name: OUTPUTFIELDFORMAT\n          value: \"\"\n        - name: BRACKETREPLACER\n          value: \"\"\n        - name: MUTUALTLSFILESPATH\n          value: /etc/certs\n        - name: MUTUALTLSCLIENT_CERTFILE\n          value: \"\"\n        - name: MUTUALTLSCLIENT_KEYFILE\n          value: \"\"\n        - name: MUTUALTLSCLIENT_CACERTFILE\n          value: \"\"\n        - name: TLSCLIENT_CACERTFILE\n          value: \"\"\n        envFrom:\n        - secretRef:\n            name: falcosidekick\n        image: docker.io/falcosecurity/falcosidekick:2.32.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /ping\n            port: http\n          initialDelaySeconds: 10\n          periodSeconds: 5\n        name: falcosidekick\n        ports:\n        - containerPort: 2801\n          name: http\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /ping\n            port: http\n          initialDelaySeconds: 10\n          periodSeconds: 5\n        resources: {}\n      securityContext:\n        fsGroup: 1234\n        runAsUser: 1234\n      serviceAccountName: falcosidekick\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/falcosidekick",
+          "ResourceNameWithoutScope": "falcosidekick",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b9d7c2c2-8ee1-4831-a54e-72cbaa9fe03c",
+      "UpdatedAt": "2026-06-12T16:53:23.597946Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:35.913219Z",
+        "CursorID": 22934,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "8bbe1767-2275-49c8-b2f4-977b54bd956a",
+        "LinkID": "463f8043-f604-4493-8842-149fa9393a51",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+        "SpaceSlug": "Falcosidekick-default-staging",
+        "ToSpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+        "ToUnitID": "d443520d-56d7-4c93-b9e8-d78082951d65",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:35.913219Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd443520d-56d7-4c93-b9e8-d78082951d65' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:35.683568Z",
+      "CursorID": 4613,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falcosidekick-default-staging",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "UpdatedAt": "2026-06-12T16:53:35.683568Z",
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7bafe80c98f5079985fc50be23230631807f441648b58415fb672eed1264303f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "463f8043-f604-4493-8842-149fa9393a51"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8bbe1767-2275-49c8-b2f4-977b54bd956a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d443520d-56d7-4c93-b9e8-d78082951d65",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "falcosecurity-falcosidekick",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 29921406,
+      "CreatedAt": "2026-06-12T16:53:15.114433Z",
+      "CursorID": 28023,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImZhbGNvc2VjdXJpdHktZmFsY29zaWRla2ljayIKICB2ZXJzaW9uOiAiMC4xMy4xIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBuYW1lOiAiZGVmYXVsdCIKICAgIHBhdGg6ICJiYXNlcy9kZWZhdWx0IgogICAgZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJmYWxjb3NlY3VyaXR5L2ZhbGNvc2lkZWtpY2sgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gZmFsY29zZWN1cml0eS9mYWxjb3NpZGVraWNrQDAuMTMuMSIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogZmFsY29zZWN1cml0eS1mYWxjb3NpZGVraWNrLWZ1bmN0aW9uLWNoYWluCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBmYWxjb3NlY3VyaXR5LWZhbGNvc2lkZWtpY2sKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogZmFsY29zZWN1cml0eS1mYWxjb3NpZGVraWNrLWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZmFsY29zZWN1cml0eS1mYWxjb3NpZGVraWNrCiAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgdmFsdWVzOiB7fQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogTWFuaWZlc3RJbmRleAptZXRhZGF0YToKICBuYW1lOiBmYWxjb3NlY3VyaXR5LWZhbGNvc2lkZWtpY2stbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGZhbGNvc2VjdXJpdHktZmFsY29zaWRla2ljawogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGRlcGxveW1lbnQtZGVmYXVsdC1mYWxjb3NpZGVraWNrLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtZGVmYXVsdC1mYWxjb3NpZGVraWNrCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiBmYWxjb3NpZGVraWNrCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGUtZGVmYXVsdC1mYWxjb3NpZGVraWNrLnlhbWwKICAgIHNsdWc6IHJvbGUtZGVmYXVsdC1mYWxjb3NpZGVraWNrCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlCiAgICBuYW1lOiBmYWxjb3NpZGVraWNrCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1kZWZhdWx0LWZhbGNvc2lkZWtpY2sueWFtbAogICAgc2x1Zzogcm9sZWJpbmRpbmctZGVmYXVsdC1mYWxjb3NpZGVraWNrCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogZmFsY29zaWRla2ljawogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS1kZWZhdWx0LWZhbGNvc2lkZWtpY2sueWFtbAogICAgc2x1Zzogc2VydmljZS1kZWZhdWx0LWZhbGNvc2lkZWtpY2sKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiBmYWxjb3NpZGVraWNrCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWZhbGNvc2lkZWtpY2sueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1mYWxjb3NpZGVraWNrCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IGZhbGNvc2lkZWtpY2sKICAgIG5hbWVzcGFjZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGZhbGNvc2VjdXJpdHktZmFsY29zaWRla2ljay1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGZhbGNvc2VjdXJpdHktZmFsY29zaWRla2ljawogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBmYWxjb3NlY3VyaXR5LWZhbGNvc2lkZWtpY2stdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBmYWxjb3NlY3VyaXR5LWZhbGNvc2lkZWtpY2sKICBzcGFjZVBhdHRlcm46IGhlbG0tZmFsY29zaWRla2ljay1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IGZhbGNvc2VjdXJpdHktZmFsY29zaWRla2ljawogICAgc2x1ZzogaGVsbS1mYWxjb3NpZGVraWNrLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjUzOjA2WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "7bafe80c98f5079985fc50be23230631807f441648b58415fb672eed1264303f",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "falcosecurity-falcosidekick"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/falcosecurity-falcosidekick": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falcosidekick": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falcosidekick",
+            "ResourceNameWithoutScope": "falcosecurity-falcosidekick",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"falcosecurity-falcosidekick\"\n  version: \"0.13.1\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"falcosecurity/falcosidekick default variant rendered from falcosecurity/falcosidekick@0.13.1\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falcosidekick-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falcosidekick-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falcosidekick-function-chain",
+            "ResourceNameWithoutScope": "falcosecurity-falcosidekick-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: falcosecurity-falcosidekick-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falcosidekick\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falcosidekick-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falcosidekick-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falcosidekick-inputs",
+            "ResourceNameWithoutScope": "falcosecurity-falcosidekick-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: falcosecurity-falcosidekick-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falcosidekick\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falcosidekick-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falcosidekick-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falcosidekick-manifest-index",
+            "ResourceNameWithoutScope": "falcosecurity-falcosidekick-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: falcosecurity-falcosidekick-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falcosidekick\n  files:\n  - filename: deployment-default-falcosidekick.yaml\n    slug: deployment-default-falcosidekick\n    apiVersion: apps/v1\n    kind: Deployment\n    name: falcosidekick\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-falcosidekick.yaml\n    slug: role-default-falcosidekick\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: falcosidekick\n    namespace: default\n  - filename: rolebinding-default-falcosidekick.yaml\n    slug: rolebinding-default-falcosidekick\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: falcosidekick\n    namespace: default\n  - filename: service-default-falcosidekick.yaml\n    slug: service-default-falcosidekick\n    apiVersion: v1\n    kind: Service\n    name: falcosidekick\n    namespace: default\n  - filename: serviceaccount-default-falcosidekick.yaml\n    slug: serviceaccount-default-falcosidekick\n    apiVersion: v1\n    kind: ServiceAccount\n    name: falcosidekick\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falcosidekick-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falcosidekick-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falcosidekick-selection",
+            "ResourceNameWithoutScope": "falcosecurity-falcosidekick-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: falcosecurity-falcosidekick-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falcosidekick\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falcosidekick-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falcosidekick-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falcosidekick-upload",
+            "ResourceNameWithoutScope": "falcosecurity-falcosidekick-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: falcosecurity-falcosidekick-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falcosidekick\n  spacePattern: helm-falcosidekick-default-confighub-proof\n  spaces:\n  - package: falcosecurity-falcosidekick\n    slug: helm-falcosidekick-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:53:06Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d443520d-56d7-4c93-b9e8-d78082951d65",
+      "UpdatedAt": "2026-06-12T16:53:15.945464Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:35.936796Z",
+        "CursorID": 22935,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "02661053-4bd9-4931-800a-0836ab6329b0",
+        "LinkID": "473ab882-ebb4-41a8-9391-47db433b3195",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+        "SpaceSlug": "Falcosidekick-default-staging",
+        "ToSpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+        "ToUnitID": "c635f2de-01bb-43a6-8d83-bd21c1f946e2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:35.936796Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c635f2de-01bb-43a6-8d83-bd21c1f946e2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:35.683568Z",
+      "CursorID": 4613,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falcosidekick-default-staging",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "UpdatedAt": "2026-06-12T16:53:35.683568Z",
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "473ab882-ebb4-41a8-9391-47db433b3195"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "02661053-4bd9-4931-800a-0836ab6329b0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c635f2de-01bb-43a6-8d83-bd21c1f946e2",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:53:10.936015Z",
+      "CursorID": 28018,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c635f2de-01bb-43a6-8d83-bd21c1f946e2",
+      "UpdatedAt": "2026-06-12T16:53:10.967686Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:35.962067Z",
+        "CursorID": 22936,
+        "DisplayName": "Upgrade rolebinding-default-falcosidekick",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "792835e1-99f8-4920-b31c-d135a8077027",
+        "LinkID": "a5555843-e9cb-44f9-bd59-653299a5880f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-falcosidekick",
+        "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+        "SpaceSlug": "Falcosidekick-default-staging",
+        "ToSpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+        "ToUnitID": "8e0dceab-6801-4f5f-bade-3d88f79ba6f4",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:35.962067Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8e0dceab-6801-4f5f-bade-3d88f79ba6f4' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:35.683568Z",
+      "CursorID": 4613,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falcosidekick-default-staging",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "UpdatedAt": "2026-06-12T16:53:35.683568Z",
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8c7dae69ff90926224d9901a300093d89a5f3a56ed9bbf5fb1c6939905cbdf88",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a5555843-e9cb-44f9-bd59-653299a5880f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-falcosidekick",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "792835e1-99f8-4920-b31c-d135a8077027",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8e0dceab-6801-4f5f-bade-3d88f79ba6f4",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -528391332,
+      "CreatedAt": "2026-06-12T16:53:12.790471Z",
+      "CursorID": 28020,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvcmUKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBmYWxjb3NpZGVraWNrCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBmYWxjb3NpZGVraWNrCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBmYWxjb3NpZGVraWNrCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAyLjMxLjEKICAgIGhlbG0uc2gvY2hhcnQ6IGZhbGNvc2lkZWtpY2stMC4xMy4xCiAgbmFtZTogZmFsY29zaWRla2ljawogIG5hbWVzcGFjZTogZGVmYXVsdApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogUm9sZQogIG5hbWU6IGZhbGNvc2lkZWtpY2sKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBmYWxjb3NpZGVraWNrCg==",
+      "DataHash": "8c7dae69ff90926224d9901a300093d89a5f3a56ed9bbf5fb1c6939905cbdf88",
+      "DisplayName": "rolebinding-default-falcosidekick",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falcosidekick": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosidekick": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falcosidekick",
+            "ResourceNameWithoutScope": "falcosidekick",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/component: core\n    app.kubernetes.io/instance: falcosidekick\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falcosidekick\n    app.kubernetes.io/part-of: falcosidekick\n    app.kubernetes.io/version: 2.31.1\n    helm.sh/chart: falcosidekick-0.13.1\n  name: falcosidekick\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: falcosidekick\nsubjects:\n- kind: ServiceAccount\n  name: falcosidekick\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8e0dceab-6801-4f5f-bade-3d88f79ba6f4",
+      "UpdatedAt": "2026-06-12T16:53:26.890923Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:36.003964Z",
+        "CursorID": 22937,
+        "DisplayName": "Upgrade role-default-falcosidekick",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "27ae5c05-05e3-4302-bc5e-e041f58dbe14",
+        "LinkID": "df66b615-5a24-4644-96db-e29dce8d0ef3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-falcosidekick",
+        "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+        "SpaceSlug": "Falcosidekick-default-staging",
+        "ToSpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+        "ToUnitID": "82559f59-06bc-4afe-96b4-f5cd78eb199d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:36.003964Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '82559f59-06bc-4afe-96b4-f5cd78eb199d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:35.683568Z",
+      "CursorID": 4613,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falcosidekick-default-staging",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "UpdatedAt": "2026-06-12T16:53:35.683568Z",
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a9c92c08fdfff55b0ea6d4cf541c0d191657bab0437e2efe5dd8b385228fa034",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "df66b615-5a24-4644-96db-e29dce8d0ef3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-falcosidekick",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "27ae5c05-05e3-4302-bc5e-e041f58dbe14",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "82559f59-06bc-4afe-96b4-f5cd78eb199d",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1091136271,
+      "CreatedAt": "2026-06-12T16:53:11.917095Z",
+      "CursorID": 28019,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29yZQogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZhbGNvc2lkZWtpY2sKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGZhbGNvc2lkZWtpY2sKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGZhbGNvc2lkZWtpY2sKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDIuMzEuMQogICAgaGVsbS5zaC9jaGFydDogZmFsY29zaWRla2ljay0wLjEzLjEKICBuYW1lOiBmYWxjb3NpZGVraWNrCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZW5kcG9pbnRzCiAgdmVyYnM6CiAgLSBnZXQK",
+      "DataHash": "a9c92c08fdfff55b0ea6d4cf541c0d191657bab0437e2efe5dd8b385228fa034",
+      "DisplayName": "role-default-falcosidekick",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falcosidekick": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosidekick": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falcosidekick",
+            "ResourceNameWithoutScope": "falcosidekick",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/component: core\n    app.kubernetes.io/instance: falcosidekick\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falcosidekick\n    app.kubernetes.io/part-of: falcosidekick\n    app.kubernetes.io/version: 2.31.1\n    helm.sh/chart: falcosidekick-0.13.1\n  name: falcosidekick\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - endpoints\n  verbs:\n  - get\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/falcosidekick",
+          "ResourceNameWithoutScope": "falcosidekick",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "82559f59-06bc-4afe-96b4-f5cd78eb199d",
+      "UpdatedAt": "2026-06-12T16:53:24.672974Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:36.047163Z",
+        "CursorID": 22938,
+        "DisplayName": "Upgrade serviceaccount-default-falcosidekick",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c2c63782-67c3-4a36-ab0e-90a53f978767",
+        "LinkID": "4991afe8-df47-4218-9108-426a01b5de7f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-falcosidekick",
+        "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+        "SpaceSlug": "Falcosidekick-default-staging",
+        "ToSpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+        "ToUnitID": "b8cba53e-24e4-4bd4-801e-bdb395b4af33",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:36.047163Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b8cba53e-24e4-4bd4-801e-bdb395b4af33' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:35.683568Z",
+      "CursorID": 4613,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falcosidekick-default-staging",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "UpdatedAt": "2026-06-12T16:53:35.683568Z",
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "52c45f9301cb3f28669be8fe1a2d18d4eeb01c0b2e1b7c599a70f89dece3a289",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4991afe8-df47-4218-9108-426a01b5de7f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-falcosidekick",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c2c63782-67c3-4a36-ab0e-90a53f978767",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b8cba53e-24e4-4bd4-801e-bdb395b4af33",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1918474321,
+      "CreatedAt": "2026-06-12T16:53:14.299203Z",
+      "CursorID": 28022,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbmFtZTogZmFsY29zaWRla2ljawogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "52c45f9301cb3f28669be8fe1a2d18d4eeb01c0b2e1b7c599a70f89dece3a289",
+      "DisplayName": "serviceaccount-default-falcosidekick",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 89 bytes; from serviceaccount-default-falcosidekick.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falcosidekick": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosidekick": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falcosidekick",
+            "ResourceNameWithoutScope": "falcosidekick",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: falcosidekick\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/falcosidekick",
+          "ResourceNameWithoutScope": "falcosidekick",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b8cba53e-24e4-4bd4-801e-bdb395b4af33",
+      "UpdatedAt": "2026-06-12T16:53:29.979578Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:53:36.109573Z",
+        "CursorID": 22939,
+        "DisplayName": "Upgrade service-default-falcosidekick",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "81bbc43e-a290-4207-a212-2cdc38e10780",
+        "LinkID": "82297a50-72bc-41ed-8f79-385f28777727",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-falcosidekick",
+        "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+        "SpaceSlug": "Falcosidekick-default-staging",
+        "ToSpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+        "ToUnitID": "c5b5cd2f-92eb-45aa-8f37-3bf6fbad02c5",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:53:36.109573Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c5b5cd2f-92eb-45aa-8f37-3bf6fbad02c5' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:35.683568Z",
+      "CursorID": 4613,
+      "DisplayName": "helm-falcosidekick-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falcosidekick",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falcosidekick-default-staging",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "UpdatedAt": "2026-06-12T16:53:35.683568Z",
+      "WhereTrigger": "SpaceID = 'a18b76ec-7e02-4279-803a-c09605018b75'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5e3df9cb218c739c84e00759facb90eb498903b7f3136fa8716e65f253798547",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "82297a50-72bc-41ed-8f79-385f28777727"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-falcosidekick",
+      "SpaceID": "e4ee7c60-7ccc-4ff6-8cc4-6233636c272c",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "81bbc43e-a290-4207-a212-2cdc38e10780",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c5b5cd2f-92eb-45aa-8f37-3bf6fbad02c5",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -251503680,
+      "CreatedAt": "2026-06-12T16:53:13.535328Z",
+      "CursorID": 28021,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBhbm5vdGF0aW9uczoKICAgIHByb21ldGhldXMuaW8vc2NyYXBlOiAidHJ1ZSIKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvcmUKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBmYWxjb3NpZGVraWNrCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBmYWxjb3NpZGVraWNrCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBmYWxjb3NpZGVraWNrCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAyLjMxLjEKICAgIGhlbG0uc2gvY2hhcnQ6IGZhbGNvc2lkZWtpY2stMC4xMy4xCiAgbmFtZTogZmFsY29zaWRla2ljawogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHBvcnRzOgogIC0gbmFtZTogaHR0cAogICAgcG9ydDogMjgwMQogICAgcHJvdG9jb2w6IFRDUAogICAgdGFyZ2V0UG9ydDogaHR0cAogIC0gbmFtZTogaHR0cC1ub3RscwogICAgcG9ydDogMjgxMAogICAgcHJvdG9jb2w6IFRDUAogICAgdGFyZ2V0UG9ydDogaHR0cC1ub3RscwogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb3JlCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZmFsY29zaWRla2ljawogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZmFsY29zaWRla2ljawogIHR5cGU6IENsdXN0ZXJJUAo=",
+      "DataHash": "5e3df9cb218c739c84e00759facb90eb498903b7f3136fa8716e65f253798547",
+      "DisplayName": "service-default-falcosidekick",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falcosidekick",
+        "HelmChart": "falcosecurity-falcosidekick",
+        "HelmChartVersion": "0.13.1",
+        "Package": "falcosecurity-falcosidekick",
+        "Proof": "falcosidekick-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falcosidekick": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosidekick": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falcosidekick",
+            "ResourceNameWithoutScope": "falcosidekick",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  annotations:\n    prometheus.io/scrape: \"true\"\n  labels:\n    app.kubernetes.io/component: core\n    app.kubernetes.io/instance: falcosidekick\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falcosidekick\n    app.kubernetes.io/part-of: falcosidekick\n    app.kubernetes.io/version: 2.31.1\n    helm.sh/chart: falcosidekick-0.13.1\n  name: falcosidekick\n  namespace: default\nspec:\n  ports:\n  - name: http\n    port: 2801\n    protocol: TCP\n    targetPort: http\n  - name: http-notls\n    port: 2810\n    protocol: TCP\n    targetPort: http-notls\n  selector:\n    app.kubernetes.io/component: core\n    app.kubernetes.io/instance: falcosidekick\n    app.kubernetes.io/name: falcosidekick\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/falcosidekick",
+          "ResourceNameWithoutScope": "falcosidekick",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-falcosidekick",
+      "SpaceID": "a18b76ec-7e02-4279-803a-c09605018b75",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c5b5cd2f-92eb-45aa-8f37-3bf6fbad02c5",
+      "UpdatedAt": "2026-06-12T16:53:29.008273Z",
+      "Version": 13
+    }
+  }
+]

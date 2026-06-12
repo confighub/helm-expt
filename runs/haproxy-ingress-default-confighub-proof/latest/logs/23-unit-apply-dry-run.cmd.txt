@@ -1,0 +1,1 @@
+cub unit apply --space helm-haproxy-ingress-default-confighub-proof --where "Labels.Proof = 'haproxy-ingress-default-confighub-proof'" --dry-run --wait --timeout 2m

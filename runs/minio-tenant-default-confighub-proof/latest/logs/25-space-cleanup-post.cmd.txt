@@ -1,0 +1,1 @@
+cub space delete --space "helm-minio-tenant-default-confighub-proof,MinioTenant-default-staging" --recursive-force

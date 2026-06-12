@@ -1,0 +1,1 @@
+cub installer upload --work-dir .tmp/confighub-proof/keda-no-crds --space helm-keda-no-crds-confighub-proof --component KEDA --layer App --environment Demo --owner ConfigHubHelm --variant no-crds --unit-label Component=KEDA --unit-label HelmChart=kedacore-keda --unit-label HelmChartVersion=2.19.0 --unit-label Variant=no-crds --unit-label Proof=keda-no-crds-confighub-proof --retry

@@ -1,0 +1,1520 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9cd1c6e6b325a84d8011734618158b7533e3ebd9a39dca18498e7f63fde59fb1",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-velero-server",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "85feea05-0b26-4b37-8842-e0f49bffa2d9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2965fa5543690b71fb1d26d1d6a45bee3f5bccb5c9ea99013295ee46e53cd95e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-backupstoragelocations-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2f55f921-ca22-4223-8e72-7830444f1595",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "309d3b75f250c82cf18f37b18e23e5ea6a946b39cf0c823aebbc40e47bc831b8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-datadownloads-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "770e8faa-7292-443a-9f3d-d6307cd18564",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "180347f59743cda22f7aae50ed9840eaf121722e5cfc758a51f1a2aefa97763b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-podvolumebackups-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "42d640f1-4572-49ce-b7b2-ec5b605f93a6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9d51c1b595601702adc48944459517630580ca755fc7fa8f3e7c01a2b0e0f650",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-restores-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f8d3fba7-04a2-49f0-88ea-33aa73288168",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6a4150f46e3b1cbc6fda065dc4ca3f9b0dbc2db37ce3c09b2e9319c9b822be06",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-serverstatusrequests-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a2931844-58bb-4fd2-8b78-76f56f3ac11b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f4863fa6233131fcf54c8bf8e9637b6230215e8c397408896ea7cafd03d7a2a7",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-volumesnapshotlocations-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c4aef113-eff1-4f56-bcdd-bd37182286f6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e748d5f6-b0ec-4f79-80e8-28930458c746",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "184a32cd4bf1cdf8eb3536b27e8b300b61fd1ed05a286fe26322dbf17ea2f44f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "volumesnapshotlocation-default-default",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9333a77a-a131-4a5b-9091-1612dbd1b45f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 8
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9b738fcfd8e12f049a5675ecd989dca7a7bb1138cda4eee9ed9f01605d5cb566",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-velero-server",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "df979e24-38a9-4f66-9385-0d5833b0ef3d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d5c97753a40aa7124ac9d53a8c1e4d076d5da21536ae1fed5ed868335bb296fe",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-velero",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fedbd1b4-98d0-4ca9-b2f5-995ab322121e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bd5249a25692bd5d902f388c29ab6ea613d4af05692b77a010c732d0628c37a3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-velero-server",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f3838e78-f946-4645-ae9a-3b17432af6c9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ddae28873cfc0c91847ce3f8d9252f75ebed6ed73a58478903de08822dbe03b8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-backuprepositories-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6608a121-e900-4e30-a1f8-5ba016aaf2ee",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "981cde131ef16e86580a98ad7865ef669fb797d41171506745452ad6fafa6e9d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-backups-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "121cd011-1ebb-4323-9f25-3442225ba11e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ea40c5ad88b9601e4c67f23da778231135ee5ba66f76e82dd617231126895563",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-podvolumerestores-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2bd87648-eb8b-4168-b048-c2ba930d499b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3f4726608b3dab7f62bfcb4a43ea64718dc7c6fc89eae3ed4e5ece5db79b03c5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-deletebackuprequests-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6bb8f35d-314b-4cff-b68c-b2845affd2c7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "15bd6e947c51dd28815491bb0220469125b67a76b9ea133e02d6d98eccfa64f7",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-datauploads-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e963cc38-8829-4272-818b-7416d4bd746d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "599e50fc5bc457053a1bae9bf67bdbdc7d2cc7842bf041a46d846f1e8751549f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-downloadrequests-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e2875d7e-e0fe-47c4-9893-67f7902d7a4f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "aad7e92d00aa076ecde983dd34bda166598c462a8409a02d1753f55cb8142e5f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-schedules-velero-io",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0a1df840-9234-4a29-9380-d3692d714095",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "232df4ff3811cbbc23d1c409b68668d7529a6ca9170f1d4ceeb65f0c3fac47e0",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "backupstoragelocation-default-default",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "35923f60-2282-43c9-b528-bcce12614f49",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 8
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f8e5887f721597b57ee3af7913fac441e31ab34603ab8f9cbbd68f980816eac6",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-velero-server",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f950edb6-b740-4c50-9dcb-93d1fb325e86",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "51c9086e5070d6905b5d8aaeffbaf387c4931257fe2275f0a3474f132c6c4587",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-velero-repo-maintenance",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0c6a372b-874e-4241-9d53-ef2cbe5bc9b0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:45.021504Z",
+      "CursorID": 4638,
+      "DisplayName": "helm-velero-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Velero",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-velero-default-confighub-proof",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "UpdatedAt": "2026-06-12T16:59:45.532305Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9d83fa52-487c-4d4f-a81e-fe289cc54390'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b12e813a41130e5719d93c2404f40aadd29417f3eabde19c7586dc6e56c15d62",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Velero",
+        "HelmChart": "velero-velero",
+        "HelmChartVersion": "12.0.1",
+        "Package": "velero-velero",
+        "Proof": "velero-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-velero",
+      "SpaceID": "9d83fa52-487c-4d4f-a81e-fe289cc54390",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "598af1cc-d113-4a33-88eb-5f88fd504ba9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

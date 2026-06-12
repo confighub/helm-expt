@@ -1,0 +1,1 @@
+cub changeset update vertical-pod-autoscaler-safe-ops-20260527 --space helm-vertical-pod-autoscaler-default-confighub-proof --description "Vertical Pod Autoscaler safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

@@ -1,0 +1,1 @@
+cub unit list --space helm-haproxy-ingress-default-confighub-proof --where "Labels.Proof = 'haproxy-ingress-default-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

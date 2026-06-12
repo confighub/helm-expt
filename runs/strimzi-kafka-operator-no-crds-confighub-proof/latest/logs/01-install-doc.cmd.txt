@@ -1,0 +1,1 @@
+cub installer doc packages/strimzi/strimzi-kafka-operator/1.0.0 --json

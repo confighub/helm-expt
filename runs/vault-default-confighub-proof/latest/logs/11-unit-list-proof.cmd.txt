@@ -1,0 +1,1 @@
+cub unit list --space helm-vault-default-confighub-proof --where "Labels.Proof = 'vault-default-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

@@ -1,0 +1,1 @@
+cub unit cancel --space helm-istio-gateway-default-confighub-proof --where "Labels.Proof = 'istio-gateway-default-confighub-proof'"

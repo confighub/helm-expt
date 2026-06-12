@@ -1,0 +1,1 @@
+cub variant create staging helm-victoria-metrics-single-default-confighub-proof --environment Staging --region local --space-name-pattern template:VictoriaMetricsSingle-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

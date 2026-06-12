@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "stakater-reloader"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "stakater/reloader default variant rendered from stakater/reloader@2.2.12"
+      },
+      {
+        "name": "controller-default-reviewed",
+        "path": "bases/controller-default-reviewed",
+        "description": "stakater/reloader controller-default-reviewed useful base; aliases the default render with a named user start path"
+      }
+    ]
+  }
+}

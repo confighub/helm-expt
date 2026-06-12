@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-strimzi-kafka-operator-no-crds-confighub-proof (post-render):
+      Deployment/strimzi-cluster-operator [strimzi-cluster-operator] quay.io/strimzi/operator:1.0.0

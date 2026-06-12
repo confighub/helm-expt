@@ -1,0 +1,1 @@
+cub space delete --space "helm-cert-manager-csi-driver-default-confighub-proof,CertManagerCsiDriver-default-staging" --recursive-force

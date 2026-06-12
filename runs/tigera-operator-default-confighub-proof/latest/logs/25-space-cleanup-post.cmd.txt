@@ -1,0 +1,1 @@
+cub space delete --space "helm-tigera-operator-default-confighub-proof,TigeraOperator-default-staging" --recursive-force

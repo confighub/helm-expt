@@ -1,0 +1,1 @@
+cub revision list deployment-default-vpa-admission-controller --space helm-vpa-no-crds-confighub-proof

@@ -1,0 +1,1 @@
+cub unit apply --space helm-tigera-operator-default-confighub-proof --where "Labels.Proof = 'tigera-operator-default-confighub-proof'" --dry-run --wait --timeout 2m

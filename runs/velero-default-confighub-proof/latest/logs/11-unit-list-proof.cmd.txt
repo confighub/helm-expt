@@ -1,0 +1,1 @@
+cub unit list --space helm-velero-default-confighub-proof --where "Labels.Proof = 'velero-default-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

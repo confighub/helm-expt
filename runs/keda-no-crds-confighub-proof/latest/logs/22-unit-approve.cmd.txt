@@ -1,0 +1,1 @@
+cub unit approve deployment-default-keda-operator-metrics-apiserver --space helm-keda-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

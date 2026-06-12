@@ -1,0 +1,524 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:34.21365Z",
+      "CursorID": 4582,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cluster-autoscaler-default-confighub-proof",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "UpdatedAt": "2026-06-12T16:47:34.713821Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b021dbb8be07907aa761c4f68096a42d89c0b962b7f5e5a4ae52e5c26f970495",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8a0b6731-5e3c-44b2-a336-18eb09030f15",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:34.21365Z",
+      "CursorID": 4582,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cluster-autoscaler-default-confighub-proof",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "UpdatedAt": "2026-06-12T16:47:34.713821Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e596651d-2c26-4585-886b-7d86c57b1ada",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:34.21365Z",
+      "CursorID": 4582,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cluster-autoscaler-default-confighub-proof",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "UpdatedAt": "2026-06-12T16:47:34.713821Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1479378f615d7b7c560ea32f3654e975bd5a98b8ecff5000f29735ae616602f2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ea7a3f35-6ebf-4686-a2e2-c4dc40a70aa9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:34.21365Z",
+      "CursorID": 4582,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cluster-autoscaler-default-confighub-proof",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "UpdatedAt": "2026-06-12T16:47:34.713821Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "57c1fa87835438243023db47ebb56c532a72c4f7f9ec924e95b019dbdfe4b6a8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aaa3fe0e-dddf-40a9-b62c-bc200f38d8e2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:34.21365Z",
+      "CursorID": 4582,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cluster-autoscaler-default-confighub-proof",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "UpdatedAt": "2026-06-12T16:47:34.713821Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "53cf57f92bf5dc85d49aa9c129a007c3a390dda9a61780eec5fb07d0e3ad6c96",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7c95145c-378e-45d9-ba4b-dc1502e7061d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:34.21365Z",
+      "CursorID": 4582,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cluster-autoscaler-default-confighub-proof",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "UpdatedAt": "2026-06-12T16:47:34.713821Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c7cd85e8f2b52ac5adea1d9a075892ae43f673416d8ad7dbd088215ed8819c8a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fc285dd3-7c38-4092-be1f-aa974f40e589",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:34.21365Z",
+      "CursorID": 4582,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cluster-autoscaler-default-confighub-proof",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "UpdatedAt": "2026-06-12T16:47:34.713821Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9cd1f141ff74c120ef6739d471979bdadd722268869a1d708fb4d72ff4271491",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bc811e70-9206-4d40-bb5c-69a3f53eace6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:34.21365Z",
+      "CursorID": 4582,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cluster-autoscaler-default-confighub-proof",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "UpdatedAt": "2026-06-12T16:47:34.713821Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7fe60ba141502c8e5f01941b21e7f9f6caafad390bfeeb35d6ad381942049cef",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "81191983-0885-4832-bb43-1f54e42910a8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:47:34.21365Z",
+      "CursorID": 4582,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cluster-autoscaler-default-confighub-proof",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "UpdatedAt": "2026-06-12T16:47:34.713821Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "07bf294328482720bc0cab535ec86cc661a6b45bbedc1d527c840e7c4e3dee4e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "845ca29e-c2aa-4bc0-bf61-d558c213bc55",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

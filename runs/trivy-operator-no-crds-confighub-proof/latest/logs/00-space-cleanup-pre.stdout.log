@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 0 space(s)
+  Context: Slug IN ('helm-trivy-operator-no-crds-confighub-proof', 'TrivyOperator-no-crds-staging')

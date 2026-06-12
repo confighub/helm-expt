@@ -1,0 +1,1 @@
+cub function vet vet-merge-keys --space helm-rook-ceph-cluster-default-confighub-proof --where "Labels.Proof = 'rook-ceph-cluster-default-confighub-proof'" --quiet --wait --timeout 10m

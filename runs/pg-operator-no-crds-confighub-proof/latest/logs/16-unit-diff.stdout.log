@@ -1,0 +1,120 @@
+--- helm-pg-operator-no-crds-confighub-proof/deployment-default-pg-operator/1
++++ helm-pg-operator-no-crds-confighub-proof/deployment-default-pg-operator/2
+@@ -33,61 +37,56 @@
+         pgv2.percona.com/control-plane: postgres-operator
+     spec:
+       containers:
+-        - env:
+-            - name: PGO_NAMESPACE
+-              valueFrom:
+-                fieldRef:
+-                  fieldPath: metadata.namespace
+-            - name: WATCH_NAMESPACE
+-              valueFrom:
+-                fieldRef:
+-                  fieldPath: metadata.namespace
+-            - name: LOG_STRUCTURED
+-              value: "false"
+-            - name: LOG_LEVEL
+-              value: INFO
+-            - name: DISABLE_TELEMETRY
+-              value: "false"
+-            - name: PPROF_BIND_ADDRESS
+-              value: "0"
+-            - name: PGO_CONTROLLER_LEADER_ELECTION_ENABLED
+-              value: "true"
+-            - name: PGO_CONTROLLER_LEASE_NAME
+-              value: ""
+-            - name: PGO_CONTROLLER_LEASE_DURATION
+-              value: 60s
+-            - name: PGO_CONTROLLER_RENEW_DEADLINE
+-              value: 40s
+-            - name: PGO_CONTROLLER_RETRY_PERIOD
+-              value: 10s
+-            - name: PGO_FEATURE_GATES
+-              value: BackupSnapshots=false
+-          image: docker.io/percona/percona-postgresql-operator:3.0.0
+-          imagePullPolicy: Always
+-          livenessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /metrics
+-              port: metrics
+-              scheme: HTTP
+-          name: operator
+-          ports:
+-            - containerPort: 8080
+-              name: metrics
+-              protocol: TCP
+-          resources:
+-            limits:
+-              cpu: 200m
+-              memory: 500Mi
+-            requests:
+-              cpu: 100m
+-              memory: 20Mi
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: true
+-            runAsNonRoot: true
++      - env:
++        - name: PGO_NAMESPACE
++          valueFrom:
++            fieldRef:
++              fieldPath: metadata.namespace
++        - name: WATCH_NAMESPACE
++          valueFrom:
++            fieldRef:
++              fieldPath: metadata.namespace
++        - name: LOG_STRUCTURED
++          value: "false"
++        - name: LOG_LEVEL
++          value: INFO
++        - name: DISABLE_TELEMETRY
++          value: "false"
++        - name: PPROF_BIND_ADDRESS
++          value: "0"
++        - name: PGO_CONTROLLER_LEADER_ELECTION_ENABLED
++          value: "true"
++        - name: PGO_CONTROLLER_LEASE_NAME
++          value: ""
++        - name: PGO_CONTROLLER_LEASE_DURATION
++          value: 60s
++        - name: PGO_CONTROLLER_RENEW_DEADLINE
++          value: 40s
++        - name: PGO_CONTROLLER_RETRY_PERIOD
++          value: 10s
++        - name: PGO_FEATURE_GATES
++          value: BackupSnapshots=false
++        image: docker.io/percona/percona-postgresql-operator:3.0.0
++        imagePullPolicy: Always
++        livenessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /metrics
++            port: metrics
++            scheme: HTTP
++        name: operator
++        ports:
++        - containerPort: 8080
++          name: metrics
++          protocol: TCP
++        resources:
++          limits:
++            cpu: 200m
++            memory: 500Mi
++          requests:
++            cpu: 100m
++            memory: 20Mi
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++          runAsNonRoot: true
+       serviceAccountName: pg-operator
+       terminationGracePeriodSeconds: 600

@@ -1,0 +1,1 @@
+cub changeset update cert-manager-csi-driver-safe-ops-20260527 --space helm-cert-manager-csi-driver-default-confighub-proof --description "cert-manager-csi-driver safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

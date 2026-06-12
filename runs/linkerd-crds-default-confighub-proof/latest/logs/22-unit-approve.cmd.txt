@@ -1,0 +1,1 @@
+cub unit approve customresourcedefinition-authorizationpolicies-policy-linkerd-io --space helm-linkerd-crds-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

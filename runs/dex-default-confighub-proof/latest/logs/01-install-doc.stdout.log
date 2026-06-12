@@ -1,0 +1,18 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "dex-dex"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "dex/dex default variant rendered from dex/dex@0.24.0"
+      }
+    ]
+  }
+}

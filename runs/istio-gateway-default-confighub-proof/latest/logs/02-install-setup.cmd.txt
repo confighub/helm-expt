@@ -1,0 +1,1 @@
+cub installer setup --pull packages/istio/gateway/1.30.0 --base default --work-dir .tmp/confighub-proof/istio-gateway-default --non-interactive --namespace default

@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "vm-victoria-metrics-single"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "vm/victoria-metrics-single default variant rendered from vm/victoria-metrics-single@0.39.0"
+      },
+      {
+        "name": "default-reviewed",
+        "path": "bases/default-reviewed",
+        "description": "vm/victoria-metrics-single default-reviewed useful base; aliases the default render with a named user start path"
+      }
+    ]
+  }
+}

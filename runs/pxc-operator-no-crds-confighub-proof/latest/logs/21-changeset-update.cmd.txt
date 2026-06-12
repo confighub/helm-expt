@@ -1,0 +1,1 @@
+cub changeset update pxc-operator-safe-ops-20260527 --space helm-pxc-operator-no-crds-confighub-proof --description "Percona PXC Operator safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

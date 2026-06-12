@@ -1,0 +1,1850 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7289a704-11ee-47ad-8efb-db1208c933a2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6ff0d0ea5cab2747dd31cd4cdfc911f304145b246a2470365f3b68e8927f3008",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "storageclass-ceph-block",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ef0ac11d-da88-4f08-bd1f-bf4fe026c399",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d663eb40c29d4c7a3a65f574128d61ecbc3dc155e18c4aae2c33a5d1e15e3056",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "storageclass-ceph-bucket",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ddcc0c21-405c-44f7-ba48-191f6f95c19c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3ef813b384cc1c2851d2b607762dc8ffc980d17258945dd13ced8e929fcade95",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "storageclass-ceph-filesystem",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f8b14fa3-9db3-4e8d-b549-746eed19c004",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e87ec64a6fc648143ebd6e3b3cd8b90fb8ffb06a685d5604cf8b488d40d6a966",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "cephfilesystem-default-ceph-filesystem",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1d936153-439b-49b1-bb60-345c9c78565f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b9530b693a3e78aff8eb0dcf4f053a20eab7ce9b3d78d3391626d5b54b328128",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-rook-ceph-osd-default",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3c4ee5db-1173-461f-a95c-38fd73cc06ad",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "88f12df8cec7569f57f3fec25a18c4a612c85d4abc5e9b65df01f6e1551a39dc",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-rook-ceph-cluster-mgmt",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fb6ca32d-2c40-47c6-bdc1-766800edb43d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8f7814806ab1dacb14507721c5cf355cb061e2a87323bb77e34b96ec3ae75b2c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-rook-ceph-osd",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3f46b722-8683-41cb-b3d7-c3b43de944ea",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5cfd2de7f6c2b077e4dad58e76657f9c7d390691634318b5166cfec355b07748",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "cephblockpool-default-ceph-blockpool",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2ffdb37d-ca29-44d7-884f-cbaf6d8758f3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b4bcf1a2d6d950e99856fedeb68b1376186dab52e559bb205dc1b919f81d97c4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "cephcluster-default-default",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "128825cf-98dd-4e41-9f2e-d5d5bec58072",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4bc579a0e2d070a10340a2b68182fd83b4ac7aac81a266d4bcee0151c4ba7093",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "cephfilesystemsubvolumegroup-default-ceph-filesystem-csi",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8ecf3abf-ccb0-4d90-8ecc-f0c7e21efab2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b6f504e4416cc2b55107012082c3bb68769b50f01f763cb4eb153c86f48a115e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "cephobjectstore-default-ceph-objectstore",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f5c2c3b8-520e-4a9b-9f57-486b87c8e226",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ff2435bc7334f6dcd502eb4c6b4b9600e546ad5162be975f6899e89e38299882",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-rook-ceph-cmd-reporter",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6c65552b-d0b5-4daa-8df6-20bf15884414",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e8f11ae014b8a8b4cbb37caf6b3bc1015af659d668f945a0f9a3676a99b482df",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-rook-ceph-mgr",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b6728d2b-d25b-4fd2-b4e5-24b9427603cb",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8efe2570246b221a29cde00e50057689ad5323b2867d3d403d7882940f18eb5a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-rook-ceph-purge-osd",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "49ebf40c-44f3-4c0f-86c4-4faea2f9c8cf",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f46091ad32b25df2daad3bb54a33d44eecbcccf31d755a194a349c3849863ce2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-rook-ceph-cmd-reporter",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "15fe6aa9-b742-4377-8ba2-e80b1c22a4bd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d200baef422333cba74209e1c15676d72b0438659f2aa41686522f397bd729d2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-rook-ceph-mgr",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8da93a00-463c-495d-8c67-e9c5e6fb9420",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "878cd75d081fbc5f98b83f03b62683f7f1d2c22e4c906889e2ed3a472e983c52",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-rook-ceph-mgr-cluster-default",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a0f03301-45f9-4e9b-affb-0e76737a2d51",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "800610aaea1235566d38d47c0028de3a2e749d5d76c1977f6c9fccfed5832c0a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-rook-ceph-osd",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c2ee3a41-0bd4-4ab0-b828-0d9e70e24bb0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "73377a2e43d9d0948b3481ce1281f8cc342256e396af96a1a7462b509b94dee4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-rook-ceph-purge-osd",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fc931ebf-5227-402e-885c-7b2b6eb1269f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a240646d07e74de7f3d4dc5772e0fcf24372dd0983a3c76229aa32594a697e5b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-rook-ceph-rook-ceph-mgr-system-default",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "17d74209-f9bd-43a8-aa60-bf6c633d19a9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c58ec9b7df48099a323247724b82dc783298ca3a1695e9d40d239483949fb73e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-rook-ceph-cmd-reporter",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cb3721b9-4b12-4a79-a203-7e850936c86b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a94e0794988979738d19497486dcccd645a2b9e0017566835bb5920b407f3cdb",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-rook-ceph-default",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "15ea34c3-bcea-459e-83f8-f0482dedb481",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4018cb3601eaf1bf248967324c39f67fc6428590c562072d1185ab226e17922a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-rook-ceph-mgr",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c9458340-e238-4181-b398-26effe790aaa",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "efc6a2c91327809fc9ddd02a74bcf68fd6d8b3db85da9e5e658fbe6076b62322",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-rook-ceph-nvmeof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9aa3c618-282f-44e7-a488-ffbda79f1314",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ff417b15cb2f1327d3a0b13936afb02d59e8e408b34acc413709a22ab35d2000",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-rook-ceph-osd",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "46c4cdf9-c74b-4c3e-b356-d44ed427abdc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ca6d61e2f146243478266ce95bf211684d9aad5c113eea1e1900d4682443cb37",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-rook-ceph-purge-osd",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1be83c47-05c2-4cec-8f98-f6aa2ca31f7e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:11:40.005199Z",
+      "CursorID": 4675,
+      "DisplayName": "helm-rook-ceph-cluster-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "RookCephCluster",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-rook-ceph-cluster-default-confighub-proof",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "UpdatedAt": "2026-06-12T17:11:40.579829Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "28621a73f57de378e35fd31ae644b2ee851ea647f7e11f6e7139bada5475b68f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "RookCephCluster",
+        "HelmChart": "rook-release-rook-ceph-cluster",
+        "HelmChartVersion": "v1.19.5",
+        "Package": "rook-release-rook-ceph-cluster",
+        "Proof": "rook-ceph-cluster-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-rook-ceph-rgw",
+      "SpaceID": "b7b5b8b6-c0a9-4c42-9d0e-d3d952f08c44",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fcd6a17b-9d1e-4768-85ef-b6a3cbeb6b7a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

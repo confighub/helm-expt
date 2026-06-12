@@ -1,0 +1,5 @@
+No changes.
+
+Images in helm-gatekeeper-no-crds-confighub-proof (post-render):
+      Deployment/gatekeeper-audit [manager] openpolicyagent/gatekeeper:v3.22.2
+      Deployment/gatekeeper-controller-manager [manager] openpolicyagent/gatekeeper:v3.22.2

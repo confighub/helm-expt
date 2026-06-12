@@ -1,0 +1,5 @@
+Bundled jetstack-trust-manager@
+  output: .tmp/confighub-proof/trust-manager-no-crds-archives/trust-manager-b.tgz
+  files:  6
+  size:   6751 bytes
+  digest: sha256:e0f077d0158b34447fbc29a05f0cb94eb7d63127f8ac60d2a9806c54d5b4e9ce

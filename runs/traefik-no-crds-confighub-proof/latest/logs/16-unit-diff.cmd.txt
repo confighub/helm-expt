@@ -1,0 +1,1 @@
+cub unit diff deployment-default-traefik --space helm-traefik-no-crds-confighub-proof --from 1 --to HeadRevisionNum -u

@@ -1,0 +1,5 @@
+Bundled opencost-opencost@
+  output: .tmp/confighub-proof/opencost-default-archives/opencost-b.tgz
+  files:  4
+  size:   2884 bytes
+  digest: sha256:1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47

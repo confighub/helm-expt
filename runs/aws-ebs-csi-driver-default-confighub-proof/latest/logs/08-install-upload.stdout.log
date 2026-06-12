@@ -1,0 +1,64 @@
+== aws-ebs-csi-driver-aws-ebs-csi-driver@ → Space helm-aws-ebs-csi-driver-default-confighub-proof ==
+Successfully created unit clusterrole-ebs-csi-node-role (be53deac-9db6-405e-b44d-20c27e21b6c5)
+Successfully created unit clusterrole-ebs-external-attacher-role (f05a9ee9-7c18-4824-801f-df34ec9b6076)
+Successfully created unit clusterrole-ebs-external-provisioner-role (146695f3-611f-453a-9420-fe455f13d98d)
+Successfully created unit clusterrole-ebs-external-resizer-role (9d8cfbdd-4760-4237-b813-f70bd6bf3dc8)
+Successfully created unit clusterrole-ebs-external-snapshotter-role (ee6e8a51-7193-4284-95f4-6736f7dce0cd)
+Successfully created unit clusterrolebinding-ebs-csi-attacher-binding (b2ecbebd-5b30-4183-b5a2-cac6a1208bfc)
+Successfully created unit clusterrolebinding-ebs-csi-node-getter-binding (ce767eca-c0be-428b-b7d3-5962272f3bdf)
+Successfully created unit clusterrolebinding-ebs-csi-provisioner-binding (bf73a238-7ff5-4006-a33c-9f6c43d2691e)
+Successfully created unit clusterrolebinding-ebs-csi-resizer-binding (34c10dcc-1cfa-49a5-8aec-063ba613a12b)
+Successfully created unit clusterrolebinding-ebs-csi-snapshotter-binding (fb3bfb17-119e-4c64-8dc9-53707ff145c5)
+Successfully created unit csidriver-ebs-csi-aws-com (f8bfee5a-f2c3-4900-95a1-ef49ba81b925)
+Successfully created unit daemonset-default-ebs-csi-node-windows (e274c0ce-20b2-4092-8c62-8ebb254170c0)
+Successfully created unit daemonset-default-ebs-csi-node (db0ac762-4877-46a9-887d-64298020bdf2)
+Successfully created unit deployment-default-ebs-csi-controller (09f962d0-9247-4b5b-bbc1-65854703bac0)
+Successfully created unit namespace-default (f9bd1de7-16ca-42bc-bea4-bac9a21223bd)
+Successfully created unit poddisruptionbudget-default-ebs-csi-controller (aa9bf063-38d3-4d34-9a51-852d2644743e)
+Successfully created unit role-default-ebs-csi-leases-role (95754ff7-f8f0-41ab-b789-42ce42e73e72)
+Successfully created unit rolebinding-default-ebs-csi-leases-rolebinding (7eff7745-5368-4e93-9a3e-d760c67b920f)
+Successfully created unit serviceaccount-default-ebs-csi-controller-sa (a7d64555-128c-441c-9a70-0c76ec6f2b5e)
+Successfully created unit serviceaccount-default-ebs-csi-node-sa (30c14016-9985-4206-8f1b-2e9bd849ff0f)
+Successfully created unit installer-record (08f86e18-5c5d-48aa-8f94-3331ba83a172)
+Linked clusterrolebinding-ebs-csi-attacher-binding -> clusterrole-ebs-external-attacher-role (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-ebs-csi-attacher-binding -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-ebs-csi-attacher-binding -> serviceaccount-default-ebs-csi-controller-sa (reference:v1/ServiceAccount)
+Linked clusterrolebinding-ebs-csi-node-getter-binding -> clusterrole-ebs-csi-node-role (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-ebs-csi-node-getter-binding -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-ebs-csi-node-getter-binding -> serviceaccount-default-ebs-csi-node-sa (reference:v1/ServiceAccount)
+Linked clusterrolebinding-ebs-csi-provisioner-binding -> clusterrole-ebs-external-provisioner-role (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-ebs-csi-provisioner-binding -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-ebs-csi-provisioner-binding -> serviceaccount-default-ebs-csi-controller-sa (reference:v1/ServiceAccount)
+Linked clusterrolebinding-ebs-csi-resizer-binding -> clusterrole-ebs-external-resizer-role (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-ebs-csi-resizer-binding -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-ebs-csi-resizer-binding -> serviceaccount-default-ebs-csi-controller-sa (reference:v1/ServiceAccount)
+Linked clusterrolebinding-ebs-csi-snapshotter-binding -> clusterrole-ebs-external-snapshotter-role (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-ebs-csi-snapshotter-binding -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-ebs-csi-snapshotter-binding -> serviceaccount-default-ebs-csi-controller-sa (reference:v1/ServiceAccount)
+Linked daemonset-default-ebs-csi-node -> daemonset-default-ebs-csi-node-windows (selector)
+Linked daemonset-default-ebs-csi-node -> namespace-default (reference:v1/Namespace)
+Linked daemonset-default-ebs-csi-node -> serviceaccount-default-ebs-csi-node-sa (reference:v1/ServiceAccount)
+Linked daemonset-default-ebs-csi-node-windows -> daemonset-default-ebs-csi-node (selector)
+Linked daemonset-default-ebs-csi-node-windows -> namespace-default (reference:v1/Namespace)
+Linked daemonset-default-ebs-csi-node-windows -> serviceaccount-default-ebs-csi-node-sa (reference:v1/ServiceAccount)
+Linked deployment-default-ebs-csi-controller -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-ebs-csi-controller -> serviceaccount-default-ebs-csi-controller-sa (reference:v1/ServiceAccount)
+Linked poddisruptionbudget-default-ebs-csi-controller -> deployment-default-ebs-csi-controller (selector)
+Linked poddisruptionbudget-default-ebs-csi-controller -> namespace-default (reference:v1/Namespace)
+Linked role-default-ebs-csi-leases-role -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-ebs-csi-leases-rolebinding -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-ebs-csi-leases-rolebinding -> serviceaccount-default-ebs-csi-controller-sa (reference:v1/ServiceAccount)
+Linked serviceaccount-default-ebs-csi-controller-sa -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-ebs-csi-node-sa -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - daemonset-default-ebs-csi-node -> scheduling.k8s.io/v1/PriorityClass "system-node-critical"
+  - daemonset-default-ebs-csi-node-windows -> scheduling.k8s.io/v1/PriorityClass "system-node-critical"
+  - deployment-default-ebs-csi-controller -> scheduling.k8s.io/v1/PriorityClass "system-cluster-critical"
+  - deployment-default-ebs-csi-controller -> v1/ConfigMap "aws-meta"
+  - deployment-default-ebs-csi-controller -> v1/Secret "aws-secret"
+  - rolebinding-default-ebs-csi-leases-rolebinding -> rbac.authorization.k8s.io/v1/ClusterRole "ebs-csi-leases-role"

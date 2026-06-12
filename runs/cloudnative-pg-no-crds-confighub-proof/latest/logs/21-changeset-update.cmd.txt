@@ -1,0 +1,1 @@
+cub changeset update cloudnative-pg-safe-ops-20260527 --space helm-cloudnative-pg-no-crds-confighub-proof --description "CloudNativePG safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

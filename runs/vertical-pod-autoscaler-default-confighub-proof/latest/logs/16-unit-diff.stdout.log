@@ -1,0 +1,100 @@
+--- helm-vertical-pod-autoscaler-default-confighub-proof/deployment-default-vertical-pod-autoscaler-recommender/1
++++ helm-vertical-pod-autoscaler-default-confighub-proof/deployment-default-vertical-pod-autoscaler-recommender/2
+@@ -29,52 +33,45 @@
+       affinity:
+         podAntiAffinity:
+           preferredDuringSchedulingIgnoredDuringExecution:
+-            - podAffinityTerm:
+-                labelSelector:
+-                  matchExpressions:
+-                    - key: app.kubernetes.io/component
+-                      operator: In
+-                      values:
+-                        - recommender
+-                topologyKey: kubernetes.io/hostname
+-              weight: 100
++          - podAffinityTerm:
++              labelSelector:
++                matchExpressions:
++                - key: app.kubernetes.io/component
++                  operator: In
++                  values:
++                  - recommender
++              topologyKey: kubernetes.io/hostname
++            weight: 100
+       containers:
+-        - args:
+-            - --v=4
+-            - --stderrthreshold=info
+-            - --leader-elect=true
+-            - --leader-elect-resource-namespace=default
+-            - --leader-elect-resource-name=vpa-recommender-lease
+-            - --leader-elect-lease-duration=15s
+-            - --leader-elect-renew-deadline=10s
+-            - --leader-elect-retry-period=2s
+-          env:
+-            - name: NAMESPACE
+-              valueFrom:
+-                fieldRef:
+-                  fieldPath: metadata.namespace
+-          image: registry.k8s.io/autoscaling/vpa-recommender:1.6.0
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /health-check
+-              port: prometheus
+-              scheme: HTTP
+-            initialDelaySeconds: 5
+-            periodSeconds: 10
+-          name: recommender
+-          ports:
+-            - containerPort: 8942
+-              name: prometheus
+-              protocol: TCP
+-          readinessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /health-check
+-              port: prometheus
+-              scheme: HTTP
+-            periodSeconds: 10
++      - args:
++        - --v=4
++        - --stderrthreshold=info
++        - --leader-elect=true
++        - --leader-elect-resource-namespace=default
++        - --leader-elect-resource-name=vpa-recommender-lease
++        - --leader-elect-lease-duration=15s
++        - --leader-elect-renew-deadline=10s
++        - --leader-elect-retry-period=2s
++        env:
++        - name: NAMESPACE
++          valueFrom:
++            fieldRef:
++              fieldPath: metadata.namespace
++        image: registry.k8s.io/autoscaling/vpa-recommender:1.6.0
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /health-check
++            port: prometheus
++            scheme: HTTP
++          initialDelaySeconds: 5
++          periodSeconds: 10
++        name: recommender
++        ports:
++        - containerPort: 8942
++          name: prometheus
++          protocol: TCP
++        readinessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /health-check
++            port: prometheus
++            scheme: HTTP
++          periodSeconds: 10
+       securityContext:
+         runAsNonRoot: true
+         runAsUser: 65534

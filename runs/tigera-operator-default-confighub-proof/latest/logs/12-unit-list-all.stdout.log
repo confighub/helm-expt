@@ -1,0 +1,698 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "097ae9944be0f812a416dd978da33f0e7add22ef400bd2794a82a883664d733d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-tigera-operator",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8398b7cf-ecc5-4370-a4db-25967a7a8d4d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "844e72db8dc917547a0935099f45d9ba7e71369ab4912ad6d541c95f14618a1e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-tigera-operator-secrets",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "dd89207f-f2f2-435b-965d-c1617fbb54fa",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "107a4f0a0abe717db1c02511707da75ddb5508491ca1f9f92854e78abb73ac4d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e81e3f25-09a5-4734-80ed-3a1172d5613a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "eaaee74bf919f2ba7cde356570834468960dc04209e51ad0d0d68f8d5ec29b00",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-tigera-operator",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "02e45931-9b01-425b-9397-31fb78c3cfa6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b99f61287be914256cd887c85eee31860bf0045b54f38f1851316d203f4fcb43",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-tigera-operator",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "54eab1fd-2156-457b-9bd3-027a79e294c1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "633550a363369bb03543dc31d08a4eabe2aa2f97e4d7073ea99ddeb8a2f6ca48",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-tigera-operator-secrets",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aad949b8-1936-4efc-ac93-b533b7ff3d89",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b77b52908dc08746fc064ec0b3c3bfb84ec2685a17e5a3a8f726da48ca001808",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "apiserver-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "445ff89e-f0f7-4a8a-8e3e-79551012e1c2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 2
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "146e2928d88976b02a680854bb804460ff490b74e10c02bb74ee3e21c7e83880",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "goldmane-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b91d84e9-b7d9-40dd-a4c2-8d072d500553",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 2
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e35ee8720944443a11e3ab964ae2b9ca5362f2e282f5921ed84f4ce7f40c616e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installation-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e1d6bfdf-7bd3-42ce-9b06-ce94e4037fc0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 2
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5f7c76f0-51f9-40f4-805d-e83b0758ebd7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d69050218e963203063988b6102e36183d73fb50ae79740992738da202210027",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-tigera-operator",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cd6c2162-47b3-4a25-a82f-17b20eff31d0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:07:32.682567Z",
+      "CursorID": 4665,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-tigera-operator-default-confighub-proof",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "UpdatedAt": "2026-06-12T17:07:33.221998Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "89d4f1bfd46a5e6af819bfb65b5dafdc585f43e934fedd0e47c07d9ba9ae0f4b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "whisker-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9c989fb4-7662-4042-8e2c-05bfd5baf69e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 2
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

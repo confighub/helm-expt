@@ -1,0 +1,1 @@
+cub changeset update tigera-operator-safe-ops-20260527 --space helm-tigera-operator-default-confighub-proof --description "tigera-operator safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

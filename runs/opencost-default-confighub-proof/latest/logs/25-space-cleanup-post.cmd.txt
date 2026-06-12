@@ -1,0 +1,1 @@
+cub space delete --space "helm-opencost-default-confighub-proof,Opencost-default-staging" --recursive-force

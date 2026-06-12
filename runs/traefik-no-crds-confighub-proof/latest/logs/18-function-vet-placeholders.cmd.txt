@@ -1,0 +1,1 @@
+cub function vet vet-placeholders --space helm-traefik-no-crds-confighub-proof --where "Labels.Proof = 'traefik-no-crds-confighub-proof'" --quiet --wait --timeout 10m

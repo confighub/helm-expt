@@ -1,0 +1,8 @@
+== gitlab-gitlab-runner@ → Space helm-gitlab-runner-default-confighub-proof ==
+Successfully created unit configmap-default-gitlab-runner (632dd122-fd55-4012-a22e-1ab2b2bb6b5a)
+Successfully created unit deployment-default-gitlab-runner (7887b5f3-5ca6-43a7-b178-d2aba9ed671e)
+Successfully created unit namespace-default (a63f023c-9dc9-400f-b4ce-db8ad90336dd)
+Successfully created unit installer-record (ab064415-75b4-4da5-bc7e-8e0eaa39b18a)
+Linked configmap-default-gitlab-runner -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-gitlab-runner -> configmap-default-gitlab-runner (reference:v1/ConfigMap)
+Linked deployment-default-gitlab-runner -> namespace-default (reference:v1/Namespace)

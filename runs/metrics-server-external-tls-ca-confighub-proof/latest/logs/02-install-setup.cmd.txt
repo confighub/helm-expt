@@ -1,0 +1,1 @@
+cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base external-tls-ca --work-dir .tmp/confighub-proof/metrics-server-external-tls-ca --non-interactive --namespace kube-system

@@ -1,0 +1,5 @@
+Bundled projectcalico-tigera-operator@
+  output: .tmp/confighub-proof/tigera-operator-default-archives/tigera-operator-a.tgz
+  files:  4
+  size:   4063 bytes
+  digest: sha256:87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076

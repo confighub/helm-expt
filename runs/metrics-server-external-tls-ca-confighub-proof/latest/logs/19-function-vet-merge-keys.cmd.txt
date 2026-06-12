@@ -1,0 +1,1 @@
+cub function vet vet-merge-keys --space helm-metrics-server-external-tls-ca-confighub-proof --where "Labels.Proof = 'metrics-server-external-tls-ca-confighub-proof'" --quiet --wait --timeout 10m

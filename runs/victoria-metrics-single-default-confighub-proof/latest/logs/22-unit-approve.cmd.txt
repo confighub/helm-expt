@@ -1,0 +1,1 @@
+cub unit approve statefulset-default-victoria-metrics-single-server --space helm-victoria-metrics-single-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

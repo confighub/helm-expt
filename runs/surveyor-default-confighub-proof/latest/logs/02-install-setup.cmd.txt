@@ -1,0 +1,1 @@
+cub installer setup --pull packages/nats/surveyor/0.20.9 --base default --work-dir .tmp/confighub-proof/surveyor-default --non-interactive --namespace default

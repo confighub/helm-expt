@@ -1,0 +1,1 @@
+cub unit apply --space helm-jaeger-default-confighub-proof --where "Labels.Proof = 'jaeger-default-confighub-proof'" --dry-run --wait --timeout 2m

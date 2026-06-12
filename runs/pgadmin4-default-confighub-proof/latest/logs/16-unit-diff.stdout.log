@@ -1,0 +1,107 @@
+--- helm-pgadmin4-default-confighub-proof/deployment-default-pgadmin4/1
++++ helm-pgadmin4-default-confighub-proof/deployment-default-pgadmin4/2
+@@ -26,56 +30,48 @@
+     spec:
+       automountServiceAccountToken: false
+       containers:
+-        - env:
+-            - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
+-              value: "False"
+-            - name: PGADMIN_DEFAULT_EMAIL
+-              value: chart@domain.com
+-            - name: PGADMIN_DEFAULT_PASSWORD
+-              valueFrom:
+-                secretKeyRef:
+-                  key: password
+-                  name: pgadmin4
+-          image: docker.io/dpage/pgadmin4:9.13
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /misc/ping
+-              port: http
+-              scheme: HTTP
+-            periodSeconds: 20
+-            timeoutSeconds: 5
+-          name: pgadmin4
+-          ports:
+-            - containerPort: 80
+-              name: http
+-              protocol: TCP
+-          readinessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /misc/ping
+-              port: http
+-              scheme: HTTP
+-            periodSeconds: 10
+-            timeoutSeconds: 3
+-          resources: {}
+-          startupProbe:
+-            failureThreshold: 18
+-            httpGet:
+-              path: /misc/ping
+-              port: http
+-              scheme: HTTP
+-            periodSeconds: 10
+-          volumeMounts:
+-            - mountPath: /var/lib/pgadmin
+-              name: pgadmin-data
+-              subPath: ""
++      - env:
++        - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
++          value: "False"
++        - name: PGADMIN_DEFAULT_EMAIL
++          value: chart@domain.com
++        - name: PGADMIN_DEFAULT_PASSWORD
++          valueFrom:
++            secretKeyRef:
++              key: password
++              name: pgadmin4
++        image: docker.io/dpage/pgadmin4:9.13
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /misc/ping
++            port: http
++            scheme: HTTP
++          periodSeconds: 20
++          timeoutSeconds: 5
++        name: pgadmin4
++        ports:
++        - containerPort: 80
++          name: http
++          protocol: TCP
++        readinessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /misc/ping
++            port: http
++            scheme: HTTP
++          periodSeconds: 10
++          timeoutSeconds: 3
++        resources: {}
++        startupProbe:
++          failureThreshold: 18
++          httpGet:
++            path: /misc/ping
++            port: http
++            scheme: HTTP
++          periodSeconds: 10
++        volumeMounts:
++        - mountPath: /var/lib/pgadmin
++          name: pgadmin-data
++          subPath: ""
+       securityContext:
+         fsGroup: 5050
+         runAsGroup: 5050
+         runAsUser: 5050
+       volumes:
+-        - name: pgadmin-data
+-          persistentVolumeClaim:
+-            claimName: pgadmin4
++      - name: pgadmin-data
++        persistentVolumeClaim:
++          claimName: pgadmin4

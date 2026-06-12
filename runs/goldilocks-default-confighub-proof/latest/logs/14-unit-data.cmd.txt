@@ -1,0 +1,1 @@
+cub unit data deployment-default-goldilocks-dashboard --space helm-goldilocks-default-confighub-proof

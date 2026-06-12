@@ -1,0 +1,4 @@
+Rendered 13 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/gatekeeper-no-crds/out/manifests
+Rendered 1 secret(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/gatekeeper-no-crds/out/secrets (not uploaded)
+Spec docs in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/gatekeeper-no-crds/out/spec
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/gatekeeper-no-crds --space <slug>

@@ -1,0 +1,1190 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "24c898d2678990aed13d47007156b348ddf27979bc5e80b6a7eb5f76bac8e21f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator-watched",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9c69acc0-d392-4380-ac91-f2fcb4a04b3f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "23369ad59531fc7e68e0e60bba7e986dd4e0be26dd5154693f975a01d63204ea",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-cluster-operator-global",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bd062748-fe65-4efd-9502-0c54e1ce44c1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "aca7b4b61913970847e6fd72eeba387581655fe1e1fd5fb3ddf97c7b93b1bb79",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-cluster-operator-leader-election",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "abe23b6a-d2c1-42ac-a200-b57e037c4b61",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "aaac41af3a458167c7c1608c1d273a4e86c282a367f0bb25ebfeadf2397daf7e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7d339be5-9355-4ede-b196-ce63afc5bb40",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a6d31f6214027cd65b3bab1935b6fa4574c4ef07639c43c2f30792465d4e2f9",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-cluster-operator-namespaced",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3a158876-adcc-47b3-ae86-605eaed662b5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f2c8b47d59706711ccd3f48ce65e92a2fdf2fc9a70b2e634916bcca5d48e4db3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-entity-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ba9f32fc-e8e7-420f-8e3a-3938b17a2fc0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c7e19fb112b4b3c444817e76f853389e62e612de3853e33dd85e2ad189d52e73",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-kafka-broker",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2e35e182-a2ea-4789-ab70-02be0be5b37f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "23364bab319910b4b27031cb4353be7573c6c78a16d50f88e55ab7017076749f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-cluster-operator-watched",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d4bc94be-5b23-41ee-9a48-f65c0e0a7567",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3f28e0252d9229ecfeb245900374b1afedc6f6acbbca12dddd72b625dca0ff3f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-kafka-client",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2400d761-1ea0-46fe-a24f-0c448a2bad53",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "de8f86c08561ad8754e4f6893ebc728a171fd239f15b39d3ae4dfc53efc6e1f3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "81fc43b4-11a3-4217-b09d-1642b7090210",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7fff4350d40a88a27d825c92b994dd94426d147f743c37a1edd8191c79a2b884",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1e29a3bc-c16c-43ae-a07c-321c158c29f6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ef877f7f31572c2f8010a2918f53f51acf9c7da5103c58057f9cc8d75977349c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "933f9475-e910-4d21-84cf-04064c9d3257",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "921031e6b966d2375f9feac729e69bd3bb0d44acdb01f469adb29b054d710d77",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2d936973-c784-404b-b395-604a3f011002",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a4a58fe6deeec84cdd038476a616c3a9c17d92119a710c762a870cf0b4f36cca",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e27326a3-8190-44ee-a0d7-11cfb9ab795d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 16
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "155be2a3-7474-4cbe-be0f-efe53d531e55",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "411bfc4774ca644add53bbb9613067f238273e1429d43d5bb9a0629ba2ee9470",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8e95eee8-60cb-49b7-a3fa-f2f6fe95e202",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d6a6260a0cb7e931a4dbd5ab54844a48e234760083fc98161f26e956e1562803",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator-entity-operator-delegation",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4c42d662-4300-4d8c-aeec-e836d103c1d7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:41.316508Z",
+      "CursorID": 4631,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "UpdatedAt": "2026-06-12T16:57:41.874125Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e069d5116269f77636a5b67edb99db8fafd8aed5984ff11b93cba60cd8627644",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator-leader-election",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fd148b05-2919-446e-baff-28048d9ac772",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

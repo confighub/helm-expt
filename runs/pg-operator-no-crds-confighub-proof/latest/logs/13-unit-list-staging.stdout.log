@@ -1,0 +1,1040 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:47.375113Z",
+        "CursorID": 22893,
+        "DisplayName": "Upgrade deployment-default-pg-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "35c7c91d-f5a3-4834-9de2-08460e496b37",
+        "LinkID": "3fc09abf-3e78-4d7d-b9f4-6e5157518bff",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-pg-operator",
+        "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+        "SpaceSlug": "PerconaPGOperator-no-crds-staging",
+        "ToSpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+        "ToUnitID": "34a01794-cd5c-410b-83b1-22eb5851bdba",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:47.375113Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '34a01794-cd5c-410b-83b1-22eb5851bdba' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:47.140923Z",
+      "CursorID": 4608,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPGOperator-no-crds-staging",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "UpdatedAt": "2026-06-12T16:52:47.140923Z",
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fb18431592d837ee5fa9eec4fb59512836aca997bcfdea65f5ab2cf27a855b96",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3fc09abf-3e78-4d7d-b9f4-6e5157518bff"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-pg-operator",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "35c7c91d-f5a3-4834-9de2-08460e496b37",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "34a01794-cd5c-410b-83b1-22eb5851bdba",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1780763803,
+      "CreatedAt": "2026-06-12T16:52:20.129963Z",
+      "CursorID": 27989,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBwZy1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogcGctb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDMuMC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBwZy1vcGVyYXRvci0zLjAuMAogICAgbWV0YS5oZWxtLnNoL3JlbGVhc2UtbmFtZTogcGctb3BlcmF0b3IKICAgIG1ldGEuaGVsbS5zaC9yZWxlYXNlLW5hbWVzcGFjZTogZGVmYXVsdAogICAgcGd2Mi5wZXJjb25hLmNvbS9jb250cm9sLXBsYW5lOiBwb3N0Z3Jlcy1vcGVyYXRvcgogIG5hbWU6IHBnLW9wZXJhdG9yCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IG9wZXJhdG9yCiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBwZy1vcGVyYXRvcgogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBwZy1vcGVyYXRvcgogICAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBwZy1vcGVyYXRvcgogICAgICBwZ3YyLnBlcmNvbmEuY29tL2NvbnRyb2wtcGxhbmU6IHBvc3RncmVzLW9wZXJhdG9yCiAgc3RyYXRlZ3k6CiAgICB0eXBlOiBSZWNyZWF0ZQogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IG9wZXJhdG9yCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHBnLW9wZXJhdG9yCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogcGctb3BlcmF0b3IKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBwZy1vcGVyYXRvcgogICAgICAgIHBndjIucGVyY29uYS5jb20vY29udHJvbC1wbGFuZTogcG9zdGdyZXMtb3BlcmF0b3IKICAgIHNwZWM6CiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gZW52OgogICAgICAgIC0gbmFtZTogUEdPX05BTUVTUEFDRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWVzcGFjZQogICAgICAgIC0gbmFtZTogV0FUQ0hfTkFNRVNQQUNFCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZXNwYWNlCiAgICAgICAgLSBuYW1lOiBMT0dfU1RSVUNUVVJFRAogICAgICAgICAgdmFsdWU6ICJmYWxzZSIKICAgICAgICAtIG5hbWU6IExPR19MRVZFTAogICAgICAgICAgdmFsdWU6IElORk8KICAgICAgICAtIG5hbWU6IERJU0FCTEVfVEVMRU1FVFJZCiAgICAgICAgICB2YWx1ZTogImZhbHNlIgogICAgICAgIC0gbmFtZTogUFBST0ZfQklORF9BRERSRVNTCiAgICAgICAgICB2YWx1ZTogIjAiCiAgICAgICAgLSBuYW1lOiBQR09fQ09OVFJPTExFUl9MRUFERVJfRUxFQ1RJT05fRU5BQkxFRAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogUEdPX0NPTlRST0xMRVJfTEVBU0VfTkFNRQogICAgICAgICAgdmFsdWU6ICIiCiAgICAgICAgLSBuYW1lOiBQR09fQ09OVFJPTExFUl9MRUFTRV9EVVJBVElPTgogICAgICAgICAgdmFsdWU6IDYwcwogICAgICAgIC0gbmFtZTogUEdPX0NPTlRST0xMRVJfUkVORVdfREVBRExJTkUKICAgICAgICAgIHZhbHVlOiA0MHMKICAgICAgICAtIG5hbWU6IFBHT19DT05UUk9MTEVSX1JFVFJZX1BFUklPRAogICAgICAgICAgdmFsdWU6IDEwcwogICAgICAgIC0gbmFtZTogUEdPX0ZFQVRVUkVfR0FURVMKICAgICAgICAgIHZhbHVlOiBCYWNrdXBTbmFwc2hvdHM9ZmFsc2UKICAgICAgICBpbWFnZTogZG9ja2VyLmlvL3BlcmNvbmEvcGVyY29uYS1wb3N0Z3Jlc3FsLW9wZXJhdG9yOjMuMC4wCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBBbHdheXMKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMwogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL21ldHJpY3MKICAgICAgICAgICAgcG9ydDogbWV0cmljcwogICAgICAgICAgICBzY2hlbWU6IEhUVFAKICAgICAgICBuYW1lOiBvcGVyYXRvcgogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogODA4MAogICAgICAgICAgbmFtZTogbWV0cmljcwogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIGxpbWl0czoKICAgICAgICAgICAgY3B1OiAyMDBtCiAgICAgICAgICAgIG1lbW9yeTogNTAwTWkKICAgICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgICBjcHU6IDEwMG0KICAgICAgICAgICAgbWVtb3J5OiAyME1pCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAtIEFMTAogICAgICAgICAgcmVhZE9ubHlSb290RmlsZXN5c3RlbTogdHJ1ZQogICAgICAgICAgcnVuQXNOb25Sb290OiB0cnVlCiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogcGctb3BlcmF0b3IKICAgICAgdGVybWluYXRpb25HcmFjZVBlcmlvZFNlY29uZHM6IDYwMAo=",
+      "DataHash": "fb18431592d837ee5fa9eec4fb59512836aca997bcfdea65f5ab2cf27a855b96",
+      "DisplayName": "deployment-default-pg-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "HelmChart": "percona-pg-operator",
+        "HelmChartVersion": "3.0.0",
+        "Package": "percona-pg-operator",
+        "Proof": "pg-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/pg-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "pg-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/pg-operator",
+            "ResourceNameWithoutScope": "pg-operator",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: pg-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: pg-operator\n    app.kubernetes.io/version: 3.0.0\n    helm.sh/chart: pg-operator-3.0.0\n    meta.helm.sh/release-name: pg-operator\n    meta.helm.sh/release-namespace: default\n    pgv2.percona.com/control-plane: postgres-operator\n  name: pg-operator\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/component: operator\n      app.kubernetes.io/instance: pg-operator\n      app.kubernetes.io/name: pg-operator\n      app.kubernetes.io/part-of: pg-operator\n      pgv2.percona.com/control-plane: postgres-operator\n  strategy:\n    type: Recreate\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/component: operator\n        app.kubernetes.io/instance: pg-operator\n        app.kubernetes.io/name: pg-operator\n        app.kubernetes.io/part-of: pg-operator\n        pgv2.percona.com/control-plane: postgres-operator\n    spec:\n      containers:\n      - env:\n        - name: PGO_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: WATCH_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: LOG_STRUCTURED\n          value: \"false\"\n        - name: LOG_LEVEL\n          value: INFO\n        - name: DISABLE_TELEMETRY\n          value: \"false\"\n        - name: PPROF_BIND_ADDRESS\n          value: \"0\"\n        - name: PGO_CONTROLLER_LEADER_ELECTION_ENABLED\n          value: \"true\"\n        - name: PGO_CONTROLLER_LEASE_NAME\n          value: \"\"\n        - name: PGO_CONTROLLER_LEASE_DURATION\n          value: 60s\n        - name: PGO_CONTROLLER_RENEW_DEADLINE\n          value: 40s\n        - name: PGO_CONTROLLER_RETRY_PERIOD\n          value: 10s\n        - name: PGO_FEATURE_GATES\n          value: BackupSnapshots=false\n        image: docker.io/percona/percona-postgresql-operator:3.0.0\n        imagePullPolicy: Always\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /metrics\n            port: metrics\n            scheme: HTTP\n        name: operator\n        ports:\n        - containerPort: 8080\n          name: metrics\n          protocol: TCP\n        resources:\n          limits:\n            cpu: 200m\n            memory: 500Mi\n          requests:\n            cpu: 100m\n            memory: 20Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsNonRoot: true\n      serviceAccountName: pg-operator\n      terminationGracePeriodSeconds: 600\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/pg-operator",
+          "ResourceNameWithoutScope": "pg-operator",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-pg-operator",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "34a01794-cd5c-410b-83b1-22eb5851bdba",
+      "UpdatedAt": "2026-06-12T16:52:34.547143Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:47.451347Z",
+        "CursorID": 22894,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "de51ecaf-9a4a-4959-8e06-0ad37d401949",
+        "LinkID": "583a3743-23d3-47b5-b8ba-3ba7d8abc14c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+        "SpaceSlug": "PerconaPGOperator-no-crds-staging",
+        "ToSpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+        "ToUnitID": "2f32001a-ace6-4a78-9a09-fc4f05edcb5c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:47.451347Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2f32001a-ace6-4a78-9a09-fc4f05edcb5c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:47.140923Z",
+      "CursorID": 4608,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPGOperator-no-crds-staging",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "UpdatedAt": "2026-06-12T16:52:47.140923Z",
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5cb701f2049e8717f36239f3d6a0ab46e04008414b0dc4db56c6e117de92cd35",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "583a3743-23d3-47b5-b8ba-3ba7d8abc14c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "de51ecaf-9a4a-4959-8e06-0ad37d401949",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2f32001a-ace6-4a78-9a09-fc4f05edcb5c",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "percona-pg-operator",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1749962577,
+      "CreatedAt": "2026-06-12T16:52:24.552195Z",
+      "CursorID": 27994,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogInBlcmNvbmEtcGctb3BlcmF0b3IiCiAgdmVyc2lvbjogIjMuMC4wIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogInBlcmNvbmEvcGctb3BlcmF0b3IgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gcGVyY29uYS9wZy1vcGVyYXRvckAzLjAuMCIKICAgIG5hbWU6ICJkZWZhdWx0IgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQiCiAgLSBuYW1lOiAibm8tY3JkcyIKICAgIHBhdGg6ICJiYXNlcy9uby1jcmRzIgogICAgZGVzY3JpcHRpb246ICJwZXJjb25hL3BnLW9wZXJhdG9yIG5vLWNyZHMgdmFyaWFudCByZW5kZXJlZCBmcm9tIHBlcmNvbmEvcGctb3BlcmF0b3JAMy4wLjAiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IHBlcmNvbmEtcGctb3BlcmF0b3ItZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcGctb3BlcmF0b3IKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogcGVyY29uYS1wZy1vcGVyYXRvci1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcGctb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IHBlcmNvbmEtcGctb3BlcmF0b3ItbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcGctb3BlcmF0b3IKICBmaWxlczoKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQtcGctb3BlcmF0b3IueWFtbAogICAgc2x1ZzogZGVwbG95bWVudC1kZWZhdWx0LXBnLW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiBwZy1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWRlZmF1bHQueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlLWRlZmF1bHQtcGctb3BlcmF0b3IueWFtbAogICAgc2x1Zzogcm9sZS1kZWZhdWx0LXBnLW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlCiAgICBuYW1lOiBwZy1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZWJpbmRpbmctZGVmYXVsdC1wZy1vcGVyYXRvci55YW1sCiAgICBzbHVnOiByb2xlYmluZGluZy1kZWZhdWx0LXBnLW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogcGctb3BlcmF0b3IKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtcGctb3BlcmF0b3IueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1wZy1vcGVyYXRvcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBwZy1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogcGVyY29uYS1wZy1vcGVyYXRvci1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcGctb3BlcmF0b3IKICBiYXNlOiBuby1jcmRzCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogcGVyY29uYS1wZy1vcGVyYXRvci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHBlcmNvbmEtcGctb3BlcmF0b3IKICBzcGFjZVBhdHRlcm46IGhlbG0tcGctb3BlcmF0b3Itbm8tY3Jkcy1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBwZXJjb25hLXBnLW9wZXJhdG9yCiAgICBzbHVnOiBoZWxtLXBnLW9wZXJhdG9yLW5vLWNyZHMtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjUyOjE4WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "5cb701f2049e8717f36239f3d6a0ab46e04008414b0dc4db56c6e117de92cd35",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "percona-pg-operator"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/percona-pg-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-pg-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-pg-operator",
+            "ResourceNameWithoutScope": "percona-pg-operator",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"percona-pg-operator\"\n  version: \"3.0.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"percona/pg-operator default variant rendered from percona/pg-operator@3.0.0\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"no-crds\"\n    path: \"bases/no-crds\"\n    description: \"percona/pg-operator no-crds variant rendered from percona/pg-operator@3.0.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-pg-operator-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-pg-operator-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-pg-operator-function-chain",
+            "ResourceNameWithoutScope": "percona-pg-operator-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: percona-pg-operator-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-pg-operator\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-pg-operator-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-pg-operator-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-pg-operator-inputs",
+            "ResourceNameWithoutScope": "percona-pg-operator-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: percona-pg-operator-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-pg-operator\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-pg-operator-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-pg-operator-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-pg-operator-manifest-index",
+            "ResourceNameWithoutScope": "percona-pg-operator-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: percona-pg-operator-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-pg-operator\n  files:\n  - filename: deployment-default-pg-operator.yaml\n    slug: deployment-default-pg-operator\n    apiVersion: apps/v1\n    kind: Deployment\n    name: pg-operator\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-pg-operator.yaml\n    slug: role-default-pg-operator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: pg-operator\n    namespace: default\n  - filename: rolebinding-default-pg-operator.yaml\n    slug: rolebinding-default-pg-operator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: pg-operator\n    namespace: default\n  - filename: serviceaccount-default-pg-operator.yaml\n    slug: serviceaccount-default-pg-operator\n    apiVersion: v1\n    kind: ServiceAccount\n    name: pg-operator\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-pg-operator-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-pg-operator-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-pg-operator-selection",
+            "ResourceNameWithoutScope": "percona-pg-operator-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: percona-pg-operator-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-pg-operator\n  base: no-crds\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/percona-pg-operator-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "percona-pg-operator-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/percona-pg-operator-upload",
+            "ResourceNameWithoutScope": "percona-pg-operator-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: percona-pg-operator-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: percona-pg-operator\n  spacePattern: helm-pg-operator-no-crds-confighub-proof\n  spaces:\n  - package: percona-pg-operator\n    slug: helm-pg-operator-no-crds-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:52:18Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2f32001a-ace6-4a78-9a09-fc4f05edcb5c",
+      "UpdatedAt": "2026-06-12T16:52:25.418802Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:47.53046Z",
+        "CursorID": 22895,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "461b8452-a521-4486-a99f-0cdbcfb81716",
+        "LinkID": "4b4edbb5-fbd3-4b24-bf02-7b932f31fe4b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+        "SpaceSlug": "PerconaPGOperator-no-crds-staging",
+        "ToSpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+        "ToUnitID": "c79fc902-b634-4319-9294-cb0f73072cf6",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:47.53046Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c79fc902-b634-4319-9294-cb0f73072cf6' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:47.140923Z",
+      "CursorID": 4608,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPGOperator-no-crds-staging",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "UpdatedAt": "2026-06-12T16:52:47.140923Z",
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4b4edbb5-fbd3-4b24-bf02-7b932f31fe4b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "461b8452-a521-4486-a99f-0cdbcfb81716",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c79fc902-b634-4319-9294-cb0f73072cf6",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:52:21.406685Z",
+      "CursorID": 27990,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "HelmChart": "percona-pg-operator",
+        "HelmChartVersion": "3.0.0",
+        "Package": "percona-pg-operator",
+        "Proof": "pg-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c79fc902-b634-4319-9294-cb0f73072cf6",
+      "UpdatedAt": "2026-06-12T16:52:21.440626Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:47.554847Z",
+        "CursorID": 22896,
+        "DisplayName": "Upgrade rolebinding-default-pg-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d2c173fc-f21e-4d9b-aa43-1e60afa273cf",
+        "LinkID": "25fb9005-37b6-4ca1-a60d-c928f01cee7c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-pg-operator",
+        "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+        "SpaceSlug": "PerconaPGOperator-no-crds-staging",
+        "ToSpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+        "ToUnitID": "81e4cda2-4e68-42df-b978-e67c05df365a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:47.554847Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '81e4cda2-4e68-42df-b978-e67c05df365a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:47.140923Z",
+      "CursorID": 4608,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPGOperator-no-crds-staging",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "UpdatedAt": "2026-06-12T16:52:47.140923Z",
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f416905f3f70530a9509cd1603e37c9391b4d76a003757dfbf501fe45547e6ee",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "25fb9005-37b6-4ca1-a60d-c928f01cee7c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-pg-operator",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d2c173fc-f21e-4d9b-aa43-1e60afa273cf",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "81e4cda2-4e68-42df-b978-e67c05df365a",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1406785841,
+      "CreatedAt": "2026-06-12T16:52:22.991682Z",
+      "CursorID": 27992,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogcGctb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHBnLW9wZXJhdG9yCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAzLjAuMAogICAgaGVsbS5zaC9jaGFydDogcGctb3BlcmF0b3ItMy4wLjAKICAgIG1ldGEuaGVsbS5zaC9yZWxlYXNlLW5hbWU6IHBnLW9wZXJhdG9yCiAgICBtZXRhLmhlbG0uc2gvcmVsZWFzZS1uYW1lc3BhY2U6IGRlZmF1bHQKICBuYW1lOiBwZy1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogUm9sZQogIG5hbWU6IHBnLW9wZXJhdG9yCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogcGctb3BlcmF0b3IK",
+      "DataHash": "f416905f3f70530a9509cd1603e37c9391b4d76a003757dfbf501fe45547e6ee",
+      "DisplayName": "rolebinding-default-pg-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "HelmChart": "percona-pg-operator",
+        "HelmChartVersion": "3.0.0",
+        "Package": "percona-pg-operator",
+        "Proof": "pg-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/pg-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "pg-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/pg-operator",
+            "ResourceNameWithoutScope": "pg-operator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: pg-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: pg-operator\n    app.kubernetes.io/version: 3.0.0\n    helm.sh/chart: pg-operator-3.0.0\n    meta.helm.sh/release-name: pg-operator\n    meta.helm.sh/release-namespace: default\n  name: pg-operator\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: pg-operator\nsubjects:\n- kind: ServiceAccount\n  name: pg-operator\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-pg-operator",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "81e4cda2-4e68-42df-b978-e67c05df365a",
+      "UpdatedAt": "2026-06-12T16:52:38.433141Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:47.620542Z",
+        "CursorID": 22897,
+        "DisplayName": "Upgrade role-default-pg-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "7f240f3f-8913-4daa-bb7b-d031dbc3a1b7",
+        "LinkID": "b1a20129-a70d-4141-b0e0-50c142665942",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-pg-operator",
+        "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+        "SpaceSlug": "PerconaPGOperator-no-crds-staging",
+        "ToSpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+        "ToUnitID": "b3134fe2-5ed1-4bde-8a33-d60f5792997d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:47.620542Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b3134fe2-5ed1-4bde-8a33-d60f5792997d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:47.140923Z",
+      "CursorID": 4608,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPGOperator-no-crds-staging",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "UpdatedAt": "2026-06-12T16:52:47.140923Z",
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "38d0124a87226dc2a763648833a7ac522482d2ee1bdbb678ee9266832c84e6df",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b1a20129-a70d-4141-b0e0-50c142665942"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-pg-operator",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7f240f3f-8913-4daa-bb7b-d031dbc3a1b7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b3134fe2-5ed1-4bde-8a33-d60f5792997d",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 594193345,
+      "CreatedAt": "2026-06-12T16:52:22.166846Z",
+      "CursorID": 27991,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBwZy1vcGVyYXRvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogcGctb3BlcmF0b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDMuMC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBwZy1vcGVyYXRvci0zLjAuMAogICAgbWV0YS5oZWxtLnNoL3JlbGVhc2UtbmFtZTogcGctb3BlcmF0b3IKICAgIG1ldGEuaGVsbS5zaC9yZWxlYXNlLW5hbWVzcGFjZTogZGVmYXVsdAogIG5hbWU6IHBnLW9wZXJhdG9yCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gY29uZmlnbWFwcwogIC0gcG9kcwogIC0gc2VjcmV0cwogIC0gc2VydmljZWFjY291bnRzCiAgLSBzZXJ2aWNlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBlbmRwb2ludHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBkZWxldGVjb2xsZWN0aW9uCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZW5kcG9pbnRzL3Jlc3RyaWN0ZWQKICAtIHBvZHMvZXhlYwogIC0gc2VydmljZXMKICB2ZXJiczoKICAtIGNyZWF0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHBhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwZXJzaXN0ZW50dm9sdW1lY2xhaW1zCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGFwcHMKICByZXNvdXJjZXM6CiAgLSBkZXBsb3ltZW50cwogIC0gcmVwbGljYXNldHMKICAtIHN0YXRlZnVsc2V0cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYmF0Y2gKICByZXNvdXJjZXM6CiAgLSBjcm9uam9icwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYmF0Y2gKICByZXNvdXJjZXM6CiAgLSBqb2JzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGNlcnQtbWFuYWdlci5pbwogIC0gY2VydG1hbmFnZXIuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gY2VydGlmaWNhdGVyZXF1ZXN0cwogIC0gY2VydGlmaWNhdGVzCiAgLSBpc3N1ZXJzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZGVsZXRlY29sbGVjdGlvbgogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGNvb3JkaW5hdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBsZWFzZXMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBwZ3YyLnBlcmNvbmEuY29tCiAgcmVzb3VyY2VzOgogIC0gcGVyY29uYXBnYmFja3VwcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBwZ3YyLnBlcmNvbmEuY29tCiAgcmVzb3VyY2VzOgogIC0gcGVyY29uYXBnYmFja3Vwcy9maW5hbGl6ZXJzCiAgLSBwZXJjb25hcGdjbHVzdGVycy9zdGF0dXMKICAtIHBlcmNvbmFwZ3Jlc3RvcmVzL2ZpbmFsaXplcnMKICAtIHBlcmNvbmFwZ3Jlc3RvcmVzL3N0YXR1cwogIC0gcGVyY29uYXBndXBncmFkZXMvZmluYWxpemVycwogIC0gcGVyY29uYXBndXBncmFkZXMvc3RhdHVzCiAgdmVyYnM6CiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gcGd2Mi5wZXJjb25hLmNvbQogIHJlc291cmNlczoKICAtIHBlcmNvbmFwZ2JhY2t1cHMvc3RhdHVzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHBhdGNoCiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSBwZ3YyLnBlcmNvbmEuY29tCiAgcmVzb3VyY2VzOgogIC0gcGVyY29uYXBnY2x1c3RlcnMKICAtIHBlcmNvbmFwZ3VwZ3JhZGVzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBwZ3YyLnBlcmNvbmEuY29tCiAgcmVzb3VyY2VzOgogIC0gcGVyY29uYXBnY2x1c3RlcnMvZmluYWxpemVycwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gcGd2Mi5wZXJjb25hLmNvbQogIHJlc291cmNlczoKICAtIHBlcmNvbmFwZ3Jlc3RvcmVzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gcG9saWN5CiAgcmVzb3VyY2VzOgogIC0gcG9kZGlzcnVwdGlvbmJ1ZGdldHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHBvc3RncmVzLW9wZXJhdG9yLmNydW5jaHlkYXRhLmNvbQogIHJlc291cmNlczoKICAtIHBndXBncmFkZXMKICAtIHBvc3RncmVzY2x1c3RlcnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gcm9sZWJpbmRpbmdzCiAgLSByb2xlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gc25hcHNob3Quc3RvcmFnZS5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSB2b2x1bWVzbmFwc2hvdHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHVwc3RyZWFtLnBndjIucGVyY29uYS5jb20KICByZXNvdXJjZXM6CiAgLSBjcnVuY2h5YnJpZGdlY2x1c3RlcnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSB1cHN0cmVhbS5wZ3YyLnBlcmNvbmEuY29tCiAgcmVzb3VyY2VzOgogIC0gY3J1bmNoeWJyaWRnZWNsdXN0ZXJzL2ZpbmFsaXplcnMKICAtIGNydW5jaHlicmlkZ2VjbHVzdGVycy9zdGF0dXMKICB2ZXJiczoKICAtIHBhdGNoCiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSB1cHN0cmVhbS5wZ3YyLnBlcmNvbmEuY29tCiAgcmVzb3VyY2VzOgogIC0gcGdhZG1pbnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSB1cHN0cmVhbS5wZ3YyLnBlcmNvbmEuY29tCiAgcmVzb3VyY2VzOgogIC0gcGdhZG1pbnMvZmluYWxpemVycwogIC0gcGd1cGdyYWRlcy9maW5hbGl6ZXJzCiAgLSBwb3N0Z3Jlc2NsdXN0ZXJzL2ZpbmFsaXplcnMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIHVwc3RyZWFtLnBndjIucGVyY29uYS5jb20KICByZXNvdXJjZXM6CiAgLSBwZ2FkbWlucy9zdGF0dXMKICAtIHBndXBncmFkZXMvc3RhdHVzCiAgdmVyYnM6CiAgLSBwYXRjaAotIGFwaUdyb3VwczoKICAtIHVwc3RyZWFtLnBndjIucGVyY29uYS5jb20KICByZXNvdXJjZXM6CiAgLSBwZ3VwZ3JhZGVzCiAgLSBwb3N0Z3Jlc2NsdXN0ZXJzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHVwc3RyZWFtLnBndjIucGVyY29uYS5jb20KICByZXNvdXJjZXM6CiAgLSBwb3N0Z3Jlc2NsdXN0ZXJzL3N0YXR1cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBwYXRjaAogIC0gdXBkYXRlCg==",
+      "DataHash": "38d0124a87226dc2a763648833a7ac522482d2ee1bdbb678ee9266832c84e6df",
+      "DisplayName": "role-default-pg-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "HelmChart": "percona-pg-operator",
+        "HelmChartVersion": "3.0.0",
+        "Package": "percona-pg-operator",
+        "Proof": "pg-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/pg-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "pg-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/pg-operator",
+            "ResourceNameWithoutScope": "pg-operator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: pg-operator\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: pg-operator\n    app.kubernetes.io/version: 3.0.0\n    helm.sh/chart: pg-operator-3.0.0\n    meta.helm.sh/release-name: pg-operator\n    meta.helm.sh/release-namespace: default\n  name: pg-operator\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - pods\n  - secrets\n  - serviceaccounts\n  - services\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - endpoints\n  verbs:\n  - create\n  - delete\n  - deletecollection\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - endpoints/restricted\n  - pods/exec\n  - services\n  verbs:\n  - create\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n- apiGroups:\n  - \"\"\n  resources:\n  - persistentvolumeclaims\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - apps\n  resources:\n  - deployments\n  - replicasets\n  - statefulsets\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - batch\n  resources:\n  - cronjobs\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - batch\n  resources:\n  - jobs\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - cert-manager.io\n  - certmanager.k8s.io\n  resources:\n  - certificaterequests\n  - certificates\n  - issuers\n  verbs:\n  - create\n  - delete\n  - deletecollection\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - update\n  - watch\n- apiGroups:\n  - pgv2.percona.com\n  resources:\n  - perconapgbackups\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - pgv2.percona.com\n  resources:\n  - perconapgbackups/finalizers\n  - perconapgclusters/status\n  - perconapgrestores/finalizers\n  - perconapgrestores/status\n  - perconapgupgrades/finalizers\n  - perconapgupgrades/status\n  verbs:\n  - patch\n  - update\n- apiGroups:\n  - pgv2.percona.com\n  resources:\n  - perconapgbackups/status\n  verbs:\n  - create\n  - patch\n  - update\n- apiGroups:\n  - pgv2.percona.com\n  resources:\n  - perconapgclusters\n  - perconapgupgrades\n  verbs:\n  - create\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - pgv2.percona.com\n  resources:\n  - perconapgclusters/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - pgv2.percona.com\n  resources:\n  - perconapgrestores\n  verbs:\n  - create\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - postgres-operator.crunchydata.com\n  resources:\n  - pgupgrades\n  - postgresclusters\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - rbac.authorization.k8s.io\n  resources:\n  - rolebindings\n  - roles\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - snapshot.storage.k8s.io\n  resources:\n  - volumesnapshots\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - upstream.pgv2.percona.com\n  resources:\n  - crunchybridgeclusters\n  verbs:\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - upstream.pgv2.percona.com\n  resources:\n  - crunchybridgeclusters/finalizers\n  - crunchybridgeclusters/status\n  verbs:\n  - patch\n  - update\n- apiGroups:\n  - upstream.pgv2.percona.com\n  resources:\n  - pgadmins\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - upstream.pgv2.percona.com\n  resources:\n  - pgadmins/finalizers\n  - pgupgrades/finalizers\n  - postgresclusters/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - upstream.pgv2.percona.com\n  resources:\n  - pgadmins/status\n  - pgupgrades/status\n  verbs:\n  - patch\n- apiGroups:\n  - upstream.pgv2.percona.com\n  resources:\n  - pgupgrades\n  - postgresclusters\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - upstream.pgv2.percona.com\n  resources:\n  - postgresclusters/status\n  verbs:\n  - create\n  - patch\n  - update\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/pg-operator",
+          "ResourceNameWithoutScope": "pg-operator",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-pg-operator",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b3134fe2-5ed1-4bde-8a33-d60f5792997d",
+      "UpdatedAt": "2026-06-12T16:52:35.593968Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:47.673645Z",
+        "CursorID": 22898,
+        "DisplayName": "Upgrade serviceaccount-default-pg-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "39dc10f4-8830-47cb-87c8-c6e7929f4209",
+        "LinkID": "9beaa9a5-dba0-4b11-a148-493cb74d6039",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-pg-operator",
+        "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+        "SpaceSlug": "PerconaPGOperator-no-crds-staging",
+        "ToSpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+        "ToUnitID": "aa328ae9-44c3-4510-a516-54605be9b68c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:47.673645Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'aa328ae9-44c3-4510-a516-54605be9b68c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:47.140923Z",
+      "CursorID": 4608,
+      "DisplayName": "helm-pg-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "PerconaPGOperator-no-crds-staging",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "UpdatedAt": "2026-06-12T16:52:47.140923Z",
+      "WhereTrigger": "SpaceID = 'a8303ede-e43d-4392-8ab4-ba5be7a508ff'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5e2b18759a30b960c0fe8f8e29ccdd315e96559067289262e2256c747e9b5d43",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "9beaa9a5-dba0-4b11-a148-493cb74d6039"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-pg-operator",
+      "SpaceID": "ab314f4f-57f2-4458-8830-c5a01d4bbdf3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "39dc10f4-8830-47cb-87c8-c6e7929f4209",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "aa328ae9-44c3-4510-a516-54605be9b68c",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -208203033,
+      "CreatedAt": "2026-06-12T16:52:23.809425Z",
+      "CursorID": 27993,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbmFtZTogcGctb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "5e2b18759a30b960c0fe8f8e29ccdd315e96559067289262e2256c747e9b5d43",
+      "DisplayName": "serviceaccount-default-pg-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "PerconaPGOperator",
+        "HelmChart": "percona-pg-operator",
+        "HelmChartVersion": "3.0.0",
+        "Package": "percona-pg-operator",
+        "Proof": "pg-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 87 bytes; from serviceaccount-default-pg-operator.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/pg-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "pg-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/pg-operator",
+            "ResourceNameWithoutScope": "pg-operator",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: pg-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/pg-operator",
+          "ResourceNameWithoutScope": "pg-operator",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-pg-operator",
+      "SpaceID": "a8303ede-e43d-4392-8ab4-ba5be7a508ff",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aa328ae9-44c3-4510-a516-54605be9b68c",
+      "UpdatedAt": "2026-06-12T16:52:39.872395Z",
+      "Version": 6
+    }
+  }
+]

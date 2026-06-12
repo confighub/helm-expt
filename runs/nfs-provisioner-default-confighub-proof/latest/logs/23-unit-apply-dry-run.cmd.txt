@@ -1,0 +1,1 @@
+cub unit apply --space helm-nfs-provisioner-default-confighub-proof --where "Labels.Proof = 'nfs-provisioner-default-confighub-proof'" --dry-run --wait --timeout 2m

@@ -1,0 +1,30 @@
+== minio-operator-operator@ → Space helm-minio-operator-default-confighub-proof ==
+Successfully created unit clusterrole-minio-operator-role (a480ea50-9ec2-42cc-9195-9df5b4050d44)
+Successfully created unit clusterrolebinding-minio-operator-binding (9c9d358a-d6ae-42d8-ac6c-c843271bbc9d)
+Successfully created unit customresourcedefinition-policybindings-sts-min-io (66a0dfa1-94e2-4cc6-a5d1-9aada7b5d69a)
+Successfully created unit customresourcedefinition-tenants-minio-min-io (748b972b-1301-4b41-9a54-2521b8704077)
+Successfully created unit deployment-default-minio-operator (0fcea537-2836-4dd0-8587-7f0ee9aac9c3)
+Successfully created unit namespace-default (aca44d65-e8e9-4872-b5ad-6c0ca2a06784)
+Successfully created unit service-default-operator (6da46aaf-5013-4ab6-bff9-a1c29ffa1205)
+Successfully created unit service-default-sts (df63bdd6-05ff-40a7-8be6-a5f7c71b8360)
+Successfully created unit serviceaccount-default-minio-operator (912ce5c9-0c38-4b82-bba6-be74b1b850fb)
+Successfully created unit installer-record (0ff3a336-cab0-484c-af63-12b83f0c68f6)
+Linked clusterrolebinding-minio-operator-binding -> clusterrole-minio-operator-role (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-minio-operator-binding -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-minio-operator-binding -> serviceaccount-default-minio-operator (reference:v1/ServiceAccount)
+Linked deployment-default-minio-operator -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-minio-operator -> serviceaccount-default-minio-operator (reference:v1/ServiceAccount)
+Linked service-default-operator -> namespace-default (reference:v1/Namespace)
+Linked service-default-sts -> deployment-default-minio-operator (selector)
+Linked service-default-sts -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-minio-operator -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrole-minio-operator-role -> v1/Secret "beta.eks.amazonaws.com/app-serving"
+  - clusterrole-minio-operator-role -> v1/Secret "kubernetes.io/kube-apiserver-client"
+  - clusterrole-minio-operator-role -> v1/Secret "kubernetes.io/kubelet-serving"
+  - clusterrole-minio-operator-role -> v1/Secret "kubernetes.io/legacy-unknown"

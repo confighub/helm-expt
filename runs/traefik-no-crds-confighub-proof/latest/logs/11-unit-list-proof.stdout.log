@@ -1,0 +1,464 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:27.579187Z",
+      "CursorID": 4684,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-traefik-no-crds-confighub-proof",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "UpdatedAt": "2026-06-12T17:15:28.140857Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0824a4f1ff86e78d3f361bc351e47b5988a5607f4030f9195370a8f90ae3c4ba",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-traefik-default",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d2d8586a-c2d6-40ca-96c2-5c2bd435a661",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:27.579187Z",
+      "CursorID": 4684,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-traefik-no-crds-confighub-proof",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "UpdatedAt": "2026-06-12T17:15:28.140857Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8275e662425efe2e77eab60594d71d0bc75ad5e40718c14e211b48799a25afbb",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-traefik",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "63a40855-ca48-45a6-a5e1-ed051c024965",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:27.579187Z",
+      "CursorID": 4684,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-traefik-no-crds-confighub-proof",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "UpdatedAt": "2026-06-12T17:15:28.140857Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3a899a8d89c2f9d45baf67e9544debe838087ac34f6a1a613cbb9de365be564f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "ingressclass-traefik",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ffb70ff2-cd9f-4ae7-90f5-d94c7fa1ba31",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 2
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:27.579187Z",
+      "CursorID": 4684,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-traefik-no-crds-confighub-proof",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "UpdatedAt": "2026-06-12T17:15:28.140857Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c23c2d43-0687-4770-8529-3cf1d7ed742e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:27.579187Z",
+      "CursorID": 4684,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-traefik-no-crds-confighub-proof",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "UpdatedAt": "2026-06-12T17:15:28.140857Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d0ed2d54a9c5d6a3871be7f08b4aed0521157a87ed1c337b7d303de6eed3fbf6",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-traefik",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "87acae1a-bc19-4bb6-9729-54dff723aa16",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:27.579187Z",
+      "CursorID": 4684,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-traefik-no-crds-confighub-proof",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "UpdatedAt": "2026-06-12T17:15:28.140857Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "30f1a08c41f5f1d2e838b504cb7a827934394561d63740f35fefcb802d4cd4cd",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-traefik-default",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "afd2c5c6-7c41-4610-b1d7-dfb5a2813add",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:27.579187Z",
+      "CursorID": 4684,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-traefik-no-crds-confighub-proof",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "UpdatedAt": "2026-06-12T17:15:28.140857Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1d692e31f2bd616314b8e13138b9b8de58186120bd25e0a6e4fbed3f4efec375",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-traefik",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b5221bbb-cb47-43d2-92be-a33d0454fbf3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

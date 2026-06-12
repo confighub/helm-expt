@@ -1,0 +1,1895 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:09.127811Z",
+        "CursorID": 23966,
+        "DisplayName": "Upgrade apiserver-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2879abcc-1748-4825-8a57-9fa6a0727a28",
+        "LinkID": "8e92ebaf-2ed3-4d00-b25c-e1218f0edfc9",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-apiserver-default",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "445ff89e-f0f7-4a8a-8e3e-79551012e1c2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:09.127811Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '445ff89e-f0f7-4a8a-8e3e-79551012e1c2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b77b52908dc08746fc064ec0b3c3bfb84ec2685a17e5a3a8f726da48ca001808",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8e92ebaf-2ed3-4d00-b25c-e1218f0edfc9"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "apiserver-default",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2879abcc-1748-4825-8a57-9fa6a0727a28",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "445ff89e-f0f7-4a8a-8e3e-79551012e1c2",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 2143890296,
+      "CreatedAt": "2026-06-12T17:07:33.766191Z",
+      "CursorID": 28759,
+      "Data": "YXBpVmVyc2lvbjogb3BlcmF0b3IudGlnZXJhLmlvL3YxCmtpbmQ6IEFQSVNlcnZlcgptZXRhZGF0YToKICBuYW1lOiBkZWZhdWx0CnNwZWM6IHt9Cg==",
+      "DataHash": "b77b52908dc08746fc064ec0b3c3bfb84ec2685a17e5a3a8f726da48ca001808",
+      "DisplayName": "apiserver-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 85 bytes; from apiserver-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "operator.tigera.io/v1/APIServer"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: operator.tigera.io/v1\nkind: APIServer\nmetadata:\n  name: default\nspec: {}\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "apiserver-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "445ff89e-f0f7-4a8a-8e3e-79551012e1c2",
+      "UpdatedAt": "2026-06-12T17:07:33.833287Z",
+      "Version": 2
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:08.983549Z",
+        "CursorID": 23963,
+        "DisplayName": "Upgrade clusterrolebinding-tigera-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "bd67af81-df60-40f1-9c83-58a29d776764",
+        "LinkID": "6f9ab0cf-83ec-4975-906b-39ae20779d3f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-tigera-operator",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "02e45931-9b01-425b-9397-31fb78c3cfa6",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:08.983549Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '02e45931-9b01-425b-9397-31fb78c3cfa6' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "eaaee74bf919f2ba7cde356570834468960dc04209e51ad0d0d68f8d5ec29b00",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "6f9ab0cf-83ec-4975-906b-39ae20779d3f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-tigera-operator",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bd67af81-df60-40f1-9c83-58a29d776764",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "02e45931-9b01-425b-9397-31fb78c3cfa6",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1926834425,
+      "CreatedAt": "2026-06-12T17:07:36.210766Z",
+      "CursorID": 28762,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgazhzLWFwcDogdGlnZXJhLW9wZXJhdG9yCiAgbmFtZTogdGlnZXJhLW9wZXJhdG9yCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IHRpZ2VyYS1vcGVyYXRvcgpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IHRpZ2VyYS1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "eaaee74bf919f2ba7cde356570834468960dc04209e51ad0d0d68f8d5ec29b00",
+      "DisplayName": "clusterrolebinding-tigera-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/tigera-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "tigera-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/tigera-operator",
+            "ResourceNameWithoutScope": "tigera-operator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    k8s-app: tigera-operator\n  name: tigera-operator\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: tigera-operator\nsubjects:\n- kind: ServiceAccount\n  name: tigera-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-tigera-operator",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "02e45931-9b01-425b-9397-31fb78c3cfa6",
+      "UpdatedAt": "2026-06-12T17:07:54.128877Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:08.826434Z",
+        "CursorID": 23960,
+        "DisplayName": "Upgrade clusterrole-tigera-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0f6585fe-a89b-45dc-9c97-7a04b7ce9976",
+        "LinkID": "9cc57451-efb8-4810-994d-83a5c61f80e7",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-tigera-operator",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "8398b7cf-ecc5-4370-a4db-25967a7a8d4d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:08.826434Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8398b7cf-ecc5-4370-a4db-25967a7a8d4d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "097ae9944be0f812a416dd978da33f0e7add22ef400bd2794a82a883664d733d",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "9cc57451-efb8-4810-994d-83a5c61f80e7"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-tigera-operator",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0f6585fe-a89b-45dc-9c97-7a04b7ce9976",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8398b7cf-ecc5-4370-a4db-25967a7a8d4d",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 2136701244,
+      "CreatedAt": "2026-06-12T17:07:35.307974Z",
+      "CursorID": 28761,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBrOHMtYXBwOiB0aWdlcmEtb3BlcmF0b3IKICBuYW1lOiB0aWdlcmEtb3BlcmF0b3IKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gYXBpZXh0ZW5zaW9ucy5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBjdXN0b21yZXNvdXJjZWRlZmluaXRpb25zCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBjcmVhdGUKLSBhcGlHcm91cHM6CiAgLSBhcGlleHRlbnNpb25zLms4cy5pbwogIHJlc291cmNlTmFtZXM6CiAgLSBiZ3Bjb25maWd1cmF0aW9ucy5jcmQucHJvamVjdGNhbGljby5vcmcKICAtIGJncGZpbHRlcnMuY3JkLnByb2plY3RjYWxpY28ub3JnCiAgLSBiZ3BwZWVycy5jcmQucHJvamVjdGNhbGljby5vcmcKICAtIGJsb2NrYWZmaW5pdGllcy5jcmQucHJvamVjdGNhbGljby5vcmcKICAtIGNhbGljb25vZGVzdGF0dXNlcy5jcmQucHJvamVjdGNhbGljby5vcmcKICAtIGNsdXN0ZXJpbmZvcm1hdGlvbnMuY3JkLnByb2plY3RjYWxpY28ub3JnCiAgLSBmZWxpeGNvbmZpZ3VyYXRpb25zLmNyZC5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gZ2xvYmFsbmV0d29ya3BvbGljaWVzLmNyZC5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gc3RhZ2VkZ2xvYmFsbmV0d29ya3BvbGljaWVzLmNyZC5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gZ2xvYmFsbmV0d29ya3NldHMuY3JkLnByb2plY3RjYWxpY28ub3JnCiAgLSBob3N0ZW5kcG9pbnRzLmNyZC5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gaXBhbWJsb2Nrcy5jcmQucHJvamVjdGNhbGljby5vcmcKICAtIGlwYW1jb25maWdzLmNyZC5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gaXBhbWhhbmRsZXMuY3JkLnByb2plY3RjYWxpY28ub3JnCiAgLSBpcHBvb2xzLmNyZC5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gaXByZXNlcnZhdGlvbnMuY3JkLnByb2plY3RjYWxpY28ub3JnCiAgLSBrdWJlY29udHJvbGxlcnNjb25maWd1cmF0aW9ucy5jcmQucHJvamVjdGNhbGljby5vcmcKICAtIG5ldHdvcmtwb2xpY2llcy5jcmQucHJvamVjdGNhbGljby5vcmcKICAtIHN0YWdlZG5ldHdvcmtwb2xpY2llcy5jcmQucHJvamVjdGNhbGljby5vcmcKICAtIHN0YWdlZGt1YmVybmV0ZXNuZXR3b3JrcG9saWNpZXMuY3JkLnByb2plY3RjYWxpY28ub3JnCiAgLSBuZXR3b3Jrc2V0cy5jcmQucHJvamVjdGNhbGljby5vcmcKICAtIHRpZXJzLmNyZC5wcm9qZWN0Y2FsaWNvLm9yZwogIHJlc291cmNlczoKICAtIGN1c3RvbXJlc291cmNlZGVmaW5pdGlvbnMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGFwaWV4dGVuc2lvbnMuazhzLmlvCiAgcmVzb3VyY2VOYW1lczoKICAtIGJncGNvbmZpZ3VyYXRpb25zLnByb2plY3RjYWxpY28ub3JnCiAgLSBiZ3BmaWx0ZXJzLnByb2plY3RjYWxpY28ub3JnCiAgLSBiZ3BwZWVycy5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gYmxvY2thZmZpbml0aWVzLnByb2plY3RjYWxpY28ub3JnCiAgLSBjYWxpY29ub2Rlc3RhdHVzZXMucHJvamVjdGNhbGljby5vcmcKICAtIGNsdXN0ZXJpbmZvcm1hdGlvbnMucHJvamVjdGNhbGljby5vcmcKICAtIGZlbGl4Y29uZmlndXJhdGlvbnMucHJvamVjdGNhbGljby5vcmcKICAtIGdsb2JhbG5ldHdvcmtwb2xpY2llcy5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gc3RhZ2VkZ2xvYmFsbmV0d29ya3BvbGljaWVzLnByb2plY3RjYWxpY28ub3JnCiAgLSBnbG9iYWxuZXR3b3Jrc2V0cy5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gaG9zdGVuZHBvaW50cy5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gaXBhbWJsb2Nrcy5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gaXBhbWNvbmZpZ3VyYXRpb25zLnByb2plY3RjYWxpY28ub3JnCiAgLSBpcGFtaGFuZGxlcy5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gaXBwb29scy5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gaXByZXNlcnZhdGlvbnMucHJvamVjdGNhbGljby5vcmcKICAtIGt1YmVjb250cm9sbGVyc2NvbmZpZ3VyYXRpb25zLnByb2plY3RjYWxpY28ub3JnCiAgLSBuZXR3b3JrcG9saWNpZXMucHJvamVjdGNhbGljby5vcmcKICAtIHN0YWdlZG5ldHdvcmtwb2xpY2llcy5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gc3RhZ2Vka3ViZXJuZXRlc25ldHdvcmtwb2xpY2llcy5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gbmV0d29ya3NldHMucHJvamVjdGNhbGljby5vcmcKICAtIHRpZXJzLnByb2plY3RjYWxpY28ub3JnCiAgcmVzb3VyY2VzOgogIC0gY3VzdG9tcmVzb3VyY2VkZWZpbml0aW9ucwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gYXBpZXh0ZW5zaW9ucy5rOHMuaW8KICByZXNvdXJjZU5hbWVzOgogIC0gYXBpc2VydmVycy5vcGVyYXRvci50aWdlcmEuaW8KICAtIGdhdGV3YXlhcGlzLm9wZXJhdG9yLnRpZ2VyYS5pbwogIC0gaW1hZ2VzZXRzLm9wZXJhdG9yLnRpZ2VyYS5pbwogIC0gaW5zdGFsbGF0aW9ucy5vcGVyYXRvci50aWdlcmEuaW8KICAtIHRpZ2VyYXN0YXR1c2VzLm9wZXJhdG9yLnRpZ2VyYS5pbwogIC0gd2hpc2tlcnMub3BlcmF0b3IudGlnZXJhLmlvCiAgLSBnb2xkbWFuZXMub3BlcmF0b3IudGlnZXJhLmlvCiAgLSBtYW5hZ2VtZW50Y2x1c3RlcmNvbm5lY3Rpb25zLm9wZXJhdG9yLnRpZ2VyYS5pbwogIC0gaXN0aW9zLm9wZXJhdG9yLnRpZ2VyYS5pbwogIHJlc291cmNlczoKICAtIGN1c3RvbXJlc291cmNlZGVmaW5pdGlvbnMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGFwaWV4dGVuc2lvbnMuazhzLmlvCiAgcmVzb3VyY2VOYW1lczoKICAtIGNsdXN0ZXJuZXR3b3JrcG9saWNpZXMucG9saWN5Lm5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gY3VzdG9tcmVzb3VyY2VkZWZpbml0aW9ucwogIHZlcmJzOgogIC0gdXBkYXRlCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIG5hbWVzcGFjZXMKICAtIHBvZHMKICAtIHBvZHRlbXBsYXRlcwogIC0gc2VydmljZXMKICAtIGVuZHBvaW50cwogIC0gZXZlbnRzCiAgLSBjb25maWdtYXBzCiAgLSBzZXJ2aWNlYWNjb3VudHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSB1cGRhdGUKICAtIGRlbGV0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHJlc291cmNlcXVvdGFzCiAgLSBzZWNyZXRzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSBnZXQKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZU5hbWVzOgogIC0gY2FsaWNvLWNyaXRpY2FsLXBvZHMKICAtIHRpZ2VyYS1jcml0aWNhbC1wb2RzCiAgcmVzb3VyY2VzOgogIC0gcmVzb3VyY2VxdW90YXMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSB1cGRhdGUKICAtIGRlbGV0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIG5vZGVzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHBhdGNoCiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGF1dGhlbnRpY2F0aW9uLms4cy5pbwogIHJlc291cmNlczoKICAtIHRva2VucmV2aWV3cwogIHZlcmJzOgogIC0gY3JlYXRlCi0gYXBpR3JvdXBzOgogIC0gcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIHJlc291cmNlczoKICAtIGNsdXN0ZXJyb2xlcwogIC0gY2x1c3RlcnJvbGViaW5kaW5ncwogIC0gcm9sZWJpbmRpbmdzCiAgLSByb2xlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHVwZGF0ZQogIC0gZGVsZXRlCiAgLSB3YXRjaAogIC0gYmluZAogIC0gZXNjYWxhdGUKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgcmVzb3VyY2VzOgogIC0gZGVwbG95bWVudHMKICAtIGRhZW1vbnNldHMKICAtIHN0YXRlZnVsc2V0cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIGRlbGV0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgcmVzb3VyY2VOYW1lczoKICAtIHRpZ2VyYS1vcGVyYXRvcgogIHJlc291cmNlczoKICAtIGRlcGxveW1lbnRzL2ZpbmFsaXplcnMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIG9wZXJhdG9yLnRpZ2VyYS5pbwogIHJlc291cmNlczoKICAtIGFwaXNlcnZlcnMKICAtIGFwaXNlcnZlcnMvZmluYWxpemVycwogIC0gYXBpc2VydmVycy9zdGF0dXMKICAtIGdhdGV3YXlhcGlzCiAgLSBnYXRld2F5YXBpcy9maW5hbGl6ZXJzCiAgLSBnb2xkbWFuZXMKICAtIGdvbGRtYW5lcy9maW5hbGl6ZXJzCiAgLSBnb2xkbWFuZXMvc3RhdHVzCiAgLSBpbWFnZXNldHMKICAtIGluc3RhbGxhdGlvbnMKICAtIGluc3RhbGxhdGlvbnMvZmluYWxpemVycwogIC0gaW5zdGFsbGF0aW9ucy9zdGF0dXMKICAtIG1hbmFnZW1lbnRjbHVzdGVyY29ubmVjdGlvbnMKICAtIG1hbmFnZW1lbnRjbHVzdGVyY29ubmVjdGlvbnMvZmluYWxpemVycwogIC0gbWFuYWdlbWVudGNsdXN0ZXJjb25uZWN0aW9ucy9zdGF0dXMKICAtIHRpZ2VyYXN0YXR1c2VzCiAgLSB0aWdlcmFzdGF0dXNlcy9zdGF0dXMKICAtIHRpZ2VyYXN0YXR1c2VzL2ZpbmFsaXplcnMKICAtIHdoaXNrZXJzCiAgLSB3aGlza2Vycy9maW5hbGl6ZXJzCiAgLSB3aGlza2Vycy9zdGF0dXMKICAtIGlzdGlvcwogIC0gaXN0aW9zL2ZpbmFsaXplcnMKICAtIGlzdGlvcy9zdGF0dXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gdXBkYXRlCiAgLSBwYXRjaAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBvcGVyYXRvci50aWdlcmEuaW8KICByZXNvdXJjZXM6CiAgLSB0aWdlcmFzdGF0dXNlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBvcGVyYXRvci50aWdlcmEuaW8KICByZXNvdXJjZXM6CiAgLSBpbnN0YWxsYXRpb25zCiAgLSBhcGlzZXJ2ZXJzCiAgLSB3aGlza2VycwogIC0gZ29sZG1hbmVzCiAgdmVyYnM6CiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBuZXR3b3JraW5nLms4cy5pbwogIHJlc291cmNlczoKICAtIG5ldHdvcmtwb2xpY2llcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSB1cGRhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGNyZC5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gcHJvamVjdGNhbGljby5vcmcKICByZXNvdXJjZXM6CiAgLSBmZWxpeGNvbmZpZ3VyYXRpb25zCiAgLSBiZ3Bjb25maWd1cmF0aW9ucwogIC0gaXBwb29scwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBwYXRjaAogIC0gbGlzdAogIC0gZ2V0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGNyZC5wcm9qZWN0Y2FsaWNvLm9yZwogIC0gcHJvamVjdGNhbGljby5vcmcKICByZXNvdXJjZXM6CiAgLSBrdWJlY29udHJvbGxlcnNjb25maWd1cmF0aW9ucwogIC0gYmdwY29uZmlndXJhdGlvbnMKICAtIGNsdXN0ZXJpbmZvcm1hdGlvbnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBwcm9qZWN0Y2FsaWNvLm9yZwogIHJlc291cmNlczoKICAtIGlwcG9vbHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gdXBkYXRlCiAgLSBkZWxldGUKICAtIHBhdGNoCiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gcHJvamVjdGNhbGljby5vcmcKICByZXNvdXJjZXM6CiAgLSBpcGFtY29uZmlndXJhdGlvbnMKICAtIGNsdXN0ZXJpbmZvcm1hdGlvbnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBzY2hlZHVsaW5nLms4cy5pbwogIHJlc291cmNlczoKICAtIHByaW9yaXR5Y2xhc3NlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHVwZGF0ZQogIC0gZGVsZXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHBvbGljeQogIHJlc291cmNlczoKICAtIHBvZGRpc3J1cHRpb25idWRnZXRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGdldAogIC0gbGlzdAogIC0gdXBkYXRlCiAgLSBkZWxldGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYXBpcmVnaXN0cmF0aW9uLms4cy5pbwogIHJlc291cmNlczoKICAtIGFwaXNlcnZpY2VzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSB1cGRhdGUKICAtIGRlbGV0ZQotIGFwaUdyb3VwczoKICAtIGRpc2NvdmVyeS5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBlbmRwb2ludHNsaWNlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGFkbWlzc2lvbnJlZ2lzdHJhdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSB2YWxpZGF0aW5nd2ViaG9va2NvbmZpZ3VyYXRpb25zCiAgLSBtdXRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9ucwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhZG1pc3Npb25yZWdpc3RyYXRpb24uazhzLmlvCiAgcmVzb3VyY2VOYW1lczoKICAtIGVudm95LWdhdGV3YXktdG9wb2xvZ3ktaW5qZWN0b3IudGlnZXJhLWdhdGV3YXkKICByZXNvdXJjZXM6CiAgLSBtdXRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9ucwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pbwogIHJlc291cmNlTmFtZXM6CiAgLSBpc3Rpb2QtZGVmYXVsdC12YWxpZGF0b3IKICAtIGlzdGlvLXZhbGlkYXRvci1jYWxpY28tc3lzdGVtCiAgcmVzb3VyY2VzOgogIC0gdmFsaWRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9ucwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gY29vcmRpbmF0aW9uLms4cy5pbwogIHJlc291cmNlczoKICAtIGxlYXNlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHVwZGF0ZQogIC0gZGVsZXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHN0b3JhZ2UuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gY3NpZHJpdmVycwogIHZlcmJzOgogIC0gbGlzdAogIC0gd2F0Y2gKICAtIHVwZGF0ZQogIC0gZ2V0CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQotIGFwaUdyb3VwczoKICAtIGNlcnRpZmljYXRlcy5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBjZXJ0aWZpY2F0ZXNpZ25pbmdyZXF1ZXN0cwogIHZlcmJzOgogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhZG1pc3Npb25yZWdpc3RyYXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gdmFsaWRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9ucwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSB1cGRhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGFkbWlzc2lvbnJlZ2lzdHJhdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBtdXRhdGluZ2FkbWlzc2lvbnBvbGljaWVzCiAgLSBtdXRhdGluZ2FkbWlzc2lvbnBvbGljeWJpbmRpbmdzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHVwZGF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gcG9saWN5CiAgcmVzb3VyY2VOYW1lczoKICAtIHRpZ2VyYS1vcGVyYXRvcgogIHJlc291cmNlczoKICAtIHBvZHNlY3VyaXR5cG9saWNpZXMKICB2ZXJiczoKICAtIHVzZQotIGFwaUdyb3VwczoKICAtIHBvbGljeQogIHJlc291cmNlczoKICAtIHBvZHNlY3VyaXR5cG9saWNpZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gdXBkYXRlCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBwcm9qZWN0Y2FsaWNvLm9yZwogIHJlc291cmNlczoKICAtIG5ldHdvcmtwb2xpY2llcwogIC0gZ2xvYmFsbmV0d29ya3BvbGljaWVzCiAgLSBuZXR3b3Jrc2V0cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSB1cGRhdGUKICAtIHBhdGNoCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBwcm9qZWN0Y2FsaWNvLm9yZwogIHJlc291cmNlTmFtZXM6CiAgLSBjYWxpY28tc3lzdGVtLioKICByZXNvdXJjZXM6CiAgLSB0aWVyLm5ldHdvcmtwb2xpY2llcwogIC0gdGllci5nbG9iYWxuZXR3b3JrcG9saWNpZXMKICB2ZXJiczoKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBnZXQKICAtIGNyZWF0ZQogIC0gdXBkYXRlCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBwcm9qZWN0Y2FsaWNvLm9yZwogIHJlc291cmNlczoKICAtIHRpZXIubmV0d29ya3BvbGljaWVzCiAgLSB0aWVyLmdsb2JhbG5ldHdvcmtwb2xpY2llcwogIHZlcmJzOgogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGdldAotIGFwaUdyb3VwczoKICAtIHByb2plY3RjYWxpY28ub3JnCiAgcmVzb3VyY2VOYW1lczoKICAtIGNhbGljby1zeXN0ZW0KICByZXNvdXJjZXM6CiAgLSB0aWVycwogIHZlcmJzOgogIC0gZ2V0CiAgLSBkZWxldGUKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIHByb2plY3RjYWxpY28ub3JnCiAgcmVzb3VyY2VzOgogIC0gdGllcnMKICB2ZXJiczoKICAtIGdldAogIC0gY3JlYXRlCiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGFwaWV4dGVuc2lvbnMuazhzLmlvCiAgcmVzb3VyY2VOYW1lczoKICAtIGJhY2tlbmRsYnBvbGljaWVzLmdhdGV3YXkubmV0d29ya2luZy5rOHMuaW8KICAtIGJhY2tlbmR0bHNwb2xpY2llcy5nYXRld2F5Lm5ldHdvcmtpbmcuazhzLmlvCiAgLSBnYXRld2F5Y2xhc3Nlcy5nYXRld2F5Lm5ldHdvcmtpbmcuazhzLmlvCiAgLSBnYXRld2F5cy5nYXRld2F5Lm5ldHdvcmtpbmcuazhzLmlvCiAgLSBncnBjcm91dGVzLmdhdGV3YXkubmV0d29ya2luZy5rOHMuaW8KICAtIGh0dHByb3V0ZXMuZ2F0ZXdheS5uZXR3b3JraW5nLms4cy5pbwogIC0gcmVmZXJlbmNlZ3JhbnRzLmdhdGV3YXkubmV0d29ya2luZy5rOHMuaW8KICAtIHRjcHJvdXRlcy5nYXRld2F5Lm5ldHdvcmtpbmcuazhzLmlvCiAgLSB0bHNyb3V0ZXMuZ2F0ZXdheS5uZXR3b3JraW5nLms4cy5pbwogIC0gdWRwcm91dGVzLmdhdGV3YXkubmV0d29ya2luZy5rOHMuaW8KICAtIHhiYWNrZW5kdHJhZmZpY3BvbGljaWVzLmdhdGV3YXkubmV0d29ya2luZy54LWs4cy5pbwogIC0geGxpc3RlbmVyc2V0cy5nYXRld2F5Lm5ldHdvcmtpbmcueC1rOHMuaW8KICAtIHhtZXNoZXMuZ2F0ZXdheS5uZXR3b3JraW5nLngtazhzLmlvCiAgLSBiYWNrZW5kcy5nYXRld2F5LmVudm95cHJveHkuaW8KICAtIGJhY2tlbmR0cmFmZmljcG9saWNpZXMuZ2F0ZXdheS5lbnZveXByb3h5LmlvCiAgLSBjbGllbnR0cmFmZmljcG9saWNpZXMuZ2F0ZXdheS5lbnZveXByb3h5LmlvCiAgLSBlbnZveWV4dGVuc2lvbnBvbGljaWVzLmdhdGV3YXkuZW52b3lwcm94eS5pbwogIC0gZW52b3lwYXRjaHBvbGljaWVzLmdhdGV3YXkuZW52b3lwcm94eS5pbwogIC0gZW52b3lwcm94aWVzLmdhdGV3YXkuZW52b3lwcm94eS5pbwogIC0gaHR0cHJvdXRlZmlsdGVycy5nYXRld2F5LmVudm95cHJveHkuaW8KICAtIHNlY3VyaXR5cG9saWNpZXMuZ2F0ZXdheS5lbnZveXByb3h5LmlvCiAgcmVzb3VyY2VzOgogIC0gY3VzdG9tcmVzb3VyY2VkZWZpbml0aW9ucwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gZ2F0ZXdheS5uZXR3b3JraW5nLms4cy5pbwogIHJlc291cmNlczoKICAtIGdhdGV3YXljbGFzc2VzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHVwZGF0ZQogIC0gZGVsZXRlCiAgLSBsaXN0CiAgLSBnZXQKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gZ2F0ZXdheS5lbnZveXByb3h5LmlvCiAgcmVzb3VyY2VzOgogIC0gZW52b3lwcm94aWVzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHVwZGF0ZQogIC0gZGVsZXRlCiAgLSBsaXN0CiAgLSBnZXQKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYmF0Y2gKICByZXNvdXJjZXM6CiAgLSBqb2JzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYmF0Y2gKICByZXNvdXJjZU5hbWVzOgogIC0gdGlnZXJhLWdhdGV3YXktYXBpLWdhdGV3YXktaGVsbS1jZXJ0Z2VuCiAgcmVzb3VyY2VzOgogIC0gam9icwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0ga3ViZXZpcnQuaW8KICByZXNvdXJjZXM6CiAgLSB2aXJ0dWFsbWFjaGluZWluc3RhbmNlbWlncmF0aW9ucwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGF1dG9zY2FsaW5nCiAgcmVzb3VyY2VzOgogIC0gaG9yaXpvbnRhbHBvZGF1dG9zY2FsZXJzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhdXRvc2NhbGluZwogIHJlc291cmNlTmFtZXM6CiAgLSBpc3Rpb2QKICByZXNvdXJjZXM6CiAgLSBob3Jpem9udGFscG9kYXV0b3NjYWxlcnMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIG1pZ3JhdGlvbi5wcm9qZWN0Y2FsaWNvLm9yZwogIHJlc291cmNlczoKICAtIGRhdGFzdG9yZW1pZ3JhdGlvbnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gK",
+      "DataHash": "097ae9944be0f812a416dd978da33f0e7add22ef400bd2794a82a883664d733d",
+      "DisplayName": "clusterrole-tigera-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/tigera-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "tigera-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/tigera-operator",
+            "ResourceNameWithoutScope": "tigera-operator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    k8s-app: tigera-operator\n  name: tigera-operator\nrules:\n- apiGroups:\n  - apiextensions.k8s.io\n  resources:\n  - customresourcedefinitions\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n- apiGroups:\n  - apiextensions.k8s.io\n  resourceNames:\n  - bgpconfigurations.crd.projectcalico.org\n  - bgpfilters.crd.projectcalico.org\n  - bgppeers.crd.projectcalico.org\n  - blockaffinities.crd.projectcalico.org\n  - caliconodestatuses.crd.projectcalico.org\n  - clusterinformations.crd.projectcalico.org\n  - felixconfigurations.crd.projectcalico.org\n  - globalnetworkpolicies.crd.projectcalico.org\n  - stagedglobalnetworkpolicies.crd.projectcalico.org\n  - globalnetworksets.crd.projectcalico.org\n  - hostendpoints.crd.projectcalico.org\n  - ipamblocks.crd.projectcalico.org\n  - ipamconfigs.crd.projectcalico.org\n  - ipamhandles.crd.projectcalico.org\n  - ippools.crd.projectcalico.org\n  - ipreservations.crd.projectcalico.org\n  - kubecontrollersconfigurations.crd.projectcalico.org\n  - networkpolicies.crd.projectcalico.org\n  - stagednetworkpolicies.crd.projectcalico.org\n  - stagedkubernetesnetworkpolicies.crd.projectcalico.org\n  - networksets.crd.projectcalico.org\n  - tiers.crd.projectcalico.org\n  resources:\n  - customresourcedefinitions\n  verbs:\n  - update\n- apiGroups:\n  - apiextensions.k8s.io\n  resourceNames:\n  - bgpconfigurations.projectcalico.org\n  - bgpfilters.projectcalico.org\n  - bgppeers.projectcalico.org\n  - blockaffinities.projectcalico.org\n  - caliconodestatuses.projectcalico.org\n  - clusterinformations.projectcalico.org\n  - felixconfigurations.projectcalico.org\n  - globalnetworkpolicies.projectcalico.org\n  - stagedglobalnetworkpolicies.projectcalico.org\n  - globalnetworksets.projectcalico.org\n  - hostendpoints.projectcalico.org\n  - ipamblocks.projectcalico.org\n  - ipamconfigurations.projectcalico.org\n  - ipamhandles.projectcalico.org\n  - ippools.projectcalico.org\n  - ipreservations.projectcalico.org\n  - kubecontrollersconfigurations.projectcalico.org\n  - networkpolicies.projectcalico.org\n  - stagednetworkpolicies.projectcalico.org\n  - stagedkubernetesnetworkpolicies.projectcalico.org\n  - networksets.projectcalico.org\n  - tiers.projectcalico.org\n  resources:\n  - customresourcedefinitions\n  verbs:\n  - update\n- apiGroups:\n  - apiextensions.k8s.io\n  resourceNames:\n  - apiservers.operator.tigera.io\n  - gatewayapis.operator.tigera.io\n  - imagesets.operator.tigera.io\n  - installations.operator.tigera.io\n  - tigerastatuses.operator.tigera.io\n  - whiskers.operator.tigera.io\n  - goldmanes.operator.tigera.io\n  - managementclusterconnections.operator.tigera.io\n  - istios.operator.tigera.io\n  resources:\n  - customresourcedefinitions\n  verbs:\n  - update\n- apiGroups:\n  - apiextensions.k8s.io\n  resourceNames:\n  - clusternetworkpolicies.policy.networking.k8s.io\n  resources:\n  - customresourcedefinitions\n  verbs:\n  - update\n  - delete\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  - pods\n  - podtemplates\n  - services\n  - endpoints\n  - events\n  - configmaps\n  - serviceaccounts\n  verbs:\n  - create\n  - get\n  - list\n  - update\n  - delete\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - resourcequotas\n  - secrets\n  verbs:\n  - list\n  - get\n  - watch\n- apiGroups:\n  - \"\"\n  resourceNames:\n  - calico-critical-pods\n  - tigera-critical-pods\n  resources:\n  - resourcequotas\n  verbs:\n  - create\n  - get\n  - list\n  - update\n  - delete\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes\n  verbs:\n  - get\n  - patch\n  - list\n  - watch\n- apiGroups:\n  - authentication.k8s.io\n  resources:\n  - tokenreviews\n  verbs:\n  - create\n- apiGroups:\n  - rbac.authorization.k8s.io\n  resources:\n  - clusterroles\n  - clusterrolebindings\n  - rolebindings\n  - roles\n  verbs:\n  - create\n  - get\n  - list\n  - update\n  - delete\n  - watch\n  - bind\n  - escalate\n- apiGroups:\n  - apps\n  resources:\n  - deployments\n  - daemonsets\n  - statefulsets\n  verbs:\n  - create\n  - get\n  - list\n  - patch\n  - update\n  - delete\n  - watch\n- apiGroups:\n  - apps\n  resourceNames:\n  - tigera-operator\n  resources:\n  - deployments/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - operator.tigera.io\n  resources:\n  - apiservers\n  - apiservers/finalizers\n  - apiservers/status\n  - gatewayapis\n  - gatewayapis/finalizers\n  - goldmanes\n  - goldmanes/finalizers\n  - goldmanes/status\n  - imagesets\n  - installations\n  - installations/finalizers\n  - installations/status\n  - managementclusterconnections\n  - managementclusterconnections/finalizers\n  - managementclusterconnections/status\n  - tigerastatuses\n  - tigerastatuses/status\n  - tigerastatuses/finalizers\n  - whiskers\n  - whiskers/finalizers\n  - whiskers/status\n  - istios\n  - istios/finalizers\n  - istios/status\n  verbs:\n  - get\n  - list\n  - update\n  - patch\n  - watch\n- apiGroups:\n  - operator.tigera.io\n  resources:\n  - tigerastatuses\n  verbs:\n  - create\n  - delete\n- apiGroups:\n  - operator.tigera.io\n  resources:\n  - installations\n  - apiservers\n  - whiskers\n  - goldmanes\n  verbs:\n  - delete\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - networkpolicies\n  verbs:\n  - create\n  - update\n  - delete\n  - get\n  - list\n  - watch\n- apiGroups:\n  - crd.projectcalico.org\n  - projectcalico.org\n  resources:\n  - felixconfigurations\n  - bgpconfigurations\n  - ippools\n  verbs:\n  - create\n  - patch\n  - list\n  - get\n  - watch\n- apiGroups:\n  - crd.projectcalico.org\n  - projectcalico.org\n  resources:\n  - kubecontrollersconfigurations\n  - bgpconfigurations\n  - clusterinformations\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - projectcalico.org\n  resources:\n  - ippools\n  verbs:\n  - create\n  - update\n  - delete\n  - patch\n  - get\n  - list\n  - watch\n- apiGroups:\n  - projectcalico.org\n  resources:\n  - ipamconfigurations\n  - clusterinformations\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - scheduling.k8s.io\n  resources:\n  - priorityclasses\n  verbs:\n  - create\n  - get\n  - list\n  - update\n  - delete\n  - watch\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - create\n  - get\n  - list\n  - update\n  - delete\n  - watch\n- apiGroups:\n  - apiregistration.k8s.io\n  resources:\n  - apiservices\n  verbs:\n  - list\n  - watch\n  - create\n  - update\n  - delete\n- apiGroups:\n  - discovery.k8s.io\n  resources:\n  - endpointslices\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - admissionregistration.k8s.io\n  resources:\n  - validatingwebhookconfigurations\n  - mutatingwebhookconfigurations\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - watch\n- apiGroups:\n  - admissionregistration.k8s.io\n  resourceNames:\n  - envoy-gateway-topology-injector.tigera-gateway\n  resources:\n  - mutatingwebhookconfigurations\n  verbs:\n  - update\n- apiGroups:\n  - admissionregistration.k8s.io\n  resourceNames:\n  - istiod-default-validator\n  - istio-validator-calico-system\n  resources:\n  - validatingwebhookconfigurations\n  verbs:\n  - update\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n  - get\n  - list\n  - update\n  - delete\n  - watch\n- apiGroups:\n  - storage.k8s.io\n  resources:\n  - csidrivers\n  verbs:\n  - list\n  - watch\n  - update\n  - get\n  - create\n  - delete\n- apiGroups:\n  - certificates.k8s.io\n  resources:\n  - certificatesigningrequests\n  verbs:\n  - list\n  - watch\n- apiGroups:\n  - admissionregistration.k8s.io\n  resources:\n  - validatingwebhookconfigurations\n  verbs:\n  - create\n  - update\n  - delete\n  - get\n  - list\n  - watch\n- apiGroups:\n  - admissionregistration.k8s.io\n  resources:\n  - mutatingadmissionpolicies\n  - mutatingadmissionpolicybindings\n  verbs:\n  - create\n  - update\n  - delete\n  - get\n  - list\n  - watch\n- apiGroups:\n  - policy\n  resourceNames:\n  - tigera-operator\n  resources:\n  - podsecuritypolicies\n  verbs:\n  - use\n- apiGroups:\n  - policy\n  resources:\n  - podsecuritypolicies\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - delete\n- apiGroups:\n  - projectcalico.org\n  resources:\n  - networkpolicies\n  - globalnetworkpolicies\n  - networksets\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - projectcalico.org\n  resourceNames:\n  - calico-system.*\n  resources:\n  - tier.networkpolicies\n  - tier.globalnetworkpolicies\n  verbs:\n  - list\n  - watch\n  - get\n  - create\n  - update\n  - delete\n- apiGroups:\n  - projectcalico.org\n  resources:\n  - tier.networkpolicies\n  - tier.globalnetworkpolicies\n  verbs:\n  - list\n  - watch\n  - get\n- apiGroups:\n  - projectcalico.org\n  resourceNames:\n  - calico-system\n  resources:\n  - tiers\n  verbs:\n  - get\n  - delete\n  - update\n- apiGroups:\n  - projectcalico.org\n  resources:\n  - tiers\n  verbs:\n  - get\n  - create\n  - list\n  - watch\n- apiGroups:\n  - apiextensions.k8s.io\n  resourceNames:\n  - backendlbpolicies.gateway.networking.k8s.io\n  - backendtlspolicies.gateway.networking.k8s.io\n  - gatewayclasses.gateway.networking.k8s.io\n  - gateways.gateway.networking.k8s.io\n  - grpcroutes.gateway.networking.k8s.io\n  - httproutes.gateway.networking.k8s.io\n  - referencegrants.gateway.networking.k8s.io\n  - tcproutes.gateway.networking.k8s.io\n  - tlsroutes.gateway.networking.k8s.io\n  - udproutes.gateway.networking.k8s.io\n  - xbackendtrafficpolicies.gateway.networking.x-k8s.io\n  - xlistenersets.gateway.networking.x-k8s.io\n  - xmeshes.gateway.networking.x-k8s.io\n  - backends.gateway.envoyproxy.io\n  - backendtrafficpolicies.gateway.envoyproxy.io\n  - clienttrafficpolicies.gateway.envoyproxy.io\n  - envoyextensionpolicies.gateway.envoyproxy.io\n  - envoypatchpolicies.gateway.envoyproxy.io\n  - envoyproxies.gateway.envoyproxy.io\n  - httproutefilters.gateway.envoyproxy.io\n  - securitypolicies.gateway.envoyproxy.io\n  resources:\n  - customresourcedefinitions\n  verbs:\n  - update\n- apiGroups:\n  - gateway.networking.k8s.io\n  resources:\n  - gatewayclasses\n  verbs:\n  - create\n  - update\n  - delete\n  - list\n  - get\n  - watch\n- apiGroups:\n  - gateway.envoyproxy.io\n  resources:\n  - envoyproxies\n  verbs:\n  - create\n  - update\n  - delete\n  - list\n  - get\n  - watch\n- apiGroups:\n  - batch\n  resources:\n  - jobs\n  verbs:\n  - create\n  - list\n  - watch\n- apiGroups:\n  - batch\n  resourceNames:\n  - tigera-gateway-api-gateway-helm-certgen\n  resources:\n  - jobs\n  verbs:\n  - update\n- apiGroups:\n  - kubevirt.io\n  resources:\n  - virtualmachineinstancemigrations\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - autoscaling\n  resources:\n  - horizontalpodautoscalers\n  verbs:\n  - create\n  - get\n  - list\n  - watch\n- apiGroups:\n  - autoscaling\n  resourceNames:\n  - istiod\n  resources:\n  - horizontalpodautoscalers\n  verbs:\n  - update\n- apiGroups:\n  - migration.projectcalico.org\n  resources:\n  - datastoremigrations\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/tigera-operator",
+          "ResourceNameWithoutScope": "tigera-operator",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-tigera-operator",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8398b7cf-ecc5-4370-a4db-25967a7a8d4d",
+      "UpdatedAt": "2026-06-12T17:07:43.145154Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:08.856412Z",
+        "CursorID": 23961,
+        "DisplayName": "Upgrade clusterrole-tigera-operator-secrets",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5f808aab-6cb5-476c-9ac4-8af41e5df487",
+        "LinkID": "4a445572-9b80-4e7b-807e-86f89843808b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-tigera-operator-secrets",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "dd89207f-f2f2-435b-965d-c1617fbb54fa",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:08.856412Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'dd89207f-f2f2-435b-965d-c1617fbb54fa' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "844e72db8dc917547a0935099f45d9ba7e71369ab4912ad6d541c95f14618a1e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4a445572-9b80-4e7b-807e-86f89843808b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-tigera-operator-secrets",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5f808aab-6cb5-476c-9ac4-8af41e5df487",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "dd89207f-f2f2-435b-965d-c1617fbb54fa",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -663033144,
+      "CreatedAt": "2026-06-12T17:07:34.49782Z",
+      "CursorID": 28760,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBrOHMtYXBwOiB0aWdlcmEtb3BlcmF0b3IKICBuYW1lOiB0aWdlcmEtb3BlcmF0b3Itc2VjcmV0cwpydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHNlY3JldHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gdXBkYXRlCiAgLSBkZWxldGUK",
+      "DataHash": "844e72db8dc917547a0935099f45d9ba7e71369ab4912ad6d541c95f14618a1e",
+      "DisplayName": "clusterrole-tigera-operator-secrets",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/tigera-operator-secrets": {}
+          },
+          "AliasesWithoutScopes": {
+            "tigera-operator-secrets": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/tigera-operator-secrets",
+            "ResourceNameWithoutScope": "tigera-operator-secrets",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    k8s-app: tigera-operator\n  name: tigera-operator-secrets\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - create\n  - update\n  - delete\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/tigera-operator-secrets",
+          "ResourceNameWithoutScope": "tigera-operator-secrets",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-tigera-operator-secrets",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "dd89207f-f2f2-435b-965d-c1617fbb54fa",
+      "UpdatedAt": "2026-06-12T17:07:43.174148Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:09.060966Z",
+        "CursorID": 23964,
+        "DisplayName": "Upgrade deployment-default-tigera-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f203d455-d800-464a-99ea-566b1c4d28b7",
+        "LinkID": "4529e327-bcd4-4fe6-a4e6-2f29e2ac9550",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-tigera-operator",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "54eab1fd-2156-457b-9bd3-027a79e294c1",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:09.060966Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '54eab1fd-2156-457b-9bd3-027a79e294c1' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b99f61287be914256cd887c85eee31860bf0045b54f38f1851316d203f4fcb43",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4529e327-bcd4-4fe6-a4e6-2f29e2ac9550"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-tigera-operator",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f203d455-d800-464a-99ea-566b1c4d28b7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "54eab1fd-2156-457b-9bd3-027a79e294c1",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2014154632,
+      "CreatedAt": "2026-06-12T17:07:36.994118Z",
+      "CursorID": 28763,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGs4cy1hcHA6IHRpZ2VyYS1vcGVyYXRvcgogIG5hbWU6IHRpZ2VyYS1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHJlcGxpY2FzOiAxCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgbmFtZTogdGlnZXJhLW9wZXJhdG9yCiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgbGFiZWxzOgogICAgICAgIGs4cy1hcHA6IHRpZ2VyYS1vcGVyYXRvcgogICAgICAgIG5hbWU6IHRpZ2VyYS1vcGVyYXRvcgogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gLW1hbmFnZS1jcmRzPXRydWUKICAgICAgICBjb21tYW5kOgogICAgICAgIC0gb3BlcmF0b3IKICAgICAgICBlbnY6CiAgICAgICAgLSBuYW1lOiBXQVRDSF9OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgIC0gbmFtZTogUE9EX05BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBPUEVSQVRPUl9OQU1FCiAgICAgICAgICB2YWx1ZTogdGlnZXJhLW9wZXJhdG9yCiAgICAgICAgLSBuYW1lOiBUSUdFUkFfT1BFUkFUT1JfSU5JVF9JTUFHRV9WRVJTSU9OCiAgICAgICAgICB2YWx1ZTogdjEuNDIuMAogICAgICAgIGVudkZyb206CiAgICAgICAgLSBjb25maWdNYXBSZWY6CiAgICAgICAgICAgIG5hbWU6IGt1YmVybmV0ZXMtc2VydmljZXMtZW5kcG9pbnQKICAgICAgICAgICAgb3B0aW9uYWw6IHRydWUKICAgICAgICBpbWFnZTogcXVheS5pby90aWdlcmEvb3BlcmF0b3I6djEuNDIuMAogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbmFtZTogdGlnZXJhLW9wZXJhdG9yCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvdmFyL2xpYi9jYWxpY28KICAgICAgICAgIG5hbWU6IHZhci1saWItY2FsaWNvCiAgICAgICAgICByZWFkT25seTogdHJ1ZQogICAgICBkbnNQb2xpY3k6IENsdXN0ZXJGaXJzdFdpdGhIb3N0TmV0CiAgICAgIGhvc3ROZXR3b3JrOiB0cnVlCiAgICAgIG5vZGVTZWxlY3RvcjoKICAgICAgICBrdWJlcm5ldGVzLmlvL29zOiBsaW51eAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHRpZ2VyYS1vcGVyYXRvcgogICAgICB0ZXJtaW5hdGlvbkdyYWNlUGVyaW9kU2Vjb25kczogNjAKICAgICAgdG9sZXJhdGlvbnM6CiAgICAgIC0gZWZmZWN0OiBOb0V4ZWN1dGUKICAgICAgICBvcGVyYXRvcjogRXhpc3RzCiAgICAgIC0gZWZmZWN0OiBOb1NjaGVkdWxlCiAgICAgICAgb3BlcmF0b3I6IEV4aXN0cwogICAgICB2b2x1bWVzOgogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL3Zhci9saWIvY2FsaWNvCiAgICAgICAgbmFtZTogdmFyLWxpYi1jYWxpY28K",
+      "DataHash": "b99f61287be914256cd887c85eee31860bf0045b54f38f1851316d203f4fcb43",
+      "DisplayName": "deployment-default-tigera-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/tigera-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "tigera-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/tigera-operator",
+            "ResourceNameWithoutScope": "tigera-operator",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    k8s-app: tigera-operator\n  name: tigera-operator\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      name: tigera-operator\n  template:\n    metadata:\n      labels:\n        k8s-app: tigera-operator\n        name: tigera-operator\n    spec:\n      containers:\n      - args:\n        - -manage-crds=true\n        command:\n        - operator\n        env:\n        - name: WATCH_NAMESPACE\n          value: \"\"\n        - name: POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: OPERATOR_NAME\n          value: tigera-operator\n        - name: TIGERA_OPERATOR_INIT_IMAGE_VERSION\n          value: v1.42.0\n        envFrom:\n        - configMapRef:\n            name: kubernetes-services-endpoint\n            optional: true\n        image: quay.io/tigera/operator:v1.42.0\n        imagePullPolicy: IfNotPresent\n        name: tigera-operator\n        volumeMounts:\n        - mountPath: /var/lib/calico\n          name: var-lib-calico\n          readOnly: true\n      dnsPolicy: ClusterFirstWithHostNet\n      hostNetwork: true\n      nodeSelector:\n        kubernetes.io/os: linux\n      serviceAccountName: tigera-operator\n      terminationGracePeriodSeconds: 60\n      tolerations:\n      - effect: NoExecute\n        operator: Exists\n      - effect: NoSchedule\n        operator: Exists\n      volumes:\n      - hostPath:\n          path: /var/lib/calico\n        name: var-lib-calico\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/tigera-operator",
+          "ResourceNameWithoutScope": "tigera-operator",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-tigera-operator",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "54eab1fd-2156-457b-9bd3-027a79e294c1",
+      "UpdatedAt": "2026-06-12T17:07:56.054072Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:09.152178Z",
+        "CursorID": 23967,
+        "DisplayName": "Upgrade goldmane-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b79e0f12-4468-4a06-b5f8-0a88df3ef696",
+        "LinkID": "001f7a93-0f89-4efd-b870-f93d666eb21d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-goldmane-default",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "b91d84e9-b7d9-40dd-a4c2-8d072d500553",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:09.152178Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b91d84e9-b7d9-40dd-a4c2-8d072d500553' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "146e2928d88976b02a680854bb804460ff490b74e10c02bb74ee3e21c7e83880",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "001f7a93-0f89-4efd-b870-f93d666eb21d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "goldmane-default",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b79e0f12-4468-4a06-b5f8-0a88df3ef696",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b91d84e9-b7d9-40dd-a4c2-8d072d500553",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -280809491,
+      "CreatedAt": "2026-06-12T17:07:37.728226Z",
+      "CursorID": 28764,
+      "Data": "YXBpVmVyc2lvbjogb3BlcmF0b3IudGlnZXJhLmlvL3YxCmtpbmQ6IEdvbGRtYW5lCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQKc3BlYzoge30K",
+      "DataHash": "146e2928d88976b02a680854bb804460ff490b74e10c02bb74ee3e21c7e83880",
+      "DisplayName": "goldmane-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 84 bytes; from goldmane-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "operator.tigera.io/v1/Goldmane"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: operator.tigera.io/v1\nkind: Goldmane\nmetadata:\n  name: default\nspec: {}\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "goldmane-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b91d84e9-b7d9-40dd-a4c2-8d072d500553",
+      "UpdatedAt": "2026-06-12T17:07:37.752647Z",
+      "Version": 2
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:09.176219Z",
+        "CursorID": 23968,
+        "DisplayName": "Upgrade installation-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ed562e71-9833-44d3-a843-c2013da8f68a",
+        "LinkID": "438e67f3-277b-4e69-ab70-0a71751dce11",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installation-default",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "e1d6bfdf-7bd3-42ce-9b06-ce94e4037fc0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:09.176219Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e1d6bfdf-7bd3-42ce-9b06-ce94e4037fc0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e35ee8720944443a11e3ab964ae2b9ca5362f2e282f5921ed84f4ce7f40c616e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "438e67f3-277b-4e69-ab70-0a71751dce11"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installation-default",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ed562e71-9833-44d3-a843-c2013da8f68a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e1d6bfdf-7bd3-42ce-9b06-ce94e4037fc0",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 513537715,
+      "CreatedAt": "2026-06-12T17:07:38.412966Z",
+      "CursorID": 28765,
+      "Data": "YXBpVmVyc2lvbjogb3BlcmF0b3IudGlnZXJhLmlvL3YxCmtpbmQ6IEluc3RhbGxhdGlvbgptZXRhZGF0YToKICBuYW1lOiBkZWZhdWx0CnNwZWM6CiAgY29udHJvbFBsYW5lTm9kZVNlbGVjdG9yOiB7fQogIGNvbnRyb2xQbGFuZVJlcGxpY2FzOiAyCiAgY29udHJvbFBsYW5lVG9sZXJhdGlvbnM6IFtdCiAgaW1hZ2VQdWxsU2VjcmV0czogW10KICBrdWJlbGV0Vm9sdW1lUGx1Z2luUGF0aDogTm9uZQogIGt1YmVybmV0ZXNQcm92aWRlcjogIiIKICBub25Qcml2aWxlZ2VkOiBEaXNhYmxlZAo=",
+      "DataHash": "e35ee8720944443a11e3ab964ae2b9ca5362f2e282f5921ed84f4ce7f40c616e",
+      "DisplayName": "installation-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 278 bytes; from installation-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "operator.tigera.io/v1/Installation"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: operator.tigera.io/v1\nkind: Installation\nmetadata:\n  name: default\nspec:\n  controlPlaneNodeSelector: {}\n  controlPlaneReplicas: 2\n  controlPlaneTolerations: []\n  imagePullSecrets: []\n  kubeletVolumePluginPath: None\n  kubernetesProvider: \"\"\n  nonPrivileged: Disabled\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installation-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e1d6bfdf-7bd3-42ce-9b06-ce94e4037fc0",
+      "UpdatedAt": "2026-06-12T17:07:38.43732Z",
+      "Version": 2
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:08.92514Z",
+        "CursorID": 23962,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f6acae65-a792-4524-8bb8-8d8ead36eccd",
+        "LinkID": "3f83f5b6-88c9-4c8f-9743-3b267740c34c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "e81e3f25-09a5-4734-80ed-3a1172d5613a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:08.92514Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e81e3f25-09a5-4734-80ed-3a1172d5613a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "107a4f0a0abe717db1c02511707da75ddb5508491ca1f9f92854e78abb73ac4d",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3f83f5b6-88c9-4c8f-9743-3b267740c34c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f6acae65-a792-4524-8bb8-8d8ead36eccd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e81e3f25-09a5-4734-80ed-3a1172d5613a",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "projectcalico-tigera-operator",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1592987297,
+      "CreatedAt": "2026-06-12T17:07:41.921812Z",
+      "CursorID": 28772,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogInByb2plY3RjYWxpY28tdGlnZXJhLW9wZXJhdG9yIgogIHZlcnNpb246ICJ2My4zMi4wIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBuYW1lOiAiZGVmYXVsdCIKICAgIHBhdGg6ICJiYXNlcy9kZWZhdWx0IgogICAgZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJwcm9qZWN0Y2FsaWNvL3RpZ2VyYS1vcGVyYXRvciBkZWZhdWx0IHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBwcm9qZWN0Y2FsaWNvL3RpZ2VyYS1vcGVyYXRvckB2My4zMi4wIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiBwcm9qZWN0Y2FsaWNvLXRpZ2VyYS1vcGVyYXRvci1mdW5jdGlvbi1jaGFpbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogcHJvamVjdGNhbGljby10aWdlcmEtb3BlcmF0b3IKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogcHJvamVjdGNhbGljby10aWdlcmEtb3BlcmF0b3ItaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBwcm9qZWN0Y2FsaWNvLXRpZ2VyYS1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdAogIHZhbHVlczoge30KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IE1hbmlmZXN0SW5kZXgKbWV0YWRhdGE6CiAgbmFtZTogcHJvamVjdGNhbGljby10aWdlcmEtb3BlcmF0b3ItbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHByb2plY3RjYWxpY28tdGlnZXJhLW9wZXJhdG9yCiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogYXBpc2VydmVyLWRlZmF1bHQueWFtbAogICAgc2x1ZzogYXBpc2VydmVyLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IG9wZXJhdG9yLnRpZ2VyYS5pby92MQogICAga2luZDogQVBJU2VydmVyCiAgICBuYW1lOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtdGlnZXJhLW9wZXJhdG9yLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlLXRpZ2VyYS1vcGVyYXRvcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IHRpZ2VyYS1vcGVyYXRvcgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLXRpZ2VyYS1vcGVyYXRvci1zZWNyZXRzLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlLXRpZ2VyYS1vcGVyYXRvci1zZWNyZXRzCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogdGlnZXJhLW9wZXJhdG9yLXNlY3JldHMKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctdGlnZXJhLW9wZXJhdG9yLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlYmluZGluZy10aWdlcmEtb3BlcmF0b3IKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogdGlnZXJhLW9wZXJhdG9yCiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LXRpZ2VyYS1vcGVyYXRvci55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtdGlnZXJhLW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiB0aWdlcmEtb3BlcmF0b3IKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IGdvbGRtYW5lLWRlZmF1bHQueWFtbAogICAgc2x1ZzogZ29sZG1hbmUtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogb3BlcmF0b3IudGlnZXJhLmlvL3YxCiAgICBraW5kOiBHb2xkbWFuZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IGluc3RhbGxhdGlvbi1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IGluc3RhbGxhdGlvbi1kZWZhdWx0CiAgICBhcGlWZXJzaW9uOiBvcGVyYXRvci50aWdlcmEuaW8vdjEKICAgIGtpbmQ6IEluc3RhbGxhdGlvbgogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1kZWZhdWx0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogTmFtZXNwYWNlCiAgICBuYW1lOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZWJpbmRpbmctZGVmYXVsdC10aWdlcmEtb3BlcmF0b3Itc2VjcmV0cy55YW1sCiAgICBzbHVnOiByb2xlYmluZGluZy1kZWZhdWx0LXRpZ2VyYS1vcGVyYXRvci1zZWNyZXRzCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogdGlnZXJhLW9wZXJhdG9yLXNlY3JldHMKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtdGlnZXJhLW9wZXJhdG9yLnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtdGlnZXJhLW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IHRpZ2VyYS1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogd2hpc2tlci1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IHdoaXNrZXItZGVmYXVsdAogICAgYXBpVmVyc2lvbjogb3BlcmF0b3IudGlnZXJhLmlvL3YxCiAgICBraW5kOiBXaGlza2VyCiAgICBuYW1lOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogcHJvamVjdGNhbGljby10aWdlcmEtb3BlcmF0b3Itc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBwcm9qZWN0Y2FsaWNvLXRpZ2VyYS1vcGVyYXRvcgogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBwcm9qZWN0Y2FsaWNvLXRpZ2VyYS1vcGVyYXRvci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHByb2plY3RjYWxpY28tdGlnZXJhLW9wZXJhdG9yCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLXRpZ2VyYS1vcGVyYXRvci1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IHByb2plY3RjYWxpY28tdGlnZXJhLW9wZXJhdG9yCiAgICBzbHVnOiBoZWxtLXRpZ2VyYS1vcGVyYXRvci1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogICAgaXNQYXJlbnQ6IHRydWUKICB1cGxvYWRlZEF0OiAiMjAyNi0wNi0xMlQxNzowNzozMloiCiAgc2VydmVyOiBodHRwczovL2h1Yi5jb25maWdodWIuY29tCiAgb3JnYW5pemF0aW9uSUQ6IDU4YjIzYjg1LTk2OTktNDM4NC1iZDU3LTgwZWY2OTVhMWQ1OAo=",
+      "DataHash": "107a4f0a0abe717db1c02511707da75ddb5508491ca1f9f92854e78abb73ac4d",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "projectcalico-tigera-operator"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/projectcalico-tigera-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "projectcalico-tigera-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/projectcalico-tigera-operator",
+            "ResourceNameWithoutScope": "projectcalico-tigera-operator",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"projectcalico-tigera-operator\"\n  version: \"v3.32.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"projectcalico/tigera-operator default variant rendered from projectcalico/tigera-operator@v3.32.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/projectcalico-tigera-operator-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "projectcalico-tigera-operator-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/projectcalico-tigera-operator-function-chain",
+            "ResourceNameWithoutScope": "projectcalico-tigera-operator-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: projectcalico-tigera-operator-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: projectcalico-tigera-operator\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/projectcalico-tigera-operator-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "projectcalico-tigera-operator-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/projectcalico-tigera-operator-inputs",
+            "ResourceNameWithoutScope": "projectcalico-tigera-operator-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: projectcalico-tigera-operator-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: projectcalico-tigera-operator\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/projectcalico-tigera-operator-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "projectcalico-tigera-operator-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/projectcalico-tigera-operator-manifest-index",
+            "ResourceNameWithoutScope": "projectcalico-tigera-operator-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: projectcalico-tigera-operator-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: projectcalico-tigera-operator\n  files:\n  - filename: apiserver-default.yaml\n    slug: apiserver-default\n    apiVersion: operator.tigera.io/v1\n    kind: APIServer\n    name: default\n  - filename: clusterrole-tigera-operator.yaml\n    slug: clusterrole-tigera-operator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: tigera-operator\n  - filename: clusterrole-tigera-operator-secrets.yaml\n    slug: clusterrole-tigera-operator-secrets\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: tigera-operator-secrets\n  - filename: clusterrolebinding-tigera-operator.yaml\n    slug: clusterrolebinding-tigera-operator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: tigera-operator\n  - filename: deployment-default-tigera-operator.yaml\n    slug: deployment-default-tigera-operator\n    apiVersion: apps/v1\n    kind: Deployment\n    name: tigera-operator\n    namespace: default\n  - filename: goldmane-default.yaml\n    slug: goldmane-default\n    apiVersion: operator.tigera.io/v1\n    kind: Goldmane\n    name: default\n  - filename: installation-default.yaml\n    slug: installation-default\n    apiVersion: operator.tigera.io/v1\n    kind: Installation\n    name: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: rolebinding-default-tigera-operator-secrets.yaml\n    slug: rolebinding-default-tigera-operator-secrets\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: tigera-operator-secrets\n    namespace: default\n  - filename: serviceaccount-default-tigera-operator.yaml\n    slug: serviceaccount-default-tigera-operator\n    apiVersion: v1\n    kind: ServiceAccount\n    name: tigera-operator\n    namespace: default\n  - filename: whisker-default.yaml\n    slug: whisker-default\n    apiVersion: operator.tigera.io/v1\n    kind: Whisker\n    name: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/projectcalico-tigera-operator-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "projectcalico-tigera-operator-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/projectcalico-tigera-operator-selection",
+            "ResourceNameWithoutScope": "projectcalico-tigera-operator-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: projectcalico-tigera-operator-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: projectcalico-tigera-operator\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/projectcalico-tigera-operator-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "projectcalico-tigera-operator-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/projectcalico-tigera-operator-upload",
+            "ResourceNameWithoutScope": "projectcalico-tigera-operator-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: projectcalico-tigera-operator-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: projectcalico-tigera-operator\n  spacePattern: helm-tigera-operator-default-confighub-proof\n  spaces:\n  - package: projectcalico-tigera-operator\n    slug: helm-tigera-operator-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:07:32Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e81e3f25-09a5-4734-80ed-3a1172d5613a",
+      "UpdatedAt": "2026-06-12T17:07:43.234007Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:09.214184Z",
+        "CursorID": 23969,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a45cf5f5-127a-4212-93aa-0d78dfa8b054",
+        "LinkID": "4020b7c7-2960-4492-9b1b-cb5fd997864d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "5f7c76f0-51f9-40f4-805d-e83b0758ebd7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:09.214184Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5f7c76f0-51f9-40f4-805d-e83b0758ebd7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4020b7c7-2960-4492-9b1b-cb5fd997864d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a45cf5f5-127a-4212-93aa-0d78dfa8b054",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5f7c76f0-51f9-40f4-805d-e83b0758ebd7",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:07:39.132134Z",
+      "CursorID": 28766,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5f7c76f0-51f9-40f4-805d-e83b0758ebd7",
+      "UpdatedAt": "2026-06-12T17:07:39.160868Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:09.096459Z",
+        "CursorID": 23965,
+        "DisplayName": "Upgrade rolebinding-default-tigera-operator-secrets",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1b061b40-105d-4594-bd0f-dd8ef236beb4",
+        "LinkID": "e42d8621-b529-46ff-9d87-a9ee7a77e060",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-tigera-operator-secrets",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "aad949b8-1936-4efc-ac93-b533b7ff3d89",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:09.096459Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'aad949b8-1936-4efc-ac93-b533b7ff3d89' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "633550a363369bb03543dc31d08a4eabe2aa2f97e4d7073ea99ddeb8a2f6ca48",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e42d8621-b529-46ff-9d87-a9ee7a77e060"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-tigera-operator-secrets",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1b061b40-105d-4594-bd0f-dd8ef236beb4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "aad949b8-1936-4efc-ac93-b533b7ff3d89",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 259530658,
+      "CreatedAt": "2026-06-12T17:07:39.831867Z",
+      "CursorID": 28767,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBrOHMtYXBwOiB0aWdlcmEtb3BlcmF0b3IKICBuYW1lOiB0aWdlcmEtb3BlcmF0b3Itc2VjcmV0cwogIG5hbWVzcGFjZTogZGVmYXVsdApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiB0aWdlcmEtb3BlcmF0b3Itc2VjcmV0cwpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IHRpZ2VyYS1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "633550a363369bb03543dc31d08a4eabe2aa2f97e4d7073ea99ddeb8a2f6ca48",
+      "DisplayName": "rolebinding-default-tigera-operator-secrets",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/tigera-operator-secrets": {}
+          },
+          "AliasesWithoutScopes": {
+            "tigera-operator-secrets": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/tigera-operator-secrets",
+            "ResourceNameWithoutScope": "tigera-operator-secrets",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    k8s-app: tigera-operator\n  name: tigera-operator-secrets\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: tigera-operator-secrets\nsubjects:\n- kind: ServiceAccount\n  name: tigera-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-tigera-operator-secrets",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aad949b8-1936-4efc-ac93-b533b7ff3d89",
+      "UpdatedAt": "2026-06-12T17:07:58.165842Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:09.239122Z",
+        "CursorID": 23970,
+        "DisplayName": "Upgrade serviceaccount-default-tigera-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9cf96be4-f8d2-4851-8fe6-6b9c2959ec8d",
+        "LinkID": "bc413adb-a2e8-4d8b-8504-82a61e1a5b2c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-tigera-operator",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "cd6c2162-47b3-4a25-a82f-17b20eff31d0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:09.239123Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'cd6c2162-47b3-4a25-a82f-17b20eff31d0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d69050218e963203063988b6102e36183d73fb50ae79740992738da202210027",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "bc413adb-a2e8-4d8b-8504-82a61e1a5b2c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-tigera-operator",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9cf96be4-f8d2-4851-8fe6-6b9c2959ec8d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "cd6c2162-47b3-4a25-a82f-17b20eff31d0",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1471580682,
+      "CreatedAt": "2026-06-12T17:07:40.505238Z",
+      "CursorID": 28769,
+      "Data": "YXBpVmVyc2lvbjogdjEKaW1hZ2VQdWxsU2VjcmV0czogW10Ka2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgazhzLWFwcDogdGlnZXJhLW9wZXJhdG9yCiAgbmFtZTogdGlnZXJhLW9wZXJhdG9yCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "d69050218e963203063988b6102e36183d73fb50ae79740992738da202210027",
+      "DisplayName": "serviceaccount-default-tigera-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 151 bytes; from serviceaccount-default-tigera-operator.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/tigera-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "tigera-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/tigera-operator",
+            "ResourceNameWithoutScope": "tigera-operator",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nimagePullSecrets: []\nkind: ServiceAccount\nmetadata:\n  labels:\n    k8s-app: tigera-operator\n  name: tigera-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/tigera-operator",
+          "ResourceNameWithoutScope": "tigera-operator",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-tigera-operator",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cd6c2162-47b3-4a25-a82f-17b20eff31d0",
+      "UpdatedAt": "2026-06-12T17:07:59.159967Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:08:09.263583Z",
+        "CursorID": 23971,
+        "DisplayName": "Upgrade whisker-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d096942a-65b9-4054-9343-89eeda8406fe",
+        "LinkID": "8167af49-8f10-4501-bf45-d68d7a2a4478",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-whisker-default",
+        "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+        "SpaceSlug": "TigeraOperator-default-staging",
+        "ToSpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+        "ToUnitID": "9c989fb4-7662-4042-8e2c-05bfd5baf69e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:08:09.263583Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '9c989fb4-7662-4042-8e2c-05bfd5baf69e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:08:08.5465Z",
+      "CursorID": 4667,
+      "DisplayName": "helm-tigera-operator-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TigeraOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "TigeraOperator-default-staging",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "UpdatedAt": "2026-06-12T17:08:08.5465Z",
+      "WhereTrigger": "SpaceID = '73c9d607-25ca-48d3-a11a-c2a79617a2ba'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "89d4f1bfd46a5e6af819bfb65b5dafdc585f43e934fedd0e47c07d9ba9ae0f4b",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8167af49-8f10-4501-bf45-d68d7a2a4478"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "whisker-default",
+      "SpaceID": "5be59c32-869c-46e6-b4c8-0d64f263159e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d096942a-65b9-4054-9343-89eeda8406fe",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "9c989fb4-7662-4042-8e2c-05bfd5baf69e",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1968467623,
+      "CreatedAt": "2026-06-12T17:07:41.226396Z",
+      "CursorID": 28771,
+      "Data": "YXBpVmVyc2lvbjogb3BlcmF0b3IudGlnZXJhLmlvL3YxCmtpbmQ6IFdoaXNrZXIKbWV0YWRhdGE6CiAgbmFtZTogZGVmYXVsdApzcGVjOiB7fQo=",
+      "DataHash": "89d4f1bfd46a5e6af819bfb65b5dafdc585f43e934fedd0e47c07d9ba9ae0f4b",
+      "DisplayName": "whisker-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TigeraOperator",
+        "HelmChart": "projectcalico-tigera-operator",
+        "HelmChartVersion": "v3.32.0",
+        "Package": "projectcalico-tigera-operator",
+        "Proof": "tigera-operator-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 83 bytes; from whisker-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "operator.tigera.io/v1/Whisker"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: operator.tigera.io/v1\nkind: Whisker\nmetadata:\n  name: default\nspec: {}\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "whisker-default",
+      "SpaceID": "73c9d607-25ca-48d3-a11a-c2a79617a2ba",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9c989fb4-7662-4042-8e2c-05bfd5baf69e",
+      "UpdatedAt": "2026-06-12T17:07:41.24984Z",
+      "Version": 2
+    }
+  }
+]

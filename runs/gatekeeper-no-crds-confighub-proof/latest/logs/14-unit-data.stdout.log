@@ -1,0 +1,157 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gatekeeper
+    app.kubernetes.io/instance: gatekeeper
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: gatekeeper
+    app.kubernetes.io/version: 3.22.2
+    chart: gatekeeper
+    control-plane: audit-controller
+    gatekeeper.sh/operation: audit
+    gatekeeper.sh/system: "yes"
+    helm.sh/chart: gatekeeper-3.22.2
+    heritage: Helm
+    release: gatekeeper
+  name: gatekeeper-audit
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: gatekeeper
+      chart: gatekeeper
+      control-plane: audit-controller
+      gatekeeper.sh/operation: audit
+      gatekeeper.sh/system: "yes"
+      heritage: Helm
+      release: gatekeeper
+  template:
+    metadata:
+      annotations: null
+      labels:
+        app: gatekeeper
+        app.kubernetes.io/instance: gatekeeper
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: gatekeeper
+        app.kubernetes.io/version: 3.22.2
+        chart: gatekeeper
+        control-plane: audit-controller
+        gatekeeper.sh/operation: audit
+        gatekeeper.sh/system: "yes"
+        helm.sh/chart: gatekeeper-3.22.2
+        heritage: Helm
+        release: gatekeeper
+    spec:
+      affinity: {}
+      automountServiceAccountToken: true
+      containers:
+      - args:
+        - --audit-interval=60
+        - --log-level=INFO
+        - --constraint-violations-limit=20
+        - --validating-webhook-configuration-name=gatekeeper-validating-webhook-configuration
+        - --mutating-webhook-configuration-name=gatekeeper-mutating-webhook-configuration
+        - --audit-from-cache=false
+        - --audit-chunk-size=500
+        - --audit-match-kind-only=false
+        - --audit-events-involved-namespace=false
+        - --operation=generate
+        - --operation=audit
+        - --operation=status
+        - --operation=mutation-status
+        - --logtostderr
+        - --health-addr=:9090
+        - --prometheus-port=8888
+        - --enable-external-data=true
+        - --enable-generator-resource-expansion=true
+        - --metrics-backend=prometheus
+        - --disable-cert-rotation=false
+        - --external-data-provider-response-cache-ttl=3m
+        - --enable-k8s-native-validation=true
+        command:
+        - /manager
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: CONTAINER_NAME
+          value: manager
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: k8s.pod.name=$(POD_NAME),k8s.namespace.name=$(NAMESPACE),k8s.container.name=$(CONTAINER_NAME)
+        image: openpolicyagent/gatekeeper:v3.22.2
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 9090
+          timeoutSeconds: 1
+        name: manager
+        ports:
+        - containerPort: 8888
+          name: metrics
+          protocol: TCP
+        - containerPort: 9090
+          name: healthz
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 9090
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 512Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 999
+          runAsNonRoot: true
+          runAsUser: 1000
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - mountPath: /certs
+          name: cert
+          readOnly: true
+        - mountPath: /tmp/audit
+          name: tmp-volume
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      imagePullSecrets: []
+      nodeSelector:
+        kubernetes.io/os: linux
+      priorityClassName: system-cluster-critical
+      securityContext:
+        fsGroup: 999
+        supplementalGroups:
+        - 999
+      serviceAccountName: gatekeeper-admin
+      terminationGracePeriodSeconds: 60
+      tolerations: []
+      volumes:
+      - name: cert
+        secret:
+          defaultMode: 420
+          secretName: gatekeeper-webhook-server-cert
+      - emptyDir: {}
+        name: tmp-volume

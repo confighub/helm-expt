@@ -1,0 +1,1 @@
+cub variant create staging helm-traefik-default-confighub-proof --environment Staging --region local --space-name-pattern template:Traefik-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

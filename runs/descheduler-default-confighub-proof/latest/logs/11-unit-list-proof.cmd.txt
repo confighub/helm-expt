@@ -1,0 +1,1 @@
+cub unit list --space helm-descheduler-default-confighub-proof --where "Labels.Proof = 'descheduler-default-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

@@ -1,0 +1,1 @@
+cub unit diff statefulset-default-victoria-logs-single-server --space helm-victoria-logs-single-default-confighub-proof --from 1 --to HeadRevisionNum -u

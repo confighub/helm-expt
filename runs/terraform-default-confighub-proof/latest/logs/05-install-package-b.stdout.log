@@ -1,0 +1,5 @@
+Bundled hashicorp-terraform@
+  output: .tmp/confighub-proof/terraform-default-archives/terraform-b.tgz
+  files:  6
+  size:   4554 bytes
+  digest: sha256:737667648f89276c77a2268dd67e52b33ed27b88add655c7aea2232f12ab8ef0

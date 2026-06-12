@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "fairwinds-stable-vpa"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "fairwinds-stable/vpa default variant rendered from fairwinds-stable/vpa@4.11.0"
+      },
+      {
+        "name": "no-crds",
+        "path": "bases/no-crds",
+        "description": "fairwinds-stable/vpa no-crds variant rendered from fairwinds-stable/vpa@4.11.0"
+      }
+    ]
+  }
+}

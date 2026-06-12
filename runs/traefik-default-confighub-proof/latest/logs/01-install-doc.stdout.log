@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "traefik-traefik"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "traefik/traefik default variant rendered from traefik/traefik@40.2.0"
+      },
+      {
+        "name": "no-crds",
+        "path": "bases/no-crds",
+        "description": "traefik/traefik no-crds variant rendered from traefik/traefik@40.2.0"
+      }
+    ]
+  }
+}

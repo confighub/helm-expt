@@ -1,0 +1,1 @@
+cub installer doc packages/fluent/fluentd/0.5.3 --json

@@ -1,0 +1,5 @@
+Wizard wrote /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/victoria-metrics-single-default/out/spec/selection.yaml and inputs.yaml
+Base: default; components: []
+Namespace: default
+Rendered 4 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/victoria-metrics-single-default/out/manifests
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/victoria-metrics-single-default --space <slug>

@@ -1,0 +1,40 @@
+== jaegertracing-jaeger-operator@ → Space helm-jaeger-operator-default-confighub-proof ==
+Successfully created unit certificate-default-jaeger-operator-service-cert (2d969ea2-d037-4824-9d5c-ae5f868b19c7)
+Successfully created unit customresourcedefinition-jaegers-jaegertracing-io (6ad2c990-8e4a-4b1b-8b7d-c3efd65d9535)
+Successfully created unit deployment-default-jaeger-operator (06766305-b944-4020-831b-51303737afc1)
+Successfully created unit issuer-default-selfsigned-issuer (0bc4604b-1d74-497d-98f7-711db3624d94)
+Successfully created unit mutatingwebhookconfiguration-jaeger-operator-mutating-webhook-configuration (76ffc407-8c58-4fb5-80f9-bb8d6536fdec)
+Successfully created unit namespace-default (8ef316b2-cd7f-4ebb-9750-ee52411ff1e6)
+Successfully created unit role-default-jaeger-operator (f2de84ad-97ab-4835-9ad0-f24ad13a6c87)
+Successfully created unit rolebinding-default-jaeger-operator (1d4df8a8-46f8-46bc-bd30-4761c37623a1)
+Successfully created unit service-default-jaeger-operator-metrics (4b68c520-cf49-4ce3-9bfa-5981a28fa72f)
+Successfully created unit service-default-jaeger-operator-webhook-service (7438ca6f-cc55-4cda-ac91-91fe568eb1bb)
+Successfully created unit serviceaccount-default-jaeger-operator (da06c593-f27b-41df-87c8-a53627803eff)
+Successfully created unit validatingwebhookconfiguration-jaeger-operator-validating-webhook-configuration (7aac2c27-1f84-4fb2-9716-c186a3bd874c)
+Successfully created unit installer-record (c9e051d6-bbb4-4851-ba27-490490bab0ce)
+Linked certificate-default-jaeger-operator-service-cert -> issuer-default-selfsigned-issuer (reference:cert-manager.io/v1/Issuer)
+Linked certificate-default-jaeger-operator-service-cert -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-jaeger-operator -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-jaeger-operator -> serviceaccount-default-jaeger-operator (reference:v1/ServiceAccount)
+Linked issuer-default-selfsigned-issuer -> namespace-default (reference:v1/Namespace)
+Linked mutatingwebhookconfiguration-jaeger-operator-mutating-webhook-configuration -> namespace-default (reference:v1/Namespace)
+Linked mutatingwebhookconfiguration-jaeger-operator-mutating-webhook-configuration -> service-default-jaeger-operator-webhook-service (reference:v1/Service)
+Linked role-default-jaeger-operator -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-jaeger-operator -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-jaeger-operator -> role-default-jaeger-operator (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-jaeger-operator -> serviceaccount-default-jaeger-operator (reference:v1/ServiceAccount)
+Linked service-default-jaeger-operator-metrics -> deployment-default-jaeger-operator (selector)
+Linked service-default-jaeger-operator-metrics -> namespace-default (reference:v1/Namespace)
+Linked service-default-jaeger-operator-webhook-service -> deployment-default-jaeger-operator (selector)
+Linked service-default-jaeger-operator-webhook-service -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-jaeger-operator -> namespace-default (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-jaeger-operator-validating-webhook-configuration -> namespace-default (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-jaeger-operator-validating-webhook-configuration -> service-default-jaeger-operator-webhook-service (reference:v1/Service)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - certificate-default-jaeger-operator-service-cert -> v1/Secret "jaeger-operator-service-cert"
+  - deployment-default-jaeger-operator -> v1/Secret "jaeger-operator-service-cert"

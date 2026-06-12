@@ -1,0 +1,1 @@
+cub variant create staging helm-vault-default-confighub-proof --environment Staging --region local --space-name-pattern template:Vault-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

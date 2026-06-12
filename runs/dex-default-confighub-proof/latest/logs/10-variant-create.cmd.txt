@@ -1,0 +1,1 @@
+cub variant create staging helm-dex-default-confighub-proof --environment Staging --region local --space-name-pattern template:Dex-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

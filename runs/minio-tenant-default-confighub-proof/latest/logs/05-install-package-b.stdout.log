@@ -1,0 +1,5 @@
+Bundled minio-operator-tenant@
+  output: .tmp/confighub-proof/minio-tenant-default-archives/minio-tenant-b.tgz
+  files:  4
+  size:   1268 bytes
+  digest: sha256:7a10ca850b10f4b0d7c766397449b88636eb6f798ddf606da6d89b0b2b4e3d42

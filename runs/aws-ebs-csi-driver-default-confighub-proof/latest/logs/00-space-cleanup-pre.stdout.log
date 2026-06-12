@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 1 space(s)
+  Context: Slug IN ('helm-aws-ebs-csi-driver-default-confighub-proof', 'AwsEbsCsiDriver-default-staging')

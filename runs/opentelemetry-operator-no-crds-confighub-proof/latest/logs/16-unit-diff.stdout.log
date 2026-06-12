@@ -1,0 +1,123 @@
+--- helm-opentelemetry-operator-no-crds-confighub-proof/deployment-default-opentelemetry-operator/1
++++ helm-opentelemetry-operator-no-crds-confighub-proof/deployment-default-opentelemetry-operator/2
+@@ -33,57 +37,51 @@
+     spec:
+       automountServiceAccountToken: true
+       containers:
+-        - args:
+-            - --metrics-addr=0.0.0.0:8443
+-            - --metrics-secure=true
+-            - --enable-leader-election
+-            - --health-probe-addr=:8081
+-            - --webhook-port=9443
+-            - --collector-image=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s:0.152.1
+-          command:
+-            - /manager
+-          env:
+-            - name: SERVICE_ACCOUNT_NAME
+-              valueFrom:
+-                fieldRef:
+-                  fieldPath: spec.serviceAccountName
+-            - name: ENABLE_WEBHOOKS
+-              value: "true"
+-          image: ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.152.0
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            httpGet:
+-              path: /healthz
+-              port: 8081
+-            initialDelaySeconds: 15
+-            periodSeconds: 20
+-          name: manager
+-          ports:
+-            - containerPort: 8443
+-              name: metrics
+-              protocol: TCP
+-            - containerPort: 9443
+-              name: webhook-server
+-              protocol: TCP
+-          readinessProbe:
+-            httpGet:
+-              path: /readyz
+-              port: 8081
+-            initialDelaySeconds: 5
+-            periodSeconds: 10
+-          resources: {}
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            runAsNonRoot: true
+-            seccompProfile:
+-              type: RuntimeDefault
+-          volumeMounts:
+-            - mountPath: /tmp/k8s-webhook-server/serving-certs
+-              name: cert
+-              readOnly: true
++      - args:
++        - --metrics-addr=0.0.0.0:8443
++        - --metrics-secure=true
++        - --enable-leader-election
++        - --health-probe-addr=:8081
++        - --webhook-port=9443
++        - --collector-image=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s:0.152.1
++        command:
++        - /manager
++        env:
++        - name: SERVICE_ACCOUNT_NAME
++          valueFrom:
++            fieldRef:
++              fieldPath: spec.serviceAccountName
++        - name: ENABLE_WEBHOOKS
++          value: "true"
++        image: ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.152.0
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          httpGet:
++            path: /healthz
++            port: 8081
++          initialDelaySeconds: 15
++          periodSeconds: 20
++        name: manager
++        ports:
++        - containerPort: 8443
++          name: metrics
++          protocol: TCP
++        - containerPort: 9443
++          name: webhook-server
++          protocol: TCP
++        readinessProbe:
++          httpGet:
++            path: /readyz
++            port: 8081
++          initialDelaySeconds: 5
++          periodSeconds: 10
++        resources: {}
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          runAsNonRoot: true
++          seccompProfile:
++            type: RuntimeDefault
++        volumeMounts:
++        - mountPath: /tmp/k8s-webhook-server/serving-certs
++          name: cert
++          readOnly: true
+       hostNetwork: false
+       nodeSelector:
+         kubernetes.io/os: linux
+@@ -97,7 +101,4 @@
+       serviceAccountName: opentelemetry-operator
+       terminationGracePeriodSeconds: 10
+       volumes:
+-        - name: cert
+-          secret:
+-            defaultMode: 420
+-            secretName: opentelemetry-operator-controller-manager-service-cert
++      - name: cert
++        secret:
++          defaultMode: 420
++          secretName: opentelemetry-operator-controller-manager-service-cert

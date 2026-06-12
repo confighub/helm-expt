@@ -1,0 +1,1 @@
+cub installer setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir .tmp/confighub-proof/crossplane-default --non-interactive --namespace default

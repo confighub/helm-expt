@@ -1,0 +1,1509 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:31:44.036335Z",
+        "CursorID": 25102,
+        "DisplayName": "Upgrade clusterrolebinding-kubernetes-ingress",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3118454d-4d39-4a1b-9929-8db42f306a6d",
+        "LinkID": "ea7d6c1c-a26a-47b8-9efc-13661a2557aa",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-kubernetes-ingress",
+        "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+        "SpaceSlug": "HaproxyIngress-default-staging",
+        "ToSpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+        "ToUnitID": "bd8bdacd-56de-41b3-bf61-8e8b447096c2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:31:44.036335Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'bd8bdacd-56de-41b3-bf61-8e8b447096c2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:43.850575Z",
+      "CursorID": 4708,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "HaproxyIngress-default-staging",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "UpdatedAt": "2026-06-12T17:31:43.850575Z",
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a557e6ae56a6bb3ed5000c15943047304209d5c62376f31fd8fb70aef5d51343",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ea7d6c1c-a26a-47b8-9efc-13661a2557aa"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-kubernetes-ingress",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3118454d-4d39-4a1b-9929-8db42f306a6d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "bd8bdacd-56de-41b3-bf61-8e8b447096c2",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1053184242,
+      "CreatedAt": "2026-06-12T17:31:15.584037Z",
+      "CursorID": 29656,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGt1YmVybmV0ZXMtaW5ncmVzcwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAzLjIuOQogICAgaGVsbS5zaC9jaGFydDoga3ViZXJuZXRlcy1pbmdyZXNzLTEuNTIuMAogIG5hbWU6IGt1YmVybmV0ZXMtaW5ncmVzcwpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "a557e6ae56a6bb3ed5000c15943047304209d5c62376f31fd8fb70aef5d51343",
+      "DisplayName": "clusterrolebinding-kubernetes-ingress",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/kubernetes-ingress": {}
+          },
+          "AliasesWithoutScopes": {
+            "kubernetes-ingress": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/kubernetes-ingress",
+            "ResourceNameWithoutScope": "kubernetes-ingress",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: kubernetes-ingress\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: kubernetes-ingress\n    app.kubernetes.io/version: 3.2.9\n    helm.sh/chart: kubernetes-ingress-1.52.0\n  name: kubernetes-ingress\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: kubernetes-ingress\nsubjects:\n- kind: ServiceAccount\n  name: kubernetes-ingress\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bd8bdacd-56de-41b3-bf61-8e8b447096c2",
+      "UpdatedAt": "2026-06-12T17:31:30.568471Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:31:44.096346Z",
+        "CursorID": 25103,
+        "DisplayName": "Upgrade clusterrole-kubernetes-ingress",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "83692e72-2db2-4ce4-a0b6-3292db1bde46",
+        "LinkID": "7abd5bc7-dd94-4901-855b-90728ad59ec9",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-kubernetes-ingress",
+        "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+        "SpaceSlug": "HaproxyIngress-default-staging",
+        "ToSpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+        "ToUnitID": "814dcc73-69c6-4a94-a74a-84a299026910",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:31:44.096346Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '814dcc73-69c6-4a94-a74a-84a299026910' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:43.850575Z",
+      "CursorID": 4708,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "HaproxyIngress-default-staging",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "UpdatedAt": "2026-06-12T17:31:43.850575Z",
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "26660ae4a2eb4e0485cb7fa594b94d2b31643511273ab2416ed274f95810aa40",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7abd5bc7-dd94-4901-855b-90728ad59ec9"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-kubernetes-ingress",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "83692e72-2db2-4ce4-a0b6-3292db1bde46",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "814dcc73-69c6-4a94-a74a-84a299026910",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 426152836,
+      "CreatedAt": "2026-06-12T17:31:13.666996Z",
+      "CursorID": 29655,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDMuMi45CiAgICBoZWxtLnNoL2NoYXJ0OiBrdWJlcm5ldGVzLWluZ3Jlc3MtMS41Mi4wCiAgbmFtZToga3ViZXJuZXRlcy1pbmdyZXNzCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gY29uZmlnbWFwcwogIC0gZW5kcG9pbnRzCiAgLSBub2RlcwogIC0gcG9kcwogIC0gc2VydmljZXMKICAtIG5hbWVzcGFjZXMKICAtIGV2ZW50cwogIC0gc2VydmljZWFjY291bnRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gZXh0ZW5zaW9ucwogIC0gbmV0d29ya2luZy5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBpbmdyZXNzZXMKICAtIGluZ3Jlc3Nlcy9zdGF0dXMKICAtIGluZ3Jlc3NjbGFzc2VzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gZXh0ZW5zaW9ucwogIC0gbmV0d29ya2luZy5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBpbmdyZXNzZXMvc3RhdHVzCiAgdmVyYnM6CiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHNlY3JldHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGRpc2NvdmVyeS5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBlbmRwb2ludHNsaWNlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGNvcmUuaGFwcm94eS5vcmcKICByZXNvdXJjZXM6CiAgLSAnKicKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGluZ3Jlc3MudjEuaGFwcm94eS5vcmcKICAtIGluZ3Jlc3MudjEuaGFwcm94eS5jb20KICAtIGluZ3Jlc3MudjMuaGFwcm94eS5vcmcKICAtIGluZ3Jlc3MudjMuaGFwcm94eS5jb20KICByZXNvdXJjZXM6CiAgLSAnKicKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGFwaWV4dGVuc2lvbnMuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gY3VzdG9tcmVzb3VyY2VkZWZpbml0aW9ucwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSB1cGRhdGUKICAtIHBhdGNoCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgcmVzb3VyY2VzOgogIC0gcmVwbGljYXNldHMKICAtIGRlcGxveW1lbnRzCiAgLSBkYWVtb25zZXRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCg==",
+      "DataHash": "26660ae4a2eb4e0485cb7fa594b94d2b31643511273ab2416ed274f95810aa40",
+      "DisplayName": "clusterrole-kubernetes-ingress",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/kubernetes-ingress": {}
+          },
+          "AliasesWithoutScopes": {
+            "kubernetes-ingress": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/kubernetes-ingress",
+            "ResourceNameWithoutScope": "kubernetes-ingress",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: kubernetes-ingress\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: kubernetes-ingress\n    app.kubernetes.io/version: 3.2.9\n    helm.sh/chart: kubernetes-ingress-1.52.0\n  name: kubernetes-ingress\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - endpoints\n  - nodes\n  - pods\n  - services\n  - namespaces\n  - events\n  - serviceaccounts\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - extensions\n  - networking.k8s.io\n  resources:\n  - ingresses\n  - ingresses/status\n  - ingressclasses\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - extensions\n  - networking.k8s.io\n  resources:\n  - ingresses/status\n  verbs:\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - patch\n  - update\n- apiGroups:\n  - discovery.k8s.io\n  resources:\n  - endpointslices\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - core.haproxy.org\n  resources:\n  - '*'\n  verbs:\n  - get\n  - list\n  - watch\n  - update\n- apiGroups:\n  - ingress.v1.haproxy.org\n  - ingress.v1.haproxy.com\n  - ingress.v3.haproxy.org\n  - ingress.v3.haproxy.com\n  resources:\n  - '*'\n  verbs:\n  - get\n  - list\n  - watch\n  - update\n- apiGroups:\n  - apiextensions.k8s.io\n  resources:\n  - customresourcedefinitions\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - update\n  - patch\n  - delete\n- apiGroups:\n  - apps\n  resources:\n  - replicasets\n  - deployments\n  - daemonsets\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/kubernetes-ingress",
+          "ResourceNameWithoutScope": "kubernetes-ingress",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "814dcc73-69c6-4a94-a74a-84a299026910",
+      "UpdatedAt": "2026-06-12T17:31:21.516209Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:31:44.156682Z",
+        "CursorID": 25104,
+        "DisplayName": "Upgrade configmap-default-kubernetes-ingress",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1c3786f8-f64f-4ebd-8526-44f0c6dab7b7",
+        "LinkID": "105c7474-d8cf-45f8-9300-a9f86ea18261",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-kubernetes-ingress",
+        "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+        "SpaceSlug": "HaproxyIngress-default-staging",
+        "ToSpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+        "ToUnitID": "2a2971ae-4fb4-46e0-bbdd-98637bdf128e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:31:44.156682Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2a2971ae-4fb4-46e0-bbdd-98637bdf128e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:43.850575Z",
+      "CursorID": 4708,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "HaproxyIngress-default-staging",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "UpdatedAt": "2026-06-12T17:31:43.850575Z",
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "296a27ab467b72f7607749d7add72ccc83ee4106bc85b6fde1f731c2c0cb5019",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "105c7474-d8cf-45f8-9300-a9f86ea18261"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-kubernetes-ingress",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1c3786f8-f64f-4ebd-8526-44f0c6dab7b7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2a2971ae-4fb4-46e0-bbdd-98637bdf128e",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1496870884,
+      "CreatedAt": "2026-06-12T17:31:16.304485Z",
+      "CursorID": 29657,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogQ29uZmlnTWFwCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGt1YmVybmV0ZXMtaW5ncmVzcwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMy4yLjkKICAgIGhlbG0uc2gvY2hhcnQ6IGt1YmVybmV0ZXMtaW5ncmVzcy0xLjUyLjAKICBuYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "296a27ab467b72f7607749d7add72ccc83ee4106bc85b6fde1f731c2c0cb5019",
+      "DisplayName": "configmap-default-kubernetes-ingress",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 318 bytes; from configmap-default-kubernetes-ingress.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/kubernetes-ingress": {}
+          },
+          "AliasesWithoutScopes": {
+            "kubernetes-ingress": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/kubernetes-ingress",
+            "ResourceNameWithoutScope": "kubernetes-ingress",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/instance: kubernetes-ingress\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: kubernetes-ingress\n    app.kubernetes.io/version: 3.2.9\n    helm.sh/chart: kubernetes-ingress-1.52.0\n  name: kubernetes-ingress\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/kubernetes-ingress",
+          "ResourceNameWithoutScope": "kubernetes-ingress",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2a2971ae-4fb4-46e0-bbdd-98637bdf128e",
+      "UpdatedAt": "2026-06-12T17:31:31.499725Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:31:44.215768Z",
+        "CursorID": 25105,
+        "DisplayName": "Upgrade deployment-default-kubernetes-ingress",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d7b5bfa3-dc09-4874-973f-e4ab3667671d",
+        "LinkID": "10f74b34-7b35-4499-aed3-6850d10bc889",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-kubernetes-ingress",
+        "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+        "SpaceSlug": "HaproxyIngress-default-staging",
+        "ToSpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+        "ToUnitID": "35db4be6-b184-43e6-b883-f25810df08d7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:31:44.215768Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '35db4be6-b184-43e6-b883-f25810df08d7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:43.850575Z",
+      "CursorID": 4708,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "HaproxyIngress-default-staging",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "UpdatedAt": "2026-06-12T17:31:43.850575Z",
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "49a67e5a998062d4a0ad947b5d63da84b0f13bce50ef72da01cf7e47ac8161f4",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "10f74b34-7b35-4499-aed3-6850d10bc889"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-kubernetes-ingress",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d7b5bfa3-dc09-4874-973f-e4ab3667671d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "35db4be6-b184-43e6-b883-f25810df08d7",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1867736737,
+      "CreatedAt": "2026-06-12T17:31:17.067099Z",
+      "CursorID": 29658,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGt1YmVybmV0ZXMtaW5ncmVzcwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMy4yLjkKICAgIGhlbG0uc2gvY2hhcnQ6IGt1YmVybmV0ZXMtaW5ncmVzcy0xLjUyLjAKICBuYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBtaW5SZWFkeVNlY29uZHM6IDAKICByZXBsaWNhczogMgogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgc3RyYXRlZ3k6CiAgICB0eXBlOiBSb2xsaW5nVXBkYXRlCiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgbGFiZWxzOgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAgIHNwZWM6CiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIC0tZGVmYXVsdC1zc2wtY2VydGlmaWNhdGU9ZGVmYXVsdC9rdWJlcm5ldGVzLWluZ3Jlc3MtZGVmYXVsdC1jZXJ0CiAgICAgICAgLSAtLWNvbmZpZ21hcD1kZWZhdWx0L2t1YmVybmV0ZXMtaW5ncmVzcwogICAgICAgIC0gLS1odHRwLWJpbmQtcG9ydD04MDgwCiAgICAgICAgLSAtLWh0dHBzLWJpbmQtcG9ydD04NDQzCiAgICAgICAgLSAtLXF1aWMtYmluZC1wb3J0PTg0NDMKICAgICAgICAtIC0tcXVpYy1hbm5vdW5jZS1wb3J0PTQ0MwogICAgICAgIC0gLS1pbmdyZXNzLmNsYXNzPWhhcHJveHkKICAgICAgICAtIC0tcHVibGlzaC1zZXJ2aWNlPWRlZmF1bHQva3ViZXJuZXRlcy1pbmdyZXNzCiAgICAgICAgLSAtLWxvZz1pbmZvCiAgICAgICAgLSAtLXByb21ldGhldXMKICAgICAgICAtIC0tcHByb2YKICAgICAgICBlbnY6CiAgICAgICAgLSBuYW1lOiBQT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFBPRF9OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFBPRF9JUAogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IHN0YXR1cy5wb2RJUAogICAgICAgIGltYWdlOiBkb2NrZXIuaW8vaGFwcm94eXRlY2gva3ViZXJuZXRlcy1pbmdyZXNzOjMuMi45CiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMwogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogMTA0MgogICAgICAgICAgICBzY2hlbWU6IEhUVFAKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDEwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAxMAogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDEKICAgICAgICBuYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MtY29udHJvbGxlcgogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogNjA2MAogICAgICAgICAgbmFtZTogYWRtaW4KICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgwODAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDg0NDMKICAgICAgICAgIG5hbWU6IGh0dHBzCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiAxMDI0CiAgICAgICAgICBuYW1lOiBzdGF0CiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4NDQzCiAgICAgICAgICBuYW1lOiBxdWljCiAgICAgICAgICBwcm90b2NvbDogVURQCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoegogICAgICAgICAgICBwb3J0OiAxMDQyCiAgICAgICAgICAgIHNjaGVtZTogSFRUUAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDEwCiAgICAgICAgICBzdWNjZXNzVGhyZXNob2xkOiAxCiAgICAgICAgICB0aW1lb3V0U2Vjb25kczogMQogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgICBjcHU6IDI1MG0KICAgICAgICAgICAgbWVtb3J5OiA0MDBNaQogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICAgIGNhcGFiaWxpdGllczoKICAgICAgICAgICAgYWRkOgogICAgICAgICAgICAtIE5FVF9CSU5EX1NFUlZJQ0UKICAgICAgICAgICAgZHJvcDoKICAgICAgICAgICAgLSBBTEwKICAgICAgICAgIHNlY2NvbXBQcm9maWxlOgogICAgICAgICAgICB0eXBlOiBSdW50aW1lRGVmYXVsdAogICAgICAgIHN0YXJ0dXBQcm9iZToKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDMwCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoegogICAgICAgICAgICBwb3J0OiAxMDQyCiAgICAgICAgICAgIHNjaGVtZTogSFRUUAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAxCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvdG1wCiAgICAgICAgICBuYW1lOiB0bXAKICAgICAgICAgIHN1YlBhdGg6IHRtcAogICAgICAgIC0gbW91bnRQYXRoOiAvcnVuCiAgICAgICAgICBuYW1lOiB0bXAKICAgICAgICAgIHN1YlBhdGg6IHJ1bgogICAgICBkbnNQb2xpY3k6IENsdXN0ZXJGaXJzdAogICAgICBlbmFibGVTZXJ2aWNlTGlua3M6IHRydWUKICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMDAKICAgICAgc2VydmljZUFjY291bnROYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAgICAgdGVybWluYXRpb25HcmFjZVBlcmlvZFNlY29uZHM6IDYwCiAgICAgIHZvbHVtZXM6CiAgICAgIC0gZW1wdHlEaXI6CiAgICAgICAgICBtZWRpdW06IE1lbW9yeQogICAgICAgICAgc2l6ZUxpbWl0OiA2NE1pCiAgICAgICAgbmFtZTogdG1wCg==",
+      "DataHash": "49a67e5a998062d4a0ad947b5d63da84b0f13bce50ef72da01cf7e47ac8161f4",
+      "DisplayName": "deployment-default-kubernetes-ingress",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/kubernetes-ingress": {}
+          },
+          "AliasesWithoutScopes": {
+            "kubernetes-ingress": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/kubernetes-ingress",
+            "ResourceNameWithoutScope": "kubernetes-ingress",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: kubernetes-ingress\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: kubernetes-ingress\n    app.kubernetes.io/version: 3.2.9\n    helm.sh/chart: kubernetes-ingress-1.52.0\n  name: kubernetes-ingress\n  namespace: default\nspec:\n  minReadySeconds: 0\n  replicas: 2\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: kubernetes-ingress\n      app.kubernetes.io/name: kubernetes-ingress\n  strategy:\n    type: RollingUpdate\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/instance: kubernetes-ingress\n        app.kubernetes.io/name: kubernetes-ingress\n    spec:\n      containers:\n      - args:\n        - --default-ssl-certificate=default/kubernetes-ingress-default-cert\n        - --configmap=default/kubernetes-ingress\n        - --http-bind-port=8080\n        - --https-bind-port=8443\n        - --quic-bind-port=8443\n        - --quic-announce-port=443\n        - --ingress.class=haproxy\n        - --publish-service=default/kubernetes-ingress\n        - --log=info\n        - --prometheus\n        - --pprof\n        env:\n        - name: POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: POD_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        image: docker.io/haproxytech/kubernetes-ingress:3.2.9\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 1042\n            scheme: HTTP\n          initialDelaySeconds: 10\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 1\n        name: kubernetes-ingress-controller\n        ports:\n        - containerPort: 6060\n          name: admin\n          protocol: TCP\n        - containerPort: 8080\n          name: http\n          protocol: TCP\n        - containerPort: 8443\n          name: https\n          protocol: TCP\n        - containerPort: 1024\n          name: stat\n          protocol: TCP\n        - containerPort: 8443\n          name: quic\n          protocol: UDP\n        readinessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 1042\n            scheme: HTTP\n          initialDelaySeconds: 10\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 1\n        resources:\n          requests:\n            cpu: 250m\n            memory: 400Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            add:\n            - NET_BIND_SERVICE\n            drop:\n            - ALL\n          seccompProfile:\n            type: RuntimeDefault\n        startupProbe:\n          failureThreshold: 30\n          httpGet:\n            path: /healthz\n            port: 1042\n            scheme: HTTP\n          initialDelaySeconds: 10\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 1\n        volumeMounts:\n        - mountPath: /tmp\n          name: tmp\n          subPath: tmp\n        - mountPath: /run\n          name: tmp\n          subPath: run\n      dnsPolicy: ClusterFirst\n      enableServiceLinks: true\n      securityContext:\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 1000\n      serviceAccountName: kubernetes-ingress\n      terminationGracePeriodSeconds: 60\n      volumes:\n      - emptyDir:\n          medium: Memory\n          sizeLimit: 64Mi\n        name: tmp\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/kubernetes-ingress",
+          "ResourceNameWithoutScope": "kubernetes-ingress",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "35db4be6-b184-43e6-b883-f25810df08d7",
+      "UpdatedAt": "2026-06-12T17:31:33.446279Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:31:44.240545Z",
+        "CursorID": 25106,
+        "DisplayName": "Upgrade ingressclass-haproxy",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0bfb213a-39be-4bfc-a7d2-b101ab23d854",
+        "LinkID": "eb7ec2ac-9b10-4328-8cdf-0a30ab0d8ca4",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-ingressclass-haproxy",
+        "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+        "SpaceSlug": "HaproxyIngress-default-staging",
+        "ToSpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+        "ToUnitID": "31b3b903-0199-4e66-8d87-e314e8361478",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:31:44.240545Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '31b3b903-0199-4e66-8d87-e314e8361478' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:43.850575Z",
+      "CursorID": 4708,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "HaproxyIngress-default-staging",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "UpdatedAt": "2026-06-12T17:31:43.850575Z",
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5dd7155d6619808748072e7b92f9d1b1592b26fdca83bc1610cdf2d8f0d9019c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "eb7ec2ac-9b10-4328-8cdf-0a30ab0d8ca4"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "ingressclass-haproxy",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0bfb213a-39be-4bfc-a7d2-b101ab23d854",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "31b3b903-0199-4e66-8d87-e314e8361478",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1224913726,
+      "CreatedAt": "2026-06-12T17:31:17.836263Z",
+      "CursorID": 29659,
+      "Data": "YXBpVmVyc2lvbjogbmV0d29ya2luZy5rOHMuaW8vdjEKa2luZDogSW5ncmVzc0NsYXNzCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGt1YmVybmV0ZXMtaW5ncmVzcwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMy4yLjkKICAgIGhlbG0uc2gvY2hhcnQ6IGt1YmVybmV0ZXMtaW5ncmVzcy0xLjUyLjAKICBuYW1lOiBoYXByb3h5CnNwZWM6CiAgY29udHJvbGxlcjogaGFwcm94eS5vcmcvaW5ncmVzcy1jb250cm9sbGVyL2hhcHJveHkK",
+      "DataHash": "5dd7155d6619808748072e7b92f9d1b1592b26fdca83bc1610cdf2d8f0d9019c",
+      "DisplayName": "ingressclass-haproxy",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 366 bytes; from ingressclass-haproxy.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/haproxy": {}
+          },
+          "AliasesWithoutScopes": {
+            "haproxy": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/haproxy",
+            "ResourceNameWithoutScope": "haproxy",
+            "ResourceType": "networking.k8s.io/v1/IngressClass"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: networking.k8s.io/v1\nkind: IngressClass\nmetadata:\n  labels:\n    app.kubernetes.io/instance: kubernetes-ingress\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: kubernetes-ingress\n    app.kubernetes.io/version: 3.2.9\n    helm.sh/chart: kubernetes-ingress-1.52.0\n  name: haproxy\nspec:\n  controller: haproxy.org/ingress-controller/haproxy\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "ingressclass-haproxy",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "31b3b903-0199-4e66-8d87-e314e8361478",
+      "UpdatedAt": "2026-06-12T17:31:17.859101Z",
+      "Version": 2
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:31:44.276542Z",
+        "CursorID": 25107,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2654281a-b7bf-411f-87e6-8ba7fca0b728",
+        "LinkID": "91a9073a-9f34-4eeb-a415-510dc43551ac",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+        "SpaceSlug": "HaproxyIngress-default-staging",
+        "ToSpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+        "ToUnitID": "bece4396-a01f-4d13-9c35-2e959bf3b790",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:31:44.276543Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'bece4396-a01f-4d13-9c35-2e959bf3b790' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:43.850575Z",
+      "CursorID": 4708,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "HaproxyIngress-default-staging",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "UpdatedAt": "2026-06-12T17:31:43.850575Z",
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a7663caab9d62539c93d55f7c6c55bf74db8a75553e4b5f2fde9e7a625f5c50d",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "91a9073a-9f34-4eeb-a415-510dc43551ac"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2654281a-b7bf-411f-87e6-8ba7fca0b728",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "bece4396-a01f-4d13-9c35-2e959bf3b790",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "haproxytech-kubernetes-ingress",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 230114917,
+      "CreatedAt": "2026-06-12T17:31:20.702499Z",
+      "CursorID": 29663,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImhhcHJveHl0ZWNoLWt1YmVybmV0ZXMtaW5ncmVzcyIKICB2ZXJzaW9uOiAiMS41Mi4wIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBuYW1lOiAiZGVmYXVsdCIKICAgIHBhdGg6ICJiYXNlcy9kZWZhdWx0IgogICAgZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJoYXByb3h5dGVjaC9rdWJlcm5ldGVzLWluZ3Jlc3MgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gaGFwcm94eXRlY2gva3ViZXJuZXRlcy1pbmdyZXNzQDEuNTIuMCIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogaGFwcm94eXRlY2gta3ViZXJuZXRlcy1pbmdyZXNzLWZ1bmN0aW9uLWNoYWluCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBoYXByb3h5dGVjaC1rdWJlcm5ldGVzLWluZ3Jlc3MKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogaGFwcm94eXRlY2gta3ViZXJuZXRlcy1pbmdyZXNzLWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogaGFwcm94eXRlY2gta3ViZXJuZXRlcy1pbmdyZXNzCiAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgdmFsdWVzOiB7fQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogTWFuaWZlc3RJbmRleAptZXRhZGF0YToKICBuYW1lOiBoYXByb3h5dGVjaC1rdWJlcm5ldGVzLWluZ3Jlc3MtbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGhhcHJveHl0ZWNoLWt1YmVybmV0ZXMtaW5ncmVzcwogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWt1YmVybmV0ZXMtaW5ncmVzcy55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1rdWJlcm5ldGVzLWluZ3Jlc3MKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmcta3ViZXJuZXRlcy1pbmdyZXNzLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlYmluZGluZy1rdWJlcm5ldGVzLWluZ3Jlc3MKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgLSBmaWxlbmFtZTogY29uZmlnbWFwLWRlZmF1bHQta3ViZXJuZXRlcy1pbmdyZXNzLnlhbWwKICAgIHNsdWc6IGNvbmZpZ21hcC1kZWZhdWx0LWt1YmVybmV0ZXMtaW5ncmVzcwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IENvbmZpZ01hcAogICAgbmFtZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQta3ViZXJuZXRlcy1pbmdyZXNzLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtZGVmYXVsdC1rdWJlcm5ldGVzLWluZ3Jlc3MKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IGt1YmVybmV0ZXMtaW5ncmVzcwogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogaW5ncmVzc2NsYXNzLWhhcHJveHkueWFtbAogICAgc2x1ZzogaW5ncmVzc2NsYXNzLWhhcHJveHkKICAgIGFwaVZlcnNpb246IG5ldHdvcmtpbmcuazhzLmlvL3YxCiAgICBraW5kOiBJbmdyZXNzQ2xhc3MKICAgIG5hbWU6IGhhcHJveHkKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2UtZGVmYXVsdC1rdWJlcm5ldGVzLWluZ3Jlc3MueWFtbAogICAgc2x1Zzogc2VydmljZS1kZWZhdWx0LWt1YmVybmV0ZXMtaW5ncmVzcwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2UKICAgIG5hbWU6IGt1YmVybmV0ZXMtaW5ncmVzcwogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZWFjY291bnQtZGVmYXVsdC1rdWJlcm5ldGVzLWluZ3Jlc3MueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1rdWJlcm5ldGVzLWluZ3Jlc3MKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFNlbGVjdGlvbgptZXRhZGF0YToKICBuYW1lOiBoYXByb3h5dGVjaC1rdWJlcm5ldGVzLWluZ3Jlc3Mtc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBoYXByb3h5dGVjaC1rdWJlcm5ldGVzLWluZ3Jlc3MKICBiYXNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogaGFwcm94eXRlY2gta3ViZXJuZXRlcy1pbmdyZXNzLXVwbG9hZAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogaGFwcm94eXRlY2gta3ViZXJuZXRlcy1pbmdyZXNzCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLWhhcHJveHktaW5ncmVzcy1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IGhhcHJveHl0ZWNoLWt1YmVybmV0ZXMtaW5ncmVzcwogICAgc2x1ZzogaGVsbS1oYXByb3h5LWluZ3Jlc3MtZGVmYXVsdC1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTc6MzE6MTFaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "a7663caab9d62539c93d55f7c6c55bf74db8a75553e4b5f2fde9e7a625f5c50d",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "haproxytech-kubernetes-ingress"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/haproxytech-kubernetes-ingress": {}
+          },
+          "AliasesWithoutScopes": {
+            "haproxytech-kubernetes-ingress": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/haproxytech-kubernetes-ingress",
+            "ResourceNameWithoutScope": "haproxytech-kubernetes-ingress",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"haproxytech-kubernetes-ingress\"\n  version: \"1.52.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"haproxytech/kubernetes-ingress default variant rendered from haproxytech/kubernetes-ingress@1.52.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/haproxytech-kubernetes-ingress-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "haproxytech-kubernetes-ingress-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/haproxytech-kubernetes-ingress-function-chain",
+            "ResourceNameWithoutScope": "haproxytech-kubernetes-ingress-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: haproxytech-kubernetes-ingress-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: haproxytech-kubernetes-ingress\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/haproxytech-kubernetes-ingress-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "haproxytech-kubernetes-ingress-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/haproxytech-kubernetes-ingress-inputs",
+            "ResourceNameWithoutScope": "haproxytech-kubernetes-ingress-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: haproxytech-kubernetes-ingress-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: haproxytech-kubernetes-ingress\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/haproxytech-kubernetes-ingress-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "haproxytech-kubernetes-ingress-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/haproxytech-kubernetes-ingress-manifest-index",
+            "ResourceNameWithoutScope": "haproxytech-kubernetes-ingress-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: haproxytech-kubernetes-ingress-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: haproxytech-kubernetes-ingress\n  files:\n  - filename: clusterrole-kubernetes-ingress.yaml\n    slug: clusterrole-kubernetes-ingress\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: kubernetes-ingress\n  - filename: clusterrolebinding-kubernetes-ingress.yaml\n    slug: clusterrolebinding-kubernetes-ingress\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: kubernetes-ingress\n  - filename: configmap-default-kubernetes-ingress.yaml\n    slug: configmap-default-kubernetes-ingress\n    apiVersion: v1\n    kind: ConfigMap\n    name: kubernetes-ingress\n    namespace: default\n  - filename: deployment-default-kubernetes-ingress.yaml\n    slug: deployment-default-kubernetes-ingress\n    apiVersion: apps/v1\n    kind: Deployment\n    name: kubernetes-ingress\n    namespace: default\n  - filename: ingressclass-haproxy.yaml\n    slug: ingressclass-haproxy\n    apiVersion: networking.k8s.io/v1\n    kind: IngressClass\n    name: haproxy\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: service-default-kubernetes-ingress.yaml\n    slug: service-default-kubernetes-ingress\n    apiVersion: v1\n    kind: Service\n    name: kubernetes-ingress\n    namespace: default\n  - filename: serviceaccount-default-kubernetes-ingress.yaml\n    slug: serviceaccount-default-kubernetes-ingress\n    apiVersion: v1\n    kind: ServiceAccount\n    name: kubernetes-ingress\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/haproxytech-kubernetes-ingress-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "haproxytech-kubernetes-ingress-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/haproxytech-kubernetes-ingress-selection",
+            "ResourceNameWithoutScope": "haproxytech-kubernetes-ingress-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: haproxytech-kubernetes-ingress-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: haproxytech-kubernetes-ingress\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/haproxytech-kubernetes-ingress-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "haproxytech-kubernetes-ingress-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/haproxytech-kubernetes-ingress-upload",
+            "ResourceNameWithoutScope": "haproxytech-kubernetes-ingress-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: haproxytech-kubernetes-ingress-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: haproxytech-kubernetes-ingress\n  spacePattern: helm-haproxy-ingress-default-confighub-proof\n  spaces:\n  - package: haproxytech-kubernetes-ingress\n    slug: helm-haproxy-ingress-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:31:11Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bece4396-a01f-4d13-9c35-2e959bf3b790",
+      "UpdatedAt": "2026-06-12T17:31:21.5692Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:31:44.303353Z",
+        "CursorID": 25108,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ce8ce08f-df28-4769-96ff-f461c4d24f47",
+        "LinkID": "d225a9d3-8ede-462b-b1dc-c01260f57daf",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+        "SpaceSlug": "HaproxyIngress-default-staging",
+        "ToSpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+        "ToUnitID": "86559893-8193-4874-9b9d-5352ca9b1052",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:31:44.303353Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '86559893-8193-4874-9b9d-5352ca9b1052' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:43.850575Z",
+      "CursorID": 4708,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "HaproxyIngress-default-staging",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "UpdatedAt": "2026-06-12T17:31:43.850575Z",
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d225a9d3-8ede-462b-b1dc-c01260f57daf"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ce8ce08f-df28-4769-96ff-f461c4d24f47",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "86559893-8193-4874-9b9d-5352ca9b1052",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:31:18.563939Z",
+      "CursorID": 29660,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "86559893-8193-4874-9b9d-5352ca9b1052",
+      "UpdatedAt": "2026-06-12T17:31:18.58589Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:31:44.333134Z",
+        "CursorID": 25109,
+        "DisplayName": "Upgrade serviceaccount-default-kubernetes-ingress",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a2cf8533-4b59-4120-9877-84cc3830601e",
+        "LinkID": "2442d277-f679-4ff4-8d51-3062cec8b429",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-kubernetes-ingress",
+        "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+        "SpaceSlug": "HaproxyIngress-default-staging",
+        "ToSpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+        "ToUnitID": "d4976806-2da4-4368-8b6f-853f23078160",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:31:44.333134Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd4976806-2da4-4368-8b6f-853f23078160' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:43.850575Z",
+      "CursorID": 4708,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "HaproxyIngress-default-staging",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "UpdatedAt": "2026-06-12T17:31:43.850575Z",
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "868f1d2395259d68467fc8b14058bc26d0fe9458e251b73671f796723d0358b7",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "2442d277-f679-4ff4-8d51-3062cec8b429"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-kubernetes-ingress",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a2cf8533-4b59-4120-9877-84cc3830601e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d4976806-2da4-4368-8b6f-853f23078160",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1140132043,
+      "CreatedAt": "2026-06-12T17:31:19.978736Z",
+      "CursorID": 29662,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGt1YmVybmV0ZXMtaW5ncmVzcwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAzLjIuOQogICAgaGVsbS5zaC9jaGFydDoga3ViZXJuZXRlcy1pbmdyZXNzLTEuNTIuMAogIG5hbWU6IGt1YmVybmV0ZXMtaW5ncmVzcwogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "868f1d2395259d68467fc8b14058bc26d0fe9458e251b73671f796723d0358b7",
+      "DisplayName": "serviceaccount-default-kubernetes-ingress",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 323 bytes; from serviceaccount-default-kubernetes-ingress.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/kubernetes-ingress": {}
+          },
+          "AliasesWithoutScopes": {
+            "kubernetes-ingress": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/kubernetes-ingress",
+            "ResourceNameWithoutScope": "kubernetes-ingress",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: kubernetes-ingress\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: kubernetes-ingress\n    app.kubernetes.io/version: 3.2.9\n    helm.sh/chart: kubernetes-ingress-1.52.0\n  name: kubernetes-ingress\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/kubernetes-ingress",
+          "ResourceNameWithoutScope": "kubernetes-ingress",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d4976806-2da4-4368-8b6f-853f23078160",
+      "UpdatedAt": "2026-06-12T17:31:36.519227Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:31:44.363071Z",
+        "CursorID": 25110,
+        "DisplayName": "Upgrade service-default-kubernetes-ingress",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0461d8cc-bead-4c68-8fe2-8aab2136520e",
+        "LinkID": "3062bd4b-73d2-402a-a7bc-88eded06dde1",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-kubernetes-ingress",
+        "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+        "SpaceSlug": "HaproxyIngress-default-staging",
+        "ToSpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+        "ToUnitID": "039e50ea-e8a2-4406-b46c-0a679fbb5046",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:31:44.363071Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '039e50ea-e8a2-4406-b46c-0a679fbb5046' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:31:43.850575Z",
+      "CursorID": 4708,
+      "DisplayName": "helm-haproxy-ingress-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "HaproxyIngress-default-staging",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "UpdatedAt": "2026-06-12T17:31:43.850575Z",
+      "WhereTrigger": "SpaceID = 'a1b9479d-80b2-4434-a214-cd31227fb521'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2228bcfe0921d333eff313e9a913fa6ce3beac3ee0e2cbcb8d94bfa390051063",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3062bd4b-73d2-402a-a7bc-88eded06dde1"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-kubernetes-ingress",
+      "SpaceID": "761b4c29-7c9b-40fb-ae38-3dd4af72f405",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0461d8cc-bead-4c68-8fe2-8aab2136520e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "039e50ea-e8a2-4406-b46c-0a679fbb5046",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1692560517,
+      "CreatedAt": "2026-06-12T17:31:19.251395Z",
+      "CursorID": 29661,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBrdWJlcm5ldGVzLWluZ3Jlc3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDMuMi45CiAgICBoZWxtLnNoL2NoYXJ0OiBrdWJlcm5ldGVzLWluZ3Jlc3MtMS41Mi4wCiAgbmFtZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgZXh0ZXJuYWxJUHM6IG51bGwKICBwb3J0czoKICAtIGFwcFByb3RvY29sOiBodHRwCiAgICBuYW1lOiBodHRwCiAgICBwb3J0OiA4MAogICAgcHJvdG9jb2w6IFRDUAogICAgdGFyZ2V0UG9ydDogaHR0cAogIC0gYXBwUHJvdG9jb2w6IGh0dHBzCiAgICBuYW1lOiBodHRwcwogICAgcG9ydDogNDQzCiAgICBwcm90b2NvbDogVENQCiAgICB0YXJnZXRQb3J0OiBodHRwcwogIC0gYXBwUHJvdG9jb2w6IGh0dHBzCiAgICBuYW1lOiBxdWljCiAgICBwb3J0OiA0NDMKICAgIHByb3RvY29sOiBVRFAKICAgIHRhcmdldFBvcnQ6IHF1aWMKICAtIG5hbWU6IHN0YXQKICAgIHBvcnQ6IDEwMjQKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IHN0YXQKICAtIG5hbWU6IGFkbWluCiAgICBwb3J0OiA2MDYwCiAgICBwcm90b2NvbDogVENQCiAgICB0YXJnZXRQb3J0OiBhZG1pbgogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGt1YmVybmV0ZXMtaW5ncmVzcwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZToga3ViZXJuZXRlcy1pbmdyZXNzCiAgdHlwZTogTm9kZVBvcnQK",
+      "DataHash": "2228bcfe0921d333eff313e9a913fa6ce3beac3ee0e2cbcb8d94bfa390051063",
+      "DisplayName": "service-default-kubernetes-ingress",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "HaproxyIngress",
+        "HelmChart": "haproxytech-kubernetes-ingress",
+        "HelmChartVersion": "1.52.0",
+        "Package": "haproxytech-kubernetes-ingress",
+        "Proof": "haproxy-ingress-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/kubernetes-ingress": {}
+          },
+          "AliasesWithoutScopes": {
+            "kubernetes-ingress": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/kubernetes-ingress",
+            "ResourceNameWithoutScope": "kubernetes-ingress",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: kubernetes-ingress\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: kubernetes-ingress\n    app.kubernetes.io/version: 3.2.9\n    helm.sh/chart: kubernetes-ingress-1.52.0\n  name: kubernetes-ingress\n  namespace: default\nspec:\n  externalIPs: null\n  ports:\n  - appProtocol: http\n    name: http\n    port: 80\n    protocol: TCP\n    targetPort: http\n  - appProtocol: https\n    name: https\n    port: 443\n    protocol: TCP\n    targetPort: https\n  - appProtocol: https\n    name: quic\n    port: 443\n    protocol: UDP\n    targetPort: quic\n  - name: stat\n    port: 1024\n    protocol: TCP\n    targetPort: stat\n  - name: admin\n    port: 6060\n    protocol: TCP\n    targetPort: admin\n  selector:\n    app.kubernetes.io/instance: kubernetes-ingress\n    app.kubernetes.io/name: kubernetes-ingress\n  type: NodePort\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/kubernetes-ingress",
+          "ResourceNameWithoutScope": "kubernetes-ingress",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-kubernetes-ingress",
+      "SpaceID": "a1b9479d-80b2-4434-a214-cd31227fb521",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "039e50ea-e8a2-4406-b46c-0a679fbb5046",
+      "UpdatedAt": "2026-06-12T17:31:35.496191Z",
+      "Version": 13
+    }
+  }
+]

@@ -1,0 +1,1 @@
+cub changeset update victoria-metrics-single-safe-ops-20260527 --space helm-victoria-metrics-single-default-confighub-proof --description "VictoriaMetrics Single safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

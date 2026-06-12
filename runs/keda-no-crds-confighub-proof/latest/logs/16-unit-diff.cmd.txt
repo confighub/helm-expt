@@ -1,0 +1,1 @@
+cub unit diff deployment-default-keda-operator-metrics-apiserver --space helm-keda-no-crds-confighub-proof --from 1 --to HeadRevisionNum -u

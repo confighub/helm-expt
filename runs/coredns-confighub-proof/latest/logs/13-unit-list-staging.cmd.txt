@@ -1,0 +1,1 @@
+cub unit list --space Coredns-staging --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

@@ -1,0 +1,23 @@
+== coredns-coredns@ → Space helm-coredns-confighub-proof ==
+Successfully created unit clusterrole-coredns (93ebd73e-ebc9-47eb-a93b-f7e7f2284c60)
+Successfully created unit clusterrolebinding-coredns (77f58d98-d0b0-449d-8ff5-2574ec2d08f3)
+Successfully created unit configmap-default-coredns (97e6a408-1ff2-4cc1-9156-4c4c141dff6f)
+Successfully created unit deployment-default-coredns (e99946fd-23e2-44fc-840c-874e42b08dd5)
+Successfully created unit namespace-default (b87cc861-683f-4f5d-acf3-7ac4a76aee1e)
+Successfully created unit service-default-coredns (d8c8bc85-a03e-4142-a939-f601557f991d)
+Successfully created unit installer-record (289cdaf3-27a7-4e22-9d62-d0b7c4cb9887)
+Linked clusterrolebinding-coredns -> clusterrole-coredns (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-coredns -> namespace-default (reference:v1/Namespace)
+Linked configmap-default-coredns -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-coredns -> configmap-default-coredns (reference:v1/ConfigMap)
+Linked deployment-default-coredns -> namespace-default (reference:v1/Namespace)
+Linked service-default-coredns -> deployment-default-coredns (selector)
+Linked service-default-coredns -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrolebinding-coredns -> v1/ServiceAccount "default"
+  - deployment-default-coredns -> v1/ServiceAccount "default"

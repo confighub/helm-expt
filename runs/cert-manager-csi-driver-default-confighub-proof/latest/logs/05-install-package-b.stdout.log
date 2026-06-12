@@ -1,0 +1,5 @@
+Bundled jetstack-cert-manager-csi-driver@
+  output: .tmp/confighub-proof/cert-manager-csi-driver-default-archives/cert-manager-csi-driver-b.tgz
+  files:  4
+  size:   1760 bytes
+  digest: sha256:3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951

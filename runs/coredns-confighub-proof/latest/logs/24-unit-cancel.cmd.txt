@@ -1,0 +1,1 @@
+cub unit cancel --space helm-coredns-confighub-proof --where "Labels.Proof = 'coredns-confighub-proof'"

@@ -1,0 +1,5 @@
+Bundled runix-pgadmin4@
+  output: .tmp/confighub-proof/pgadmin4-default-archives/pgadmin4-a.tgz
+  files:  4
+  size:   1444 bytes
+  digest: sha256:a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2

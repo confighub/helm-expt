@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "strimzi-strimzi-kafka-operator"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "strimzi/strimzi-kafka-operator default variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
+      },
+      {
+        "name": "no-crds",
+        "path": "bases/no-crds",
+        "description": "strimzi/strimzi-kafka-operator no-crds variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
+      }
+    ]
+  }
+}

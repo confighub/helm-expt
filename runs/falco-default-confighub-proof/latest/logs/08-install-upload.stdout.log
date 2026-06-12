@@ -1,0 +1,26 @@
+== falcosecurity-falco@ → Space helm-falco-default-confighub-proof ==
+Successfully created unit configmap-default-falco-falcoctl (dcb49e47-05f8-453f-bb8f-7c3f7183a567)
+Successfully created unit configmap-default-falco (7a381c7a-5172-46b5-ad76-22b8fe5f16bc)
+Successfully created unit daemonset-default-falco (759f2802-97b9-4206-9974-92d46f632c88)
+Successfully created unit namespace-default (c8e280aa-0e9f-4e97-92a2-b54939023a74)
+Successfully created unit role-default-falco (48743fd1-255f-4f46-b670-61c61df54f27)
+Successfully created unit rolebinding-default-falco (a1e5b116-935b-4387-a1db-ada47592f498)
+Successfully created unit serviceaccount-default-falco (2b0557c8-e832-4801-b635-174c52b292cc)
+Successfully created unit installer-record (507d7c2e-21e0-439a-80c4-96b2f24acd5d)
+Linked configmap-default-falco -> namespace-default (reference:v1/Namespace)
+Linked configmap-default-falco-falcoctl -> namespace-default (reference:v1/Namespace)
+Linked daemonset-default-falco -> configmap-default-falco (reference:v1/ConfigMap)
+Linked daemonset-default-falco -> configmap-default-falco-falcoctl (reference:v1/ConfigMap)
+Linked daemonset-default-falco -> namespace-default (reference:v1/Namespace)
+Linked daemonset-default-falco -> serviceaccount-default-falco (reference:v1/ServiceAccount)
+Linked role-default-falco -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-falco -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-falco -> serviceaccount-default-falco (reference:v1/ServiceAccount)
+Linked serviceaccount-default-falco -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - rolebinding-default-falco -> rbac.authorization.k8s.io/v1/ClusterRole "falco"

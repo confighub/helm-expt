@@ -1,0 +1,1 @@
+cub space delete --space "helm-nfs-provisioner-default-confighub-proof,NfsProvisioner-default-staging" --recursive-force

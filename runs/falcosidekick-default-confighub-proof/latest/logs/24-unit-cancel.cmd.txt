@@ -1,0 +1,1 @@
+cub unit cancel --space helm-falcosidekick-default-confighub-proof --where "Labels.Proof = 'falcosidekick-default-confighub-proof'"

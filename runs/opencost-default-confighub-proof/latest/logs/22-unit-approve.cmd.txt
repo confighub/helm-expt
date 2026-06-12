@@ -1,0 +1,1 @@
+cub unit approve deployment-default-opencost --space helm-opencost-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

@@ -1,0 +1,1 @@
+cub function vet vet-format --space helm-surveyor-default-confighub-proof --where "Labels.Proof = 'surveyor-default-confighub-proof'" --quiet --wait --timeout 10m

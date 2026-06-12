@@ -1,0 +1,1 @@
+cub function vet vet-merge-keys --space helm-reloader-default-confighub-proof --where "Labels.Proof = 'reloader-default-confighub-proof'" --quiet --wait --timeout 10m

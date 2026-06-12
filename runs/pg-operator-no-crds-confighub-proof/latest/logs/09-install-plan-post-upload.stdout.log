@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-pg-operator-no-crds-confighub-proof (post-render):
+      Deployment/pg-operator [operator] docker.io/percona/percona-postgresql-operator:3.0.0

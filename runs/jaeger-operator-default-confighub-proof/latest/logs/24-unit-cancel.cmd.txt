@@ -1,0 +1,1 @@
+cub unit cancel --space helm-jaeger-operator-default-confighub-proof --where "Labels.Proof = 'jaeger-operator-default-confighub-proof'"

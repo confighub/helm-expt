@@ -1,0 +1,4 @@
+Failed: HTTP 422 for req YAYfzYVOgXqZaQOjSkmrZlEPqpFaogRK: cannot invoke action on a unit without a target
+Details:
+  failed to apply entity
+

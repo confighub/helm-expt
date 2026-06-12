@@ -1,0 +1,75 @@
+--- helm-goldilocks-default-confighub-proof/deployment-default-goldilocks-dashboard/1
++++ helm-goldilocks-default-confighub-proof/deployment-default-goldilocks-dashboard/2
+@@ -25,39 +29,33 @@
+         app.kubernetes.io/name: goldilocks
+     spec:
+       containers:
+-        - command:
+-            - /goldilocks
+-            - dashboard
+-            - --exclude-containers=linkerd-proxy,istio-proxy
+-            - -v2
+-          image: us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1
+-          imagePullPolicy: Always
+-          livenessProbe:
+-            httpGet:
+-              path: /health
+-              port: http
+-          name: goldilocks
+-          ports:
+-            - containerPort: 8080
+-              name: http
+-              protocol: TCP
+-          readinessProbe:
+-            httpGet:
+-              path: /health
+-              port: http
+-          resources:
+-            limits: {}
+-            requests:
+-              cpu: 25m
+-              memory: 256Mi
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: true
+-            runAsNonRoot: true
+-            runAsUser: 10324
++      - command:
++        - /goldilocks
++        - dashboard
++        - --exclude-containers=linkerd-proxy,istio-proxy
++        - -v2
++        image: us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1
++        imagePullPolicy: Always
++        livenessProbe:
++          httpGet:
++            path: /health
++            port: http
++        name: goldilocks
++        ports:
++        - containerPort: 8080
++          name: http
++          protocol: TCP
++        readinessProbe:
++          httpGet:
++            path: /health
++            port: http
++        resources:
++          limits: {}
++          requests:
++            cpu: 25m
++            memory: 256Mi
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++          runAsNonRoot: true
++          runAsUser: 10324
+       securityContext:
+         seccompProfile:
+           type: RuntimeDefault

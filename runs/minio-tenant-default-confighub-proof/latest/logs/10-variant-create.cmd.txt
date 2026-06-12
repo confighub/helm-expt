@@ -1,0 +1,1 @@
+cub variant create staging helm-minio-tenant-default-confighub-proof --environment Staging --region local --space-name-pattern template:MinioTenant-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

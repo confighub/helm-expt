@@ -1,0 +1,5 @@
+Bundled crossplane-stable-crossplane@
+  output: .tmp/confighub-proof/crossplane-default-archives/crossplane-b.tgz
+  files:  4
+  size:   3433 bytes
+  digest: sha256:243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016

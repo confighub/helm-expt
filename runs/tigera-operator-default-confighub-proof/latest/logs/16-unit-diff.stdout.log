@@ -1,0 +1,80 @@
+--- helm-tigera-operator-default-confighub-proof/deployment-default-tigera-operator/1
++++ helm-tigera-operator-default-confighub-proof/deployment-default-tigera-operator/2
+@@ -17,32 +21,26 @@
+         name: tigera-operator
+     spec:
+       containers:
+-        - args:
+-            - -manage-crds=true
+-          command:
+-            - operator
+-          env:
+-            - name: WATCH_NAMESPACE
+-              value: ""
+-            - name: POD_NAME
+-              valueFrom:
+-                fieldRef:
+-                  fieldPath: metadata.name
+-            - name: OPERATOR_NAME
+-              value: tigera-operator
+-            - name: TIGERA_OPERATOR_INIT_IMAGE_VERSION
+-              value: v1.42.0
+-          envFrom:
+-            - configMapRef:
+-                name: kubernetes-services-endpoint
+-                optional: true
+-          image: quay.io/tigera/operator:v1.42.0
+-          imagePullPolicy: IfNotPresent
+-          name: tigera-operator
+-          volumeMounts:
+-            - mountPath: /var/lib/calico
+-              name: var-lib-calico
+-              readOnly: true
++      - args:
++        - -manage-crds=true
++        command:
++        - operator
++        env:
++        - name: WATCH_NAMESPACE
++          value: ""
++        - name: POD_NAME
++          valueFrom:
++            fieldRef:
++              fieldPath: metadata.name
++        - name: OPERATOR_NAME
++          value: tigera-operator
++        - name: TIGERA_OPERATOR_INIT_IMAGE_VERSION
++          value: v1.42.0
++        envFrom:
++        - configMapRef:
++            name: kubernetes-services-endpoint
++            optional: true
++        image: quay.io/tigera/operator:v1.42.0
++        imagePullPolicy: IfNotPresent
++        name: tigera-operator
++        volumeMounts:
++        - mountPath: /var/lib/calico
++          name: var-lib-calico
++          readOnly: true
+       dnsPolicy: ClusterFirstWithHostNet
+       hostNetwork: true
+       nodeSelector:
+@@ -52,11 +56,7 @@
+       serviceAccountName: tigera-operator
+       terminationGracePeriodSeconds: 60
+       tolerations:
+-        - effect: NoExecute
+-          operator: Exists
+-        - effect: NoSchedule
+-          operator: Exists
++      - effect: NoExecute
++        operator: Exists
++      - effect: NoSchedule
++        operator: Exists
+       volumes:
+-        - hostPath:
+-            path: /var/lib/calico
+-          name: var-lib-calico
++      - hostPath:
++          path: /var/lib/calico
++        name: var-lib-calico

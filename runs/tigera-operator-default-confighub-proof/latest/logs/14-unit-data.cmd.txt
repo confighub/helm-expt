@@ -1,0 +1,1 @@
+cub unit data deployment-default-tigera-operator --space helm-tigera-operator-default-confighub-proof

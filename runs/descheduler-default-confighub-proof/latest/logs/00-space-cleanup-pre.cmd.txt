@@ -1,0 +1,1 @@
+cub space delete --space "helm-descheduler-default-confighub-proof,Descheduler-default-staging" --recursive-force

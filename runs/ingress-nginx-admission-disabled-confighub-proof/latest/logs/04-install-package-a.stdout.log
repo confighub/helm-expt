@@ -1,0 +1,5 @@
+Bundled ingress-nginx-ingress-nginx@
+  output: .tmp/confighub-proof/ingress-nginx-admission-disabled-archives/ingress-nginx-a.tgz
+  files:  9
+  size:   3887 bytes
+  digest: sha256:7a128d36ff637796c08d8aaa8d2bea2ac8dfc0bc9b4add8f6be0e7dd869551c5

@@ -1,0 +1,5 @@
+No changes.
+
+Images in helm-goldilocks-default-confighub-proof (post-render):
+      Deployment/goldilocks-controller [goldilocks] us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1
+      Deployment/goldilocks-dashboard [goldilocks] us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1

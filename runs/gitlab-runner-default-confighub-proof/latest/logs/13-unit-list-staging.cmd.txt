@@ -1,0 +1,1 @@
+cub unit list --space GitlabRunner-default-staging --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

@@ -1,0 +1,8 @@
+== nats-surveyor@ → Space helm-surveyor-default-confighub-proof ==
+Successfully created unit deployment-surveyor (8015fb12-ebc8-4ae0-ad05-dfdf89c1a632)
+Successfully created unit namespace-default (80e143b7-d4ab-4460-8c1d-9426d87fbed3)
+Successfully created unit service-surveyor (d78ef6b7-54a9-432a-bcff-84a7385fa211)
+Successfully created unit serviceaccount-surveyor (f7e0add8-9d68-4d18-8d49-2e4d4a39e1de)
+Successfully created unit installer-record (b17e384f-e49d-465e-b09a-f3298ca3bbc2)
+Linked deployment-surveyor -> serviceaccount-surveyor (reference:v1/ServiceAccount)
+Linked service-surveyor -> deployment-surveyor (selector)

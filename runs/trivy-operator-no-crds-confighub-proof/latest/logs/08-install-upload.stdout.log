@@ -1,0 +1,54 @@
+== aqua-trivy-operator@ → Space helm-trivy-operator-no-crds-confighub-proof ==
+Successfully created unit clustercompliancereport-k8s-cis-1-23 (c059e1cd-42fa-4227-b4bd-a1a8a70a8f46)
+Successfully created unit clustercompliancereport-k8s-nsa-1-0 (6c85900d-a385-47bc-b4eb-366bc5b3f3be)
+Successfully created unit clustercompliancereport-k8s-pss-baseline-0-1 (90a03d27-be4c-40d9-bb6a-a62ad9b9839e)
+Successfully created unit clustercompliancereport-k8s-pss-restricted-0-1 (1728fbbc-5042-4154-a384-28a2170abd15)
+Successfully created unit clusterrole-aggregate-config-audit-reports-view (ecbb03ee-99b6-4746-abec-7608d0dbc0e8)
+Successfully created unit clusterrole-aggregate-exposed-secret-reports-view (dcbc963d-a28e-4d56-a5ad-0ec5045ef5d4)
+Successfully created unit clusterrole-aggregate-vulnerability-reports-view (8e4c276e-0fb0-40c1-9c27-a5da409fdbd3)
+Successfully created unit clusterrole-trivy-operator (9ae6bb43-0ffb-4081-a650-71ee28e9b8f7)
+Successfully created unit clusterrolebinding-trivy-operator (999ff88e-5b99-4e2c-b849-5b8d7cc659d8)
+Successfully created unit configmap-default-trivy-operator-config (f5ead86a-c1d9-4309-a200-b9ac94ce8cfc)
+Successfully created unit configmap-default-trivy-operator-trivy-config (7cc8d3d1-e41a-4f99-9092-04deb0e04da1)
+Successfully created unit configmap-default-trivy-operator (5ac6e756-1ca5-4644-aa38-7d98cc7c7feb)
+Successfully created unit deployment-default-trivy-operator (5cb703c1-6775-4a4a-bcfc-2286e4e09fc9)
+Successfully created unit namespace-default (53240abb-bab5-4820-a0e5-568bb9760102)
+Successfully created unit role-default-trivy-operator-leader-election (67876a18-c028-48fa-ad78-4812f2698a92)
+Successfully created unit role-default-trivy-operator (efad5e02-0228-484a-90df-466bc7b480ad)
+Successfully created unit rolebinding-default-trivy-operator-leader-election (d2f42307-a8f1-4ba4-b754-80aabec6ecd8)
+Successfully created unit rolebinding-default-trivy-operator (077539f1-7246-49ff-ab7b-d4eeb13258da)
+Successfully created unit service-default-trivy-operator (a2c3df4a-1b1f-42ea-b2e6-e3906be8c1c9)
+Successfully created unit serviceaccount-default-trivy-operator (8fdacff6-2546-4e7e-9834-7e19e0cda48d)
+Successfully created unit installer-record (bf73dfcf-448b-48c1-83e3-15fea65af3be)
+Linked clusterrolebinding-trivy-operator -> clusterrole-trivy-operator (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-trivy-operator -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-trivy-operator -> serviceaccount-default-trivy-operator (reference:v1/ServiceAccount)
+Linked configmap-default-trivy-operator -> namespace-default (reference:v1/Namespace)
+Linked configmap-default-trivy-operator-config -> namespace-default (reference:v1/Namespace)
+Linked configmap-default-trivy-operator-trivy-config -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-trivy-operator -> configmap-default-trivy-operator-config (reference:v1/ConfigMap)
+Linked deployment-default-trivy-operator -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-trivy-operator -> serviceaccount-default-trivy-operator (reference:v1/ServiceAccount)
+Linked role-default-trivy-operator -> namespace-default (reference:v1/Namespace)
+Linked role-default-trivy-operator-leader-election -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-trivy-operator -> clusterrole-trivy-operator (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked rolebinding-default-trivy-operator -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-trivy-operator -> serviceaccount-default-trivy-operator (reference:v1/ServiceAccount)
+Linked rolebinding-default-trivy-operator-leader-election -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-trivy-operator-leader-election -> serviceaccount-default-trivy-operator (reference:v1/ServiceAccount)
+Linked service-default-trivy-operator -> deployment-default-trivy-operator (selector)
+Linked service-default-trivy-operator -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-trivy-operator -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - rolebinding-default-trivy-operator-leader-election -> rbac.authorization.k8s.io/v1/ClusterRole "trivy-operator-leader-election"
+
+Note: 2 rendered Secret(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/trivy-operator-no-crds/out/secrets were NOT uploaded to ConfigHub.
+Apply them out-of-band (e.g., `kubectl apply -f`) or stage them however your
+environment manages secrets:
+  - v1/Secret "default/trivy-operator-trivy-config" (secret-default-trivy-operator-trivy-config.yaml)
+  - v1/Secret "default/trivy-operator" (secret-default-trivy-operator.yaml)

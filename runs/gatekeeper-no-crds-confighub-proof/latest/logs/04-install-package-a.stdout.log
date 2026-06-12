@@ -1,0 +1,5 @@
+Bundled gatekeeper-gatekeeper@
+  output: .tmp/confighub-proof/gatekeeper-no-crds-archives/gatekeeper-a.tgz
+  files:  6
+  size:   16892 bytes
+  digest: sha256:bb507b5109358e57ef8eb5d69ab0b35792dbd2c2f7c9c9b6923b3ff13a301531

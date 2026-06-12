@@ -1,0 +1,1 @@
+cub unit diff statefulset-vault-vault --space helm-vault-ha-raft-ui-confighub-proof --from 1 --to HeadRevisionNum -u

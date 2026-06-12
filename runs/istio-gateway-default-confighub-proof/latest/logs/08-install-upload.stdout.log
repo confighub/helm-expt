@@ -1,0 +1,26 @@
+== istio-gateway@ → Space helm-istio-gateway-default-confighub-proof ==
+Successfully created unit deployment-default-gateway (b4d7b75a-6ed9-432d-b448-f7d3db299b7b)
+Successfully created unit horizontalpodautoscaler-default-gateway (a0b74703-9c3c-4ef6-bfff-b5c27512c9de)
+Successfully created unit namespace-default (2f309d2c-8784-400d-900d-3a23f0fa134d)
+Successfully created unit role-default-gateway (07c538f2-5a13-4a92-98b3-fe50f6426fd7)
+Successfully created unit rolebinding-default-gateway (c7f60979-5101-4f8e-9458-794f945d38db)
+Successfully created unit service-default-gateway (71e5b329-6dd2-4a50-8a3d-eec9de16d970)
+Successfully created unit serviceaccount-default-gateway (31c36a2c-a8ee-4503-ac61-942e89c6dcb8)
+Successfully created unit installer-record (46396ca3-58e9-4694-8ab9-71477439a5ed)
+Linked deployment-default-gateway -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-gateway -> serviceaccount-default-gateway (reference:v1/ServiceAccount)
+Linked horizontalpodautoscaler-default-gateway -> namespace-default (reference:v1/Namespace)
+Linked role-default-gateway -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-gateway -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-gateway -> role-default-gateway (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-gateway -> serviceaccount-default-gateway (reference:v1/ServiceAccount)
+Linked service-default-gateway -> deployment-default-gateway (selector)
+Linked service-default-gateway -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-gateway -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - horizontalpodautoscaler-default-gateway -> v1/ReplicationController "gateway"

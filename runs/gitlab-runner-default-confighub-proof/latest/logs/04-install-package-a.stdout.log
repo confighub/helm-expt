@@ -1,0 +1,5 @@
+Bundled gitlab-gitlab-runner@
+  output: .tmp/confighub-proof/gitlab-runner-default-archives/gitlab-runner-a.tgz
+  files:  4
+  size:   2750 bytes
+  digest: sha256:e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e

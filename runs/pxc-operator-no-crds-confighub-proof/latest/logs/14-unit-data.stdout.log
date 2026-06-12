@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: pxc-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: pxc-operator
+    app.kubernetes.io/version: 1.19.1
+    helm.sh/chart: pxc-operator-1.19.1
+  name: pxc-operator
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: operator
+      app.kubernetes.io/instance: pxc-operator
+      app.kubernetes.io/name: pxc-operator
+      app.kubernetes.io/part-of: pxc-operator
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: operator
+        app.kubernetes.io/instance: pxc-operator
+        app.kubernetes.io/name: pxc-operator
+        app.kubernetes.io/part-of: pxc-operator
+    spec:
+      containers:
+      - command:
+        - percona-xtradb-cluster-operator
+        env:
+        - name: WATCH_NAMESPACE
+          value: default
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: OPERATOR_NAME
+          value: pxc-operator
+        - name: LOG_STRUCTURED
+          value: "false"
+        - name: LOG_LEVEL
+          value: INFO
+        - name: DISABLE_TELEMETRY
+          value: "false"
+        - name: MAX_CONCURRENT_RECONCILES
+          value: "1"
+        - name: S3_WORKERS_LIMIT
+          value: "10"
+        - name: PXCO_FEATURE_GATES
+          value: XtrabackupSidecar=false
+        image: percona/percona-xtradb-cluster-operator:1.19.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /metrics
+            port: metrics
+            scheme: HTTP
+        name: percona-xtradb-cluster-operator
+        ports:
+        - containerPort: 8080
+          name: metrics
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 20Mi
+      serviceAccountName: pxc-operator
+      terminationGracePeriodSeconds: 600

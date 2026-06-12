@@ -1,0 +1,5 @@
+Bundled metrics-server-metrics-server@
+  output: .tmp/confighub-proof/metrics-server-external-tls-ca-archives/metrics-server-a.tgz
+  files:  7
+  size:   3072 bytes
+  digest: sha256:a1e45ff0234dd3bd16d413ce2e43fb52ae463a8e717e65f0ff3d57a35ac84299

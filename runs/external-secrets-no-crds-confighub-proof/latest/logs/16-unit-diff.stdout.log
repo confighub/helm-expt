@@ -1,0 +1,88 @@
+--- helm-external-secrets-no-crds-confighub-proof/deployment-external-secrets-external-secrets-cert-controller/1
++++ helm-external-secrets-no-crds-confighub-proof/deployment-external-secrets-external-secrets-cert-controller/2
+@@ -27,45 +31,40 @@
+     spec:
+       automountServiceAccountToken: true
+       containers:
+-        - args:
+-            - certcontroller
+-            - --crd-requeue-interval=5m
+-            - --service-name=external-secrets-webhook
+-            - --service-namespace=external-secrets
+-            - --secret-name=external-secrets-webhook
+-            - --secret-namespace=external-secrets
+-            - --metrics-addr=:8080
+-            - --healthz-addr=:8081
+-            - --loglevel=info
+-            - --zap-time-encoding=epoch
+-          image: ghcr.io/external-secrets/external-secrets:v2.5.0
+-          imagePullPolicy: IfNotPresent
+-          name: cert-controller
+-          ports:
+-            - containerPort: 8080
+-              name: metrics
+-              protocol: TCP
+-            - containerPort: 8081
+-              name: ready
+-              protocol: TCP
+-          readinessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /readyz
+-              port: ready
+-            initialDelaySeconds: 20
+-            periodSeconds: 5
+-            successThreshold: 1
+-            timeoutSeconds: 5
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: true
+-            runAsNonRoot: true
+-            runAsUser: 1000
+-            seccompProfile:
+-              type: RuntimeDefault
++      - args:
++        - certcontroller
++        - --crd-requeue-interval=5m
++        - --service-name=external-secrets-webhook
++        - --service-namespace=external-secrets
++        - --secret-name=external-secrets-webhook
++        - --secret-namespace=external-secrets
++        - --metrics-addr=:8080
++        - --healthz-addr=:8081
++        - --loglevel=info
++        - --zap-time-encoding=epoch
++        image: ghcr.io/external-secrets/external-secrets:v2.5.0
++        imagePullPolicy: IfNotPresent
++        name: cert-controller
++        ports:
++        - containerPort: 8080
++          name: metrics
++          protocol: TCP
++        - containerPort: 8081
++          name: ready
++          protocol: TCP
++        readinessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /readyz
++            port: ready
++          initialDelaySeconds: 20
++          periodSeconds: 5
++          successThreshold: 1
++          timeoutSeconds: 5
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++          runAsNonRoot: true
++          runAsUser: 1000
++          seccompProfile:
++            type: RuntimeDefault
+       hostNetwork: false
+       serviceAccountName: external-secrets-cert-controller

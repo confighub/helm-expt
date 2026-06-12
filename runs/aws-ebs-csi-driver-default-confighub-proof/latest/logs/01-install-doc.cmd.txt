@@ -1,0 +1,1 @@
+cub installer doc packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --json

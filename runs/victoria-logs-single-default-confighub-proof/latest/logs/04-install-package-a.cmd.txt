@@ -1,0 +1,1 @@
+cub installer package packages/vm/victoria-logs-single/0.12.5 -o .tmp/confighub-proof/victoria-logs-single-default-archives/victoria-logs-single-a.tgz

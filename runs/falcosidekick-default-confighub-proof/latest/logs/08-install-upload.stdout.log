@@ -1,0 +1,28 @@
+== falcosecurity-falcosidekick@ → Space helm-falcosidekick-default-confighub-proof ==
+Successfully created unit deployment-default-falcosidekick (b9d7c2c2-8ee1-4831-a54e-72cbaa9fe03c)
+Successfully created unit namespace-default (c635f2de-01bb-43a6-8d83-bd21c1f946e2)
+Successfully created unit role-default-falcosidekick (82559f59-06bc-4afe-96b4-f5cd78eb199d)
+Successfully created unit rolebinding-default-falcosidekick (8e0dceab-6801-4f5f-bade-3d88f79ba6f4)
+Successfully created unit service-default-falcosidekick (c5b5cd2f-92eb-45aa-8f37-3bf6fbad02c5)
+Successfully created unit serviceaccount-default-falcosidekick (b8cba53e-24e4-4bd4-801e-bdb395b4af33)
+Successfully created unit installer-record (d443520d-56d7-4c93-b9e8-d78082951d65)
+Linked deployment-default-falcosidekick -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-falcosidekick -> serviceaccount-default-falcosidekick (reference:v1/ServiceAccount)
+Linked role-default-falcosidekick -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-falcosidekick -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-falcosidekick -> serviceaccount-default-falcosidekick (reference:v1/ServiceAccount)
+Linked service-default-falcosidekick -> deployment-default-falcosidekick (selector)
+Linked service-default-falcosidekick -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-falcosidekick -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - rolebinding-default-falcosidekick -> rbac.authorization.k8s.io/v1/ClusterRole "falcosidekick"
+
+Note: 1 rendered Secret(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/falcosidekick-default/out/secrets were NOT uploaded to ConfigHub.
+Apply them out-of-band (e.g., `kubectl apply -f`) or stage them however your
+environment manages secrets:
+  - v1/Secret "default/falcosidekick" (secret-default-falcosidekick.yaml)

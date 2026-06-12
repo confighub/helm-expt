@@ -1,0 +1,5 @@
+Bundled open-telemetry-opentelemetry-operator@
+  output: .tmp/confighub-proof/opentelemetry-operator-no-crds-archives/opentelemetry-operator-b.tgz
+  files:  7
+  size:   42104 bytes
+  digest: sha256:e7089ed3f2f16699e8a0713beee3c6af770ac7d877012e2a2ae2aa3b65dfd86b

@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-haproxy-ingress-default-confighub-proof', 'HaproxyIngress-default-staging')

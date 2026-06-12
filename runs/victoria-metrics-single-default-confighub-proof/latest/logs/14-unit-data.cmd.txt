@@ -1,0 +1,1 @@
+cub unit data statefulset-default-victoria-metrics-single-server --space helm-victoria-metrics-single-default-confighub-proof

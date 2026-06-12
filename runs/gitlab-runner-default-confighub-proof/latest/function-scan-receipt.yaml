@@ -1,0 +1,59 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "gitlab-runner-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-gitlab-runner-default-confighub-proof"
+    selector: "Labels.Proof = 'gitlab-runner-default-confighub-proof'"
+  subject:
+    chart: "gitlab/gitlab-runner"
+    chartVersion: "0.89.0"
+    packagePath: "packages/gitlab/gitlab-runner/0.89.0"
+    variant: "default"
+    configHubUnitCount: 3
+  unitRevisionBindings:
+    -
+      slug: "configmap-default-gitlab-runner"
+      headRevisionNum: 1
+      dataHash: "9a82772ddd8b812e63f0df69019de0af0b94b4df27c5a9e0543b866cb750ce5a"
+    -
+      slug: "deployment-default-gitlab-runner"
+      headRevisionNum: 2
+      dataHash: "f1bc903deb6fcd3fafc9ceb541a824b98b665aade9ee566b27bdd8325dda02b5"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 3
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 3
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 3
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

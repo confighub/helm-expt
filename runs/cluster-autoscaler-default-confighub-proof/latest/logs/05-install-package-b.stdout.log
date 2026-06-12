@@ -1,0 +1,5 @@
+Bundled autoscaler-cluster-autoscaler@
+  output: .tmp/confighub-proof/cluster-autoscaler-default-archives/cluster-autoscaler-b.tgz
+  files:  6
+  size:   1534 bytes
+  digest: sha256:351121a8d10b6a6fa0ba0a81b1d5345038f25968c117c5ae4dc9c4e1a7474b8d

@@ -1,0 +1,5 @@
+Bundled vm-victoria-logs-single@
+  output: .tmp/confighub-proof/victoria-logs-single-default-archives/victoria-logs-single-b.tgz
+  files:  4
+  size:   1359 bytes
+  digest: sha256:7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406

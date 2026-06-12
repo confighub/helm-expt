@@ -1,0 +1,1 @@
+cub installer plan --work-dir .tmp/confighub-proof/cluster-autoscaler-default

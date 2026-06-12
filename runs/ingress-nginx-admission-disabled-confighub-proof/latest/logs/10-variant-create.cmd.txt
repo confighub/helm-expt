@@ -1,0 +1,1 @@
+cub variant create staging helm-ingress-nginx-admission-disabled-confighub-proof --environment Staging --region local --space-name-pattern template:IngressNGINX-admission-disabled-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

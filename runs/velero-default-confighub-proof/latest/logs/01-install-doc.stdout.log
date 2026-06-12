@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "velero-velero"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "velero/velero default variant rendered from velero/velero@12.0.1"
+      },
+      {
+        "name": "no-crds",
+        "path": "bases/no-crds",
+        "description": "velero/velero no-crds variant rendered from velero/velero@12.0.1"
+      }
+    ]
+  }
+}

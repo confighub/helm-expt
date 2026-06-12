@@ -1,0 +1,1256 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fc750b89d5cd6122d8f63263b098a6daee1dcc392e654df447ccbdff1888a29e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2ff71c2c-c671-415d-8950-d002d829217b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7f2a201eaa513ec23b8abb420eb5490fc0c7da30f77a8061af779e28646e13f3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3166888a-9d5b-4815-a398-d035dd0b514f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 19
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1e9ad74787184e0207846ed87cafbeb1321cce9e70e184d4c4a6c622c53e6b00",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vault-agent-injector-clusterrole",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "da01c08f-04fd-434b-955c-b331794ea993",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6577bf1dc532a7ca9a4c6d97690c517c330999d4ef47b72953eed2e72e7b82d8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vault-agent-injector-binding",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "87db9806-54be-4701-a6b4-d1822f63a55c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8543c5f09fdcba8826bf567ebfc474682cf38f23eb46248f605c9f7987ec616a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vault-server-binding",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4b879074-31d5-4856-8df7-241c2c185247",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "318fd740c91194023cae2396873bd768cc31eade99d46e18339ae2eba4976078",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-vault-vault-config",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6af9cfa5-074b-4bb6-b0f4-6cadd6b9eedd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ab57341985beae19e9b08514c603b7ea6d418c69bc1c09c94ab48e651fa1a851",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-vault-vault-agent-injector",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9e848f31-29f8-4fa8-88dc-abd39bd405de",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8f94bf37b5a2c1e0aa00eadecf5efc7d17f789bcd52a9b226b83507e017b3c02",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-vault-agent-injector-cfg",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4093223e-15f5-4276-9104-6fa71f6b4e3c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "af3b86148996fc629418b095878a1ed22326216159e7408c860461a53420a56c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-vault-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d34e0c5a-5ef0-4254-bb16-0d097339624f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 8
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "657e89dd6b6f059bf47b2f28ecaadac8bf98d7af1840ad9ad20de7030854a58f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-vault-vault-discovery-role",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "18d1e889-5d1b-49f4-9a8b-e528cca9b1ce",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8fa9a15e1187c6d039bca72af8eab45122d0b4feb06fe6b0376e82cafcd7dcc5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-vault-vault-discovery-rolebinding",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7ce1a6ae-29c2-45e8-926c-222fe01ffbec",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "192281d313c3c108f8d111978f4e061fc9d12d9518b02418fec6e6b8abdc828f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0bcc68dd-a6d5-48f4-b60b-ed5291830463",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c55910981e31de7e2f9a99adfe8a0e2f64e4fd8e4b1b59bd0986f8b3ebf6d811",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-active",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8ef73e1a-245d-4321-9910-30f12a1760fc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a12b31d1f78220b4df6cc43f07d865f78e2820fffcebd14bc24e496d61c9dd3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-agent-injector-svc",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4fb5ec2e-a0c6-4f22-8c20-597f2c7c50c7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8b76cd13f7277cde27e31a864ce917b44004acdfa566df42d6b7ab305b7c0b8d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-internal",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e5b75b44-51b2-4568-9915-f615c24b32b8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2ec1bbd6a4362668f730b537c048b453bf292c60388a420bd83ddfcbbdca3589",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-standby",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "30142ad5-d2ee-4e2e-9d22-271d18225c8f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7b46e3cccb5426f6f5e3316feb21b65b056ba20331fdbe9e2b75cb2722e211bd",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-vault-vault-ui",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5fb3a430-75ee-45f8-aa9f-dd9b0b66588a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8b5b5c11236575c524e0acb8485856778d74dec45315bc3ea369b078536dd7da",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-vault-vault",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "929940a4-b9bb-4c1a-b98f-bb83a1a22bc7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:14:20.962585Z",
+      "CursorID": 4681,
+      "DisplayName": "helm-vault-ha-raft-ui-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Vault",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "ha-raft-ui"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vault-ha-raft-ui-confighub-proof",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "UpdatedAt": "2026-06-12T17:14:21.501728Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fdf5a05d-a972-428c-a607-277939357e79'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "94292a2e5b53ac3810f96f1b35b93315abd678512a13b441266ecd92112a000e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Vault",
+        "HelmChart": "hashicorp-vault",
+        "HelmChartVersion": "0.32.0",
+        "Package": "hashicorp-vault",
+        "Proof": "vault-ha-raft-ui-confighub-proof",
+        "Variant": "ha-raft-ui"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-vault-vault-agent-injector",
+      "SpaceID": "fdf5a05d-a972-428c-a607-277939357e79",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1cd7b708-9a57-42e7-8e50-91928a90daec",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

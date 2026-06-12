@@ -1,0 +1,1207 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:39:54.268964Z",
+        "CursorID": 21880,
+        "DisplayName": "Upgrade clusterrolebinding-coredns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5c8b24cc-4e76-4843-9228-898069740168",
+        "LinkID": "97ff3ddf-c33a-4ea4-a42e-f5bd0a484861",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-coredns",
+        "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+        "SpaceSlug": "Coredns-staging",
+        "ToSpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+        "ToUnitID": "77f58d98-d0b0-449d-8ff5-2574ec2d08f3",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:39:54.268964Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '77f58d98-d0b0-449d-8ff5-2574ec2d08f3' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:39:54.087433Z",
+      "CursorID": 4564,
+      "DisplayName": "helm-coredns-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Coredns",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Coredns-staging",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "UpdatedAt": "2026-06-12T16:39:54.087433Z",
+      "WhereTrigger": "SpaceID = '5a63d4c1-ce65-46b8-a2aa-5e26a543f22a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "782479b4d33f4dffff69bde9bb9b817aa8f298365f5b705b9cefa870cd79b2e0",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "97ff3ddf-c33a-4ea4-a42e-f5bd0a484861"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-coredns",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c8b24cc-4e76-4843-9228-898069740168",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "77f58d98-d0b0-449d-8ff5-2574ec2d08f3",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1471645710,
+      "CreatedAt": "2026-06-12T16:39:30.225831Z",
+      "CursorID": 27281,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNvcmVkbnMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGNvcmVkbnMKICAgIGhlbG0uc2gvY2hhcnQ6IGNvcmVkbnMtMS40NS4yCiAgICBrOHMtYXBwOiBjb3JlZG5zCiAgICBrdWJlcm5ldGVzLmlvL2NsdXN0ZXItc2VydmljZTogInRydWUiCiAgICBrdWJlcm5ldGVzLmlvL25hbWU6IENvcmVETlMKICBuYW1lOiBjb3JlZG5zCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IGNvcmVkbnMKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBkZWZhdWx0CiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "782479b4d33f4dffff69bde9bb9b817aa8f298365f5b705b9cefa870cd79b2e0",
+      "DisplayName": "clusterrolebinding-coredns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Coredns",
+        "HelmChart": "coredns-coredns",
+        "HelmChartVersion": "1.45.2",
+        "Package": "coredns-coredns",
+        "Proof": "coredns-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/coredns": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/coredns",
+            "ResourceNameWithoutScope": "coredns",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: coredns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: coredns\n    helm.sh/chart: coredns-1.45.2\n    k8s-app: coredns\n    kubernetes.io/cluster-service: \"true\"\n    kubernetes.io/name: CoreDNS\n  name: coredns\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: coredns\nsubjects:\n- kind: ServiceAccount\n  name: default\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-coredns",
+      "SpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "77f58d98-d0b0-449d-8ff5-2574ec2d08f3",
+      "UpdatedAt": "2026-06-12T16:39:42.391386Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:39:54.295984Z",
+        "CursorID": 21881,
+        "DisplayName": "Upgrade clusterrole-coredns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9a6a1d68-94b4-4b8d-bc60-c6da6365be0e",
+        "LinkID": "6158ec96-c62a-44a0-a6c7-08b220abfaac",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-coredns",
+        "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+        "SpaceSlug": "Coredns-staging",
+        "ToSpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+        "ToUnitID": "93ebd73e-ebc9-47eb-a93b-f7e7f2284c60",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:39:54.295984Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '93ebd73e-ebc9-47eb-a93b-f7e7f2284c60' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:39:54.087433Z",
+      "CursorID": 4564,
+      "DisplayName": "helm-coredns-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Coredns",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Coredns-staging",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "UpdatedAt": "2026-06-12T16:39:54.087433Z",
+      "WhereTrigger": "SpaceID = '5a63d4c1-ce65-46b8-a2aa-5e26a543f22a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "24e29579cff2562edf519a11e7da4fdeed0d8c4d9191b804f91758e84e64f16c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "6158ec96-c62a-44a0-a6c7-08b220abfaac"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-coredns",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9a6a1d68-94b4-4b8d-bc60-c6da6365be0e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "93ebd73e-ebc9-47eb-a93b-f7e7f2284c60",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -99804951,
+      "CreatedAt": "2026-06-12T16:39:29.34831Z",
+      "CursorID": 27280,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY29yZWRucwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY29yZWRucwogICAgaGVsbS5zaC9jaGFydDogY29yZWRucy0xLjQ1LjIKICAgIGs4cy1hcHA6IGNvcmVkbnMKICAgIGt1YmVybmV0ZXMuaW8vY2x1c3Rlci1zZXJ2aWNlOiAidHJ1ZSIKICAgIGt1YmVybmV0ZXMuaW8vbmFtZTogQ29yZUROUwogIG5hbWU6IGNvcmVkbnMKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBlbmRwb2ludHMKICAtIHNlcnZpY2VzCiAgLSBwb2RzCiAgLSBuYW1lc3BhY2VzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGRpc2NvdmVyeS5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBlbmRwb2ludHNsaWNlcwogIHZlcmJzOgogIC0gbGlzdAogIC0gd2F0Y2gK",
+      "DataHash": "24e29579cff2562edf519a11e7da4fdeed0d8c4d9191b804f91758e84e64f16c",
+      "DisplayName": "clusterrole-coredns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Coredns",
+        "HelmChart": "coredns-coredns",
+        "HelmChartVersion": "1.45.2",
+        "Package": "coredns-coredns",
+        "Proof": "coredns-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/coredns": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/coredns",
+            "ResourceNameWithoutScope": "coredns",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: coredns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: coredns\n    helm.sh/chart: coredns-1.45.2\n    k8s-app: coredns\n    kubernetes.io/cluster-service: \"true\"\n    kubernetes.io/name: CoreDNS\n  name: coredns\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - endpoints\n  - services\n  - pods\n  - namespaces\n  verbs:\n  - list\n  - watch\n- apiGroups:\n  - discovery.k8s.io\n  resources:\n  - endpointslices\n  verbs:\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/coredns",
+          "ResourceNameWithoutScope": "coredns",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-coredns",
+      "SpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "93ebd73e-ebc9-47eb-a93b-f7e7f2284c60",
+      "UpdatedAt": "2026-06-12T16:39:34.936915Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:39:54.319749Z",
+        "CursorID": 21882,
+        "DisplayName": "Upgrade configmap-default-coredns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f718ffb6-8e73-43e9-af5f-eba678d44fa9",
+        "LinkID": "da611c8c-02f0-4a3f-b596-be6effebd931",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-coredns",
+        "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+        "SpaceSlug": "Coredns-staging",
+        "ToSpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+        "ToUnitID": "97e6a408-1ff2-4cc1-9156-4c4c141dff6f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:39:54.319749Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '97e6a408-1ff2-4cc1-9156-4c4c141dff6f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:39:54.087433Z",
+      "CursorID": 4564,
+      "DisplayName": "helm-coredns-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Coredns",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Coredns-staging",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "UpdatedAt": "2026-06-12T16:39:54.087433Z",
+      "WhereTrigger": "SpaceID = '5a63d4c1-ce65-46b8-a2aa-5e26a543f22a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0d08390128d7dac9d29e3b4100ec45a0e8ce2bf36542a06d8808e93ebadce1f6",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "da611c8c-02f0-4a3f-b596-be6effebd931"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-coredns",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f718ffb6-8e73-43e9-af5f-eba678d44fa9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "97e6a408-1ff2-4cc1-9156-4c4c141dff6f",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1008801374,
+      "CreatedAt": "2026-06-12T16:39:31.015401Z",
+      "CursorID": 27282,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBDb3JlZmlsZTogfC0KICAgIC46NTMgewogICAgICAgIGVycm9ycwogICAgICAgIGhlYWx0aCB7CiAgICAgICAgICAgIGxhbWVkdWNrIDEwcwogICAgICAgIH0KICAgICAgICByZWFkeQogICAgICAgIGt1YmVybmV0ZXMgY2x1c3Rlci5sb2NhbCBpbi1hZGRyLmFycGEgaXA2LmFycGEgewogICAgICAgICAgICBwb2RzIGluc2VjdXJlCiAgICAgICAgICAgIGZhbGx0aHJvdWdoIGluLWFkZHIuYXJwYSBpcDYuYXJwYQogICAgICAgICAgICB0dGwgMzAKICAgICAgICB9CiAgICAgICAgcHJvbWV0aGV1cyAwLjAuMC4wOjkxNTMKICAgICAgICBmb3J3YXJkIC4gL2V0Yy9yZXNvbHYuY29uZgogICAgICAgIGNhY2hlIDMwCiAgICAgICAgbG9vcAogICAgICAgIHJlbG9hZAogICAgICAgIGxvYWRiYWxhbmNlCiAgICB9CmtpbmQ6IENvbmZpZ01hcAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY29yZWRucwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY29yZWRucwogICAgaGVsbS5zaC9jaGFydDogY29yZWRucy0xLjQ1LjIKICAgIGs4cy1hcHA6IGNvcmVkbnMKICAgIGt1YmVybmV0ZXMuaW8vY2x1c3Rlci1zZXJ2aWNlOiAidHJ1ZSIKICAgIGt1YmVybmV0ZXMuaW8vbmFtZTogQ29yZUROUwogIG5hbWU6IGNvcmVkbnMKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "0d08390128d7dac9d29e3b4100ec45a0e8ce2bf36542a06d8808e93ebadce1f6",
+      "DisplayName": "configmap-default-coredns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Coredns",
+        "HelmChart": "coredns-coredns",
+        "HelmChartVersion": "1.45.2",
+        "Package": "coredns-coredns",
+        "Proof": "coredns-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 741 bytes; from configmap-default-coredns.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/coredns": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/coredns",
+            "ResourceNameWithoutScope": "coredns",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  Corefile: |-\n    .:53 {\n        errors\n        health {\n            lameduck 10s\n        }\n        ready\n        kubernetes cluster.local in-addr.arpa ip6.arpa {\n            pods insecure\n            fallthrough in-addr.arpa ip6.arpa\n            ttl 30\n        }\n        prometheus 0.0.0.0:9153\n        forward . /etc/resolv.conf\n        cache 30\n        loop\n        reload\n        loadbalance\n    }\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/instance: coredns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: coredns\n    helm.sh/chart: coredns-1.45.2\n    k8s-app: coredns\n    kubernetes.io/cluster-service: \"true\"\n    kubernetes.io/name: CoreDNS\n  name: coredns\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-Corefile": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/coredns",
+          "ResourceNameWithoutScope": "coredns",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-coredns",
+      "SpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "97e6a408-1ff2-4cc1-9156-4c4c141dff6f",
+      "UpdatedAt": "2026-06-12T16:39:43.478509Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:39:54.348979Z",
+        "CursorID": 21883,
+        "DisplayName": "Upgrade deployment-default-coredns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f5418998-eb2a-4f37-acba-35acac80fef3",
+        "LinkID": "d0357d1d-7109-48b6-a92b-c4d1d3b79dd2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-coredns",
+        "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+        "SpaceSlug": "Coredns-staging",
+        "ToSpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+        "ToUnitID": "e99946fd-23e2-44fc-840c-874e42b08dd5",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:39:54.348979Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e99946fd-23e2-44fc-840c-874e42b08dd5' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:39:54.087433Z",
+      "CursorID": 4564,
+      "DisplayName": "helm-coredns-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Coredns",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Coredns-staging",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "UpdatedAt": "2026-06-12T16:39:54.087433Z",
+      "WhereTrigger": "SpaceID = '5a63d4c1-ce65-46b8-a2aa-5e26a543f22a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ccc373201646dc76a9920bd297156d65cbbe1f1fa9fb16b07fdf61587a9a3bb3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d0357d1d-7109-48b6-a92b-c4d1d3b79dd2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-coredns",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f5418998-eb2a-4f37-acba-35acac80fef3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e99946fd-23e2-44fc-840c-874e42b08dd5",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -615898003,
+      "CreatedAt": "2026-06-12T16:39:31.777812Z",
+      "CursorID": 27283,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjb3JlZG5zCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjb3JlZG5zCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjEzLjEKICAgIGhlbG0uc2gvY2hhcnQ6IGNvcmVkbnMtMS40NS4yCiAgICBrOHMtYXBwOiBjb3JlZG5zCiAgICBrdWJlcm5ldGVzLmlvL2NsdXN0ZXItc2VydmljZTogInRydWUiCiAgICBrdWJlcm5ldGVzLmlvL25hbWU6IENvcmVETlMKICBuYW1lOiBjb3JlZG5zCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY29yZWRucwogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjb3JlZG5zCiAgICAgIGs4cy1hcHA6IGNvcmVkbnMKICBzdHJhdGVneToKICAgIHJvbGxpbmdVcGRhdGU6CiAgICAgIG1heFN1cmdlOiAyNSUKICAgICAgbWF4VW5hdmFpbGFibGU6IDEKICAgIHR5cGU6IFJvbGxpbmdVcGRhdGUKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczoKICAgICAgICBjaGVja3N1bS9jb25maWc6IDAxNTNlYWQ2NjA5NjE2ZGNjZjE3ZmY1MzNiYTIxZDQ2MTc5OTBiNWQ3YmJjODA3NGZkYTIzZWU3NDU4MDlkYzMKICAgICAgICBzY2hlZHVsZXIuYWxwaGEua3ViZXJuZXRlcy5pby90b2xlcmF0aW9uczogJ1t7ImtleSI6IkNyaXRpY2FsQWRkb25zT25seSIsICJvcGVyYXRvciI6IkV4aXN0cyJ9XScKICAgICAgbGFiZWxzOgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjb3JlZG5zCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY29yZWRucwogICAgICAgIGs4cy1hcHA6IGNvcmVkbnMKICAgIHNwZWM6CiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIC1jb25mCiAgICAgICAgLSAvZXRjL2NvcmVkbnMvQ29yZWZpbGUKICAgICAgICBpbWFnZTogY29yZWRucy9jb3JlZG5zOjEuMTMuMQogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDUKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGgKICAgICAgICAgICAgcG9ydDogODA4MAogICAgICAgICAgICBzY2hlbWU6IEhUVFAKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDYwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAxMAogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDUKICAgICAgICBuYW1lOiBjb3JlZG5zCiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiA1MwogICAgICAgICAgbmFtZTogdWRwLTUzCiAgICAgICAgICBwcm90b2NvbDogVURQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA1MwogICAgICAgICAgbmFtZTogdGNwLTUzCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA5MTUzCiAgICAgICAgICBuYW1lOiB0Y3AtOTE1MwogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMQogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL3JlYWR5CiAgICAgICAgICAgIHBvcnQ6IDgxODEKICAgICAgICAgICAgc2NoZW1lOiBIVFRQCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiAzMAogICAgICAgICAgcGVyaW9kU2Vjb25kczogNQogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDUKICAgICAgICByZXNvdXJjZXM6CiAgICAgICAgICBsaW1pdHM6CiAgICAgICAgICAgIGNwdTogMTAwbQogICAgICAgICAgICBtZW1vcnk6IDEyOE1pCiAgICAgICAgICByZXF1ZXN0czoKICAgICAgICAgICAgY3B1OiAxMDBtCiAgICAgICAgICAgIG1lbW9yeTogMTI4TWkKICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBhbGxvd1ByaXZpbGVnZUVzY2FsYXRpb246IGZhbHNlCiAgICAgICAgICBjYXBhYmlsaXRpZXM6CiAgICAgICAgICAgIGFkZDoKICAgICAgICAgICAgLSBORVRfQklORF9TRVJWSUNFCiAgICAgICAgICAgIGRyb3A6CiAgICAgICAgICAgIC0gQUxMCiAgICAgICAgICByZWFkT25seVJvb3RGaWxlc3lzdGVtOiB0cnVlCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvZXRjL2NvcmVkbnMKICAgICAgICAgIG5hbWU6IGNvbmZpZy12b2x1bWUKICAgICAgZG5zUG9saWN5OiBEZWZhdWx0CiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogZGVmYXVsdAogICAgICB0ZXJtaW5hdGlvbkdyYWNlUGVyaW9kU2Vjb25kczogMzAKICAgICAgdm9sdW1lczoKICAgICAgLSBjb25maWdNYXA6CiAgICAgICAgICBpdGVtczoKICAgICAgICAgIC0ga2V5OiBDb3JlZmlsZQogICAgICAgICAgICBwYXRoOiBDb3JlZmlsZQogICAgICAgICAgbmFtZTogY29yZWRucwogICAgICAgIG5hbWU6IGNvbmZpZy12b2x1bWUK",
+      "DataHash": "ccc373201646dc76a9920bd297156d65cbbe1f1fa9fb16b07fdf61587a9a3bb3",
+      "DisplayName": "deployment-default-coredns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Coredns",
+        "HelmChart": "coredns-coredns",
+        "HelmChartVersion": "1.45.2",
+        "Package": "coredns-coredns",
+        "Proof": "coredns-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/coredns": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/coredns",
+            "ResourceNameWithoutScope": "coredns",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: coredns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: coredns\n    app.kubernetes.io/version: 1.13.1\n    helm.sh/chart: coredns-1.45.2\n    k8s-app: coredns\n    kubernetes.io/cluster-service: \"true\"\n    kubernetes.io/name: CoreDNS\n  name: coredns\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: coredns\n      app.kubernetes.io/name: coredns\n      k8s-app: coredns\n  strategy:\n    rollingUpdate:\n      maxSurge: 25%\n      maxUnavailable: 1\n    type: RollingUpdate\n  template:\n    metadata:\n      annotations:\n        checksum/config: 0153ead6609616dccf17ff533ba21d4617990b5d7bbc8074fda23ee745809dc3\n        scheduler.alpha.kubernetes.io/tolerations: '[{\"key\":\"CriticalAddonsOnly\", \"operator\":\"Exists\"}]'\n      labels:\n        app.kubernetes.io/instance: coredns\n        app.kubernetes.io/name: coredns\n        k8s-app: coredns\n    spec:\n      containers:\n      - args:\n        - -conf\n        - /etc/coredns/Corefile\n        image: coredns/coredns:1.13.1\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 5\n          httpGet:\n            path: /health\n            port: 8080\n            scheme: HTTP\n          initialDelaySeconds: 60\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 5\n        name: coredns\n        ports:\n        - containerPort: 53\n          name: udp-53\n          protocol: UDP\n        - containerPort: 53\n          name: tcp-53\n          protocol: TCP\n        - containerPort: 9153\n          name: tcp-9153\n          protocol: TCP\n        readinessProbe:\n          failureThreshold: 1\n          httpGet:\n            path: /ready\n            port: 8181\n            scheme: HTTP\n          initialDelaySeconds: 30\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 5\n        resources:\n          limits:\n            cpu: 100m\n            memory: 128Mi\n          requests:\n            cpu: 100m\n            memory: 128Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            add:\n            - NET_BIND_SERVICE\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n        volumeMounts:\n        - mountPath: /etc/coredns\n          name: config-volume\n      dnsPolicy: Default\n      serviceAccountName: default\n      terminationGracePeriodSeconds: 30\n      volumes:\n      - configMap:\n          items:\n          - key: Corefile\n            path: Corefile\n          name: coredns\n        name: config-volume\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/coredns",
+          "ResourceNameWithoutScope": "coredns",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-coredns",
+      "SpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e99946fd-23e2-44fc-840c-874e42b08dd5",
+      "UpdatedAt": "2026-06-12T16:39:45.535398Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:39:54.384166Z",
+        "CursorID": 21884,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2845b6a5-7fdd-4480-a55f-23e4410f759a",
+        "LinkID": "9c07bcd9-50c4-45b3-864b-de3ac0d55f87",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+        "SpaceSlug": "Coredns-staging",
+        "ToSpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+        "ToUnitID": "289cdaf3-27a7-4e22-9d62-d0b7c4cb9887",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:39:54.384166Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '289cdaf3-27a7-4e22-9d62-d0b7c4cb9887' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:39:54.087433Z",
+      "CursorID": 4564,
+      "DisplayName": "helm-coredns-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Coredns",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Coredns-staging",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "UpdatedAt": "2026-06-12T16:39:54.087433Z",
+      "WhereTrigger": "SpaceID = '5a63d4c1-ce65-46b8-a2aa-5e26a543f22a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "155a703dcfea7563b64215684ed712004017de148b4c51eb660a5ee2da293bdb",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "9c07bcd9-50c4-45b3-864b-de3ac0d55f87"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2845b6a5-7fdd-4480-a55f-23e4410f759a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "289cdaf3-27a7-4e22-9d62-d0b7c4cb9887",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "coredns-coredns",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1702400630,
+      "CreatedAt": "2026-06-12T16:39:34.044576Z",
+      "CursorID": 27286,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImNvcmVkbnMtY29yZWRucyIKICB2ZXJzaW9uOiAiMS40NS4yIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBuYW1lOiAiZGVmYXVsdCIKICAgIHBhdGg6ICJiYXNlcy9kZWZhdWx0IgogICAgZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJjb3JlZG5zL2NvcmVkbnMgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gY29yZWRucy9jb3JlZG5zQDEuNDUuMiIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogY29yZWRucy1jb3JlZG5zLWZ1bmN0aW9uLWNoYWluCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBjb3JlZG5zLWNvcmVkbnMKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogY29yZWRucy1jb3JlZG5zLWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogY29yZWRucy1jb3JlZG5zCiAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgdmFsdWVzOiB7fQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogTWFuaWZlc3RJbmRleAptZXRhZGF0YToKICBuYW1lOiBjb3JlZG5zLWNvcmVkbnMtbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGNvcmVkbnMtY29yZWRucwogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWNvcmVkbnMueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtY29yZWRucwogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IGNvcmVkbnMKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctY29yZWRucy55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctY29yZWRucwogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGVCaW5kaW5nCiAgICBuYW1lOiBjb3JlZG5zCiAgLSBmaWxlbmFtZTogY29uZmlnbWFwLWRlZmF1bHQtY29yZWRucy55YW1sCiAgICBzbHVnOiBjb25maWdtYXAtZGVmYXVsdC1jb3JlZG5zCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogQ29uZmlnTWFwCiAgICBuYW1lOiBjb3JlZG5zCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQtY29yZWRucy55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtY29yZWRucwogICAgYXBpVmVyc2lvbjogYXBwcy92MQogICAga2luZDogRGVwbG95bWVudAogICAgbmFtZTogY29yZWRucwogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWRlZmF1bHQueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWRlZmF1bHQtY29yZWRucy55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWRlZmF1bHQtY29yZWRucwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2UKICAgIG5hbWU6IGNvcmVkbnMKICAgIG5hbWVzcGFjZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGNvcmVkbnMtY29yZWRucy1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGNvcmVkbnMtY29yZWRucwogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBjb3JlZG5zLWNvcmVkbnMtdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBjb3JlZG5zLWNvcmVkbnMKICBzcGFjZVBhdHRlcm46IGhlbG0tY29yZWRucy1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBjb3JlZG5zLWNvcmVkbnMKICAgIHNsdWc6IGhlbG0tY29yZWRucy1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTY6Mzk6MjdaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "155a703dcfea7563b64215684ed712004017de148b4c51eb660a5ee2da293bdb",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "coredns-coredns"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/coredns-coredns": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns-coredns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/coredns-coredns",
+            "ResourceNameWithoutScope": "coredns-coredns",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"coredns-coredns\"\n  version: \"1.45.2\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"coredns/coredns default variant rendered from coredns/coredns@1.45.2\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/coredns-coredns-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns-coredns-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/coredns-coredns-function-chain",
+            "ResourceNameWithoutScope": "coredns-coredns-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: coredns-coredns-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: coredns-coredns\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/coredns-coredns-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns-coredns-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/coredns-coredns-inputs",
+            "ResourceNameWithoutScope": "coredns-coredns-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: coredns-coredns-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: coredns-coredns\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/coredns-coredns-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns-coredns-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/coredns-coredns-manifest-index",
+            "ResourceNameWithoutScope": "coredns-coredns-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: coredns-coredns-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: coredns-coredns\n  files:\n  - filename: clusterrole-coredns.yaml\n    slug: clusterrole-coredns\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: coredns\n  - filename: clusterrolebinding-coredns.yaml\n    slug: clusterrolebinding-coredns\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: coredns\n  - filename: configmap-default-coredns.yaml\n    slug: configmap-default-coredns\n    apiVersion: v1\n    kind: ConfigMap\n    name: coredns\n    namespace: default\n  - filename: deployment-default-coredns.yaml\n    slug: deployment-default-coredns\n    apiVersion: apps/v1\n    kind: Deployment\n    name: coredns\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: service-default-coredns.yaml\n    slug: service-default-coredns\n    apiVersion: v1\n    kind: Service\n    name: coredns\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/coredns-coredns-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns-coredns-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/coredns-coredns-selection",
+            "ResourceNameWithoutScope": "coredns-coredns-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: coredns-coredns-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: coredns-coredns\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/coredns-coredns-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns-coredns-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/coredns-coredns-upload",
+            "ResourceNameWithoutScope": "coredns-coredns-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: coredns-coredns-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: coredns-coredns\n  spacePattern: helm-coredns-confighub-proof\n  spaces:\n  - package: coredns-coredns\n    slug: helm-coredns-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:39:27Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "289cdaf3-27a7-4e22-9d62-d0b7c4cb9887",
+      "UpdatedAt": "2026-06-12T16:39:34.937945Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:39:54.425342Z",
+        "CursorID": 21885,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "200dc256-5310-4bde-bef7-d677809af8a8",
+        "LinkID": "4891eb90-f911-423e-827c-7c9b823c279f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+        "SpaceSlug": "Coredns-staging",
+        "ToSpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+        "ToUnitID": "b87cc861-683f-4f5d-acf3-7ac4a76aee1e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:39:54.425342Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b87cc861-683f-4f5d-acf3-7ac4a76aee1e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:39:54.087433Z",
+      "CursorID": 4564,
+      "DisplayName": "helm-coredns-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Coredns",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Coredns-staging",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "UpdatedAt": "2026-06-12T16:39:54.087433Z",
+      "WhereTrigger": "SpaceID = '5a63d4c1-ce65-46b8-a2aa-5e26a543f22a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4891eb90-f911-423e-827c-7c9b823c279f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "200dc256-5310-4bde-bef7-d677809af8a8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b87cc861-683f-4f5d-acf3-7ac4a76aee1e",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:39:32.499543Z",
+      "CursorID": 27284,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Coredns",
+        "HelmChart": "coredns-coredns",
+        "HelmChartVersion": "1.45.2",
+        "Package": "coredns-coredns",
+        "Proof": "coredns-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b87cc861-683f-4f5d-acf3-7ac4a76aee1e",
+      "UpdatedAt": "2026-06-12T16:39:32.525539Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:39:54.466178Z",
+        "CursorID": 21886,
+        "DisplayName": "Upgrade service-default-coredns",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a31d48f0-3ed4-4a27-912d-ef095440093c",
+        "LinkID": "11afd245-f8f4-4374-b830-67b02c915006",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-coredns",
+        "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+        "SpaceSlug": "Coredns-staging",
+        "ToSpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+        "ToUnitID": "d8c8bc85-a03e-4142-a939-f601557f991d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:39:54.466179Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd8c8bc85-a03e-4142-a939-f601557f991d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:39:54.087433Z",
+      "CursorID": 4564,
+      "DisplayName": "helm-coredns-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Coredns",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Coredns-staging",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "UpdatedAt": "2026-06-12T16:39:54.087433Z",
+      "WhereTrigger": "SpaceID = '5a63d4c1-ce65-46b8-a2aa-5e26a543f22a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "665685c9e617cc2ca3cf6c162d27cd2f0b31eed7644dc903164b7146e3648e10",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "11afd245-f8f4-4374-b830-67b02c915006"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-coredns",
+      "SpaceID": "6e4a4eb0-d001-4d9a-89e8-6abbc2f27e5d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a31d48f0-3ed4-4a27-912d-ef095440093c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d8c8bc85-a03e-4142-a939-f601557f991d",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -134463188,
+      "CreatedAt": "2026-06-12T16:39:33.225207Z",
+      "CursorID": 27285,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY29yZWRucwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY29yZWRucwogICAgaGVsbS5zaC9jaGFydDogY29yZWRucy0xLjQ1LjIKICAgIGs4cy1hcHA6IGNvcmVkbnMKICAgIGt1YmVybmV0ZXMuaW8vY2x1c3Rlci1zZXJ2aWNlOiAidHJ1ZSIKICAgIGt1YmVybmV0ZXMuaW8vbmFtZTogQ29yZUROUwogIG5hbWU6IGNvcmVkbnMKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IHVkcC01MwogICAgcG9ydDogNTMKICAgIHByb3RvY29sOiBVRFAKICAgIHRhcmdldFBvcnQ6IDUzCiAgLSBuYW1lOiB0Y3AtNTMKICAgIHBvcnQ6IDUzCiAgICBwcm90b2NvbDogVENQCiAgICB0YXJnZXRQb3J0OiA1MwogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNvcmVkbnMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGNvcmVkbnMKICAgIGs4cy1hcHA6IGNvcmVkbnMKICB0eXBlOiBDbHVzdGVySVAK",
+      "DataHash": "665685c9e617cc2ca3cf6c162d27cd2f0b31eed7644dc903164b7146e3648e10",
+      "DisplayName": "service-default-coredns",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Coredns",
+        "HelmChart": "coredns-coredns",
+        "HelmChartVersion": "1.45.2",
+        "Package": "coredns-coredns",
+        "Proof": "coredns-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/coredns": {}
+          },
+          "AliasesWithoutScopes": {
+            "coredns": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/coredns",
+            "ResourceNameWithoutScope": "coredns",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: coredns\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: coredns\n    helm.sh/chart: coredns-1.45.2\n    k8s-app: coredns\n    kubernetes.io/cluster-service: \"true\"\n    kubernetes.io/name: CoreDNS\n  name: coredns\n  namespace: default\nspec:\n  ports:\n  - name: udp-53\n    port: 53\n    protocol: UDP\n    targetPort: 53\n  - name: tcp-53\n    port: 53\n    protocol: TCP\n    targetPort: 53\n  selector:\n    app.kubernetes.io/instance: coredns\n    app.kubernetes.io/name: coredns\n    k8s-app: coredns\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/coredns",
+          "ResourceNameWithoutScope": "coredns",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-coredns",
+      "SpaceID": "5a63d4c1-ce65-46b8-a2aa-5e26a543f22a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d8c8bc85-a03e-4142-a939-f601557f991d",
+      "UpdatedAt": "2026-06-12T16:39:47.732446Z",
+      "Version": 13
+    }
+  }
+]

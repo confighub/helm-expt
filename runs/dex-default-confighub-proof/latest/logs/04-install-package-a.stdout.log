@@ -1,0 +1,5 @@
+Bundled dex-dex@
+  output: .tmp/confighub-proof/dex-default-archives/dex-a.tgz
+  files:  4
+  size:   1368 bytes
+  digest: sha256:61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1

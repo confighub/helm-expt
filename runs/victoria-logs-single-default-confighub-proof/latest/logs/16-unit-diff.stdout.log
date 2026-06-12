@@ -1,0 +1,111 @@
+--- helm-victoria-logs-single-default-confighub-proof/statefulset-default-victoria-logs-single-server/1
++++ helm-victoria-logs-single-default-confighub-proof/statefulset-default-victoria-logs-single-server/2
+@@ -29,45 +33,39 @@
+         app.kubernetes.io/name: victoria-logs-single
+     spec:
+       containers:
+-        - args:
+-            - --envflag.enable
+-            - --envflag.prefix=VM_
+-            - --http.shutdownDelay=15s
+-            - --httpListenAddr=:9428
+-            - --loggerFormat=json
+-            - --retentionPeriod=1
+-            - --storageDataPath=/storage
+-          image: victoriametrics/victoria-logs:v1.50.0
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            failureThreshold: 10
+-            initialDelaySeconds: 30
+-            periodSeconds: 30
+-            tcpSocket:
+-              port: http
+-            timeoutSeconds: 5
+-          name: vlogs
+-          ports:
+-            - containerPort: 9428
+-              name: http
+-          readinessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /health
+-              port: http
+-              scheme: HTTP
+-            initialDelaySeconds: 5
+-            periodSeconds: 5
+-            timeoutSeconds: 5
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: true
+-          volumeMounts:
+-            - mountPath: /storage
+-              name: server-volume
++      - args:
++        - --envflag.enable
++        - --envflag.prefix=VM_
++        - --http.shutdownDelay=15s
++        - --httpListenAddr=:9428
++        - --loggerFormat=json
++        - --retentionPeriod=1
++        - --storageDataPath=/storage
++        image: victoriametrics/victoria-logs:v1.50.0
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          failureThreshold: 10
++          initialDelaySeconds: 30
++          periodSeconds: 30
++          tcpSocket:
++            port: http
++          timeoutSeconds: 5
++        name: vlogs
++        ports:
++        - containerPort: 9428
++          name: http
++        readinessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /health
++            port: http
++            scheme: HTTP
++          initialDelaySeconds: 5
++          periodSeconds: 5
++          timeoutSeconds: 5
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++        volumeMounts:
++        - mountPath: /storage
++          name: server-volume
+       securityContext:
+         fsGroup: 2000
+         runAsNonRoot: true
+@@ -78,13 +82,10 @@
+       volumes: null
+   updateStrategy: {}
+   volumeClaimTemplates:
+-    - apiVersion: v1
+-      kind: PersistentVolumeClaim
+-      metadata:
+-        name: server-volume
+-      spec:
+-        accessModes:
+-          - ReadWriteOnce
+-        resources:
+-          requests:
+-            storage: 10Gi
++  - apiVersion: v1
++    kind: PersistentVolumeClaim
++    metadata:
++      name: server-volume
++    spec:
++      accessModes:
++      - ReadWriteOnce
++      resources:
++        requests:
++          storage: 10Gi

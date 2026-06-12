@@ -1,0 +1,1347 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:35.687839Z",
+        "CursorID": 22875,
+        "DisplayName": "Upgrade configmap-default-falco",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "da18d569-8048-4c2e-a1ff-477a196d4975",
+        "LinkID": "31da5987-846f-4fbc-b4e9-e113235e6742",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-falco",
+        "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+        "SpaceSlug": "Falco-default-staging",
+        "ToSpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+        "ToUnitID": "7a381c7a-5172-46b5-ad76-22b8fe5f16bc",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:35.687839Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7a381c7a-5172-46b5-ad76-22b8fe5f16bc' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:35.321943Z",
+      "CursorID": 4607,
+      "DisplayName": "helm-falco-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falco",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falco-default-staging",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "UpdatedAt": "2026-06-12T16:52:35.321943Z",
+      "WhereTrigger": "SpaceID = '2c96cb83-2682-4db8-8e67-ae56745c526d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f96cc397a28547c75cabe50de0bea6cd035c281622eed2f84f6ac14ff5607336",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "31da5987-846f-4fbc-b4e9-e113235e6742"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-falco",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "da18d569-8048-4c2e-a1ff-477a196d4975",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7a381c7a-5172-46b5-ad76-22b8fe5f16bc",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2138248775,
+      "CreatedAt": "2026-06-12T16:52:02.618111Z",
+      "CursorID": 27974,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBmYWxjby55YW1sOiB8LQogICAgYXBwZW5kX291dHB1dDoKICAgIC0gc3VnZ2VzdGVkX291dHB1dDogdHJ1ZQogICAgYmFzZV9zeXNjYWxsczoKICAgICAgYWxsOiBmYWxzZQogICAgICBjdXN0b21fc2V0OiBbXQogICAgICByZXBhaXI6IGZhbHNlCiAgICBidWZmZXJfZm9ybWF0X2Jhc2U2NDogZmFsc2UKICAgIGJ1ZmZlcmVkX291dHB1dHM6IGZhbHNlCiAgICBjYXB0dXJlOgogICAgICBkZWZhdWx0X2R1cmF0aW9uOiA1MDAwCiAgICAgIGVuYWJsZWQ6IGZhbHNlCiAgICAgIG1vZGU6IHJ1bGVzCiAgICAgIHBhdGhfcHJlZml4OiAvdG1wL2ZhbGNvCiAgICBjb25maWdfZmlsZXM6CiAgICAtIC9ldGMvZmFsY28vY29uZmlnLmQKICAgIGVuZ2luZToKICAgICAga2luZDogbW9kZXJuX2VicGYKICAgICAga21vZDoKICAgICAgICBidWZfc2l6ZV9wcmVzZXQ6IDQKICAgICAgICBkcm9wX2ZhaWxlZF9leGl0OiBmYWxzZQogICAgICBtb2Rlcm5fZWJwZjoKICAgICAgICBidWZfc2l6ZV9wcmVzZXQ6IDQKICAgICAgICBjcHVzX2Zvcl9lYWNoX2J1ZmZlcjogMgogICAgICAgIGRyb3BfZmFpbGVkX2V4aXQ6IGZhbHNlCiAgICBmYWxjb19saWJzOgogICAgICBzbmFwbGVuOiA4MAogICAgICB0aHJlYWRfdGFibGVfYXV0b19wdXJnaW5nX2ludGVydmFsX3M6IDMwMAogICAgICB0aHJlYWRfdGFibGVfYXV0b19wdXJnaW5nX3RocmVhZF90aW1lb3V0X3M6IDMwMAogICAgICB0aHJlYWRfdGFibGVfc2l6ZTogMjYyMTQ0CiAgICBmaWxlX291dHB1dDoKICAgICAgZW5hYmxlZDogZmFsc2UKICAgICAgZmlsZW5hbWU6IC4vZXZlbnRzLnR4dAogICAgICBrZWVwX2FsaXZlOiBmYWxzZQogICAgaHR0cF9vdXRwdXQ6CiAgICAgIGNhX2J1bmRsZTogIiIKICAgICAgY2FfY2VydDogIiIKICAgICAgY2FfcGF0aDogL2V0Yy9mYWxjby9jZXJ0cy8KICAgICAgY2xpZW50X2NlcnQ6IC9ldGMvZmFsY28vY2VydHMvY2xpZW50L2NsaWVudC5jcnQKICAgICAgY2xpZW50X2tleTogL2V0Yy9mYWxjby9jZXJ0cy9jbGllbnQvY2xpZW50LmtleQogICAgICBjb21wcmVzc191cGxvYWRzOiBmYWxzZQogICAgICBlY2hvOiBmYWxzZQogICAgICBlbmFibGVkOiBmYWxzZQogICAgICBpbnNlY3VyZTogZmFsc2UKICAgICAga2VlcF9hbGl2ZTogZmFsc2UKICAgICAgbWF4X2NvbnNlY3V0aXZlX3RpbWVvdXRzOiA1CiAgICAgIG10bHM6IGZhbHNlCiAgICAgIHVybDogIiIKICAgICAgdXNlcl9hZ2VudDogZmFsY29zZWN1cml0eS9mYWxjbwogICAganNvbl9pbmNsdWRlX21lc3NhZ2VfcHJvcGVydHk6IGZhbHNlCiAgICBqc29uX2luY2x1ZGVfb3V0cHV0X2ZpZWxkc19wcm9wZXJ0eTogdHJ1ZQogICAganNvbl9pbmNsdWRlX291dHB1dF9wcm9wZXJ0eTogdHJ1ZQogICAganNvbl9pbmNsdWRlX3RhZ3NfcHJvcGVydHk6IHRydWUKICAgIGpzb25fb3V0cHV0OiBmYWxzZQogICAgbGlic19sb2dnZXI6CiAgICAgIGVuYWJsZWQ6IHRydWUKICAgICAgc2V2ZXJpdHk6IGluZm8KICAgIGxvYWRfcGx1Z2luczoKICAgIC0gY29udGFpbmVyCiAgICBsb2dfbGV2ZWw6IGluZm8KICAgIGxvZ19zdGRlcnI6IHRydWUKICAgIGxvZ19zeXNsb2c6IHRydWUKICAgIG91dHB1dF90aW1lb3V0OiAyMDAwCiAgICBvdXRwdXRzX3F1ZXVlOgogICAgICBjYXBhY2l0eTogMAogICAgcGx1Z2luczoKICAgIC0gaW5pdF9jb25maWc6CiAgICAgICAgZW5naW5lczoKICAgICAgICAgIGJwbToKICAgICAgICAgICAgZW5hYmxlZDogdHJ1ZQogICAgICAgICAgY29udGFpbmVyZDoKICAgICAgICAgICAgZW5hYmxlZDogdHJ1ZQogICAgICAgICAgICBzb2NrZXRzOgogICAgICAgICAgICAtIC9ydW4vaG9zdC1jb250YWluZXJkL2NvbnRhaW5lcmQuc29jawogICAgICAgICAgY3JpOgogICAgICAgICAgICBlbmFibGVkOiB0cnVlCiAgICAgICAgICAgIHNvY2tldHM6CiAgICAgICAgICAgIC0gL3J1bi9jb250YWluZXJkL2NvbnRhaW5lcmQuc29jawogICAgICAgICAgICAtIC9ydW4vY3Jpby9jcmlvLnNvY2sKICAgICAgICAgICAgLSAvcnVuL2szcy9jb250YWluZXJkL2NvbnRhaW5lcmQuc29jawogICAgICAgICAgICAtIC9ydW4vaG9zdC1jb250YWluZXJkL2NvbnRhaW5lcmQuc29jawogICAgICAgICAgZG9ja2VyOgogICAgICAgICAgICBlbmFibGVkOiB0cnVlCiAgICAgICAgICAgIHNvY2tldHM6CiAgICAgICAgICAgIC0gL3Zhci9ydW4vZG9ja2VyLnNvY2sKICAgICAgICAgIGxpYnZpcnRfbHhjOgogICAgICAgICAgICBlbmFibGVkOiB0cnVlCiAgICAgICAgICBseGM6CiAgICAgICAgICAgIGVuYWJsZWQ6IHRydWUKICAgICAgICAgIHBvZG1hbjoKICAgICAgICAgICAgZW5hYmxlZDogdHJ1ZQogICAgICAgICAgICBzb2NrZXRzOgogICAgICAgICAgICAtIC9ydW4vcG9kbWFuL3BvZG1hbi5zb2NrCiAgICAgICAgaG9va3M6CiAgICAgICAgLSBjcmVhdGUKICAgICAgICBsYWJlbF9tYXhfbGVuOiAxMDAKICAgICAgICB3aXRoX3NpemU6IGZhbHNlCiAgICAgIGxpYnJhcnlfcGF0aDogbGliY29udGFpbmVyLnNvCiAgICAgIG5hbWU6IGNvbnRhaW5lcgogICAgcGx1Z2luc19ob3N0aW5mbzogdHJ1ZQogICAgcHJpb3JpdHk6IGRlYnVnCiAgICBwcm9ncmFtX291dHB1dDoKICAgICAgZW5hYmxlZDogZmFsc2UKICAgICAga2VlcF9hbGl2ZTogZmFsc2UKICAgICAgcHJvZ3JhbTogJ2pxICcne3RleHQ6IC5vdXRwdXR9JycgfCBjdXJsIC1kIEAtIC1YIFBPU1QgaHR0cHM6Ly9ob29rcy5zbGFjay5jb20vc2VydmljZXMvWFhYJwogICAgcnVsZV9tYXRjaGluZzogZmlyc3QKICAgIHJ1bGVzX2ZpbGVzOgogICAgLSAvZXRjL2ZhbGNvL2ZhbGNvX3J1bGVzLnlhbWwKICAgIC0gL2V0Yy9mYWxjby9mYWxjb19ydWxlcy5sb2NhbC55YW1sCiAgICAtIC9ldGMvZmFsY28vcnVsZXMuZAogICAgc3Rkb3V0X291dHB1dDoKICAgICAgZW5hYmxlZDogdHJ1ZQogICAgc3lzY2FsbF9ldmVudF9kcm9wczoKICAgICAgYWN0aW9uczoKICAgICAgLSBsb2cKICAgICAgLSBhbGVydAogICAgICBtYXhfYnVyc3Q6IDEKICAgICAgcmF0ZTogMC4wMzMzMwogICAgICBzaW11bGF0ZV9kcm9wczogZmFsc2UKICAgICAgdGhyZXNob2xkOiAwLjEKICAgIHN5c2NhbGxfZXZlbnRfdGltZW91dHM6CiAgICAgIG1heF9jb25zZWN1dGl2ZXM6IDEwMDAKICAgIHN5c2xvZ19vdXRwdXQ6CiAgICAgIGVuYWJsZWQ6IHRydWUKICAgIHRpbWVfZm9ybWF0X2lzb184NjAxOiBmYWxzZQogICAgd2F0Y2hfY29uZmlnX2ZpbGVzOiB0cnVlCiAgICB3ZWJzZXJ2ZXI6CiAgICAgIGVuYWJsZWQ6IHRydWUKICAgICAgazhzX2hlYWx0aHpfZW5kcG9pbnQ6IC9oZWFsdGh6CiAgICAgIGxpc3Rlbl9hZGRyZXNzOiAwLjAuMC4wCiAgICAgIGxpc3Rlbl9wb3J0OiA4NzY1CiAgICAgIHByb21ldGhldXNfbWV0cmljc19lbmFibGVkOiBmYWxzZQogICAgICBzc2xfY2VydGlmaWNhdGU6IC9ldGMvZmFsY28vZmFsY28ucGVtCiAgICAgIHNzbF9lbmFibGVkOiBmYWxzZQogICAgICB0aHJlYWRpbmVzczogMApraW5kOiBDb25maWdNYXAKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZhbGNvCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBmYWxjbwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC40NC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBmYWxjby05LjAuMAogIG5hbWU6IGZhbGNvCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "f96cc397a28547c75cabe50de0bea6cd035c281622eed2f84f6ac14ff5607336",
+      "DisplayName": "configmap-default-falco",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Falco",
+        "HelmChart": "falcosecurity-falco",
+        "HelmChartVersion": "9.0.0",
+        "Package": "falcosecurity-falco",
+        "Proof": "falco-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 3766 bytes; from configmap-default-falco.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falco": {}
+          },
+          "AliasesWithoutScopes": {
+            "falco": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falco",
+            "ResourceNameWithoutScope": "falco",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  falco.yaml: |-\n    append_output:\n    - suggested_output: true\n    base_syscalls:\n      all: false\n      custom_set: []\n      repair: false\n    buffer_format_base64: false\n    buffered_outputs: false\n    capture:\n      default_duration: 5000\n      enabled: false\n      mode: rules\n      path_prefix: /tmp/falco\n    config_files:\n    - /etc/falco/config.d\n    engine:\n      kind: modern_ebpf\n      kmod:\n        buf_size_preset: 4\n        drop_failed_exit: false\n      modern_ebpf:\n        buf_size_preset: 4\n        cpus_for_each_buffer: 2\n        drop_failed_exit: false\n    falco_libs:\n      snaplen: 80\n      thread_table_auto_purging_interval_s: 300\n      thread_table_auto_purging_thread_timeout_s: 300\n      thread_table_size: 262144\n    file_output:\n      enabled: false\n      filename: ./events.txt\n      keep_alive: false\n    http_output:\n      ca_bundle: \"\"\n      ca_cert: \"\"\n      ca_path: /etc/falco/certs/\n      client_cert: /etc/falco/certs/client/client.crt\n      client_key: /etc/falco/certs/client/client.key\n      compress_uploads: false\n      echo: false\n      enabled: false\n      insecure: false\n      keep_alive: false\n      max_consecutive_timeouts: 5\n      mtls: false\n      url: \"\"\n      user_agent: falcosecurity/falco\n    json_include_message_property: false\n    json_include_output_fields_property: true\n    json_include_output_property: true\n    json_include_tags_property: true\n    json_output: false\n    libs_logger:\n      enabled: true\n      severity: info\n    load_plugins:\n    - container\n    log_level: info\n    log_stderr: true\n    log_syslog: true\n    output_timeout: 2000\n    outputs_queue:\n      capacity: 0\n    plugins:\n    - init_config:\n        engines:\n          bpm:\n            enabled: true\n          containerd:\n            enabled: true\n            sockets:\n            - /run/host-containerd/containerd.sock\n          cri:\n            enabled: true\n            sockets:\n            - /run/containerd/containerd.sock\n            - /run/crio/crio.sock\n            - /run/k3s/containerd/containerd.sock\n            - /run/host-containerd/containerd.sock\n          docker:\n            enabled: true\n            sockets:\n            - /var/run/docker.sock\n          libvirt_lxc:\n            enabled: true\n          lxc:\n            enabled: true\n          podman:\n            enabled: true\n            sockets:\n            - /run/podman/podman.sock\n        hooks:\n        - create\n        label_max_len: 100\n        with_size: false\n      library_path: libcontainer.so\n      name: container\n    plugins_hostinfo: true\n    priority: debug\n    program_output:\n      enabled: false\n      keep_alive: false\n      program: 'jq ''{text: .output}'' | curl -d @- -X POST https://hooks.slack.com/services/XXX'\n    rule_matching: first\n    rules_files:\n    - /etc/falco/falco_rules.yaml\n    - /etc/falco/falco_rules.local.yaml\n    - /etc/falco/rules.d\n    stdout_output:\n      enabled: true\n    syscall_event_drops:\n      actions:\n      - log\n      - alert\n      max_burst: 1\n      rate: 0.03333\n      simulate_drops: false\n      threshold: 0.1\n    syscall_event_timeouts:\n      max_consecutives: 1000\n    syslog_output:\n      enabled: true\n    time_format_iso_8601: false\n    watch_config_files: true\n    webserver:\n      enabled: true\n      k8s_healthz_endpoint: /healthz\n      listen_address: 0.0.0.0\n      listen_port: 8765\n      prometheus_metrics_enabled: false\n      ssl_certificate: /etc/falco/falco.pem\n      ssl_enabled: false\n      threadiness: 0\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/instance: falco\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falco\n    app.kubernetes.io/version: 0.44.0\n    helm.sh/chart: falco-9.0.0\n  name: falco\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-falco.yaml": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/falco",
+          "ResourceNameWithoutScope": "falco",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-falco",
+      "SpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7a381c7a-5172-46b5-ad76-22b8fe5f16bc",
+      "UpdatedAt": "2026-06-12T16:52:16.455898Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:35.714551Z",
+        "CursorID": 22876,
+        "DisplayName": "Upgrade configmap-default-falco-falcoctl",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "95aa1790-da2a-4dc0-a771-6acf3c05c373",
+        "LinkID": "053f2ba8-d6c1-40af-85d1-7357ec9f368a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-falco-falcoctl",
+        "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+        "SpaceSlug": "Falco-default-staging",
+        "ToSpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+        "ToUnitID": "dcb49e47-05f8-453f-bb8f-7c3f7183a567",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:35.714551Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'dcb49e47-05f8-453f-bb8f-7c3f7183a567' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:35.321943Z",
+      "CursorID": 4607,
+      "DisplayName": "helm-falco-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falco",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falco-default-staging",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "UpdatedAt": "2026-06-12T16:52:35.321943Z",
+      "WhereTrigger": "SpaceID = '2c96cb83-2682-4db8-8e67-ae56745c526d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c6e2cbe65813ba1101e100d05cffb6e92e6b1a7bd4e0a241ce4c332bed22844d",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "053f2ba8-d6c1-40af-85d1-7357ec9f368a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-falco-falcoctl",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "95aa1790-da2a-4dc0-a771-6acf3c05c373",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "dcb49e47-05f8-453f-bb8f-7c3f7183a567",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1653926483,
+      "CreatedAt": "2026-06-12T16:52:01.839926Z",
+      "CursorID": 27973,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBmYWxjb2N0bC55YW1sOiB8LQogICAgYXJ0aWZhY3Q6CiAgICAgIGFsbG93ZWRUeXBlczoKICAgICAgLSBydWxlc2ZpbGUKICAgICAgLSBwbHVnaW4KICAgICAgZm9sbG93OgogICAgICAgIGV2ZXJ5OiAxNjhoCiAgICAgICAgZmFsY292ZXJzaW9uczogaHR0cDovL2xvY2FsaG9zdDo4NzY1L3ZlcnNpb25zCiAgICAgICAgcGx1Z2luc0RpcjogL3BsdWdpbnMKICAgICAgICByZWZzOgogICAgICAgIC0gZmFsY28tcnVsZXM6NQogICAgICAgIHJ1bGVzZmlsZXNEaXI6IC9ydWxlc2ZpbGVzCiAgICAgICAgc3RhdGVEaXI6IC9hcnRpZmFjdHN0YXRlCiAgICAgIGluc3RhbGw6CiAgICAgICAgcGx1Z2luc0RpcjogL3BsdWdpbnMKICAgICAgICByZWZzOgogICAgICAgIC0gZmFsY28tcnVsZXM6NQogICAgICAgIC0gZ2hjci5pby9mYWxjb3NlY3VyaXR5L3BsdWdpbnMvcGx1Z2luL2NvbnRhaW5lcjowLjcuMQogICAgICAgIHJlc29sdmVEZXBzOiB0cnVlCiAgICAgICAgcnVsZXNmaWxlc0RpcjogL3J1bGVzZmlsZXMKICAgICAgICBzdGF0ZURpcjogL2FydGlmYWN0c3RhdGUKICAgIGluZGV4ZXM6CiAgICAtIG5hbWU6IGZhbGNvc2VjdXJpdHkKICAgICAgdXJsOiBodHRwczovL2ZhbGNvc2VjdXJpdHkuZ2l0aHViLmlvL2ZhbGNvY3RsL2luZGV4LnlhbWwKa2luZDogQ29uZmlnTWFwCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBmYWxjbwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZmFsY28KICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuNDQuMAogICAgaGVsbS5zaC9jaGFydDogZmFsY28tOS4wLjAKICBuYW1lOiBmYWxjby1mYWxjb2N0bAogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "c6e2cbe65813ba1101e100d05cffb6e92e6b1a7bd4e0a241ce4c332bed22844d",
+      "DisplayName": "configmap-default-falco-falcoctl",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Falco",
+        "HelmChart": "falcosecurity-falco",
+        "HelmChartVersion": "9.0.0",
+        "Package": "falcosecurity-falco",
+        "Proof": "falco-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 932 bytes; from configmap-default-falco-falcoctl.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falco-falcoctl": {}
+          },
+          "AliasesWithoutScopes": {
+            "falco-falcoctl": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falco-falcoctl",
+            "ResourceNameWithoutScope": "falco-falcoctl",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  falcoctl.yaml: |-\n    artifact:\n      allowedTypes:\n      - rulesfile\n      - plugin\n      follow:\n        every: 168h\n        falcoversions: http://localhost:8765/versions\n        pluginsDir: /plugins\n        refs:\n        - falco-rules:5\n        rulesfilesDir: /rulesfiles\n        stateDir: /artifactstate\n      install:\n        pluginsDir: /plugins\n        refs:\n        - falco-rules:5\n        - ghcr.io/falcosecurity/plugins/plugin/container:0.7.1\n        resolveDeps: true\n        rulesfilesDir: /rulesfiles\n        stateDir: /artifactstate\n    indexes:\n    - name: falcosecurity\n      url: https://falcosecurity.github.io/falcoctl/index.yaml\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/instance: falco\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falco\n    app.kubernetes.io/version: 0.44.0\n    helm.sh/chart: falco-9.0.0\n  name: falco-falcoctl\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-falcoctl.yaml": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/falco-falcoctl",
+          "ResourceNameWithoutScope": "falco-falcoctl",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-falco-falcoctl",
+      "SpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "dcb49e47-05f8-453f-bb8f-7c3f7183a567",
+      "UpdatedAt": "2026-06-12T16:52:17.4211Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:35.569269Z",
+        "CursorID": 22873,
+        "DisplayName": "Upgrade daemonset-default-falco",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2162e306-be8a-44c1-90b9-ec51e381b942",
+        "LinkID": "5c4c3b71-9b8e-4cde-9e58-d1740f20134a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-daemonset-default-falco",
+        "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+        "SpaceSlug": "Falco-default-staging",
+        "ToSpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+        "ToUnitID": "759f2802-97b9-4206-9974-92d46f632c88",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:35.569269Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '759f2802-97b9-4206-9974-92d46f632c88' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:35.321943Z",
+      "CursorID": 4607,
+      "DisplayName": "helm-falco-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falco",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falco-default-staging",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "UpdatedAt": "2026-06-12T16:52:35.321943Z",
+      "WhereTrigger": "SpaceID = '2c96cb83-2682-4db8-8e67-ae56745c526d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3c7e3aabf15cc6aaa577c778ef7239803b8457b4a9ee68dcd2c1fe689709c93f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "5c4c3b71-9b8e-4cde-9e58-d1740f20134a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-falco",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2162e306-be8a-44c1-90b9-ec51e381b942",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "759f2802-97b9-4206-9974-92d46f632c88",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -555799054,
+      "CreatedAt": "2026-06-12T16:52:03.346019Z",
+      "CursorID": 27975,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEYWVtb25TZXQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZhbGNvCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBmYWxjbwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC40NC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBmYWxjby05LjAuMAogIG5hbWU6IGZhbGNvCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZhbGNvCiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGZhbGNvCiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgYW5ub3RhdGlvbnM6CiAgICAgICAgY2hlY2tzdW0vY2VydHM6IGUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUKICAgICAgICBjaGVja3N1bS9jb25maWc6IDkzMTg5MWM2MGU1ZmZkYmViYTZiZjBlMDJiZWFkODQ5ZDY1ZDg4MDVlZWMzNTMwNzkzMWZhNmU4YjA0NTg0MTYKICAgICAgICBjaGVja3N1bS9ydWxlczogZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NQogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZhbGNvCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZmFsY28KICAgICAgbmFtZTogZmFsY28KICAgIHNwZWM6CiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIC91c3IvYmluL2ZhbGNvCiAgICAgICAgZW52OgogICAgICAgIC0gbmFtZTogSE9TVF9ST09UCiAgICAgICAgICB2YWx1ZTogL2hvc3QKICAgICAgICAtIG5hbWU6IEZBTENPX0hPU1ROQU1FCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogc3BlYy5ub2RlTmFtZQogICAgICAgIC0gbmFtZTogRkFMQ09fSzhTX05PREVfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IHNwZWMubm9kZU5hbWUKICAgICAgICBpbWFnZTogZG9ja2VyLmlvL2ZhbGNvc2VjdXJpdHkvZmFsY286MC40NC4wCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMwogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogODc2NQogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMAogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTUKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgbmFtZTogZmFsY28KICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDg3NjUKICAgICAgICAgIG5hbWU6IHdlYgogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMwogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aHoKICAgICAgICAgICAgcG9ydDogODc2NQogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMAogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTUKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgbGltaXRzOgogICAgICAgICAgICBjcHU6IDEwMDBtCiAgICAgICAgICAgIG1lbW9yeTogMTAyNE1pCiAgICAgICAgICByZXF1ZXN0czoKICAgICAgICAgICAgY3B1OiAxMDBtCiAgICAgICAgICAgIG1lbW9yeTogNTEyTWkKICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBwcml2aWxlZ2VkOiB0cnVlCiAgICAgICAgc3RhcnR1cFByb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMjAKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgIHBvcnQ6IDg3NjUKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDMKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgdHR5OiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL2hvc3QvdmFyL3J1bi9kb2NrZXIuc29jawogICAgICAgICAgbmFtZTogY29udGFpbmVyLWVuZ2luZS1zb2NrZXQtMAogICAgICAgIC0gbW91bnRQYXRoOiAvaG9zdC9ydW4vcG9kbWFuL3BvZG1hbi5zb2NrCiAgICAgICAgICBuYW1lOiBjb250YWluZXItZW5naW5lLXNvY2tldC0xCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob3N0L3J1bi9ob3N0LWNvbnRhaW5lcmQvY29udGFpbmVyZC5zb2NrCiAgICAgICAgICBuYW1lOiBjb250YWluZXItZW5naW5lLXNvY2tldC0yCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob3N0L3J1bi9jb250YWluZXJkL2NvbnRhaW5lcmQuc29jawogICAgICAgICAgbmFtZTogY29udGFpbmVyLWVuZ2luZS1zb2NrZXQtMwogICAgICAgIC0gbW91bnRQYXRoOiAvaG9zdC9ydW4vY3Jpby9jcmlvLnNvY2sKICAgICAgICAgIG5hbWU6IGNvbnRhaW5lci1lbmdpbmUtc29ja2V0LTQKICAgICAgICAtIG1vdW50UGF0aDogL2hvc3QvcnVuL2szcy9jb250YWluZXJkL2NvbnRhaW5lcmQuc29jawogICAgICAgICAgbmFtZTogY29udGFpbmVyLWVuZ2luZS1zb2NrZXQtNQogICAgICAgIC0gbW91bnRQYXRoOiAvZXRjL2ZhbGNvCiAgICAgICAgICBuYW1lOiBydWxlc2ZpbGVzLWluc3RhbGwtZGlyCiAgICAgICAgLSBtb3VudFBhdGg6IC91c3Ivc2hhcmUvZmFsY28vcGx1Z2lucwogICAgICAgICAgbmFtZTogcGx1Z2lucy1pbnN0YWxsLWRpcgogICAgICAgIC0gbW91bnRQYXRoOiAvZXRjL2ZhbGNvL2NvbmZpZy5kCiAgICAgICAgICBuYW1lOiBzcGVjaWFsaXplZC1mYWxjby1jb25maWdzCiAgICAgICAgLSBtb3VudFBhdGg6IC9yb290Ly5mYWxjbwogICAgICAgICAgbmFtZTogcm9vdC1mYWxjby1mcwogICAgICAgIC0gbW91bnRQYXRoOiAvaG9zdC9wcm9jCiAgICAgICAgICBuYW1lOiBwcm9jLWZzCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob3N0L2V0YwogICAgICAgICAgbmFtZTogZXRjLWZzCiAgICAgICAgICByZWFkT25seTogdHJ1ZQogICAgICAgIC0gbW91bnRQYXRoOiAvaG9zdC9kZXYKICAgICAgICAgIG5hbWU6IGRldi1mcwogICAgICAgICAgcmVhZE9ubHk6IHRydWUKICAgICAgICAtIG1vdW50UGF0aDogL3N5cy9tb2R1bGUKICAgICAgICAgIG5hbWU6IHN5cy1tb2R1bGUtZnMKICAgICAgICAtIG1vdW50UGF0aDogL3N5cy9rZXJuZWwKICAgICAgICAgIG5hbWU6IHN5cy1mcwogICAgICAgICAgcmVhZE9ubHk6IHRydWUKICAgICAgICAtIG1vdW50UGF0aDogL2V0Yy9mYWxjby9mYWxjby55YW1sCiAgICAgICAgICBuYW1lOiBmYWxjby15YW1sCiAgICAgICAgICBzdWJQYXRoOiBmYWxjby55YW1sCiAgICAgIC0gYXJnczoKICAgICAgICAtIGFydGlmYWN0CiAgICAgICAgLSBmb2xsb3cKICAgICAgICAtIC0tbG9nLWZvcm1hdD1qc29uCiAgICAgICAgaW1hZ2U6IGRvY2tlci5pby9mYWxjb3NlY3VyaXR5L2ZhbGNvY3RsOjAuMTMuMAogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbmFtZTogZmFsY29jdGwtYXJ0aWZhY3QtZm9sbG93CiAgICAgICAgc2VjdXJpdHlDb250ZXh0OiBudWxsCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvcGx1Z2lucwogICAgICAgICAgbmFtZTogcGx1Z2lucy1pbnN0YWxsLWRpcgogICAgICAgIC0gbW91bnRQYXRoOiAvcnVsZXNmaWxlcwogICAgICAgICAgbmFtZTogcnVsZXNmaWxlcy1pbnN0YWxsLWRpcgogICAgICAgIC0gbW91bnRQYXRoOiAvZXRjL2ZhbGNvY3RsCiAgICAgICAgICBuYW1lOiBmYWxjb2N0bC1jb25maWctdm9sdW1lCiAgICAgICAgLSBtb3VudFBhdGg6IC9hcnRpZmFjdHN0YXRlCiAgICAgICAgICBuYW1lOiBhcnRpZmFjdC1zdGF0ZS1kaXIKICAgICAgaW5pdENvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIGF1dG8KICAgICAgICBlbnY6CiAgICAgICAgLSBuYW1lOiBIT1NUX1JPT1QKICAgICAgICAgIHZhbHVlOiAvaG9zdAogICAgICAgIC0gbmFtZTogRkFMQ09DVExfRFJJVkVSX0NPTkZJR19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IEZBTENPQ1RMX0RSSVZFUl9DT05GSUdfQ09ORklHTUFQCiAgICAgICAgICB2YWx1ZTogZmFsY28KICAgICAgICBpbWFnZTogZG9ja2VyLmlvL2ZhbGNvc2VjdXJpdHkvZmFsY28tZHJpdmVyLWxvYWRlcjowLjQ0LjAKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIG5hbWU6IGZhbGNvLWRyaXZlci1sb2FkZXIKICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBwcml2aWxlZ2VkOiB0cnVlCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvcm9vdC8uZmFsY28KICAgICAgICAgIG5hbWU6IHJvb3QtZmFsY28tZnMKICAgICAgICAtIG1vdW50UGF0aDogL2hvc3QvcHJvYwogICAgICAgICAgbmFtZTogcHJvYy1mcwogICAgICAgICAgcmVhZE9ubHk6IHRydWUKICAgICAgICAtIG1vdW50UGF0aDogL2hvc3QvYm9vdAogICAgICAgICAgbmFtZTogYm9vdC1mcwogICAgICAgICAgcmVhZE9ubHk6IHRydWUKICAgICAgICAtIG1vdW50UGF0aDogL2hvc3QvbGliL21vZHVsZXMKICAgICAgICAgIG5hbWU6IGxpYi1tb2R1bGVzCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob3N0L3VzcgogICAgICAgICAgbmFtZTogdXNyLWZzCiAgICAgICAgICByZWFkT25seTogdHJ1ZQogICAgICAgIC0gbW91bnRQYXRoOiAvaG9zdC9ldGMKICAgICAgICAgIG5hbWU6IGV0Yy1mcwogICAgICAgICAgcmVhZE9ubHk6IHRydWUKICAgICAgICAtIG1vdW50UGF0aDogL2V0Yy9mYWxjby9jb25maWcuZAogICAgICAgICAgbmFtZTogc3BlY2lhbGl6ZWQtZmFsY28tY29uZmlncwogICAgICAtIGFyZ3M6CiAgICAgICAgLSBhcnRpZmFjdAogICAgICAgIC0gaW5zdGFsbAogICAgICAgIC0gLS1sb2ctZm9ybWF0PWpzb24KICAgICAgICBpbWFnZTogZG9ja2VyLmlvL2ZhbGNvc2VjdXJpdHkvZmFsY29jdGw6MC4xMy4wCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBuYW1lOiBmYWxjb2N0bC1hcnRpZmFjdC1pbnN0YWxsCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OiBudWxsCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvcGx1Z2lucwogICAgICAgICAgbmFtZTogcGx1Z2lucy1pbnN0YWxsLWRpcgogICAgICAgIC0gbW91bnRQYXRoOiAvcnVsZXNmaWxlcwogICAgICAgICAgbmFtZTogcnVsZXNmaWxlcy1pbnN0YWxsLWRpcgogICAgICAgIC0gbW91bnRQYXRoOiAvZXRjL2ZhbGNvY3RsCiAgICAgICAgICBuYW1lOiBmYWxjb2N0bC1jb25maWctdm9sdW1lCiAgICAgICAgLSBtb3VudFBhdGg6IC9hcnRpZmFjdHN0YXRlCiAgICAgICAgICBuYW1lOiBhcnRpZmFjdC1zdGF0ZS1kaXIKICAgICAgc2VydmljZUFjY291bnROYW1lOiBmYWxjbwogICAgICB0b2xlcmF0aW9uczoKICAgICAgLSBlZmZlY3Q6IE5vU2NoZWR1bGUKICAgICAgICBrZXk6IG5vZGUtcm9sZS5rdWJlcm5ldGVzLmlvL21hc3RlcgogICAgICAtIGVmZmVjdDogTm9TY2hlZHVsZQogICAgICAgIGtleTogbm9kZS1yb2xlLmt1YmVybmV0ZXMuaW8vY29udHJvbC1wbGFuZQogICAgICB2b2x1bWVzOgogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL3Zhci9ydW4vZG9ja2VyLnNvY2sKICAgICAgICBuYW1lOiBjb250YWluZXItZW5naW5lLXNvY2tldC0wCiAgICAgIC0gaG9zdFBhdGg6CiAgICAgICAgICBwYXRoOiAvcnVuL3BvZG1hbi9wb2RtYW4uc29jawogICAgICAgIG5hbWU6IGNvbnRhaW5lci1lbmdpbmUtc29ja2V0LTEKICAgICAgLSBob3N0UGF0aDoKICAgICAgICAgIHBhdGg6IC9ydW4vaG9zdC1jb250YWluZXJkL2NvbnRhaW5lcmQuc29jawogICAgICAgIG5hbWU6IGNvbnRhaW5lci1lbmdpbmUtc29ja2V0LTIKICAgICAgLSBob3N0UGF0aDoKICAgICAgICAgIHBhdGg6IC9ydW4vY29udGFpbmVyZC9jb250YWluZXJkLnNvY2sKICAgICAgICBuYW1lOiBjb250YWluZXItZW5naW5lLXNvY2tldC0zCiAgICAgIC0gaG9zdFBhdGg6CiAgICAgICAgICBwYXRoOiAvcnVuL2NyaW8vY3Jpby5zb2NrCiAgICAgICAgbmFtZTogY29udGFpbmVyLWVuZ2luZS1zb2NrZXQtNAogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL3J1bi9rM3MvY29udGFpbmVyZC9jb250YWluZXJkLnNvY2sKICAgICAgICBuYW1lOiBjb250YWluZXItZW5naW5lLXNvY2tldC01CiAgICAgIC0gZW1wdHlEaXI6IHt9CiAgICAgICAgbmFtZTogc3BlY2lhbGl6ZWQtZmFsY28tY29uZmlncwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IHBsdWdpbnMtaW5zdGFsbC1kaXIKICAgICAgLSBlbXB0eURpcjoge30KICAgICAgICBuYW1lOiBydWxlc2ZpbGVzLWluc3RhbGwtZGlyCiAgICAgIC0gZW1wdHlEaXI6IHt9CiAgICAgICAgbmFtZTogYXJ0aWZhY3Qtc3RhdGUtZGlyCiAgICAgIC0gZW1wdHlEaXI6IHt9CiAgICAgICAgbmFtZTogcm9vdC1mYWxjby1mcwogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL2Jvb3QKICAgICAgICBuYW1lOiBib290LWZzCiAgICAgIC0gaG9zdFBhdGg6CiAgICAgICAgICBwYXRoOiAvbGliL21vZHVsZXMKICAgICAgICBuYW1lOiBsaWItbW9kdWxlcwogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL3VzcgogICAgICAgIG5hbWU6IHVzci1mcwogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL2V0YwogICAgICAgIG5hbWU6IGV0Yy1mcwogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL2RldgogICAgICAgIG5hbWU6IGRldi1mcwogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL3N5cy9tb2R1bGUKICAgICAgICBuYW1lOiBzeXMtbW9kdWxlLWZzCiAgICAgIC0gaG9zdFBhdGg6CiAgICAgICAgICBwYXRoOiAvc3lzL2tlcm5lbAogICAgICAgIG5hbWU6IHN5cy1mcwogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL3Byb2MKICAgICAgICBuYW1lOiBwcm9jLWZzCiAgICAgIC0gY29uZmlnTWFwOgogICAgICAgICAgaXRlbXM6CiAgICAgICAgICAtIGtleTogZmFsY29jdGwueWFtbAogICAgICAgICAgICBwYXRoOiBmYWxjb2N0bC55YW1sCiAgICAgICAgICBuYW1lOiBmYWxjby1mYWxjb2N0bAogICAgICAgIG5hbWU6IGZhbGNvY3RsLWNvbmZpZy12b2x1bWUKICAgICAgLSBjb25maWdNYXA6CiAgICAgICAgICBpdGVtczoKICAgICAgICAgIC0ga2V5OiBmYWxjby55YW1sCiAgICAgICAgICAgIHBhdGg6IGZhbGNvLnlhbWwKICAgICAgICAgIG5hbWU6IGZhbGNvCiAgICAgICAgbmFtZTogZmFsY28teWFtbAogIHVwZGF0ZVN0cmF0ZWd5OgogICAgdHlwZTogUm9sbGluZ1VwZGF0ZQo=",
+      "DataHash": "3c7e3aabf15cc6aaa577c778ef7239803b8457b4a9ee68dcd2c1fe689709c93f",
+      "DisplayName": "daemonset-default-falco",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falco",
+        "HelmChart": "falcosecurity-falco",
+        "HelmChartVersion": "9.0.0",
+        "Package": "falcosecurity-falco",
+        "Proof": "falco-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falco": {}
+          },
+          "AliasesWithoutScopes": {
+            "falco": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falco",
+            "ResourceNameWithoutScope": "falco",
+            "ResourceType": "apps/v1/DaemonSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: DaemonSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: falco\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falco\n    app.kubernetes.io/version: 0.44.0\n    helm.sh/chart: falco-9.0.0\n  name: falco\n  namespace: default\nspec:\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: falco\n      app.kubernetes.io/name: falco\n  template:\n    metadata:\n      annotations:\n        checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\n        checksum/config: 931891c60e5ffdbeba6bf0e02bead849d65d8805eec35307931fa6e8b0458416\n        checksum/rules: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\n      labels:\n        app.kubernetes.io/instance: falco\n        app.kubernetes.io/name: falco\n      name: falco\n    spec:\n      containers:\n      - args:\n        - /usr/bin/falco\n        env:\n        - name: HOST_ROOT\n          value: /host\n        - name: FALCO_HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: spec.nodeName\n        - name: FALCO_K8S_NODE_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: spec.nodeName\n        image: docker.io/falcosecurity/falco:0.44.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 8765\n          initialDelaySeconds: 0\n          periodSeconds: 15\n          timeoutSeconds: 5\n        name: falco\n        ports:\n        - containerPort: 8765\n          name: web\n          protocol: TCP\n        readinessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 8765\n          initialDelaySeconds: 0\n          periodSeconds: 15\n          timeoutSeconds: 5\n        resources:\n          limits:\n            cpu: 1000m\n            memory: 1024Mi\n          requests:\n            cpu: 100m\n            memory: 512Mi\n        securityContext:\n          privileged: true\n        startupProbe:\n          failureThreshold: 20\n          httpGet:\n            path: /healthz\n            port: 8765\n          initialDelaySeconds: 3\n          periodSeconds: 5\n          timeoutSeconds: 5\n        tty: false\n        volumeMounts:\n        - mountPath: /host/var/run/docker.sock\n          name: container-engine-socket-0\n        - mountPath: /host/run/podman/podman.sock\n          name: container-engine-socket-1\n        - mountPath: /host/run/host-containerd/containerd.sock\n          name: container-engine-socket-2\n        - mountPath: /host/run/containerd/containerd.sock\n          name: container-engine-socket-3\n        - mountPath: /host/run/crio/crio.sock\n          name: container-engine-socket-4\n        - mountPath: /host/run/k3s/containerd/containerd.sock\n          name: container-engine-socket-5\n        - mountPath: /etc/falco\n          name: rulesfiles-install-dir\n        - mountPath: /usr/share/falco/plugins\n          name: plugins-install-dir\n        - mountPath: /etc/falco/config.d\n          name: specialized-falco-configs\n        - mountPath: /root/.falco\n          name: root-falco-fs\n        - mountPath: /host/proc\n          name: proc-fs\n        - mountPath: /host/etc\n          name: etc-fs\n          readOnly: true\n        - mountPath: /host/dev\n          name: dev-fs\n          readOnly: true\n        - mountPath: /sys/module\n          name: sys-module-fs\n        - mountPath: /sys/kernel\n          name: sys-fs\n          readOnly: true\n        - mountPath: /etc/falco/falco.yaml\n          name: falco-yaml\n          subPath: falco.yaml\n      - args:\n        - artifact\n        - follow\n        - --log-format=json\n        image: docker.io/falcosecurity/falcoctl:0.13.0\n        imagePullPolicy: IfNotPresent\n        name: falcoctl-artifact-follow\n        securityContext: null\n        volumeMounts:\n        - mountPath: /plugins\n          name: plugins-install-dir\n        - mountPath: /rulesfiles\n          name: rulesfiles-install-dir\n        - mountPath: /etc/falcoctl\n          name: falcoctl-config-volume\n        - mountPath: /artifactstate\n          name: artifact-state-dir\n      initContainers:\n      - args:\n        - auto\n        env:\n        - name: HOST_ROOT\n          value: /host\n        - name: FALCOCTL_DRIVER_CONFIG_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: FALCOCTL_DRIVER_CONFIG_CONFIGMAP\n          value: falco\n        image: docker.io/falcosecurity/falco-driver-loader:0.44.0\n        imagePullPolicy: IfNotPresent\n        name: falco-driver-loader\n        securityContext:\n          privileged: true\n        volumeMounts:\n        - mountPath: /root/.falco\n          name: root-falco-fs\n        - mountPath: /host/proc\n          name: proc-fs\n          readOnly: true\n        - mountPath: /host/boot\n          name: boot-fs\n          readOnly: true\n        - mountPath: /host/lib/modules\n          name: lib-modules\n        - mountPath: /host/usr\n          name: usr-fs\n          readOnly: true\n        - mountPath: /host/etc\n          name: etc-fs\n          readOnly: true\n        - mountPath: /etc/falco/config.d\n          name: specialized-falco-configs\n      - args:\n        - artifact\n        - install\n        - --log-format=json\n        image: docker.io/falcosecurity/falcoctl:0.13.0\n        imagePullPolicy: IfNotPresent\n        name: falcoctl-artifact-install\n        securityContext: null\n        volumeMounts:\n        - mountPath: /plugins\n          name: plugins-install-dir\n        - mountPath: /rulesfiles\n          name: rulesfiles-install-dir\n        - mountPath: /etc/falcoctl\n          name: falcoctl-config-volume\n        - mountPath: /artifactstate\n          name: artifact-state-dir\n      serviceAccountName: falco\n      tolerations:\n      - effect: NoSchedule\n        key: node-role.kubernetes.io/master\n      - effect: NoSchedule\n        key: node-role.kubernetes.io/control-plane\n      volumes:\n      - hostPath:\n          path: /var/run/docker.sock\n        name: container-engine-socket-0\n      - hostPath:\n          path: /run/podman/podman.sock\n        name: container-engine-socket-1\n      - hostPath:\n          path: /run/host-containerd/containerd.sock\n        name: container-engine-socket-2\n      - hostPath:\n          path: /run/containerd/containerd.sock\n        name: container-engine-socket-3\n      - hostPath:\n          path: /run/crio/crio.sock\n        name: container-engine-socket-4\n      - hostPath:\n          path: /run/k3s/containerd/containerd.sock\n        name: container-engine-socket-5\n      - emptyDir: {}\n        name: specialized-falco-configs\n      - emptyDir: {}\n        name: plugins-install-dir\n      - emptyDir: {}\n        name: rulesfiles-install-dir\n      - emptyDir: {}\n        name: artifact-state-dir\n      - emptyDir: {}\n        name: root-falco-fs\n      - hostPath:\n          path: /boot\n        name: boot-fs\n      - hostPath:\n          path: /lib/modules\n        name: lib-modules\n      - hostPath:\n          path: /usr\n        name: usr-fs\n      - hostPath:\n          path: /etc\n        name: etc-fs\n      - hostPath:\n          path: /dev\n        name: dev-fs\n      - hostPath:\n          path: /sys/module\n        name: sys-module-fs\n      - hostPath:\n          path: /sys/kernel\n        name: sys-fs\n      - hostPath:\n          path: /proc\n        name: proc-fs\n      - configMap:\n          items:\n          - key: falcoctl.yaml\n            path: falcoctl.yaml\n          name: falco-falcoctl\n        name: falcoctl-config-volume\n      - configMap:\n          items:\n          - key: falco.yaml\n            path: falco.yaml\n          name: falco\n        name: falco-yaml\n  updateStrategy:\n    type: RollingUpdate\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-falco",
+      "SpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "759f2802-97b9-4206-9974-92d46f632c88",
+      "UpdatedAt": "2026-06-12T16:52:22.572477Z",
+      "Version": 18
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:35.636654Z",
+        "CursorID": 22874,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "adfccdd5-7a48-4f8c-a467-b29ef24d36d9",
+        "LinkID": "f1d497b8-d62f-4cc5-832f-6f60b15fd7df",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+        "SpaceSlug": "Falco-default-staging",
+        "ToSpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+        "ToUnitID": "507d7c2e-21e0-439a-80c4-96b2f24acd5d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:35.636654Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '507d7c2e-21e0-439a-80c4-96b2f24acd5d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:35.321943Z",
+      "CursorID": 4607,
+      "DisplayName": "helm-falco-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falco",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falco-default-staging",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "UpdatedAt": "2026-06-12T16:52:35.321943Z",
+      "WhereTrigger": "SpaceID = '2c96cb83-2682-4db8-8e67-ae56745c526d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "23237a2a328efa3c2996fc254c0df7f35552533cbb30becbe98be336f14b4d16",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f1d497b8-d62f-4cc5-832f-6f60b15fd7df"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "adfccdd5-7a48-4f8c-a467-b29ef24d36d9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "507d7c2e-21e0-439a-80c4-96b2f24acd5d",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "falcosecurity-falco",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1123976085,
+      "CreatedAt": "2026-06-12T16:52:08.1886Z",
+      "CursorID": 27980,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImZhbGNvc2VjdXJpdHktZmFsY28iCiAgdmVyc2lvbjogIjkuMC4wIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBuYW1lOiAiZGVmYXVsdCIKICAgIHBhdGg6ICJiYXNlcy9kZWZhdWx0IgogICAgZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJmYWxjb3NlY3VyaXR5L2ZhbGNvIGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIGZhbGNvc2VjdXJpdHkvZmFsY29AOS4wLjAiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IGZhbGNvc2VjdXJpdHktZmFsY28tZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGZhbGNvc2VjdXJpdHktZmFsY28KICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogZmFsY29zZWN1cml0eS1mYWxjby1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGZhbGNvc2VjdXJpdHktZmFsY28KICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGZhbGNvc2VjdXJpdHktZmFsY28tbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGZhbGNvc2VjdXJpdHktZmFsY28KICBmaWxlczoKICAtIGZpbGVuYW1lOiBjb25maWdtYXAtZGVmYXVsdC1mYWxjby55YW1sCiAgICBzbHVnOiBjb25maWdtYXAtZGVmYXVsdC1mYWxjbwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IENvbmZpZ01hcAogICAgbmFtZTogZmFsY28KICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IGNvbmZpZ21hcC1kZWZhdWx0LWZhbGNvLWZhbGNvY3RsLnlhbWwKICAgIHNsdWc6IGNvbmZpZ21hcC1kZWZhdWx0LWZhbGNvLWZhbGNvY3RsCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogQ29uZmlnTWFwCiAgICBuYW1lOiBmYWxjby1mYWxjb2N0bAogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogZGFlbW9uc2V0LWRlZmF1bHQtZmFsY28ueWFtbAogICAgc2x1ZzogZGFlbW9uc2V0LWRlZmF1bHQtZmFsY28KICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERhZW1vblNldAogICAgbmFtZTogZmFsY28KICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1kZWZhdWx0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogTmFtZXNwYWNlCiAgICBuYW1lOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZS1kZWZhdWx0LWZhbGNvLnlhbWwKICAgIHNsdWc6IHJvbGUtZGVmYXVsdC1mYWxjbwogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogUm9sZQogICAgbmFtZTogZmFsY28KICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGViaW5kaW5nLWRlZmF1bHQtZmFsY28ueWFtbAogICAgc2x1Zzogcm9sZWJpbmRpbmctZGVmYXVsdC1mYWxjbwogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogUm9sZUJpbmRpbmcKICAgIG5hbWU6IGZhbGNvCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWZhbGNvLnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtZmFsY28KICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZTogZmFsY28KICAgIG5hbWVzcGFjZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGZhbGNvc2VjdXJpdHktZmFsY28tc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBmYWxjb3NlY3VyaXR5LWZhbGNvCiAgYmFzZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogVXBsb2FkCm1ldGFkYXRhOgogIG5hbWU6IGZhbGNvc2VjdXJpdHktZmFsY28tdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBmYWxjb3NlY3VyaXR5LWZhbGNvCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLWZhbGNvLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgc3BhY2VzOgogIC0gcGFja2FnZTogZmFsY29zZWN1cml0eS1mYWxjbwogICAgc2x1ZzogaGVsbS1mYWxjby1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogICAgaXNQYXJlbnQ6IHRydWUKICB1cGxvYWRlZEF0OiAiMjAyNi0wNi0xMlQxNjo1MjowMFoiCiAgc2VydmVyOiBodHRwczovL2h1Yi5jb25maWdodWIuY29tCiAgb3JnYW5pemF0aW9uSUQ6IDU4YjIzYjg1LTk2OTktNDM4NC1iZDU3LTgwZWY2OTVhMWQ1OAo=",
+      "DataHash": "23237a2a328efa3c2996fc254c0df7f35552533cbb30becbe98be336f14b4d16",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "falcosecurity-falco"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/falcosecurity-falco": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falco": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falco",
+            "ResourceNameWithoutScope": "falcosecurity-falco",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"falcosecurity-falco\"\n  version: \"9.0.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"falcosecurity/falco default variant rendered from falcosecurity/falco@9.0.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falco-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falco-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falco-function-chain",
+            "ResourceNameWithoutScope": "falcosecurity-falco-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: falcosecurity-falco-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falco\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falco-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falco-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falco-inputs",
+            "ResourceNameWithoutScope": "falcosecurity-falco-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: falcosecurity-falco-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falco\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falco-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falco-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falco-manifest-index",
+            "ResourceNameWithoutScope": "falcosecurity-falco-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: falcosecurity-falco-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falco\n  files:\n  - filename: configmap-default-falco.yaml\n    slug: configmap-default-falco\n    apiVersion: v1\n    kind: ConfigMap\n    name: falco\n    namespace: default\n  - filename: configmap-default-falco-falcoctl.yaml\n    slug: configmap-default-falco-falcoctl\n    apiVersion: v1\n    kind: ConfigMap\n    name: falco-falcoctl\n    namespace: default\n  - filename: daemonset-default-falco.yaml\n    slug: daemonset-default-falco\n    apiVersion: apps/v1\n    kind: DaemonSet\n    name: falco\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-falco.yaml\n    slug: role-default-falco\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: falco\n    namespace: default\n  - filename: rolebinding-default-falco.yaml\n    slug: rolebinding-default-falco\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: falco\n    namespace: default\n  - filename: serviceaccount-default-falco.yaml\n    slug: serviceaccount-default-falco\n    apiVersion: v1\n    kind: ServiceAccount\n    name: falco\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falco-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falco-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falco-selection",
+            "ResourceNameWithoutScope": "falcosecurity-falco-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: falcosecurity-falco-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falco\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/falcosecurity-falco-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "falcosecurity-falco-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/falcosecurity-falco-upload",
+            "ResourceNameWithoutScope": "falcosecurity-falco-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: falcosecurity-falco-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: falcosecurity-falco\n  spacePattern: helm-falco-default-confighub-proof\n  spaces:\n  - package: falcosecurity-falco\n    slug: helm-falco-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:52:00Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "507d7c2e-21e0-439a-80c4-96b2f24acd5d",
+      "UpdatedAt": "2026-06-12T16:52:09.56035Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:35.510124Z",
+        "CursorID": 22871,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2492cb95-7a0c-4e2e-8e37-3439e443aa0a",
+        "LinkID": "1f185ddb-b261-4b70-b256-2005d64ec4b7",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+        "SpaceSlug": "Falco-default-staging",
+        "ToSpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+        "ToUnitID": "c8e280aa-0e9f-4e97-92a2-b54939023a74",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:35.510124Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c8e280aa-0e9f-4e97-92a2-b54939023a74' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:35.321943Z",
+      "CursorID": 4607,
+      "DisplayName": "helm-falco-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falco",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falco-default-staging",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "UpdatedAt": "2026-06-12T16:52:35.321943Z",
+      "WhereTrigger": "SpaceID = '2c96cb83-2682-4db8-8e67-ae56745c526d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1f185ddb-b261-4b70-b256-2005d64ec4b7"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2492cb95-7a0c-4e2e-8e37-3439e443aa0a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c8e280aa-0e9f-4e97-92a2-b54939023a74",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:52:04.161099Z",
+      "CursorID": 27976,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Falco",
+        "HelmChart": "falcosecurity-falco",
+        "HelmChartVersion": "9.0.0",
+        "Package": "falcosecurity-falco",
+        "Proof": "falco-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c8e280aa-0e9f-4e97-92a2-b54939023a74",
+      "UpdatedAt": "2026-06-12T16:52:04.245334Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:35.794738Z",
+        "CursorID": 22878,
+        "DisplayName": "Upgrade rolebinding-default-falco",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "385ad2da-cdfc-4aeb-9f12-df455e170ef9",
+        "LinkID": "0c220f72-083d-4814-903b-a3810c9f9d1c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-falco",
+        "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+        "SpaceSlug": "Falco-default-staging",
+        "ToSpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+        "ToUnitID": "a1e5b116-935b-4387-a1db-ada47592f498",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:35.794738Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'a1e5b116-935b-4387-a1db-ada47592f498' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:35.321943Z",
+      "CursorID": 4607,
+      "DisplayName": "helm-falco-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falco",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falco-default-staging",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "UpdatedAt": "2026-06-12T16:52:35.321943Z",
+      "WhereTrigger": "SpaceID = '2c96cb83-2682-4db8-8e67-ae56745c526d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8f355885daea985c97f969edd54bdfec7e78c802e42ca61a0c17f7c8b7fd2e9e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0c220f72-083d-4814-903b-a3810c9f9d1c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-falco",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "385ad2da-cdfc-4aeb-9f12-df455e170ef9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "a1e5b116-935b-4387-a1db-ada47592f498",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 961432041,
+      "CreatedAt": "2026-06-12T16:52:05.73281Z",
+      "CursorID": 27978,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZmFsY28KICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGZhbGNvCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjQ0LjAKICAgIGhlbG0uc2gvY2hhcnQ6IGZhbGNvLTkuMC4wCiAgbmFtZTogZmFsY28KICBuYW1lc3BhY2U6IGRlZmF1bHQKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IFJvbGUKICBuYW1lOiBmYWxjbwpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGZhbGNvCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "8f355885daea985c97f969edd54bdfec7e78c802e42ca61a0c17f7c8b7fd2e9e",
+      "DisplayName": "rolebinding-default-falco",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falco",
+        "HelmChart": "falcosecurity-falco",
+        "HelmChartVersion": "9.0.0",
+        "Package": "falcosecurity-falco",
+        "Proof": "falco-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falco": {}
+          },
+          "AliasesWithoutScopes": {
+            "falco": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falco",
+            "ResourceNameWithoutScope": "falco",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: falco\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falco\n    app.kubernetes.io/version: 0.44.0\n    helm.sh/chart: falco-9.0.0\n  name: falco\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: falco\nsubjects:\n- kind: ServiceAccount\n  name: falco\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-falco",
+      "SpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a1e5b116-935b-4387-a1db-ada47592f498",
+      "UpdatedAt": "2026-06-12T16:52:25.704084Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:35.760769Z",
+        "CursorID": 22877,
+        "DisplayName": "Upgrade role-default-falco",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "806af495-31d3-4b66-b270-f0e1c6e57e4f",
+        "LinkID": "16ccd8a4-c6e2-4d27-94c1-969c8277b7ba",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-falco",
+        "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+        "SpaceSlug": "Falco-default-staging",
+        "ToSpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+        "ToUnitID": "48743fd1-255f-4f46-b670-61c61df54f27",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:35.760769Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '48743fd1-255f-4f46-b670-61c61df54f27' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:35.321943Z",
+      "CursorID": 4607,
+      "DisplayName": "helm-falco-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falco",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falco-default-staging",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "UpdatedAt": "2026-06-12T16:52:35.321943Z",
+      "WhereTrigger": "SpaceID = '2c96cb83-2682-4db8-8e67-ae56745c526d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "98029ce308d9b66c08b50631c9853c12bb7df95d075c85890edcf4463ac8129e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "16ccd8a4-c6e2-4d27-94c1-969c8277b7ba"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-falco",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "806af495-31d3-4b66-b270-f0e1c6e57e4f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "48743fd1-255f-4f46-b670-61c61df54f27",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1556470764,
+      "CreatedAt": "2026-06-12T16:52:04.978624Z",
+      "CursorID": 27977,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBmYWxjbwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZmFsY28KICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuNDQuMAogICAgaGVsbS5zaC9jaGFydDogZmFsY28tOS4wLjAKICBuYW1lOiBmYWxjbwogIG5hbWVzcGFjZTogZGVmYXVsdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIGNvbmZpZ21hcHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gdXBkYXRlCg==",
+      "DataHash": "98029ce308d9b66c08b50631c9853c12bb7df95d075c85890edcf4463ac8129e",
+      "DisplayName": "role-default-falco",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Falco",
+        "HelmChart": "falcosecurity-falco",
+        "HelmChartVersion": "9.0.0",
+        "Package": "falcosecurity-falco",
+        "Proof": "falco-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falco": {}
+          },
+          "AliasesWithoutScopes": {
+            "falco": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falco",
+            "ResourceNameWithoutScope": "falco",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: falco\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falco\n    app.kubernetes.io/version: 0.44.0\n    helm.sh/chart: falco-9.0.0\n  name: falco\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  verbs:\n  - get\n  - list\n  - update\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/falco",
+          "ResourceNameWithoutScope": "falco",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-falco",
+      "SpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "48743fd1-255f-4f46-b670-61c61df54f27",
+      "UpdatedAt": "2026-06-12T16:52:23.618728Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:52:35.824119Z",
+        "CursorID": 22879,
+        "DisplayName": "Upgrade serviceaccount-default-falco",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b650d233-3ed5-441c-872c-6826f206fef9",
+        "LinkID": "7aeaa00b-3c26-416a-820d-ff69a78fcb7c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-falco",
+        "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+        "SpaceSlug": "Falco-default-staging",
+        "ToSpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+        "ToUnitID": "2b0557c8-e832-4801-b635-174c52b292cc",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:52:35.824119Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2b0557c8-e832-4801-b635-174c52b292cc' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:35.321943Z",
+      "CursorID": 4607,
+      "DisplayName": "helm-falco-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Falco",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Falco-default-staging",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "UpdatedAt": "2026-06-12T16:52:35.321943Z",
+      "WhereTrigger": "SpaceID = '2c96cb83-2682-4db8-8e67-ae56745c526d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c4466507c9354e5d5de6d876ad39121dbcb537775a1de910f882e6e5144a3955",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7aeaa00b-3c26-416a-820d-ff69a78fcb7c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-falco",
+      "SpaceID": "7f94ab4f-00e9-477f-a9e4-9785055fb5d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b650d233-3ed5-441c-872c-6826f206fef9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2b0557c8-e832-4801-b635-174c52b292cc",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -403815863,
+      "CreatedAt": "2026-06-12T16:52:06.444829Z",
+      "CursorID": 27979,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZhbGNvCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBmYWxjbwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC40NC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBmYWxjby05LjAuMAogIG5hbWU6IGZhbGNvCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "c4466507c9354e5d5de6d876ad39121dbcb537775a1de910f882e6e5144a3955",
+      "DisplayName": "serviceaccount-default-falco",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Falco",
+        "HelmChart": "falcosecurity-falco",
+        "HelmChartVersion": "9.0.0",
+        "Package": "falcosecurity-falco",
+        "Proof": "falco-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 271 bytes; from serviceaccount-default-falco.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/falco": {}
+          },
+          "AliasesWithoutScopes": {
+            "falco": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/falco",
+            "ResourceNameWithoutScope": "falco",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: falco\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: falco\n    app.kubernetes.io/version: 0.44.0\n    helm.sh/chart: falco-9.0.0\n  name: falco\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/falco",
+          "ResourceNameWithoutScope": "falco",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-falco",
+      "SpaceID": "2c96cb83-2682-4db8-8e67-ae56745c526d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2b0557c8-e832-4801-b635-174c52b292cc",
+      "UpdatedAt": "2026-06-12T16:52:27.366105Z",
+      "Version": 6
+    }
+  }
+]

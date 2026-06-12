@@ -1,0 +1,1220 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "db3c848a9c34eb834ebf99a872f099330d0589e8ede1c03ea6fdd2f3f9e7b29d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d63f0e94-59b7-4e86-bc46-439b05da68e6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d0047ea1a864e443958ab6b11440dd5caa0ae66e36c17f8cee507347362a8e8a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-argo-workflows-workflow-controller-configmap",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "44bf2a92-451e-43c8-9217-42217cae4af9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "84a2036c-37e0-4fe5-b030-ebb29c5960d2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3a08d322305a97c668ab0234cf1af44a73a3310eeda80bedc459745bf7b059e0",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-argo-workflows-workflow",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8c4aa614-e5e7-4dee-9572-66db9e2c77cd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f25c5e42fb521bede4b04bb2221288962abafbe49798e8f7653d7e2153c70f4a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "69bfc9f9-643c-4947-ad01-504e02129747",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0691ef8db7ef8770fbde1ab22e1820dde975f9a8b41f7ca03836a181c0ee481e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-admin",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e020f5d4-3f12-4b27-90fc-6f3090633c37",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "492bb72f57faca7e10a883bd36d25e33d2561b5018969cea5332e8945f6af278",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d3f498e1-80c7-4e30-9d85-4accabd28b2c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8e50337c263b451151178c0479d3fa6c25f57784d604a22c19060d0ade191cb9",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-edit",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f4acaaf3-f338-438f-bd63-ff570190873a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a44b90fc93c9c7cdf994e75d5b85f86d7311a67b314f1fc81b927c4fa100a0b6",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-view",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0c29666e-6e72-46c9-86c8-b448e5aeffd1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2de13cbf43872823c9393bc88a1e8df1bf35a95da9f792524ccdef354344435e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-workflow-controller",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2923ff19-bb6b-4d61-9bb2-a88f6160e113",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "04f40c94e1ef205d76c891e048e2fa4f05c5d5e9799f7196ca27f3c5ae6731d3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-workflow-controller-cluster-template",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8860db08-8018-4317-8ce3-2acbb4f5219e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b86e3be09e6b50dd0fb315cef1b44ffb0283b02c14f3bf8df6c80f7071032340",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-argo-workflows-workflow-controller",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e2168422-5a5e-4ec2-8868-15222e83758e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "973675304cba69694570ccafa3581cfc63bcd9b2977404de61326d05074b9d35",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6a0f59dc-6f34-44dd-a9cf-164697f64295",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b089d1ad71fd23a6ae82323d217876a1934abb37c808c8d4270dacb656d51ca6",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-argo-workflows-server-cluster-template",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e2538f78-fb67-40d0-88ba-341a442bebbc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "222a4137d2886e8d87b25c956c8cc3f28a876ea39585da01930bcc0ee38c146e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8482ff7c-27d1-4c7e-8a8f-5e1801612387",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "726d01f183e386c21d2e3ac2508f0f8a26364badeede08b74bc30f20ec71a98e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-server-cluster-template",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "263eb169-6a17-4ba1-88f3-aeab4773e979",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "78b3564bf8d5e6ba4128ad30aa37c49e687c97cf2e24adbfce7afac88dab4fd2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-workflow-controller",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c5ea643c-613d-4404-a695-233ceefda128",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a8c15672070f0801a53508b293f161870d310ef51b204ce663cd1c48ef6c27af",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-argo-workflows-workflow-controller-cluster-template",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0d3d277f-d2e1-4edd-af52-2bee7e53bb82",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "28178070c8caaac17a9427295fad2d9af2cd4bfdae2046d34e2c9235e3ccda35",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-argo-workflows-workflow",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7f7fbeb4-4d86-409e-8176-070fc3289cf4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "78d909998055b2e9a7532cf6d9c912e51030ba923ff29efb92ce52b5a63c1b94",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-argo-workflows-server",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c2fd41c-324a-4895-a846-aa604737a8ee",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:45:25.083971Z",
+      "CursorID": 4578,
+      "DisplayName": "helm-argo-workflows-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ArgoWorkflows",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-argo-workflows-default-confighub-proof",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "UpdatedAt": "2026-06-12T16:45:25.59637Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0bbd660b-f725-442e-a314-7123e58337bd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "518ffef54e0a1df5f7b5323c4cd755c6d2c00fddeb834a735ae04c9b1f628328",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-argo-workflows-workflow-controller",
+      "SpaceID": "0bbd660b-f725-442e-a314-7123e58337bd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c405c9c6-f8a0-4572-a03c-2c9b08383a9c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

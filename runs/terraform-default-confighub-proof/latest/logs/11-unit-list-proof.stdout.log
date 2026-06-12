@@ -1,0 +1,398 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:09:35.891228Z",
+      "CursorID": 4670,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-terraform-default-confighub-proof",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "UpdatedAt": "2026-06-12T17:09:36.388479Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d800f092175a938f7a848d924bf58133248b292107d5f3aa80ac1192ae4dd8c0",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-workspaces-app-terraform-io",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "153eb0f6-076a-4f33-8c78-c2ecef0805b2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:09:35.891228Z",
+      "CursorID": 4670,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-terraform-default-confighub-proof",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "UpdatedAt": "2026-06-12T17:09:36.388479Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "583e9e0b064ff5fe0c8952874e4f715ac6c158f3a9eb5b0e679b1aa5c2facfb1",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-terraform-terraform-sync-workspace",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4c65ab3f-2370-4803-bc0e-c4b36ebbc2a4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:09:35.891228Z",
+      "CursorID": 4670,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-terraform-default-confighub-proof",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "UpdatedAt": "2026-06-12T17:09:36.388479Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b9a96b03-66e6-44f3-8c0a-fe90725716ba",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:09:35.891228Z",
+      "CursorID": 4670,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-terraform-default-confighub-proof",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "UpdatedAt": "2026-06-12T17:09:36.388479Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "90165a0d76ce7fb316d18550b2050628817350e236d7e03e3d501e6ae7670559",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-terraform-terraform-sync-workspace",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a5eb7c06-9bfb-476d-a18c-e08c20c6b83f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:09:35.891228Z",
+      "CursorID": 4670,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-terraform-default-confighub-proof",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "UpdatedAt": "2026-06-12T17:09:36.388479Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d5e7a1663c8896051dd189c2151047832f429a1d9957b5bb10f279e95322bfb0",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-terraform-terraform-sync-workspace",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7835badb-d07c-4b81-b613-54a93c89774e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:09:35.891228Z",
+      "CursorID": 4670,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-terraform-default-confighub-proof",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "UpdatedAt": "2026-06-12T17:09:36.388479Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3a9dbf8c62ad3975c115e0bb6830ab25491b8f33bc6868ba96b813bad65d8865",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-terraform-terraform-sync-workspace",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a1da8135-6eff-4aac-936c-0df81ae8222a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

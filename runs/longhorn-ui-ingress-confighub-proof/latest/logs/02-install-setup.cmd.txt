@@ -1,0 +1,1 @@
+cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir .tmp/confighub-proof/longhorn-ui-ingress --non-interactive --namespace longhorn-system

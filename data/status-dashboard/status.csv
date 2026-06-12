@@ -31,16 +31,16 @@ top500,catalog-supported rows,20,500,partial,data/top500-catalog-analysis/review
 top500,proof-grade rows,71,500,partial,data/top500-catalog-analysis/review.csv,Rows with deterministic proof that are not public catalog entries.
 top500,rows with no current recipe proof,409,500,gap,data/top500-catalog-analysis/review.csv,Source reconnaissance rows with no current recipe/package proof yet.
 top500,version-drift review rows,21,500,partial,data/top500-catalog-analysis/review.csv,Current recipe exists but the retained source-scan version differs.
-proof lanes,render parity rows,190,190,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
-proof lanes,in-ConfigHub proof rows,85,190,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
-proof lanes,local live rows,134,190,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
+proof lanes,render parity rows,191,191,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
+proof lanes,in-ConfigHub proof rows,144,191,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
+proof lanes,local live rows,135,191,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
 proof lanes,explicit lifecycle observation rows,10,10,good,data/outcome-coverage/base-outcomes.csv,"Rows where CRD, webhook, controller-owned field, or post-apply API readiness was proven through an explicit lifecycle receipt rather than a plain bulk apply."
 proof lanes,local live non-pass rows classified,56,56,good,data/local-live-triage/triage.csv,"Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."
-proof lanes,GitOps/OCI live pass rows,33,190,partial,data/outcome-coverage/base-outcomes.csv,8 rows have non-pass GitOps/OCI receipts.
-proof lanes,live Helm-vs-ConfigHub parity pass rows,33,190,partial,data/outcome-coverage/base-outcomes.csv,5 rows have non-pass live parity receipts.
+proof lanes,GitOps/OCI live pass rows,33,191,partial,data/outcome-coverage/base-outcomes.csv,8 rows have non-pass GitOps/OCI receipts.
+proof lanes,live Helm-vs-ConfigHub parity pass rows,33,191,partial,data/outcome-coverage/base-outcomes.csv,5 rows have non-pass live parity receipts.
 proof lanes,two-cluster kind parity pass rows,70,70,partial,data/live-kind-parity/summary.csv,"Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
 proof lanes,two-cluster semantic parity pass rows,70,70,good,data/live-kind-parity/summary.csv,"Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."
-proof lanes,complete core lane rows,30,190,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
+proof lanes,complete core lane rows,32,191,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
 proof lanes,top20 start-here base variants,29,42,partial,data/top20-base-readiness/base-readiness.csv,Base variants that are the cleanest first catalog paths today.
 proof lanes,top20 bases needing unresolved prerequisite or runtime review,5,42,partial,data/top20-base-readiness/base-readiness.csv,"Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."
 derived variants,derived variant golden rows,10,10,good,data/variant-goldens/derived-expansion-wave/work-orders.csv,"Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."

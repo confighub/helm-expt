@@ -1,0 +1,34 @@
+Plan: 0 to add, 2 to change, 0 to delete.
+
+Space helm-haproxy-ingress-default-confighub-proof:
+  ~ deployment-default-kubernetes-ingress
+
+      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/haproxy-ingress-default/out/manifests/deployment-default-kubernetes-ingress.yaml:
+      Resource: apps/v1/Deployment default/kubernetes-ingress
+        - [Delete] spec.template.spec.containers.?name=kubernetes-ingress-controller;@0.ports.?containerPort=8443;@2  (#2)
+          containerPort: 8443
+          name: https
+          protocol: TCP
+        ~ [Update] spec.template.spec.containers.?name=kubernetes-ingress-controller;@0.ports.?containerPort=8443;@3.name  (#2)
+          stat →     https
+        ~ [Update] spec.template.spec.containers.?name=kubernetes-ingress-controller;@0.ports.?containerPort=8443;@3.protocol  (#2)
+          TCP →     TCP
+  ~ service-default-kubernetes-ingress
+
+      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/haproxy-ingress-default/out/manifests/service-default-kubernetes-ingress.yaml:
+      Resource: v1/Service default/kubernetes-ingress
+        - [Delete] spec.ports.?port=443;@1  (#2)
+          appProtocol: https
+          name: https
+          port: 443
+          protocol: TCP
+          targetPort: https
+        ~ [Update] spec.ports.?port=443;@1.name  (#2)
+          https →     https
+        ~ [Update] spec.ports.?port=443;@1.protocol  (#2)
+          TCP →     TCP
+        ~ [Update] spec.ports.?port=443;@1.targetPort  (#2)
+          https →     https
+
+Images in helm-haproxy-ingress-default-confighub-proof (post-render):
+      Deployment/kubernetes-ingress [kubernetes-ingress-controller] docker.io/haproxytech/kubernetes-ingress:3.2.9

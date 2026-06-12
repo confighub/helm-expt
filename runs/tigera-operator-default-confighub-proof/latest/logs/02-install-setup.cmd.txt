@@ -1,0 +1,1 @@
+cub installer setup --pull packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir .tmp/confighub-proof/tigera-operator-default --non-interactive --namespace default

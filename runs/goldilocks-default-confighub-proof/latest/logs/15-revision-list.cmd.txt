@@ -1,0 +1,1 @@
+cub revision list deployment-default-goldilocks-dashboard --space helm-goldilocks-default-confighub-proof

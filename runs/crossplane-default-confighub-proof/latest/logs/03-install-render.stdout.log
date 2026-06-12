@@ -1,0 +1,4 @@
+Rendered 21 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/crossplane-default/out/manifests
+Rendered 3 secret(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/crossplane-default/out/secrets (not uploaded)
+Spec docs in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/crossplane-default/out/spec
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/crossplane-default --space <slug>

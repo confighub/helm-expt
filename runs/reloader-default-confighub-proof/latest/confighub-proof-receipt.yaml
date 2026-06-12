@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "reloader-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/stakater/reloader/2.2.12"
+    name: "stakater-reloader"
+    chart: "stakater/reloader"
+    chartVersion: "2.2.12"
+    bases:
+      - "default"
+      - "controller-default-reviewed"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/stakater/reloader/2.2.12 --base default --work-dir .tmp/confighub-proof/reloader-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/reloader-default"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/stakater/reloader/2.2.12 -o .tmp/confighub-proof/reloader-default-archives/reloader-a.tgz"
+    sha256: "c6d0f3f0fffec34fdf8200acfc98757bba8a4f83d9e3bb87fcc999000b156ff1"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/reloader-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/reloader-default --space helm-reloader-default-confighub-proof --component Reloader --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Reloader --unit-label HelmChart=stakater-reloader --unit-label HelmChartVersion=2.2.12 --unit-label Variant=default --unit-label Proof=reloader-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-reloader-default-confighub-proof"
+    unitCount: 8
+    kubernetesUnitCount: 7
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/reloader-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/reloader-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-reloader-default-confighub-proof (post-render):\n      Deployment/reloader-reloader [reloader-reloader] ghcr.io/stakater/reloader:v1.4.17"
+  serverSideVariant:
+    command: "cub variant create staging helm-reloader-default-confighub-proof --environment Staging --region local --space-name-pattern template:Reloader-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-reloader-default-confighub-proof"
+    downstreamSpace: "Reloader-default-staging"
+    clonedUnitCount: 8
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-reloader-reloader"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-reloader-default-confighub-proof"
+      - "Reloader-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

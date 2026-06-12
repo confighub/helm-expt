@@ -1,0 +1,17 @@
+--- helm-cluster-autoscaler-default-confighub-proof/service-default-cluster-autoscaler-aws-cluster-autoscaler/1
++++ helm-cluster-autoscaler-default-confighub-proof/service-default-cluster-autoscaler-aws-cluster-autoscaler/2
+@@ -10,10 +14,4 @@
+   namespace: default
+ spec:
+   ports:
+-    - name: http
+-      port: 8085
+-      protocol: TCP
+-      targetPort: 8085
++  - name: http
++    port: 8085
++    protocol: TCP
++    targetPort: 8085
+   selector:
+     app.kubernetes.io/instance: cluster-autoscaler
+     app.kubernetes.io/name: aws-cluster-autoscaler

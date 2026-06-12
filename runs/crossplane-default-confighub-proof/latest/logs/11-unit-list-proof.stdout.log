@@ -1,0 +1,1388 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e1a062ea0025ef582cd252d6f14a2149a0d1eb283d9e1e9e65108bea5b36a515",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplaneaggregate-to-edit",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "256d5c45-f40b-4979-8ae6-d3bc02526a53",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "58d7359ddc5c9f477d4ed5b21231dcfc6c61b1f2f685b83fffc5744c76d59a9b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-crossplane-rbac-manager",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fc5d000b-8365-42d3-971a-b3294ffa1184",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e8e59db6093994baf09a7d2207f770abedefaee0d79b36b97cdc4e8aa28b9e0a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-crossplane",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1a89ab99-cd0b-4331-b6bf-cd4eed2b84c8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d8e565ae-0c12-40d9-8379-73309abf35a1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3e8704297a6bf2d33029e37bd807b64c2eba5b01f7c3a4d89472f9f75d213e10",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-crossplane-webhooks",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8532abc9-4e71-4e4d-83bc-76b484c188e6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "37754607eaa7a5bf9aca469324e87dd912eed275c10575249cab2b08c947c5f3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplane-admin",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4277ae3d-866d-4183-86df-95b824ba8415",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4b18e1edd08e094553bed4a1b22a3409a214c4c137fc4218a77a32894a629398",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplane",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "98d4d36e-3f52-4906-a719-220fd53491ec",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "facde08d00960206541e3bfe6b2ccb380cb070df8e5993819a5af0dc89b1fdba",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplaneaggregate-to-admin",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6ff2ea75-ffe1-4445-90dc-8a0d7cd57d90",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "478c1fb4cddca38ec2e38d5254eefd25649b26fa738b2358eff404ef0d882b60",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplaneaggregate-to-browse",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "34dbba1e-4b55-4006-83cd-d077c8130954",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ca734f4be45c02bcbeaf116952f5067469800ee21ee93672a8d985488dc3efd0",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplaneaggregate-to-view",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d972665a-6146-447c-bdb5-0f5ccf3f655a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9088e4469e21cbd52a71d425116ae426a57fbc899a36c4f8b9a32b262e5c1075",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplaneallowed-provider-permissions",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "97d2f535-22a0-4503-81fb-d997245755a5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4a611b3ed75786800b1f1125a272c4835552646df1a1a3e11f0fe84f1a19dd37",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplane-edit",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d45a155d-aa89-42d0-b10a-c9ab1fbe3626",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "dc32ba015f88868002cace686b9560274b66e7e1e5553afc66da4dee62446c8d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplane-browse",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a4c70ecf-b52c-49da-99f0-cc7faf367200",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d666f22de9ace4f13fe14048ba9b7d40029814b3415f12228aeb7459ddbda3e3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplane-rbac-manager",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8ab05eeb-dfc4-4f9e-9f0f-1a249ed75330",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6c79333ceb78594cc75e19a41de7e2e3e73af040c9b9c55139f71019912e1355",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplane-view",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bcdfa102-3b85-4164-9c9d-e47c95ae3d3e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4613376ebbb6763afa282be147a5266d0eab40e4d02e8c3ac3eb055bbc1ea008",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-crossplanesystemaggregate-to-crossplane",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ea844ec6-be34-4d5b-81d1-bd88ea47cbe6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6cc5eceff1e51d7b7fabc8f78a2f738f4505f1882dd8372dc05021837bb1d25d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-crossplane",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a83862ab-b9f5-4846-ab1d-776ee0865086",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f851fe90aa4e8dedf93c51147a614e1f6d5bfe87b5829a2b33915dfd147b8b1d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-crossplane-admin",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a35c3474-178c-4b84-b327-7eba6b2b924d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "91e91d1a63e2ea233eb050ca8de916838bc90c1e939a7117727c4f71cc7da86b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-crossplane-rbac-manager",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3b659528-f841-4e0d-a037-d2da863452f3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "341f67b35e2c90ddd2a86bf314955995d66dcc03364529ab14dea715c670e103",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-crossplane",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "22b87078-d9b6-4897-9979-57bb4fdc9627",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:29:20.250024Z",
+      "CursorID": 4704,
+      "DisplayName": "helm-crossplane-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Crossplane",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-crossplane-default-confighub-proof",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "UpdatedAt": "2026-06-12T17:29:20.743047Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0a9c2f68-e2ee-479d-b86b-1a54af484e8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fc28a8c5549e768949fe5fd953c85dee49fdca73c430f9476c0ede2ccd89bde6",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Crossplane",
+        "HelmChart": "crossplane-stable-crossplane",
+        "HelmChartVersion": "2.3.1",
+        "Package": "crossplane-stable-crossplane",
+        "Proof": "crossplane-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-rbac-manager",
+      "SpaceID": "0a9c2f68-e2ee-479d-b86b-1a54af484e8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "abf8728b-1099-428a-ab68-ed3a76b156d4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

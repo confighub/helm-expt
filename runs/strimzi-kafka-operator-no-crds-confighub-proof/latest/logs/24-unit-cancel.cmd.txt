@@ -1,0 +1,1 @@
+cub unit cancel --space helm-strimzi-kafka-operator-no-crds-confighub-proof --where "Labels.Proof = 'strimzi-kafka-operator-no-crds-confighub-proof'"

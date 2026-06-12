@@ -1,0 +1,1 @@
+cub revision list deployment-default-cloudnative-pg --space helm-cloudnative-pg-no-crds-confighub-proof

@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "percona-pxc-operator"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "percona/pxc-operator default variant rendered from percona/pxc-operator@1.19.1"
+      },
+      {
+        "name": "no-crds",
+        "path": "bases/no-crds",
+        "description": "percona/pxc-operator no-crds variant rendered from percona/pxc-operator@1.19.1"
+      }
+    ]
+  }
+}

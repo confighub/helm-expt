@@ -1,0 +1,1346 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:54:42.429815Z",
+        "CursorID": 23006,
+        "DisplayName": "Upgrade clusterrole-fluent-bit",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f14e0b75-ebcb-45be-92ba-3fe08dfe244e",
+        "LinkID": "4b24097a-4dda-481f-a497-e2482e802bd2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-fluent-bit",
+        "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+        "SpaceSlug": "FluentBit-default-staging",
+        "ToSpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+        "ToUnitID": "b7f76ea7-a409-42ba-9694-49347ad94986",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:54:42.429815Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b7f76ea7-a409-42ba-9694-49347ad94986' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:41.833241Z",
+      "CursorID": 4619,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "FluentBit-default-staging",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "UpdatedAt": "2026-06-12T16:54:41.833241Z",
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "54e6ca5287dd94739cb4cb6ea25f97efee9b50bc5f750441e3bf72e212d7e343",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4b24097a-4dda-481f-a497-e2482e802bd2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-fluent-bit",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f14e0b75-ebcb-45be-92ba-3fe08dfe244e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b7f76ea7-a409-42ba-9694-49347ad94986",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1228277225,
+      "CreatedAt": "2026-06-12T16:54:03.748202Z",
+      "CursorID": 28068,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZmx1ZW50LWJpdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZmx1ZW50LWJpdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogNS4wLjYKICAgIGhlbG0uc2gvY2hhcnQ6IGZsdWVudC1iaXQtMC41Ny42CiAgbmFtZTogZmx1ZW50LWJpdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIG5hbWVzcGFjZXMKICAtIHBvZHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gK",
+      "DataHash": "54e6ca5287dd94739cb4cb6ea25f97efee9b50bc5f750441e3bf72e212d7e343",
+      "DisplayName": "clusterrole-fluent-bit",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "FluentBit",
+        "HelmChart": "fluent-fluent-bit",
+        "HelmChartVersion": "0.57.6",
+        "Package": "fluent-fluent-bit",
+        "Proof": "fluent-bit-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/fluent-bit": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-bit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fluent-bit",
+            "ResourceNameWithoutScope": "fluent-bit",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: fluent-bit\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: fluent-bit\n    app.kubernetes.io/version: 5.0.6\n    helm.sh/chart: fluent-bit-0.57.6\n  name: fluent-bit\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  - pods\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/fluent-bit",
+          "ResourceNameWithoutScope": "fluent-bit",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b7f76ea7-a409-42ba-9694-49347ad94986",
+      "UpdatedAt": "2026-06-12T16:54:09.984024Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:54:42.212021Z",
+        "CursorID": 23005,
+        "DisplayName": "Upgrade clusterrolebinding-fluent-bit",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "daa70bc7-6568-48a1-87d7-0c8286f26f67",
+        "LinkID": "b10224c6-f776-47de-9346-cceedfb74094",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-fluent-bit",
+        "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+        "SpaceSlug": "FluentBit-default-staging",
+        "ToSpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+        "ToUnitID": "577d094b-284e-4b89-8778-2ea891969954",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:54:42.212021Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '577d094b-284e-4b89-8778-2ea891969954' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:41.833241Z",
+      "CursorID": 4619,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "FluentBit-default-staging",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "UpdatedAt": "2026-06-12T16:54:41.833241Z",
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c78425252487e8c1be9fb5508fa71c6ac024699334786861273466b1b6e95188",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b10224c6-f776-47de-9346-cceedfb74094"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-fluent-bit",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "daa70bc7-6568-48a1-87d7-0c8286f26f67",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "577d094b-284e-4b89-8778-2ea891969954",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -172736573,
+      "CreatedAt": "2026-06-12T16:54:04.45956Z",
+      "CursorID": 28070,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZsdWVudC1iaXQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGZsdWVudC1iaXQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDUuMC42CiAgICBoZWxtLnNoL2NoYXJ0OiBmbHVlbnQtYml0LTAuNTcuNgogIG5hbWU6IGZsdWVudC1iaXQKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogZmx1ZW50LWJpdApzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGZsdWVudC1iaXQKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "c78425252487e8c1be9fb5508fa71c6ac024699334786861273466b1b6e95188",
+      "DisplayName": "clusterrolebinding-fluent-bit",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "FluentBit",
+        "HelmChart": "fluent-fluent-bit",
+        "HelmChartVersion": "0.57.6",
+        "Package": "fluent-fluent-bit",
+        "Proof": "fluent-bit-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/fluent-bit": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-bit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fluent-bit",
+            "ResourceNameWithoutScope": "fluent-bit",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: fluent-bit\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: fluent-bit\n    app.kubernetes.io/version: 5.0.6\n    helm.sh/chart: fluent-bit-0.57.6\n  name: fluent-bit\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: fluent-bit\nsubjects:\n- kind: ServiceAccount\n  name: fluent-bit\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "577d094b-284e-4b89-8778-2ea891969954",
+      "UpdatedAt": "2026-06-12T16:54:20.749752Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:54:42.60567Z",
+        "CursorID": 23011,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "721dba5d-9696-4c5e-92ef-99649a418ad8",
+        "LinkID": "a4933a00-f12a-4ce1-9b26-448450a2f243",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+        "SpaceSlug": "FluentBit-default-staging",
+        "ToSpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+        "ToUnitID": "2c20643c-40ea-4b14-9046-7f0210706ca5",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:54:42.60567Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2c20643c-40ea-4b14-9046-7f0210706ca5' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:41.833241Z",
+      "CursorID": 4619,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "FluentBit-default-staging",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "UpdatedAt": "2026-06-12T16:54:41.833241Z",
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a4933a00-f12a-4ce1-9b26-448450a2f243"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "721dba5d-9696-4c5e-92ef-99649a418ad8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2c20643c-40ea-4b14-9046-7f0210706ca5",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:54:07.001808Z",
+      "CursorID": 28074,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "FluentBit",
+        "HelmChart": "fluent-fluent-bit",
+        "HelmChartVersion": "0.57.6",
+        "Package": "fluent-fluent-bit",
+        "Proof": "fluent-bit-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2c20643c-40ea-4b14-9046-7f0210706ca5",
+      "UpdatedAt": "2026-06-12T16:54:07.046395Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:54:42.690141Z",
+        "CursorID": 23013,
+        "DisplayName": "Upgrade service-default-fluent-bit",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d1926bc0-8cc2-4d7c-9846-2dcb35bf305c",
+        "LinkID": "57ff9221-cc79-4d42-80fc-fb3ab492921f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-fluent-bit",
+        "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+        "SpaceSlug": "FluentBit-default-staging",
+        "ToSpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+        "ToUnitID": "4f723238-2798-43e8-88ef-f84aff605185",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:54:42.690141Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4f723238-2798-43e8-88ef-f84aff605185' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:41.833241Z",
+      "CursorID": 4619,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "FluentBit-default-staging",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "UpdatedAt": "2026-06-12T16:54:41.833241Z",
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "afc350799b241bfebe8eb0027fa984ed006b330bebc32c37b0af50ede88d89bd",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "57ff9221-cc79-4d42-80fc-fb3ab492921f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-fluent-bit",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d1926bc0-8cc2-4d7c-9846-2dcb35bf305c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4f723238-2798-43e8-88ef-f84aff605185",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1250094766,
+      "CreatedAt": "2026-06-12T16:54:07.758296Z",
+      "CursorID": 28075,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZmx1ZW50LWJpdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZmx1ZW50LWJpdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogNS4wLjYKICAgIGhlbG0uc2gvY2hhcnQ6IGZsdWVudC1iaXQtMC41Ny42CiAgbmFtZTogZmx1ZW50LWJpdAogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHBvcnRzOgogIC0gbmFtZTogaHR0cAogICAgcG9ydDogMjAyMAogICAgcHJvdG9jb2w6IFRDUAogICAgdGFyZ2V0UG9ydDogaHR0cAogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZsdWVudC1iaXQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGZsdWVudC1iaXQKICB0eXBlOiBDbHVzdGVySVAK",
+      "DataHash": "afc350799b241bfebe8eb0027fa984ed006b330bebc32c37b0af50ede88d89bd",
+      "DisplayName": "service-default-fluent-bit",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "FluentBit",
+        "HelmChart": "fluent-fluent-bit",
+        "HelmChartVersion": "0.57.6",
+        "Package": "fluent-fluent-bit",
+        "Proof": "fluent-bit-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/fluent-bit": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-bit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/fluent-bit",
+            "ResourceNameWithoutScope": "fluent-bit",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: fluent-bit\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: fluent-bit\n    app.kubernetes.io/version: 5.0.6\n    helm.sh/chart: fluent-bit-0.57.6\n  name: fluent-bit\n  namespace: default\nspec:\n  ports:\n  - name: http\n    port: 2020\n    protocol: TCP\n    targetPort: http\n  selector:\n    app.kubernetes.io/instance: fluent-bit\n    app.kubernetes.io/name: fluent-bit\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/fluent-bit",
+          "ResourceNameWithoutScope": "fluent-bit",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4f723238-2798-43e8-88ef-f84aff605185",
+      "UpdatedAt": "2026-06-12T16:54:32.079617Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:54:42.646589Z",
+        "CursorID": 23012,
+        "DisplayName": "Upgrade serviceaccount-default-fluent-bit",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ee121497-2013-4759-b2cf-74094610bb78",
+        "LinkID": "00ed4f14-1290-4273-94eb-cc10e0d92f2d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-fluent-bit",
+        "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+        "SpaceSlug": "FluentBit-default-staging",
+        "ToSpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+        "ToUnitID": "093d6fa3-5a08-44f5-8491-c7f1b850c906",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:54:42.646589Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '093d6fa3-5a08-44f5-8491-c7f1b850c906' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:41.833241Z",
+      "CursorID": 4619,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "FluentBit-default-staging",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "UpdatedAt": "2026-06-12T16:54:41.833241Z",
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b2f6e629de7561e90dd7971039172332a09ac5d91317998d3673fad4e3b73f25",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "00ed4f14-1290-4273-94eb-cc10e0d92f2d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-fluent-bit",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ee121497-2013-4759-b2cf-74094610bb78",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "093d6fa3-5a08-44f5-8491-c7f1b850c906",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1069233229,
+      "CreatedAt": "2026-06-12T16:54:08.474386Z",
+      "CursorID": 28076,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZsdWVudC1iaXQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGZsdWVudC1iaXQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDUuMC42CiAgICBoZWxtLnNoL2NoYXJ0OiBmbHVlbnQtYml0LTAuNTcuNgogIG5hbWU6IGZsdWVudC1iaXQKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "b2f6e629de7561e90dd7971039172332a09ac5d91317998d3673fad4e3b73f25",
+      "DisplayName": "serviceaccount-default-fluent-bit",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "FluentBit",
+        "HelmChart": "fluent-fluent-bit",
+        "HelmChartVersion": "0.57.6",
+        "Package": "fluent-fluent-bit",
+        "Proof": "fluent-bit-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 291 bytes; from serviceaccount-default-fluent-bit.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/fluent-bit": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-bit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/fluent-bit",
+            "ResourceNameWithoutScope": "fluent-bit",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: fluent-bit\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: fluent-bit\n    app.kubernetes.io/version: 5.0.6\n    helm.sh/chart: fluent-bit-0.57.6\n  name: fluent-bit\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/fluent-bit",
+          "ResourceNameWithoutScope": "fluent-bit",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "093d6fa3-5a08-44f5-8491-c7f1b850c906",
+      "UpdatedAt": "2026-06-12T16:54:33.254735Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:54:42.482911Z",
+        "CursorID": 23007,
+        "DisplayName": "Upgrade configmap-default-fluent-bit",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "60381767-4db1-4061-a5ae-5fdcb1c6cbdc",
+        "LinkID": "5988f8a3-42f6-4317-bd20-4b8a8ba7146c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-fluent-bit",
+        "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+        "SpaceSlug": "FluentBit-default-staging",
+        "ToSpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+        "ToUnitID": "65845b86-3342-4cd0-a1fb-9d3fc7537db8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:54:42.482911Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '65845b86-3342-4cd0-a1fb-9d3fc7537db8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:41.833241Z",
+      "CursorID": 4619,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "FluentBit-default-staging",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "UpdatedAt": "2026-06-12T16:54:41.833241Z",
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "16a1c6ba207ebd91057ecd2f77b3002c826037d945ab64be0db8d9ef2c351187",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "5988f8a3-42f6-4317-bd20-4b8a8ba7146c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-fluent-bit",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "60381767-4db1-4061-a5ae-5fdcb1c6cbdc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "65845b86-3342-4cd0-a1fb-9d3fc7537db8",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 111503513,
+      "CreatedAt": "2026-06-12T16:54:05.165557Z",
+      "CursorID": 28071,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBjdXN0b21fcGFyc2Vycy5jb25mOiB8CiAgICBbUEFSU0VSXQogICAgICAgIE5hbWUgZG9ja2VyX25vX3RpbWUKICAgICAgICBGb3JtYXQganNvbgogICAgICAgIFRpbWVfS2VlcCBPZmYKICAgICAgICBUaW1lX0tleSB0aW1lCiAgICAgICAgVGltZV9Gb3JtYXQgJVktJW0tJWRUJUg6JU06JVMuJUwKICBmbHVlbnQtYml0LmNvbmY6IHwKICAgIFtTRVJWSUNFXQogICAgICAgIERhZW1vbiBPZmYKICAgICAgICBGbHVzaCAxCiAgICAgICAgTG9nX0xldmVsIGluZm8KICAgICAgICBQYXJzZXJzX0ZpbGUgL2ZsdWVudC1iaXQvZXRjL3BhcnNlcnMuY29uZgogICAgICAgIFBhcnNlcnNfRmlsZSAvZmx1ZW50LWJpdC9ldGMvY29uZi9jdXN0b21fcGFyc2Vycy5jb25mCiAgICAgICAgSFRUUF9TZXJ2ZXIgT24KICAgICAgICBIVFRQX0xpc3RlbiAwLjAuMC4wCiAgICAgICAgSFRUUF9Qb3J0IDIwMjAKICAgICAgICBIZWFsdGhfQ2hlY2sgT24KCiAgICBbSU5QVVRdCiAgICAgICAgTmFtZSB0YWlsCiAgICAgICAgUGF0aCAvdmFyL2xvZy9jb250YWluZXJzLyoubG9nCiAgICAgICAgbXVsdGlsaW5lLnBhcnNlciBkb2NrZXIsIGNyaQogICAgICAgIFRhZyBrdWJlLioKICAgICAgICBNZW1fQnVmX0xpbWl0IDVNQgogICAgICAgIFNraXBfTG9uZ19MaW5lcyBPbgoKICAgIFtJTlBVVF0KICAgICAgICBOYW1lIHN5c3RlbWQKICAgICAgICBUYWcgaG9zdC4qCiAgICAgICAgU3lzdGVtZF9GaWx0ZXIgX1NZU1RFTURfVU5JVD1rdWJlbGV0LnNlcnZpY2UKICAgICAgICBSZWFkX0Zyb21fVGFpbCBPbgoKICAgIFtGSUxURVJdCiAgICAgICAgTmFtZSBrdWJlcm5ldGVzCiAgICAgICAgTWF0Y2gga3ViZS4qCiAgICAgICAgTWVyZ2VfTG9nIE9uCiAgICAgICAgS2VlcF9Mb2cgT2ZmCiAgICAgICAgSzhTLUxvZ2dpbmcuUGFyc2VyIE9uCiAgICAgICAgSzhTLUxvZ2dpbmcuRXhjbHVkZSBPbgoKICAgIFtPVVRQVVRdCiAgICAgICAgTmFtZSBlcwogICAgICAgIE1hdGNoIGt1YmUuKgogICAgICAgIEhvc3QgZWxhc3RpY3NlYXJjaC1tYXN0ZXIKICAgICAgICBMb2dzdGFzaF9Gb3JtYXQgT24KICAgICAgICBSZXRyeV9MaW1pdCBGYWxzZQoKICAgIFtPVVRQVVRdCiAgICAgICAgTmFtZSBlcwogICAgICAgIE1hdGNoIGhvc3QuKgogICAgICAgIEhvc3QgZWxhc3RpY3NlYXJjaC1tYXN0ZXIKICAgICAgICBMb2dzdGFzaF9Gb3JtYXQgT24KICAgICAgICBMb2dzdGFzaF9QcmVmaXggbm9kZQogICAgICAgIFJldHJ5X0xpbWl0IEZhbHNlCmtpbmQ6IENvbmZpZ01hcAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZmx1ZW50LWJpdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZmx1ZW50LWJpdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogNS4wLjYKICAgIGhlbG0uc2gvY2hhcnQ6IGZsdWVudC1iaXQtMC41Ny42CiAgbmFtZTogZmx1ZW50LWJpdAogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "16a1c6ba207ebd91057ecd2f77b3002c826037d945ab64be0db8d9ef2c351187",
+      "DisplayName": "configmap-default-fluent-bit",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "FluentBit",
+        "HelmChart": "fluent-fluent-bit",
+        "HelmChartVersion": "0.57.6",
+        "Package": "fluent-fluent-bit",
+        "Proof": "fluent-bit-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 1544 bytes; from configmap-default-fluent-bit.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/fluent-bit": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-bit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/fluent-bit",
+            "ResourceNameWithoutScope": "fluent-bit",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  custom_parsers.conf: |\n    [PARSER]\n        Name docker_no_time\n        Format json\n        Time_Keep Off\n        Time_Key time\n        Time_Format %Y-%m-%dT%H:%M:%S.%L\n  fluent-bit.conf: |\n    [SERVICE]\n        Daemon Off\n        Flush 1\n        Log_Level info\n        Parsers_File /fluent-bit/etc/parsers.conf\n        Parsers_File /fluent-bit/etc/conf/custom_parsers.conf\n        HTTP_Server On\n        HTTP_Listen 0.0.0.0\n        HTTP_Port 2020\n        Health_Check On\n\n    [INPUT]\n        Name tail\n        Path /var/log/containers/*.log\n        multiline.parser docker, cri\n        Tag kube.*\n        Mem_Buf_Limit 5MB\n        Skip_Long_Lines On\n\n    [INPUT]\n        Name systemd\n        Tag host.*\n        Systemd_Filter _SYSTEMD_UNIT=kubelet.service\n        Read_From_Tail On\n\n    [FILTER]\n        Name kubernetes\n        Match kube.*\n        Merge_Log On\n        Keep_Log Off\n        K8S-Logging.Parser On\n        K8S-Logging.Exclude On\n\n    [OUTPUT]\n        Name es\n        Match kube.*\n        Host elasticsearch-master\n        Logstash_Format On\n        Retry_Limit False\n\n    [OUTPUT]\n        Name es\n        Match host.*\n        Host elasticsearch-master\n        Logstash_Format On\n        Logstash_Prefix node\n        Retry_Limit False\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/instance: fluent-bit\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: fluent-bit\n    app.kubernetes.io/version: 5.0.6\n    helm.sh/chart: fluent-bit-0.57.6\n  name: fluent-bit\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-custom_parsers.conf": "true",
+              "SubPath-fluent-bit.conf": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/fluent-bit",
+          "ResourceNameWithoutScope": "fluent-bit",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "65845b86-3342-4cd0-a1fb-9d3fc7537db8",
+      "UpdatedAt": "2026-06-12T16:54:24.426526Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:54:42.564577Z",
+        "CursorID": 23009,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "17e39b8b-da3d-4bfd-84c4-7454f4febceb",
+        "LinkID": "eb6ed7da-0849-41eb-b9a4-1b3da9840cd9",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+        "SpaceSlug": "FluentBit-default-staging",
+        "ToSpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+        "ToUnitID": "d46ac735-d83f-46cf-8d5a-9a7f2d602462",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:54:42.564577Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd46ac735-d83f-46cf-8d5a-9a7f2d602462' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:41.833241Z",
+      "CursorID": 4619,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "FluentBit-default-staging",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "UpdatedAt": "2026-06-12T16:54:41.833241Z",
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9f37ecd43eb2d5926b10b88b731a73fa7256ba8b2114fccf69202ef885246367",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "eb6ed7da-0849-41eb-b9a4-1b3da9840cd9"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "17e39b8b-da3d-4bfd-84c4-7454f4febceb",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d46ac735-d83f-46cf-8d5a-9a7f2d602462",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "fluent-fluent-bit",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 309839031,
+      "CreatedAt": "2026-06-12T16:54:09.180163Z",
+      "CursorID": 28077,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImZsdWVudC1mbHVlbnQtYml0IgogIHZlcnNpb246ICIwLjU3LjYiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIG5hbWU6ICJkZWZhdWx0IgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQiCiAgICBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogImZsdWVudC9mbHVlbnQtYml0IGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIGZsdWVudC9mbHVlbnQtYml0QDAuNTcuNiIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogZmx1ZW50LWZsdWVudC1iaXQtZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGZsdWVudC1mbHVlbnQtYml0CiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IGZsdWVudC1mbHVlbnQtYml0LWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZmx1ZW50LWZsdWVudC1iaXQKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGZsdWVudC1mbHVlbnQtYml0LW1hbmlmZXN0LWluZGV4CiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBmbHVlbnQtZmx1ZW50LWJpdAogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWZsdWVudC1iaXQueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtZmx1ZW50LWJpdAogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IGZsdWVudC1iaXQKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctZmx1ZW50LWJpdC55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctZmx1ZW50LWJpdAogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGVCaW5kaW5nCiAgICBuYW1lOiBmbHVlbnQtYml0CiAgLSBmaWxlbmFtZTogY29uZmlnbWFwLWRlZmF1bHQtZmx1ZW50LWJpdC55YW1sCiAgICBzbHVnOiBjb25maWdtYXAtZGVmYXVsdC1mbHVlbnQtYml0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogQ29uZmlnTWFwCiAgICBuYW1lOiBmbHVlbnQtYml0CiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBkYWVtb25zZXQtZGVmYXVsdC1mbHVlbnQtYml0LnlhbWwKICAgIHNsdWc6IGRhZW1vbnNldC1kZWZhdWx0LWZsdWVudC1iaXQKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERhZW1vblNldAogICAgbmFtZTogZmx1ZW50LWJpdAogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWRlZmF1bHQueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWRlZmF1bHQtZmx1ZW50LWJpdC55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWRlZmF1bHQtZmx1ZW50LWJpdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2UKICAgIG5hbWU6IGZsdWVudC1iaXQKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtZmx1ZW50LWJpdC55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWZsdWVudC1iaXQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZTogZmx1ZW50LWJpdAogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogZmx1ZW50LWZsdWVudC1iaXQtc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBmbHVlbnQtZmx1ZW50LWJpdAogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBmbHVlbnQtZmx1ZW50LWJpdC11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGZsdWVudC1mbHVlbnQtYml0CiAgc3BhY2VQYXR0ZXJuOiBoZWxtLWZsdWVudC1iaXQtZGVmYXVsdC1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBmbHVlbnQtZmx1ZW50LWJpdAogICAgc2x1ZzogaGVsbS1mbHVlbnQtYml0LWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjU0OjAyWiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "9f37ecd43eb2d5926b10b88b731a73fa7256ba8b2114fccf69202ef885246367",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "fluent-fluent-bit"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/fluent-fluent-bit": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-fluent-bit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fluent-fluent-bit",
+            "ResourceNameWithoutScope": "fluent-fluent-bit",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"fluent-fluent-bit\"\n  version: \"0.57.6\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"fluent/fluent-bit default variant rendered from fluent/fluent-bit@0.57.6\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fluent-fluent-bit-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-fluent-bit-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fluent-fluent-bit-function-chain",
+            "ResourceNameWithoutScope": "fluent-fluent-bit-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: fluent-fluent-bit-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fluent-fluent-bit\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fluent-fluent-bit-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-fluent-bit-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fluent-fluent-bit-inputs",
+            "ResourceNameWithoutScope": "fluent-fluent-bit-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: fluent-fluent-bit-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fluent-fluent-bit\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fluent-fluent-bit-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-fluent-bit-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fluent-fluent-bit-manifest-index",
+            "ResourceNameWithoutScope": "fluent-fluent-bit-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: fluent-fluent-bit-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fluent-fluent-bit\n  files:\n  - filename: clusterrole-fluent-bit.yaml\n    slug: clusterrole-fluent-bit\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: fluent-bit\n  - filename: clusterrolebinding-fluent-bit.yaml\n    slug: clusterrolebinding-fluent-bit\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: fluent-bit\n  - filename: configmap-default-fluent-bit.yaml\n    slug: configmap-default-fluent-bit\n    apiVersion: v1\n    kind: ConfigMap\n    name: fluent-bit\n    namespace: default\n  - filename: daemonset-default-fluent-bit.yaml\n    slug: daemonset-default-fluent-bit\n    apiVersion: apps/v1\n    kind: DaemonSet\n    name: fluent-bit\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: service-default-fluent-bit.yaml\n    slug: service-default-fluent-bit\n    apiVersion: v1\n    kind: Service\n    name: fluent-bit\n    namespace: default\n  - filename: serviceaccount-default-fluent-bit.yaml\n    slug: serviceaccount-default-fluent-bit\n    apiVersion: v1\n    kind: ServiceAccount\n    name: fluent-bit\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fluent-fluent-bit-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-fluent-bit-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fluent-fluent-bit-selection",
+            "ResourceNameWithoutScope": "fluent-fluent-bit-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: fluent-fluent-bit-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fluent-fluent-bit\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fluent-fluent-bit-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-fluent-bit-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fluent-fluent-bit-upload",
+            "ResourceNameWithoutScope": "fluent-fluent-bit-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: fluent-fluent-bit-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fluent-fluent-bit\n  spacePattern: helm-fluent-bit-default-confighub-proof\n  spaces:\n  - package: fluent-fluent-bit\n    slug: helm-fluent-bit-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:54:02Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d46ac735-d83f-46cf-8d5a-9a7f2d602462",
+      "UpdatedAt": "2026-06-12T16:54:10.052498Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:54:42.514259Z",
+        "CursorID": 23008,
+        "DisplayName": "Upgrade daemonset-default-fluent-bit",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "e224b3ec-80ec-4332-b0a2-ffd71d49c888",
+        "LinkID": "0ca4d56d-6c5d-469f-9bfe-05247c4ef69c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-daemonset-default-fluent-bit",
+        "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+        "SpaceSlug": "FluentBit-default-staging",
+        "ToSpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+        "ToUnitID": "16d065d8-3292-49e5-8384-bfe634a727a4",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:54:42.514259Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '16d065d8-3292-49e5-8384-bfe634a727a4' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:41.833241Z",
+      "CursorID": 4619,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "FluentBit-default-staging",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "UpdatedAt": "2026-06-12T16:54:41.833241Z",
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c6b55db1c9ee605f2c6bcbec92e712247c1561db0202d9471f75bfe605f05069",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0ca4d56d-6c5d-469f-9bfe-05247c4ef69c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-fluent-bit",
+      "SpaceID": "3a0cab63-8f69-4160-a844-f4ab0bdf39d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e224b3ec-80ec-4332-b0a2-ffd71d49c888",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "16d065d8-3292-49e5-8384-bfe634a727a4",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1316603562,
+      "CreatedAt": "2026-06-12T16:54:05.933912Z",
+      "CursorID": 28073,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEYWVtb25TZXQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGZsdWVudC1iaXQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGZsdWVudC1iaXQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDUuMC42CiAgICBoZWxtLnNoL2NoYXJ0OiBmbHVlbnQtYml0LTAuNTcuNgogIG5hbWU6IGZsdWVudC1iaXQKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZmx1ZW50LWJpdAogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBmbHVlbnQtYml0CiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgYW5ub3RhdGlvbnM6CiAgICAgICAgY2hlY2tzdW0vY29uZmlnOiA5ZDM5ODkzNGExNzgzNjA4MjQ3MDAwYTMwZWEwNTRkYTA3YzkwNjVmZGIxNTRlZTk1ODcxMmM3OGFiYzdiODg4CiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZmx1ZW50LWJpdAogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGZsdWVudC1iaXQKICAgIHNwZWM6CiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIC0td29ya2Rpcj0vZmx1ZW50LWJpdC9ldGMKICAgICAgICAtIC0tY29uZmlnPS9mbHVlbnQtYml0L2V0Yy9jb25mL2ZsdWVudC1iaXQuY29uZgogICAgICAgIGNvbW1hbmQ6CiAgICAgICAgLSAvZmx1ZW50LWJpdC9iaW4vZmx1ZW50LWJpdAogICAgICAgIGltYWdlOiBjci5mbHVlbnRiaXQuaW8vZmx1ZW50L2ZsdWVudC1iaXQ6NS4wLjYKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvCiAgICAgICAgICAgIHBvcnQ6IGh0dHAKICAgICAgICBuYW1lOiBmbHVlbnQtYml0CiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiAyMDIwCiAgICAgICAgICBuYW1lOiBodHRwCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvYXBpL3YyL2hlYWx0aAogICAgICAgICAgICBwb3J0OiBodHRwCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvZmx1ZW50LWJpdC9ldGMvY29uZgogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC92YXIvbG9nCiAgICAgICAgICBuYW1lOiB2YXJsb2cKICAgICAgICAtIG1vdW50UGF0aDogL3Zhci9saWIvZG9ja2VyL2NvbnRhaW5lcnMKICAgICAgICAgIG5hbWU6IHZhcmxpYmRvY2tlcmNvbnRhaW5lcnMKICAgICAgICAgIHJlYWRPbmx5OiB0cnVlCiAgICAgICAgLSBtb3VudFBhdGg6IC9ldGMvbWFjaGluZS1pZAogICAgICAgICAgbmFtZTogZXRjbWFjaGluZWlkCiAgICAgICAgICByZWFkT25seTogdHJ1ZQogICAgICBkbnNQb2xpY3k6IENsdXN0ZXJGaXJzdAogICAgICBob3N0TmV0d29yazogZmFsc2UKICAgICAgc2VydmljZUFjY291bnROYW1lOiBmbHVlbnQtYml0CiAgICAgIHZvbHVtZXM6CiAgICAgIC0gY29uZmlnTWFwOgogICAgICAgICAgbmFtZTogZmx1ZW50LWJpdAogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL3Zhci9sb2cKICAgICAgICBuYW1lOiB2YXJsb2cKICAgICAgLSBob3N0UGF0aDoKICAgICAgICAgIHBhdGg6IC92YXIvbGliL2RvY2tlci9jb250YWluZXJzCiAgICAgICAgbmFtZTogdmFybGliZG9ja2VyY29udGFpbmVycwogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL2V0Yy9tYWNoaW5lLWlkCiAgICAgICAgICB0eXBlOiBGaWxlCiAgICAgICAgbmFtZTogZXRjbWFjaGluZWlkCg==",
+      "DataHash": "c6b55db1c9ee605f2c6bcbec92e712247c1561db0202d9471f75bfe605f05069",
+      "DisplayName": "daemonset-default-fluent-bit",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "FluentBit",
+        "HelmChart": "fluent-fluent-bit",
+        "HelmChartVersion": "0.57.6",
+        "Package": "fluent-fluent-bit",
+        "Proof": "fluent-bit-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/fluent-bit": {}
+          },
+          "AliasesWithoutScopes": {
+            "fluent-bit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/fluent-bit",
+            "ResourceNameWithoutScope": "fluent-bit",
+            "ResourceType": "apps/v1/DaemonSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: DaemonSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: fluent-bit\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: fluent-bit\n    app.kubernetes.io/version: 5.0.6\n    helm.sh/chart: fluent-bit-0.57.6\n  name: fluent-bit\n  namespace: default\nspec:\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: fluent-bit\n      app.kubernetes.io/name: fluent-bit\n  template:\n    metadata:\n      annotations:\n        checksum/config: 9d398934a1783608247000a30ea054da07c9065fdb154ee958712c78abc7b888\n      labels:\n        app.kubernetes.io/instance: fluent-bit\n        app.kubernetes.io/name: fluent-bit\n    spec:\n      containers:\n      - args:\n        - --workdir=/fluent-bit/etc\n        - --config=/fluent-bit/etc/conf/fluent-bit.conf\n        command:\n        - /fluent-bit/bin/fluent-bit\n        image: cr.fluentbit.io/fluent/fluent-bit:5.0.6\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /\n            port: http\n        name: fluent-bit\n        ports:\n        - containerPort: 2020\n          name: http\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /api/v2/health\n            port: http\n        volumeMounts:\n        - mountPath: /fluent-bit/etc/conf\n          name: config\n        - mountPath: /var/log\n          name: varlog\n        - mountPath: /var/lib/docker/containers\n          name: varlibdockercontainers\n          readOnly: true\n        - mountPath: /etc/machine-id\n          name: etcmachineid\n          readOnly: true\n      dnsPolicy: ClusterFirst\n      hostNetwork: false\n      serviceAccountName: fluent-bit\n      volumes:\n      - configMap:\n          name: fluent-bit\n        name: config\n      - hostPath:\n          path: /var/log\n        name: varlog\n      - hostPath:\n          path: /var/lib/docker/containers\n        name: varlibdockercontainers\n      - hostPath:\n          path: /etc/machine-id\n          type: File\n        name: etcmachineid\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "16d065d8-3292-49e5-8384-bfe634a727a4",
+      "UpdatedAt": "2026-06-12T16:54:30.054916Z",
+      "Version": 15
+    }
+  }
+]

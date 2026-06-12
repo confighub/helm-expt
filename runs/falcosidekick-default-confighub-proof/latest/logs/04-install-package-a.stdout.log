@@ -1,0 +1,5 @@
+Bundled falcosecurity-falcosidekick@
+  output: .tmp/confighub-proof/falcosidekick-default-archives/falcosidekick-a.tgz
+  files:  4
+  size:   4743 bytes
+  digest: sha256:f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047

@@ -1,0 +1,1 @@
+cub revision list service-default-cluster-autoscaler-aws-cluster-autoscaler --space helm-cluster-autoscaler-default-confighub-proof

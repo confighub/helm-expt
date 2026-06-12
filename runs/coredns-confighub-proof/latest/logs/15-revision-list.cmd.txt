@@ -1,0 +1,1 @@
+cub revision list deployment-default-coredns --space helm-coredns-confighub-proof

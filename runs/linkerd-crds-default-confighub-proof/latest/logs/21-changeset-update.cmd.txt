@@ -1,0 +1,1 @@
+cub changeset update linkerd-crds-safe-ops-20260527 --space helm-linkerd-crds-default-confighub-proof --description "linkerd-crds safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

@@ -1,0 +1,1104 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3d68f17b35e0c0a10d6c749eb79c7a461df85aaee5bbcf5d51a34da23788384f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-istio-reader-clusterrole-default",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "16e64d27-5c09-4cb6-b74c-60451e6ec80d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f8f716a474561371a26f4a8a44026999891fa522242d9f97d169b2e73cef7cd8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-istio",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "47a683d4-6205-4480-bafe-173cf923b1de",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "cd0f02239208bcb30c69bf1897b19217918f27c4ddcd554730f573171d9d4ff8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-istio-sidecar-injector",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1ac07be2-c8bb-48f5-9cbd-03269fb7a163",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5feb274ba9b181fc6f6c5320fd751f75d7b6410c3e0daa9736d3c1a4f230c268",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-istio-validator-istio-system",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ef7e07b9-8419-44bb-9fd8-0dd7d1bf1be0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1716068eca6ad8eb1221ef892755540e02e00ec0b2382c06115ec94792f876ec",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-istiod",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "eec5d6c6-1d41-455c-85f8-948a83a11d89",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a3ff405b234bb6a2050e571484635fa2aa06164886d62c873cb007434f5cb177",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-values",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9369a22b-2bef-46c3-86fc-f7c8c67a7057",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fe4dbb63381e3f59a22fffecdc01fa8dd242e25da3e86de81db3ca57e631b012",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-istio-sidecar-injector-default",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e08c0aac-9875-4541-90e3-28f0f997d334",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "61356cd1-6e59-497c-862b-e7187097f623",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b3a4c4599bd506c84132f911f8425cbc984dc366606e31a34ae46d1f051abe23",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-istio-system-istiod",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e345e2ef-8a89-4c15-b4b3-50d268c2f83b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2eff7eb5caa543cb073dac9a1046e5370cb3e1790570782b83b6399253799625",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-istio-system-istiod",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d0aa199b-5579-4fa3-b861-fa3062ecf4a6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "aa544e3e248f77f75bca5d5e97adb4a007860634ca41fbd9723e9c0606a333e2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-istio-system-istiod",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d750760e-623c-45a0-bb49-48ae87f2d937",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "cb66f69eaa02b2e4367e5820abf922d42accb6b0f9300704e0176ee85b5dd053",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2d65d98e-4229-487c-81d7-e2f7e3b2567c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ff255303ca80f07e2f835fd6bd2f0a4df35b9d2a9e259a85153f28dc19eca269",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-istiod-clusterrole-default",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fd2e9468-c16e-4bc5-8775-99f516cdcaff",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fb17bfaa1634c8a15ed30f9d3bf5874d6890c2ac2b835a05acaebfa713e1b36f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-istiod-clusterrole-default",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4311452e-0be5-462e-8418-149d563c0a70",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1b2f4b74966ddd4095d35d98541f1d8cbe6cd9cc3d0494c059b089a2bf400ef8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-istio-reader-clusterrole-default",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "20e4f507-2ff3-4afb-9809-174e9864fe5b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8a57ba39b9e0b550b75c98de7390ae8a378d522bc0247db4a91e9ae6765e7da0",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-istiod-gateway-controller-default",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "82069bbc-2c3a-4cf8-8da5-83688a6c8d65",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "10b2ec48541c39fdb2e33fac33860d723c4da4c06da8221054551f8b891bd5e1",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-istiod",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4134618a-d640-4b2e-8227-d79b25def4f3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9343010b7fbf560105a163e4c388cb12f57eb92c3ddc2a993df1691d0bce2f53",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-istiod-gateway-controller-default",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bd36bd71-805a-4232-acd9-75d7107cb7a2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:09.316563Z",
+      "CursorID": 4635,
+      "DisplayName": "helm-istiod-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Istiod",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istiod-default-confighub-proof",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "UpdatedAt": "2026-06-12T16:58:09.866536Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'cf9593c3-365d-489c-a84f-98d2a5fb50f4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d9161691f72d7fc43d49ea7ba52f7df4e4535646806edc3dd4ea312da4139a48",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "horizontalpodautoscaler-default-istiod",
+      "SpaceID": "cf9593c3-365d-489c-a84f-98d2a5fb50f4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "91afccb0-1753-40ca-bc3b-9e4f02ba4fc2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

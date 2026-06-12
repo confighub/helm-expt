@@ -1,0 +1,1 @@
+cub revision list deployment-default-vertical-pod-autoscaler-recommender --space helm-vertical-pod-autoscaler-default-confighub-proof

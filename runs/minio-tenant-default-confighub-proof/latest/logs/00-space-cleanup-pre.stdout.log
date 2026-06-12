@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 0 space(s)
+  Context: Slug IN ('helm-minio-tenant-default-confighub-proof', 'MinioTenant-default-staging')

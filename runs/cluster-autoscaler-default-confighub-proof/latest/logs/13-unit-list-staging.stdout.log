@@ -1,0 +1,1481 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:16.292987Z",
+        "CursorID": 22567,
+        "DisplayName": "Upgrade clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "14f07076-cada-4ae0-a3b2-530b5a1e3147",
+        "LinkID": "847f8329-469c-4ea3-bf64-53f14a66f580",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler",
+        "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+        "SpaceSlug": "ClusterAutoscaler-default-staging",
+        "ToSpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+        "ToUnitID": "7c95145c-378e-45d9-ba4b-dc1502e7061d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:16.292988Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7c95145c-378e-45d9-ba4b-dc1502e7061d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:15.586552Z",
+      "CursorID": 4587,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ClusterAutoscaler-default-staging",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "UpdatedAt": "2026-06-12T16:48:15.586552Z",
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "53cf57f92bf5dc85d49aa9c129a007c3a390dda9a61780eec5fb07d0e3ad6c96",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "847f8329-469c-4ea3-bf64-53f14a66f580"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "14f07076-cada-4ae0-a3b2-530b5a1e3147",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7c95145c-378e-45d9-ba4b-dc1502e7061d",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2088195357,
+      "CreatedAt": "2026-06-12T16:47:36.244144Z",
+      "CursorID": 27695,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNsdXN0ZXItYXV0b3NjYWxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXdzLWNsdXN0ZXItYXV0b3NjYWxlcgogICAgaGVsbS5zaC9jaGFydDogY2x1c3Rlci1hdXRvc2NhbGVyLTkuNTcuMAogIG5hbWU6IGNsdXN0ZXItYXV0b3NjYWxlci1hd3MtY2x1c3Rlci1hdXRvc2NhbGVyCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IGNsdXN0ZXItYXV0b3NjYWxlci1hd3MtY2x1c3Rlci1hdXRvc2NhbGVyCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "53cf57f92bf5dc85d49aa9c129a007c3a390dda9a61780eec5fb07d0e3ad6c96",
+      "DisplayName": "clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "HelmChart": "autoscaler-cluster-autoscaler",
+        "HelmChartVersion": "9.57.0",
+        "Package": "autoscaler-cluster-autoscaler",
+        "Proof": "cluster-autoscaler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "AliasesWithoutScopes": {
+            "cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cluster-autoscaler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: aws-cluster-autoscaler\n    helm.sh/chart: cluster-autoscaler-9.57.0\n  name: cluster-autoscaler-aws-cluster-autoscaler\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: cluster-autoscaler-aws-cluster-autoscaler\nsubjects:\n- kind: ServiceAccount\n  name: cluster-autoscaler-aws-cluster-autoscaler\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7c95145c-378e-45d9-ba4b-dc1502e7061d",
+      "UpdatedAt": "2026-06-12T16:47:58.928751Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:16.063921Z",
+        "CursorID": 22563,
+        "DisplayName": "Upgrade clusterrole-cluster-autoscaler-aws-cluster-autoscaler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1c1e9c72-26f1-4630-954c-739ab5965ed7",
+        "LinkID": "192bdf52-bd44-4cf8-8060-1dc4c5d6540c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-cluster-autoscaler-aws-cluster-autoscaler",
+        "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+        "SpaceSlug": "ClusterAutoscaler-default-staging",
+        "ToSpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+        "ToUnitID": "8a0b6731-5e3c-44b2-a336-18eb09030f15",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:16.063921Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8a0b6731-5e3c-44b2-a336-18eb09030f15' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:15.586552Z",
+      "CursorID": 4587,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ClusterAutoscaler-default-staging",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "UpdatedAt": "2026-06-12T16:48:15.586552Z",
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b021dbb8be07907aa761c4f68096a42d89c0b962b7f5e5a4ae52e5c26f970495",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "192bdf52-bd44-4cf8-8060-1dc4c5d6540c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1c1e9c72-26f1-4630-954c-739ab5965ed7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8a0b6731-5e3c-44b2-a336-18eb09030f15",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -217530608,
+      "CreatedAt": "2026-06-12T16:47:35.220498Z",
+      "CursorID": 27694,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhd3MtY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBoZWxtLnNoL2NoYXJ0OiBjbHVzdGVyLWF1dG9zY2FsZXItOS41Ny4wCiAgbmFtZTogY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBldmVudHMKICAtIGVuZHBvaW50cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBwYXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gcG9kcy9ldmljdGlvbgogIHZlcmJzOgogIC0gY3JlYXRlCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwb2RzL3N0YXR1cwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZU5hbWVzOgogIC0gY2x1c3Rlci1hdXRvc2NhbGVyCiAgcmVzb3VyY2VzOgogIC0gZW5kcG9pbnRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gbm9kZXMKICB2ZXJiczoKICAtIHdhdGNoCiAgLSBsaXN0CiAgLSBnZXQKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gcG9kdGVtcGxhdGVzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gcmVzb3VyY2UuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gcmVzb3VyY2VzbGljZXMKICAtIGRldmljZWNsYXNzZXMKICAtIHJlc291cmNlY2xhaW1zCiAgdmVyYnM6CiAgLSB3YXRjaAogIC0gbGlzdAogIC0gZ2V0Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBuYW1lc3BhY2VzCiAgLSBwb2RzCiAgLSBzZXJ2aWNlcwogIC0gcmVwbGljYXRpb25jb250cm9sbGVycwogIC0gcGVyc2lzdGVudHZvbHVtZWNsYWltcwogIC0gcGVyc2lzdGVudHZvbHVtZXMKICB2ZXJiczoKICAtIHdhdGNoCiAgLSBsaXN0CiAgLSBnZXQKLSBhcGlHcm91cHM6CiAgLSBiYXRjaAogIHJlc291cmNlczoKICAtIGpvYnMKICAtIGNyb25qb2JzCiAgdmVyYnM6CiAgLSB3YXRjaAogIC0gbGlzdAogIC0gZ2V0Ci0gYXBpR3JvdXBzOgogIC0gYmF0Y2gKICAtIGV4dGVuc2lvbnMKICByZXNvdXJjZXM6CiAgLSBqb2JzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGV4dGVuc2lvbnMKICByZXNvdXJjZXM6CiAgLSByZXBsaWNhc2V0cwogIC0gZGFlbW9uc2V0cwogIHZlcmJzOgogIC0gd2F0Y2gKICAtIGxpc3QKICAtIGdldAotIGFwaUdyb3VwczoKICAtIHBvbGljeQogIHJlc291cmNlczoKICAtIHBvZGRpc3J1cHRpb25idWRnZXRzCiAgdmVyYnM6CiAgLSB3YXRjaAogIC0gbGlzdAotIGFwaUdyb3VwczoKICAtIGFwcHMKICByZXNvdXJjZXM6CiAgLSBkYWVtb25zZXRzCiAgLSByZXBsaWNhc2V0cwogIC0gc3RhdGVmdWxzZXRzCiAgdmVyYnM6CiAgLSB3YXRjaAogIC0gbGlzdAogIC0gZ2V0Ci0gYXBpR3JvdXBzOgogIC0gc3RvcmFnZS5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBzdG9yYWdlY2xhc3NlcwogIC0gY3Npbm9kZXMKICAtIGNzaWRyaXZlcnMKICAtIGNzaXN0b3JhZ2VjYXBhY2l0aWVzCiAgLSB2b2x1bWVhdHRhY2htZW50cwogIHZlcmJzOgogIC0gd2F0Y2gKICAtIGxpc3QKICAtIGdldAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gY29uZmlnbWFwcwogIHZlcmJzOgogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGdldAotIGFwaUdyb3VwczoKICAtIGNvb3JkaW5hdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBsZWFzZXMKICB2ZXJiczoKICAtIGNyZWF0ZQotIGFwaUdyb3VwczoKICAtIGNvb3JkaW5hdGlvbi5rOHMuaW8KICByZXNvdXJjZU5hbWVzOgogIC0gY2x1c3Rlci1hdXRvc2NhbGVyCiAgcmVzb3VyY2VzOgogIC0gbGVhc2VzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGF1dG9zY2FsaW5nLngtazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gcHJvdmlzaW9uaW5ncmVxdWVzdHMKICAtIHByb3Zpc2lvbmluZ3JlcXVlc3RzL3N0YXR1cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gdXBkYXRlCiAgLSBwYXRjaAo=",
+      "DataHash": "b021dbb8be07907aa761c4f68096a42d89c0b962b7f5e5a4ae52e5c26f970495",
+      "DisplayName": "clusterrole-cluster-autoscaler-aws-cluster-autoscaler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "HelmChart": "autoscaler-cluster-autoscaler",
+        "HelmChartVersion": "9.57.0",
+        "Package": "autoscaler-cluster-autoscaler",
+        "Proof": "cluster-autoscaler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "AliasesWithoutScopes": {
+            "cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cluster-autoscaler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: aws-cluster-autoscaler\n    helm.sh/chart: cluster-autoscaler-9.57.0\n  name: cluster-autoscaler-aws-cluster-autoscaler\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  - endpoints\n  verbs:\n  - create\n  - patch\n- apiGroups:\n  - \"\"\n  resources:\n  - pods/eviction\n  verbs:\n  - create\n- apiGroups:\n  - \"\"\n  resources:\n  - pods/status\n  verbs:\n  - update\n- apiGroups:\n  - \"\"\n  resourceNames:\n  - cluster-autoscaler\n  resources:\n  - endpoints\n  verbs:\n  - get\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes\n  verbs:\n  - watch\n  - list\n  - get\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - podtemplates\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - resource.k8s.io\n  resources:\n  - resourceslices\n  - deviceclasses\n  - resourceclaims\n  verbs:\n  - watch\n  - list\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  - pods\n  - services\n  - replicationcontrollers\n  - persistentvolumeclaims\n  - persistentvolumes\n  verbs:\n  - watch\n  - list\n  - get\n- apiGroups:\n  - batch\n  resources:\n  - jobs\n  - cronjobs\n  verbs:\n  - watch\n  - list\n  - get\n- apiGroups:\n  - batch\n  - extensions\n  resources:\n  - jobs\n  verbs:\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - extensions\n  resources:\n  - replicasets\n  - daemonsets\n  verbs:\n  - watch\n  - list\n  - get\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - watch\n  - list\n- apiGroups:\n  - apps\n  resources:\n  - daemonsets\n  - replicasets\n  - statefulsets\n  verbs:\n  - watch\n  - list\n  - get\n- apiGroups:\n  - storage.k8s.io\n  resources:\n  - storageclasses\n  - csinodes\n  - csidrivers\n  - csistoragecapacities\n  - volumeattachments\n  verbs:\n  - watch\n  - list\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  verbs:\n  - list\n  - watch\n  - get\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n- apiGroups:\n  - coordination.k8s.io\n  resourceNames:\n  - cluster-autoscaler\n  resources:\n  - leases\n  verbs:\n  - get\n  - update\n- apiGroups:\n  - autoscaling.x-k8s.io\n  resources:\n  - provisioningrequests\n  - provisioningrequests/status\n  verbs:\n  - get\n  - list\n  - watch\n  - update\n  - patch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/cluster-autoscaler-aws-cluster-autoscaler",
+          "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8a0b6731-5e3c-44b2-a336-18eb09030f15",
+      "UpdatedAt": "2026-06-12T16:47:49.457091Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:16.2532Z",
+        "CursorID": 22566,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "4fda57aa-f902-4ccb-8ba4-99d0b61cbe38",
+        "LinkID": "d64a81ab-e02e-49a0-9688-8bf185b38ea7",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+        "SpaceSlug": "ClusterAutoscaler-default-staging",
+        "ToSpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+        "ToUnitID": "aaa3fe0e-dddf-40a9-b62c-bc200f38d8e2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:16.2532Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'aaa3fe0e-dddf-40a9-b62c-bc200f38d8e2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:15.586552Z",
+      "CursorID": 4587,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ClusterAutoscaler-default-staging",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "UpdatedAt": "2026-06-12T16:48:15.586552Z",
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "57c1fa87835438243023db47ebb56c532a72c4f7f9ec924e95b019dbdfe4b6a8",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d64a81ab-e02e-49a0-9688-8bf185b38ea7"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4fda57aa-f902-4ccb-8ba4-99d0b61cbe38",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "aaa3fe0e-dddf-40a9-b62c-bc200f38d8e2",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "autoscaler-cluster-autoscaler",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1983691969,
+      "CreatedAt": "2026-06-12T16:47:48.590461Z",
+      "CursorID": 27724,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImF1dG9zY2FsZXItY2x1c3Rlci1hdXRvc2NhbGVyIgogIHZlcnNpb246ICI5LjU3LjAiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAiYXV0b3NjYWxlci9jbHVzdGVyLWF1dG9zY2FsZXIgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gYXV0b3NjYWxlci9jbHVzdGVyLWF1dG9zY2FsZXJAOS41Ny4wIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJjb250cm9sbGVyLWRlZmF1bHQtcmV2aWV3ZWQiCiAgICBwYXRoOiAiYmFzZXMvY29udHJvbGxlci1kZWZhdWx0LXJldmlld2VkIgogICAgZGVmYXVsdDogZmFsc2UKICAgIGRlc2NyaXB0aW9uOiAiYXV0b3NjYWxlci9jbHVzdGVyLWF1dG9zY2FsZXIgY29udHJvbGxlci1kZWZhdWx0LXJldmlld2VkIHVzZWZ1bCBiYXNlOyBhbGlhc2VzIHRoZSBkZWZhdWx0IHJlbmRlciB3aXRoIGEgbmFtZWQgdXNlciBzdGFydCBwYXRoIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiBhdXRvc2NhbGVyLWNsdXN0ZXItYXV0b3NjYWxlci1mdW5jdGlvbi1jaGFpbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogYXV0b3NjYWxlci1jbHVzdGVyLWF1dG9zY2FsZXIKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogYXV0b3NjYWxlci1jbHVzdGVyLWF1dG9zY2FsZXItaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBhdXRvc2NhbGVyLWNsdXN0ZXItYXV0b3NjYWxlcgogIG5hbWVzcGFjZTogZGVmYXVsdAogIHZhbHVlczoge30KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IE1hbmlmZXN0SW5kZXgKbWV0YWRhdGE6CiAgbmFtZTogYXV0b3NjYWxlci1jbHVzdGVyLWF1dG9zY2FsZXItbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGF1dG9zY2FsZXItY2x1c3Rlci1hdXRvc2NhbGVyCiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBjbHVzdGVyLWF1dG9zY2FsZXItYXdzLWNsdXN0ZXItYXV0b3NjYWxlcgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlYmluZGluZy1jbHVzdGVyLWF1dG9zY2FsZXItYXdzLWNsdXN0ZXItYXV0b3NjYWxlci55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHBvZGRpc3J1cHRpb25idWRnZXQtZGVmYXVsdC1jbHVzdGVyLWF1dG9zY2FsZXItYXdzLWNsdXN0ZXItYXV0b3NjYWxlci55YW1sCiAgICBzbHVnOiBwb2RkaXNydXB0aW9uYnVkZ2V0LWRlZmF1bHQtY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAgIGFwaVZlcnNpb246IHBvbGljeS92MQogICAga2luZDogUG9kRGlzcnVwdGlvbkJ1ZGdldAogICAgbmFtZTogY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGUtZGVmYXVsdC1jbHVzdGVyLWF1dG9zY2FsZXItYXdzLWNsdXN0ZXItYXV0b3NjYWxlci55YW1sCiAgICBzbHVnOiByb2xlLWRlZmF1bHQtY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGUKICAgIG5hbWU6IGNsdXN0ZXItYXV0b3NjYWxlci1hd3MtY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1kZWZhdWx0LWNsdXN0ZXItYXV0b3NjYWxlci1hd3MtY2x1c3Rlci1hdXRvc2NhbGVyLnlhbWwKICAgIHNsdWc6IHJvbGViaW5kaW5nLWRlZmF1bHQtY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGVCaW5kaW5nCiAgICBuYW1lOiBjbHVzdGVyLWF1dG9zY2FsZXItYXdzLWNsdXN0ZXItYXV0b3NjYWxlcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS1kZWZhdWx0LWNsdXN0ZXItYXV0b3NjYWxlci1hd3MtY2x1c3Rlci1hdXRvc2NhbGVyLnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtZGVmYXVsdC1jbHVzdGVyLWF1dG9zY2FsZXItYXdzLWNsdXN0ZXItYXV0b3NjYWxlcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2UKICAgIG5hbWU6IGNsdXN0ZXItYXV0b3NjYWxlci1hd3MtY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWNsdXN0ZXItYXV0b3NjYWxlci1hd3MtY2x1c3Rlci1hdXRvc2NhbGVyLnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZTogY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGF1dG9zY2FsZXItY2x1c3Rlci1hdXRvc2NhbGVyLXNlbGVjdGlvbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogYXV0b3NjYWxlci1jbHVzdGVyLWF1dG9zY2FsZXIKICBiYXNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogYXV0b3NjYWxlci1jbHVzdGVyLWF1dG9zY2FsZXItdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBhdXRvc2NhbGVyLWNsdXN0ZXItYXV0b3NjYWxlcgogIHNwYWNlUGF0dGVybjogaGVsbS1jbHVzdGVyLWF1dG9zY2FsZXItZGVmYXVsdC1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBhdXRvc2NhbGVyLWNsdXN0ZXItYXV0b3NjYWxlcgogICAgc2x1ZzogaGVsbS1jbHVzdGVyLWF1dG9zY2FsZXItZGVmYXVsdC1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTY6NDc6MzNaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "57c1fa87835438243023db47ebb56c532a72c4f7f9ec924e95b019dbdfe4b6a8",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "autoscaler-cluster-autoscaler"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/autoscaler-cluster-autoscaler": {}
+          },
+          "AliasesWithoutScopes": {
+            "autoscaler-cluster-autoscaler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/autoscaler-cluster-autoscaler",
+            "ResourceNameWithoutScope": "autoscaler-cluster-autoscaler",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"autoscaler-cluster-autoscaler\"\n  version: \"9.57.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"autoscaler/cluster-autoscaler default variant rendered from autoscaler/cluster-autoscaler@9.57.0\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"controller-default-reviewed\"\n    path: \"bases/controller-default-reviewed\"\n    default: false\n    description: \"autoscaler/cluster-autoscaler controller-default-reviewed useful base; aliases the default render with a named user start path\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/autoscaler-cluster-autoscaler-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "autoscaler-cluster-autoscaler-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/autoscaler-cluster-autoscaler-function-chain",
+            "ResourceNameWithoutScope": "autoscaler-cluster-autoscaler-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: autoscaler-cluster-autoscaler-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: autoscaler-cluster-autoscaler\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/autoscaler-cluster-autoscaler-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "autoscaler-cluster-autoscaler-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/autoscaler-cluster-autoscaler-inputs",
+            "ResourceNameWithoutScope": "autoscaler-cluster-autoscaler-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: autoscaler-cluster-autoscaler-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: autoscaler-cluster-autoscaler\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/autoscaler-cluster-autoscaler-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "autoscaler-cluster-autoscaler-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/autoscaler-cluster-autoscaler-manifest-index",
+            "ResourceNameWithoutScope": "autoscaler-cluster-autoscaler-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: autoscaler-cluster-autoscaler-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: autoscaler-cluster-autoscaler\n  files:\n  - filename: clusterrole-cluster-autoscaler-aws-cluster-autoscaler.yaml\n    slug: clusterrole-cluster-autoscaler-aws-cluster-autoscaler\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: cluster-autoscaler-aws-cluster-autoscaler\n  - filename: clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler.yaml\n    slug: clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: cluster-autoscaler-aws-cluster-autoscaler\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler.yaml\n    slug: poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler\n    apiVersion: policy/v1\n    kind: PodDisruptionBudget\n    name: cluster-autoscaler-aws-cluster-autoscaler\n    namespace: default\n  - filename: role-default-cluster-autoscaler-aws-cluster-autoscaler.yaml\n    slug: role-default-cluster-autoscaler-aws-cluster-autoscaler\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: cluster-autoscaler-aws-cluster-autoscaler\n    namespace: default\n  - filename: rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler.yaml\n    slug: rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: cluster-autoscaler-aws-cluster-autoscaler\n    namespace: default\n  - filename: service-default-cluster-autoscaler-aws-cluster-autoscaler.yaml\n    slug: service-default-cluster-autoscaler-aws-cluster-autoscaler\n    apiVersion: v1\n    kind: Service\n    name: cluster-autoscaler-aws-cluster-autoscaler\n    namespace: default\n  - filename: serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler.yaml\n    slug: serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler\n    apiVersion: v1\n    kind: ServiceAccount\n    name: cluster-autoscaler-aws-cluster-autoscaler\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/autoscaler-cluster-autoscaler-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "autoscaler-cluster-autoscaler-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/autoscaler-cluster-autoscaler-selection",
+            "ResourceNameWithoutScope": "autoscaler-cluster-autoscaler-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: autoscaler-cluster-autoscaler-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: autoscaler-cluster-autoscaler\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/autoscaler-cluster-autoscaler-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "autoscaler-cluster-autoscaler-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/autoscaler-cluster-autoscaler-upload",
+            "ResourceNameWithoutScope": "autoscaler-cluster-autoscaler-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: autoscaler-cluster-autoscaler-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: autoscaler-cluster-autoscaler\n  spacePattern: helm-cluster-autoscaler-default-confighub-proof\n  spaces:\n  - package: autoscaler-cluster-autoscaler\n    slug: helm-cluster-autoscaler-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:47:33Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aaa3fe0e-dddf-40a9-b62c-bc200f38d8e2",
+      "UpdatedAt": "2026-06-12T16:47:49.520815Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:16.102888Z",
+        "CursorID": 22564,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "318e9a1a-a9ee-4930-89e4-95e4335ab5f8",
+        "LinkID": "f1a619e2-7b16-40b1-b803-c3c99b64b678",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+        "SpaceSlug": "ClusterAutoscaler-default-staging",
+        "ToSpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+        "ToUnitID": "e596651d-2c26-4585-886b-7d86c57b1ada",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:16.102888Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e596651d-2c26-4585-886b-7d86c57b1ada' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:15.586552Z",
+      "CursorID": 4587,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ClusterAutoscaler-default-staging",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "UpdatedAt": "2026-06-12T16:48:15.586552Z",
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f1a619e2-7b16-40b1-b803-c3c99b64b678"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "318e9a1a-a9ee-4930-89e4-95e4335ab5f8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e596651d-2c26-4585-886b-7d86c57b1ada",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:47:37.007911Z",
+      "CursorID": 27696,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "HelmChart": "autoscaler-cluster-autoscaler",
+        "HelmChartVersion": "9.57.0",
+        "Package": "autoscaler-cluster-autoscaler",
+        "Proof": "cluster-autoscaler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e596651d-2c26-4585-886b-7d86c57b1ada",
+      "UpdatedAt": "2026-06-12T16:47:37.048652Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:16.32893Z",
+        "CursorID": 22568,
+        "DisplayName": "Upgrade poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b3619407-057a-45fb-8cc4-702e04634d9b",
+        "LinkID": "1755e9b0-a5f3-46eb-aeb0-5d649ad93fe8",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+        "SpaceSlug": "ClusterAutoscaler-default-staging",
+        "ToSpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+        "ToUnitID": "fc285dd3-7c38-4092-be1f-aa974f40e589",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:16.32893Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'fc285dd3-7c38-4092-be1f-aa974f40e589' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:15.586552Z",
+      "CursorID": 4587,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ClusterAutoscaler-default-staging",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "UpdatedAt": "2026-06-12T16:48:15.586552Z",
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c7cd85e8f2b52ac5adea1d9a075892ae43f673416d8ad7dbd088215ed8819c8a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1755e9b0-a5f3-46eb-aeb0-5d649ad93fe8"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b3619407-057a-45fb-8cc4-702e04634d9b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "fc285dd3-7c38-4092-be1f-aa974f40e589",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -338840064,
+      "CreatedAt": "2026-06-12T16:47:37.840595Z",
+      "CursorID": 27697,
+      "Data": "YXBpVmVyc2lvbjogcG9saWN5L3YxCmtpbmQ6IFBvZERpc3J1cHRpb25CdWRnZXQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNsdXN0ZXItYXV0b3NjYWxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogYXdzLWNsdXN0ZXItYXV0b3NjYWxlcgogICAgaGVsbS5zaC9jaGFydDogY2x1c3Rlci1hdXRvc2NhbGVyLTkuNTcuMAogIG5hbWU6IGNsdXN0ZXItYXV0b3NjYWxlci1hd3MtY2x1c3Rlci1hdXRvc2NhbGVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgbWF4VW5hdmFpbGFibGU6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2x1c3Rlci1hdXRvc2NhbGVyCiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGF3cy1jbHVzdGVyLWF1dG9zY2FsZXIK",
+      "DataHash": "c7cd85e8f2b52ac5adea1d9a075892ae43f673416d8ad7dbd088215ed8819c8a",
+      "DisplayName": "poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "HelmChart": "autoscaler-cluster-autoscaler",
+        "HelmChartVersion": "9.57.0",
+        "Package": "autoscaler-cluster-autoscaler",
+        "Proof": "cluster-autoscaler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 486 bytes; from poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "AliasesWithoutScopes": {
+            "cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceType": "policy/v1/PodDisruptionBudget"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: policy/v1\nkind: PodDisruptionBudget\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cluster-autoscaler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: aws-cluster-autoscaler\n    helm.sh/chart: cluster-autoscaler-9.57.0\n  name: cluster-autoscaler-aws-cluster-autoscaler\n  namespace: default\nspec:\n  maxUnavailable: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: cluster-autoscaler\n      app.kubernetes.io/name: aws-cluster-autoscaler\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fc285dd3-7c38-4092-be1f-aa974f40e589",
+      "UpdatedAt": "2026-06-12T16:47:59.923553Z",
+      "Version": 5
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:16.365075Z",
+        "CursorID": 22569,
+        "DisplayName": "Upgrade rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "7613bfc4-81ce-445b-8e85-89a35a2d3a5a",
+        "LinkID": "8f0356b7-6a9c-455c-8a86-dbf280feaaec",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+        "SpaceSlug": "ClusterAutoscaler-default-staging",
+        "ToSpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+        "ToUnitID": "bc811e70-9206-4d40-bb5c-69a3f53eace6",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:16.365076Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'bc811e70-9206-4d40-bb5c-69a3f53eace6' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:15.586552Z",
+      "CursorID": 4587,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ClusterAutoscaler-default-staging",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "UpdatedAt": "2026-06-12T16:48:15.586552Z",
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9cd1f141ff74c120ef6739d471979bdadd722268869a1d708fb4d72ff4271491",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8f0356b7-6a9c-455c-8a86-dbf280feaaec"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7613bfc4-81ce-445b-8e85-89a35a2d3a5a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "bc811e70-9206-4d40-bb5c-69a3f53eace6",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1355009034,
+      "CreatedAt": "2026-06-12T16:47:46.347578Z",
+      "CursorID": 27719,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhd3MtY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBoZWxtLnNoL2NoYXJ0OiBjbHVzdGVyLWF1dG9zY2FsZXItOS41Ny4wCiAgbmFtZTogY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IFJvbGUKICBuYW1lOiBjbHVzdGVyLWF1dG9zY2FsZXItYXdzLWNsdXN0ZXItYXV0b3NjYWxlcgpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGNsdXN0ZXItYXV0b3NjYWxlci1hd3MtY2x1c3Rlci1hdXRvc2NhbGVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "9cd1f141ff74c120ef6739d471979bdadd722268869a1d708fb4d72ff4271491",
+      "DisplayName": "rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "HelmChart": "autoscaler-cluster-autoscaler",
+        "HelmChartVersion": "9.57.0",
+        "Package": "autoscaler-cluster-autoscaler",
+        "Proof": "cluster-autoscaler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "AliasesWithoutScopes": {
+            "cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cluster-autoscaler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: aws-cluster-autoscaler\n    helm.sh/chart: cluster-autoscaler-9.57.0\n  name: cluster-autoscaler-aws-cluster-autoscaler\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: cluster-autoscaler-aws-cluster-autoscaler\nsubjects:\n- kind: ServiceAccount\n  name: cluster-autoscaler-aws-cluster-autoscaler\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bc811e70-9206-4d40-bb5c-69a3f53eace6",
+      "UpdatedAt": "2026-06-12T16:48:04.163339Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:16.165359Z",
+        "CursorID": 22565,
+        "DisplayName": "Upgrade role-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d3e62b81-62a8-4066-8b88-25ca0bf26fc5",
+        "LinkID": "eecf1d20-82b0-4141-aa15-8be53d692c46",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+        "SpaceSlug": "ClusterAutoscaler-default-staging",
+        "ToSpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+        "ToUnitID": "ea7a3f35-6ebf-4686-a2e2-c4dc40a70aa9",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:16.165359Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ea7a3f35-6ebf-4686-a2e2-c4dc40a70aa9' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:15.586552Z",
+      "CursorID": 4587,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ClusterAutoscaler-default-staging",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "UpdatedAt": "2026-06-12T16:48:15.586552Z",
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1479378f615d7b7c560ea32f3654e975bd5a98b8ecff5000f29735ae616602f2",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "eecf1d20-82b0-4141-aa15-8be53d692c46"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d3e62b81-62a8-4066-8b88-25ca0bf26fc5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ea7a3f35-6ebf-4686-a2e2-c4dc40a70aa9",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 402653183,
+      "CreatedAt": "2026-06-12T16:47:41.821589Z",
+      "CursorID": 27699,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjbHVzdGVyLWF1dG9zY2FsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICAgIGhlbG0uc2gvY2hhcnQ6IGNsdXN0ZXItYXV0b3NjYWxlci05LjU3LjAKICBuYW1lOiBjbHVzdGVyLWF1dG9zY2FsZXItYXdzLWNsdXN0ZXItYXV0b3NjYWxlcgogIG5hbWVzcGFjZTogZGVmYXVsdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIGNvbmZpZ21hcHMKICB2ZXJiczoKICAtIGNyZWF0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VOYW1lczoKICAtIGNsdXN0ZXItYXV0b3NjYWxlci1zdGF0dXMKICByZXNvdXJjZXM6CiAgLSBjb25maWdtYXBzCiAgdmVyYnM6CiAgLSBkZWxldGUKICAtIGdldAogIC0gdXBkYXRlCg==",
+      "DataHash": "1479378f615d7b7c560ea32f3654e975bd5a98b8ecff5000f29735ae616602f2",
+      "DisplayName": "role-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "HelmChart": "autoscaler-cluster-autoscaler",
+        "HelmChartVersion": "9.57.0",
+        "Package": "autoscaler-cluster-autoscaler",
+        "Proof": "cluster-autoscaler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "AliasesWithoutScopes": {
+            "cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cluster-autoscaler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: aws-cluster-autoscaler\n    helm.sh/chart: cluster-autoscaler-9.57.0\n  name: cluster-autoscaler-aws-cluster-autoscaler\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  verbs:\n  - create\n- apiGroups:\n  - \"\"\n  resourceNames:\n  - cluster-autoscaler-status\n  resources:\n  - configmaps\n  verbs:\n  - delete\n  - get\n  - update\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/cluster-autoscaler-aws-cluster-autoscaler",
+          "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ea7a3f35-6ebf-4686-a2e2-c4dc40a70aa9",
+      "UpdatedAt": "2026-06-12T16:48:00.984231Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:16.431017Z",
+        "CursorID": 22571,
+        "DisplayName": "Upgrade serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "8bffcd7f-0c52-4b3f-9538-124d9b024c68",
+        "LinkID": "73bfc8fc-a2d4-4656-9f52-f9e246021f28",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+        "SpaceSlug": "ClusterAutoscaler-default-staging",
+        "ToSpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+        "ToUnitID": "845ca29e-c2aa-4bc0-bf61-d558c213bc55",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:16.431017Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '845ca29e-c2aa-4bc0-bf61-d558c213bc55' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:15.586552Z",
+      "CursorID": 4587,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ClusterAutoscaler-default-staging",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "UpdatedAt": "2026-06-12T16:48:15.586552Z",
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "07bf294328482720bc0cab535ec86cc661a6b45bbedc1d527c840e7c4e3dee4e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "73bfc8fc-a2d4-4656-9f52-f9e246021f28"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8bffcd7f-0c52-4b3f-9538-124d9b024c68",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "845ca29e-c2aa-4bc0-bf61-d558c213bc55",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1635397084,
+      "CreatedAt": "2026-06-12T16:47:47.882881Z",
+      "CursorID": 27723,
+      "Data": "YXBpVmVyc2lvbjogdjEKYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQpraW5kOiBTZXJ2aWNlQWNjb3VudAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhd3MtY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBoZWxtLnNoL2NoYXJ0OiBjbHVzdGVyLWF1dG9zY2FsZXItOS41Ny4wCiAgbmFtZTogY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "07bf294328482720bc0cab535ec86cc661a6b45bbedc1d527c840e7c4e3dee4e",
+      "DisplayName": "serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "HelmChart": "autoscaler-cluster-autoscaler",
+        "HelmChartVersion": "9.57.0",
+        "Package": "autoscaler-cluster-autoscaler",
+        "Proof": "cluster-autoscaler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 348 bytes; from serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "AliasesWithoutScopes": {
+            "cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nautomountServiceAccountToken: true\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cluster-autoscaler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: aws-cluster-autoscaler\n    helm.sh/chart: cluster-autoscaler-9.57.0\n  name: cluster-autoscaler-aws-cluster-autoscaler\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/cluster-autoscaler-aws-cluster-autoscaler",
+          "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "845ca29e-c2aa-4bc0-bf61-d558c213bc55",
+      "UpdatedAt": "2026-06-12T16:48:06.255421Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:16.400788Z",
+        "CursorID": 22570,
+        "DisplayName": "Upgrade service-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f1505f27-380a-48b7-a785-77d112349f46",
+        "LinkID": "be6729c6-cb36-4557-9acb-43605f3a6f31",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-cluster-autoscaler-aws-cluster-autoscaler",
+        "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+        "SpaceSlug": "ClusterAutoscaler-default-staging",
+        "ToSpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+        "ToUnitID": "81191983-0885-4832-bb43-1f54e42910a8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:16.400788Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '81191983-0885-4832-bb43-1f54e42910a8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:15.586552Z",
+      "CursorID": 4587,
+      "DisplayName": "helm-cluster-autoscaler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "ClusterAutoscaler-default-staging",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "UpdatedAt": "2026-06-12T16:48:15.586552Z",
+      "WhereTrigger": "SpaceID = 'c7e06b14-4662-43ba-9572-3fb6c0e45c53'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7fe60ba141502c8e5f01941b21e7f9f6caafad390bfeeb35d6ad381942049cef",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "be6729c6-cb36-4557-9acb-43605f3a6f31"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c2f119bf-de37-4161-825a-5ddef6d407b3",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f1505f27-380a-48b7-a785-77d112349f46",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "81191983-0885-4832-bb43-1f54e42910a8",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1794494473,
+      "CreatedAt": "2026-06-12T16:47:47.106343Z",
+      "CursorID": 27722,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBhd3MtY2x1c3Rlci1hdXRvc2NhbGVyCiAgICBoZWxtLnNoL2NoYXJ0OiBjbHVzdGVyLWF1dG9zY2FsZXItOS41Ny4wCiAgbmFtZTogY2x1c3Rlci1hdXRvc2NhbGVyLWF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IGh0dHAKICAgIHBvcnQ6IDgwODUKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IDgwODUKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjbHVzdGVyLWF1dG9zY2FsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGF3cy1jbHVzdGVyLWF1dG9zY2FsZXIKICB0eXBlOiBDbHVzdGVySVAK",
+      "DataHash": "7fe60ba141502c8e5f01941b21e7f9f6caafad390bfeeb35d6ad381942049cef",
+      "DisplayName": "service-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ClusterAutoscaler",
+        "HelmChart": "autoscaler-cluster-autoscaler",
+        "HelmChartVersion": "9.57.0",
+        "Package": "autoscaler-cluster-autoscaler",
+        "Proof": "cluster-autoscaler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "AliasesWithoutScopes": {
+            "cluster-autoscaler-aws-cluster-autoscaler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cluster-autoscaler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: aws-cluster-autoscaler\n    helm.sh/chart: cluster-autoscaler-9.57.0\n  name: cluster-autoscaler-aws-cluster-autoscaler\n  namespace: default\nspec:\n  ports:\n  - name: http\n    port: 8085\n    protocol: TCP\n    targetPort: 8085\n  selector:\n    app.kubernetes.io/instance: cluster-autoscaler\n    app.kubernetes.io/name: aws-cluster-autoscaler\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/cluster-autoscaler-aws-cluster-autoscaler",
+          "ResourceNameWithoutScope": "cluster-autoscaler-aws-cluster-autoscaler",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-cluster-autoscaler-aws-cluster-autoscaler",
+      "SpaceID": "c7e06b14-4662-43ba-9572-3fb6c0e45c53",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "81191983-0885-4832-bb43-1f54e42910a8",
+      "UpdatedAt": "2026-06-12T16:48:05.183491Z",
+      "Version": 10
+    }
+  }
+]

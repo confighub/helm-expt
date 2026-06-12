@@ -1,0 +1,1 @@
+cub installer package packages/traefik/traefik/40.2.0 -o .tmp/confighub-proof/traefik-default-archives/traefik-b.tgz

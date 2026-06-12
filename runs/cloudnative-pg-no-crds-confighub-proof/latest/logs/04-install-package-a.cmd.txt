@@ -1,0 +1,1 @@
+cub installer package packages/cloudnative-pg/cloudnative-pg/0.28.2 -o .tmp/confighub-proof/cloudnative-pg-no-crds-archives/cloudnative-pg-a.tgz

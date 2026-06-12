@@ -1,0 +1,18 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "fluent-fluentd"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "fluent/fluentd default variant rendered from fluent/fluentd@0.5.3"
+      }
+    ]
+  }
+}

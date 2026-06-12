@@ -1,0 +1,1 @@
+cub unit diff deployment-default-kubernetes-ingress --space helm-haproxy-ingress-default-confighub-proof --from 1 --to HeadRevisionNum -u

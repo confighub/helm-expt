@@ -1,0 +1,2136 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.580684Z",
+        "CursorID": 24718,
+        "DisplayName": "Upgrade clusterrolebinding-ingress-nginx",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "8ac86c81-3bc5-49a5-9271-6d363db4f731",
+        "LinkID": "effeb79d-4d9e-4d68-87e2-d583c4ed4d51",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-ingress-nginx",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "e1da42d0-2014-4faf-8930-0614d828b300",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.580684Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e1da42d0-2014-4faf-8930-0614d828b300' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "75c3ceedd6a271ddc5727fd9449130d278f2e5fda3e20b8fe6d337a7b988346e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "effeb79d-4d9e-4d68-87e2-d583c4ed4d51"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-ingress-nginx",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8ac86c81-3bc5-49a5-9271-6d363db4f731",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e1da42d0-2014-4faf-8930-0614d828b300",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 712793156,
+      "CreatedAt": "2026-06-12T17:18:52.274306Z",
+      "CursorID": 29355,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMTUuMQogICAgaGVsbS5zaC9jaGFydDogaW5ncmVzcy1uZ2lueC00LjE1LjEKICBuYW1lOiBpbmdyZXNzLW5naW54CnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IGluZ3Jlc3MtbmdpbngKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBpbmdyZXNzLW5naW54CiAgbmFtZXNwYWNlOiBpbmdyZXNzLW5naW54Cg==",
+      "DataHash": "75c3ceedd6a271ddc5727fd9449130d278f2e5fda3e20b8fe6d337a7b988346e",
+      "DisplayName": "clusterrolebinding-ingress-nginx",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/ingress-nginx": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx",
+            "ResourceNameWithoutScope": "ingress-nginx",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: ingress-nginx\nsubjects:\n- kind: ServiceAccount\n  name: ingress-nginx\n  namespace: ingress-nginx\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-ingress-nginx",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e1da42d0-2014-4faf-8930-0614d828b300",
+      "UpdatedAt": "2026-06-12T17:19:19.307522Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.961564Z",
+        "CursorID": 24728,
+        "DisplayName": "Upgrade clusterrole-ingress-nginx",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c48fb457-4ffe-4a11-8687-b476de43ebe6",
+        "LinkID": "b4828964-27ae-45f2-9243-e841c75b4f34",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-ingress-nginx",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "f561bba6-acad-4410-b427-fb73385de737",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.961564Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f561bba6-acad-4410-b427-fb73385de737' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bb7ceffc91b7d041266bc1d59c9bd708bfff7e138f78fe8ae45ac6a19d66949f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b4828964-27ae-45f2-9243-e841c75b4f34"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-ingress-nginx",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c48fb457-4ffe-4a11-8687-b476de43ebe6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f561bba6-acad-4410-b427-fb73385de737",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -258291409,
+      "CreatedAt": "2026-06-12T17:18:51.364245Z",
+      "CursorID": 29354,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogaW5ncmVzcy1uZ2lueAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogaW5ncmVzcy1uZ2lueAogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogaW5ncmVzcy1uZ2lueAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4xNS4xCiAgICBoZWxtLnNoL2NoYXJ0OiBpbmdyZXNzLW5naW54LTQuMTUuMQogIG5hbWU6IGluZ3Jlc3MtbmdpbngKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBjb25maWdtYXBzCiAgLSBlbmRwb2ludHMKICAtIG5vZGVzCiAgLSBwb2RzCiAgLSBzZWNyZXRzCiAgLSBuYW1lc3BhY2VzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGNvb3JkaW5hdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBsZWFzZXMKICB2ZXJiczoKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBub2RlcwogIHZlcmJzOgogIC0gZ2V0Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBzZXJ2aWNlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIG5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gaW5ncmVzc2VzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBldmVudHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gcGF0Y2gKLSBhcGlHcm91cHM6CiAgLSBuZXR3b3JraW5nLms4cy5pbwogIHJlc291cmNlczoKICAtIGluZ3Jlc3Nlcy9zdGF0dXMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIG5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gaW5ncmVzc2NsYXNzZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBkaXNjb3ZlcnkuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gZW5kcG9pbnRzbGljZXMKICB2ZXJiczoKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBnZXQK",
+      "DataHash": "bb7ceffc91b7d041266bc1d59c9bd708bfff7e138f78fe8ae45ac6a19d66949f",
+      "DisplayName": "clusterrole-ingress-nginx",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/ingress-nginx": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx",
+            "ResourceNameWithoutScope": "ingress-nginx",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - endpoints\n  - nodes\n  - pods\n  - secrets\n  - namespaces\n  verbs:\n  - list\n  - watch\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - services\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - ingresses\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - ingresses/status\n  verbs:\n  - update\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - ingressclasses\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - discovery.k8s.io\n  resources:\n  - endpointslices\n  verbs:\n  - list\n  - watch\n  - get\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/ingress-nginx",
+          "ResourceNameWithoutScope": "ingress-nginx",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-ingress-nginx",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f561bba6-acad-4410-b427-fb73385de737",
+      "UpdatedAt": "2026-06-12T17:19:05.0559Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.63031Z",
+        "CursorID": 24719,
+        "DisplayName": "Upgrade configmap-ingress-nginx-ingress-nginx-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "7b65f6f1-0863-4112-9f8e-2ca207f24a13",
+        "LinkID": "f5311530-a54d-4ccb-b3f7-fb3a9b6af1d4",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-ingress-nginx-ingress-nginx-controller",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "183827e3-9ce5-4cfd-bd1b-cdd69629e52e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.63031Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '183827e3-9ce5-4cfd-bd1b-cdd69629e52e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "904f011e73acb53b22c7f04e37c13bd5ab044645604c082eb09a080c87ab95af",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f5311530-a54d-4ccb-b3f7-fb3a9b6af1d4"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-ingress-nginx-ingress-nginx-controller",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7b65f6f1-0863-4112-9f8e-2ca207f24a13",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "183827e3-9ce5-4cfd-bd1b-cdd69629e52e",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 881241397,
+      "CreatedAt": "2026-06-12T17:18:53.849246Z",
+      "CursorID": 29357,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YTogbnVsbApraW5kOiBDb25maWdNYXAKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogaW5ncmVzcy1uZ2lueAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogaW5ncmVzcy1uZ2lueAogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogaW5ncmVzcy1uZ2lueAogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4xNS4xCiAgICBoZWxtLnNoL2NoYXJ0OiBpbmdyZXNzLW5naW54LTQuMTUuMQogIG5hbWU6IGluZ3Jlc3MtbmdpbngtY29udHJvbGxlcgogIG5hbWVzcGFjZTogaW5ncmVzcy1uZ2lueAo=",
+      "DataHash": "904f011e73acb53b22c7f04e37c13bd5ab044645604c082eb09a080c87ab95af",
+      "DisplayName": "configmap-ingress-nginx-ingress-nginx-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 416 bytes; from configmap-ingress-nginx-ingress-nginx-controller.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "ingress-nginx/ingress-nginx-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "ingress-nginx/ingress-nginx-controller",
+            "ResourceNameWithoutScope": "ingress-nginx-controller",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata: null\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx-controller\n  namespace: ingress-nginx\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "ingress-nginx",
+              "ResourceType": "v1/ConfigMap"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "ingress-nginx/ingress-nginx-controller",
+          "ResourceNameWithoutScope": "ingress-nginx-controller",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-ingress-nginx-ingress-nginx-controller",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "183827e3-9ce5-4cfd-bd1b-cdd69629e52e",
+      "UpdatedAt": "2026-06-12T17:19:20.75983Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:45.003695Z",
+        "CursorID": 24729,
+        "DisplayName": "Upgrade deployment-ingress-nginx-ingress-nginx-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "e15f1dc3-acef-4a51-a328-6968bc3c7e44",
+        "LinkID": "3ae308cb-bf7f-40a5-a575-fffb1d6458b0",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-ingress-nginx-ingress-nginx-controller",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "78a55365-1315-48ab-a928-b1d5aaef5c44",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:45.003695Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '78a55365-1315-48ab-a928-b1d5aaef5c44' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7c5dcb29eb98237b5c21bc9ca34b1486c0aa85259e5514f19c3a070a8bf1d5c7",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3ae308cb-bf7f-40a5-a575-fffb1d6458b0"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-ingress-nginx-ingress-nginx-controller",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e15f1dc3-acef-4a51-a328-6968bc3c7e44",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "78a55365-1315-48ab-a928-b1d5aaef5c44",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 437484295,
+      "CreatedAt": "2026-06-12T17:18:55.111687Z",
+      "CursorID": 29358,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMTUuMQogICAgaGVsbS5zaC9jaGFydDogaW5ncmVzcy1uZ2lueC00LjE1LjEKICBuYW1lOiBpbmdyZXNzLW5naW54LWNvbnRyb2xsZXIKICBuYW1lc3BhY2U6IGluZ3Jlc3MtbmdpbngKc3BlYzoKICBtaW5SZWFkeVNlY29uZHM6IDAKICByZXBsaWNhczogMQogIHJldmlzaW9uSGlzdG9yeUxpbWl0OiAxMAogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlcgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogaW5ncmVzcy1uZ2lueAogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBpbmdyZXNzLW5naW54CiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgbGFiZWxzOgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBpbmdyZXNzLW5naW54CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGluZ3Jlc3MtbmdpbngKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBpbmdyZXNzLW5naW54CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4xNS4xCiAgICAgICAgaGVsbS5zaC9jaGFydDogaW5ncmVzcy1uZ2lueC00LjE1LjEKICAgIHNwZWM6CiAgICAgIGF1dG9tb3VudFNlcnZpY2VBY2NvdW50VG9rZW46IHRydWUKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gL25naW54LWluZ3Jlc3MtY29udHJvbGxlcgogICAgICAgIC0gLS1wdWJsaXNoLXNlcnZpY2U9JChQT0RfTkFNRVNQQUNFKS9pbmdyZXNzLW5naW54LWNvbnRyb2xsZXIKICAgICAgICAtIC0tZWxlY3Rpb24taWQ9aW5ncmVzcy1uZ2lueC1sZWFkZXIKICAgICAgICAtIC0tY29udHJvbGxlci1jbGFzcz1rOHMuaW8vaW5ncmVzcy1uZ2lueAogICAgICAgIC0gLS1pbmdyZXNzLWNsYXNzPW5naW54CiAgICAgICAgLSAtLWNvbmZpZ21hcD0kKFBPRF9OQU1FU1BBQ0UpL2luZ3Jlc3MtbmdpbngtY29udHJvbGxlcgogICAgICAgIC0gLS12YWxpZGF0aW5nLXdlYmhvb2s9Ojg0NDMKICAgICAgICAtIC0tdmFsaWRhdGluZy13ZWJob29rLWNlcnRpZmljYXRlPS91c3IvbG9jYWwvY2VydGlmaWNhdGVzL2NlcnQKICAgICAgICAtIC0tdmFsaWRhdGluZy13ZWJob29rLWtleT0vdXNyL2xvY2FsL2NlcnRpZmljYXRlcy9rZXkKICAgICAgICBlbnY6CiAgICAgICAgLSBuYW1lOiBQT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFBPRF9OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IExEX1BSRUxPQUQKICAgICAgICAgIHZhbHVlOiAvdXNyL2xvY2FsL2xpYi9saWJtaW1hbGxvYy5zbwogICAgICAgIGltYWdlOiByZWdpc3RyeS5rOHMuaW8vaW5ncmVzcy1uZ2lueC9jb250cm9sbGVyOnYxLjE1LjFAc2hhMjU2OjU5NGNlZWE3NmIwMWM1OTI4NThmODAzZjlmZjRkMmNiNDA1NDJjYWUyMDYwNDEwYjJjOTVmNzU5MDdkNjU5ZTEKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpZmVjeWNsZToKICAgICAgICAgIHByZVN0b3A6CiAgICAgICAgICAgIGV4ZWM6CiAgICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgICAtIC93YWl0LXNodXRkb3duCiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDUKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgIHBvcnQ6IDEwMjU0CiAgICAgICAgICAgIHNjaGVtZTogSFRUUAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDEwCiAgICAgICAgICBzdWNjZXNzVGhyZXNob2xkOiAxCiAgICAgICAgICB0aW1lb3V0U2Vjb25kczogMQogICAgICAgIG5hbWU6IGNvbnRyb2xsZXIKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgwCiAgICAgICAgICBuYW1lOiBodHRwCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA0NDMKICAgICAgICAgIG5hbWU6IGh0dHBzCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4NDQzCiAgICAgICAgICBuYW1lOiB3ZWJob29rCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoegogICAgICAgICAgICBwb3J0OiAxMDI1NAogICAgICAgICAgICBzY2hlbWU6IEhUVFAKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDEwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAxMAogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDEKICAgICAgICByZXNvdXJjZXM6CiAgICAgICAgICByZXF1ZXN0czoKICAgICAgICAgICAgY3B1OiAxMDBtCiAgICAgICAgICAgIG1lbW9yeTogOTBNaQogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICAgIGNhcGFiaWxpdGllczoKICAgICAgICAgICAgYWRkOgogICAgICAgICAgICAtIE5FVF9CSU5EX1NFUlZJQ0UKICAgICAgICAgICAgZHJvcDoKICAgICAgICAgICAgLSBBTEwKICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IGZhbHNlCiAgICAgICAgICBydW5Bc0dyb3VwOiA4MgogICAgICAgICAgcnVuQXNOb25Sb290OiB0cnVlCiAgICAgICAgICBydW5Bc1VzZXI6IDEwMQogICAgICAgICAgc2VjY29tcFByb2ZpbGU6CiAgICAgICAgICAgIHR5cGU6IFJ1bnRpbWVEZWZhdWx0CiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvdXNyL2xvY2FsL2NlcnRpZmljYXRlcy8KICAgICAgICAgIG5hbWU6IHdlYmhvb2stY2VydAogICAgICAgICAgcmVhZE9ubHk6IHRydWUKICAgICAgZG5zUG9saWN5OiBDbHVzdGVyRmlyc3QKICAgICAgbm9kZVNlbGVjdG9yOgogICAgICAgIGt1YmVybmV0ZXMuaW8vb3M6IGxpbnV4CiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogaW5ncmVzcy1uZ2lueAogICAgICB0ZXJtaW5hdGlvbkdyYWNlUGVyaW9kU2Vjb25kczogMzAwCiAgICAgIHZvbHVtZXM6CiAgICAgIC0gbmFtZTogd2ViaG9vay1jZXJ0CiAgICAgICAgc2VjcmV0OgogICAgICAgICAgc2VjcmV0TmFtZTogaW5ncmVzcy1uZ2lueC1hZG1pc3Npb24K",
+      "DataHash": "7c5dcb29eb98237b5c21bc9ca34b1486c0aa85259e5514f19c3a070a8bf1d5c7",
+      "DisplayName": "deployment-ingress-nginx-ingress-nginx-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "ingress-nginx/ingress-nginx-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "ingress-nginx/ingress-nginx-controller",
+            "ResourceNameWithoutScope": "ingress-nginx-controller",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx-controller\n  namespace: ingress-nginx\nspec:\n  minReadySeconds: 0\n  replicas: 1\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app.kubernetes.io/component: controller\n      app.kubernetes.io/instance: ingress-nginx\n      app.kubernetes.io/name: ingress-nginx\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/component: controller\n        app.kubernetes.io/instance: ingress-nginx\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: ingress-nginx\n        app.kubernetes.io/part-of: ingress-nginx\n        app.kubernetes.io/version: 1.15.1\n        helm.sh/chart: ingress-nginx-4.15.1\n    spec:\n      automountServiceAccountToken: true\n      containers:\n      - args:\n        - /nginx-ingress-controller\n        - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller\n        - --election-id=ingress-nginx-leader\n        - --controller-class=k8s.io/ingress-nginx\n        - --ingress-class=nginx\n        - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller\n        - --validating-webhook=:8443\n        - --validating-webhook-certificate=/usr/local/certificates/cert\n        - --validating-webhook-key=/usr/local/certificates/key\n        env:\n        - name: POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: POD_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: LD_PRELOAD\n          value: /usr/local/lib/libmimalloc.so\n        image: registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /wait-shutdown\n        livenessProbe:\n          failureThreshold: 5\n          httpGet:\n            path: /healthz\n            port: 10254\n            scheme: HTTP\n          initialDelaySeconds: 10\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 1\n        name: controller\n        ports:\n        - containerPort: 80\n          name: http\n          protocol: TCP\n        - containerPort: 443\n          name: https\n          protocol: TCP\n        - containerPort: 8443\n          name: webhook\n          protocol: TCP\n        readinessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: 10254\n            scheme: HTTP\n          initialDelaySeconds: 10\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 1\n        resources:\n          requests:\n            cpu: 100m\n            memory: 90Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            add:\n            - NET_BIND_SERVICE\n            drop:\n            - ALL\n          readOnlyRootFilesystem: false\n          runAsGroup: 82\n          runAsNonRoot: true\n          runAsUser: 101\n          seccompProfile:\n            type: RuntimeDefault\n        volumeMounts:\n        - mountPath: /usr/local/certificates/\n          name: webhook-cert\n          readOnly: true\n      dnsPolicy: ClusterFirst\n      nodeSelector:\n        kubernetes.io/os: linux\n      serviceAccountName: ingress-nginx\n      terminationGracePeriodSeconds: 300\n      volumes:\n      - name: webhook-cert\n        secret:\n          secretName: ingress-nginx-admission\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "ingress-nginx/ingress-nginx-controller",
+          "ResourceNameWithoutScope": "ingress-nginx-controller",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-ingress-nginx-ingress-nginx-controller",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "78a55365-1315-48ab-a928-b1d5aaef5c44",
+      "UpdatedAt": "2026-06-12T17:19:23.225696Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.764184Z",
+        "CursorID": 24722,
+        "DisplayName": "Upgrade ingressclass-nginx",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1fc56a77-598c-45f7-81fd-40c3df27d49e",
+        "LinkID": "aeacd027-a3ca-4e2e-903a-09730ca8956e",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-ingressclass-nginx",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "3973c757-a250-4454-a8c3-9b752144eb19",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.764184Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '3973c757-a250-4454-a8c3-9b752144eb19' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3d34127bd126133150dbe03e961ba56537321c3ccaf3a8673a8ec0b8a19244c3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "aeacd027-a3ca-4e2e-903a-09730ca8956e"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "ingressclass-nginx",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1fc56a77-598c-45f7-81fd-40c3df27d49e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "3973c757-a250-4454-a8c3-9b752144eb19",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1904233334,
+      "CreatedAt": "2026-06-12T17:18:55.940294Z",
+      "CursorID": 29360,
+      "Data": "YXBpVmVyc2lvbjogbmV0d29ya2luZy5rOHMuaW8vdjEKa2luZDogSW5ncmVzc0NsYXNzCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMTUuMQogICAgaGVsbS5zaC9jaGFydDogaW5ncmVzcy1uZ2lueC00LjE1LjEKICBuYW1lOiBuZ2lueApzcGVjOgogIGNvbnRyb2xsZXI6IGs4cy5pby9pbmdyZXNzLW5naW54Cg==",
+      "DataHash": "3d34127bd126133150dbe03e961ba56537321c3ccaf3a8673a8ec0b8a19244c3",
+      "DisplayName": "ingressclass-nginx",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 421 bytes; from ingressclass-nginx.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/nginx": {}
+          },
+          "AliasesWithoutScopes": {
+            "nginx": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/nginx",
+            "ResourceNameWithoutScope": "nginx",
+            "ResourceType": "networking.k8s.io/v1/IngressClass"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: networking.k8s.io/v1\nkind: IngressClass\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: nginx\nspec:\n  controller: k8s.io/ingress-nginx\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "ingressclass-nginx",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3973c757-a250-4454-a8c3-9b752144eb19",
+      "UpdatedAt": "2026-06-12T17:18:55.967015Z",
+      "Version": 2
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.92813Z",
+        "CursorID": 24727,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "838b82d0-357c-438d-b657-cec8244cbeff",
+        "LinkID": "e36b2f86-62ec-46ac-8874-83054b8eae7b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "af434b40-e125-4b7e-9bdf-461daa8880bc",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.92813Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'af434b40-e125-4b7e-9bdf-461daa8880bc' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1ff57e5c4da553fc0c5b4d324f8c3e23919194f1fcc1bb7ed97e2e1b701843ce",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e36b2f86-62ec-46ac-8874-83054b8eae7b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "838b82d0-357c-438d-b657-cec8244cbeff",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "af434b40-e125-4b7e-9bdf-461daa8880bc",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "ingress-nginx-ingress-nginx",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -881877044,
+      "CreatedAt": "2026-06-12T17:19:04.101666Z",
+      "CursorID": 29374,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueCIKICB2ZXJzaW9uOiAiNC4xNS4xIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogImluZ3Jlc3MtbmdpbnggZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gaW5ncmVzcy1uZ2lueC9pbmdyZXNzLW5naW54QDQuMTUuMSIKICAgIGV4dGVybmFsUmVxdWlyZXM6CiAgICAtIGtpbmQ6ICJDbHVzdGVyRmVhdHVyZSIKICAgICAgbmFtZTogIlNlY3JldCBpbmdyZXNzLW5naW54L2luZ3Jlc3MtbmdpbngtYWRtaXNzaW9uIGtleXMgY2VydCxrZXksY2EiCiAgICAgIG5hbWVzcGFjZTogImluZ3Jlc3MtbmdpbngiCiAgICAgIHN1Z2dlc3RlZFNvdXJjZTogImt1YmVjdGwgLW4gaW5ncmVzcy1uZ2lueCBjcmVhdGUgc2VjcmV0IGdlbmVyaWMgaW5ncmVzcy1uZ2lueC1hZG1pc3Npb24gLS1mcm9tLWxpdGVyYWw9Y2VydD08dmFsdWU+IC0tZnJvbS1saXRlcmFsPWtleT08dmFsdWU+IC0tZnJvbS1saXRlcmFsPWNhPTx2YWx1ZT4iCiAgICBuYW1lOiAiZGVmYXVsdCIKICAgIHBhdGg6ICJiYXNlcy9kZWZhdWx0IgogIC0gZGVzY3JpcHRpb246ICJpbmdyZXNzLW5naW54IGFkbWlzc2lvbiB3ZWJob29rIGRpc2FibGVkIHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBpbmdyZXNzLW5naW54L2luZ3Jlc3MtbmdpbnhANC4xNS4xIgogICAgbmFtZTogImFkbWlzc2lvbi1kaXNhYmxlZCIKICAgIHBhdGg6ICJiYXNlcy9hZG1pc3Npb24tZGlzYWJsZWQiCiAgLSBkZXNjcmlwdGlvbjogImluZ3Jlc3MtbmdpbnggaW50ZXJuYWwgQ2x1c3RlcklQIGNvbnRyb2xsZXIgdmFyaWFudCByZW5kZXJlZCBmcm9tIGluZ3Jlc3MtbmdpbngvaW5ncmVzcy1uZ2lueEA0LjE1LjEiCiAgICBuYW1lOiAiaW50ZXJuYWwtY2x1c3RlcmlwIgogICAgcGF0aDogImJhc2VzL2ludGVybmFsLWNsdXN0ZXJpcCIKICBjb2xsZWN0b3I6CiAgICBjb21tYW5kOiAiL2Jpbi9zaCIKICAgIGFyZ3M6CiAgICAtICJjb2xsZWN0b3IvdGFyZ2V0LWZhY3RzLnNoIgogICAgZGVzY3JpcHRpb246ICJSZWNvcmRzIHRhcmdldC1mYWN0IGJpbmRpbmdzIGFuZCBjYW4gbGl2ZS1jaGVjayBleGlzdGluZyBTZWNyZXQgcmVxdWlyZW1lbnRzLiIKICB0cmFuc2Zvcm1lcnM6CiAgLSBkZXNjcmlwdGlvbjogIlNldCB0aGUgbmFtZXNwYWNlIG9uIGV2ZXJ5IG5hbWVzcGFjZWQgcmVzb3VyY2UuIgogICAgaW52b2NhdGlvbnM6CiAgICAtIGFyZ3M6CiAgICAgIC0gInt7IC5OYW1lc3BhY2UgfX0iCiAgICAgIG5hbWU6ICJzZXQtbmFtZXNwYWNlIgogICAgdG9vbGNoYWluOiAiS3ViZXJuZXRlcy9ZQU1MIgogICAgd2hlcmVSZXNvdXJjZTogIiIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZhY3RzCm1ldGFkYXRhOgogIG5hbWU6IGluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueC1mYWN0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogaW5ncmVzcy1uZ2lueC1pbmdyZXNzLW5naW54CiAgdmFsdWVzOgogICAgdGFyZ2V0RmFjdENoZWNrczoKICAgICAgYmFzZTogZGVmYXVsdAogICAgICBtb2RlOiByZWNvcmQKICAgICAgcmVzdWx0OiByZWNvcmRlZAogICAgdGFyZ2V0RmFjdHM6CiAgICAgIHJlcXVpcmVkQ1JEczogW10KICAgICAgcmVxdWlyZWRTZWNyZXRzOgogICAgICAtIGRlbGl2ZXJ5TGFuZXM6CiAgICAgICAgLSBjdWJJbnN0YWxsZXJBcHBseQogICAgICAgIGtleXM6CiAgICAgICAgLSBjZXJ0CiAgICAgICAgLSBrZXkKICAgICAgICAtIGNhCiAgICAgICAgbmFtZTogaW5ncmVzcy1uZ2lueC1hZG1pc3Npb24KICAgICAgICBuYW1lc3BhY2U6IGluZ3Jlc3MtbmdpbngKICAgICAgICBwdXJwb3NlOiBhZG1pc3Npb24gd2ViaG9vayBjZXJ0aWZpY2F0ZSBub3JtYWxseSBjcmVhdGVkIGJ5IEhlbG0gaG9vayBqb2JzCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IGluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueC1mdW5jdGlvbi1jaGFpbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogaW5ncmVzcy1uZ2lueC1pbmdyZXNzLW5naW54CiAgZ3JvdXBzOgogIC0gdG9vbGNoYWluOiBLdWJlcm5ldGVzL1lBTUwKICAgIGludm9jYXRpb25zOgogICAgLSBuYW1lOiBzZXQtbmFtZXNwYWNlCiAgICAgIGFyZ3M6CiAgICAgIC0gaW5ncmVzcy1uZ2lueAogICAgZGVzY3JpcHRpb246IFNldCB0aGUgbmFtZXNwYWNlIG9uIGV2ZXJ5IG5hbWVzcGFjZWQgcmVzb3VyY2UuCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogaW5ncmVzcy1uZ2lueC1pbmdyZXNzLW5naW54LWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogaW5ncmVzcy1uZ2lueC1pbmdyZXNzLW5naW54CiAgbmFtZXNwYWNlOiBpbmdyZXNzLW5naW54CiAgdmFsdWVzOiB7fQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogTWFuaWZlc3RJbmRleAptZXRhZGF0YToKICBuYW1lOiBpbmdyZXNzLW5naW54LWluZ3Jlc3MtbmdpbngtbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueAogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWluZ3Jlc3MtbmdpbngueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtaW5ncmVzcy1uZ2lueAogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IGluZ3Jlc3MtbmdpbngKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctaW5ncmVzcy1uZ2lueC55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctaW5ncmVzcy1uZ2lueAogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGVCaW5kaW5nCiAgICBuYW1lOiBpbmdyZXNzLW5naW54CiAgLSBmaWxlbmFtZTogY29uZmlnbWFwLWluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyLnlhbWwKICAgIHNsdWc6IGNvbmZpZ21hcC1pbmdyZXNzLW5naW54LWluZ3Jlc3MtbmdpbngtY29udHJvbGxlcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IENvbmZpZ01hcAogICAgbmFtZTogaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyCiAgICBuYW1lc3BhY2U6IGluZ3Jlc3MtbmdpbngKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtaW5ncmVzcy1uZ2lueC1pbmdyZXNzLW5naW54LWNvbnRyb2xsZXIKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IGluZ3Jlc3MtbmdpbngtY29udHJvbGxlcgogICAgbmFtZXNwYWNlOiBpbmdyZXNzLW5naW54CiAgLSBmaWxlbmFtZTogaW5ncmVzc2NsYXNzLW5naW54LnlhbWwKICAgIHNsdWc6IGluZ3Jlc3NjbGFzcy1uZ2lueAogICAgYXBpVmVyc2lvbjogbmV0d29ya2luZy5rOHMuaW8vdjEKICAgIGtpbmQ6IEluZ3Jlc3NDbGFzcwogICAgbmFtZTogbmdpbngKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtaW5ncmVzcy1uZ2lueC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtaW5ncmVzcy1uZ2lueAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogaW5ncmVzcy1uZ2lueAogIC0gZmlsZW5hbWU6IHJvbGUtaW5ncmVzcy1uZ2lueC1pbmdyZXNzLW5naW54LnlhbWwKICAgIHNsdWc6IHJvbGUtaW5ncmVzcy1uZ2lueC1pbmdyZXNzLW5naW54CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlCiAgICBuYW1lOiBpbmdyZXNzLW5naW54CiAgICBuYW1lc3BhY2U6IGluZ3Jlc3MtbmdpbngKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1pbmdyZXNzLW5naW54LWluZ3Jlc3MtbmdpbngueWFtbAogICAgc2x1Zzogcm9sZWJpbmRpbmctaW5ncmVzcy1uZ2lueC1pbmdyZXNzLW5naW54CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogaW5ncmVzcy1uZ2lueAogICAgbmFtZXNwYWNlOiBpbmdyZXNzLW5naW54CiAgLSBmaWxlbmFtZTogc2VydmljZS1pbmdyZXNzLW5naW54LWluZ3Jlc3MtbmdpbngtY29udHJvbGxlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyCiAgICBuYW1lc3BhY2U6IGluZ3Jlc3MtbmdpbngKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyLWFkbWlzc2lvbi55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyLWFkbWlzc2lvbgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2UKICAgIG5hbWU6IGluZ3Jlc3MtbmdpbngtY29udHJvbGxlci1hZG1pc3Npb24KICAgIG5hbWVzcGFjZTogaW5ncmVzcy1uZ2lueAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueC55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1pbmdyZXNzLW5naW54LWluZ3Jlc3MtbmdpbngKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZTogaW5ncmVzcy1uZ2lueAogICAgbmFtZXNwYWNlOiBpbmdyZXNzLW5naW54CiAgLSBmaWxlbmFtZTogdmFsaWRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9uLWluZ3Jlc3MtbmdpbngtYWRtaXNzaW9uLnlhbWwKICAgIHNsdWc6IHZhbGlkYXRpbmd3ZWJob29rY29uZmlndXJhdGlvbi1pbmdyZXNzLW5naW54LWFkbWlzc2lvbgogICAgYXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQogICAga2luZDogVmFsaWRhdGluZ1dlYmhvb2tDb25maWd1cmF0aW9uCiAgICBuYW1lOiBpbmdyZXNzLW5naW54LWFkbWlzc2lvbgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueC1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueAogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBpbmdyZXNzLW5naW54LWluZ3Jlc3MtbmdpbngtdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBpbmdyZXNzLW5naW54LWluZ3Jlc3MtbmdpbngKICBzcGFjZVBhdHRlcm46IGhlbG0taW5ncmVzcy1uZ2lueC1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IGluZ3Jlc3MtbmdpbngtaW5ncmVzcy1uZ2lueAogICAgc2x1ZzogaGVsbS1pbmdyZXNzLW5naW54LWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE3OjE4OjQ4WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "1ff57e5c4da553fc0c5b4d324f8c3e23919194f1fcc1bb7ed97e2e1b701843ce",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "ingress-nginx-ingress-nginx"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/ingress-nginx-ingress-nginx": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-ingress-nginx": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx-ingress-nginx",
+            "ResourceNameWithoutScope": "ingress-nginx-ingress-nginx",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"ingress-nginx-ingress-nginx\"\n  version: \"4.15.1\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1\"\n    externalRequires:\n    - kind: \"ClusterFeature\"\n      name: \"Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca\"\n      namespace: \"ingress-nginx\"\n      suggestedSource: \"kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=\u003cvalue\u003e --from-literal=key=\u003cvalue\u003e --from-literal=ca=\u003cvalue\u003e\"\n    name: \"default\"\n    path: \"bases/default\"\n  - description: \"ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1\"\n    name: \"admission-disabled\"\n    path: \"bases/admission-disabled\"\n  - description: \"ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1\"\n    name: \"internal-clusterip\"\n    path: \"bases/internal-clusterip\"\n  collector:\n    command: \"/bin/sh\"\n    args:\n    - \"collector/target-facts.sh\"\n    description: \"Records target-fact bindings and can live-check existing Secret requirements.\"\n  transformers:\n  - description: \"Set the namespace on every namespaced resource.\"\n    invocations:\n    - args:\n      - \"{{ .Namespace }}\"\n      name: \"set-namespace\"\n    toolchain: \"Kubernetes/YAML\"\n    whereResource: \"\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/ingress-nginx-ingress-nginx-facts": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-ingress-nginx-facts": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx-ingress-nginx-facts",
+            "ResourceNameWithoutScope": "ingress-nginx-ingress-nginx-facts",
+            "ResourceType": "installer.confighub.com/v1alpha1/Facts"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Facts\nmetadata:\n  name: ingress-nginx-ingress-nginx-facts\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: ingress-nginx-ingress-nginx\n  values:\n    targetFactChecks:\n      base: default\n      mode: record\n      result: recorded\n    targetFacts:\n      requiredCRDs: []\n      requiredSecrets:\n      - deliveryLanes:\n        - cubInstallerApply\n        keys:\n        - cert\n        - key\n        - ca\n        name: ingress-nginx-admission\n        namespace: ingress-nginx\n        purpose: admission webhook certificate normally created by Helm hook jobs\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/ingress-nginx-ingress-nginx-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-ingress-nginx-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx-ingress-nginx-function-chain",
+            "ResourceNameWithoutScope": "ingress-nginx-ingress-nginx-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: ingress-nginx-ingress-nginx-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: ingress-nginx-ingress-nginx\n  groups:\n  - toolchain: Kubernetes/YAML\n    invocations:\n    - name: set-namespace\n      args:\n      - ingress-nginx\n    description: Set the namespace on every namespaced resource.\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/ingress-nginx-ingress-nginx-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-ingress-nginx-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx-ingress-nginx-inputs",
+            "ResourceNameWithoutScope": "ingress-nginx-ingress-nginx-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: ingress-nginx-ingress-nginx-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: ingress-nginx-ingress-nginx\n  namespace: ingress-nginx\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/ingress-nginx-ingress-nginx-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-ingress-nginx-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx-ingress-nginx-manifest-index",
+            "ResourceNameWithoutScope": "ingress-nginx-ingress-nginx-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: ingress-nginx-ingress-nginx-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: ingress-nginx-ingress-nginx\n  files:\n  - filename: clusterrole-ingress-nginx.yaml\n    slug: clusterrole-ingress-nginx\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: ingress-nginx\n  - filename: clusterrolebinding-ingress-nginx.yaml\n    slug: clusterrolebinding-ingress-nginx\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: ingress-nginx\n  - filename: configmap-ingress-nginx-ingress-nginx-controller.yaml\n    slug: configmap-ingress-nginx-ingress-nginx-controller\n    apiVersion: v1\n    kind: ConfigMap\n    name: ingress-nginx-controller\n    namespace: ingress-nginx\n  - filename: deployment-ingress-nginx-ingress-nginx-controller.yaml\n    slug: deployment-ingress-nginx-ingress-nginx-controller\n    apiVersion: apps/v1\n    kind: Deployment\n    name: ingress-nginx-controller\n    namespace: ingress-nginx\n  - filename: ingressclass-nginx.yaml\n    slug: ingressclass-nginx\n    apiVersion: networking.k8s.io/v1\n    kind: IngressClass\n    name: nginx\n  - filename: namespace-ingress-nginx.yaml\n    slug: namespace-ingress-nginx\n    apiVersion: v1\n    kind: Namespace\n    name: ingress-nginx\n  - filename: role-ingress-nginx-ingress-nginx.yaml\n    slug: role-ingress-nginx-ingress-nginx\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: ingress-nginx\n    namespace: ingress-nginx\n  - filename: rolebinding-ingress-nginx-ingress-nginx.yaml\n    slug: rolebinding-ingress-nginx-ingress-nginx\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: ingress-nginx\n    namespace: ingress-nginx\n  - filename: service-ingress-nginx-ingress-nginx-controller.yaml\n    slug: service-ingress-nginx-ingress-nginx-controller\n    apiVersion: v1\n    kind: Service\n    name: ingress-nginx-controller\n    namespace: ingress-nginx\n  - filename: service-ingress-nginx-ingress-nginx-controller-admission.yaml\n    slug: service-ingress-nginx-ingress-nginx-controller-admission\n    apiVersion: v1\n    kind: Service\n    name: ingress-nginx-controller-admission\n    namespace: ingress-nginx\n  - filename: serviceaccount-ingress-nginx-ingress-nginx.yaml\n    slug: serviceaccount-ingress-nginx-ingress-nginx\n    apiVersion: v1\n    kind: ServiceAccount\n    name: ingress-nginx\n    namespace: ingress-nginx\n  - filename: validatingwebhookconfiguration-ingress-nginx-admission.yaml\n    slug: validatingwebhookconfiguration-ingress-nginx-admission\n    apiVersion: admissionregistration.k8s.io/v1\n    kind: ValidatingWebhookConfiguration\n    name: ingress-nginx-admission\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/ingress-nginx-ingress-nginx-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-ingress-nginx-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx-ingress-nginx-selection",
+            "ResourceNameWithoutScope": "ingress-nginx-ingress-nginx-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: ingress-nginx-ingress-nginx-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: ingress-nginx-ingress-nginx\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/ingress-nginx-ingress-nginx-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-ingress-nginx-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx-ingress-nginx-upload",
+            "ResourceNameWithoutScope": "ingress-nginx-ingress-nginx-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: ingress-nginx-ingress-nginx-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: ingress-nginx-ingress-nginx\n  spacePattern: helm-ingress-nginx-default-confighub-proof\n  spaces:\n  - package: ingress-nginx-ingress-nginx\n    slug: helm-ingress-nginx-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:18:48Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "af434b40-e125-4b7e-9bdf-461daa8880bc",
+      "UpdatedAt": "2026-06-12T17:19:05.097109Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.792641Z",
+        "CursorID": 24723,
+        "DisplayName": "Upgrade namespace-ingress-nginx",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "79885e9f-5036-4b6b-be52-682fd61d6134",
+        "LinkID": "32d986f1-040f-4150-b8cb-90d43262eba3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-ingress-nginx",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "bebe3461-3915-40fd-b647-42898fe7e057",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.792641Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'bebe3461-3915-40fd-b647-42898fe7e057' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "83b6b29eaed4e67cebdab579ede9fe0aca618033ee77067363ad136cc57934f8",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "32d986f1-040f-4150-b8cb-90d43262eba3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-ingress-nginx",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "79885e9f-5036-4b6b-be52-682fd61d6134",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "bebe3461-3915-40fd-b647-42898fe7e057",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -370390302,
+      "CreatedAt": "2026-06-12T17:18:56.69045Z",
+      "CursorID": 29362,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGluZ3Jlc3MtbmdpbngK",
+      "DataHash": "83b6b29eaed4e67cebdab579ede9fe0aca618033ee77067363ad136cc57934f8",
+      "DisplayName": "namespace-ingress-nginx",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 63 bytes; from namespace-ingress-nginx.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/ingress-nginx": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx",
+            "ResourceNameWithoutScope": "ingress-nginx",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: ingress-nginx\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/ingress-nginx",
+          "ResourceNameWithoutScope": "ingress-nginx",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-ingress-nginx",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bebe3461-3915-40fd-b647-42898fe7e057",
+      "UpdatedAt": "2026-06-12T17:18:56.713389Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.818453Z",
+        "CursorID": 24724,
+        "DisplayName": "Upgrade rolebinding-ingress-nginx-ingress-nginx",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2121a934-c75c-4a84-afb6-e35b34cd6c06",
+        "LinkID": "7c2b4e88-b440-4ad4-97f4-526ec9bcbdf2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-ingress-nginx-ingress-nginx",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "d8acd02d-3f23-43f7-847e-6c53857b563a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.818453Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd8acd02d-3f23-43f7-847e-6c53857b563a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "418c4e2063f707738b6b3cd1be697b586f1d7501975f707f24a5fc39915c362c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7c2b4e88-b440-4ad4-97f4-526ec9bcbdf2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-ingress-nginx-ingress-nginx",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2121a934-c75c-4a84-afb6-e35b34cd6c06",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d8acd02d-3f23-43f7-847e-6c53857b563a",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 420373540,
+      "CreatedAt": "2026-06-12T17:18:58.155726Z",
+      "CursorID": 29366,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjE1LjEKICAgIGhlbG0uc2gvY2hhcnQ6IGluZ3Jlc3MtbmdpbngtNC4xNS4xCiAgbmFtZTogaW5ncmVzcy1uZ2lueAogIG5hbWVzcGFjZTogaW5ncmVzcy1uZ2lueApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogUm9sZQogIG5hbWU6IGluZ3Jlc3MtbmdpbngKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBpbmdyZXNzLW5naW54CiAgbmFtZXNwYWNlOiBpbmdyZXNzLW5naW54Cg==",
+      "DataHash": "418c4e2063f707738b6b3cd1be697b586f1d7501975f707f24a5fc39915c362c",
+      "DisplayName": "rolebinding-ingress-nginx-ingress-nginx",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "ingress-nginx/ingress-nginx": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "ingress-nginx/ingress-nginx",
+            "ResourceNameWithoutScope": "ingress-nginx",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx\n  namespace: ingress-nginx\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: ingress-nginx\nsubjects:\n- kind: ServiceAccount\n  name: ingress-nginx\n  namespace: ingress-nginx\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-ingress-nginx-ingress-nginx",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d8acd02d-3f23-43f7-847e-6c53857b563a",
+      "UpdatedAt": "2026-06-12T17:19:27.226238Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.667154Z",
+        "CursorID": 24720,
+        "DisplayName": "Upgrade role-ingress-nginx-ingress-nginx",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "7f173be8-086b-4017-aedf-f9ce11f1e79f",
+        "LinkID": "5cebfaa4-292c-4a89-ba49-ff0c3202d573",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-ingress-nginx-ingress-nginx",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "1da3d2ad-6c83-4b1e-a7b3-706a920bee38",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.667154Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1da3d2ad-6c83-4b1e-a7b3-706a920bee38' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "334cc2a2731cb6906149b73a999457057574992e14546853ae9fc003160c57aa",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "5cebfaa4-292c-4a89-ba49-ff0c3202d573"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-ingress-nginx-ingress-nginx",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7f173be8-086b-4017-aedf-f9ce11f1e79f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1da3d2ad-6c83-4b1e-a7b3-706a920bee38",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2036735037,
+      "CreatedAt": "2026-06-12T17:18:57.409588Z",
+      "CursorID": 29364,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMTUuMQogICAgaGVsbS5zaC9jaGFydDogaW5ncmVzcy1uZ2lueC00LjE1LjEKICBuYW1lOiBpbmdyZXNzLW5naW54CiAgbmFtZXNwYWNlOiBpbmdyZXNzLW5naW54CnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gbmFtZXNwYWNlcwogIHZlcmJzOgogIC0gZ2V0Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBjb25maWdtYXBzCiAgLSBwb2RzCiAgLSBzZWNyZXRzCiAgLSBlbmRwb2ludHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHNlcnZpY2VzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gbmV0d29ya2luZy5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBpbmdyZXNzZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBuZXR3b3JraW5nLms4cy5pbwogIHJlc291cmNlczoKICAtIGluZ3Jlc3Nlcy9zdGF0dXMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIG5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gaW5ncmVzc2NsYXNzZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBjb29yZGluYXRpb24uazhzLmlvCiAgcmVzb3VyY2VOYW1lczoKICAtIGluZ3Jlc3MtbmdpbngtbGVhZGVyCiAgcmVzb3VyY2VzOgogIC0gbGVhc2VzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGNvb3JkaW5hdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBsZWFzZXMKICB2ZXJiczoKICAtIGNyZWF0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHBhdGNoCi0gYXBpR3JvdXBzOgogIC0gZGlzY292ZXJ5Lms4cy5pbwogIHJlc291cmNlczoKICAtIGVuZHBvaW50c2xpY2VzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gZ2V0Cg==",
+      "DataHash": "334cc2a2731cb6906149b73a999457057574992e14546853ae9fc003160c57aa",
+      "DisplayName": "role-ingress-nginx-ingress-nginx",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "ingress-nginx/ingress-nginx": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "ingress-nginx/ingress-nginx",
+            "ResourceNameWithoutScope": "ingress-nginx",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx\n  namespace: ingress-nginx\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - pods\n  - secrets\n  - endpoints\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - services\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - ingresses\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - ingresses/status\n  verbs:\n  - update\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - ingressclasses\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - coordination.k8s.io\n  resourceNames:\n  - ingress-nginx-leader\n  resources:\n  - leases\n  verbs:\n  - get\n  - update\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n- apiGroups:\n  - discovery.k8s.io\n  resources:\n  - endpointslices\n  verbs:\n  - list\n  - watch\n  - get\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "ingress-nginx/ingress-nginx",
+          "ResourceNameWithoutScope": "ingress-nginx",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-ingress-nginx-ingress-nginx",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1da3d2ad-6c83-4b1e-a7b3-706a920bee38",
+      "UpdatedAt": "2026-06-12T17:19:24.155781Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.735097Z",
+        "CursorID": 24721,
+        "DisplayName": "Upgrade serviceaccount-ingress-nginx-ingress-nginx",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "46e2c66a-826c-4df4-9bb0-5f95edb51ca8",
+        "LinkID": "657412b6-56f6-4dd4-80c7-8c3bbaad6f7d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-ingress-nginx-ingress-nginx",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "914cc95f-b3aa-4970-a2cc-d2cc5b73d8f2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.735097Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '914cc95f-b3aa-4970-a2cc-d2cc5b73d8f2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f6e3b2cb7253d234e341c91fd9accc5e63b323a70d6906f2b7abe8210915cd7d",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "657412b6-56f6-4dd4-80c7-8c3bbaad6f7d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-ingress-nginx-ingress-nginx",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "46e2c66a-826c-4df4-9bb0-5f95edb51ca8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "914cc95f-b3aa-4970-a2cc-d2cc5b73d8f2",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -373701056,
+      "CreatedAt": "2026-06-12T17:19:00.851789Z",
+      "CursorID": 29370,
+      "Data": "YXBpVmVyc2lvbjogdjEKYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogdHJ1ZQpraW5kOiBTZXJ2aWNlQWNjb3VudAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjE1LjEKICAgIGhlbG0uc2gvY2hhcnQ6IGluZ3Jlc3MtbmdpbngtNC4xNS4xCiAgbmFtZTogaW5ncmVzcy1uZ2lueAogIG5hbWVzcGFjZTogaW5ncmVzcy1uZ2lueAo=",
+      "DataHash": "f6e3b2cb7253d234e341c91fd9accc5e63b323a70d6906f2b7abe8210915cd7d",
+      "DisplayName": "serviceaccount-ingress-nginx-ingress-nginx",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 434 bytes; from serviceaccount-ingress-nginx-ingress-nginx.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "ingress-nginx/ingress-nginx": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "ingress-nginx/ingress-nginx",
+            "ResourceNameWithoutScope": "ingress-nginx",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nautomountServiceAccountToken: true\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx\n  namespace: ingress-nginx\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "ingress-nginx/ingress-nginx",
+          "ResourceNameWithoutScope": "ingress-nginx",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-ingress-nginx-ingress-nginx",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "914cc95f-b3aa-4970-a2cc-d2cc5b73d8f2",
+      "UpdatedAt": "2026-06-12T17:19:32.480733Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.858111Z",
+        "CursorID": 24725,
+        "DisplayName": "Upgrade service-ingress-nginx-ingress-nginx-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0510dd1d-67c2-436f-a767-7b61d8cda81f",
+        "LinkID": "b33aa1d5-eaa1-4ddf-8333-9e6cae0b3a2a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-ingress-nginx-ingress-nginx-controller",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "8d9e9389-3eb3-496d-bdad-2a7cdbd764b9",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.858111Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8d9e9389-3eb3-496d-bdad-2a7cdbd764b9' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6427279a22de435f40be31e0e45817743551ad21f744120a56daea7c410e036f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b33aa1d5-eaa1-4ddf-8333-9e6cae0b3a2a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-ingress-nginx-ingress-nginx-controller",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0510dd1d-67c2-436f-a767-7b61d8cda81f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8d9e9389-3eb3-496d-bdad-2a7cdbd764b9",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 784818091,
+      "CreatedAt": "2026-06-12T17:19:00.082887Z",
+      "CursorID": 29369,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjE1LjEKICAgIGhlbG0uc2gvY2hhcnQ6IGluZ3Jlc3MtbmdpbngtNC4xNS4xCiAgbmFtZTogaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyCiAgbmFtZXNwYWNlOiBpbmdyZXNzLW5naW54CnNwZWM6CiAgaXBGYW1pbGllczoKICAtIElQdjQKICBpcEZhbWlseVBvbGljeTogU2luZ2xlU3RhY2sKICBwb3J0czoKICAtIGFwcFByb3RvY29sOiBodHRwCiAgICBuYW1lOiBodHRwCiAgICBwb3J0OiA4MAogICAgcHJvdG9jb2w6IFRDUAogICAgdGFyZ2V0UG9ydDogaHR0cAogIC0gYXBwUHJvdG9jb2w6IGh0dHBzCiAgICBuYW1lOiBodHRwcwogICAgcG9ydDogNDQzCiAgICBwcm90b2NvbDogVENQCiAgICB0YXJnZXRQb3J0OiBodHRwcwogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogaW5ncmVzcy1uZ2lueAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogaW5ncmVzcy1uZ2lueAogIHR5cGU6IExvYWRCYWxhbmNlcgo=",
+      "DataHash": "6427279a22de435f40be31e0e45817743551ad21f744120a56daea7c410e036f",
+      "DisplayName": "service-ingress-nginx-ingress-nginx-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "ingress-nginx/ingress-nginx-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "ingress-nginx/ingress-nginx-controller",
+            "ResourceNameWithoutScope": "ingress-nginx-controller",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx-controller\n  namespace: ingress-nginx\nspec:\n  ipFamilies:\n  - IPv4\n  ipFamilyPolicy: SingleStack\n  ports:\n  - appProtocol: http\n    name: http\n    port: 80\n    protocol: TCP\n    targetPort: http\n  - appProtocol: https\n    name: https\n    port: 443\n    protocol: TCP\n    targetPort: https\n  selector:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/name: ingress-nginx\n  type: LoadBalancer\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "ingress-nginx/ingress-nginx-controller",
+          "ResourceNameWithoutScope": "ingress-nginx-controller",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-ingress-nginx-ingress-nginx-controller",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8d9e9389-3eb3-496d-bdad-2a7cdbd764b9",
+      "UpdatedAt": "2026-06-12T17:19:29.323438Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:45.0705Z",
+        "CursorID": 24730,
+        "DisplayName": "Upgrade service-ingress-nginx-ingress-nginx-controller-admission",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0055f5c9-83be-4018-ab3b-7149abf62b81",
+        "LinkID": "861351de-92fa-48c5-b225-3f6bad16f7fb",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-ingress-nginx-ingress-nginx-controller-admission",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "7b817947-c262-4b2b-b915-fbad727e9adb",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:45.0705Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7b817947-c262-4b2b-b915-fbad727e9adb' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bbaa6de17410f73d46b4d32e0ecb7ec196893ce45ca25516971ed2e3f7857e7a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "861351de-92fa-48c5-b225-3f6bad16f7fb"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-ingress-nginx-ingress-nginx-controller-admission",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0055f5c9-83be-4018-ab3b-7149abf62b81",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7b817947-c262-4b2b-b915-fbad727e9adb",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1151133959,
+      "CreatedAt": "2026-06-12T17:18:58.937458Z",
+      "CursorID": 29367,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBpbmdyZXNzLW5naW54CiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjE1LjEKICAgIGhlbG0uc2gvY2hhcnQ6IGluZ3Jlc3MtbmdpbngtNC4xNS4xCiAgbmFtZTogaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyLWFkbWlzc2lvbgogIG5hbWVzcGFjZTogaW5ncmVzcy1uZ2lueApzcGVjOgogIHBvcnRzOgogIC0gYXBwUHJvdG9jb2w6IGh0dHBzCiAgICBuYW1lOiBodHRwcy13ZWJob29rCiAgICBwb3J0OiA0NDMKICAgIHRhcmdldFBvcnQ6IHdlYmhvb2sKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGluZ3Jlc3MtbmdpbngKICB0eXBlOiBDbHVzdGVySVAK",
+      "DataHash": "bbaa6de17410f73d46b4d32e0ecb7ec196893ce45ca25516971ed2e3f7857e7a",
+      "DisplayName": "service-ingress-nginx-ingress-nginx-controller-admission",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "ingress-nginx/ingress-nginx-controller-admission": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-controller-admission": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "ingress-nginx/ingress-nginx-controller-admission",
+            "ResourceNameWithoutScope": "ingress-nginx-controller-admission",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx-controller-admission\n  namespace: ingress-nginx\nspec:\n  ports:\n  - appProtocol: https\n    name: https-webhook\n    port: 443\n    targetPort: webhook\n  selector:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/name: ingress-nginx\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "ingress-nginx/ingress-nginx-controller-admission",
+          "ResourceNameWithoutScope": "ingress-nginx-controller-admission",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-ingress-nginx-ingress-nginx-controller-admission",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7b817947-c262-4b2b-b915-fbad727e9adb",
+      "UpdatedAt": "2026-06-12T17:19:31.52305Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:19:44.886736Z",
+        "CursorID": 24726,
+        "DisplayName": "Upgrade validatingwebhookconfiguration-ingress-nginx-admission",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d3417ea6-dce1-4bb5-b293-dae919570c14",
+        "LinkID": "22002f9a-8698-4fe8-bebb-dfffa7532eb8",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-validatingwebhookconfiguration-ingress-nginx-admission",
+        "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+        "SpaceSlug": "IngressNGINX-default-staging",
+        "ToSpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+        "ToUnitID": "8d5f21c3-47d8-4520-961b-1e221f38b46d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:19:44.886736Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8d5f21c3-47d8-4520-961b-1e221f38b46d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:19:44.33235Z",
+      "CursorID": 4695,
+      "DisplayName": "helm-ingress-nginx-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IngressNGINX-default-staging",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "UpdatedAt": "2026-06-12T17:19:44.33235Z",
+      "WhereTrigger": "SpaceID = 'e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "85ddbb987174cb6feb5e0df305046ad0f942aede168697d4933091dec2d73d54",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "22002f9a-8698-4fe8-bebb-dfffa7532eb8"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-ingress-nginx-admission",
+      "SpaceID": "10a9a19e-b37f-4e64-8524-5b73294a4d77",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d3417ea6-dce1-4bb5-b293-dae919570c14",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8d5f21c3-47d8-4520-961b-1e221f38b46d",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1897375079,
+      "CreatedAt": "2026-06-12T17:19:01.818189Z",
+      "CursorID": 29372,
+      "Data": "YXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBWYWxpZGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBhZG1pc3Npb24td2ViaG9vawogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGluZ3Jlc3MtbmdpbngKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMTUuMQogICAgaGVsbS5zaC9jaGFydDogaW5ncmVzcy1uZ2lueC00LjE1LjEKICBuYW1lOiBpbmdyZXNzLW5naW54LWFkbWlzc2lvbgp3ZWJob29rczoKLSBhZG1pc3Npb25SZXZpZXdWZXJzaW9uczoKICAtIHYxCiAgY2xpZW50Q29uZmlnOgogICAgc2VydmljZToKICAgICAgbmFtZTogaW5ncmVzcy1uZ2lueC1jb250cm9sbGVyLWFkbWlzc2lvbgogICAgICBuYW1lc3BhY2U6IGluZ3Jlc3MtbmdpbngKICAgICAgcGF0aDogL25ldHdvcmtpbmcvdjEvaW5ncmVzc2VzCiAgICAgIHBvcnQ6IDQ0MwogIGZhaWx1cmVQb2xpY3k6IEZhaWwKICBtYXRjaFBvbGljeTogRXF1aXZhbGVudAogIG5hbWU6IHZhbGlkYXRlLm5naW54LmluZ3Jlc3Mua3ViZXJuZXRlcy5pbwogIHJ1bGVzOgogIC0gYXBpR3JvdXBzOgogICAgLSBuZXR3b3JraW5nLms4cy5pbwogICAgYXBpVmVyc2lvbnM6CiAgICAtIHYxCiAgICBvcGVyYXRpb25zOgogICAgLSBDUkVBVEUKICAgIC0gVVBEQVRFCiAgICByZXNvdXJjZXM6CiAgICAtIGluZ3Jlc3NlcwogIHNpZGVFZmZlY3RzOiBOb25lCg==",
+      "DataHash": "85ddbb987174cb6feb5e0df305046ad0f942aede168697d4933091dec2d73d54",
+      "DisplayName": "validatingwebhookconfiguration-ingress-nginx-admission",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/ingress-nginx-admission": {}
+          },
+          "AliasesWithoutScopes": {
+            "ingress-nginx-admission": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/ingress-nginx-admission",
+            "ResourceNameWithoutScope": "ingress-nginx-admission",
+            "ResourceType": "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: admissionregistration.k8s.io/v1\nkind: ValidatingWebhookConfiguration\nmetadata:\n  labels:\n    app.kubernetes.io/component: admission-webhook\n    app.kubernetes.io/instance: ingress-nginx\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: ingress-nginx\n    app.kubernetes.io/part-of: ingress-nginx\n    app.kubernetes.io/version: 1.15.1\n    helm.sh/chart: ingress-nginx-4.15.1\n  name: ingress-nginx-admission\nwebhooks:\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: ingress-nginx-controller-admission\n      namespace: ingress-nginx\n      path: /networking/v1/ingresses\n      port: 443\n  failurePolicy: Fail\n  matchPolicy: Equivalent\n  name: validate.nginx.ingress.kubernetes.io\n  rules:\n  - apiGroups:\n    - networking.k8s.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - ingresses\n  sideEffects: None\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-ingress-nginx-admission",
+      "SpaceID": "e3f8d2a8-eb10-47a5-9e17-2d3b169daa2a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8d5f21c3-47d8-4520-961b-1e221f38b46d",
+      "UpdatedAt": "2026-06-12T17:19:34.529431Z",
+      "Version": 12
+    }
+  }
+]

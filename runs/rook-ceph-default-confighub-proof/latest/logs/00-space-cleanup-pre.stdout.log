@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 1 space(s)
+  Context: Slug IN ('helm-rook-ceph-default-confighub-proof', 'RookCeph-default-staging')

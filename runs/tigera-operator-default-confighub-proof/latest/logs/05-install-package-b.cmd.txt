@@ -1,0 +1,1 @@
+cub installer package packages/projectcalico/tigera-operator/v3.32.0 -o .tmp/confighub-proof/tigera-operator-default-archives/tigera-operator-b.tgz

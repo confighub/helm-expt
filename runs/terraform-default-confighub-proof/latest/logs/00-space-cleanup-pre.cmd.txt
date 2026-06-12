@@ -1,0 +1,1 @@
+cub space delete --space "helm-terraform-default-confighub-proof,Terraform-default-staging" --recursive-force

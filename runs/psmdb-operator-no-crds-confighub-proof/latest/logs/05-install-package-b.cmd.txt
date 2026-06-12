@@ -1,0 +1,1 @@
+cub installer package packages/percona/psmdb-operator/1.22.0 -o .tmp/confighub-proof/psmdb-operator-no-crds-archives/psmdb-operator-b.tgz

@@ -1,0 +1,5 @@
+Bundled fairwinds-stable-vpa@
+  output: .tmp/confighub-proof/vpa-no-crds-archives/vpa-a.tgz
+  files:  6
+  size:   7387 bytes
+  digest: sha256:46a65dee2bb14f813e99a120331d8c6f2c437bdc805d57c506b3e6b3ce974504

@@ -1,0 +1,1 @@
+cub unit apply --space helm-longhorn-ui-ingress-confighub-proof --where "Labels.Proof = 'longhorn-ui-ingress-confighub-proof'" --dry-run --wait --timeout 2m

@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "percona-pg-operator"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "percona/pg-operator default variant rendered from percona/pg-operator@3.0.0"
+      },
+      {
+        "name": "no-crds",
+        "path": "bases/no-crds",
+        "description": "percona/pg-operator no-crds variant rendered from percona/pg-operator@3.0.0"
+      }
+    ]
+  }
+}

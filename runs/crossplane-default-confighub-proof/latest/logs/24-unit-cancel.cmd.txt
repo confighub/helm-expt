@@ -1,0 +1,1 @@
+cub unit cancel --space helm-crossplane-default-confighub-proof --where "Labels.Proof = 'crossplane-default-confighub-proof'"

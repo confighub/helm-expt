@@ -1,0 +1,292 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:02.476533Z",
+      "CursorID": 4639,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-jaeger-default-confighub-proof",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "UpdatedAt": "2026-06-12T17:00:03.065898Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7378491c4bd311f21c3264512c5a90a75deba58781b83b0e5815c5ed2e6dad12",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-jaeger",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7324fd33-cbce-405e-a807-a3af560ec2f4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:02.476533Z",
+      "CursorID": 4639,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-jaeger-default-confighub-proof",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "UpdatedAt": "2026-06-12T17:00:03.065898Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fbe3ccb03fb5272ba3cc13ae12f74797d86c16c2bbbc40448460bbafc7bb84e7",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6b969821-eb7c-48ea-86be-2c7942cf0a5a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:02.476533Z",
+      "CursorID": 4639,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-jaeger-default-confighub-proof",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "UpdatedAt": "2026-06-12T17:00:03.065898Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7b9a9111-3338-47aa-b709-31b07a280a93",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:02.476533Z",
+      "CursorID": 4639,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-jaeger-default-confighub-proof",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "UpdatedAt": "2026-06-12T17:00:03.065898Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "828d8931e8c05fa3a9318d3ca2577d513315818b659e2659abb489e7e8031509",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-jaeger",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c7b2bb1-9427-456b-9139-87ee90611d6e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:00:02.476533Z",
+      "CursorID": 4639,
+      "DisplayName": "helm-jaeger-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Jaeger",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-jaeger-default-confighub-proof",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "UpdatedAt": "2026-06-12T17:00:03.065898Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'fbde2d2c-af77-4293-8108-0d392494e74e'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ed06102db4c15f295fb0cbe9fb060c650a73db2735a229339a676b11b11c1ae9",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-jaeger",
+      "SpaceID": "fbde2d2c-af77-4293-8108-0d392494e74e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "088bcc33-a513-4e07-a357-f05555926a4a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

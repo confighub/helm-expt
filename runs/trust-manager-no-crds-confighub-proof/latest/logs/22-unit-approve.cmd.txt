@@ -1,0 +1,1 @@
+cub unit approve deployment-default-trust-manager --space helm-trust-manager-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

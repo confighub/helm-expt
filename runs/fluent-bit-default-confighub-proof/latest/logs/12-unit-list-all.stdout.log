@@ -1,0 +1,466 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:02.741508Z",
+      "CursorID": 4616,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluent-bit-default-confighub-proof",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "UpdatedAt": "2026-06-12T16:54:03.258453Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c78425252487e8c1be9fb5508fa71c6ac024699334786861273466b1b6e95188",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "577d094b-284e-4b89-8778-2ea891969954",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:02.741508Z",
+      "CursorID": 4616,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluent-bit-default-confighub-proof",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "UpdatedAt": "2026-06-12T16:54:03.258453Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "54e6ca5287dd94739cb4cb6ea25f97efee9b50bc5f750441e3bf72e212d7e343",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b7f76ea7-a409-42ba-9694-49347ad94986",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:02.741508Z",
+      "CursorID": 4616,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluent-bit-default-confighub-proof",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "UpdatedAt": "2026-06-12T16:54:03.258453Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "16a1c6ba207ebd91057ecd2f77b3002c826037d945ab64be0db8d9ef2c351187",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "65845b86-3342-4cd0-a1fb-9d3fc7537db8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:02.741508Z",
+      "CursorID": 4616,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluent-bit-default-confighub-proof",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "UpdatedAt": "2026-06-12T16:54:03.258453Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c6b55db1c9ee605f2c6bcbec92e712247c1561db0202d9471f75bfe605f05069",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "16d065d8-3292-49e5-8384-bfe634a727a4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:02.741508Z",
+      "CursorID": 4616,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluent-bit-default-confighub-proof",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "UpdatedAt": "2026-06-12T16:54:03.258453Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9f37ecd43eb2d5926b10b88b731a73fa7256ba8b2114fccf69202ef885246367",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d46ac735-d83f-46cf-8d5a-9a7f2d602462",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:02.741508Z",
+      "CursorID": 4616,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluent-bit-default-confighub-proof",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "UpdatedAt": "2026-06-12T16:54:03.258453Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2c20643c-40ea-4b14-9046-7f0210706ca5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:02.741508Z",
+      "CursorID": 4616,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluent-bit-default-confighub-proof",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "UpdatedAt": "2026-06-12T16:54:03.258453Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b2f6e629de7561e90dd7971039172332a09ac5d91317998d3673fad4e3b73f25",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "093d6fa3-5a08-44f5-8491-c7f1b850c906",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:54:02.741508Z",
+      "CursorID": 4616,
+      "DisplayName": "helm-fluent-bit-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "FluentBit",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-fluent-bit-default-confighub-proof",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "UpdatedAt": "2026-06-12T16:54:03.258453Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "afc350799b241bfebe8eb0027fa984ed006b330bebc32c37b0af50ede88d89bd",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-fluent-bit",
+      "SpaceID": "e8fa3fb4-01da-4cd0-be44-e5ca5f2085b1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4f723238-2798-43e8-88ef-f84aff605185",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

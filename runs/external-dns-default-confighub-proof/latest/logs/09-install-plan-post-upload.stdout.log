@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-external-dns-default-confighub-proof (post-render):
+      Deployment/external-dns [external-dns] registry.k8s.io/external-dns/external-dns:v0.21.0

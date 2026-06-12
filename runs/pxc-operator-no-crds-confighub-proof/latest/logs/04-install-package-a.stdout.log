@@ -1,0 +1,5 @@
+Bundled percona-pxc-operator@
+  output: .tmp/confighub-proof/pxc-operator-no-crds-archives/pxc-operator-a.tgz
+  files:  6
+  size:   29642 bytes
+  digest: sha256:e6a54a2226a9e2535362eec21d5213ff58f73de33e4fce0911239198cb9ef38d

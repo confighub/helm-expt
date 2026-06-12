@@ -1,0 +1,1 @@
+cub space delete --space "helm-cluster-autoscaler-default-confighub-proof,ClusterAutoscaler-default-staging" --recursive-force

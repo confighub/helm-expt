@@ -1,0 +1,5 @@
+Bundled aws-ebs-csi-driver-aws-ebs-csi-driver@
+  output: .tmp/confighub-proof/aws-ebs-csi-driver-default-archives/aws-ebs-csi-driver-b.tgz
+  files:  4
+  size:   4485 bytes
+  digest: sha256:9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624

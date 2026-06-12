@@ -1,0 +1,1 @@
+cub installer package packages/minio-operator/operator/7.1.1 -o .tmp/confighub-proof/minio-operator-default-archives/minio-operator-a.tgz

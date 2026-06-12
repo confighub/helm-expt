@@ -1,0 +1,1 @@
+cub installer doc packages/runix/pgadmin4/1.62.0 --json

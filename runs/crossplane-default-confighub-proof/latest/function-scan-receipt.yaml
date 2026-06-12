@@ -1,0 +1,131 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "crossplane-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-crossplane-default-confighub-proof"
+    selector: "Labels.Proof = 'crossplane-default-confighub-proof'"
+  subject:
+    chart: "crossplane-stable/crossplane"
+    chartVersion: "2.3.1"
+    packagePath: "packages/crossplane-stable/crossplane/2.3.1"
+    variant: "default"
+    configHubUnitCount: 21
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-crossplaneaggregate-to-edit"
+      headRevisionNum: 2
+      dataHash: "e1a062ea0025ef582cd252d6f14a2149a0d1eb283d9e1e9e65108bea5b36a515"
+    -
+      slug: "deployment-default-crossplane-rbac-manager"
+      headRevisionNum: 2
+      dataHash: "58d7359ddc5c9f477d4ed5b21231dcfc6c61b1f2f685b83fffc5744c76d59a9b"
+    -
+      slug: "deployment-default-crossplane"
+      headRevisionNum: 2
+      dataHash: "e8e59db6093994baf09a7d2207f770abedefaee0d79b36b97cdc4e8aa28b9e0a"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "service-default-crossplane-webhooks"
+      headRevisionNum: 2
+      dataHash: "3e8704297a6bf2d33029e37bd807b64c2eba5b01f7c3a4d89472f9f75d213e10"
+    -
+      slug: "clusterrole-crossplane-admin"
+      headRevisionNum: 2
+      dataHash: "37754607eaa7a5bf9aca469324e87dd912eed275c10575249cab2b08c947c5f3"
+    -
+      slug: "clusterrole-crossplane"
+      headRevisionNum: 2
+      dataHash: "4b18e1edd08e094553bed4a1b22a3409a214c4c137fc4218a77a32894a629398"
+    -
+      slug: "clusterrole-crossplaneaggregate-to-admin"
+      headRevisionNum: 2
+      dataHash: "facde08d00960206541e3bfe6b2ccb380cb070df8e5993819a5af0dc89b1fdba"
+    -
+      slug: "clusterrole-crossplaneaggregate-to-browse"
+      headRevisionNum: 2
+      dataHash: "478c1fb4cddca38ec2e38d5254eefd25649b26fa738b2358eff404ef0d882b60"
+    -
+      slug: "clusterrole-crossplaneaggregate-to-view"
+      headRevisionNum: 2
+      dataHash: "ca734f4be45c02bcbeaf116952f5067469800ee21ee93672a8d985488dc3efd0"
+    -
+      slug: "clusterrole-crossplaneallowed-provider-permissions"
+      headRevisionNum: 2
+      dataHash: "9088e4469e21cbd52a71d425116ae426a57fbc899a36c4f8b9a32b262e5c1075"
+    -
+      slug: "clusterrole-crossplane-edit"
+      headRevisionNum: 2
+      dataHash: "4a611b3ed75786800b1f1125a272c4835552646df1a1a3e11f0fe84f1a19dd37"
+    -
+      slug: "clusterrole-crossplane-browse"
+      headRevisionNum: 2
+      dataHash: "dc32ba015f88868002cace686b9560274b66e7e1e5553afc66da4dee62446c8d"
+    -
+      slug: "clusterrole-crossplane-rbac-manager"
+      headRevisionNum: 2
+      dataHash: "d666f22de9ace4f13fe14048ba9b7d40029814b3415f12228aeb7459ddbda3e3"
+    -
+      slug: "clusterrole-crossplane-view"
+      headRevisionNum: 2
+      dataHash: "6c79333ceb78594cc75e19a41de7e2e3e73af040c9b9c55139f71019912e1355"
+    -
+      slug: "clusterrole-crossplanesystemaggregate-to-crossplane"
+      headRevisionNum: 2
+      dataHash: "4613376ebbb6763afa282be147a5266d0eab40e4d02e8c3ac3eb055bbc1ea008"
+    -
+      slug: "clusterrolebinding-crossplane"
+      headRevisionNum: 2
+      dataHash: "6cc5eceff1e51d7b7fabc8f78a2f738f4505f1882dd8372dc05021837bb1d25d"
+    -
+      slug: "clusterrolebinding-crossplane-admin"
+      headRevisionNum: 2
+      dataHash: "f851fe90aa4e8dedf93c51147a614e1f6d5bfe87b5829a2b33915dfd147b8b1d"
+    -
+      slug: "clusterrolebinding-crossplane-rbac-manager"
+      headRevisionNum: 2
+      dataHash: "91e91d1a63e2ea233eb050ca8de916838bc90c1e939a7117727c4f71cc7da86b"
+    -
+      slug: "serviceaccount-default-crossplane"
+      headRevisionNum: 1
+      dataHash: "341f67b35e2c90ddd2a86bf314955995d66dcc03364529ab14dea715c670e103"
+    -
+      slug: "serviceaccount-default-rbac-manager"
+      headRevisionNum: 1
+      dataHash: "fc28a8c5549e768949fe5fd953c85dee49fdca73c430f9476c0ede2ccd89bde6"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 21
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 21
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 21
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

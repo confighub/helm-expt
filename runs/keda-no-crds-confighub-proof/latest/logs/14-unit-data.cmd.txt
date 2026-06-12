@@ -1,0 +1,1 @@
+cub unit data deployment-default-keda-operator-metrics-apiserver --space helm-keda-no-crds-confighub-proof

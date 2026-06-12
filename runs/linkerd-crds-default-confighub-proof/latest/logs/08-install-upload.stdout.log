@@ -1,0 +1,12 @@
+== linkerd-linkerd-crds@ → Space helm-linkerd-crds-default-confighub-proof ==
+Successfully created unit customresourcedefinition-authorizationpolicies-policy-linkerd-io (65ed0a85-4dc3-4372-82d5-632fc7faeb5d)
+Successfully created unit customresourcedefinition-httproutes-gateway-networking-k8s-io (1ce27871-0f9a-44ab-b91f-0d76a445ced8)
+Successfully created unit customresourcedefinition-httproutes-policy-linkerd-io (a6560273-6498-436f-8c6b-eb8b7f4cf9cd)
+Successfully created unit customresourcedefinition-meshtlsauthentications-policy-linkerd-io (fc6fd2ea-55b0-4667-a68c-bb43a1842f8c)
+Successfully created unit customresourcedefinition-networkauthentications-policy-linkerd-io (e68dbb04-4ba0-4eae-a8d1-88022eb5e2ae)
+Successfully created unit customresourcedefinition-serverauthorizations-policy-linkerd-io (59463c68-6001-4743-878a-74c5f8a61015)
+Successfully created unit customresourcedefinition-servers-policy-linkerd-io (b3fd82e9-fa2a-4de0-9f68-2d23a6f3c6e7)
+Successfully created unit customresourcedefinition-serviceprofiles-linkerd-io (1bb96b52-6927-4f8a-b0f7-550d6f122896)
+Successfully created unit namespace-default (7cec7583-5198-47d8-9ef5-bae4b3c66b1b)
+Successfully created unit installer-record (f9366713-1702-4761-80cd-7e23de3997db)
+No links to create.

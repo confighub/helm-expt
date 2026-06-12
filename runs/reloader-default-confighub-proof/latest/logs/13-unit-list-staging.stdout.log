@@ -1,0 +1,1343 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:15.11634Z",
+        "CursorID": 23197,
+        "DisplayName": "Upgrade clusterrolebinding-reloader-reloader-role-binding",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ce7530aa-cd2a-4741-9a93-0279a619e0f6",
+        "LinkID": "5227de62-34f5-4d88-ad0f-2c5754097f19",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-reloader-reloader-role-binding",
+        "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+        "SpaceSlug": "Reloader-default-staging",
+        "ToSpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+        "ToUnitID": "fc087e0f-b8e3-48be-8581-14eb78374c1c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:15.11634Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'fc087e0f-b8e3-48be-8581-14eb78374c1c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:14.919546Z",
+      "CursorID": 4629,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Reloader-default-staging",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "UpdatedAt": "2026-06-12T16:57:14.919546Z",
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5a08ee2f4a46d82e3ce95285507e12e09034a0459db5f3e9c0d57dac6d42cc82",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "5227de62-34f5-4d88-ad0f-2c5754097f19"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-reloader-reloader-role-binding",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ce7530aa-cd2a-4741-9a93-0279a619e0f6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "fc087e0f-b8e3-48be-8581-14eb78374c1c",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1264618256,
+      "CreatedAt": "2026-06-12T16:56:36.438131Z",
+      "CursorID": 28197,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgYW5ub3RhdGlvbnM6CiAgICBtZXRhLmhlbG0uc2gvcmVsZWFzZS1uYW1lOiByZWxvYWRlcgogICAgbWV0YS5oZWxtLnNoL3JlbGVhc2UtbmFtZXNwYWNlOiBkZWZhdWx0CiAgbGFiZWxzOgogICAgYXBwOiByZWxvYWRlci1yZWxvYWRlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHJlbG9hZGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiByZWxvYWRlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjEuNC4xNwogICAgY2hhcnQ6IHJlbG9hZGVyLTIuMi4xMgogICAgaGVsbS5zaC9jaGFydDogcmVsb2FkZXItMi4yLjEyCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogcmVsb2FkZXIKICBuYW1lOiByZWxvYWRlci1yZWxvYWRlci1yb2xlLWJpbmRpbmcKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogcmVsb2FkZXItcmVsb2FkZXItcm9sZQpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IHJlbG9hZGVyLXJlbG9hZGVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "5a08ee2f4a46d82e3ce95285507e12e09034a0459db5f3e9c0d57dac6d42cc82",
+      "DisplayName": "clusterrolebinding-reloader-reloader-role-binding",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/reloader-reloader-role-binding": {}
+          },
+          "AliasesWithoutScopes": {
+            "reloader-reloader-role-binding": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/reloader-reloader-role-binding",
+            "ResourceNameWithoutScope": "reloader-reloader-role-binding",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  annotations:\n    meta.helm.sh/release-name: reloader\n    meta.helm.sh/release-namespace: default\n  labels:\n    app: reloader-reloader\n    app.kubernetes.io/instance: reloader\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: reloader\n    app.kubernetes.io/version: v1.4.17\n    chart: reloader-2.2.12\n    helm.sh/chart: reloader-2.2.12\n    heritage: Helm\n    release: reloader\n  name: reloader-reloader-role-binding\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: reloader-reloader-role\nsubjects:\n- kind: ServiceAccount\n  name: reloader-reloader\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-reloader-reloader-role-binding",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fc087e0f-b8e3-48be-8581-14eb78374c1c",
+      "UpdatedAt": "2026-06-12T16:57:00.97539Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:15.156339Z",
+        "CursorID": 23198,
+        "DisplayName": "Upgrade clusterrole-reloader-reloader-role",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0c16e21a-ec2b-4053-850a-9722c48b76d1",
+        "LinkID": "ac3cedec-f7f3-4087-b84b-f632a6a492c5",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-reloader-reloader-role",
+        "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+        "SpaceSlug": "Reloader-default-staging",
+        "ToSpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+        "ToUnitID": "1365c46a-2ce0-45ca-88b1-4326f5ddb95e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:15.15634Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1365c46a-2ce0-45ca-88b1-4326f5ddb95e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:14.919546Z",
+      "CursorID": 4629,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Reloader-default-staging",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "UpdatedAt": "2026-06-12T16:57:14.919546Z",
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4af2a2e31dc6b91d85b1b059072e7d6e1930588c132b7b019b6f5d3246f6c3c5",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ac3cedec-f7f3-4087-b84b-f632a6a492c5"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-reloader-reloader-role",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0c16e21a-ec2b-4053-850a-9722c48b76d1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1365c46a-2ce0-45ca-88b1-4326f5ddb95e",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1171746880,
+      "CreatedAt": "2026-06-12T16:56:35.581156Z",
+      "CursorID": 28195,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBhbm5vdGF0aW9uczoKICAgIG1ldGEuaGVsbS5zaC9yZWxlYXNlLW5hbWU6IHJlbG9hZGVyCiAgICBtZXRhLmhlbG0uc2gvcmVsZWFzZS1uYW1lc3BhY2U6IGRlZmF1bHQKICBsYWJlbHM6CiAgICBhcHA6IHJlbG9hZGVyLXJlbG9hZGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogcmVsb2FkZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHJlbG9hZGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MS40LjE3CiAgICBjaGFydDogcmVsb2FkZXItMi4yLjEyCiAgICBoZWxtLnNoL2NoYXJ0OiByZWxvYWRlci0yLjIuMTIKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiByZWxvYWRlcgogIG5hbWU6IHJlbG9hZGVyLXJlbG9hZGVyLXJvbGUKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBzZWNyZXRzCiAgLSBjb25maWdtYXBzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSBnZXQKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYXBwcwogIHJlc291cmNlczoKICAtIGRlcGxveW1lbnRzCiAgLSBkYWVtb25zZXRzCiAgLSBzdGF0ZWZ1bHNldHMKICB2ZXJiczoKICAtIGxpc3QKICAtIGdldAogIC0gdXBkYXRlCiAgLSBwYXRjaAotIGFwaUdyb3VwczoKICAtIGJhdGNoCiAgcmVzb3VyY2VzOgogIC0gY3JvbmpvYnMKICB2ZXJiczoKICAtIGxpc3QKICAtIGdldAotIGFwaUdyb3VwczoKICAtIGJhdGNoCiAgcmVzb3VyY2VzOgogIC0gam9icwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGxpc3QKICAtIGdldAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHBhdGNoCg==",
+      "DataHash": "4af2a2e31dc6b91d85b1b059072e7d6e1930588c132b7b019b6f5d3246f6c3c5",
+      "DisplayName": "clusterrole-reloader-reloader-role",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/reloader-reloader-role": {}
+          },
+          "AliasesWithoutScopes": {
+            "reloader-reloader-role": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/reloader-reloader-role",
+            "ResourceNameWithoutScope": "reloader-reloader-role",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  annotations:\n    meta.helm.sh/release-name: reloader\n    meta.helm.sh/release-namespace: default\n  labels:\n    app: reloader-reloader\n    app.kubernetes.io/instance: reloader\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: reloader\n    app.kubernetes.io/version: v1.4.17\n    chart: reloader-2.2.12\n    helm.sh/chart: reloader-2.2.12\n    heritage: Helm\n    release: reloader\n  name: reloader-reloader-role\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  - configmaps\n  verbs:\n  - list\n  - get\n  - watch\n- apiGroups:\n  - apps\n  resources:\n  - deployments\n  - daemonsets\n  - statefulsets\n  verbs:\n  - list\n  - get\n  - update\n  - patch\n- apiGroups:\n  - batch\n  resources:\n  - cronjobs\n  verbs:\n  - list\n  - get\n- apiGroups:\n  - batch\n  resources:\n  - jobs\n  verbs:\n  - create\n  - delete\n  - list\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/reloader-reloader-role",
+          "ResourceNameWithoutScope": "reloader-reloader-role",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-reloader-reloader-role",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1365c46a-2ce0-45ca-88b1-4326f5ddb95e",
+      "UpdatedAt": "2026-06-12T16:56:50.06301Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:15.201264Z",
+        "CursorID": 23199,
+        "DisplayName": "Upgrade deployment-default-reloader-reloader",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2c17978a-082c-4172-8b1d-b0d56af51a8d",
+        "LinkID": "d98f5d2c-c3d7-42b3-bb44-10a96b953c80",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-reloader-reloader",
+        "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+        "SpaceSlug": "Reloader-default-staging",
+        "ToSpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+        "ToUnitID": "f8295e19-96af-4c4a-8476-26ba6144a11e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:15.201264Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f8295e19-96af-4c4a-8476-26ba6144a11e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:14.919546Z",
+      "CursorID": 4629,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Reloader-default-staging",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "UpdatedAt": "2026-06-12T16:57:14.919546Z",
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3c12a6dbe6bd3951cb63d43aa075c4755e95432c7590db12b5e34a1c73427e38",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d98f5d2c-c3d7-42b3-bb44-10a96b953c80"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-reloader-reloader",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2c17978a-082c-4172-8b1d-b0d56af51a8d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f8295e19-96af-4c4a-8476-26ba6144a11e",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 222902534,
+      "CreatedAt": "2026-06-12T16:56:37.552389Z",
+      "CursorID": 28199,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGFubm90YXRpb25zOgogICAgbWV0YS5oZWxtLnNoL3JlbGVhc2UtbmFtZTogcmVsb2FkZXIKICAgIG1ldGEuaGVsbS5zaC9yZWxlYXNlLW5hbWVzcGFjZTogZGVmYXVsdAogIGxhYmVsczoKICAgIGFwcDogcmVsb2FkZXItcmVsb2FkZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiByZWxvYWRlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogcmVsb2FkZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IHYxLjQuMTcKICAgIGNoYXJ0OiByZWxvYWRlci0yLjIuMTIKICAgIGdyb3VwOiBjb20uc3Rha2F0ZXIucGxhdGZvcm0KICAgIGhlbG0uc2gvY2hhcnQ6IHJlbG9hZGVyLTIuMi4xMgogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHByb3ZpZGVyOiBzdGFrYXRlcgogICAgcmVsZWFzZTogcmVsb2FkZXIKICAgIHZlcnNpb246IHYxLjQuMTQKICBuYW1lOiByZWxvYWRlci1yZWxvYWRlcgogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHJlcGxpY2FzOiAxCiAgcmV2aXNpb25IaXN0b3J5TGltaXQ6IDIKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHA6IHJlbG9hZGVyLXJlbG9hZGVyCiAgICAgIHJlbGVhc2U6IHJlbG9hZGVyCiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgbGFiZWxzOgogICAgICAgIGFwcDogcmVsb2FkZXItcmVsb2FkZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogcmVsb2FkZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogcmVsb2FkZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MS40LjE3CiAgICAgICAgY2hhcnQ6IHJlbG9hZGVyLTIuMi4xMgogICAgICAgIGdyb3VwOiBjb20uc3Rha2F0ZXIucGxhdGZvcm0KICAgICAgICBoZWxtLnNoL2NoYXJ0OiByZWxvYWRlci0yLjIuMTIKICAgICAgICBoZXJpdGFnZTogSGVsbQogICAgICAgIHByb3ZpZGVyOiBzdGFrYXRlcgogICAgICAgIHJlbGVhc2U6IHJlbG9hZGVyCiAgICAgICAgdmVyc2lvbjogdjEuNC4xNAogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gLS1sb2ctbGV2ZWw9aW5mbwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEdPTUFYUFJPQ1MKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgcmVzb3VyY2VGaWVsZFJlZjoKICAgICAgICAgICAgICBkaXZpc29yOiAiMSIKICAgICAgICAgICAgICByZXNvdXJjZTogbGltaXRzLmNwdQogICAgICAgIC0gbmFtZTogR09NRU1MSU1JVAogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICByZXNvdXJjZUZpZWxkUmVmOgogICAgICAgICAgICAgIGRpdmlzb3I6ICIxIgogICAgICAgICAgICAgIHJlc291cmNlOiBsaW1pdHMubWVtb3J5CiAgICAgICAgLSBuYW1lOiBSRUxPQURFUl9OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFJFTE9BREVSX0RFUExPWU1FTlRfTkFNRQogICAgICAgICAgdmFsdWU6IHJlbG9hZGVyLXJlbG9hZGVyCiAgICAgICAgaW1hZ2U6IGdoY3IuaW8vc3Rha2F0ZXIvcmVsb2FkZXI6djEuNC4xNwogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDUKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9saXZlCiAgICAgICAgICAgIHBvcnQ6IGh0dHAKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDEwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAxMAogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDUKICAgICAgICBuYW1lOiByZWxvYWRlci1yZWxvYWRlcgogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogOTA5MAogICAgICAgICAgbmFtZTogaHR0cAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogNQogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL21ldHJpY3MKICAgICAgICAgICAgcG9ydDogaHR0cAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDEwCiAgICAgICAgICBzdWNjZXNzVGhyZXNob2xkOiAxCiAgICAgICAgICB0aW1lb3V0U2Vjb25kczogNQogICAgICAgIHNlY3VyaXR5Q29udGV4dDoge30KICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIHJ1bkFzTm9uUm9vdDogdHJ1ZQogICAgICAgIHJ1bkFzVXNlcjogNjU1MzQKICAgICAgICBzZWNjb21wUHJvZmlsZToKICAgICAgICAgIHR5cGU6IFJ1bnRpbWVEZWZhdWx0CiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogcmVsb2FkZXItcmVsb2FkZXIK",
+      "DataHash": "3c12a6dbe6bd3951cb63d43aa075c4755e95432c7590db12b5e34a1c73427e38",
+      "DisplayName": "deployment-default-reloader-reloader",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/reloader-reloader": {}
+          },
+          "AliasesWithoutScopes": {
+            "reloader-reloader": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/reloader-reloader",
+            "ResourceNameWithoutScope": "reloader-reloader",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  annotations:\n    meta.helm.sh/release-name: reloader\n    meta.helm.sh/release-namespace: default\n  labels:\n    app: reloader-reloader\n    app.kubernetes.io/instance: reloader\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: reloader\n    app.kubernetes.io/version: v1.4.17\n    chart: reloader-2.2.12\n    group: com.stakater.platform\n    helm.sh/chart: reloader-2.2.12\n    heritage: Helm\n    provider: stakater\n    release: reloader\n    version: v1.4.14\n  name: reloader-reloader\n  namespace: default\nspec:\n  replicas: 1\n  revisionHistoryLimit: 2\n  selector:\n    matchLabels:\n      app: reloader-reloader\n      release: reloader\n  template:\n    metadata:\n      labels:\n        app: reloader-reloader\n        app.kubernetes.io/instance: reloader\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: reloader\n        app.kubernetes.io/version: v1.4.17\n        chart: reloader-2.2.12\n        group: com.stakater.platform\n        helm.sh/chart: reloader-2.2.12\n        heritage: Helm\n        provider: stakater\n        release: reloader\n        version: v1.4.14\n    spec:\n      containers:\n      - args:\n        - --log-level=info\n        env:\n        - name: GOMAXPROCS\n          valueFrom:\n            resourceFieldRef:\n              divisor: \"1\"\n              resource: limits.cpu\n        - name: GOMEMLIMIT\n          valueFrom:\n            resourceFieldRef:\n              divisor: \"1\"\n              resource: limits.memory\n        - name: RELOADER_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: RELOADER_DEPLOYMENT_NAME\n          value: reloader-reloader\n        image: ghcr.io/stakater/reloader:v1.4.17\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 5\n          httpGet:\n            path: /live\n            port: http\n          initialDelaySeconds: 10\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 5\n        name: reloader-reloader\n        ports:\n        - containerPort: 9090\n          name: http\n        readinessProbe:\n          failureThreshold: 5\n          httpGet:\n            path: /metrics\n            port: http\n          initialDelaySeconds: 10\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 5\n        securityContext: {}\n      securityContext:\n        runAsNonRoot: true\n        runAsUser: 65534\n        seccompProfile:\n          type: RuntimeDefault\n      serviceAccountName: reloader-reloader\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/reloader-reloader",
+          "ResourceNameWithoutScope": "reloader-reloader",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-reloader-reloader",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f8295e19-96af-4c4a-8476-26ba6144a11e",
+      "UpdatedAt": "2026-06-12T16:57:03.297519Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:15.243268Z",
+        "CursorID": 23200,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1982b5da-72d0-4f51-8033-7fc86a08dd4f",
+        "LinkID": "e772f802-6b0d-4a18-a343-bd43e8bdd39a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+        "SpaceSlug": "Reloader-default-staging",
+        "ToSpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+        "ToUnitID": "ed4e6e44-6624-4f18-a13d-fd85fc14ac32",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:15.243268Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ed4e6e44-6624-4f18-a13d-fd85fc14ac32' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:14.919546Z",
+      "CursorID": 4629,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Reloader-default-staging",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "UpdatedAt": "2026-06-12T16:57:14.919546Z",
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a5043fed86bfca4ce47d1162c790081e067793587349584791df5e1e3c56bb46",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e772f802-6b0d-4a18-a343-bd43e8bdd39a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1982b5da-72d0-4f51-8033-7fc86a08dd4f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ed4e6e44-6624-4f18-a13d-fd85fc14ac32",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "stakater-reloader",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -487818124,
+      "CreatedAt": "2026-06-12T16:56:47.758385Z",
+      "CursorID": 28205,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogInN0YWthdGVyLXJlbG9hZGVyIgogIHZlcnNpb246ICIyLjIuMTIiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAic3Rha2F0ZXIvcmVsb2FkZXIgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gc3Rha2F0ZXIvcmVsb2FkZXJAMi4yLjEyIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJjb250cm9sbGVyLWRlZmF1bHQtcmV2aWV3ZWQiCiAgICBwYXRoOiAiYmFzZXMvY29udHJvbGxlci1kZWZhdWx0LXJldmlld2VkIgogICAgZGVmYXVsdDogZmFsc2UKICAgIGRlc2NyaXB0aW9uOiAic3Rha2F0ZXIvcmVsb2FkZXIgY29udHJvbGxlci1kZWZhdWx0LXJldmlld2VkIHVzZWZ1bCBiYXNlOyBhbGlhc2VzIHRoZSBkZWZhdWx0IHJlbmRlciB3aXRoIGEgbmFtZWQgdXNlciBzdGFydCBwYXRoIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiBzdGFrYXRlci1yZWxvYWRlci1mdW5jdGlvbi1jaGFpbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogc3Rha2F0ZXItcmVsb2FkZXIKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogc3Rha2F0ZXItcmVsb2FkZXItaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBzdGFrYXRlci1yZWxvYWRlcgogIG5hbWVzcGFjZTogZGVmYXVsdAogIHZhbHVlczoge30KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IE1hbmlmZXN0SW5kZXgKbWV0YWRhdGE6CiAgbmFtZTogc3Rha2F0ZXItcmVsb2FkZXItbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHN0YWthdGVyLXJlbG9hZGVyCiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtcmVsb2FkZXItcmVsb2FkZXItcm9sZS55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1yZWxvYWRlci1yZWxvYWRlci1yb2xlCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogcmVsb2FkZXItcmVsb2FkZXItcm9sZQogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlYmluZGluZy1yZWxvYWRlci1yZWxvYWRlci1yb2xlLWJpbmRpbmcueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLXJlbG9hZGVyLXJlbG9hZGVyLXJvbGUtYmluZGluZwogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGVCaW5kaW5nCiAgICBuYW1lOiByZWxvYWRlci1yZWxvYWRlci1yb2xlLWJpbmRpbmcKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQtcmVsb2FkZXItcmVsb2FkZXIueWFtbAogICAgc2x1ZzogZGVwbG95bWVudC1kZWZhdWx0LXJlbG9hZGVyLXJlbG9hZGVyCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiByZWxvYWRlci1yZWxvYWRlcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWRlZmF1bHQueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlLWRlZmF1bHQtcmVsb2FkZXItcmVsb2FkZXItbWV0YWRhdGEtcm9sZS55YW1sCiAgICBzbHVnOiByb2xlLWRlZmF1bHQtcmVsb2FkZXItcmVsb2FkZXItbWV0YWRhdGEtcm9sZQogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogUm9sZQogICAgbmFtZTogcmVsb2FkZXItcmVsb2FkZXItbWV0YWRhdGEtcm9sZQogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZWJpbmRpbmctZGVmYXVsdC1yZWxvYWRlci1yZWxvYWRlci1tZXRhZGF0YS1yb2xlLWJpbmRpbmcueWFtbAogICAgc2x1Zzogcm9sZWJpbmRpbmctZGVmYXVsdC1yZWxvYWRlci1yZWxvYWRlci1tZXRhZGF0YS1yb2xlLWJpbmRpbmcKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGVCaW5kaW5nCiAgICBuYW1lOiByZWxvYWRlci1yZWxvYWRlci1tZXRhZGF0YS1yb2xlLWJpbmRpbmcKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtcmVsb2FkZXItcmVsb2FkZXIueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1yZWxvYWRlci1yZWxvYWRlcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiByZWxvYWRlci1yZWxvYWRlcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogc3Rha2F0ZXItcmVsb2FkZXItc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBzdGFrYXRlci1yZWxvYWRlcgogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBzdGFrYXRlci1yZWxvYWRlci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHN0YWthdGVyLXJlbG9hZGVyCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLXJlbG9hZGVyLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgc3BhY2VzOgogIC0gcGFja2FnZTogc3Rha2F0ZXItcmVsb2FkZXIKICAgIHNsdWc6IGhlbG0tcmVsb2FkZXItZGVmYXVsdC1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTY6NTY6MzRaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "a5043fed86bfca4ce47d1162c790081e067793587349584791df5e1e3c56bb46",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "stakater-reloader"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/stakater-reloader": {}
+          },
+          "AliasesWithoutScopes": {
+            "stakater-reloader": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/stakater-reloader",
+            "ResourceNameWithoutScope": "stakater-reloader",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"stakater-reloader\"\n  version: \"2.2.12\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"stakater/reloader default variant rendered from stakater/reloader@2.2.12\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"controller-default-reviewed\"\n    path: \"bases/controller-default-reviewed\"\n    default: false\n    description: \"stakater/reloader controller-default-reviewed useful base; aliases the default render with a named user start path\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/stakater-reloader-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "stakater-reloader-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/stakater-reloader-function-chain",
+            "ResourceNameWithoutScope": "stakater-reloader-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: stakater-reloader-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: stakater-reloader\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/stakater-reloader-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "stakater-reloader-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/stakater-reloader-inputs",
+            "ResourceNameWithoutScope": "stakater-reloader-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: stakater-reloader-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: stakater-reloader\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/stakater-reloader-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "stakater-reloader-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/stakater-reloader-manifest-index",
+            "ResourceNameWithoutScope": "stakater-reloader-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: stakater-reloader-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: stakater-reloader\n  files:\n  - filename: clusterrole-reloader-reloader-role.yaml\n    slug: clusterrole-reloader-reloader-role\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: reloader-reloader-role\n  - filename: clusterrolebinding-reloader-reloader-role-binding.yaml\n    slug: clusterrolebinding-reloader-reloader-role-binding\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: reloader-reloader-role-binding\n  - filename: deployment-default-reloader-reloader.yaml\n    slug: deployment-default-reloader-reloader\n    apiVersion: apps/v1\n    kind: Deployment\n    name: reloader-reloader\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-reloader-reloader-metadata-role.yaml\n    slug: role-default-reloader-reloader-metadata-role\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: reloader-reloader-metadata-role\n    namespace: default\n  - filename: rolebinding-default-reloader-reloader-metadata-role-binding.yaml\n    slug: rolebinding-default-reloader-reloader-metadata-role-binding\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: reloader-reloader-metadata-role-binding\n    namespace: default\n  - filename: serviceaccount-default-reloader-reloader.yaml\n    slug: serviceaccount-default-reloader-reloader\n    apiVersion: v1\n    kind: ServiceAccount\n    name: reloader-reloader\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/stakater-reloader-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "stakater-reloader-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/stakater-reloader-selection",
+            "ResourceNameWithoutScope": "stakater-reloader-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: stakater-reloader-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: stakater-reloader\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/stakater-reloader-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "stakater-reloader-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/stakater-reloader-upload",
+            "ResourceNameWithoutScope": "stakater-reloader-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: stakater-reloader-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: stakater-reloader\n  spacePattern: helm-reloader-default-confighub-proof\n  spaces:\n  - package: stakater-reloader\n    slug: helm-reloader-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:56:34Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ed4e6e44-6624-4f18-a13d-fd85fc14ac32",
+      "UpdatedAt": "2026-06-12T16:56:50.034533Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:15.274577Z",
+        "CursorID": 23201,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "7af90f7b-da3c-42dd-a670-b026001ca161",
+        "LinkID": "8a98c5aa-a148-4dca-9a9f-1ade8a1e5df5",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+        "SpaceSlug": "Reloader-default-staging",
+        "ToSpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+        "ToUnitID": "ce95be89-3f2e-4fef-966a-3df3b9c8aec5",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:15.274577Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ce95be89-3f2e-4fef-966a-3df3b9c8aec5' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:14.919546Z",
+      "CursorID": 4629,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Reloader-default-staging",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "UpdatedAt": "2026-06-12T16:57:14.919546Z",
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8a98c5aa-a148-4dca-9a9f-1ade8a1e5df5"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7af90f7b-da3c-42dd-a670-b026001ca161",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ce95be89-3f2e-4fef-966a-3df3b9c8aec5",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:56:40.367439Z",
+      "CursorID": 28200,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ce95be89-3f2e-4fef-966a-3df3b9c8aec5",
+      "UpdatedAt": "2026-06-12T16:56:40.473552Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:15.302784Z",
+        "CursorID": 23202,
+        "DisplayName": "Upgrade rolebinding-default-reloader-reloader-metadata-role-binding",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "50281562-4a11-45e2-acf1-94fa32d8b094",
+        "LinkID": "63ca7021-2257-4fcc-a7b4-0b8217c8a58e",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-reloader-reloader-metadata-role-binding",
+        "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+        "SpaceSlug": "Reloader-default-staging",
+        "ToSpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+        "ToUnitID": "8d33036a-27e8-48a8-9f22-ccecb563c37b",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:15.302784Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8d33036a-27e8-48a8-9f22-ccecb563c37b' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:14.919546Z",
+      "CursorID": 4629,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Reloader-default-staging",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "UpdatedAt": "2026-06-12T16:57:14.919546Z",
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e78903c721d9d1edc4b9d0f8df2c99b37b2c4384cb10c5dae4192fa165f3817b",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "63ca7021-2257-4fcc-a7b4-0b8217c8a58e"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-reloader-reloader-metadata-role-binding",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "50281562-4a11-45e2-acf1-94fa32d8b094",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8d33036a-27e8-48a8-9f22-ccecb563c37b",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1139886694,
+      "CreatedAt": "2026-06-12T16:56:42.93634Z",
+      "CursorID": 28203,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBhbm5vdGF0aW9uczoKICAgIG1ldGEuaGVsbS5zaC9yZWxlYXNlLW5hbWU6IHJlbG9hZGVyCiAgICBtZXRhLmhlbG0uc2gvcmVsZWFzZS1uYW1lc3BhY2U6IGRlZmF1bHQKICBsYWJlbHM6CiAgICBhcHA6IHJlbG9hZGVyLXJlbG9hZGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogcmVsb2FkZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHJlbG9hZGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MS40LjE3CiAgICBjaGFydDogcmVsb2FkZXItMi4yLjEyCiAgICBoZWxtLnNoL2NoYXJ0OiByZWxvYWRlci0yLjIuMTIKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiByZWxvYWRlcgogIG5hbWU6IHJlbG9hZGVyLXJlbG9hZGVyLW1ldGFkYXRhLXJvbGUtYmluZGluZwogIG5hbWVzcGFjZTogZGVmYXVsdApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogUm9sZQogIG5hbWU6IHJlbG9hZGVyLXJlbG9hZGVyLW1ldGFkYXRhLXJvbGUKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiByZWxvYWRlci1yZWxvYWRlcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "e78903c721d9d1edc4b9d0f8df2c99b37b2c4384cb10c5dae4192fa165f3817b",
+      "DisplayName": "rolebinding-default-reloader-reloader-metadata-role-binding",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/reloader-reloader-metadata-role-binding": {}
+          },
+          "AliasesWithoutScopes": {
+            "reloader-reloader-metadata-role-binding": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/reloader-reloader-metadata-role-binding",
+            "ResourceNameWithoutScope": "reloader-reloader-metadata-role-binding",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  annotations:\n    meta.helm.sh/release-name: reloader\n    meta.helm.sh/release-namespace: default\n  labels:\n    app: reloader-reloader\n    app.kubernetes.io/instance: reloader\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: reloader\n    app.kubernetes.io/version: v1.4.17\n    chart: reloader-2.2.12\n    helm.sh/chart: reloader-2.2.12\n    heritage: Helm\n    release: reloader\n  name: reloader-reloader-metadata-role-binding\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: reloader-reloader-metadata-role\nsubjects:\n- kind: ServiceAccount\n  name: reloader-reloader\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-reloader-reloader-metadata-role-binding",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8d33036a-27e8-48a8-9f22-ccecb563c37b",
+      "UpdatedAt": "2026-06-12T16:57:06.308814Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:15.32883Z",
+        "CursorID": 23203,
+        "DisplayName": "Upgrade role-default-reloader-reloader-metadata-role",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "51671e9b-65c7-4f40-920a-22739cee4ace",
+        "LinkID": "23a60fd1-f78e-4831-bb33-cd207a3d10e0",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-reloader-reloader-metadata-role",
+        "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+        "SpaceSlug": "Reloader-default-staging",
+        "ToSpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+        "ToUnitID": "d3a88f4b-bb54-4e43-8879-94a32b84b4a3",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:15.32883Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd3a88f4b-bb54-4e43-8879-94a32b84b4a3' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:14.919546Z",
+      "CursorID": 4629,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Reloader-default-staging",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "UpdatedAt": "2026-06-12T16:57:14.919546Z",
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d899dc82bee06314ce2df5e56a3b0068daaf76cf4708c5e913ee2f514d7b0ba9",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "23a60fd1-f78e-4831-bb33-cd207a3d10e0"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-reloader-reloader-metadata-role",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "51671e9b-65c7-4f40-920a-22739cee4ace",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d3a88f4b-bb54-4e43-8879-94a32b84b4a3",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1017631809,
+      "CreatedAt": "2026-06-12T16:56:41.501823Z",
+      "CursorID": 28202,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGFubm90YXRpb25zOgogICAgbWV0YS5oZWxtLnNoL3JlbGVhc2UtbmFtZTogcmVsb2FkZXIKICAgIG1ldGEuaGVsbS5zaC9yZWxlYXNlLW5hbWVzcGFjZTogZGVmYXVsdAogIGxhYmVsczoKICAgIGFwcDogcmVsb2FkZXItcmVsb2FkZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiByZWxvYWRlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogcmVsb2FkZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IHYxLjQuMTcKICAgIGNoYXJ0OiByZWxvYWRlci0yLjIuMTIKICAgIGhlbG0uc2gvY2hhcnQ6IHJlbG9hZGVyLTIuMi4xMgogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IHJlbG9hZGVyCiAgbmFtZTogcmVsb2FkZXItcmVsb2FkZXItbWV0YWRhdGEtcm9sZQogIG5hbWVzcGFjZTogZGVmYXVsdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIGNvbmZpZ21hcHMKICB2ZXJiczoKICAtIGxpc3QKICAtIGdldAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gdXBkYXRlCg==",
+      "DataHash": "d899dc82bee06314ce2df5e56a3b0068daaf76cf4708c5e913ee2f514d7b0ba9",
+      "DisplayName": "role-default-reloader-reloader-metadata-role",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/reloader-reloader-metadata-role": {}
+          },
+          "AliasesWithoutScopes": {
+            "reloader-reloader-metadata-role": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/reloader-reloader-metadata-role",
+            "ResourceNameWithoutScope": "reloader-reloader-metadata-role",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  annotations:\n    meta.helm.sh/release-name: reloader\n    meta.helm.sh/release-namespace: default\n  labels:\n    app: reloader-reloader\n    app.kubernetes.io/instance: reloader\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: reloader\n    app.kubernetes.io/version: v1.4.17\n    chart: reloader-2.2.12\n    helm.sh/chart: reloader-2.2.12\n    heritage: Helm\n    release: reloader\n  name: reloader-reloader-metadata-role\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  verbs:\n  - list\n  - get\n  - watch\n  - create\n  - update\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/reloader-reloader-metadata-role",
+          "ResourceNameWithoutScope": "reloader-reloader-metadata-role",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-reloader-reloader-metadata-role",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d3a88f4b-bb54-4e43-8879-94a32b84b4a3",
+      "UpdatedAt": "2026-06-12T16:57:04.408547Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:57:15.35573Z",
+        "CursorID": 23204,
+        "DisplayName": "Upgrade serviceaccount-default-reloader-reloader",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a9e1f1a7-c2ca-4b28-ba35-d0848a43cca4",
+        "LinkID": "02b26cf8-3830-4ffb-b818-64157373d077",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-reloader-reloader",
+        "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+        "SpaceSlug": "Reloader-default-staging",
+        "ToSpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+        "ToUnitID": "d1ec5aed-fcda-465f-8a52-50ec8211ea58",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:57:15.355731Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd1ec5aed-fcda-465f-8a52-50ec8211ea58' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:57:14.919546Z",
+      "CursorID": 4629,
+      "DisplayName": "helm-reloader-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Reloader",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Reloader-default-staging",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "UpdatedAt": "2026-06-12T16:57:14.919546Z",
+      "WhereTrigger": "SpaceID = '1a87b72a-5b5a-4e1d-8806-db8621fc1e27'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f87238996afe970bb71555b49d4ed8a0956e7c0b78ffbafa9f691d55fa3e6ceb",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "02b26cf8-3830-4ffb-b818-64157373d077"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-reloader-reloader",
+      "SpaceID": "83da2948-8e44-469b-b44b-fa741be7a013",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a9e1f1a7-c2ca-4b28-ba35-d0848a43cca4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d1ec5aed-fcda-465f-8a52-50ec8211ea58",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2026908356,
+      "CreatedAt": "2026-06-12T16:56:45.848171Z",
+      "CursorID": 28204,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgYW5ub3RhdGlvbnM6CiAgICBtZXRhLmhlbG0uc2gvcmVsZWFzZS1uYW1lOiByZWxvYWRlcgogICAgbWV0YS5oZWxtLnNoL3JlbGVhc2UtbmFtZXNwYWNlOiBkZWZhdWx0CiAgbGFiZWxzOgogICAgYXBwOiByZWxvYWRlci1yZWxvYWRlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHJlbG9hZGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiByZWxvYWRlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjEuNC4xNwogICAgY2hhcnQ6IHJlbG9hZGVyLTIuMi4xMgogICAgaGVsbS5zaC9jaGFydDogcmVsb2FkZXItMi4yLjEyCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogcmVsb2FkZXIKICBuYW1lOiByZWxvYWRlci1yZWxvYWRlcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "f87238996afe970bb71555b49d4ed8a0956e7c0b78ffbafa9f691d55fa3e6ceb",
+      "DisplayName": "serviceaccount-default-reloader-reloader",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Reloader",
+        "HelmChart": "stakater-reloader",
+        "HelmChartVersion": "2.2.12",
+        "Package": "stakater-reloader",
+        "Proof": "reloader-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 488 bytes; from serviceaccount-default-reloader-reloader.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/reloader-reloader": {}
+          },
+          "AliasesWithoutScopes": {
+            "reloader-reloader": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/reloader-reloader",
+            "ResourceNameWithoutScope": "reloader-reloader",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  annotations:\n    meta.helm.sh/release-name: reloader\n    meta.helm.sh/release-namespace: default\n  labels:\n    app: reloader-reloader\n    app.kubernetes.io/instance: reloader\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: reloader\n    app.kubernetes.io/version: v1.4.17\n    chart: reloader-2.2.12\n    helm.sh/chart: reloader-2.2.12\n    heritage: Helm\n    release: reloader\n  name: reloader-reloader\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/reloader-reloader",
+          "ResourceNameWithoutScope": "reloader-reloader",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-reloader-reloader",
+      "SpaceID": "1a87b72a-5b5a-4e1d-8806-db8621fc1e27",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d1ec5aed-fcda-465f-8a52-50ec8211ea58",
+      "UpdatedAt": "2026-06-12T16:57:07.318543Z",
+      "Version": 6
+    }
+  }
+]

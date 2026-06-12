@@ -1,0 +1,1 @@
+cub space delete --space "helm-jaeger-operator-default-confighub-proof,JaegerOperator-default-staging" --recursive-force

@@ -1,0 +1,1 @@
+cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base no-crds --work-dir .tmp/confighub-proof/external-secrets-no-crds --non-interactive --namespace external-secrets

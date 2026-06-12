@@ -1,0 +1,12 @@
+== vm-victoria-metrics-single@ → Space helm-victoria-metrics-single-default-confighub-proof ==
+Successfully created unit namespace-default (06f160a5-c82b-4915-977e-4de934444b86)
+Successfully created unit service-default-victoria-metrics-single-server (97ad763b-9622-4e62-bd3e-b706771e19aa)
+Successfully created unit serviceaccount-default-victoria-metrics-single-server (6d141667-045d-4602-9576-f08f8cf74f72)
+Successfully created unit statefulset-default-victoria-metrics-single-server (f3474cd9-bc99-46ea-bfd8-d5436381eb70)
+Successfully created unit installer-record (67739ad4-6214-4417-ac00-c3153b359361)
+Linked service-default-victoria-metrics-single-server -> namespace-default (reference:v1/Namespace)
+Linked service-default-victoria-metrics-single-server -> statefulset-default-victoria-metrics-single-server (selector)
+Linked serviceaccount-default-victoria-metrics-single-server -> namespace-default (reference:v1/Namespace)
+Linked statefulset-default-victoria-metrics-single-server -> namespace-default (reference:v1/Namespace)
+Linked statefulset-default-victoria-metrics-single-server -> service-default-victoria-metrics-single-server (reference:v1/Service)
+Linked statefulset-default-victoria-metrics-single-server -> serviceaccount-default-victoria-metrics-single-server (reference:v1/ServiceAccount)

@@ -1,0 +1,1 @@
+cub unit cancel --space helm-istiod-default-confighub-proof --where "Labels.Proof = 'istiod-default-confighub-proof'"

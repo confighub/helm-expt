@@ -1,0 +1,5 @@
+No changes.
+
+Images in helm-argo-workflows-default-confighub-proof (post-render):
+      Deployment/argo-workflows-server [argo-server] quay.io/argoproj/argocli:v4.0.5
+      Deployment/argo-workflows-workflow-controller [controller] quay.io/argoproj/workflow-controller:v4.0.5

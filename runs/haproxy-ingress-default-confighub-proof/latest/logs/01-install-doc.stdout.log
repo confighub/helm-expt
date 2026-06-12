@@ -1,0 +1,18 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "haproxytech-kubernetes-ingress"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "haproxytech/kubernetes-ingress default variant rendered from haproxytech/kubernetes-ingress@1.52.0"
+      }
+    ]
+  }
+}

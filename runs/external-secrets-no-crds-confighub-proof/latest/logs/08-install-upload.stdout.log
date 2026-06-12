@@ -1,0 +1,60 @@
+== external-secrets-external-secrets@ → Space helm-external-secrets-no-crds-confighub-proof ==
+Successfully created unit clusterrole-external-secrets-cert-controller (15c2574f-f451-4cc5-8389-b2d8ad6d443f)
+Successfully created unit clusterrole-external-secrets-controller (135e1c85-fd4a-43b1-86f1-51b210066ab2)
+Successfully created unit clusterrole-external-secrets-edit (f1851077-56e0-4e85-8f44-1a4774ea9938)
+Successfully created unit clusterrole-external-secrets-servicebindings (a8aa5da5-6706-42db-b35d-c47594cf1cb9)
+Successfully created unit clusterrole-external-secrets-view (db6d9b97-32a7-4c3c-afac-7fff9f62a88e)
+Successfully created unit clusterrolebinding-external-secrets-cert-controller (d8e3febf-794f-4ff4-a235-044747180e96)
+Successfully created unit clusterrolebinding-external-secrets-controller (52e99645-92bd-4547-bc08-073e17f63713)
+Successfully created unit deployment-external-secrets-external-secrets-cert-controller (806fb94d-1ea3-4c6e-aca0-d27d92933ab7)
+Successfully created unit deployment-external-secrets-external-secrets-webhook (9799a741-a1ea-4962-b1da-fffe2fa778d2)
+Successfully created unit deployment-external-secrets-external-secrets (3dc32b29-a241-4818-9e5a-6ac7ac343903)
+Successfully created unit namespace-external-secrets (e99a22da-1bf7-4036-a769-e110d1e00345)
+Successfully created unit role-external-secrets-external-secrets-leaderelection (302b632b-7904-408a-af5a-ec88f1f8768a)
+Successfully created unit rolebinding-external-secrets-external-secrets-leaderelection (d915648f-d2d7-42d4-91e7-85fed258b5e6)
+Successfully created unit service-external-secrets-external-secrets-webhook (aecca252-6142-4ac8-864f-57014156e6c7)
+Successfully created unit serviceaccount-external-secrets-external-secrets-cert-controller (b8cf14f4-0e0c-409a-895b-41a770e88459)
+Successfully created unit serviceaccount-external-secrets-external-secrets-webhook (a34f80f7-6e4f-4ffd-81af-3ef91e3425f6)
+Successfully created unit serviceaccount-external-secrets-external-secrets (5a4b5927-69c5-4f09-8eec-beef4bcfa51e)
+Successfully created unit validatingwebhookconfiguration-externalsecret-validate (93ea1fcd-8b82-4b11-a776-e99156e62b0d)
+Successfully created unit validatingwebhookconfiguration-secretstore-validate (0aab7f83-4364-4b96-a22c-2002b812756d)
+Successfully created unit installer-record (6d421c2f-1dfb-4a75-90a1-0cc09f7c3fd3)
+Linked clusterrolebinding-external-secrets-cert-controller -> clusterrole-external-secrets-cert-controller (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-external-secrets-cert-controller -> namespace-external-secrets (reference:v1/Namespace)
+Linked clusterrolebinding-external-secrets-cert-controller -> serviceaccount-external-secrets-external-secrets-cert-controller (reference:v1/ServiceAccount)
+Linked clusterrolebinding-external-secrets-controller -> clusterrole-external-secrets-controller (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-external-secrets-controller -> namespace-external-secrets (reference:v1/Namespace)
+Linked clusterrolebinding-external-secrets-controller -> serviceaccount-external-secrets-external-secrets (reference:v1/ServiceAccount)
+Linked deployment-external-secrets-external-secrets -> namespace-external-secrets (reference:v1/Namespace)
+Linked deployment-external-secrets-external-secrets -> serviceaccount-external-secrets-external-secrets (reference:v1/ServiceAccount)
+Linked deployment-external-secrets-external-secrets-cert-controller -> namespace-external-secrets (reference:v1/Namespace)
+Linked deployment-external-secrets-external-secrets-cert-controller -> serviceaccount-external-secrets-external-secrets-cert-controller (reference:v1/ServiceAccount)
+Linked deployment-external-secrets-external-secrets-webhook -> namespace-external-secrets (reference:v1/Namespace)
+Linked deployment-external-secrets-external-secrets-webhook -> serviceaccount-external-secrets-external-secrets-webhook (reference:v1/ServiceAccount)
+Linked role-external-secrets-external-secrets-leaderelection -> namespace-external-secrets (reference:v1/Namespace)
+Linked rolebinding-external-secrets-external-secrets-leaderelection -> namespace-external-secrets (reference:v1/Namespace)
+Linked rolebinding-external-secrets-external-secrets-leaderelection -> serviceaccount-external-secrets-external-secrets (reference:v1/ServiceAccount)
+Linked service-external-secrets-external-secrets-webhook -> deployment-external-secrets-external-secrets-webhook (selector)
+Linked service-external-secrets-external-secrets-webhook -> namespace-external-secrets (reference:v1/Namespace)
+Linked serviceaccount-external-secrets-external-secrets -> namespace-external-secrets (reference:v1/Namespace)
+Linked serviceaccount-external-secrets-external-secrets-cert-controller -> namespace-external-secrets (reference:v1/Namespace)
+Linked serviceaccount-external-secrets-external-secrets-webhook -> namespace-external-secrets (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-externalsecret-validate -> namespace-external-secrets (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-externalsecret-validate -> service-external-secrets-external-secrets-webhook (reference:v1/Service)
+Linked validatingwebhookconfiguration-secretstore-validate -> namespace-external-secrets (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-secretstore-validate -> service-external-secrets-external-secrets-webhook (reference:v1/Service)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrole-external-secrets-cert-controller -> v1/ConfigMap "externalsecret-validate"
+  - clusterrole-external-secrets-cert-controller -> v1/ConfigMap "secretstore-validate"
+  - role-external-secrets-external-secrets-leaderelection -> v1/ConfigMap "external-secrets-controller"
+  - rolebinding-external-secrets-external-secrets-leaderelection -> rbac.authorization.k8s.io/v1/ClusterRole "external-secrets-leaderelection"
+
+Note: 1 rendered Secret(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/external-secrets-no-crds/out/secrets were NOT uploaded to ConfigHub.
+Apply them out-of-band (e.g., `kubectl apply -f`) or stage them however your
+environment manages secrets:
+  - v1/Secret "external-secrets/external-secrets-webhook" (secret-external-secrets-external-secrets-webhook.yaml)

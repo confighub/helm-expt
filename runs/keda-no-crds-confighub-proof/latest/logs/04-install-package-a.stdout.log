@@ -1,0 +1,5 @@
+Bundled kedacore-keda@
+  output: .tmp/confighub-proof/keda-no-crds-archives/keda-a.tgz
+  files:  6
+  size:   86169 bytes
+  digest: sha256:850da6e9804c46cb6742812b986c0d9e76efa6f88198321ad10b0bae7813f59d

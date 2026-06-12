@@ -1,0 +1,1 @@
+cub installer package packages/runix/pgadmin4/1.62.0 -o .tmp/confighub-proof/pgadmin4-default-archives/pgadmin4-a.tgz

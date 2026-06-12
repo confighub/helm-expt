@@ -1,0 +1,1220 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2fa1ec48b70fee59c6e9e892abef3f388a9a86523242ab954f37b9a243cce7d1",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-ebs-csi-controller",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "09f962d0-9247-4b5b-bbc1-65854703bac0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8d2fabbfcd3ad1822cf8575457a3c5169e318a8b1ab2fdfda359389ae3a87abc",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "poddisruptionbudget-default-ebs-csi-controller",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aa9bf063-38d3-4d34-9a51-852d2644743e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 8
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "15822c01bf4f2d1385ddc8dc1070d04120d14ee95b77de6bdf9274cc7ae410a2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-ebs-csi-leases-role",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "95754ff7-f8f0-41ab-b789-42ce42e73e72",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "021861e8e8e28d97de564f22b764f5c8106043b785ec418051a6d08a7a84ef16",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "csidriver-ebs-csi-aws-com",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f8bfee5a-f2c3-4900-95a1-ef49ba81b925",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 2
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8ff069679a00f8f32062fcf784a41245cfa1cb086a3a7b1bee92981361606d4e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-ebs-csi-node-windows",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e274c0ce-20b2-4092-8c62-8ebb254170c0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f9bd1de7-16ca-42bc-bea4-bac9a21223bd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "13be42aac248a17bfd15ce02b7b4a7f57cd8edc39994dde2fdcf3e236e3bd8be",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-ebs-csi-leases-rolebinding",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7eff7745-5368-4e93-9a3e-d760c67b920f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4543dc308193df6830b712a47cb991bda230e29df3c4916263218e3e08a236df",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-ebs-csi-controller-sa",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a7d64555-128c-441c-9a70-0c76ec6f2b5e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2a74080d2a3210fbc769ca52333a1a2c3b49d9a8ec74a905c2066b7aab66c74b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-ebs-csi-node-sa",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "30c14016-9985-4206-8f1b-2e9bd849ff0f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "00538a92703929a7dd8c479e150c09cc7766368e00e930061cc71927099483b4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "08f86e18-5c5d-48aa-8f94-3331ba83a172",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ad7f45744771b20fe1d18e857cbff7f9454bf41e12ebc2418e5248e9efe91219",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-ebs-csi-node-role",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "be53deac-9db6-405e-b44d-20c27e21b6c5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bbc492f2e1a86555f3e7d8b732e59f2e91642c58b99c7471c08e66487963ea59",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-ebs-external-provisioner-role",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "146695f3-611f-453a-9420-fe455f13d98d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "860e28dbfda09940c8ccd1c823a1520db2acfa866b83da7882774c61560791f8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-ebs-external-attacher-role",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f05a9ee9-7c18-4824-801f-df34ec9b6076",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "02ccbf341bf48fe6c1f68d5a315f381bda80429a76cc5021398230e0d6f2a61b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-ebs-external-snapshotter-role",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ee6e8a51-7193-4284-95f4-6736f7dce0cd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9f40b446a8b31d672661bca31057f255deb01b30e29e2e58548cf7dc2991a642",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-ebs-external-resizer-role",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9d8cfbdd-4760-4237-b813-f70bd6bf3dc8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bd3852fa9570ffc04f9b890b88d52a996a1de01445e328cf40a65804fa7ef1b2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-ebs-csi-attacher-binding",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b2ecbebd-5b30-4183-b5a2-cac6a1208bfc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "55b072d3abbac4b3296ef36a9098d76bd37e20aaf0b8a7da53913bbd5a610b0e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-ebs-csi-node-getter-binding",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ce767eca-c0be-428b-b7d3-5962272f3bdf",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "eef1df1dcae69a1a6a280f4648e229051dbf6c5a987776cd3c6bfb4a4b00f552",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-ebs-csi-provisioner-binding",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bf73a238-7ff5-4006-a33c-9f6c43d2691e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "00091a6f0d6c816a21aa7211dd14831930264f651862b09c7ad3ebdae5944b2c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-ebs-csi-resizer-binding",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "34c10dcc-1cfa-49a5-8aec-063ba613a12b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6e15adbe6e4a3797e40e3a83b46d6d6625b80df4b8be18ee61bfc2491cac28cf",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-ebs-csi-snapshotter-binding",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fb3bfb17-119e-4c64-8dc9-53707ff145c5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:43:44.993902Z",
+      "CursorID": 4574,
+      "DisplayName": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "AwsEbsCsiDriver",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-aws-ebs-csi-driver-default-confighub-proof",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "UpdatedAt": "2026-06-12T16:43:45.556588Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '6d52e4f0-55b8-4c35-8cb3-620c71643cc9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d7871d660177ec12628a38608b02b387aa65a151a07e8d77e9fd60bb325bc6c1",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-ebs-csi-node",
+      "SpaceID": "6d52e4f0-55b8-4c35-8cb3-620c71643cc9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "db0ac762-4877-46a9-887d-64298020bdf2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

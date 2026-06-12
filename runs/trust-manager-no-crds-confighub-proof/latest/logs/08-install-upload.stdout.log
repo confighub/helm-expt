@@ -1,0 +1,48 @@
+== jetstack-trust-manager@ → Space helm-trust-manager-no-crds-confighub-proof ==
+Successfully created unit certificate-default-trust-manager (fe37d6c6-1568-489a-85b0-80b2c2014bba)
+Successfully created unit clusterrole-trust-manager (36771178-6b5b-4e8d-967a-deb41e384696)
+Successfully created unit clusterrolebinding-trust-manager (99be0803-c102-4dac-bce2-eed45f50ebc2)
+Successfully created unit deployment-default-trust-manager (7b9974d5-75ab-48c8-a36b-ea62f25e9067)
+Successfully created unit issuer-default-trust-manager (7b2f893a-2c87-4c0d-b196-a52c9596bc5c)
+Successfully created unit namespace-default (d00007a5-845f-4457-9230-8a3b057f7a39)
+Successfully created unit role-cert-manager-trust-manager (0b8d2ae5-bb91-43b5-ab43-f29c9869e3b2)
+Successfully created unit role-default-trust-managerleaderelection (e3690f3c-9c64-46f7-9f14-0c536df19cec)
+Successfully created unit rolebinding-cert-manager-trust-manager (aac24b4c-c94e-4ed9-8224-dd94426eac96)
+Successfully created unit rolebinding-default-trust-managerleaderelection (10c2d11f-e4e1-41a4-9c03-aa1307e789d1)
+Successfully created unit service-default-trust-manager-metrics (32e46f79-96cc-47b3-9ba3-baf649d87c87)
+Successfully created unit service-default-trust-manager (a0aa6bdb-69b8-4066-ab6a-2f59dea34a37)
+Successfully created unit serviceaccount-default-trust-manager (1682220d-13d8-48f5-a47b-5223ab81fcbb)
+Successfully created unit validatingwebhookconfiguration-trust-manager (46ff17dd-0423-4697-83e0-612567cd8f68)
+Successfully created unit installer-record (005391f0-fdf1-43fb-989e-796d2baa85ba)
+Linked certificate-default-trust-manager -> issuer-default-trust-manager (reference:cert-manager.io/v1/Issuer)
+Linked certificate-default-trust-manager -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-trust-manager -> clusterrole-trust-manager (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-trust-manager -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-trust-manager -> serviceaccount-default-trust-manager (reference:v1/ServiceAccount)
+Linked deployment-default-trust-manager -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-trust-manager -> serviceaccount-default-trust-manager (reference:v1/ServiceAccount)
+Linked issuer-default-trust-manager -> namespace-default (reference:v1/Namespace)
+Linked role-default-trust-managerleaderelection -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-cert-manager-trust-manager -> clusterrole-trust-manager (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked rolebinding-cert-manager-trust-manager -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-cert-manager-trust-manager -> serviceaccount-default-trust-manager (reference:v1/ServiceAccount)
+Linked rolebinding-default-trust-managerleaderelection -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-trust-managerleaderelection -> role-default-trust-managerleaderelection (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-trust-managerleaderelection -> serviceaccount-default-trust-manager (reference:v1/ServiceAccount)
+Linked service-default-trust-manager -> deployment-default-trust-manager (selector)
+Linked service-default-trust-manager -> namespace-default (reference:v1/Namespace)
+Linked service-default-trust-manager-metrics -> deployment-default-trust-manager (selector)
+Linked service-default-trust-manager-metrics -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-trust-manager -> namespace-default (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-trust-manager -> namespace-default (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-trust-manager -> service-default-trust-manager (reference:v1/Service)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - certificate-default-trust-manager -> v1/Secret "trust-manager-tls"
+  - deployment-default-trust-manager -> v1/Secret "trust-manager-tls"
+  - role-cert-manager-trust-manager -> v1/Namespace "cert-manager"
+  - rolebinding-cert-manager-trust-manager -> v1/Namespace "cert-manager"

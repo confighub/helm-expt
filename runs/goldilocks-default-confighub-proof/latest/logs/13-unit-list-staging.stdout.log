@@ -1,0 +1,1838 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.740192Z",
+        "CursorID": 22747,
+        "DisplayName": "Upgrade clusterrolebinding-goldilocks-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ef1333ff-ff6a-46f4-ae53-4b55d16a18fa",
+        "LinkID": "4db3d31f-a6cc-4f51-8010-bba907a26bb4",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-goldilocks-controller",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "d3fc94e7-212b-4e9f-8829-c755d0b7ac31",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.740192Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd3fc94e7-212b-4e9f-8829-c755d0b7ac31' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "83ed2e2245e26f104eac730ac8a5c414ee374a87f524aa2f74150865a7947829",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4db3d31f-a6cc-4f51-8010-bba907a26bb4"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-goldilocks-controller",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ef1333ff-ff6a-46f4-ae53-4b55d16a18fa",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d3fc94e7-212b-4e9f-8829-c755d0b7ac31",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1371594224,
+      "CreatedAt": "2026-06-12T16:50:22.547726Z",
+      "CursorID": 27869,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZ29sZGlsb2NrcwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ29sZGlsb2NrcwogICAgaGVsbS5zaC9jaGFydDogZ29sZGlsb2Nrcy0xMC4zLjAKICBuYW1lOiBnb2xkaWxvY2tzLWNvbnRyb2xsZXIKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogZ29sZGlsb2Nrcy1jb250cm9sbGVyCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogZ29sZGlsb2Nrcy1jb250cm9sbGVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "83ed2e2245e26f104eac730ac8a5c414ee374a87f524aa2f74150865a7947829",
+      "DisplayName": "clusterrolebinding-goldilocks-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/goldilocks-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "goldilocks-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/goldilocks-controller",
+            "ResourceNameWithoutScope": "goldilocks-controller",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: goldilocks\n    helm.sh/chart: goldilocks-10.3.0\n  name: goldilocks-controller\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: goldilocks-controller\nsubjects:\n- kind: ServiceAccount\n  name: goldilocks-controller\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-goldilocks-controller",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d3fc94e7-212b-4e9f-8829-c755d0b7ac31",
+      "UpdatedAt": "2026-06-12T16:51:00.290722Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.762783Z",
+        "CursorID": 22748,
+        "DisplayName": "Upgrade clusterrolebinding-goldilocks-dashboard",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d65600e8-cb57-4443-ad19-4531a10531da",
+        "LinkID": "cdcc2f8d-f916-4d6a-9245-afe1b3699c04",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-goldilocks-dashboard",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "01006572-fd51-413d-b2f0-93f5663793b1",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.762784Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '01006572-fd51-413d-b2f0-93f5663793b1' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3468458a0e784f53e48cac00980cdb45151d49960d769e79b99ea20ffb8beea3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "cdcc2f8d-f916-4d6a-9245-afe1b3699c04"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-goldilocks-dashboard",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d65600e8-cb57-4443-ad19-4531a10531da",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "01006572-fd51-413d-b2f0-93f5663793b1",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -789565150,
+      "CreatedAt": "2026-06-12T16:50:24.589537Z",
+      "CursorID": 27871,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBkYXNoYm9hcmQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBnb2xkaWxvY2tzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBnb2xkaWxvY2tzCiAgICBoZWxtLnNoL2NoYXJ0OiBnb2xkaWxvY2tzLTEwLjMuMAogIG5hbWU6IGdvbGRpbG9ja3MtZGFzaGJvYXJkCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IGdvbGRpbG9ja3MtZGFzaGJvYXJkCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogZ29sZGlsb2Nrcy1kYXNoYm9hcmQKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "3468458a0e784f53e48cac00980cdb45151d49960d769e79b99ea20ffb8beea3",
+      "DisplayName": "clusterrolebinding-goldilocks-dashboard",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/goldilocks-dashboard": {}
+          },
+          "AliasesWithoutScopes": {
+            "goldilocks-dashboard": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/goldilocks-dashboard",
+            "ResourceNameWithoutScope": "goldilocks-dashboard",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/component: dashboard\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: goldilocks\n    helm.sh/chart: goldilocks-10.3.0\n  name: goldilocks-dashboard\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: goldilocks-dashboard\nsubjects:\n- kind: ServiceAccount\n  name: goldilocks-dashboard\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "01006572-fd51-413d-b2f0-93f5663793b1",
+      "UpdatedAt": "2026-06-12T16:51:09.055252Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.285187Z",
+        "CursorID": 22737,
+        "DisplayName": "Upgrade clusterrole-goldilocks-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0dab096f-9c25-4343-85da-78d2e1e11b1e",
+        "LinkID": "c08835bd-baa8-425c-8554-6a5c669ff4a0",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-goldilocks-controller",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "8f22c947-a522-4dde-b14a-d27a1386be71",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.285187Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8f22c947-a522-4dde-b14a-d27a1386be71' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "749b71ec9a97005b913dd2e91718df09deb66466dc63db08d596fe999e54b47c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c08835bd-baa8-425c-8554-6a5c669ff4a0"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-goldilocks-controller",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0dab096f-9c25-4343-85da-78d2e1e11b1e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8f22c947-a522-4dde-b14a-d27a1386be71",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2141017806,
+      "CreatedAt": "2026-06-12T16:50:20.273471Z",
+      "CursorID": 27865,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBnb2xkaWxvY2tzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBnb2xkaWxvY2tzCiAgICBoZWxtLnNoL2NoYXJ0OiBnb2xkaWxvY2tzLTEwLjMuMAogIG5hbWU6IGdvbGRpbG9ja3MtY29udHJvbGxlcgpydWxlczoKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgcmVzb3VyY2VzOgogIC0gJyonCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYmF0Y2gKICByZXNvdXJjZXM6CiAgLSBjcm9uam9icwogIC0gam9icwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gbmFtZXNwYWNlcwogIC0gcG9kcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGF1dG9zY2FsaW5nLms4cy5pbwogIHJlc291cmNlczoKICAtIHZlcnRpY2FscG9kYXV0b3NjYWxlcnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGFyZ29wcm9qLmlvCiAgcmVzb3VyY2VzOgogIC0gcm9sbG91dHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gK",
+      "DataHash": "749b71ec9a97005b913dd2e91718df09deb66466dc63db08d596fe999e54b47c",
+      "DisplayName": "clusterrole-goldilocks-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/goldilocks-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "goldilocks-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/goldilocks-controller",
+            "ResourceNameWithoutScope": "goldilocks-controller",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: goldilocks\n    helm.sh/chart: goldilocks-10.3.0\n  name: goldilocks-controller\nrules:\n- apiGroups:\n  - apps\n  resources:\n  - '*'\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - batch\n  resources:\n  - cronjobs\n  - jobs\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  - pods\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - autoscaling.k8s.io\n  resources:\n  - verticalpodautoscalers\n  verbs:\n  - get\n  - list\n  - create\n  - delete\n  - update\n- apiGroups:\n  - argoproj.io\n  resources:\n  - rollouts\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/goldilocks-controller",
+          "ResourceNameWithoutScope": "goldilocks-controller",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-goldilocks-controller",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8f22c947-a522-4dde-b14a-d27a1386be71",
+      "UpdatedAt": "2026-06-12T16:50:39.112155Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.715138Z",
+        "CursorID": 22745,
+        "DisplayName": "Upgrade clusterrole-goldilocks-dashboard",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "deec20e7-10e8-436e-8565-079092a8f42b",
+        "LinkID": "6e41294a-11f8-4b4d-9e20-737ded8a224c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-goldilocks-dashboard",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "c2fd6b40-d7c5-4c32-adc8-383c8caf2a83",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.715139Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c2fd6b40-d7c5-4c32-adc8-383c8caf2a83' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e60bd8eceb4064ad8f4e243503d3394ee8d5b490ec3f1bb704151c9e4d120900",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "6e41294a-11f8-4b4d-9e20-737ded8a224c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-goldilocks-dashboard",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "deec20e7-10e8-436e-8565-079092a8f42b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c2fd6b40-d7c5-4c32-adc8-383c8caf2a83",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1517048152,
+      "CreatedAt": "2026-06-12T16:50:21.214788Z",
+      "CursorID": 27867,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGRhc2hib2FyZAogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdvbGRpbG9ja3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGdvbGRpbG9ja3MKICAgIGhlbG0uc2gvY2hhcnQ6IGdvbGRpbG9ja3MtMTAuMy4wCiAgbmFtZTogZ29sZGlsb2Nrcy1kYXNoYm9hcmQKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gYXV0b3NjYWxpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gdmVydGljYWxwb2RhdXRvc2NhbGVycwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0Ci0gYXBpR3JvdXBzOgogIC0gYXBwcwogIHJlc291cmNlczoKICAtICcqJwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBuYW1lc3BhY2VzCiAgLSBwb2RzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKLSBhcGlHcm91cHM6CiAgLSBhcmdvcHJvai5pbwogIHJlc291cmNlczoKICAtIHJvbGxvdXRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QK",
+      "DataHash": "e60bd8eceb4064ad8f4e243503d3394ee8d5b490ec3f1bb704151c9e4d120900",
+      "DisplayName": "clusterrole-goldilocks-dashboard",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/goldilocks-dashboard": {}
+          },
+          "AliasesWithoutScopes": {
+            "goldilocks-dashboard": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/goldilocks-dashboard",
+            "ResourceNameWithoutScope": "goldilocks-dashboard",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/component: dashboard\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: goldilocks\n    helm.sh/chart: goldilocks-10.3.0\n  name: goldilocks-dashboard\nrules:\n- apiGroups:\n  - autoscaling.k8s.io\n  resources:\n  - verticalpodautoscalers\n  verbs:\n  - get\n  - list\n- apiGroups:\n  - apps\n  resources:\n  - '*'\n  verbs:\n  - get\n  - list\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  - pods\n  verbs:\n  - get\n  - list\n- apiGroups:\n  - argoproj.io\n  resources:\n  - rollouts\n  verbs:\n  - get\n  - list\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/goldilocks-dashboard",
+          "ResourceNameWithoutScope": "goldilocks-dashboard",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c2fd6b40-d7c5-4c32-adc8-383c8caf2a83",
+      "UpdatedAt": "2026-06-12T16:50:39.100351Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.589375Z",
+        "CursorID": 22742,
+        "DisplayName": "Upgrade deployment-default-goldilocks-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6a5e00c3-7b5c-4b82-82d4-023c12ae84c1",
+        "LinkID": "24835745-6017-44c5-bac4-f47c7436ef5c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-goldilocks-controller",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "94ea7a05-0333-4886-80da-a95d56795944",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.589375Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '94ea7a05-0333-4886-80da-a95d56795944' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0566500739dbc12f200fb1e3d7f24fb51c56b4d03362f0fd466b91dc777a9802",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "24835745-6017-44c5-bac4-f47c7436ef5c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-goldilocks-controller",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6a5e00c3-7b5c-4b82-82d4-023c12ae84c1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "94ea7a05-0333-4886-80da-a95d56795944",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 637920482,
+      "CreatedAt": "2026-06-12T16:50:26.689273Z",
+      "CursorID": 27875,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogY29udHJvbGxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdvbGRpbG9ja3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGdvbGRpbG9ja3MKICAgIGhlbG0uc2gvY2hhcnQ6IGdvbGRpbG9ja3MtMTAuMy4wCiAgbmFtZTogZ29sZGlsb2Nrcy1jb250cm9sbGVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDEKICByZXZpc2lvbkhpc3RvcnlMaW1pdDogMTAKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXIKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdvbGRpbG9ja3MKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ29sZGlsb2NrcwogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGNvbnRyb2xsZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZ29sZGlsb2NrcwogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGdvbGRpbG9ja3MKICAgIHNwZWM6CiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gY29tbWFuZDoKICAgICAgICAtIC9nb2xkaWxvY2tzCiAgICAgICAgLSBjb250cm9sbGVyCiAgICAgICAgLSAtdjIKICAgICAgICBpbWFnZTogdXMtZG9ja2VyLnBrZy5kZXYvZmFpcndpbmRzLW9wcy9vc3MvZ29sZGlsb2Nrczp2NC4xNC4xCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBBbHdheXMKICAgICAgICBuYW1lOiBnb2xkaWxvY2tzCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgbGltaXRzOiB7fQogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMjVtCiAgICAgICAgICAgIG1lbW9yeTogMjU2TWkKICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBhbGxvd1ByaXZpbGVnZUVzY2FsYXRpb246IGZhbHNlCiAgICAgICAgICBjYXBhYmlsaXRpZXM6CiAgICAgICAgICAgIGRyb3A6CiAgICAgICAgICAgIC0gQUxMCiAgICAgICAgICByZWFkT25seVJvb3RGaWxlc3lzdGVtOiB0cnVlCiAgICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICAgIHJ1bkFzVXNlcjogMTAzMjQKICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIHNlY2NvbXBQcm9maWxlOgogICAgICAgICAgdHlwZTogUnVudGltZURlZmF1bHQKICAgICAgc2VydmljZUFjY291bnROYW1lOiBnb2xkaWxvY2tzLWNvbnRyb2xsZXIK",
+      "DataHash": "0566500739dbc12f200fb1e3d7f24fb51c56b4d03362f0fd466b91dc777a9802",
+      "DisplayName": "deployment-default-goldilocks-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/goldilocks-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "goldilocks-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/goldilocks-controller",
+            "ResourceNameWithoutScope": "goldilocks-controller",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: goldilocks\n    helm.sh/chart: goldilocks-10.3.0\n  name: goldilocks-controller\n  namespace: default\nspec:\n  replicas: 1\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app.kubernetes.io/component: controller\n      app.kubernetes.io/instance: goldilocks\n      app.kubernetes.io/name: goldilocks\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/component: controller\n        app.kubernetes.io/instance: goldilocks\n        app.kubernetes.io/name: goldilocks\n    spec:\n      containers:\n      - command:\n        - /goldilocks\n        - controller\n        - -v2\n        image: us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1\n        imagePullPolicy: Always\n        name: goldilocks\n        resources:\n          limits: {}\n          requests:\n            cpu: 25m\n            memory: 256Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsNonRoot: true\n          runAsUser: 10324\n      securityContext:\n        seccompProfile:\n          type: RuntimeDefault\n      serviceAccountName: goldilocks-controller\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/goldilocks-controller",
+          "ResourceNameWithoutScope": "goldilocks-controller",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-goldilocks-controller",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "94ea7a05-0333-4886-80da-a95d56795944",
+      "UpdatedAt": "2026-06-12T16:51:11.715513Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.376578Z",
+        "CursorID": 22739,
+        "DisplayName": "Upgrade deployment-default-goldilocks-dashboard",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a16a2ace-e57d-4925-bcbe-0ef17f6229cc",
+        "LinkID": "edb546c1-38ec-48a5-acf1-659960cbad80",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-goldilocks-dashboard",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "8b82f141-1e05-425b-affe-91abd235f960",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.376578Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8b82f141-1e05-425b-affe-91abd235f960' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ebd50e70eef5f21085754166502120e9b93542367f25d7e7a286644509a9bd60",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "edb546c1-38ec-48a5-acf1-659960cbad80"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-goldilocks-dashboard",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a16a2ace-e57d-4925-bcbe-0ef17f6229cc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8b82f141-1e05-425b-affe-91abd235f960",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -229652293,
+      "CreatedAt": "2026-06-12T16:50:27.837686Z",
+      "CursorID": 27879,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogZGFzaGJvYXJkCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZ29sZGlsb2NrcwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ29sZGlsb2NrcwogICAgaGVsbS5zaC9jaGFydDogZ29sZGlsb2Nrcy0xMC4zLjAKICBuYW1lOiBnb2xkaWxvY2tzLWRhc2hib2FyZAogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHJlcGxpY2FzOiAyCiAgcmV2aXNpb25IaXN0b3J5TGltaXQ6IDEwCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBkYXNoYm9hcmQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdvbGRpbG9ja3MKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ29sZGlsb2NrcwogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGRhc2hib2FyZAogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBnb2xkaWxvY2tzCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ29sZGlsb2NrcwogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBjb21tYW5kOgogICAgICAgIC0gL2dvbGRpbG9ja3MKICAgICAgICAtIGRhc2hib2FyZAogICAgICAgIC0gLS1leGNsdWRlLWNvbnRhaW5lcnM9bGlua2VyZC1wcm94eSxpc3Rpby1wcm94eQogICAgICAgIC0gLXYyCiAgICAgICAgaW1hZ2U6IHVzLWRvY2tlci5wa2cuZGV2L2ZhaXJ3aW5kcy1vcHMvb3NzL2dvbGRpbG9ja3M6djQuMTQuMQogICAgICAgIGltYWdlUHVsbFBvbGljeTogQWx3YXlzCiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGgKICAgICAgICAgICAgcG9ydDogaHR0cAogICAgICAgIG5hbWU6IGdvbGRpbG9ja3MKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgwODAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICByZWFkaW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGgKICAgICAgICAgICAgcG9ydDogaHR0cAogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIGxpbWl0czoge30KICAgICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgICBjcHU6IDI1bQogICAgICAgICAgICBtZW1vcnk6IDI1Nk1pCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAtIEFMTAogICAgICAgICAgcmVhZE9ubHlSb290RmlsZXN5c3RlbTogdHJ1ZQogICAgICAgICAgcnVuQXNOb25Sb290OiB0cnVlCiAgICAgICAgICBydW5Bc1VzZXI6IDEwMzI0CiAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICBzZWNjb21wUHJvZmlsZToKICAgICAgICAgIHR5cGU6IFJ1bnRpbWVEZWZhdWx0CiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogZ29sZGlsb2Nrcy1kYXNoYm9hcmQK",
+      "DataHash": "ebd50e70eef5f21085754166502120e9b93542367f25d7e7a286644509a9bd60",
+      "DisplayName": "deployment-default-goldilocks-dashboard",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/goldilocks-dashboard": {}
+          },
+          "AliasesWithoutScopes": {
+            "goldilocks-dashboard": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/goldilocks-dashboard",
+            "ResourceNameWithoutScope": "goldilocks-dashboard",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/component: dashboard\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: goldilocks\n    helm.sh/chart: goldilocks-10.3.0\n  name: goldilocks-dashboard\n  namespace: default\nspec:\n  replicas: 2\n  revisionHistoryLimit: 10\n  selector:\n    matchLabels:\n      app.kubernetes.io/component: dashboard\n      app.kubernetes.io/instance: goldilocks\n      app.kubernetes.io/name: goldilocks\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/component: dashboard\n        app.kubernetes.io/instance: goldilocks\n        app.kubernetes.io/name: goldilocks\n    spec:\n      containers:\n      - command:\n        - /goldilocks\n        - dashboard\n        - --exclude-containers=linkerd-proxy,istio-proxy\n        - -v2\n        image: us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1\n        imagePullPolicy: Always\n        livenessProbe:\n          httpGet:\n            path: /health\n            port: http\n        name: goldilocks\n        ports:\n        - containerPort: 8080\n          name: http\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /health\n            port: http\n        resources:\n          limits: {}\n          requests:\n            cpu: 25m\n            memory: 256Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsNonRoot: true\n          runAsUser: 10324\n      securityContext:\n        seccompProfile:\n          type: RuntimeDefault\n      serviceAccountName: goldilocks-dashboard\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/goldilocks-dashboard",
+          "ResourceNameWithoutScope": "goldilocks-dashboard",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8b82f141-1e05-425b-affe-91abd235f960",
+      "UpdatedAt": "2026-06-12T16:51:13.872412Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.441692Z",
+        "CursorID": 22740,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3b0762fc-51b6-4393-b9e5-165729fbe1b4",
+        "LinkID": "ca44c56d-eb48-466c-9d05-845270057ef1",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "00f8db5b-60f0-47c7-a2f3-e58872df1531",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.441692Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '00f8db5b-60f0-47c7-a2f3-e58872df1531' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "16ee9963de97f59df470c1220f6f9a65326e9fe4940d7320b1f2340c629e5dd1",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ca44c56d-eb48-466c-9d05-845270057ef1"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3b0762fc-51b6-4393-b9e5-165729fbe1b4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "00f8db5b-60f0-47c7-a2f3-e58872df1531",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "fairwinds-stable-goldilocks",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1581329070,
+      "CreatedAt": "2026-06-12T16:50:37.126112Z",
+      "CursorID": 27893,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImZhaXJ3aW5kcy1zdGFibGUtZ29sZGlsb2NrcyIKICB2ZXJzaW9uOiAiMTAuMy4wIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBuYW1lOiAiZGVmYXVsdCIKICAgIHBhdGg6ICJiYXNlcy9kZWZhdWx0IgogICAgZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJmYWlyd2luZHMtc3RhYmxlL2dvbGRpbG9ja3MgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gZmFpcndpbmRzLXN0YWJsZS9nb2xkaWxvY2tzQDEwLjMuMCIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogZmFpcndpbmRzLXN0YWJsZS1nb2xkaWxvY2tzLWZ1bmN0aW9uLWNoYWluCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBmYWlyd2luZHMtc3RhYmxlLWdvbGRpbG9ja3MKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogZmFpcndpbmRzLXN0YWJsZS1nb2xkaWxvY2tzLWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZmFpcndpbmRzLXN0YWJsZS1nb2xkaWxvY2tzCiAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgdmFsdWVzOiB7fQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogTWFuaWZlc3RJbmRleAptZXRhZGF0YToKICBuYW1lOiBmYWlyd2luZHMtc3RhYmxlLWdvbGRpbG9ja3MtbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGZhaXJ3aW5kcy1zdGFibGUtZ29sZGlsb2NrcwogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWdvbGRpbG9ja3MtY29udHJvbGxlci55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1nb2xkaWxvY2tzLWNvbnRyb2xsZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBnb2xkaWxvY2tzLWNvbnRyb2xsZXIKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS1nb2xkaWxvY2tzLWRhc2hib2FyZC55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1nb2xkaWxvY2tzLWRhc2hib2FyZAogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IGdvbGRpbG9ja3MtZGFzaGJvYXJkCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGViaW5kaW5nLWdvbGRpbG9ja3MtY29udHJvbGxlci55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctZ29sZGlsb2Nrcy1jb250cm9sbGVyCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IGdvbGRpbG9ja3MtY29udHJvbGxlcgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlYmluZGluZy1nb2xkaWxvY2tzLWRhc2hib2FyZC55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctZ29sZGlsb2Nrcy1kYXNoYm9hcmQKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogZ29sZGlsb2Nrcy1kYXNoYm9hcmQKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQtZ29sZGlsb2Nrcy1jb250cm9sbGVyLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtZGVmYXVsdC1nb2xkaWxvY2tzLWNvbnRyb2xsZXIKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IGdvbGRpbG9ja3MtY29udHJvbGxlcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LWdvbGRpbG9ja3MtZGFzaGJvYXJkLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtZGVmYXVsdC1nb2xkaWxvY2tzLWRhc2hib2FyZAogICAgYXBpVmVyc2lvbjogYXBwcy92MQogICAga2luZDogRGVwbG95bWVudAogICAgbmFtZTogZ29sZGlsb2Nrcy1kYXNoYm9hcmQKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1kZWZhdWx0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogTmFtZXNwYWNlCiAgICBuYW1lOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS1kZWZhdWx0LWdvbGRpbG9ja3MtZGFzaGJvYXJkLnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtZGVmYXVsdC1nb2xkaWxvY2tzLWRhc2hib2FyZAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2UKICAgIG5hbWU6IGdvbGRpbG9ja3MtZGFzaGJvYXJkCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWdvbGRpbG9ja3MtY29udHJvbGxlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWdvbGRpbG9ja3MtY29udHJvbGxlcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBnb2xkaWxvY2tzLWNvbnRyb2xsZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtZ29sZGlsb2Nrcy1kYXNoYm9hcmQueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1nb2xkaWxvY2tzLWRhc2hib2FyZAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBnb2xkaWxvY2tzLWRhc2hib2FyZAogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogZmFpcndpbmRzLXN0YWJsZS1nb2xkaWxvY2tzLXNlbGVjdGlvbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZmFpcndpbmRzLXN0YWJsZS1nb2xkaWxvY2tzCiAgYmFzZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogVXBsb2FkCm1ldGFkYXRhOgogIG5hbWU6IGZhaXJ3aW5kcy1zdGFibGUtZ29sZGlsb2Nrcy11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGZhaXJ3aW5kcy1zdGFibGUtZ29sZGlsb2NrcwogIHNwYWNlUGF0dGVybjogaGVsbS1nb2xkaWxvY2tzLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgc3BhY2VzOgogIC0gcGFja2FnZTogZmFpcndpbmRzLXN0YWJsZS1nb2xkaWxvY2tzCiAgICBzbHVnOiBoZWxtLWdvbGRpbG9ja3MtZGVmYXVsdC1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTY6NTA6MThaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "16ee9963de97f59df470c1220f6f9a65326e9fe4940d7320b1f2340c629e5dd1",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "fairwinds-stable-goldilocks"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/fairwinds-stable-goldilocks": {}
+          },
+          "AliasesWithoutScopes": {
+            "fairwinds-stable-goldilocks": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fairwinds-stable-goldilocks",
+            "ResourceNameWithoutScope": "fairwinds-stable-goldilocks",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"fairwinds-stable-goldilocks\"\n  version: \"10.3.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"fairwinds-stable/goldilocks default variant rendered from fairwinds-stable/goldilocks@10.3.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fairwinds-stable-goldilocks-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "fairwinds-stable-goldilocks-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fairwinds-stable-goldilocks-function-chain",
+            "ResourceNameWithoutScope": "fairwinds-stable-goldilocks-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: fairwinds-stable-goldilocks-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fairwinds-stable-goldilocks\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fairwinds-stable-goldilocks-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "fairwinds-stable-goldilocks-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fairwinds-stable-goldilocks-inputs",
+            "ResourceNameWithoutScope": "fairwinds-stable-goldilocks-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: fairwinds-stable-goldilocks-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fairwinds-stable-goldilocks\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fairwinds-stable-goldilocks-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "fairwinds-stable-goldilocks-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fairwinds-stable-goldilocks-manifest-index",
+            "ResourceNameWithoutScope": "fairwinds-stable-goldilocks-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: fairwinds-stable-goldilocks-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fairwinds-stable-goldilocks\n  files:\n  - filename: clusterrole-goldilocks-controller.yaml\n    slug: clusterrole-goldilocks-controller\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: goldilocks-controller\n  - filename: clusterrole-goldilocks-dashboard.yaml\n    slug: clusterrole-goldilocks-dashboard\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: goldilocks-dashboard\n  - filename: clusterrolebinding-goldilocks-controller.yaml\n    slug: clusterrolebinding-goldilocks-controller\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: goldilocks-controller\n  - filename: clusterrolebinding-goldilocks-dashboard.yaml\n    slug: clusterrolebinding-goldilocks-dashboard\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: goldilocks-dashboard\n  - filename: deployment-default-goldilocks-controller.yaml\n    slug: deployment-default-goldilocks-controller\n    apiVersion: apps/v1\n    kind: Deployment\n    name: goldilocks-controller\n    namespace: default\n  - filename: deployment-default-goldilocks-dashboard.yaml\n    slug: deployment-default-goldilocks-dashboard\n    apiVersion: apps/v1\n    kind: Deployment\n    name: goldilocks-dashboard\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: service-default-goldilocks-dashboard.yaml\n    slug: service-default-goldilocks-dashboard\n    apiVersion: v1\n    kind: Service\n    name: goldilocks-dashboard\n    namespace: default\n  - filename: serviceaccount-default-goldilocks-controller.yaml\n    slug: serviceaccount-default-goldilocks-controller\n    apiVersion: v1\n    kind: ServiceAccount\n    name: goldilocks-controller\n    namespace: default\n  - filename: serviceaccount-default-goldilocks-dashboard.yaml\n    slug: serviceaccount-default-goldilocks-dashboard\n    apiVersion: v1\n    kind: ServiceAccount\n    name: goldilocks-dashboard\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fairwinds-stable-goldilocks-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "fairwinds-stable-goldilocks-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fairwinds-stable-goldilocks-selection",
+            "ResourceNameWithoutScope": "fairwinds-stable-goldilocks-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: fairwinds-stable-goldilocks-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fairwinds-stable-goldilocks\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/fairwinds-stable-goldilocks-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "fairwinds-stable-goldilocks-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/fairwinds-stable-goldilocks-upload",
+            "ResourceNameWithoutScope": "fairwinds-stable-goldilocks-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: fairwinds-stable-goldilocks-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: fairwinds-stable-goldilocks\n  spacePattern: helm-goldilocks-default-confighub-proof\n  spaces:\n  - package: fairwinds-stable-goldilocks\n    slug: helm-goldilocks-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:50:18Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "00f8db5b-60f0-47c7-a2f3-e58872df1531",
+      "UpdatedAt": "2026-06-12T16:50:39.354248Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.522631Z",
+        "CursorID": 22741,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f4325d0f-50da-40cc-8996-135e2dd91b13",
+        "LinkID": "3c2f862f-307a-4d37-8a8e-1c6e795d98c3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "bd6ff656-aec4-478a-810f-45c0a824cc2c",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.522631Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'bd6ff656-aec4-478a-810f-45c0a824cc2c' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3c2f862f-307a-4d37-8a8e-1c6e795d98c3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f4325d0f-50da-40cc-8996-135e2dd91b13",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "bd6ff656-aec4-478a-810f-45c0a824cc2c",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:50:28.969829Z",
+      "CursorID": 27881,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bd6ff656-aec4-478a-810f-45c0a824cc2c",
+      "UpdatedAt": "2026-06-12T16:50:28.997003Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.62608Z",
+        "CursorID": 22743,
+        "DisplayName": "Upgrade serviceaccount-default-goldilocks-controller",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d2919866-c941-4de9-b168-1300f2e26888",
+        "LinkID": "f056af47-f057-4981-bd97-fdcdc6a05c44",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-goldilocks-controller",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "c1f58908-c951-4029-82e8-f4276a79d087",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.62608Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c1f58908-c951-4029-82e8-f4276a79d087' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b74b8fd7fa93bda8acde38a2718fe2a8916a7f7f01ba5e7f251cf36fcc01c356",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f056af47-f057-4981-bd97-fdcdc6a05c44"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-goldilocks-controller",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d2919866-c941-4de9-b168-1300f2e26888",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c1f58908-c951-4029-82e8-f4276a79d087",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1112610075,
+      "CreatedAt": "2026-06-12T16:50:34.207802Z",
+      "CursorID": 27888,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBjb250cm9sbGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZ29sZGlsb2NrcwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ29sZGlsb2NrcwogICAgaGVsbS5zaC9jaGFydDogZ29sZGlsb2Nrcy0xMC4zLjAKICBuYW1lOiBnb2xkaWxvY2tzLWNvbnRyb2xsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "b74b8fd7fa93bda8acde38a2718fe2a8916a7f7f01ba5e7f251cf36fcc01c356",
+      "DisplayName": "serviceaccount-default-goldilocks-controller",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 309 bytes; from serviceaccount-default-goldilocks-controller.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/goldilocks-controller": {}
+          },
+          "AliasesWithoutScopes": {
+            "goldilocks-controller": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/goldilocks-controller",
+            "ResourceNameWithoutScope": "goldilocks-controller",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/component: controller\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: goldilocks\n    helm.sh/chart: goldilocks-10.3.0\n  name: goldilocks-controller\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/goldilocks-controller",
+          "ResourceNameWithoutScope": "goldilocks-controller",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-goldilocks-controller",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c1f58908-c951-4029-82e8-f4276a79d087",
+      "UpdatedAt": "2026-06-12T16:51:17.122848Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.676317Z",
+        "CursorID": 22744,
+        "DisplayName": "Upgrade serviceaccount-default-goldilocks-dashboard",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6f9439c7-fc4c-47da-8b8a-ea2ce7036667",
+        "LinkID": "ee3b7cbe-4522-472a-a425-3aa5318d3b8b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-goldilocks-dashboard",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "06e3fb9f-952a-4165-b996-4a175536d2e5",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.676318Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '06e3fb9f-952a-4165-b996-4a175536d2e5' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "adef7b180d2dd3cc450329d0d598dfbcf3fa5696544684ca388446359ee1d304",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ee3b7cbe-4522-472a-a425-3aa5318d3b8b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-goldilocks-dashboard",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6f9439c7-fc4c-47da-8b8a-ea2ce7036667",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "06e3fb9f-952a-4165-b996-4a175536d2e5",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -634226952,
+      "CreatedAt": "2026-06-12T16:50:36.305045Z",
+      "CursorID": 27891,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vY29tcG9uZW50OiBkYXNoYm9hcmQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBnb2xkaWxvY2tzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBnb2xkaWxvY2tzCiAgICBoZWxtLnNoL2NoYXJ0OiBnb2xkaWxvY2tzLTEwLjMuMAogIG5hbWU6IGdvbGRpbG9ja3MtZGFzaGJvYXJkCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "adef7b180d2dd3cc450329d0d598dfbcf3fa5696544684ca388446359ee1d304",
+      "DisplayName": "serviceaccount-default-goldilocks-dashboard",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 307 bytes; from serviceaccount-default-goldilocks-dashboard.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/goldilocks-dashboard": {}
+          },
+          "AliasesWithoutScopes": {
+            "goldilocks-dashboard": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/goldilocks-dashboard",
+            "ResourceNameWithoutScope": "goldilocks-dashboard",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/component: dashboard\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: goldilocks\n    helm.sh/chart: goldilocks-10.3.0\n  name: goldilocks-dashboard\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/goldilocks-dashboard",
+          "ResourceNameWithoutScope": "goldilocks-dashboard",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "06e3fb9f-952a-4165-b996-4a175536d2e5",
+      "UpdatedAt": "2026-06-12T16:51:18.276396Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:28.33252Z",
+        "CursorID": 22738,
+        "DisplayName": "Upgrade service-default-goldilocks-dashboard",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f9df932c-b05e-4768-b5a8-0c6e474de6c1",
+        "LinkID": "f99c2aa2-8277-4fb3-91a1-bdc1d636012a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-goldilocks-dashboard",
+        "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+        "SpaceSlug": "Goldilocks-default-staging",
+        "ToSpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+        "ToUnitID": "38b85f27-0162-45df-97de-e5851d3c344e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:28.33252Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '38b85f27-0162-45df-97de-e5851d3c344e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:27.937823Z",
+      "CursorID": 4601,
+      "DisplayName": "helm-goldilocks-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Goldilocks",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Goldilocks-default-staging",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "UpdatedAt": "2026-06-12T16:51:27.937823Z",
+      "WhereTrigger": "SpaceID = 'f95ab2ff-abcd-483f-a620-ec82243fdecd'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "687cf3bdfe263951ad0bf14fe4286a2d7dd92a69a16ea1ba87717d9eb833df93",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f99c2aa2-8277-4fb3-91a1-bdc1d636012a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-goldilocks-dashboard",
+      "SpaceID": "c6c4dc62-4fb9-491e-9a41-d7461bfa01dc",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f9df932c-b05e-4768-b5a8-0c6e474de6c1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "38b85f27-0162-45df-97de-e5851d3c344e",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 871993409,
+      "CreatedAt": "2026-06-12T16:50:31.117719Z",
+      "CursorID": 27884,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGRhc2hib2FyZAogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdvbGRpbG9ja3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGdvbGRpbG9ja3MKICAgIGhlbG0uc2gvY2hhcnQ6IGdvbGRpbG9ja3MtMTAuMy4wCiAgbmFtZTogZ29sZGlsb2Nrcy1kYXNoYm9hcmQKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IGh0dHAKICAgIHBvcnQ6IDgwCiAgICBwcm90b2NvbDogVENQCiAgICB0YXJnZXRQb3J0OiBodHRwCiAgc2VsZWN0b3I6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IGRhc2hib2FyZAogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdvbGRpbG9ja3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGdvbGRpbG9ja3MKICB0eXBlOiBDbHVzdGVySVAK",
+      "DataHash": "687cf3bdfe263951ad0bf14fe4286a2d7dd92a69a16ea1ba87717d9eb833df93",
+      "DisplayName": "service-default-goldilocks-dashboard",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Goldilocks",
+        "HelmChart": "fairwinds-stable-goldilocks",
+        "HelmChartVersion": "10.3.0",
+        "Package": "fairwinds-stable-goldilocks",
+        "Proof": "goldilocks-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/goldilocks-dashboard": {}
+          },
+          "AliasesWithoutScopes": {
+            "goldilocks-dashboard": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/goldilocks-dashboard",
+            "ResourceNameWithoutScope": "goldilocks-dashboard",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/component: dashboard\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: goldilocks\n    helm.sh/chart: goldilocks-10.3.0\n  name: goldilocks-dashboard\n  namespace: default\nspec:\n  ports:\n  - name: http\n    port: 80\n    protocol: TCP\n    targetPort: http\n  selector:\n    app.kubernetes.io/component: dashboard\n    app.kubernetes.io/instance: goldilocks\n    app.kubernetes.io/name: goldilocks\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/goldilocks-dashboard",
+          "ResourceNameWithoutScope": "goldilocks-dashboard",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-goldilocks-dashboard",
+      "SpaceID": "f95ab2ff-abcd-483f-a620-ec82243fdecd",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "38b85f27-0162-45df-97de-e5851d3c344e",
+      "UpdatedAt": "2026-06-12T16:51:16.034823Z",
+      "Version": 13
+    }
+  }
+]

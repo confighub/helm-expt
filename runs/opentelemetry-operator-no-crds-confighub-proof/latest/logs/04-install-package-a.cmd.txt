@@ -1,0 +1,1 @@
+cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o .tmp/confighub-proof/opentelemetry-operator-no-crds-archives/opentelemetry-operator-a.tgz

@@ -1,0 +1,6 @@
+No changes.
+
+Images in helm-external-secrets-no-crds-confighub-proof (post-render):
+      Deployment/external-secrets [external-secrets] ghcr.io/external-secrets/external-secrets:v2.5.0
+      Deployment/external-secrets-cert-controller [cert-controller] ghcr.io/external-secrets/external-secrets:v2.5.0
+      Deployment/external-secrets-webhook [webhook] ghcr.io/external-secrets/external-secrets:v2.5.0

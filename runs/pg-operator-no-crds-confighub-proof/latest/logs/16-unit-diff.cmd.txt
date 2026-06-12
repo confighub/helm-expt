@@ -1,0 +1,1 @@
+cub unit diff deployment-default-pg-operator --space helm-pg-operator-no-crds-confighub-proof --from 1 --to HeadRevisionNum -u

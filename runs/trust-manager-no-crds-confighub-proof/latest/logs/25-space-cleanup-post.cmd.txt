@@ -1,0 +1,1 @@
+cub space delete --space "helm-trust-manager-no-crds-confighub-proof,TrustManager-no-crds-staging" --recursive-force

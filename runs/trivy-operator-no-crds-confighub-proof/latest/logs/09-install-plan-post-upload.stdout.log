@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-trivy-operator-no-crds-confighub-proof (post-render):
+      Deployment/trivy-operator [trivy-operator] mirror.gcr.io/aquasec/trivy-operator:0.30.1

@@ -1,0 +1,1 @@
+cub installer package packages/istio/istiod/1.30.0 -o .tmp/confighub-proof/istiod-default-archives/istiod-a.tgz

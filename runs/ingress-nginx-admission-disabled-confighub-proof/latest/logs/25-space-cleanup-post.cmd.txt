@@ -1,0 +1,1 @@
+cub space delete --space "helm-ingress-nginx-admission-disabled-confighub-proof,IngressNGINX-admission-disabled-staging" --recursive-force

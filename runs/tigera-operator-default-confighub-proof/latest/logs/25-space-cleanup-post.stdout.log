@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-tigera-operator-default-confighub-proof', 'TigeraOperator-default-staging')

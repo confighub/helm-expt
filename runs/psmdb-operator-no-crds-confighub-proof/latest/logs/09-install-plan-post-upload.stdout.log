@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-psmdb-operator-no-crds-confighub-proof (post-render):
+      Deployment/psmdb-operator [psmdb-operator] percona/percona-server-mongodb-operator:1.22.0

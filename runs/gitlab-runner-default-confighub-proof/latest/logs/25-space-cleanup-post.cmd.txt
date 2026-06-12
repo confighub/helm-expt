@@ -1,0 +1,1 @@
+cub space delete --space "helm-gitlab-runner-default-confighub-proof,GitlabRunner-default-staging" --recursive-force

@@ -1,0 +1,1 @@
+cub function vet vet-placeholders --space helm-coredns-confighub-proof --where "Labels.Proof = 'coredns-confighub-proof'" --quiet --wait --timeout 10m

@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "goldilocks-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-goldilocks-default-confighub-proof"
+    selector: "Labels.Proof = 'goldilocks-default-confighub-proof'"
+  subject:
+    chart: "fairwinds-stable/goldilocks"
+    chartVersion: "10.3.0"
+    packagePath: "packages/fairwinds-stable/goldilocks/10.3.0"
+    variant: "default"
+  changeset:
+    slug: "goldilocks-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "goldilocks safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "goldilocks-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-goldilocks-dashboard --space helm-goldilocks-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-goldilocks-dashboard"
+    output: "Unit deployment-default-goldilocks-dashboard (8b82f141-1e05-425b-affe-91abd235f960) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-goldilocks-default-confighub-proof --where \"Labels.Proof = 'goldilocks-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req siyrfhhejaZxmlBsIwNQfvgSoSnxcHal: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-goldilocks-default-confighub-proof --where \"Labels.Proof = 'goldilocks-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

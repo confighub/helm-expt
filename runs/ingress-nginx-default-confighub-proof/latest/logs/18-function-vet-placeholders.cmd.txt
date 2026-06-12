@@ -1,0 +1,1 @@
+cub function vet vet-placeholders --space helm-ingress-nginx-default-confighub-proof --where "Labels.Proof = 'ingress-nginx-default-confighub-proof'" --quiet --wait --timeout 10m

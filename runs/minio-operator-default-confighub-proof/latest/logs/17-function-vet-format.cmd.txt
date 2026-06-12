@@ -1,0 +1,1 @@
+cub function vet vet-format --space helm-minio-operator-default-confighub-proof --where "Labels.Proof = 'minio-operator-default-confighub-proof'" --quiet --wait --timeout 10m

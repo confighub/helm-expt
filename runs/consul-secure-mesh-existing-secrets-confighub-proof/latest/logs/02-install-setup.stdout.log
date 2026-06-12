@@ -1,0 +1,7 @@
+Wizard wrote /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/consul-secure-mesh-existing-secrets/out/spec/selection.yaml and inputs.yaml
+Collector produced 2 fact(s) in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/consul-secure-mesh-existing-secrets/out/spec/facts.yaml
+Base: secure-mesh-existing-secrets; components: []
+Namespace: consul
+Rendered 97 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/consul-secure-mesh-existing-secrets/out/manifests
+Rendered 1 secret(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/consul-secure-mesh-existing-secrets/out/secrets (not uploaded)
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/consul-secure-mesh-existing-secrets --space <slug>

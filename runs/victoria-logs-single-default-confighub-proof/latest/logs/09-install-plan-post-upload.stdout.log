@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-victoria-logs-single-default-confighub-proof (post-render):
+      StatefulSet/victoria-logs-single-server [vlogs] victoriametrics/victoria-logs:v1.50.0

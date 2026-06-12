@@ -1,0 +1,1322 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d04f45a888a2171d3c16042e36ec9ccc423a201c21c1ea3e4767c692ec689e3d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clustercompliancereport-k8s-pss-restricted-0-1",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1728fbbc-5042-4154-a384-28a2170abd15",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "53240abb-bab5-4820-a0e5-568bb9760102",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "582d0290109d647846b2ab6e482547b5ea265c72ba3f2b670e589ad5ea21ecb3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-trivy-operator-leader-election",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "67876a18-c028-48fa-ad78-4812f2698a92",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "eb5de08eee433a80e790c45c29e8bc21ceaa80183b8e2a4462d7d36a5c149bee",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clustercompliancereport-k8s-nsa-1-0",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6c85900d-a385-47bc-b4eb-366bc5b3f3be",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2c1f99c230da9e8231a26aa6cee82df774d2aea49bf785b926af2f88030b5f8c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clustercompliancereport-k8s-pss-baseline-0-1",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "90a03d27-be4c-40d9-bb6a-a62ad9b9839e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1255189b51ab772cd39a3bf3c7c025da67f2208bd26a9da765e5d6d97eba061a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-aggregate-config-audit-reports-view",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ecbb03ee-99b6-4746-abec-7608d0dbc0e8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ba5d59a64489dda1e2f26abad7243b8a65019414edaf3e1b8e9e39ff5cf3648c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-aggregate-exposed-secret-reports-view",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "dcbc963d-a28e-4d56-a5ad-0ec5045ef5d4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "12b010cfb07cabc65600e30876a9f0898805797d86169b1b69364caa24fedcd4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-aggregate-vulnerability-reports-view",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8e4c276e-0fb0-40c1-9c27-a5da409fdbd3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3b13a353a545780cd8d0b68f01b4814bc24595dc9681b547ee156bd924eca634",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-trivy-operator",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5cb703c1-6775-4a4a-bcfc-2286e4e09fc9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 16
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ed7b758ef94c9f09dda28e0a1ac34a9defd2d245845ec6fc2a5cdaf100847724",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-trivy-operator",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9ae6bb43-0ffb-4081-a650-71ee28e9b8f7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d4c440e1dd4d5226edfa7ab133329a40baf8e41ed9dfb9dce5b55a670b3880d4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-trivy-operator",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "077539f1-7246-49ff-ab7b-d4eeb13258da",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0ee542c6e3c485362f4a598762cc9ccf33f78888d268ef64c102d4bbf0a52b13",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-trivy-operator",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a2c3df4a-1b1f-42ea-b2e6-e3906be8c1c9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "60d4c5d753f79e94c2ba7e0a8d4e597988b5882a31f8df5946f300f61583983f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-trivy-operator",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "999ff88e-5b99-4e2c-b849-5b8d7cc659d8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "84ea5faa6eaa0005b93009a71b4c784dcbd2f11b6abe1395c8289813dc1d7bda",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-trivy-operator",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5ac6e756-1ca5-4644-aa38-7d98cc7c7feb",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "791523fb9cf05caf7acb98a1cb5bdabc26bb6e83e9e7f0edca45749b21d209b0",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-trivy-operator-config",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f5ead86a-c1d9-4309-a200-b9ac94ce8cfc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "99765728a658c4df2e2202bada870f45aa6858103188419c85ff4137bf0eee50",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-trivy-operator-trivy-config",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7cc8d3d1-e41a-4f99-9092-04deb0e04da1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a85a0b95c8750d749da6fb41307ded9229344b8cd4c91b16d02f1199a0a3bf5a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-trivy-operator",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "efad5e02-0228-484a-90df-466bc7b480ad",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "47a0493fe39dbe9b98e462a652bc6f97551db7711c849bf33829e361efb51d0d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-trivy-operator-leader-election",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d2f42307-a8f1-4ba4-b754-80aabec6ecd8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f32a7fae3d6abb649ebf56e4c2f51bb3446aa19786a3912446595f94aa8115c5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-trivy-operator",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8fdacff6-2546-4e7e-9834-7e19e0cda48d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:08.427482Z",
+      "CursorID": 4565,
+      "DisplayName": "helm-trivy-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "TrivyOperator",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-trivy-operator-no-crds-confighub-proof",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "UpdatedAt": "2026-06-12T16:41:09.051255Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '9858c326-c0fd-4bc9-9e0b-5863a8125ca1'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a86e3832261c289257b5ca6c7425553c9562035983bb6925a4905daa338289be",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "TrivyOperator",
+        "HelmChart": "aqua-trivy-operator",
+        "HelmChartVersion": "0.32.1",
+        "Package": "aqua-trivy-operator",
+        "Proof": "trivy-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clustercompliancereport-k8s-cis-1-23",
+      "SpaceID": "9858c326-c0fd-4bc9-9e0b-5863a8125ca1",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c059e1cd-42fa-4227-b4bd-a1a8a70a8f46",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

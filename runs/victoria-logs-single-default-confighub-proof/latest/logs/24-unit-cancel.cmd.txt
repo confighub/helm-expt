@@ -1,0 +1,1 @@
+cub unit cancel --space helm-victoria-logs-single-default-confighub-proof --where "Labels.Proof = 'victoria-logs-single-default-confighub-proof'"

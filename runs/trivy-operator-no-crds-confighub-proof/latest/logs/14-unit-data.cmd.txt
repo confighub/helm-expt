@@ -1,0 +1,1 @@
+cub unit data deployment-default-trivy-operator --space helm-trivy-operator-no-crds-confighub-proof

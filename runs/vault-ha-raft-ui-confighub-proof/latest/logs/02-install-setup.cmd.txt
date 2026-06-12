@@ -1,0 +1,1 @@
+cub installer setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir .tmp/confighub-proof/vault-ha-raft-ui --non-interactive --namespace vault

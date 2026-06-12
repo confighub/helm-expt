@@ -1,0 +1,1 @@
+cub unit list --space helm-nfs-provisioner-default-confighub-proof --where "Labels.Proof = 'nfs-provisioner-default-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

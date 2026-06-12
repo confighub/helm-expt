@@ -1,0 +1,1 @@
+cub installer package packages/external-secrets/external-secrets/2.5.0 -o .tmp/confighub-proof/external-secrets-no-crds-archives/external-secrets-a.tgz

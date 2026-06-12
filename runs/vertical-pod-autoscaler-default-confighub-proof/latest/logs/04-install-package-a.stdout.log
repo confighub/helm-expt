@@ -1,0 +1,5 @@
+Bundled autoscaler-vertical-pod-autoscaler@
+  output: .tmp/confighub-proof/vertical-pod-autoscaler-default-archives/vertical-pod-autoscaler-a.tgz
+  files:  7
+  size:   11128 bytes
+  digest: sha256:d6f9c9b6c8ac5ec53e4dda67c74949a452cafe6b64352828cd2570f4c96500f7

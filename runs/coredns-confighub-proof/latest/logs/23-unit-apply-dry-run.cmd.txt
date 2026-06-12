@@ -1,0 +1,1 @@
+cub unit apply --space helm-coredns-confighub-proof --where "Labels.Proof = 'coredns-confighub-proof'" --dry-run --wait --timeout 2m

@@ -1,0 +1,1 @@
+cub unit apply --space helm-falcosidekick-default-confighub-proof --where "Labels.Proof = 'falcosidekick-default-confighub-proof'" --dry-run --wait --timeout 2m

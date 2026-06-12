@@ -11,7 +11,7 @@ target-scoped support decision for the chart/base/target you intend to use.
 ## Summary
 
 ~~~text
-start-here bases: 29
+start-here bases: 31
 top-20 base variants: 42
 target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
@@ -46,7 +46,9 @@ target-scoped draft decisions: 0
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | `cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager` | check production decision for jetstack/cert-manager |
 | `jetstack/cert-manager@v1.20.2` | default | `cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager` | check production decision for jetstack/cert-manager |
 | `longhorn/longhorn@1.11.2` | default | `cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system` | check production decision for longhorn/longhorn |
+| `longhorn/longhorn@1.11.2` | ui-ingress | `cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system` | check production decision for longhorn/longhorn |
 | `metrics-server/metrics-server@3.13.0` | default | `cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system` | check production decision for metrics-server/metrics-server |
+| `metrics-server/metrics-server@3.13.0` | external-tls-ca | `cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system` | check production decision for metrics-server/metrics-server |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | `cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring` | check production decision for prometheus-community/kube-prometheus-stack |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | `cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring` | check production decision for prometheus-community/kube-prometheus-stack |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | `cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring` | check production decision for prometheus-community/prometheus |

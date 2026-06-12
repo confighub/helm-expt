@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "autoscaler-cluster-autoscaler"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "autoscaler/cluster-autoscaler default variant rendered from autoscaler/cluster-autoscaler@9.57.0"
+      },
+      {
+        "name": "controller-default-reviewed",
+        "path": "bases/controller-default-reviewed",
+        "description": "autoscaler/cluster-autoscaler controller-default-reviewed useful base; aliases the default render with a named user start path"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+cub unit apply --space helm-pg-operator-no-crds-confighub-proof --where "Labels.Proof = 'pg-operator-no-crds-confighub-proof'" --dry-run --wait --timeout 2m

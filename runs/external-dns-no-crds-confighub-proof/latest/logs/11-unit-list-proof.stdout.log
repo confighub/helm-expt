@@ -1,0 +1,398 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:49.390885Z",
+      "CursorID": 4609,
+      "DisplayName": "helm-external-dns-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-no-crds-confighub-proof",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "UpdatedAt": "2026-06-12T16:52:49.891111Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c4e3b7a2-c6b0-40a3-991d-17431936d77a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ce813bc1750877632687d8948e3c2826ff3d911b5cca42a2c19b8029f744c484",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-external-dns-viewer",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cfc30e64-3ad0-4922-803b-79e14dd00232",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:49.390885Z",
+      "CursorID": 4609,
+      "DisplayName": "helm-external-dns-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-no-crds-confighub-proof",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "UpdatedAt": "2026-06-12T16:52:49.891111Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c4e3b7a2-c6b0-40a3-991d-17431936d77a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "26ed0868b51dd36ad6733cddf6d4c1c0645e40ec459314a59213be3176256ee4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-external-dns",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2289c6aa-ef42-4dfd-8777-19a6f33a6375",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:49.390885Z",
+      "CursorID": 4609,
+      "DisplayName": "helm-external-dns-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-no-crds-confighub-proof",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "UpdatedAt": "2026-06-12T16:52:49.891111Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c4e3b7a2-c6b0-40a3-991d-17431936d77a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "73d495c5c93657a6809b91470b47a4dbc45ad0ca38babe3b5feb92ce28c6bb0e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-external-dns",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ed872e68-140e-479c-9d25-88e6d67f6e61",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:49.390885Z",
+      "CursorID": 4609,
+      "DisplayName": "helm-external-dns-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-no-crds-confighub-proof",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "UpdatedAt": "2026-06-12T16:52:49.891111Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c4e3b7a2-c6b0-40a3-991d-17431936d77a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b86dffeec9f1e74217436d2886a82aa46317c1b395359a099d1322e359813d12",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-external-dns",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "46d217bf-7c72-41b4-b6bb-d0988341061a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:49.390885Z",
+      "CursorID": 4609,
+      "DisplayName": "helm-external-dns-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-no-crds-confighub-proof",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "UpdatedAt": "2026-06-12T16:52:49.891111Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c4e3b7a2-c6b0-40a3-991d-17431936d77a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e2d89adfabd02eb2d10a2d4ca8f51fe7e39f859efc82a7733238a047e80c02b9",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-external-dns",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "16ba7a47-f347-482f-a10b-74859b6c7e4f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:52:49.390885Z",
+      "CursorID": 4609,
+      "DisplayName": "helm-external-dns-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalDNS",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-dns-no-crds-confighub-proof",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "UpdatedAt": "2026-06-12T16:52:49.891111Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'c4e3b7a2-c6b0-40a3-991d-17431936d77a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "76f8d52c5deaf1fb9584673899429140445fa2c927a66cad8925e4fc7ca6c32c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalDNS",
+        "HelmChart": "external-dns-external-dns",
+        "HelmChartVersion": "1.21.1",
+        "Package": "external-dns-external-dns",
+        "Proof": "external-dns-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-external-dns",
+      "SpaceID": "c4e3b7a2-c6b0-40a3-991d-17431936d77a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5136ba3c-c778-4573-ab11-b573db5d01bc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

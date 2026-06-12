@@ -1,0 +1,1343 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:56.788241Z",
+        "CursorID": 24603,
+        "DisplayName": "Upgrade clusterrolebinding-traefik-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3ffbfdad-8ba1-45d8-b35f-4cdbd2248af6",
+        "LinkID": "8302cd63-c423-4c05-8e53-eb2ee5d44673",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-traefik-default",
+        "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+        "SpaceSlug": "Traefik-no-crds-staging",
+        "ToSpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+        "ToUnitID": "d2d8586a-c2d6-40ca-96c2-5c2bd435a661",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:56.788242Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd2d8586a-c2d6-40ca-96c2-5c2bd435a661' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:56.516478Z",
+      "CursorID": 4686,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Traefik-no-crds-staging",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "UpdatedAt": "2026-06-12T17:15:56.516478Z",
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0824a4f1ff86e78d3f361bc351e47b5988a5607f4030f9195370a8f90ae3c4ba",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "8302cd63-c423-4c05-8e53-eb2ee5d44673"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-traefik-default",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3ffbfdad-8ba1-45d8-b35f-4cdbd2248af6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d2d8586a-c2d6-40ca-96c2-5c2bd435a661",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1417225282,
+      "CreatedAt": "2026-06-12T17:15:29.837408Z",
+      "CursorID": 29207,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHRyYWVmaWstZGVmYXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJhZWZpawogICAgaGVsbS5zaC9jaGFydDogdHJhZWZpay00MC4yLjAKICBuYW1lOiB0cmFlZmlrLWRlZmF1bHQKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogdHJhZWZpay1kZWZhdWx0CnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogdHJhZWZpawogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "0824a4f1ff86e78d3f361bc351e47b5988a5607f4030f9195370a8f90ae3c4ba",
+      "DisplayName": "clusterrolebinding-traefik-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/traefik-default": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik-default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/traefik-default",
+            "ResourceNameWithoutScope": "traefik-default",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: traefik-default\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: traefik\n    helm.sh/chart: traefik-40.2.0\n  name: traefik-default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: traefik-default\nsubjects:\n- kind: ServiceAccount\n  name: traefik\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-traefik-default",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d2d8586a-c2d6-40ca-96c2-5c2bd435a661",
+      "UpdatedAt": "2026-06-12T17:15:44.492408Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:57.030645Z",
+        "CursorID": 24609,
+        "DisplayName": "Upgrade clusterrole-traefik-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "baf32c44-7635-421d-a414-0c48529e37b3",
+        "LinkID": "819250b6-2f31-4abd-b0e6-fa1e783a8b40",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-traefik-default",
+        "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+        "SpaceSlug": "Traefik-no-crds-staging",
+        "ToSpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+        "ToUnitID": "afd2c5c6-7c41-4610-b1d7-dfb5a2813add",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:57.030645Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'afd2c5c6-7c41-4610-b1d7-dfb5a2813add' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:56.516478Z",
+      "CursorID": 4686,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Traefik-no-crds-staging",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "UpdatedAt": "2026-06-12T17:15:56.516478Z",
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "30f1a08c41f5f1d2e838b504cb7a827934394561d63740f35fefcb802d4cd4cd",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "819250b6-2f31-4abd-b0e6-fa1e783a8b40"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-traefik-default",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "baf32c44-7635-421d-a414-0c48529e37b3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "afd2c5c6-7c41-4610-b1d7-dfb5a2813add",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 425241421,
+      "CreatedAt": "2026-06-12T17:15:28.876341Z",
+      "CursorID": 29206,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdHJhZWZpay1kZWZhdWx0CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB0cmFlZmlrCiAgICBoZWxtLnNoL2NoYXJ0OiB0cmFlZmlrLTQwLjIuMAogIG5hbWU6IHRyYWVmaWstZGVmYXVsdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIGNvbmZpZ21hcHMKICAtIG5vZGVzCiAgLSBzZXJ2aWNlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGRpc2NvdmVyeS5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBlbmRwb2ludHNsaWNlcwogIHZlcmJzOgogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHBvZHMKICB2ZXJiczoKICAtIGdldAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gc2VjcmV0cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGV4dGVuc2lvbnMKICAtIG5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gaW5ncmVzc2NsYXNzZXMKICAtIGluZ3Jlc3NlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGV4dGVuc2lvbnMKICAtIG5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gaW5ncmVzc2VzL3N0YXR1cwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBuYW1lc3BhY2VzCiAgdmVyYnM6CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHRyYWVmaWsuaW8KICByZXNvdXJjZXM6CiAgLSBpbmdyZXNzcm91dGVzCiAgLSBpbmdyZXNzcm91dGV0Y3BzCiAgLSBpbmdyZXNzcm91dGV1ZHBzCiAgLSBtaWRkbGV3YXJlcwogIC0gbWlkZGxld2FyZXRjcHMKICAtIHNlcnZlcnN0cmFuc3BvcnRzCiAgLSBzZXJ2ZXJzdHJhbnNwb3J0dGNwcwogIC0gdGxzb3B0aW9ucwogIC0gdGxzc3RvcmVzCiAgLSB0cmFlZmlrc2VydmljZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gK",
+      "DataHash": "30f1a08c41f5f1d2e838b504cb7a827934394561d63740f35fefcb802d4cd4cd",
+      "DisplayName": "clusterrole-traefik-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/traefik-default": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik-default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/traefik-default",
+            "ResourceNameWithoutScope": "traefik-default",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: traefik-default\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: traefik\n    helm.sh/chart: traefik-40.2.0\n  name: traefik-default\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - nodes\n  - services\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - discovery.k8s.io\n  resources:\n  - endpointslices\n  verbs:\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - extensions\n  - networking.k8s.io\n  resources:\n  - ingressclasses\n  - ingresses\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - extensions\n  - networking.k8s.io\n  resources:\n  - ingresses/status\n  verbs:\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  verbs:\n  - list\n  - watch\n- apiGroups:\n  - traefik.io\n  resources:\n  - ingressroutes\n  - ingressroutetcps\n  - ingressrouteudps\n  - middlewares\n  - middlewaretcps\n  - serverstransports\n  - serverstransporttcps\n  - tlsoptions\n  - tlsstores\n  - traefikservices\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/traefik-default",
+          "ResourceNameWithoutScope": "traefik-default",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-traefik-default",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "afd2c5c6-7c41-4610-b1d7-dfb5a2813add",
+      "UpdatedAt": "2026-06-12T17:15:35.28265Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:56.836164Z",
+        "CursorID": 24604,
+        "DisplayName": "Upgrade deployment-default-traefik",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "95f2644e-9bb2-4348-8fe6-4263ff3ac5c8",
+        "LinkID": "b5837446-5f04-49c5-a8da-6c089f15f920",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-traefik",
+        "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+        "SpaceSlug": "Traefik-no-crds-staging",
+        "ToSpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+        "ToUnitID": "63a40855-ca48-45a6-a5e1-ed051c024965",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:56.836164Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '63a40855-ca48-45a6-a5e1-ed051c024965' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:56.516478Z",
+      "CursorID": 4686,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Traefik-no-crds-staging",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "UpdatedAt": "2026-06-12T17:15:56.516478Z",
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8275e662425efe2e77eab60594d71d0bc75ad5e40718c14e211b48799a25afbb",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b5837446-5f04-49c5-a8da-6c089f15f920"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-traefik",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "95f2644e-9bb2-4348-8fe6-4263ff3ac5c8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "63a40855-ca48-45a6-a5e1-ed051c024965",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1052190348,
+      "CreatedAt": "2026-06-12T17:15:30.583054Z",
+      "CursorID": 29208,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB0cmFlZmlrLWRlZmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHRyYWVmaWsKICAgIGhlbG0uc2gvY2hhcnQ6IHRyYWVmaWstNDAuMi4wCiAgbmFtZTogdHJhZWZpawogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIG1pblJlYWR5U2Vjb25kczogMAogIHJlcGxpY2FzOiAxCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHRyYWVmaWstZGVmYXVsdAogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB0cmFlZmlrCiAgc3RyYXRlZ3k6CiAgICByb2xsaW5nVXBkYXRlOgogICAgICBtYXhTdXJnZTogMQogICAgICBtYXhVbmF2YWlsYWJsZTogMAogICAgdHlwZTogUm9sbGluZ1VwZGF0ZQogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGFubm90YXRpb25zOgogICAgICAgIHByb21ldGhldXMuaW8vcGF0aDogL21ldHJpY3MKICAgICAgICBwcm9tZXRoZXVzLmlvL3BvcnQ6ICI5MTAwIgogICAgICAgIHByb21ldGhldXMuaW8vc2NyYXBlOiAidHJ1ZSIKICAgICAgbGFiZWxzOgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB0cmFlZmlrLWRlZmF1bHQKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJhZWZpawogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHRyYWVmaWstNDAuMi4wCiAgICBzcGVjOgogICAgICBhdXRvbW91bnRTZXJ2aWNlQWNjb3VudFRva2VuOiB0cnVlCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIC0tZW50cnlQb2ludHMubWV0cmljcy5hZGRyZXNzPTo5MTAwL3RjcAogICAgICAgIC0gLS1lbnRyeVBvaW50cy50cmFlZmlrLmFkZHJlc3M9OjgwODAvdGNwCiAgICAgICAgLSAtLWVudHJ5UG9pbnRzLndlYi5hZGRyZXNzPTo4MDAwL3RjcAogICAgICAgIC0gLS1lbnRyeVBvaW50cy53ZWJzZWN1cmUuYWRkcmVzcz06ODQ0My90Y3AKICAgICAgICAtIC0tYXBpLmRhc2hib2FyZD10cnVlCiAgICAgICAgLSAtLXBpbmc9dHJ1ZQogICAgICAgIC0gLS1tZXRyaWNzLnByb21ldGhldXM9dHJ1ZQogICAgICAgIC0gLS1tZXRyaWNzLnByb21ldGhldXMuZW50cnlwb2ludD1tZXRyaWNzCiAgICAgICAgLSAtLXByb3ZpZGVycy5rdWJlcm5ldGVzY3JkCiAgICAgICAgLSAtLXByb3ZpZGVycy5rdWJlcm5ldGVzY3JkLmFsbG93RW1wdHlTZXJ2aWNlcz10cnVlCiAgICAgICAgLSAtLXByb3ZpZGVycy5rdWJlcm5ldGVzaW5ncmVzcwogICAgICAgIC0gLS1wcm92aWRlcnMua3ViZXJuZXRlc2luZ3Jlc3MuYWxsb3dFbXB0eVNlcnZpY2VzPXRydWUKICAgICAgICAtIC0tcHJvdmlkZXJzLmt1YmVybmV0ZXNpbmdyZXNzLmluZ3Jlc3NlbmRwb2ludC5wdWJsaXNoZWRzZXJ2aWNlPWRlZmF1bHQvdHJhZWZpawogICAgICAgIC0gLS1lbnRyeVBvaW50cy53ZWJzZWN1cmUuaHR0cC50bHM9dHJ1ZQogICAgICAgIC0gLS1sb2cubGV2ZWw9SU5GTwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IFBPRF9OQU1FCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZQogICAgICAgIC0gbmFtZTogUE9EX05BTUVTUEFDRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWVzcGFjZQogICAgICAgIC0gbmFtZTogVVNFUgogICAgICAgICAgdmFsdWU6IHRyYWVmaWsKICAgICAgICBpbWFnZTogZG9ja2VyLmlvL3RyYWVmaWs6djMuNy4xCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6IG51bGwKICAgICAgICBsaXZlbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMwogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL3BpbmcKICAgICAgICAgICAgcG9ydDogODA4MAogICAgICAgICAgICBzY2hlbWU6IEhUVFAKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDIKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDEwCiAgICAgICAgICBzdWNjZXNzVGhyZXNob2xkOiAxCiAgICAgICAgICB0aW1lb3V0U2Vjb25kczogMgogICAgICAgIG5hbWU6IHRyYWVmaWsKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDkxMDAKICAgICAgICAgIG5hbWU6IG1ldHJpY3MKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgwODAKICAgICAgICAgIG5hbWU6IHRyYWVmaWsKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgwMDAKICAgICAgICAgIG5hbWU6IHdlYgogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIC0gY29udGFpbmVyUG9ydDogODQ0MwogICAgICAgICAgbmFtZTogd2Vic2VjdXJlCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAxCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvcGluZwogICAgICAgICAgICBwb3J0OiA4MDgwCiAgICAgICAgICAgIHNjaGVtZTogSFRUUAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMgogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTAKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAyCiAgICAgICAgcmVzb3VyY2VzOiBudWxsCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAtIEFMTAogICAgICAgICAgcmVhZE9ubHlSb290RmlsZXN5c3RlbTogdHJ1ZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3RtcAogICAgICAgICAgbmFtZTogdG1wCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgcnVuQXNHcm91cDogNjU1MzIKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDY1NTMyCiAgICAgICAgc2VjY29tcFByb2ZpbGU6CiAgICAgICAgICB0eXBlOiBSdW50aW1lRGVmYXVsdAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHRyYWVmaWsKICAgICAgdGVybWluYXRpb25HcmFjZVBlcmlvZFNlY29uZHM6IDYwCiAgICAgIHZvbHVtZXM6CiAgICAgIC0gZW1wdHlEaXI6IHt9CiAgICAgICAgbmFtZTogZGF0YQogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IHRtcAo=",
+      "DataHash": "8275e662425efe2e77eab60594d71d0bc75ad5e40718c14e211b48799a25afbb",
+      "DisplayName": "deployment-default-traefik",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/traefik": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/traefik",
+            "ResourceNameWithoutScope": "traefik",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: traefik-default\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: traefik\n    helm.sh/chart: traefik-40.2.0\n  name: traefik\n  namespace: default\nspec:\n  minReadySeconds: 0\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: traefik-default\n      app.kubernetes.io/name: traefik\n  strategy:\n    rollingUpdate:\n      maxSurge: 1\n      maxUnavailable: 0\n    type: RollingUpdate\n  template:\n    metadata:\n      annotations:\n        prometheus.io/path: /metrics\n        prometheus.io/port: \"9100\"\n        prometheus.io/scrape: \"true\"\n      labels:\n        app.kubernetes.io/instance: traefik-default\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: traefik\n        helm.sh/chart: traefik-40.2.0\n    spec:\n      automountServiceAccountToken: true\n      containers:\n      - args:\n        - --entryPoints.metrics.address=:9100/tcp\n        - --entryPoints.traefik.address=:8080/tcp\n        - --entryPoints.web.address=:8000/tcp\n        - --entryPoints.websecure.address=:8443/tcp\n        - --api.dashboard=true\n        - --ping=true\n        - --metrics.prometheus=true\n        - --metrics.prometheus.entrypoint=metrics\n        - --providers.kubernetescrd\n        - --providers.kubernetescrd.allowEmptyServices=true\n        - --providers.kubernetesingress\n        - --providers.kubernetesingress.allowEmptyServices=true\n        - --providers.kubernetesingress.ingressendpoint.publishedservice=default/traefik\n        - --entryPoints.websecure.http.tls=true\n        - --log.level=INFO\n        env:\n        - name: POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: POD_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: USER\n          value: traefik\n        image: docker.io/traefik:v3.7.1\n        imagePullPolicy: IfNotPresent\n        lifecycle: null\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /ping\n            port: 8080\n            scheme: HTTP\n          initialDelaySeconds: 2\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 2\n        name: traefik\n        ports:\n        - containerPort: 9100\n          name: metrics\n          protocol: TCP\n        - containerPort: 8080\n          name: traefik\n          protocol: TCP\n        - containerPort: 8000\n          name: web\n          protocol: TCP\n        - containerPort: 8443\n          name: websecure\n          protocol: TCP\n        readinessProbe:\n          failureThreshold: 1\n          httpGet:\n            path: /ping\n            port: 8080\n            scheme: HTTP\n          initialDelaySeconds: 2\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 2\n        resources: null\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n        volumeMounts:\n        - mountPath: /data\n          name: data\n        - mountPath: /tmp\n          name: tmp\n      hostNetwork: false\n      securityContext:\n        runAsGroup: 65532\n        runAsNonRoot: true\n        runAsUser: 65532\n        seccompProfile:\n          type: RuntimeDefault\n      serviceAccountName: traefik\n      terminationGracePeriodSeconds: 60\n      volumes:\n      - emptyDir: {}\n        name: data\n      - emptyDir: {}\n        name: tmp\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/traefik",
+          "ResourceNameWithoutScope": "traefik",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-traefik",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "63a40855-ca48-45a6-a5e1-ed051c024965",
+      "UpdatedAt": "2026-06-12T17:15:46.512263Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:56.858462Z",
+        "CursorID": 24605,
+        "DisplayName": "Upgrade ingressclass-traefik",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "51c0ef40-bba2-4090-b36c-a4cc3d1e0195",
+        "LinkID": "055f72a3-0da1-4906-89a5-12d3e3026d91",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-ingressclass-traefik",
+        "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+        "SpaceSlug": "Traefik-no-crds-staging",
+        "ToSpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+        "ToUnitID": "ffb70ff2-cd9f-4ae7-90f5-d94c7fa1ba31",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:56.858462Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ffb70ff2-cd9f-4ae7-90f5-d94c7fa1ba31' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:56.516478Z",
+      "CursorID": 4686,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Traefik-no-crds-staging",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "UpdatedAt": "2026-06-12T17:15:56.516478Z",
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3a899a8d89c2f9d45baf67e9544debe838087ac34f6a1a613cbb9de365be564f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "055f72a3-0da1-4906-89a5-12d3e3026d91"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "ingressclass-traefik",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "51c0ef40-bba2-4090-b36c-a4cc3d1e0195",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ffb70ff2-cd9f-4ae7-90f5-d94c7fa1ba31",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -742971619,
+      "CreatedAt": "2026-06-12T17:15:31.287018Z",
+      "CursorID": 29209,
+      "Data": "YXBpVmVyc2lvbjogbmV0d29ya2luZy5rOHMuaW8vdjEKa2luZDogSW5ncmVzc0NsYXNzCm1ldGFkYXRhOgogIGFubm90YXRpb25zOgogICAgaW5ncmVzc2NsYXNzLmt1YmVybmV0ZXMuaW8vaXMtZGVmYXVsdC1jbGFzczogInRydWUiCiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHRyYWVmaWstZGVmYXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJhZWZpawogICAgaGVsbS5zaC9jaGFydDogdHJhZWZpay00MC4yLjAKICBuYW1lOiB0cmFlZmlrCnNwZWM6CiAgY29udHJvbGxlcjogdHJhZWZpay5pby9pbmdyZXNzLWNvbnRyb2xsZXIK",
+      "DataHash": "3a899a8d89c2f9d45baf67e9544debe838087ac34f6a1a613cbb9de365be564f",
+      "DisplayName": "ingressclass-traefik",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 366 bytes; from ingressclass-traefik.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/traefik": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/traefik",
+            "ResourceNameWithoutScope": "traefik",
+            "ResourceType": "networking.k8s.io/v1/IngressClass"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: networking.k8s.io/v1\nkind: IngressClass\nmetadata:\n  annotations:\n    ingressclass.kubernetes.io/is-default-class: \"true\"\n  labels:\n    app.kubernetes.io/instance: traefik-default\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: traefik\n    helm.sh/chart: traefik-40.2.0\n  name: traefik\nspec:\n  controller: traefik.io/ingress-controller\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "ingressclass-traefik",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ffb70ff2-cd9f-4ae7-90f5-d94c7fa1ba31",
+      "UpdatedAt": "2026-06-12T17:15:31.313701Z",
+      "Version": 2
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:56.952931Z",
+        "CursorID": 24608,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "636914e8-76c7-445e-9c5f-a7fc775a6bd4",
+        "LinkID": "e7d391f0-a149-4fb5-ad74-98289e100539",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+        "SpaceSlug": "Traefik-no-crds-staging",
+        "ToSpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+        "ToUnitID": "44bbd403-3158-4cf9-a952-96ae7cea76b0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:56.952931Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '44bbd403-3158-4cf9-a952-96ae7cea76b0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:56.516478Z",
+      "CursorID": 4686,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Traefik-no-crds-staging",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "UpdatedAt": "2026-06-12T17:15:56.516478Z",
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1dbc66c273f48cb53c820b8c573ae68c9724a097759298a631cdd4bdfdf21475",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e7d391f0-a149-4fb5-ad74-98289e100539"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "636914e8-76c7-445e-9c5f-a7fc775a6bd4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "44bbd403-3158-4cf9-a952-96ae7cea76b0",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "traefik-traefik",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -536815716,
+      "CreatedAt": "2026-06-12T17:15:34.488744Z",
+      "CursorID": 29213,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogInRyYWVmaWstdHJhZWZpayIKICB2ZXJzaW9uOiAiNDAuMi4wIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogInRyYWVmaWsvdHJhZWZpayBkZWZhdWx0IHZhcmlhbnQgcmVuZGVyZWQgZnJvbSB0cmFlZmlrL3RyYWVmaWtANDAuMi4wIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJuby1jcmRzIgogICAgcGF0aDogImJhc2VzL25vLWNyZHMiCiAgICBkZXNjcmlwdGlvbjogInRyYWVmaWsvdHJhZWZpayBuby1jcmRzIHZhcmlhbnQgcmVuZGVyZWQgZnJvbSB0cmFlZmlrL3RyYWVmaWtANDAuMi4wIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiB0cmFlZmlrLXRyYWVmaWstZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHRyYWVmaWstdHJhZWZpawogIGdyb3VwczogW10KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IElucHV0cwptZXRhZGF0YToKICBuYW1lOiB0cmFlZmlrLXRyYWVmaWstaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiB0cmFlZmlrLXRyYWVmaWsKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IHRyYWVmaWstdHJhZWZpay1tYW5pZmVzdC1pbmRleAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogdHJhZWZpay10cmFlZmlrCiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtdHJhZWZpay1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlLXRyYWVmaWstZGVmYXVsdAogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IHRyYWVmaWstZGVmYXVsdAogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlYmluZGluZy10cmFlZmlrLWRlZmF1bHQueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLXRyYWVmaWstZGVmYXVsdAogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGVCaW5kaW5nCiAgICBuYW1lOiB0cmFlZmlrLWRlZmF1bHQKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQtdHJhZWZpay55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtdHJhZWZpawogICAgYXBpVmVyc2lvbjogYXBwcy92MQogICAga2luZDogRGVwbG95bWVudAogICAgbmFtZTogdHJhZWZpawogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogaW5ncmVzc2NsYXNzLXRyYWVmaWsueWFtbAogICAgc2x1ZzogaW5ncmVzc2NsYXNzLXRyYWVmaWsKICAgIGFwaVZlcnNpb246IG5ldHdvcmtpbmcuazhzLmlvL3YxCiAgICBraW5kOiBJbmdyZXNzQ2xhc3MKICAgIG5hbWU6IHRyYWVmaWsKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2UtZGVmYXVsdC10cmFlZmlrLnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtZGVmYXVsdC10cmFlZmlrCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogdHJhZWZpawogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZWFjY291bnQtZGVmYXVsdC10cmFlZmlrLnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtdHJhZWZpawogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiB0cmFlZmlrCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFNlbGVjdGlvbgptZXRhZGF0YToKICBuYW1lOiB0cmFlZmlrLXRyYWVmaWstc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiB0cmFlZmlrLXRyYWVmaWsKICBiYXNlOiBuby1jcmRzCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogdHJhZWZpay10cmFlZmlrLXVwbG9hZAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogdHJhZWZpay10cmFlZmlrCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLXRyYWVmaWstbm8tY3Jkcy1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiB0cmFlZmlrLXRyYWVmaWsKICAgIHNsdWc6IGhlbG0tdHJhZWZpay1uby1jcmRzLWNvbmZpZ2h1Yi1wcm9vZgogICAgaXNQYXJlbnQ6IHRydWUKICB1cGxvYWRlZEF0OiAiMjAyNi0wNi0xMlQxNzoxNToyN1oiCiAgc2VydmVyOiBodHRwczovL2h1Yi5jb25maWdodWIuY29tCiAgb3JnYW5pemF0aW9uSUQ6IDU4YjIzYjg1LTk2OTktNDM4NC1iZDU3LTgwZWY2OTVhMWQ1OAo=",
+      "DataHash": "1dbc66c273f48cb53c820b8c573ae68c9724a097759298a631cdd4bdfdf21475",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "traefik-traefik"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/traefik-traefik": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik-traefik": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/traefik-traefik",
+            "ResourceNameWithoutScope": "traefik-traefik",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"traefik-traefik\"\n  version: \"40.2.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"traefik/traefik default variant rendered from traefik/traefik@40.2.0\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"no-crds\"\n    path: \"bases/no-crds\"\n    description: \"traefik/traefik no-crds variant rendered from traefik/traefik@40.2.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/traefik-traefik-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik-traefik-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/traefik-traefik-function-chain",
+            "ResourceNameWithoutScope": "traefik-traefik-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: traefik-traefik-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: traefik-traefik\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/traefik-traefik-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik-traefik-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/traefik-traefik-inputs",
+            "ResourceNameWithoutScope": "traefik-traefik-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: traefik-traefik-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: traefik-traefik\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/traefik-traefik-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik-traefik-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/traefik-traefik-manifest-index",
+            "ResourceNameWithoutScope": "traefik-traefik-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: traefik-traefik-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: traefik-traefik\n  files:\n  - filename: clusterrole-traefik-default.yaml\n    slug: clusterrole-traefik-default\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: traefik-default\n  - filename: clusterrolebinding-traefik-default.yaml\n    slug: clusterrolebinding-traefik-default\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: traefik-default\n  - filename: deployment-default-traefik.yaml\n    slug: deployment-default-traefik\n    apiVersion: apps/v1\n    kind: Deployment\n    name: traefik\n    namespace: default\n  - filename: ingressclass-traefik.yaml\n    slug: ingressclass-traefik\n    apiVersion: networking.k8s.io/v1\n    kind: IngressClass\n    name: traefik\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: service-default-traefik.yaml\n    slug: service-default-traefik\n    apiVersion: v1\n    kind: Service\n    name: traefik\n    namespace: default\n  - filename: serviceaccount-default-traefik.yaml\n    slug: serviceaccount-default-traefik\n    apiVersion: v1\n    kind: ServiceAccount\n    name: traefik\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/traefik-traefik-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik-traefik-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/traefik-traefik-selection",
+            "ResourceNameWithoutScope": "traefik-traefik-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: traefik-traefik-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: traefik-traefik\n  base: no-crds\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/traefik-traefik-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik-traefik-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/traefik-traefik-upload",
+            "ResourceNameWithoutScope": "traefik-traefik-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: traefik-traefik-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: traefik-traefik\n  spacePattern: helm-traefik-no-crds-confighub-proof\n  spaces:\n  - package: traefik-traefik\n    slug: helm-traefik-no-crds-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:15:27Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "44bbd403-3158-4cf9-a952-96ae7cea76b0",
+      "UpdatedAt": "2026-06-12T17:15:35.344705Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:56.881574Z",
+        "CursorID": 24606,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2da33ce5-dab3-4ad2-baf1-660f8bf6406b",
+        "LinkID": "65e98ac5-dc4e-4b5b-b9a4-bdf1ee57d478",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+        "SpaceSlug": "Traefik-no-crds-staging",
+        "ToSpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+        "ToUnitID": "c23c2d43-0687-4770-8529-3cf1d7ed742e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:56.881574Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c23c2d43-0687-4770-8529-3cf1d7ed742e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:56.516478Z",
+      "CursorID": 4686,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Traefik-no-crds-staging",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "UpdatedAt": "2026-06-12T17:15:56.516478Z",
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "65e98ac5-dc4e-4b5b-b9a4-bdf1ee57d478"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2da33ce5-dab3-4ad2-baf1-660f8bf6406b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c23c2d43-0687-4770-8529-3cf1d7ed742e",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:15:31.999338Z",
+      "CursorID": 29210,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c23c2d43-0687-4770-8529-3cf1d7ed742e",
+      "UpdatedAt": "2026-06-12T17:15:32.068248Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:57.085652Z",
+        "CursorID": 24610,
+        "DisplayName": "Upgrade serviceaccount-default-traefik",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9d092fbe-9a20-4aa9-885f-514592f0fa94",
+        "LinkID": "3465236a-27be-4942-8108-ab8f0b953408",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-traefik",
+        "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+        "SpaceSlug": "Traefik-no-crds-staging",
+        "ToSpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+        "ToUnitID": "b5221bbb-cb47-43d2-92be-a33d0454fbf3",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:57.085652Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b5221bbb-cb47-43d2-92be-a33d0454fbf3' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:56.516478Z",
+      "CursorID": 4686,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Traefik-no-crds-staging",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "UpdatedAt": "2026-06-12T17:15:56.516478Z",
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1d692e31f2bd616314b8e13138b9b8de58186120bd25e0a6e4fbed3f4efec375",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3465236a-27be-4942-8108-ab8f0b953408"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-traefik",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9d092fbe-9a20-4aa9-885f-514592f0fa94",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b5221bbb-cb47-43d2-92be-a33d0454fbf3",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -975258799,
+      "CreatedAt": "2026-06-12T17:15:33.777424Z",
+      "CursorID": 29212,
+      "Data": "YXBpVmVyc2lvbjogdjEKYXV0b21vdW50U2VydmljZUFjY291bnRUb2tlbjogZmFsc2UKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHRyYWVmaWstZGVmYXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJhZWZpawogICAgaGVsbS5zaC9jaGFydDogdHJhZWZpay00MC4yLjAKICBuYW1lOiB0cmFlZmlrCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "1d692e31f2bd616314b8e13138b9b8de58186120bd25e0a6e4fbed3f4efec375",
+      "DisplayName": "serviceaccount-default-traefik",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 286 bytes; from serviceaccount-default-traefik.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/traefik": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/traefik",
+            "ResourceNameWithoutScope": "traefik",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nautomountServiceAccountToken: false\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: traefik-default\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: traefik\n    helm.sh/chart: traefik-40.2.0\n  name: traefik\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/traefik",
+          "ResourceNameWithoutScope": "traefik",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-traefik",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b5221bbb-cb47-43d2-92be-a33d0454fbf3",
+      "UpdatedAt": "2026-06-12T17:15:49.69876Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:15:56.908752Z",
+        "CursorID": 24607,
+        "DisplayName": "Upgrade service-default-traefik",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5a3f8f89-f123-462f-bac5-9c912b607ba5",
+        "LinkID": "72fd739d-1223-48d0-b6f3-6037c01f63d6",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-traefik",
+        "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+        "SpaceSlug": "Traefik-no-crds-staging",
+        "ToSpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+        "ToUnitID": "87acae1a-bc19-4bb6-9729-54dff723aa16",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:15:56.908752Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '87acae1a-bc19-4bb6-9729-54dff723aa16' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:15:56.516478Z",
+      "CursorID": 4686,
+      "DisplayName": "helm-traefik-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Traefik",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Traefik-no-crds-staging",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "UpdatedAt": "2026-06-12T17:15:56.516478Z",
+      "WhereTrigger": "SpaceID = '67d885fc-a780-4e15-ab6a-999f92c050de'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d0ed2d54a9c5d6a3871be7f08b4aed0521157a87ed1c337b7d303de6eed3fbf6",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "72fd739d-1223-48d0-b6f3-6037c01f63d6"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-traefik",
+      "SpaceID": "aee8f884-af5a-4a02-9113-1e55baae4063",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5a3f8f89-f123-462f-bac5-9c912b607ba5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "87acae1a-bc19-4bb6-9729-54dff723aa16",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -551187629,
+      "CreatedAt": "2026-06-12T17:15:32.917232Z",
+      "CursorID": 29211,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdHJhZWZpay1kZWZhdWx0CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB0cmFlZmlrCiAgICBoZWxtLnNoL2NoYXJ0OiB0cmFlZmlrLTQwLjIuMAogIG5hbWU6IHRyYWVmaWsKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IHdlYgogICAgcG9ydDogODAKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IHdlYgogIC0gbmFtZTogd2Vic2VjdXJlCiAgICBwb3J0OiA0NDMKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IHdlYnNlY3VyZQogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHRyYWVmaWstZGVmYXVsdAogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdHJhZWZpawogIHR5cGU6IExvYWRCYWxhbmNlcgo=",
+      "DataHash": "d0ed2d54a9c5d6a3871be7f08b4aed0521157a87ed1c337b7d303de6eed3fbf6",
+      "DisplayName": "service-default-traefik",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Traefik",
+        "HelmChart": "traefik-traefik",
+        "HelmChartVersion": "40.2.0",
+        "Package": "traefik-traefik",
+        "Proof": "traefik-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/traefik": {}
+          },
+          "AliasesWithoutScopes": {
+            "traefik": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/traefik",
+            "ResourceNameWithoutScope": "traefik",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: traefik-default\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: traefik\n    helm.sh/chart: traefik-40.2.0\n  name: traefik\n  namespace: default\nspec:\n  ports:\n  - name: web\n    port: 80\n    protocol: TCP\n    targetPort: web\n  - name: websecure\n    port: 443\n    protocol: TCP\n    targetPort: websecure\n  selector:\n    app.kubernetes.io/instance: traefik-default\n    app.kubernetes.io/name: traefik\n  type: LoadBalancer\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/traefik",
+          "ResourceNameWithoutScope": "traefik",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-traefik",
+      "SpaceID": "67d885fc-a780-4e15-ab6a-999f92c050de",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "87acae1a-bc19-4bb6-9729-54dff723aa16",
+      "UpdatedAt": "2026-06-12T17:15:48.600455Z",
+      "Version": 13
+    }
+  }
+]

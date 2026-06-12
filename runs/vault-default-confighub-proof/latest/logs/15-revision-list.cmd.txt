@@ -1,0 +1,1 @@
+cub revision list statefulset-vault-vault --space helm-vault-default-confighub-proof

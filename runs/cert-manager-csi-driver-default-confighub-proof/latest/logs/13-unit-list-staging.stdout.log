@@ -1,0 +1,1151 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:20.200428Z",
+        "CursorID": 23631,
+        "DisplayName": "Upgrade clusterrolebinding-cert-manager-csi-driver",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "e5eff401-2f14-4172-abe9-885b36a63365",
+        "LinkID": "a7387864-ce3c-4a4b-a1bb-64aea3b08d22",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-cert-manager-csi-driver",
+        "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+        "SpaceSlug": "CertManagerCsiDriver-default-staging",
+        "ToSpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+        "ToUnitID": "2696fcd6-cdea-406a-a37e-f9fe51419457",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:20.200428Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2696fcd6-cdea-406a-a37e-f9fe51419457' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:19.98186Z",
+      "CursorID": 4645,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CertManagerCsiDriver-default-staging",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "UpdatedAt": "2026-06-12T17:01:19.98186Z",
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c668b1101e1b7ded11b340043009a76198a4b931cd59a3a4871a410c99209e4c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a7387864-ce3c-4a4b-a1bb-64aea3b08d22"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-cert-manager-csi-driver",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e5eff401-2f14-4172-abe9-885b36a63365",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2696fcd6-cdea-406a-a37e-f9fe51419457",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -681583529,
+      "CreatedAt": "2026-06-12T17:00:52.399711Z",
+      "CursorID": 28445,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjAuMTQuMAogICAgaGVsbS5zaC9jaGFydDogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXItdjAuMTQuMAogIG5hbWU6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "c668b1101e1b7ded11b340043009a76198a4b931cd59a3a4871a410c99209e4c",
+      "DisplayName": "clusterrolebinding-cert-manager-csi-driver",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cert-manager-csi-driver": {}
+          },
+          "AliasesWithoutScopes": {
+            "cert-manager-csi-driver": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cert-manager-csi-driver",
+            "ResourceNameWithoutScope": "cert-manager-csi-driver",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cert-manager-csi-driver\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cert-manager-csi-driver\n    app.kubernetes.io/version: v0.14.0\n    helm.sh/chart: cert-manager-csi-driver-v0.14.0\n  name: cert-manager-csi-driver\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: cert-manager-csi-driver\nsubjects:\n- kind: ServiceAccount\n  name: cert-manager-csi-driver\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-cert-manager-csi-driver",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2696fcd6-cdea-406a-a37e-f9fe51419457",
+      "UpdatedAt": "2026-06-12T17:01:08.161329Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:20.239416Z",
+        "CursorID": 23633,
+        "DisplayName": "Upgrade clusterrole-cert-manager-csi-driver",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2e408521-bee3-4c10-baca-bbd6b7b72fb4",
+        "LinkID": "e946c73a-974a-4c44-ba9d-9e0d10c2bdac",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-cert-manager-csi-driver",
+        "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+        "SpaceSlug": "CertManagerCsiDriver-default-staging",
+        "ToSpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+        "ToUnitID": "b05ab1a2-6497-475f-be16-d414b8fc14f7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:20.239417Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b05ab1a2-6497-475f-be16-d414b8fc14f7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:19.98186Z",
+      "CursorID": 4645,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CertManagerCsiDriver-default-staging",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "UpdatedAt": "2026-06-12T17:01:19.98186Z",
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "23391684d2c45f571a1afd2c4d827bdea00dfeec31aa647336e38a5ec3c5fe62",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e946c73a-974a-4c44-ba9d-9e0d10c2bdac"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cert-manager-csi-driver",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2e408521-bee3-4c10-baca-bbd6b7b72fb4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b05ab1a2-6497-475f-be16-d414b8fc14f7",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1696078358,
+      "CreatedAt": "2026-06-12T17:00:51.213532Z",
+      "CursorID": 28444,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MC4xNC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBjZXJ0LW1hbmFnZXItY3NpLWRyaXZlci12MC4xNC4wCiAgbmFtZTogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gY2VydC1tYW5hZ2VyLmlvCiAgcmVzb3VyY2VzOgogIC0gY2VydGlmaWNhdGVyZXF1ZXN0cwogIHZlcmJzOgogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBsaXN0Cg==",
+      "DataHash": "23391684d2c45f571a1afd2c4d827bdea00dfeec31aa647336e38a5ec3c5fe62",
+      "DisplayName": "clusterrole-cert-manager-csi-driver",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cert-manager-csi-driver": {}
+          },
+          "AliasesWithoutScopes": {
+            "cert-manager-csi-driver": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cert-manager-csi-driver",
+            "ResourceNameWithoutScope": "cert-manager-csi-driver",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cert-manager-csi-driver\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cert-manager-csi-driver\n    app.kubernetes.io/version: v0.14.0\n    helm.sh/chart: cert-manager-csi-driver-v0.14.0\n  name: cert-manager-csi-driver\nrules:\n- apiGroups:\n  - cert-manager.io\n  resources:\n  - certificaterequests\n  verbs:\n  - watch\n  - create\n  - delete\n  - list\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/cert-manager-csi-driver",
+          "ResourceNameWithoutScope": "cert-manager-csi-driver",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-cert-manager-csi-driver",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b05ab1a2-6497-475f-be16-d414b8fc14f7",
+      "UpdatedAt": "2026-06-12T17:00:57.714457Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:20.275034Z",
+        "CursorID": 23635,
+        "DisplayName": "Upgrade csidriver-csi-cert-manager-io",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ff60a797-ad14-4612-91ba-be0c37bec1de",
+        "LinkID": "20aebf1a-298d-4624-9216-f4abd8c220a6",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-csidriver-csi-cert-manager-io",
+        "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+        "SpaceSlug": "CertManagerCsiDriver-default-staging",
+        "ToSpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+        "ToUnitID": "8cb9c3f8-6b8b-4143-9112-f9dbfb66bef8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:20.275035Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8cb9c3f8-6b8b-4143-9112-f9dbfb66bef8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:19.98186Z",
+      "CursorID": 4645,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CertManagerCsiDriver-default-staging",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "UpdatedAt": "2026-06-12T17:01:19.98186Z",
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "02b739f9096d397655ef9344e7103a8aff40aecf9d55e9d954909e1b5798d3fe",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "20aebf1a-298d-4624-9216-f4abd8c220a6"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "csidriver-csi-cert-manager-io",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ff60a797-ad14-4612-91ba-be0c37bec1de",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8cb9c3f8-6b8b-4143-9112-f9dbfb66bef8",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 967967258,
+      "CreatedAt": "2026-06-12T17:00:53.40831Z",
+      "CursorID": 28446,
+      "Data": "YXBpVmVyc2lvbjogc3RvcmFnZS5rOHMuaW8vdjEKa2luZDogQ1NJRHJpdmVyCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IHYwLjE0LjAKICAgIGhlbG0uc2gvY2hhcnQ6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyLXYwLjE0LjAKICBuYW1lOiBjc2kuY2VydC1tYW5hZ2VyLmlvCnNwZWM6CiAgcG9kSW5mb09uTW91bnQ6IHRydWUKICB2b2x1bWVMaWZlY3ljbGVNb2RlczoKICAtIEVwaGVtZXJhbAo=",
+      "DataHash": "02b739f9096d397655ef9344e7103a8aff40aecf9d55e9d954909e1b5798d3fe",
+      "DisplayName": "csidriver-csi-cert-manager-io",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/csi.cert-manager.io": {}
+          },
+          "AliasesWithoutScopes": {
+            "csi.cert-manager.io": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/csi.cert-manager.io",
+            "ResourceNameWithoutScope": "csi.cert-manager.io",
+            "ResourceType": "storage.k8s.io/v1/CSIDriver"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: storage.k8s.io/v1\nkind: CSIDriver\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cert-manager-csi-driver\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cert-manager-csi-driver\n    app.kubernetes.io/version: v0.14.0\n    helm.sh/chart: cert-manager-csi-driver-v0.14.0\n  name: csi.cert-manager.io\nspec:\n  podInfoOnMount: true\n  volumeLifecycleModes:\n  - Ephemeral\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "csidriver-csi-cert-manager-io",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8cb9c3f8-6b8b-4143-9112-f9dbfb66bef8",
+      "UpdatedAt": "2026-06-12T17:00:57.741288Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:20.327216Z",
+        "CursorID": 23639,
+        "DisplayName": "Upgrade daemonset-default-cert-manager-csi-driver",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ddf08de7-9539-429f-a4fb-9a38a4c37c5c",
+        "LinkID": "7aa3aaf3-75f9-462a-936e-5f6bbd27daf3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-daemonset-default-cert-manager-csi-driver",
+        "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+        "SpaceSlug": "CertManagerCsiDriver-default-staging",
+        "ToSpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+        "ToUnitID": "20b1d489-aa6a-4a52-9075-fe4887dbbdff",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:20.327216Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '20b1d489-aa6a-4a52-9075-fe4887dbbdff' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:19.98186Z",
+      "CursorID": 4645,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CertManagerCsiDriver-default-staging",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "UpdatedAt": "2026-06-12T17:01:19.98186Z",
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "07b67f795d1cf1cac88e22edfed7ade3ddd112789088091d05ddb86215bee42a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7aa3aaf3-75f9-462a-936e-5f6bbd27daf3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-cert-manager-csi-driver",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ddf08de7-9539-429f-a4fb-9a38a4c37c5c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "20b1d489-aa6a-4a52-9075-fe4887dbbdff",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 894093514,
+      "CreatedAt": "2026-06-12T17:00:54.307248Z",
+      "CursorID": 28447,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEYWVtb25TZXQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjAuMTQuMAogICAgaGVsbS5zaC9jaGFydDogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXItdjAuMTQuMAogIG5hbWU6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwOiBjZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGFubm90YXRpb25zOgogICAgICAgIGt1YmVjdGwua3ViZXJuZXRlcy5pby9kZWZhdWx0LWNvbnRhaW5lcjogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgICAgbGFiZWxzOgogICAgICAgIGFwcDogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiB2MC4xNC4wCiAgICAgICAgaGVsbS5zaC9jaGFydDogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXItdjAuMTQuMAogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gLXY9MQogICAgICAgIC0gLS1jc2ktYWRkcmVzcz0vcGx1Z2luL2NzaS5zb2NrCiAgICAgICAgLSAtLWt1YmVsZXQtcmVnaXN0cmF0aW9uLXBhdGg9L3Zhci9saWIva3ViZWxldC9wbHVnaW5zL2NlcnQtbWFuYWdlci1jc2ktZHJpdmVyL2NzaS5zb2NrCiAgICAgICAgZW52OgogICAgICAgIC0gbmFtZTogS1VCRV9OT0RFX05BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzcGVjLm5vZGVOYW1lCiAgICAgICAgaW1hZ2U6IHF1YXkuaW8vamV0c3RhY2svY3NpLW5vZGUtZHJpdmVyLXJlZ2lzdHJhcjp2Mi4xNi4wCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBuYW1lOiBub2RlLWRyaXZlci1yZWdpc3RyYXIKICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBhbGxvd1ByaXZpbGVnZUVzY2FsYXRpb246IGZhbHNlCiAgICAgICAgICBjYXBhYmlsaXRpZXM6CiAgICAgICAgICAgIGRyb3A6CiAgICAgICAgICAgIC0gQUxMCiAgICAgICAgICByZWFkT25seVJvb3RGaWxlc3lzdGVtOiB0cnVlCiAgICAgICAgICBydW5Bc1VzZXI6IDAKICAgICAgICB2b2x1bWVNb3VudHM6CiAgICAgICAgLSBtb3VudFBhdGg6IC9wbHVnaW4KICAgICAgICAgIG5hbWU6IHBsdWdpbi1kaXIKICAgICAgICAtIG1vdW50UGF0aDogL3JlZ2lzdHJhdGlvbgogICAgICAgICAgbmFtZTogcmVnaXN0cmF0aW9uLWRpcgogICAgICAtIGFyZ3M6CiAgICAgICAgLSAtLWNzaS1hZGRyZXNzPS9wbHVnaW4vY3NpLnNvY2sKICAgICAgICAtIC0tcHJvYmUtdGltZW91dD0zcwogICAgICAgIC0gLS1oZWFsdGgtcG9ydD05ODA5CiAgICAgICAgLSAtdj0xCiAgICAgICAgaW1hZ2U6IHF1YXkuaW8vamV0c3RhY2svbGl2ZW5lc3Nwcm9iZTp2Mi4xOC4wCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBuYW1lOiBsaXZlbmVzcy1wcm9iZQogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICAgIGNhcGFiaWxpdGllczoKICAgICAgICAgICAgZHJvcDoKICAgICAgICAgICAgLSBBTEwKICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IHRydWUKICAgICAgICAgIHJ1bkFzVXNlcjogMAogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3BsdWdpbgogICAgICAgICAgbmFtZTogcGx1Z2luLWRpcgogICAgICAtIGFyZ3M6CiAgICAgICAgLSAtLWxvZy1sZXZlbD0xCiAgICAgICAgLSAtLWRyaXZlci1uYW1lPWNzaS5jZXJ0LW1hbmFnZXIuaW8KICAgICAgICAtIC0tbm9kZS1pZD0kKE5PREVfSUQpCiAgICAgICAgLSAtLWVuZHBvaW50PSQoQ1NJX0VORFBPSU5UKQogICAgICAgIC0gLS1kYXRhLXJvb3Q9Y3NpLWRhdGEtZGlyCiAgICAgICAgLSAtLXVzZS10b2tlbi1yZXF1ZXN0PWZhbHNlCiAgICAgICAgLSAtLWNvbnRpbnVlLW9uLW5vdC1yZWFkeT1mYWxzZQogICAgICAgIC0gLS1tZXRyaWNzLWJpbmQtYWRkcmVzcz06OTQwMgogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IE5PREVfSUQKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzcGVjLm5vZGVOYW1lCiAgICAgICAgLSBuYW1lOiBDU0lfRU5EUE9JTlQKICAgICAgICAgIHZhbHVlOiB1bml4Oi8vcGx1Z2luL2NzaS5zb2NrCiAgICAgICAgaW1hZ2U6IHF1YXkuaW8vamV0c3RhY2svY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXI6djAuMTQuMAogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgIHBvcnQ6IGhlYWx0aHoKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgbmFtZTogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDk4MDkKICAgICAgICAgIG5hbWU6IGhlYWx0aHoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDk0MDIKICAgICAgICAgIG5hbWU6IGh0dHAtbWV0cmljcwogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGNhcGFiaWxpdGllczoKICAgICAgICAgICAgZHJvcDoKICAgICAgICAgICAgLSBBTEwKICAgICAgICAgIHByaXZpbGVnZWQ6IHRydWUKICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IHRydWUKICAgICAgICAgIHJ1bkFzVXNlcjogMAogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3BsdWdpbgogICAgICAgICAgbmFtZTogcGx1Z2luLWRpcgogICAgICAgIC0gbW91bnRQYXRoOiAvdmFyL2xpYi9rdWJlbGV0L3BvZHMKICAgICAgICAgIG1vdW50UHJvcGFnYXRpb246IEJpZGlyZWN0aW9uYWwKICAgICAgICAgIG5hbWU6IHBvZHMtbW91bnQtZGlyCiAgICAgICAgLSBtb3VudFBhdGg6IC9jc2ktZGF0YS1kaXIKICAgICAgICAgIG1vdW50UHJvcGFnYXRpb246IEJpZGlyZWN0aW9uYWwKICAgICAgICAgIG5hbWU6IGNzaS1kYXRhLWRpcgogICAgICBub2RlU2VsZWN0b3I6CiAgICAgICAga3ViZXJuZXRlcy5pby9vczogbGludXgKICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIHNlY2NvbXBQcm9maWxlOgogICAgICAgICAgdHlwZTogUnVudGltZURlZmF1bHQKICAgICAgc2VydmljZUFjY291bnROYW1lOiBjZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogICAgICB2b2x1bWVzOgogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL3Zhci9saWIva3ViZWxldC9wbHVnaW5zL2NlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgICAgICAgICB0eXBlOiBEaXJlY3RvcnlPckNyZWF0ZQogICAgICAgIG5hbWU6IHBsdWdpbi1kaXIKICAgICAgLSBob3N0UGF0aDoKICAgICAgICAgIHBhdGg6IC92YXIvbGliL2t1YmVsZXQvcG9kcwogICAgICAgICAgdHlwZTogRGlyZWN0b3J5CiAgICAgICAgbmFtZTogcG9kcy1tb3VudC1kaXIKICAgICAgLSBob3N0UGF0aDoKICAgICAgICAgIHBhdGg6IC92YXIvbGliL2t1YmVsZXQvcGx1Z2luc19yZWdpc3RyeQogICAgICAgICAgdHlwZTogRGlyZWN0b3J5CiAgICAgICAgbmFtZTogcmVnaXN0cmF0aW9uLWRpcgogICAgICAtIGhvc3RQYXRoOgogICAgICAgICAgcGF0aDogL3RtcC9jZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogICAgICAgICAgdHlwZTogRGlyZWN0b3J5T3JDcmVhdGUKICAgICAgICBuYW1lOiBjc2ktZGF0YS1kaXIK",
+      "DataHash": "07b67f795d1cf1cac88e22edfed7ade3ddd112789088091d05ddb86215bee42a",
+      "DisplayName": "daemonset-default-cert-manager-csi-driver",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cert-manager-csi-driver": {}
+          },
+          "AliasesWithoutScopes": {
+            "cert-manager-csi-driver": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cert-manager-csi-driver",
+            "ResourceNameWithoutScope": "cert-manager-csi-driver",
+            "ResourceType": "apps/v1/DaemonSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: DaemonSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cert-manager-csi-driver\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cert-manager-csi-driver\n    app.kubernetes.io/version: v0.14.0\n    helm.sh/chart: cert-manager-csi-driver-v0.14.0\n  name: cert-manager-csi-driver\n  namespace: default\nspec:\n  selector:\n    matchLabels:\n      app: cert-manager-csi-driver\n  template:\n    metadata:\n      annotations:\n        kubectl.kubernetes.io/default-container: cert-manager-csi-driver\n      labels:\n        app: cert-manager-csi-driver\n        app.kubernetes.io/instance: cert-manager-csi-driver\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: cert-manager-csi-driver\n        app.kubernetes.io/version: v0.14.0\n        helm.sh/chart: cert-manager-csi-driver-v0.14.0\n    spec:\n      containers:\n      - args:\n        - -v=1\n        - --csi-address=/plugin/csi.sock\n        - --kubelet-registration-path=/var/lib/kubelet/plugins/cert-manager-csi-driver/csi.sock\n        env:\n        - name: KUBE_NODE_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: spec.nodeName\n        image: quay.io/jetstack/csi-node-driver-registrar:v2.16.0\n        imagePullPolicy: IfNotPresent\n        name: node-driver-registrar\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsUser: 0\n        volumeMounts:\n        - mountPath: /plugin\n          name: plugin-dir\n        - mountPath: /registration\n          name: registration-dir\n      - args:\n        - --csi-address=/plugin/csi.sock\n        - --probe-timeout=3s\n        - --health-port=9809\n        - -v=1\n        image: quay.io/jetstack/livenessprobe:v2.18.0\n        imagePullPolicy: IfNotPresent\n        name: liveness-probe\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsUser: 0\n        volumeMounts:\n        - mountPath: /plugin\n          name: plugin-dir\n      - args:\n        - --log-level=1\n        - --driver-name=csi.cert-manager.io\n        - --node-id=$(NODE_ID)\n        - --endpoint=$(CSI_ENDPOINT)\n        - --data-root=csi-data-dir\n        - --use-token-request=false\n        - --continue-on-not-ready=false\n        - --metrics-bind-address=:9402\n        env:\n        - name: NODE_ID\n          valueFrom:\n            fieldRef:\n              fieldPath: spec.nodeName\n        - name: CSI_ENDPOINT\n          value: unix://plugin/csi.sock\n        image: quay.io/jetstack/cert-manager-csi-driver:v0.14.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /healthz\n            port: healthz\n          initialDelaySeconds: 5\n          timeoutSeconds: 5\n        name: cert-manager-csi-driver\n        ports:\n        - containerPort: 9809\n          name: healthz\n        - containerPort: 9402\n          name: http-metrics\n        securityContext:\n          capabilities:\n            drop:\n            - ALL\n          privileged: true\n          readOnlyRootFilesystem: true\n          runAsUser: 0\n        volumeMounts:\n        - mountPath: /plugin\n          name: plugin-dir\n        - mountPath: /var/lib/kubelet/pods\n          mountPropagation: Bidirectional\n          name: pods-mount-dir\n        - mountPath: /csi-data-dir\n          mountPropagation: Bidirectional\n          name: csi-data-dir\n      nodeSelector:\n        kubernetes.io/os: linux\n      securityContext:\n        seccompProfile:\n          type: RuntimeDefault\n      serviceAccountName: cert-manager-csi-driver\n      volumes:\n      - hostPath:\n          path: /var/lib/kubelet/plugins/cert-manager-csi-driver\n          type: DirectoryOrCreate\n        name: plugin-dir\n      - hostPath:\n          path: /var/lib/kubelet/pods\n          type: Directory\n        name: pods-mount-dir\n      - hostPath:\n          path: /var/lib/kubelet/plugins_registry\n          type: Directory\n        name: registration-dir\n      - hostPath:\n          path: /tmp/cert-manager-csi-driver\n          type: DirectoryOrCreate\n        name: csi-data-dir\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "daemonset-default-cert-manager-csi-driver",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "20b1d489-aa6a-4a52-9075-fe4887dbbdff",
+      "UpdatedAt": "2026-06-12T17:01:11.624026Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:20.526728Z",
+        "CursorID": 23654,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3b6c1f43-0938-4c3d-91dd-d1cdb1548ace",
+        "LinkID": "5ef9ac41-0909-4a2b-8974-c69beb5cdcb3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+        "SpaceSlug": "CertManagerCsiDriver-default-staging",
+        "ToSpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+        "ToUnitID": "c86175f9-f6fc-412c-ad33-92d285a69989",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:20.526728Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c86175f9-f6fc-412c-ad33-92d285a69989' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:19.98186Z",
+      "CursorID": 4645,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CertManagerCsiDriver-default-staging",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "UpdatedAt": "2026-06-12T17:01:19.98186Z",
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7e26562c8d71c60e2491d60f78db7bff36d789f5c187d758b7e4849ace658acc",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "5ef9ac41-0909-4a2b-8974-c69beb5cdcb3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3b6c1f43-0938-4c3d-91dd-d1cdb1548ace",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c86175f9-f6fc-412c-ad33-92d285a69989",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "jetstack-cert-manager-csi-driver",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -203361132,
+      "CreatedAt": "2026-06-12T17:00:56.855733Z",
+      "CursorID": 28450,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImpldHN0YWNrLWNlcnQtbWFuYWdlci1jc2ktZHJpdmVyIgogIHZlcnNpb246ICJ2MC4xNC4wIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBuYW1lOiAiZGVmYXVsdCIKICAgIHBhdGg6ICJiYXNlcy9kZWZhdWx0IgogICAgZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJqZXRzdGFjay9jZXJ0LW1hbmFnZXItY3NpLWRyaXZlciBkZWZhdWx0IHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBqZXRzdGFjay9jZXJ0LW1hbmFnZXItY3NpLWRyaXZlckB2MC4xNC4wIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiBqZXRzdGFjay1jZXJ0LW1hbmFnZXItY3NpLWRyaXZlci1mdW5jdGlvbi1jaGFpbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogamV0c3RhY2stY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogamV0c3RhY2stY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXItaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBqZXRzdGFjay1jZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogIG5hbWVzcGFjZTogZGVmYXVsdAogIHZhbHVlczoge30KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IE1hbmlmZXN0SW5kZXgKbWV0YWRhdGE6CiAgbmFtZTogamV0c3RhY2stY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXItbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGpldHN0YWNrLWNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBjZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlYmluZGluZy1jZXJ0LW1hbmFnZXItY3NpLWRyaXZlci55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAtIGZpbGVuYW1lOiBjc2lkcml2ZXItY3NpLWNlcnQtbWFuYWdlci1pby55YW1sCiAgICBzbHVnOiBjc2lkcml2ZXItY3NpLWNlcnQtbWFuYWdlci1pbwogICAgYXBpVmVyc2lvbjogc3RvcmFnZS5rOHMuaW8vdjEKICAgIGtpbmQ6IENTSURyaXZlcgogICAgbmFtZTogY3NpLmNlcnQtbWFuYWdlci5pbwogIC0gZmlsZW5hbWU6IGRhZW1vbnNldC1kZWZhdWx0LWNlcnQtbWFuYWdlci1jc2ktZHJpdmVyLnlhbWwKICAgIHNsdWc6IGRhZW1vbnNldC1kZWZhdWx0LWNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEYWVtb25TZXQKICAgIG5hbWU6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1jZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBjZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogamV0c3RhY2stY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXItc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBqZXRzdGFjay1jZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBqZXRzdGFjay1jZXJ0LW1hbmFnZXItY3NpLWRyaXZlci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGpldHN0YWNrLWNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgc3BhY2VQYXR0ZXJuOiBoZWxtLWNlcnQtbWFuYWdlci1jc2ktZHJpdmVyLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgc3BhY2VzOgogIC0gcGFja2FnZTogamV0c3RhY2stY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXIKICAgIHNsdWc6IGhlbG0tY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXItZGVmYXVsdC1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTc6MDA6NDlaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "7e26562c8d71c60e2491d60f78db7bff36d789f5c187d758b7e4849ace658acc",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "jetstack-cert-manager-csi-driver"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/jetstack-cert-manager-csi-driver": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-cert-manager-csi-driver": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-cert-manager-csi-driver",
+            "ResourceNameWithoutScope": "jetstack-cert-manager-csi-driver",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"jetstack-cert-manager-csi-driver\"\n  version: \"v0.14.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"jetstack/cert-manager-csi-driver default variant rendered from jetstack/cert-manager-csi-driver@v0.14.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-cert-manager-csi-driver-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-cert-manager-csi-driver-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-cert-manager-csi-driver-function-chain",
+            "ResourceNameWithoutScope": "jetstack-cert-manager-csi-driver-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: jetstack-cert-manager-csi-driver-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-cert-manager-csi-driver\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-cert-manager-csi-driver-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-cert-manager-csi-driver-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-cert-manager-csi-driver-inputs",
+            "ResourceNameWithoutScope": "jetstack-cert-manager-csi-driver-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: jetstack-cert-manager-csi-driver-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-cert-manager-csi-driver\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-cert-manager-csi-driver-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-cert-manager-csi-driver-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-cert-manager-csi-driver-manifest-index",
+            "ResourceNameWithoutScope": "jetstack-cert-manager-csi-driver-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: jetstack-cert-manager-csi-driver-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-cert-manager-csi-driver\n  files:\n  - filename: clusterrole-cert-manager-csi-driver.yaml\n    slug: clusterrole-cert-manager-csi-driver\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: cert-manager-csi-driver\n  - filename: clusterrolebinding-cert-manager-csi-driver.yaml\n    slug: clusterrolebinding-cert-manager-csi-driver\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: cert-manager-csi-driver\n  - filename: csidriver-csi-cert-manager-io.yaml\n    slug: csidriver-csi-cert-manager-io\n    apiVersion: storage.k8s.io/v1\n    kind: CSIDriver\n    name: csi.cert-manager.io\n  - filename: daemonset-default-cert-manager-csi-driver.yaml\n    slug: daemonset-default-cert-manager-csi-driver\n    apiVersion: apps/v1\n    kind: DaemonSet\n    name: cert-manager-csi-driver\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: serviceaccount-default-cert-manager-csi-driver.yaml\n    slug: serviceaccount-default-cert-manager-csi-driver\n    apiVersion: v1\n    kind: ServiceAccount\n    name: cert-manager-csi-driver\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-cert-manager-csi-driver-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-cert-manager-csi-driver-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-cert-manager-csi-driver-selection",
+            "ResourceNameWithoutScope": "jetstack-cert-manager-csi-driver-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: jetstack-cert-manager-csi-driver-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-cert-manager-csi-driver\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/jetstack-cert-manager-csi-driver-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "jetstack-cert-manager-csi-driver-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/jetstack-cert-manager-csi-driver-upload",
+            "ResourceNameWithoutScope": "jetstack-cert-manager-csi-driver-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: jetstack-cert-manager-csi-driver-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: jetstack-cert-manager-csi-driver\n  spacePattern: helm-cert-manager-csi-driver-default-confighub-proof\n  spaces:\n  - package: jetstack-cert-manager-csi-driver\n    slug: helm-cert-manager-csi-driver-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:00:49Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c86175f9-f6fc-412c-ad33-92d285a69989",
+      "UpdatedAt": "2026-06-12T17:00:57.810205Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:20.610117Z",
+        "CursorID": 23655,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c8ff652a-f74c-4979-87c1-86bda18b7e3b",
+        "LinkID": "30232a1b-3b81-4f9f-9b69-8347c901fb3d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+        "SpaceSlug": "CertManagerCsiDriver-default-staging",
+        "ToSpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+        "ToUnitID": "660d1643-f371-4ae9-b21c-0d74a988ae71",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:20.610117Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '660d1643-f371-4ae9-b21c-0d74a988ae71' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:19.98186Z",
+      "CursorID": 4645,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CertManagerCsiDriver-default-staging",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "UpdatedAt": "2026-06-12T17:01:19.98186Z",
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "30232a1b-3b81-4f9f-9b69-8347c901fb3d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c8ff652a-f74c-4979-87c1-86bda18b7e3b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "660d1643-f371-4ae9-b21c-0d74a988ae71",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:00:55.232025Z",
+      "CursorID": 28448,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "660d1643-f371-4ae9-b21c-0d74a988ae71",
+      "UpdatedAt": "2026-06-12T17:00:55.258443Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:01:20.704963Z",
+        "CursorID": 23656,
+        "DisplayName": "Upgrade serviceaccount-default-cert-manager-csi-driver",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "cccd6121-1c25-4bef-aff5-2d00a37ce1e6",
+        "LinkID": "760439c0-934d-4bdb-be25-8c92d6621d37",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-cert-manager-csi-driver",
+        "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+        "SpaceSlug": "CertManagerCsiDriver-default-staging",
+        "ToSpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+        "ToUnitID": "2bf39c65-b30a-47b0-9967-8d43039d6825",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:01:20.704964Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2bf39c65-b30a-47b0-9967-8d43039d6825' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:01:19.98186Z",
+      "CursorID": 4645,
+      "DisplayName": "helm-cert-manager-csi-driver-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CertManagerCsiDriver-default-staging",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "UpdatedAt": "2026-06-12T17:01:19.98186Z",
+      "WhereTrigger": "SpaceID = '8f15e4eb-718b-45df-aa43-415817ff2425'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bbbb30e831ba03c8771e0cfb18a576b15c10f9b4c21725b6f9fb518be4e288ef",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "760439c0-934d-4bdb-be25-8c92d6621d37"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-cert-manager-csi-driver",
+      "SpaceID": "473cd042-53ab-457d-aa55-6bb88e0df90e",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cccd6121-1c25-4bef-aff5-2d00a37ce1e6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2bf39c65-b30a-47b0-9967-8d43039d6825",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -711512281,
+      "CreatedAt": "2026-06-12T17:00:55.985948Z",
+      "CursorID": 28449,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjZXJ0LW1hbmFnZXItY3NpLWRyaXZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjAuMTQuMAogICAgaGVsbS5zaC9jaGFydDogY2VydC1tYW5hZ2VyLWNzaS1kcml2ZXItdjAuMTQuMAogIG5hbWU6IGNlcnQtbWFuYWdlci1jc2ktZHJpdmVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "bbbb30e831ba03c8771e0cfb18a576b15c10f9b4c21725b6f9fb518be4e288ef",
+      "DisplayName": "serviceaccount-default-cert-manager-csi-driver",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "CertManagerCsiDriver",
+        "HelmChart": "jetstack-cert-manager-csi-driver",
+        "HelmChartVersion": "v0.14.0",
+        "Package": "jetstack-cert-manager-csi-driver",
+        "Proof": "cert-manager-csi-driver-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 346 bytes; from serviceaccount-default-cert-manager-csi-driver.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cert-manager-csi-driver": {}
+          },
+          "AliasesWithoutScopes": {
+            "cert-manager-csi-driver": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cert-manager-csi-driver",
+            "ResourceNameWithoutScope": "cert-manager-csi-driver",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cert-manager-csi-driver\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cert-manager-csi-driver\n    app.kubernetes.io/version: v0.14.0\n    helm.sh/chart: cert-manager-csi-driver-v0.14.0\n  name: cert-manager-csi-driver\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/cert-manager-csi-driver",
+          "ResourceNameWithoutScope": "cert-manager-csi-driver",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-cert-manager-csi-driver",
+      "SpaceID": "8f15e4eb-718b-45df-aa43-415817ff2425",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2bf39c65-b30a-47b0-9967-8d43039d6825",
+      "UpdatedAt": "2026-06-12T17:01:13.871293Z",
+      "Version": 6
+    }
+  }
+]

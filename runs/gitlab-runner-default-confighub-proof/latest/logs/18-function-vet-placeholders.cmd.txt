@@ -1,0 +1,1 @@
+cub function vet vet-placeholders --space helm-gitlab-runner-default-confighub-proof --where "Labels.Proof = 'gitlab-runner-default-confighub-proof'" --quiet --wait --timeout 10m

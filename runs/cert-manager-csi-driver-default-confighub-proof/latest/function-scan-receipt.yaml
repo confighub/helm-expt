@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cert-manager-csi-driver-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cert-manager-csi-driver-default-confighub-proof"
+    selector: "Labels.Proof = 'cert-manager-csi-driver-default-confighub-proof'"
+  subject:
+    chart: "jetstack/cert-manager-csi-driver"
+    chartVersion: "v0.14.0"
+    packagePath: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
+    variant: "default"
+    configHubUnitCount: 6
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-cert-manager-csi-driver"
+      headRevisionNum: 2
+      dataHash: "c668b1101e1b7ded11b340043009a76198a4b931cd59a3a4871a410c99209e4c"
+    -
+      slug: "clusterrole-cert-manager-csi-driver"
+      headRevisionNum: 2
+      dataHash: "23391684d2c45f571a1afd2c4d827bdea00dfeec31aa647336e38a5ec3c5fe62"
+    -
+      slug: "csidriver-csi-cert-manager-io"
+      headRevisionNum: 2
+      dataHash: "02b739f9096d397655ef9344e7103a8aff40aecf9d55e9d954909e1b5798d3fe"
+    -
+      slug: "daemonset-default-cert-manager-csi-driver"
+      headRevisionNum: 2
+      dataHash: "07b67f795d1cf1cac88e22edfed7ade3ddd112789088091d05ddb86215bee42a"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-cert-manager-csi-driver"
+      headRevisionNum: 1
+      dataHash: "bbbb30e831ba03c8771e0cfb18a576b15c10f9b4c21725b6f9fb518be4e288ef"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

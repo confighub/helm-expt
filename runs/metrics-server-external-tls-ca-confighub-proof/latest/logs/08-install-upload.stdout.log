@@ -1,0 +1,35 @@
+== metrics-server-metrics-server@ → Space helm-metrics-server-external-tls-ca-confighub-proof ==
+Successfully created unit apiservice-v1beta1-metrics-k8s-io (ead5aab1-6d9f-4238-bfa9-8549f03c27cc)
+Successfully created unit clusterrole-systemmetrics-server-aggregated-reader (5a405137-fd74-438f-b7a5-b83f045d8320)
+Successfully created unit clusterrole-systemmetrics-server (648da4a5-823e-4a5b-8600-10cb59a37bd8)
+Successfully created unit clusterrolebinding-metrics-serversystemauth-delegator (fadd33d3-9266-4178-8b69-bf4f2931a065)
+Successfully created unit clusterrolebinding-systemmetrics-server (7e3f5135-1ec5-4425-99fb-f7d6b8246d20)
+Successfully created unit deployment-kube-system-metrics-server (295ad048-17bd-4566-b055-47ab2997caa8)
+Successfully created unit namespace-kube-system (0d96b78c-45c7-42cf-8b05-6f8995135e27)
+Successfully created unit rolebinding-kube-system-metrics-server-auth-reader (6c4c2439-13d1-43af-8c90-68e28f9690e0)
+Successfully created unit service-kube-system-metrics-server (3f5ca2db-76d6-4046-bacb-740ada10930d)
+Successfully created unit serviceaccount-kube-system-metrics-server (0b891e82-a047-4d0d-a473-efac6ca9e5f3)
+Successfully created unit installer-record (cab7106d-cd6a-4ebd-88df-606dfd682fa2)
+Linked apiservice-v1beta1-metrics-k8s-io -> namespace-kube-system (reference:v1/Namespace)
+Linked apiservice-v1beta1-metrics-k8s-io -> service-kube-system-metrics-server (reference:v1/Service)
+Linked clusterrolebinding-metrics-serversystemauth-delegator -> namespace-kube-system (reference:v1/Namespace)
+Linked clusterrolebinding-metrics-serversystemauth-delegator -> serviceaccount-kube-system-metrics-server (reference:v1/ServiceAccount)
+Linked clusterrolebinding-systemmetrics-server -> clusterrole-systemmetrics-server (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-systemmetrics-server -> namespace-kube-system (reference:v1/Namespace)
+Linked clusterrolebinding-systemmetrics-server -> serviceaccount-kube-system-metrics-server (reference:v1/ServiceAccount)
+Linked deployment-kube-system-metrics-server -> namespace-kube-system (reference:v1/Namespace)
+Linked deployment-kube-system-metrics-server -> serviceaccount-kube-system-metrics-server (reference:v1/ServiceAccount)
+Linked rolebinding-kube-system-metrics-server-auth-reader -> namespace-kube-system (reference:v1/Namespace)
+Linked rolebinding-kube-system-metrics-server-auth-reader -> serviceaccount-kube-system-metrics-server (reference:v1/ServiceAccount)
+Linked service-kube-system-metrics-server -> deployment-kube-system-metrics-server (selector)
+Linked service-kube-system-metrics-server -> namespace-kube-system (reference:v1/Namespace)
+Linked serviceaccount-kube-system-metrics-server -> namespace-kube-system (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - deployment-kube-system-metrics-server -> scheduling.k8s.io/v1/PriorityClass "system-cluster-critical"
+  - deployment-kube-system-metrics-server -> v1/Secret "metrics-server-tls"
+  - rolebinding-kube-system-metrics-server-auth-reader -> rbac.authorization.k8s.io/v1/ClusterRole "extension-apiserver-authentication-reader"

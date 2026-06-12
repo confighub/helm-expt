@@ -1,0 +1,1 @@
+cub installer package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 -o .tmp/confighub-proof/aws-ebs-csi-driver-default-archives/aws-ebs-csi-driver-a.tgz

@@ -1,0 +1,1 @@
+cub unit diff daemonset-default-falco --space helm-falco-default-confighub-proof --from 1 --to HeadRevisionNum -u

@@ -1,0 +1,1 @@
+cub space delete --space "helm-dex-default-confighub-proof,Dex-default-staging" --recursive-force

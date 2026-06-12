@@ -1,0 +1,464 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:18.419654Z",
+      "CursorID": 4696,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istio-gateway-default-confighub-proof",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "UpdatedAt": "2026-06-12T17:20:18.937778Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c90cd985bc9bd1c321bbe18149df0922c4506008ca8fd28c47bc4a2cd3d9fea0",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b4d7b75a-6ed9-432d-b448-f7d3db299b7b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:18.419654Z",
+      "CursorID": 4696,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istio-gateway-default-confighub-proof",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "UpdatedAt": "2026-06-12T17:20:18.937778Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f35ddca93576e14d93116c0fac38bc8ab1af268e1dde3e37a40db546f0665a60",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "horizontalpodautoscaler-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a0b74703-9c3c-4ef6-bfff-b5c27512c9de",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:18.419654Z",
+      "CursorID": 4696,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istio-gateway-default-confighub-proof",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "UpdatedAt": "2026-06-12T17:20:18.937778Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2f309d2c-8784-400d-900d-3a23f0fa134d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:18.419654Z",
+      "CursorID": 4696,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istio-gateway-default-confighub-proof",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "UpdatedAt": "2026-06-12T17:20:18.937778Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "60eda4fb1bd1b8cf001ab0080d32ad71dddffb70237db9307a81119c7cc347be",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c7f60979-5101-4f8e-9458-794f945d38db",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:18.419654Z",
+      "CursorID": 4696,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istio-gateway-default-confighub-proof",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "UpdatedAt": "2026-06-12T17:20:18.937778Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "cb87cb8c50b9434a158561af5b5ecde76e467c87a316f15f5b3a561b01135a96",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "07c538f2-5a13-4a92-98b3-fe50f6426fd7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:18.419654Z",
+      "CursorID": 4696,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istio-gateway-default-confighub-proof",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "UpdatedAt": "2026-06-12T17:20:18.937778Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f2897dddace05ae544fcb07b1da13e4f73e3e25d83f9457f0f8b7818ea306124",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "31c36a2c-a8ee-4503-ac61-942e89c6dcb8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:18.419654Z",
+      "CursorID": 4696,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-istio-gateway-default-confighub-proof",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "UpdatedAt": "2026-06-12T17:20:18.937778Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c43e0eee74480848cbb4271aed71b1a6defb61270279968d246229bfe5f0ece5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "71e5b329-6dd2-4a50-8a3d-eec9de16d970",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

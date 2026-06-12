@@ -1,0 +1,101 @@
+--- helm-falcosidekick-default-confighub-proof/deployment-default-falcosidekick/1
++++ helm-falcosidekick-default-confighub-proof/deployment-default-falcosidekick/2
+@@ -32,52 +36,46 @@
+         helm.sh/chart: falcosidekick-0.13.1
+     spec:
+       containers:
+-        - env:
+-            - name: DEBUG
+-              value: "false"
+-            - name: CUSTOMFIELDS
+-              value: ""
+-            - name: TEMPLATEDFIELDS
+-              value: ""
+-            - name: CUSTOMTAGS
+-              value: ""
+-            - name: OUTPUTFIELDFORMAT
+-              value: ""
+-            - name: BRACKETREPLACER
+-              value: ""
+-            - name: MUTUALTLSFILESPATH
+-              value: /etc/certs
+-            - name: MUTUALTLSCLIENT_CERTFILE
+-              value: ""
+-            - name: MUTUALTLSCLIENT_KEYFILE
+-              value: ""
+-            - name: MUTUALTLSCLIENT_CACERTFILE
+-              value: ""
+-            - name: TLSCLIENT_CACERTFILE
+-              value: ""
+-          envFrom:
+-            - secretRef:
+-                name: falcosidekick
+-          image: docker.io/falcosecurity/falcosidekick:2.32.0
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            httpGet:
+-              path: /ping
+-              port: http
+-            initialDelaySeconds: 10
+-            periodSeconds: 5
+-          name: falcosidekick
+-          ports:
+-            - containerPort: 2801
+-              name: http
+-              protocol: TCP
+-          readinessProbe:
+-            httpGet:
+-              path: /ping
+-              port: http
+-            initialDelaySeconds: 10
+-            periodSeconds: 5
+-          resources: {}
++      - env:
++        - name: DEBUG
++          value: "false"
++        - name: CUSTOMFIELDS
++          value: ""
++        - name: TEMPLATEDFIELDS
++          value: ""
++        - name: CUSTOMTAGS
++          value: ""
++        - name: OUTPUTFIELDFORMAT
++          value: ""
++        - name: BRACKETREPLACER
++          value: ""
++        - name: MUTUALTLSFILESPATH
++          value: /etc/certs
++        - name: MUTUALTLSCLIENT_CERTFILE
++          value: ""
++        - name: MUTUALTLSCLIENT_KEYFILE
++          value: ""
++        - name: MUTUALTLSCLIENT_CACERTFILE
++          value: ""
++        - name: TLSCLIENT_CACERTFILE
++          value: ""
++        envFrom:
++        - secretRef:
++            name: falcosidekick
++        image: docker.io/falcosecurity/falcosidekick:2.32.0
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          httpGet:
++            path: /ping
++            port: http
++          initialDelaySeconds: 10
++          periodSeconds: 5
++        name: falcosidekick
++        ports:
++        - containerPort: 2801
++          name: http
++          protocol: TCP
++        readinessProbe:
++          httpGet:
++            path: /ping
++            port: http
++          initialDelaySeconds: 10
++          periodSeconds: 5
++        resources: {}
+       securityContext:
+         fsGroup: 1234
+         runAsUser: 1234

@@ -1,0 +1,5 @@
+No changes.
+
+Images in helm-trust-manager-no-crds-confighub-proof (post-render):
+  init  Deployment/trust-manager [cert-manager-package-debian] quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6
+      Deployment/trust-manager [trust-manager] quay.io/jetstack/trust-manager:v0.22.1

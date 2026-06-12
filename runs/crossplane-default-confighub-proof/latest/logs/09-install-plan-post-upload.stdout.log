@@ -1,0 +1,7 @@
+No changes.
+
+Images in helm-crossplane-default-confighub-proof (post-render):
+  init  Deployment/crossplane [crossplane-init] xpkg.crossplane.io/crossplane/crossplane:v2.3.1
+      Deployment/crossplane [crossplane] xpkg.crossplane.io/crossplane/crossplane:v2.3.1
+  init  Deployment/crossplane-rbac-manager [crossplane-init] xpkg.crossplane.io/crossplane/crossplane:v2.3.1
+      Deployment/crossplane-rbac-manager [crossplane] xpkg.crossplane.io/crossplane/crossplane:v2.3.1

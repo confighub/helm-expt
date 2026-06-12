@@ -1,0 +1,1 @@
+cub function vet vet-merge-keys --space helm-external-secrets-no-crds-confighub-proof --where "Labels.Proof = 'external-secrets-no-crds-confighub-proof'" --quiet --wait --timeout 10m

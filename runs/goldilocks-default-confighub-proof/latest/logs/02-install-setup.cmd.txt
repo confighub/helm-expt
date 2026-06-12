@@ -1,0 +1,1 @@
+cub installer setup --pull packages/fairwinds-stable/goldilocks/10.3.0 --base default --work-dir .tmp/confighub-proof/goldilocks-default --non-interactive --namespace default

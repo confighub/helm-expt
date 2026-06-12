@@ -1,0 +1,1 @@
+cub installer package packages/fairwinds-stable/goldilocks/10.3.0 -o .tmp/confighub-proof/goldilocks-default-archives/goldilocks-a.tgz

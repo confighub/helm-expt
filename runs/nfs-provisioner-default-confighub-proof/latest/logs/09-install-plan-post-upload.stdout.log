@@ -1,0 +1,4 @@
+No changes.
+
+Images in helm-nfs-provisioner-default-confighub-proof (post-render):
+      Deployment/nfs-subdir-external-provisioner [nfs-subdir-external-provisioner] registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2

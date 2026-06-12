@@ -1,0 +1,1 @@
+cub unit apply --space helm-rook-ceph-cluster-default-confighub-proof --where "Labels.Proof = 'rook-ceph-cluster-default-confighub-proof'" --dry-run --wait --timeout 2m

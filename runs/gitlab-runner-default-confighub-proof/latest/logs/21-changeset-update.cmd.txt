@@ -1,0 +1,1 @@
+cub changeset update gitlab-runner-safe-ops-20260527 --space helm-gitlab-runner-default-confighub-proof --description "gitlab-runner safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

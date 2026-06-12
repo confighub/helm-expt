@@ -1,0 +1,226 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "trivy-operator-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/aqua/trivy-operator/0.32.1"
+    name: "aqua-trivy-operator"
+    chart: "aqua/trivy-operator"
+    chartVersion: "0.32.1"
+    bases:
+      - "default"
+      - "no-crds"
+    selectedBase: "no-crds"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "no-crds"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "CRD clustercompliancereports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterconfigauditreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterinfraassessmentreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterrbacassessmentreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clustersbomreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clustervulnerabilityreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD configauditreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD exposedsecretreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD infraassessmentreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD rbacassessmentreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD sbomreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD vulnerabilityreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+  render:
+    command: "cub installer setup --pull packages/aqua/trivy-operator/0.32.1 --base no-crds --work-dir .tmp/confighub-proof/trivy-operator-no-crds --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 20
+    separatedSecretCount: 2
+    facts:
+      targetFactChecks:
+        base: "no-crds"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          -
+            name: "clustercompliancereports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "clusterconfigauditreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "clusterinfraassessmentreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "clusterrbacassessmentreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "clustersbomreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "clustervulnerabilityreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "configauditreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "exposedsecretreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "infraassessmentreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "rbacassessmentreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "sbomreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          -
+            name: "vulnerabilityreports.aquasecurity.github.io"
+            purpose: "Trivy Operator CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+        requiredSecrets:
+          []
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/trivy-operator-no-crds"
+    result: "pass"
+    manifestCount: 20
+    separatedSecretCount: 2
+  deterministicPackage:
+    command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o .tmp/confighub-proof/trivy-operator-no-crds-archives/trivy-operator-a.tgz"
+    sha256: "1173b06d9073953455f7b9b4dd7abb5fc11c43bdba94685841e31a3139da0b9e"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/trivy-operator-no-crds"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/trivy-operator-no-crds --space helm-trivy-operator-no-crds-confighub-proof --component TrivyOperator --layer App --environment Demo --owner ConfigHubHelm --variant no-crds --unit-label Component=TrivyOperator --unit-label HelmChart=aqua-trivy-operator --unit-label HelmChartVersion=0.32.1 --unit-label Variant=no-crds --unit-label Proof=trivy-operator-no-crds-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-trivy-operator-no-crds-confighub-proof"
+    unitCount: 21
+    kubernetesUnitCount: 20
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret default/trivy-operator-trivy-config"
+      - "v1/Secret default/trivy-operator"
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/trivy-operator-no-crds"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/trivy-operator-no-crds"
+    result: "pass"
+    summary: "No changes.\nImages in helm-trivy-operator-no-crds-confighub-proof (post-render):\n      Deployment/trivy-operator [trivy-operator] mirror.gcr.io/aquasec/trivy-operator:0.30.1"
+  serverSideVariant:
+    command: "cub variant create staging helm-trivy-operator-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:TrivyOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-trivy-operator-no-crds-confighub-proof"
+    downstreamSpace: "TrivyOperator-no-crds-staging"
+    clonedUnitCount: 21
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-trivy-operator"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-trivy-operator-no-crds-confighub-proof"
+      - "TrivyOperator-no-crds-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

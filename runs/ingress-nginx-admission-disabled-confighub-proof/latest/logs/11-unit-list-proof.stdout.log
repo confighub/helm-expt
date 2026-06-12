@@ -1,0 +1,662 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6427279a22de435f40be31e0e45817743551ad21f744120a56daea7c410e036f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-ingress-nginx-ingress-nginx-controller",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "19f17e31-c6f4-4d1f-902c-784bd3140b67",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "49c9eb0fd253a514b52a5fd8785fb38fd9408d0655978d3b78c9812a57c1c9b3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-ingress-nginx-ingress-nginx-controller",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "baa12fb8-7971-4979-89e2-f4c4f7ac0749",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3d34127bd126133150dbe03e961ba56537321c3ccaf3a8673a8ec0b8a19244c3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "ingressclass-nginx",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9941a9e1-8ff9-4975-8507-d51c41547ad5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 2
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "83b6b29eaed4e67cebdab579ede9fe0aca618033ee77067363ad136cc57934f8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-ingress-nginx",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cec8e8b8-b16c-4955-811a-80f80742cd05",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f6e3b2cb7253d234e341c91fd9accc5e63b323a70d6906f2b7abe8210915cd7d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-ingress-nginx-ingress-nginx",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cbc7df19-0e45-4741-bbe1-18d4b35c02f2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bb7ceffc91b7d041266bc1d59c9bd708bfff7e138f78fe8ae45ac6a19d66949f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-ingress-nginx",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5ee4106b-988d-4fff-a19d-ef86d6d4463d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "334cc2a2731cb6906149b73a999457057574992e14546853ae9fc003160c57aa",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-ingress-nginx-ingress-nginx",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "98d38ddf-0dc2-43ad-b2f4-de3ff165661a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "75c3ceedd6a271ddc5727fd9449130d278f2e5fda3e20b8fe6d337a7b988346e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-ingress-nginx",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e5658bdf-99f9-4844-91a4-3cd6bba6bd39",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "904f011e73acb53b22c7f04e37c13bd5ab044645604c082eb09a080c87ab95af",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-ingress-nginx-ingress-nginx-controller",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a6035d31-d1de-43a3-8ac4-08de23b8b0eb",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:17:34.886415Z",
+      "CursorID": 4691,
+      "DisplayName": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IngressNGINX",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "admission-disabled"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-ingress-nginx-admission-disabled-confighub-proof",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "UpdatedAt": "2026-06-12T17:17:35.476482Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'e791a5e1-a30e-4f83-a5a7-c7006b72ead0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "418c4e2063f707738b6b3cd1be697b586f1d7501975f707f24a5fc39915c362c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IngressNGINX",
+        "HelmChart": "ingress-nginx-ingress-nginx",
+        "HelmChartVersion": "4.15.1",
+        "Package": "ingress-nginx-ingress-nginx",
+        "Proof": "ingress-nginx-admission-disabled-confighub-proof",
+        "Variant": "admission-disabled"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-ingress-nginx-ingress-nginx",
+      "SpaceID": "e791a5e1-a30e-4f83-a5a7-c7006b72ead0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cd9aab23-d4d5-40c3-92d1-b2d19a0f56e3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

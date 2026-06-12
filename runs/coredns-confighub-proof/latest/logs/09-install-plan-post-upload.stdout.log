@@ -1,0 +1,31 @@
+Plan: 0 to add, 2 to change, 0 to delete.
+
+Space helm-coredns-confighub-proof:
+  ~ deployment-default-coredns
+
+      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/coredns-default/out/manifests/deployment-default-coredns.yaml:
+      Resource: apps/v1/Deployment default/coredns
+        - [Delete] spec.template.spec.containers.?name=coredns;@0.ports.?containerPort=53;@0  (#2)
+          containerPort: 53
+          name: udp-53
+          protocol: UDP
+        ~ [Update] spec.template.spec.containers.?name=coredns;@0.ports.?containerPort=53;@0.name  (#2)
+          udp-53 →     udp-53
+        ~ [Update] spec.template.spec.containers.?name=coredns;@0.ports.?containerPort=53;@0.protocol  (#2)
+          UDP →     UDP
+  ~ service-default-coredns
+
+      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/coredns-default/out/manifests/service-default-coredns.yaml:
+      Resource: v1/Service default/coredns
+        - [Delete] spec.ports.?port=53;@0  (#2)
+          name: udp-53
+          port: 53
+          protocol: UDP
+          targetPort: 53
+        ~ [Update] spec.ports.?port=53;@0.name  (#2)
+          udp-53 →     udp-53
+        ~ [Update] spec.ports.?port=53;@0.protocol  (#2)
+          UDP →     UDP
+
+Images in helm-coredns-confighub-proof (post-render):
+      Deployment/coredns [coredns] coredns/coredns:1.13.1

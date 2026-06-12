@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "opencost-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-opencost-default-confighub-proof"
+    selector: "Labels.Proof = 'opencost-default-confighub-proof'"
+  subject:
+    chart: "opencost/opencost"
+    chartVersion: "2.5.21"
+    packagePath: "packages/opencost/opencost/2.5.21"
+    variant: "default"
+  changeset:
+    slug: "opencost-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "opencost safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "opencost-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-opencost --space helm-opencost-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-opencost"
+    output: "Unit deployment-default-opencost (91dec64e-cd41-433d-b8ae-d8104cf625e0) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-opencost-default-confighub-proof --where \"Labels.Proof = 'opencost-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req OENGjYVrsWLsRpVRYhJzDrDQyFDTXYAn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-opencost-default-confighub-proof --where \"Labels.Proof = 'opencost-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

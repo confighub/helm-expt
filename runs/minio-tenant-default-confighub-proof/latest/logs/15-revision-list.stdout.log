@@ -1,0 +1,2 @@
+NUM    UNIT                 CHANGESET    TIME                                    USER                    SOURCE           DESCRIPTION                                            APPLY-GATES    TAGS 
+1      namespace-default                 2026-06-12 17:04:39.805868 +0000 UTC    alexis@confighub.com    MergeExternal    Initial Data: 57 bytes; from namespace-default.yaml    None           None    

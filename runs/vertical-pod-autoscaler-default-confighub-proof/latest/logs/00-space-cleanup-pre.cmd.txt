@@ -1,0 +1,1 @@
+cub space delete --space "helm-vertical-pod-autoscaler-default-confighub-proof,VerticalPodAutoscaler-default-staging" --recursive-force

@@ -1,0 +1,1 @@
+cub unit list --space PerconaPSMDBOperator-no-crds-staging --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

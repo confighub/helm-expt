@@ -1,0 +1,1 @@
+cub unit apply --space helm-descheduler-default-confighub-proof --where "Labels.Proof = 'descheduler-default-confighub-proof'" --dry-run --wait --timeout 2m

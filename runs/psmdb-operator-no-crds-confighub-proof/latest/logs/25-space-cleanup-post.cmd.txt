@@ -1,0 +1,1 @@
+cub space delete --space "helm-psmdb-operator-no-crds-confighub-proof,PerconaPSMDBOperator-no-crds-staging" --recursive-force

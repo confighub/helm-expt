@@ -1,0 +1,1 @@
+cub unit apply --space helm-surveyor-default-confighub-proof --where "Labels.Proof = 'surveyor-default-confighub-proof'" --dry-run --wait --timeout 2m

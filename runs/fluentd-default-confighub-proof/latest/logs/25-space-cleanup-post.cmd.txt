@@ -1,0 +1,1 @@
+cub space delete --space "helm-fluentd-default-confighub-proof,Fluentd-default-staging" --recursive-force

@@ -1,0 +1,5 @@
+Bundled minio-operator-operator@
+  output: .tmp/confighub-proof/minio-operator-default-archives/minio-operator-b.tgz
+  files:  4
+  size:   15432 bytes
+  digest: sha256:030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c

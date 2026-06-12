@@ -1,0 +1,41 @@
+== sealed-secrets-sealed-secrets@ → Space helm-sealed-secrets-no-crds-confighub-proof ==
+Successfully created unit clusterrole-secrets-unsealer (e2cd6e79-d3dd-43d6-a56f-2c95aec3d6bd)
+Successfully created unit clusterrolebinding-sealed-secrets (1e61fb2e-b894-46ea-8de9-821c7b3afb09)
+Successfully created unit deployment-default-sealed-secrets (d6c3c35b-377c-46df-bcd5-9f74489c236e)
+Successfully created unit namespace-default (42a291d5-56df-4ce9-a8cf-e66efea3b4e7)
+Successfully created unit role-default-sealed-secrets-key-admin (2be03c61-c614-4ad4-bae2-279a61ddfd99)
+Successfully created unit role-default-sealed-secrets-service-proxier (2af381f5-57d5-44ab-b954-e5a2123c29f2)
+Successfully created unit rolebinding-default-sealed-secrets-key-admin (bf86f7d6-4c7f-4ab4-b137-c5a88074b9a8)
+Successfully created unit rolebinding-default-sealed-secrets-service-proxier (d29f2ada-e09b-4fce-8f26-0e3a111007e0)
+Successfully created unit service-default-sealed-secrets-metrics (5faf7617-f21f-4bae-8001-b0670fd5621a)
+Successfully created unit service-default-sealed-secrets (1f51baa1-863c-47c3-84e0-24bc67d950c0)
+Successfully created unit serviceaccount-default-sealed-secrets (1c243d71-41a3-465e-b9d9-d3c1e57ee7b4)
+Successfully created unit installer-record (26b5f944-a2d0-4510-92bd-554e767122ab)
+Linked clusterrolebinding-sealed-secrets -> clusterrole-secrets-unsealer (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-sealed-secrets -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-sealed-secrets -> serviceaccount-default-sealed-secrets (reference:v1/ServiceAccount)
+Linked deployment-default-sealed-secrets -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-sealed-secrets -> serviceaccount-default-sealed-secrets (reference:v1/ServiceAccount)
+Linked role-default-sealed-secrets-key-admin -> namespace-default (reference:v1/Namespace)
+Linked role-default-sealed-secrets-service-proxier -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-sealed-secrets-key-admin -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-sealed-secrets-key-admin -> role-default-sealed-secrets-key-admin (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-sealed-secrets-key-admin -> serviceaccount-default-sealed-secrets (reference:v1/ServiceAccount)
+Linked rolebinding-default-sealed-secrets-service-proxier -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-sealed-secrets-service-proxier -> role-default-sealed-secrets-service-proxier (reference:rbac.authorization.k8s.io/v1/Role)
+Linked service-default-sealed-secrets -> deployment-default-sealed-secrets (selector)
+Linked service-default-sealed-secrets -> namespace-default (reference:v1/Namespace)
+Linked service-default-sealed-secrets-metrics -> deployment-default-sealed-secrets (selector)
+Linked service-default-sealed-secrets-metrics -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-sealed-secrets -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - role-default-sealed-secrets-key-admin -> v1/ConfigMap "sealed-secrets-key"
+  - role-default-sealed-secrets-service-proxier -> v1/ConfigMap "http:sealed-secrets:"
+  - role-default-sealed-secrets-service-proxier -> v1/ConfigMap "http:sealed-secrets:http"
+  - role-default-sealed-secrets-service-proxier -> v1/ConfigMap "sealed-secrets"
+  - rolebinding-default-sealed-secrets-service-proxier -> v1/ServiceAccount "system:authenticated"

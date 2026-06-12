@@ -1,0 +1,23 @@
+== descheduler-descheduler@ → Space helm-descheduler-default-confighub-proof ==
+Successfully created unit clusterrole-descheduler (8af4977e-fe0e-4c30-8d69-30fc2cc4ddc0)
+Successfully created unit clusterrolebinding-descheduler (cb55bbc6-ca2e-43ef-ad60-bb19e8f2e334)
+Successfully created unit configmap-default-descheduler (11a6312f-d5fd-4ac4-b50c-65da2f1d8d5d)
+Successfully created unit cronjob-default-descheduler (34f1f588-0da1-4b5e-b735-2b4439edc647)
+Successfully created unit namespace-default (e141ab9b-cd3d-4c9a-992b-2b805b40f897)
+Successfully created unit serviceaccount-default-descheduler (1f9403a5-3bee-4a23-a489-a1f8af67aba3)
+Successfully created unit installer-record (79337274-c592-4963-9fd9-17e6f3cb2dd8)
+Linked clusterrolebinding-descheduler -> clusterrole-descheduler (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-descheduler -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-descheduler -> serviceaccount-default-descheduler (reference:v1/ServiceAccount)
+Linked configmap-default-descheduler -> namespace-default (reference:v1/Namespace)
+Linked cronjob-default-descheduler -> configmap-default-descheduler (reference:v1/ConfigMap)
+Linked cronjob-default-descheduler -> namespace-default (reference:v1/Namespace)
+Linked cronjob-default-descheduler -> serviceaccount-default-descheduler (reference:v1/ServiceAccount)
+Linked serviceaccount-default-descheduler -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - cronjob-default-descheduler -> scheduling.k8s.io/v1/PriorityClass "system-cluster-critical"

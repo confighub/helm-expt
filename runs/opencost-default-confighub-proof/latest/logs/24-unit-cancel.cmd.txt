@@ -1,0 +1,1 @@
+cub unit cancel --space helm-opencost-default-confighub-proof --where "Labels.Proof = 'opencost-default-confighub-proof'"

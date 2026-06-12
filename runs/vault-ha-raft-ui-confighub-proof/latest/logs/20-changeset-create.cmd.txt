@@ -1,0 +1,1 @@
+cub changeset create vault-safe-ops-20260527 --space helm-vault-ha-raft-ui-confighub-proof --description "Vault safe-ops proof: approve reviewed revisions, dry-run apply only" --label Proof=vault-ha-raft-ui-confighub-proof --label Lane=safe-ops --annotation proof.confighub.com/scope=local-test --annotation proof.confighub.com/live-apply=false --allow-exists

@@ -1,0 +1,1 @@
+cub unit approve deployment-default-coredns --space helm-coredns-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

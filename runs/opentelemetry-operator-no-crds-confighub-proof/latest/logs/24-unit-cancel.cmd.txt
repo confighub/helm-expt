@@ -1,0 +1,1 @@
+cub unit cancel --space helm-opentelemetry-operator-no-crds-confighub-proof --where "Labels.Proof = 'opentelemetry-operator-no-crds-confighub-proof'"

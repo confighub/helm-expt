@@ -1,0 +1,18 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "jaegertracing-jaeger"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "jaegertracing/jaeger default variant rendered from jaegertracing/jaeger@4.8.0"
+      }
+    ]
+  }
+}

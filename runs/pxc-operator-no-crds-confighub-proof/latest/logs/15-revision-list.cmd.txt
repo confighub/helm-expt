@@ -1,0 +1,1 @@
+cub revision list deployment-default-pxc-operator --space helm-pxc-operator-no-crds-confighub-proof

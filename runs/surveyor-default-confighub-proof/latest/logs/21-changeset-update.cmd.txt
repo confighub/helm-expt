@@ -1,0 +1,1 @@
+cub changeset update surveyor-safe-ops-20260527 --space helm-surveyor-default-confighub-proof --description "NATS Surveyor safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

@@ -1,0 +1,1 @@
+cub unit cancel --space helm-vpa-no-crds-confighub-proof --where "Labels.Proof = 'vpa-no-crds-confighub-proof'"

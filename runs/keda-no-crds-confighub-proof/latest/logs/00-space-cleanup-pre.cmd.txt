@@ -1,0 +1,1 @@
+cub space delete --space "helm-keda-no-crds-confighub-proof,KEDA-no-crds-staging" --recursive-force

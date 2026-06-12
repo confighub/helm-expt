@@ -1,0 +1,1 @@
+cub installer doc packages/projectcalico/tigera-operator/v3.32.0 --json

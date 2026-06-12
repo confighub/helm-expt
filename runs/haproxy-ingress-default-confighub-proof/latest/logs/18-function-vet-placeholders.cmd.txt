@@ -1,0 +1,1 @@
+cub function vet vet-placeholders --space helm-haproxy-ingress-default-confighub-proof --where "Labels.Proof = 'haproxy-ingress-default-confighub-proof'" --quiet --wait --timeout 10m

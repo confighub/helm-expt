@@ -1,0 +1,1626 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "dbcd24cd91b606f0371bc49ffda1275c26d665d659e66bca0123737e3ed31162",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vpa-evictionter-binding",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e108468b-f03e-4c3b-a3b4-ce05c5c06a46",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8c7d49c8d60a36af545cb637f082a23d630ed0b5cabe78619a3a1de38ddcc818",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vpa-actor",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ead0be42-5904-4863-8cbe-f99eaac23dd4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 18
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b0335b7ed28dcdc6f518e1453abcb5d3090d3a0a3eb03b667e1440dec4a9807c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vpa-metrics-reader",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f964b92e-d61e-42ad-90ea-e3d383d0ff37",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "df309f9937791536c9b97abcef569c4ba8c993a6f91245b330ea68ba2e22c6d5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vpa-admission-controller",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fb47e926-3fc4-48d6-a322-148da9fedd47",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "db29d9b1376db49d1d385060ee2bed6585378c4d7b0c2d9da15fd22ec5292650",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vpa-checkpoint-actor",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c4e91554-e209-4b18-966f-5e4723929857",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8f5f01db8cf9858761c295c6c5f614b2f40b4e42ddd78f086f91ff3dfd92881e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vpa-status-reader-binding",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "742c284f-59bf-4057-9161-16c97baabbd7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "aa74404ebe6c51b7c11042e9bb68b92be0f6de2b2f19baf5422d3a71cb62ca9e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-vpa-admission-controller",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3b0a7e60-42b1-4799-83b1-4db73dfb803b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bb3dfa16822a2f9fa4cbfcb90d2e200f2273b2c7bb9fd296805a759432b8cb31",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-vpa-recommender",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "406bc012-e8ad-40d7-baf2-b972688beaff",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7c5dc3d1d44186a900d3a6baaa8da9266d70bcbb6d487c166fb49e1e13dcac2f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-vpa-updater",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9d24acab-6f08-4094-b8ab-73fc175a907c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6815c9f43378526ef8aebeb77cfa96830ea06d5666d88bfa3639b79d56b4da19",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vpa-updater-in-place-binding",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "86e68042-b8f4-4fc7-802f-f12310693fe5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b8c4eef8d40b9b32f6c01806adea5850e869d73f66da198faed7a4ef03564430",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-vpa-webhook-config",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3b0d95e6-b617-4384-a50e-3de1fdf04bd6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b76de307-5794-4ef6-b46f-f729c7e9199b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "164119e2ecb76a36af6560123673f2174f5f373a8100fbd2a2e6c060f96f607a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9b3e8847-f1cf-488d-990f-77e73375839f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1b1570016a77b468c11e70a4877ea95bced5c1e630a5aeacc4ea21c2b28669e2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vpa-status-actor",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4e27a7f9-8f13-4d5d-b4f2-b19f4d402eff",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b28ecf3b3a95627c35cbfb24b6dc48bc1e11b93861e2c1651ad0d2fdf8ff97b6",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-vpa-target-reader-binding",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "69a3ff7c-e4b6-4282-85d0-bd0c4b5eb91f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 21
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "58d4c106a7c0ae2c93f681b79e88eccfa6af23dbb582d16a16a14f28558498e5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vpa-checkpoint-actor",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0b5dcbde-2ba7-4fd7-b074-8ea14701d9a3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "12b20206045610ddf36b18caa7ba42c9c94c9c8cfd43514a271739859d9bc0a2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vpa-actor",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a12bca25-84f3-4081-a8f0-7ff49afbed92",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f2e118534d28f69df8343715798d9defc56c967daaf52a0b6e756c4a5846b1e6",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vpa-admission-controller",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "753ec780-22f7-4f81-abe0-91a745877fbd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "35fd2b31da961fe5c2e90b58d0518450852eff3fa045d8fe43ee6b75db173c84",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vpa-evictioner",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ba4a4258-b713-437d-beaf-8ac0d6ffa538",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f55b665e6dd20cbcedf16e60f8610fb37ac96fb64e66a1e1f5c0d5da7100e945",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vpa-status-actor",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d4168ba0-aab9-410b-876f-ca4e67fae393",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1abbb790c3c565b82e3838f73f3ef0f72f6457a347a5adb53e169c84c6a586a3",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vpa-metrics-reader",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9363e13e-9dec-4e3f-907c-bb2910568bd2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fd61d9489e6353437446a175af4a6c03ebbc497992eee3aa742873d3af176e5e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vpa-target-reader",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "98200a83-b233-470d-b09d-1f6e2989ab5b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fff9f42374b44ac191a082349919c7d71fd12bd7a892cf0ced7ed01e6c1de259",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vpa-status-reader",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8b731709-6142-4578-bc2d-936a3cd449fe",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ef550e0c1e220f107e3b582f590536d6ca7c4475a7e053806ddf43f94d0aa89e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-vpa-updater-in-place",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d27f79b9-1105-4569-81a4-3145014cc6b4",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "188deb3147dae24f41260f64f2dae2067701265a711e771418608238a22e2940",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-vpa-webhook",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6400b7ac-d15c-4d2f-b37d-f43df75a5324",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e58a403dd995c40777734d0a037d42f363dc50aa9206a5f292739bffc8b19612",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-vpa-recommender",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b1e7a324-e532-4d7a-8121-a3f7fced2ded",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fe6cc1adb92ecef17b134013c047914e7ed47da5a0f80c8b50407b2004b44700",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-vpa-admission-controller",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "48cb69f8-82dc-4c58-88a6-0b729e2f233a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:58:02.259366Z",
+      "CursorID": 4634,
+      "DisplayName": "helm-vpa-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VPA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-vpa-no-crds-confighub-proof",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "UpdatedAt": "2026-06-12T16:58:02.829254Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'ccc7d973-1367-4b91-864c-e16902afaf52'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5b5136c6c023e9e2bd9074ee3669a56559a0b0ad14c0b492783640e6c82ba85f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-vpa-updater",
+      "SpaceID": "ccc7d973-1367-4b91-864c-e16902afaf52",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "22226630-0407-468c-ba66-c1a6a9ca63c6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "argo-cd-argo-workflows"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14"
+      },
+      {
+        "name": "controller-default-reviewed",
+        "path": "bases/controller-default-reviewed",
+        "description": "argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path"
+      }
+    ]
+  }
+}

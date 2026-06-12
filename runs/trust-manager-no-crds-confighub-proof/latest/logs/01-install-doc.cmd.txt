@@ -1,0 +1,1 @@
+cub installer doc packages/jetstack/trust-manager/v0.22.1 --json

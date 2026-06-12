@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 0 space(s)
+  Context: Slug IN ('helm-psmdb-operator-no-crds-confighub-proof', 'PerconaPSMDBOperator-no-crds-staging')

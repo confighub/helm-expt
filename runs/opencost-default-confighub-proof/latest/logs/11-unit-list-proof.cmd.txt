@@ -1,0 +1,1 @@
+cub unit list --space helm-opencost-default-confighub-proof --where "Labels.Proof = 'opencost-default-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

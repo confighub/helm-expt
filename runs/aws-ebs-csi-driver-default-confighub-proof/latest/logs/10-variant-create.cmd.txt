@@ -1,0 +1,1 @@
+cub variant create staging helm-aws-ebs-csi-driver-default-confighub-proof --environment Staging --region local --space-name-pattern template:AwsEbsCsiDriver-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

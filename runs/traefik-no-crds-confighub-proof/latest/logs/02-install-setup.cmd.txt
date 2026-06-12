@@ -1,0 +1,1 @@
+cub installer setup --pull packages/traefik/traefik/40.2.0 --base no-crds --work-dir .tmp/confighub-proof/traefik-no-crds --non-interactive --namespace default

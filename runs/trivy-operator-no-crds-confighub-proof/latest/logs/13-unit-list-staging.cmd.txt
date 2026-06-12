@@ -1,0 +1,1 @@
+cub unit list --space TrivyOperator-no-crds-staging --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

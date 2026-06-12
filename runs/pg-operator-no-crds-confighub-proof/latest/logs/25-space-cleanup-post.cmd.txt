@@ -1,0 +1,1 @@
+cub space delete --space "helm-pg-operator-no-crds-confighub-proof,PerconaPGOperator-no-crds-staging" --recursive-force

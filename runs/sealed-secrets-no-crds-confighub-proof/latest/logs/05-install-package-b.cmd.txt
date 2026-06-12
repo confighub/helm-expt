@@ -1,0 +1,1 @@
+cub installer package packages/sealed-secrets/sealed-secrets/2.18.6 -o .tmp/confighub-proof/sealed-secrets-no-crds-archives/sealed-secrets-b.tgz

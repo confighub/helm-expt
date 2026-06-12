@@ -1,0 +1,1 @@
+cub revision list deployment-external-secrets-external-secrets-cert-controller --space helm-external-secrets-no-crds-confighub-proof

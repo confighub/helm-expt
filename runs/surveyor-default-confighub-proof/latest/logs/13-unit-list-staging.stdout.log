@@ -1,0 +1,902 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:53.779213Z",
+        "CursorID": 22675,
+        "DisplayName": "Upgrade deployment-surveyor",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "cd41d895-229f-44bd-987e-0a3d0d3ee7b1",
+        "LinkID": "56866d00-96b7-4925-acc4-f6f5c18d9ad3",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-surveyor",
+        "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+        "SpaceSlug": "NATSSurveyor-default-staging",
+        "ToSpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+        "ToUnitID": "8015fb12-ebc8-4ae0-ad05-dfdf89c1a632",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:53.779213Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8015fb12-ebc8-4ae0-ad05-dfdf89c1a632' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:53.50514Z",
+      "CursorID": 4595,
+      "DisplayName": "helm-surveyor-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "NATSSurveyor-default-staging",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "UpdatedAt": "2026-06-12T16:49:53.50514Z",
+      "WhereTrigger": "SpaceID = 'f8f44083-987e-4f04-b637-c15c9a400c8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bdd8a6a409999ea0122cd530f1080d09c5624a3fe630cd8f114977060ad4337c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "56866d00-96b7-4925-acc4-f6f5c18d9ad3"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-surveyor",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cd41d895-229f-44bd-987e-0a3d0d3ee7b1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8015fb12-ebc8-4ae0-ad05-dfdf89c1a632",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1647841793,
+      "CreatedAt": "2026-06-12T16:49:32.415932Z",
+      "CursorID": 27806,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBzdXJ2ZXlvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogc3VydmV5b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuOS45CiAgICBoZWxtLnNoL2NoYXJ0OiBzdXJ2ZXlvci0wLjIwLjkKICBuYW1lOiBzdXJ2ZXlvcgpzcGVjOgogIHJlcGxpY2FzOiAxCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHN1cnZleW9yCiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHN1cnZleW9yCiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgbGFiZWxzOgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBzdXJ2ZXlvcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBzdXJ2ZXlvcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuOS45CiAgICAgICAgaGVsbS5zaC9jaGFydDogc3VydmV5b3ItMC4yMC45CiAgICBzcGVjOgogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSAtcAogICAgICAgIC0gIjc3NzciCiAgICAgICAgLSAtcz1uYXRzOi8vbmF0czo0MjIyCiAgICAgICAgLSAtLXRpbWVvdXQ9M3MKICAgICAgICAtIC1jPTEKICAgICAgICBlbnY6IG51bGwKICAgICAgICBpbWFnZTogbmF0c2lvL25hdHMtc3VydmV5b3I6MC45LjkKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoegogICAgICAgICAgICBwb3J0OiBodHRwCiAgICAgICAgbmFtZTogc3VydmV5b3IKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDc3NzcKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAgIHByb3RvY29sOiBUQ1AKICAgICAgICByZWFkaW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgIHBvcnQ6IGh0dHAKICAgICAgICByZXNvdXJjZXM6IHt9CiAgICAgICAgc2VjdXJpdHlDb250ZXh0OiB7fQogICAgICAgIHZvbHVtZU1vdW50czogbnVsbAogICAgICBzZWN1cml0eUNvbnRleHQ6IHt9CiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogc3VydmV5b3IKICAgICAgdm9sdW1lczogbnVsbAo=",
+      "DataHash": "bdd8a6a409999ea0122cd530f1080d09c5624a3fe630cd8f114977060ad4337c",
+      "DisplayName": "deployment-surveyor",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "HelmChart": "nats-surveyor",
+        "HelmChartVersion": "0.20.9",
+        "Package": "nats-surveyor",
+        "Proof": "surveyor-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/surveyor": {}
+          },
+          "AliasesWithoutScopes": {
+            "surveyor": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/surveyor",
+            "ResourceNameWithoutScope": "surveyor",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: surveyor\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: surveyor\n    app.kubernetes.io/version: 0.9.9\n    helm.sh/chart: surveyor-0.20.9\n  name: surveyor\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: surveyor\n      app.kubernetes.io/name: surveyor\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/instance: surveyor\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: surveyor\n        app.kubernetes.io/version: 0.9.9\n        helm.sh/chart: surveyor-0.20.9\n    spec:\n      containers:\n      - args:\n        - -p\n        - \"7777\"\n        - -s=nats://nats:4222\n        - --timeout=3s\n        - -c=1\n        env: null\n        image: natsio/nats-surveyor:0.9.9\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /healthz\n            port: http\n        name: surveyor\n        ports:\n        - containerPort: 7777\n          name: http\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /healthz\n            port: http\n        resources: {}\n        securityContext: {}\n        volumeMounts: null\n      securityContext: {}\n      serviceAccountName: surveyor\n      volumes: null\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/surveyor",
+          "ResourceNameWithoutScope": "surveyor",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-surveyor",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8015fb12-ebc8-4ae0-ad05-dfdf89c1a632",
+      "UpdatedAt": "2026-06-12T16:49:45.699861Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:53.832081Z",
+        "CursorID": 22676,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "84c41e28-3d22-40a5-b83a-66d50784ae40",
+        "LinkID": "ab25eb20-fa05-464c-a1e1-e7a37db3c3e2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+        "SpaceSlug": "NATSSurveyor-default-staging",
+        "ToSpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+        "ToUnitID": "b17e384f-e49d-465e-b09a-f3298ca3bbc2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:53.832081Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b17e384f-e49d-465e-b09a-f3298ca3bbc2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:53.50514Z",
+      "CursorID": 4595,
+      "DisplayName": "helm-surveyor-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "NATSSurveyor-default-staging",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "UpdatedAt": "2026-06-12T16:49:53.50514Z",
+      "WhereTrigger": "SpaceID = 'f8f44083-987e-4f04-b637-c15c9a400c8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "053f3014c51d53d5aaa54ebe9bc2cbe79dcfc53a8636092d1676f7715d2f3316",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ab25eb20-fa05-464c-a1e1-e7a37db3c3e2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "84c41e28-3d22-40a5-b83a-66d50784ae40",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b17e384f-e49d-465e-b09a-f3298ca3bbc2",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "nats-surveyor",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1281412702,
+      "CreatedAt": "2026-06-12T16:49:35.655356Z",
+      "CursorID": 27814,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogIm5hdHMtc3VydmV5b3IiCiAgdmVyc2lvbjogIjAuMjAuOSIKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIGJhc2VzOgogIC0gZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJuYXRzL3N1cnZleW9yIGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIG5hdHMvc3VydmV5b3JAMC4yMC45IgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJkZWZhdWx0LXJldmlld2VkIgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQtcmV2aWV3ZWQiCiAgICBkZWZhdWx0OiBmYWxzZQogICAgZGVzY3JpcHRpb246ICJuYXRzL3N1cnZleW9yIGRlZmF1bHQtcmV2aWV3ZWQgdXNlZnVsIGJhc2U7IGFsaWFzZXMgdGhlIGRlZmF1bHQgcmVuZGVyIHdpdGggYSBuYW1lZCB1c2VyIHN0YXJ0IHBhdGgiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IG5hdHMtc3VydmV5b3ItZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG5hdHMtc3VydmV5b3IKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogbmF0cy1zdXJ2ZXlvci1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG5hdHMtc3VydmV5b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IG5hdHMtc3VydmV5b3ItbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG5hdHMtc3VydmV5b3IKICBmaWxlczoKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LXN1cnZleW9yLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtc3VydmV5b3IKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IHN1cnZleW9yCiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWRlZmF1bHQueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLXN1cnZleW9yLnlhbWwKICAgIHNsdWc6IHNlcnZpY2Utc3VydmV5b3IKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiBzdXJ2ZXlvcgogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LXN1cnZleW9yLnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LXN1cnZleW9yCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IHN1cnZleW9yCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogbmF0cy1zdXJ2ZXlvci1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG5hdHMtc3VydmV5b3IKICBiYXNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogbmF0cy1zdXJ2ZXlvci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG5hdHMtc3VydmV5b3IKICBzcGFjZVBhdHRlcm46IGhlbG0tc3VydmV5b3ItZGVmYXVsdC1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBuYXRzLXN1cnZleW9yCiAgICBzbHVnOiBoZWxtLXN1cnZleW9yLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjQ5OjMwWiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "053f3014c51d53d5aaa54ebe9bc2cbe79dcfc53a8636092d1676f7715d2f3316",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "nats-surveyor"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/nats-surveyor": {}
+          },
+          "AliasesWithoutScopes": {
+            "nats-surveyor": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/nats-surveyor",
+            "ResourceNameWithoutScope": "nats-surveyor",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"nats-surveyor\"\n  version: \"0.20.9\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"nats/surveyor default variant rendered from nats/surveyor@0.20.9\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"default-reviewed\"\n    path: \"bases/default-reviewed\"\n    default: false\n    description: \"nats/surveyor default-reviewed useful base; aliases the default render with a named user start path\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/nats-surveyor-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "nats-surveyor-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/nats-surveyor-function-chain",
+            "ResourceNameWithoutScope": "nats-surveyor-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: nats-surveyor-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: nats-surveyor\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/nats-surveyor-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "nats-surveyor-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/nats-surveyor-inputs",
+            "ResourceNameWithoutScope": "nats-surveyor-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: nats-surveyor-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: nats-surveyor\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/nats-surveyor-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "nats-surveyor-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/nats-surveyor-manifest-index",
+            "ResourceNameWithoutScope": "nats-surveyor-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: nats-surveyor-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: nats-surveyor\n  files:\n  - filename: deployment-surveyor.yaml\n    slug: deployment-surveyor\n    apiVersion: apps/v1\n    kind: Deployment\n    name: surveyor\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: service-surveyor.yaml\n    slug: service-surveyor\n    apiVersion: v1\n    kind: Service\n    name: surveyor\n  - filename: serviceaccount-surveyor.yaml\n    slug: serviceaccount-surveyor\n    apiVersion: v1\n    kind: ServiceAccount\n    name: surveyor\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/nats-surveyor-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "nats-surveyor-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/nats-surveyor-selection",
+            "ResourceNameWithoutScope": "nats-surveyor-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: nats-surveyor-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: nats-surveyor\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/nats-surveyor-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "nats-surveyor-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/nats-surveyor-upload",
+            "ResourceNameWithoutScope": "nats-surveyor-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: nats-surveyor-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: nats-surveyor\n  spacePattern: helm-surveyor-default-confighub-proof\n  spaces:\n  - package: nats-surveyor\n    slug: helm-surveyor-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:49:30Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b17e384f-e49d-465e-b09a-f3298ca3bbc2",
+      "UpdatedAt": "2026-06-12T16:49:36.770331Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:53.86979Z",
+        "CursorID": 22677,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d1a410dd-1aa6-4eb1-a8bb-db9c949c0db3",
+        "LinkID": "93c513e4-9097-45ec-842f-8f62ac1b1eb6",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+        "SpaceSlug": "NATSSurveyor-default-staging",
+        "ToSpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+        "ToUnitID": "80e143b7-d4ab-4460-8c1d-9426d87fbed3",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:53.86979Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '80e143b7-d4ab-4460-8c1d-9426d87fbed3' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:53.50514Z",
+      "CursorID": 4595,
+      "DisplayName": "helm-surveyor-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "NATSSurveyor-default-staging",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "UpdatedAt": "2026-06-12T16:49:53.50514Z",
+      "WhereTrigger": "SpaceID = 'f8f44083-987e-4f04-b637-c15c9a400c8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "93c513e4-9097-45ec-842f-8f62ac1b1eb6"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d1a410dd-1aa6-4eb1-a8bb-db9c949c0db3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "80e143b7-d4ab-4460-8c1d-9426d87fbed3",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:49:33.168027Z",
+      "CursorID": 27808,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "HelmChart": "nats-surveyor",
+        "HelmChartVersion": "0.20.9",
+        "Package": "nats-surveyor",
+        "Proof": "surveyor-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "80e143b7-d4ab-4460-8c1d-9426d87fbed3",
+      "UpdatedAt": "2026-06-12T16:49:33.195549Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:53.917778Z",
+        "CursorID": 22678,
+        "DisplayName": "Upgrade serviceaccount-surveyor",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "bb880a2c-85d2-42a6-b2a1-ca421ba72397",
+        "LinkID": "7b2dbf14-12cf-4b5c-a44f-a814027e075b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-surveyor",
+        "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+        "SpaceSlug": "NATSSurveyor-default-staging",
+        "ToSpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+        "ToUnitID": "f7e0add8-9d68-4d18-8d49-2e4d4a39e1de",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:53.917778Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f7e0add8-9d68-4d18-8d49-2e4d4a39e1de' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:53.50514Z",
+      "CursorID": 4595,
+      "DisplayName": "helm-surveyor-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "NATSSurveyor-default-staging",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "UpdatedAt": "2026-06-12T16:49:53.50514Z",
+      "WhereTrigger": "SpaceID = 'f8f44083-987e-4f04-b637-c15c9a400c8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "670a12c219d1f5dd9a4348c65a0e46d12be4d03cd56ed23c09c9974bd2c9c51b",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7b2dbf14-12cf-4b5c-a44f-a814027e075b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-surveyor",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bb880a2c-85d2-42a6-b2a1-ca421ba72397",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f7e0add8-9d68-4d18-8d49-2e4d4a39e1de",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1364851440,
+      "CreatedAt": "2026-06-12T16:49:34.703796Z",
+      "CursorID": 27812,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHN1cnZleW9yCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBzdXJ2ZXlvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC45LjkKICAgIGhlbG0uc2gvY2hhcnQ6IHN1cnZleW9yLTAuMjAuOQogIG5hbWU6IHN1cnZleW9yCg==",
+      "DataHash": "670a12c219d1f5dd9a4348c65a0e46d12be4d03cd56ed23c09c9974bd2c9c51b",
+      "DisplayName": "serviceaccount-surveyor",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "HelmChart": "nats-surveyor",
+        "HelmChartVersion": "0.20.9",
+        "Package": "nats-surveyor",
+        "Proof": "surveyor-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 262 bytes; from serviceaccount-surveyor.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/surveyor": {}
+          },
+          "AliasesWithoutScopes": {
+            "surveyor": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/surveyor",
+            "ResourceNameWithoutScope": "surveyor",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: surveyor\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: surveyor\n    app.kubernetes.io/version: 0.9.9\n    helm.sh/chart: surveyor-0.20.9\n  name: surveyor\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/surveyor",
+          "ResourceNameWithoutScope": "surveyor",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-surveyor",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f7e0add8-9d68-4d18-8d49-2e4d4a39e1de",
+      "UpdatedAt": "2026-06-12T16:49:34.728717Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:49:53.970087Z",
+        "CursorID": 22679,
+        "DisplayName": "Upgrade service-surveyor",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "991d75db-691c-4e48-936b-a84705809bc5",
+        "LinkID": "73ea2574-aae3-4a8e-b495-cda8c57705e2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-surveyor",
+        "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+        "SpaceSlug": "NATSSurveyor-default-staging",
+        "ToSpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+        "ToUnitID": "d78ef6b7-54a9-432a-bcff-84a7385fa211",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:49:53.970088Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd78ef6b7-54a9-432a-bcff-84a7385fa211' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:53.50514Z",
+      "CursorID": 4595,
+      "DisplayName": "helm-surveyor-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "NATSSurveyor-default-staging",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "UpdatedAt": "2026-06-12T16:49:53.50514Z",
+      "WhereTrigger": "SpaceID = 'f8f44083-987e-4f04-b637-c15c9a400c8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3b70f0b432b858d032e81e496fd9d95dc2a71e5e68243e9afee7fa53cf847c74",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "73ea2574-aae3-4a8e-b495-cda8c57705e2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-surveyor",
+      "SpaceID": "2bbdf564-f96f-4ade-930a-915f3bfb453a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "991d75db-691c-4e48-936b-a84705809bc5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d78ef6b7-54a9-432a-bcff-84a7385fa211",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -2059638444,
+      "CreatedAt": "2026-06-12T16:49:33.872958Z",
+      "CursorID": 27810,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogc3VydmV5b3IKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHN1cnZleW9yCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjkuOQogICAgaGVsbS5zaC9jaGFydDogc3VydmV5b3ItMC4yMC45CiAgbmFtZTogc3VydmV5b3IKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IGh0dHAKICAgIHBvcnQ6IDc3NzcKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IGh0dHAKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBzdXJ2ZXlvcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogc3VydmV5b3IKICB0eXBlOiBDbHVzdGVySVAK",
+      "DataHash": "3b70f0b432b858d032e81e496fd9d95dc2a71e5e68243e9afee7fa53cf847c74",
+      "DisplayName": "service-surveyor",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "HelmChart": "nats-surveyor",
+        "HelmChartVersion": "0.20.9",
+        "Package": "nats-surveyor",
+        "Proof": "surveyor-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/surveyor": {}
+          },
+          "AliasesWithoutScopes": {
+            "surveyor": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/surveyor",
+            "ResourceNameWithoutScope": "surveyor",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: surveyor\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: surveyor\n    app.kubernetes.io/version: 0.9.9\n    helm.sh/chart: surveyor-0.20.9\n  name: surveyor\nspec:\n  ports:\n  - name: http\n    port: 7777\n    protocol: TCP\n    targetPort: http\n  selector:\n    app.kubernetes.io/instance: surveyor\n    app.kubernetes.io/name: surveyor\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/surveyor",
+          "ResourceNameWithoutScope": "surveyor",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-surveyor",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d78ef6b7-54a9-432a-bcff-84a7385fa211",
+      "UpdatedAt": "2026-06-12T16:49:46.783223Z",
+      "Version": 10
+    }
+  }
+]

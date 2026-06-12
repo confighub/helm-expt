@@ -1,0 +1,1 @@
+cub installer setup --pull packages/istio/istiod/1.30.0 --base default --work-dir .tmp/confighub-proof/istiod-default --non-interactive --namespace default

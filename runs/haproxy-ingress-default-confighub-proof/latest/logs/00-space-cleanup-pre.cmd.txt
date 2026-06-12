@@ -1,0 +1,1 @@
+cub space delete --space "helm-haproxy-ingress-default-confighub-proof,HaproxyIngress-default-staging" --recursive-force

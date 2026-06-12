@@ -1,0 +1,56 @@
+== argo-cd-argo-workflows@ → Space helm-argo-workflows-default-confighub-proof ==
+Successfully created unit clusterrole-argo-workflows-admin (e020f5d4-3f12-4b27-90fc-6f3090633c37)
+Successfully created unit clusterrole-argo-workflows-edit (f4acaaf3-f338-438f-bd63-ff570190873a)
+Successfully created unit clusterrole-argo-workflows-server-cluster-template (e2538f78-fb67-40d0-88ba-341a442bebbc)
+Successfully created unit clusterrole-argo-workflows-server (d3f498e1-80c7-4e30-9d85-4accabd28b2c)
+Successfully created unit clusterrole-argo-workflows-view (0c29666e-6e72-46c9-86c8-b448e5aeffd1)
+Successfully created unit clusterrole-argo-workflows-workflow-controller-cluster-template (8860db08-8018-4317-8ce3-2acbb4f5219e)
+Successfully created unit clusterrole-argo-workflows-workflow-controller (2923ff19-bb6b-4d61-9bb2-a88f6160e113)
+Successfully created unit clusterrolebinding-argo-workflows-server-cluster-template (263eb169-6a17-4ba1-88f3-aeab4773e979)
+Successfully created unit clusterrolebinding-argo-workflows-server (8482ff7c-27d1-4c7e-8a8f-5e1801612387)
+Successfully created unit clusterrolebinding-argo-workflows-workflow-controller-cluster-template (0d3d277f-d2e1-4edd-af52-2bee7e53bb82)
+Successfully created unit clusterrolebinding-argo-workflows-workflow-controller (c5ea643c-613d-4404-a695-233ceefda128)
+Successfully created unit configmap-default-argo-workflows-workflow-controller-configmap (44bf2a92-451e-43c8-9217-42217cae4af9)
+Successfully created unit deployment-default-argo-workflows-server (d63f0e94-59b7-4e86-bc46-439b05da68e6)
+Successfully created unit deployment-default-argo-workflows-workflow-controller (e2168422-5a5e-4ec2-8868-15222e83758e)
+Successfully created unit namespace-default (84a2036c-37e0-4fe5-b030-ebb29c5960d2)
+Successfully created unit role-default-argo-workflows-workflow (8c4aa614-e5e7-4dee-9572-66db9e2c77cd)
+Successfully created unit rolebinding-default-argo-workflows-workflow (7f7fbeb4-4d86-409e-8176-070fc3289cf4)
+Successfully created unit service-default-argo-workflows-server (6a0f59dc-6f34-44dd-a9cf-164697f64295)
+Successfully created unit serviceaccount-default-argo-workflows-server (5c2fd41c-324a-4895-a846-aa604737a8ee)
+Successfully created unit serviceaccount-default-argo-workflows-workflow-controller (c405c9c6-f8a0-4572-a03c-2c9b08383a9c)
+Successfully created unit installer-record (69bfc9f9-643c-4947-ad01-504e02129747)
+Linked clusterrolebinding-argo-workflows-server -> clusterrole-argo-workflows-server (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-argo-workflows-server -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-argo-workflows-server -> serviceaccount-default-argo-workflows-server (reference:v1/ServiceAccount)
+Linked clusterrolebinding-argo-workflows-server-cluster-template -> clusterrole-argo-workflows-server-cluster-template (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-argo-workflows-server-cluster-template -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-argo-workflows-server-cluster-template -> serviceaccount-default-argo-workflows-server (reference:v1/ServiceAccount)
+Linked clusterrolebinding-argo-workflows-workflow-controller -> clusterrole-argo-workflows-workflow-controller (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-argo-workflows-workflow-controller -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-argo-workflows-workflow-controller -> serviceaccount-default-argo-workflows-workflow-controller (reference:v1/ServiceAccount)
+Linked clusterrolebinding-argo-workflows-workflow-controller-cluster-template -> clusterrole-argo-workflows-workflow-controller-cluster-template (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-argo-workflows-workflow-controller-cluster-template -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-argo-workflows-workflow-controller-cluster-template -> serviceaccount-default-argo-workflows-workflow-controller (reference:v1/ServiceAccount)
+Linked configmap-default-argo-workflows-workflow-controller-configmap -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-argo-workflows-server -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-argo-workflows-server -> serviceaccount-default-argo-workflows-server (reference:v1/ServiceAccount)
+Linked deployment-default-argo-workflows-workflow-controller -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-argo-workflows-workflow-controller -> serviceaccount-default-argo-workflows-workflow-controller (reference:v1/ServiceAccount)
+Linked role-default-argo-workflows-workflow -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-argo-workflows-workflow -> namespace-default (reference:v1/Namespace)
+Linked service-default-argo-workflows-server -> deployment-default-argo-workflows-server (selector)
+Linked service-default-argo-workflows-server -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-argo-workflows-server -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-argo-workflows-workflow-controller -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrole-argo-workflows-workflow-controller -> v1/ConfigMap "argo-workflows-agent-ca-certificates"
+  - clusterrole-argo-workflows-workflow-controller -> v1/ConfigMap "workflow-controller"
+  - clusterrole-argo-workflows-workflow-controller -> v1/ConfigMap "workflow-controller-lease"
+  - rolebinding-default-argo-workflows-workflow -> rbac.authorization.k8s.io/v1/ClusterRole "argo-workflows-workflow"
+  - rolebinding-default-argo-workflows-workflow -> v1/ServiceAccount "argo-workflow"

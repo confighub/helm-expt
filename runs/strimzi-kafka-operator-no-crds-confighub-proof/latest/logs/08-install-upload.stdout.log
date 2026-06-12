@@ -1,0 +1,53 @@
+== strimzi-strimzi-kafka-operator@ → Space helm-strimzi-kafka-operator-no-crds-confighub-proof ==
+Successfully created unit clusterrole-strimzi-cluster-operator-global (bd062748-fe65-4efd-9502-0c54e1ce44c1)
+Successfully created unit clusterrole-strimzi-cluster-operator-leader-election (abe23b6a-d2c1-42ac-a200-b57e037c4b61)
+Successfully created unit clusterrole-strimzi-cluster-operator-namespaced (3a158876-adcc-47b3-ae86-605eaed662b5)
+Successfully created unit clusterrole-strimzi-cluster-operator-watched (d4bc94be-5b23-41ee-9a48-f65c0e0a7567)
+Successfully created unit clusterrole-strimzi-entity-operator (ba9f32fc-e8e7-420f-8e3a-3938b17a2fc0)
+Successfully created unit clusterrole-strimzi-kafka-broker (2e35e182-a2ea-4789-ab70-02be0be5b37f)
+Successfully created unit clusterrole-strimzi-kafka-client (2400d761-1ea0-46fe-a24f-0c448a2bad53)
+Successfully created unit clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation (1e29a3bc-c16c-43ae-a07c-321c158c29f6)
+Successfully created unit clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation (2d936973-c784-404b-b395-604a3f011002)
+Successfully created unit clusterrolebinding-strimzi-cluster-operator (81fc43b4-11a3-4217-b09d-1642b7090210)
+Successfully created unit configmap-default-strimzi-cluster-operator (933f9475-e910-4d21-84cf-04064c9d3257)
+Successfully created unit deployment-default-strimzi-cluster-operator (e27326a3-8190-44ee-a0d7-11cfb9ab795d)
+Successfully created unit namespace-default (155be2a3-7474-4cbe-be0f-efe53d531e55)
+Successfully created unit rolebinding-default-strimzi-cluster-operator-entity-operator-delegation (4c42d662-4300-4d8c-aeec-e836d103c1d7)
+Successfully created unit rolebinding-default-strimzi-cluster-operator-leader-election (fd148b05-2919-446e-baff-28048d9ac772)
+Successfully created unit rolebinding-default-strimzi-cluster-operator-watched (9c69acc0-d392-4380-ac91-f2fcb4a04b3f)
+Successfully created unit rolebinding-default-strimzi-cluster-operator (8e95eee8-60cb-49b7-a3fa-f2f6fe95e202)
+Successfully created unit serviceaccount-default-strimzi-cluster-operator (7d339be5-9355-4ede-b196-ce63afc5bb40)
+Successfully created unit installer-record (840a09c2-236f-4eb8-a026-af9e2b9253fa)
+Linked clusterrolebinding-strimzi-cluster-operator -> clusterrole-strimzi-cluster-operator-global (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-strimzi-cluster-operator -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-strimzi-cluster-operator -> serviceaccount-default-strimzi-cluster-operator (reference:v1/ServiceAccount)
+Linked clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation -> clusterrole-strimzi-kafka-broker (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation -> serviceaccount-default-strimzi-cluster-operator (reference:v1/ServiceAccount)
+Linked clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation -> clusterrole-strimzi-kafka-client (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation -> serviceaccount-default-strimzi-cluster-operator (reference:v1/ServiceAccount)
+Linked configmap-default-strimzi-cluster-operator -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-strimzi-cluster-operator -> configmap-default-strimzi-cluster-operator (reference:v1/ConfigMap)
+Linked deployment-default-strimzi-cluster-operator -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-strimzi-cluster-operator -> serviceaccount-default-strimzi-cluster-operator (reference:v1/ServiceAccount)
+Linked rolebinding-default-strimzi-cluster-operator -> clusterrole-strimzi-cluster-operator-namespaced (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked rolebinding-default-strimzi-cluster-operator -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-strimzi-cluster-operator -> serviceaccount-default-strimzi-cluster-operator (reference:v1/ServiceAccount)
+Linked rolebinding-default-strimzi-cluster-operator-entity-operator-delegation -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-strimzi-cluster-operator-entity-operator-delegation -> serviceaccount-default-strimzi-cluster-operator (reference:v1/ServiceAccount)
+Linked rolebinding-default-strimzi-cluster-operator-leader-election -> clusterrole-strimzi-cluster-operator-leader-election (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked rolebinding-default-strimzi-cluster-operator-leader-election -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-strimzi-cluster-operator-leader-election -> serviceaccount-default-strimzi-cluster-operator (reference:v1/ServiceAccount)
+Linked rolebinding-default-strimzi-cluster-operator-watched -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-strimzi-cluster-operator-watched -> serviceaccount-default-strimzi-cluster-operator (reference:v1/ServiceAccount)
+Linked serviceaccount-default-strimzi-cluster-operator -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrole-strimzi-cluster-operator-leader-election -> v1/Secret "strimzi-cluster-operator"
+  - rolebinding-default-strimzi-cluster-operator-entity-operator-delegation -> rbac.authorization.k8s.io/v1/Role "strimzi-entity-operator"
+  - rolebinding-default-strimzi-cluster-operator-watched -> rbac.authorization.k8s.io/v1/Role "strimzi-cluster-operator-watched"

@@ -1,0 +1,1 @@
+cub revision list deployment-kube-system-metrics-server --space helm-metrics-server-external-tls-ca-confighub-proof

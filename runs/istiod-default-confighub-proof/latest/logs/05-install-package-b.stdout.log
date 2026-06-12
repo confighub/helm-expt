@@ -1,0 +1,5 @@
+Bundled istio-istiod@
+  output: .tmp/confighub-proof/istiod-default-archives/istiod-b.tgz
+  files:  4
+  size:   16379 bytes
+  digest: sha256:4df6dad3315bc5087397f208dd1f1f0b0c128e4e63f998747cd1d3c9fc654c7e

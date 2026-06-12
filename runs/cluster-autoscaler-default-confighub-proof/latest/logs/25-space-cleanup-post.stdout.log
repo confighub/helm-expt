@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-cluster-autoscaler-default-confighub-proof', 'ClusterAutoscaler-default-staging')

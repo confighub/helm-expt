@@ -1,0 +1,1 @@
+cub unit approve namespace-default --space helm-minio-tenant-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

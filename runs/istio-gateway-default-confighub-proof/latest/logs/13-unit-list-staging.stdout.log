@@ -1,0 +1,1343 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:20:59.631168Z",
+        "CursorID": 24758,
+        "DisplayName": "Upgrade deployment-default-gateway",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "4b652e5e-5800-4d25-9325-60e92914140d",
+        "LinkID": "0f9f1844-63c3-4ac9-8138-5d5e4d91a7bd",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-gateway",
+        "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+        "SpaceSlug": "IstioGateway-default-staging",
+        "ToSpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+        "ToUnitID": "b4d7b75a-6ed9-432d-b448-f7d3db299b7b",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:20:59.631168Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b4d7b75a-6ed9-432d-b448-f7d3db299b7b' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:59.432436Z",
+      "CursorID": 4697,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IstioGateway-default-staging",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "UpdatedAt": "2026-06-12T17:20:59.432436Z",
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c90cd985bc9bd1c321bbe18149df0922c4506008ca8fd28c47bc4a2cd3d9fea0",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0f9f1844-63c3-4ac9-8138-5d5e4d91a7bd"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-gateway",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4b652e5e-5800-4d25-9325-60e92914140d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b4d7b75a-6ed9-432d-b448-f7d3db299b7b",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -447518264,
+      "CreatedAt": "2026-06-12T17:20:19.488799Z",
+      "CursorID": 29456,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogZ2F0ZXdheQogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdhdGV3YXkKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGdhdGV3YXkKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGlzdGlvCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjMwLjAKICAgIGhlbG0uc2gvY2hhcnQ6IGdhdGV3YXktMS4zMC4wCiAgICBpc3RpbzogZ2F0ZXdheQogICAgaXN0aW8uaW8vZGF0YXBsYW5lLW1vZGU6IG5vbmUKICBuYW1lOiBnYXRld2F5CiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwOiBnYXRld2F5CiAgICAgIGlzdGlvOiBnYXRld2F5CiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgYW5ub3RhdGlvbnM6CiAgICAgICAgaW5qZWN0LmlzdGlvLmlvL3RlbXBsYXRlczogZ2F0ZXdheQogICAgICAgIHByb21ldGhldXMuaW8vcGF0aDogL3N0YXRzL3Byb21ldGhldXMKICAgICAgICBwcm9tZXRoZXVzLmlvL3BvcnQ6ICIxNTAyMCIKICAgICAgICBwcm9tZXRoZXVzLmlvL3NjcmFwZTogInRydWUiCiAgICAgICAgc2lkZWNhci5pc3Rpby5pby9pbmplY3Q6ICJ0cnVlIgogICAgICBsYWJlbHM6CiAgICAgICAgYXBwOiBnYXRld2F5CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdhdGV3YXkKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ2F0ZXdheQogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGlzdGlvCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4zMC4wCiAgICAgICAgaGVsbS5zaC9jaGFydDogZ2F0ZXdheS0xLjMwLjAKICAgICAgICBpc3RpbzogZ2F0ZXdheQogICAgICAgIGlzdGlvLmlvL2RhdGFwbGFuZS1tb2RlOiBub25lCiAgICAgICAgc2lkZWNhci5pc3Rpby5pby9pbmplY3Q6ICJ0cnVlIgogICAgc3BlYzoKICAgICAgY29udGFpbmVyczoKICAgICAgLSBlbnY6IG51bGwKICAgICAgICBpbWFnZTogYXV0bwogICAgICAgIG5hbWU6IGlzdGlvLXByb3h5CiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiAxNTA5MAogICAgICAgICAgbmFtZTogaHR0cC1lbnZveS1wcm9tCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgbGltaXRzOgogICAgICAgICAgICBjcHU6IDIwMDBtCiAgICAgICAgICAgIG1lbW9yeTogMTAyNE1pCiAgICAgICAgICByZXF1ZXN0czoKICAgICAgICAgICAgY3B1OiAxMDBtCiAgICAgICAgICAgIG1lbW9yeTogMTI4TWkKICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBhbGxvd1ByaXZpbGVnZUVzY2FsYXRpb246IGZhbHNlCiAgICAgICAgICBjYXBhYmlsaXRpZXM6CiAgICAgICAgICAgIGRyb3A6CiAgICAgICAgICAgIC0gQUxMCiAgICAgICAgICBwcml2aWxlZ2VkOiBmYWxzZQogICAgICAgICAgcmVhZE9ubHlSb290RmlsZXN5c3RlbTogdHJ1ZQogICAgICAgICAgcnVuQXNOb25Sb290OiB0cnVlCiAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICBzeXNjdGxzOgogICAgICAgIC0gbmFtZTogbmV0LmlwdjQuaXBfdW5wcml2aWxlZ2VkX3BvcnRfc3RhcnQKICAgICAgICAgIHZhbHVlOiAiMCIKICAgICAgc2VydmljZUFjY291bnROYW1lOiBnYXRld2F5CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAzMAo=",
+      "DataHash": "c90cd985bc9bd1c321bbe18149df0922c4506008ca8fd28c47bc4a2cd3d9fea0",
+      "DisplayName": "deployment-default-gateway",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gateway": {}
+          },
+          "AliasesWithoutScopes": {
+            "gateway": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gateway",
+            "ResourceNameWithoutScope": "gateway",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app: gateway\n    app.kubernetes.io/instance: gateway\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: gateway\n    app.kubernetes.io/part-of: istio\n    app.kubernetes.io/version: 1.30.0\n    helm.sh/chart: gateway-1.30.0\n    istio: gateway\n    istio.io/dataplane-mode: none\n  name: gateway\n  namespace: default\nspec:\n  selector:\n    matchLabels:\n      app: gateway\n      istio: gateway\n  template:\n    metadata:\n      annotations:\n        inject.istio.io/templates: gateway\n        prometheus.io/path: /stats/prometheus\n        prometheus.io/port: \"15020\"\n        prometheus.io/scrape: \"true\"\n        sidecar.istio.io/inject: \"true\"\n      labels:\n        app: gateway\n        app.kubernetes.io/instance: gateway\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: gateway\n        app.kubernetes.io/part-of: istio\n        app.kubernetes.io/version: 1.30.0\n        helm.sh/chart: gateway-1.30.0\n        istio: gateway\n        istio.io/dataplane-mode: none\n        sidecar.istio.io/inject: \"true\"\n    spec:\n      containers:\n      - env: null\n        image: auto\n        name: istio-proxy\n        ports:\n        - containerPort: 15090\n          name: http-envoy-prom\n          protocol: TCP\n        resources:\n          limits:\n            cpu: 2000m\n            memory: 1024Mi\n          requests:\n            cpu: 100m\n            memory: 128Mi\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          privileged: false\n          readOnlyRootFilesystem: true\n          runAsNonRoot: true\n      securityContext:\n        sysctls:\n        - name: net.ipv4.ip_unprivileged_port_start\n          value: \"0\"\n      serviceAccountName: gateway\n      terminationGracePeriodSeconds: 30\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gateway",
+          "ResourceNameWithoutScope": "gateway",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b4d7b75a-6ed9-432d-b448-f7d3db299b7b",
+      "UpdatedAt": "2026-06-12T17:20:36.651523Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:20:59.661075Z",
+        "CursorID": 24759,
+        "DisplayName": "Upgrade horizontalpodautoscaler-default-gateway",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "57e71ad1-2b23-4393-a76c-27955b215ce2",
+        "LinkID": "a6e84c85-8679-4fd9-bd1b-55c23ab341b2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-horizontalpodautoscaler-default-gateway",
+        "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+        "SpaceSlug": "IstioGateway-default-staging",
+        "ToSpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+        "ToUnitID": "a0b74703-9c3c-4ef6-bfff-b5c27512c9de",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:20:59.661075Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'a0b74703-9c3c-4ef6-bfff-b5c27512c9de' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:59.432436Z",
+      "CursorID": 4697,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IstioGateway-default-staging",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "UpdatedAt": "2026-06-12T17:20:59.432436Z",
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f35ddca93576e14d93116c0fac38bc8ab1af268e1dde3e37a40db546f0665a60",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a6e84c85-8679-4fd9-bd1b-55c23ab341b2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "horizontalpodautoscaler-default-gateway",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "57e71ad1-2b23-4393-a76c-27955b215ce2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "a0b74703-9c3c-4ef6-bfff-b5c27512c9de",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -654857276,
+      "CreatedAt": "2026-06-12T17:20:20.266936Z",
+      "CursorID": 29457,
+      "Data": "YXBpVmVyc2lvbjogYXV0b3NjYWxpbmcvdjIKa2luZDogSG9yaXpvbnRhbFBvZEF1dG9zY2FsZXIKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBnYXRld2F5CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZ2F0ZXdheQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ2F0ZXdheQogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogaXN0aW8KICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMzAuMAogICAgaGVsbS5zaC9jaGFydDogZ2F0ZXdheS0xLjMwLjAKICAgIGlzdGlvOiBnYXRld2F5CiAgICBpc3Rpby5pby9kYXRhcGxhbmUtbW9kZTogbm9uZQogIG5hbWU6IGdhdGV3YXkKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBtYXhSZXBsaWNhczogNQogIG1ldHJpY3M6CiAgLSByZXNvdXJjZToKICAgICAgbmFtZTogY3B1CiAgICAgIHRhcmdldDoKICAgICAgICBhdmVyYWdlVXRpbGl6YXRpb246IDgwCiAgICAgICAgdHlwZTogVXRpbGl6YXRpb24KICAgIHR5cGU6IFJlc291cmNlCiAgbWluUmVwbGljYXM6IDEKICBzY2FsZVRhcmdldFJlZjoKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IGdhdGV3YXkK",
+      "DataHash": "f35ddca93576e14d93116c0fac38bc8ab1af268e1dde3e37a40db546f0665a60",
+      "DisplayName": "horizontalpodautoscaler-default-gateway",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gateway": {}
+          },
+          "AliasesWithoutScopes": {
+            "gateway": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gateway",
+            "ResourceNameWithoutScope": "gateway",
+            "ResourceType": "autoscaling/v2/HorizontalPodAutoscaler"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: autoscaling/v2\nkind: HorizontalPodAutoscaler\nmetadata:\n  labels:\n    app: gateway\n    app.kubernetes.io/instance: gateway\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: gateway\n    app.kubernetes.io/part-of: istio\n    app.kubernetes.io/version: 1.30.0\n    helm.sh/chart: gateway-1.30.0\n    istio: gateway\n    istio.io/dataplane-mode: none\n  name: gateway\n  namespace: default\nspec:\n  maxReplicas: 5\n  metrics:\n  - resource:\n      name: cpu\n      target:\n        averageUtilization: 80\n        type: Utilization\n    type: Resource\n  minReplicas: 1\n  scaleTargetRef:\n    apiVersion: apps/v1\n    kind: Deployment\n    name: gateway\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "horizontalpodautoscaler-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a0b74703-9c3c-4ef6-bfff-b5c27512c9de",
+      "UpdatedAt": "2026-06-12T17:20:40.63515Z",
+      "Version": 9
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:20:59.694079Z",
+        "CursorID": 24760,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "ccaa3813-bc70-4ee7-bd40-ed661c053e85",
+        "LinkID": "bc6c1708-c89d-41f9-885c-6c7d0bde3adc",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+        "SpaceSlug": "IstioGateway-default-staging",
+        "ToSpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+        "ToUnitID": "46396ca3-58e9-4694-8ab9-71477439a5ed",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:20:59.694079Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '46396ca3-58e9-4694-8ab9-71477439a5ed' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:59.432436Z",
+      "CursorID": 4697,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IstioGateway-default-staging",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "UpdatedAt": "2026-06-12T17:20:59.432436Z",
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "42e3910c8f168fc5e1fbcbe962cede36b3d3315b87c8d8d5f38addee6d744055",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "bc6c1708-c89d-41f9-885c-6c7d0bde3adc"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ccaa3813-bc70-4ee7-bd40-ed661c053e85",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "46396ca3-58e9-4694-8ab9-71477439a5ed",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "istio-gateway",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 14372019,
+      "CreatedAt": "2026-06-12T17:20:25.15481Z",
+      "CursorID": 29463,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImlzdGlvLWdhdGV3YXkiCiAgdmVyc2lvbjogIjEuMzAuMCIKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIGJhc2VzOgogIC0gZGVmYXVsdDogdHJ1ZQogICAgZGVzY3JpcHRpb246ICJpc3Rpby9nYXRld2F5IGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIGlzdGlvL2dhdGV3YXlAMS4zMC4wIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJjb250cm9sbGVyLWRlZmF1bHQtcmV2aWV3ZWQiCiAgICBwYXRoOiAiYmFzZXMvY29udHJvbGxlci1kZWZhdWx0LXJldmlld2VkIgogICAgZGVmYXVsdDogZmFsc2UKICAgIGRlc2NyaXB0aW9uOiAiaXN0aW8vZ2F0ZXdheSBjb250cm9sbGVyLWRlZmF1bHQtcmV2aWV3ZWQgdXNlZnVsIGJhc2U7IGFsaWFzZXMgdGhlIGRlZmF1bHQgcmVuZGVyIHdpdGggYSBuYW1lZCB1c2VyIHN0YXJ0IHBhdGgiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IGlzdGlvLWdhdGV3YXktZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGlzdGlvLWdhdGV3YXkKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogaXN0aW8tZ2F0ZXdheS1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGlzdGlvLWdhdGV3YXkKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGlzdGlvLWdhdGV3YXktbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGlzdGlvLWdhdGV3YXkKICBmaWxlczoKICAtIGZpbGVuYW1lOiBkZXBsb3ltZW50LWRlZmF1bHQtZ2F0ZXdheS55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtZ2F0ZXdheQogICAgYXBpVmVyc2lvbjogYXBwcy92MQogICAga2luZDogRGVwbG95bWVudAogICAgbmFtZTogZ2F0ZXdheQogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogaG9yaXpvbnRhbHBvZGF1dG9zY2FsZXItZGVmYXVsdC1nYXRld2F5LnlhbWwKICAgIHNsdWc6IGhvcml6b250YWxwb2RhdXRvc2NhbGVyLWRlZmF1bHQtZ2F0ZXdheQogICAgYXBpVmVyc2lvbjogYXV0b3NjYWxpbmcvdjIKICAgIGtpbmQ6IEhvcml6b250YWxQb2RBdXRvc2NhbGVyCiAgICBuYW1lOiBnYXRld2F5CiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGUtZGVmYXVsdC1nYXRld2F5LnlhbWwKICAgIHNsdWc6IHJvbGUtZGVmYXVsdC1nYXRld2F5CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlCiAgICBuYW1lOiBnYXRld2F5CiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1kZWZhdWx0LWdhdGV3YXkueWFtbAogICAgc2x1Zzogcm9sZWJpbmRpbmctZGVmYXVsdC1nYXRld2F5CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogZ2F0ZXdheQogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS1kZWZhdWx0LWdhdGV3YXkueWFtbAogICAgc2x1Zzogc2VydmljZS1kZWZhdWx0LWdhdGV3YXkKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiBnYXRld2F5CiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWdhdGV3YXkueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1nYXRld2F5CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IGdhdGV3YXkKICAgIG5hbWVzcGFjZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGlzdGlvLWdhdGV3YXktc2VsZWN0aW9uCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBpc3Rpby1nYXRld2F5CiAgYmFzZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogVXBsb2FkCm1ldGFkYXRhOgogIG5hbWU6IGlzdGlvLWdhdGV3YXktdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBpc3Rpby1nYXRld2F5CiAgc3BhY2VQYXR0ZXJuOiBoZWxtLWlzdGlvLWdhdGV3YXktZGVmYXVsdC1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBpc3Rpby1nYXRld2F5CiAgICBzbHVnOiBoZWxtLWlzdGlvLWdhdGV3YXktZGVmYXVsdC1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTc6MjA6MThaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "42e3910c8f168fc5e1fbcbe962cede36b3d3315b87c8d8d5f38addee6d744055",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "istio-gateway"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/istio-gateway": {}
+          },
+          "AliasesWithoutScopes": {
+            "istio-gateway": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/istio-gateway",
+            "ResourceNameWithoutScope": "istio-gateway",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"istio-gateway\"\n  version: \"1.30.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"istio/gateway default variant rendered from istio/gateway@1.30.0\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"controller-default-reviewed\"\n    path: \"bases/controller-default-reviewed\"\n    default: false\n    description: \"istio/gateway controller-default-reviewed useful base; aliases the default render with a named user start path\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/istio-gateway-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "istio-gateway-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/istio-gateway-function-chain",
+            "ResourceNameWithoutScope": "istio-gateway-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: istio-gateway-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: istio-gateway\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/istio-gateway-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "istio-gateway-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/istio-gateway-inputs",
+            "ResourceNameWithoutScope": "istio-gateway-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: istio-gateway-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: istio-gateway\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/istio-gateway-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "istio-gateway-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/istio-gateway-manifest-index",
+            "ResourceNameWithoutScope": "istio-gateway-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: istio-gateway-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: istio-gateway\n  files:\n  - filename: deployment-default-gateway.yaml\n    slug: deployment-default-gateway\n    apiVersion: apps/v1\n    kind: Deployment\n    name: gateway\n    namespace: default\n  - filename: horizontalpodautoscaler-default-gateway.yaml\n    slug: horizontalpodautoscaler-default-gateway\n    apiVersion: autoscaling/v2\n    kind: HorizontalPodAutoscaler\n    name: gateway\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-gateway.yaml\n    slug: role-default-gateway\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: gateway\n    namespace: default\n  - filename: rolebinding-default-gateway.yaml\n    slug: rolebinding-default-gateway\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: gateway\n    namespace: default\n  - filename: service-default-gateway.yaml\n    slug: service-default-gateway\n    apiVersion: v1\n    kind: Service\n    name: gateway\n    namespace: default\n  - filename: serviceaccount-default-gateway.yaml\n    slug: serviceaccount-default-gateway\n    apiVersion: v1\n    kind: ServiceAccount\n    name: gateway\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/istio-gateway-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "istio-gateway-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/istio-gateway-selection",
+            "ResourceNameWithoutScope": "istio-gateway-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: istio-gateway-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: istio-gateway\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/istio-gateway-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "istio-gateway-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/istio-gateway-upload",
+            "ResourceNameWithoutScope": "istio-gateway-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: istio-gateway-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: istio-gateway\n  spacePattern: helm-istio-gateway-default-confighub-proof\n  spaces:\n  - package: istio-gateway\n    slug: helm-istio-gateway-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:20:18Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "46396ca3-58e9-4694-8ab9-71477439a5ed",
+      "UpdatedAt": "2026-06-12T17:20:26.085327Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:20:59.719373Z",
+        "CursorID": 24761,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "f089ede3-b379-474a-8c18-03f02b7c21a5",
+        "LinkID": "0891ebc0-dbc4-43a7-9b65-1a01b0b68d47",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+        "SpaceSlug": "IstioGateway-default-staging",
+        "ToSpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+        "ToUnitID": "2f309d2c-8784-400d-900d-3a23f0fa134d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:20:59.719373Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2f309d2c-8784-400d-900d-3a23f0fa134d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:59.432436Z",
+      "CursorID": 4697,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IstioGateway-default-staging",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "UpdatedAt": "2026-06-12T17:20:59.432436Z",
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0891ebc0-dbc4-43a7-9b65-1a01b0b68d47"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f089ede3-b379-474a-8c18-03f02b7c21a5",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2f309d2c-8784-400d-900d-3a23f0fa134d",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:20:20.990559Z",
+      "CursorID": 29458,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2f309d2c-8784-400d-900d-3a23f0fa134d",
+      "UpdatedAt": "2026-06-12T17:20:21.020317Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:20:59.744504Z",
+        "CursorID": 24762,
+        "DisplayName": "Upgrade rolebinding-default-gateway",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "278ee659-1c43-417f-821a-e01f18efa476",
+        "LinkID": "07e112ac-6899-4c6f-ba5c-83705b8f2031",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-gateway",
+        "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+        "SpaceSlug": "IstioGateway-default-staging",
+        "ToSpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+        "ToUnitID": "c7f60979-5101-4f8e-9458-794f945d38db",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:20:59.744504Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c7f60979-5101-4f8e-9458-794f945d38db' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:59.432436Z",
+      "CursorID": 4697,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IstioGateway-default-staging",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "UpdatedAt": "2026-06-12T17:20:59.432436Z",
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "60eda4fb1bd1b8cf001ab0080d32ad71dddffb70237db9307a81119c7cc347be",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "07e112ac-6899-4c6f-ba5c-83705b8f2031"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-gateway",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "278ee659-1c43-417f-821a-e01f18efa476",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c7f60979-5101-4f8e-9458-794f945d38db",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1447488644,
+      "CreatedAt": "2026-06-12T17:20:22.655236Z",
+      "CursorID": 29460,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IGdhdGV3YXkKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBnYXRld2F5CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBnYXRld2F5CiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBpc3RpbwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4zMC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBnYXRld2F5LTEuMzAuMAogICAgaXN0aW86IGdhdGV3YXkKICAgIGlzdGlvLmlvL2RhdGFwbGFuZS1tb2RlOiBub25lCiAgbmFtZTogZ2F0ZXdheQogIG5hbWVzcGFjZTogZGVmYXVsdApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogUm9sZQogIG5hbWU6IGdhdGV3YXkKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBnYXRld2F5Cg==",
+      "DataHash": "60eda4fb1bd1b8cf001ab0080d32ad71dddffb70237db9307a81119c7cc347be",
+      "DisplayName": "rolebinding-default-gateway",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gateway": {}
+          },
+          "AliasesWithoutScopes": {
+            "gateway": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gateway",
+            "ResourceNameWithoutScope": "gateway",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app: gateway\n    app.kubernetes.io/instance: gateway\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: gateway\n    app.kubernetes.io/part-of: istio\n    app.kubernetes.io/version: 1.30.0\n    helm.sh/chart: gateway-1.30.0\n    istio: gateway\n    istio.io/dataplane-mode: none\n  name: gateway\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: gateway\nsubjects:\n- kind: ServiceAccount\n  name: gateway\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c7f60979-5101-4f8e-9458-794f945d38db",
+      "UpdatedAt": "2026-06-12T17:20:47.768822Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:20:59.769129Z",
+        "CursorID": 24763,
+        "DisplayName": "Upgrade role-default-gateway",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2f760dae-4c2b-4acb-9406-6a4b266b158b",
+        "LinkID": "a7ce98af-7955-438f-a3b9-85e1121c4069",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-gateway",
+        "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+        "SpaceSlug": "IstioGateway-default-staging",
+        "ToSpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+        "ToUnitID": "07c538f2-5a13-4a92-98b3-fe50f6426fd7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:20:59.769129Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '07c538f2-5a13-4a92-98b3-fe50f6426fd7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:59.432436Z",
+      "CursorID": 4697,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IstioGateway-default-staging",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "UpdatedAt": "2026-06-12T17:20:59.432436Z",
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "cb87cb8c50b9434a158561af5b5ecde76e467c87a316f15f5b3a561b01135a96",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a7ce98af-7955-438f-a3b9-85e1121c4069"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-gateway",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2f760dae-4c2b-4acb-9406-6a4b266b158b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "07c538f2-5a13-4a92-98b3-fe50f6426fd7",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -272897526,
+      "CreatedAt": "2026-06-12T17:20:21.74531Z",
+      "CursorID": 29459,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogZ2F0ZXdheQogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGdhdGV3YXkKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGdhdGV3YXkKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IGlzdGlvCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjMwLjAKICAgIGhlbG0uc2gvY2hhcnQ6IGdhdGV3YXktMS4zMC4wCiAgICBpc3RpbzogZ2F0ZXdheQogICAgaXN0aW8uaW8vZGF0YXBsYW5lLW1vZGU6IG5vbmUKICBuYW1lOiBnYXRld2F5CiAgbmFtZXNwYWNlOiBkZWZhdWx0CnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gc2VjcmV0cwogIHZlcmJzOgogIC0gZ2V0CiAgLSB3YXRjaAogIC0gbGlzdAo=",
+      "DataHash": "cb87cb8c50b9434a158561af5b5ecde76e467c87a316f15f5b3a561b01135a96",
+      "DisplayName": "role-default-gateway",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gateway": {}
+          },
+          "AliasesWithoutScopes": {
+            "gateway": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gateway",
+            "ResourceNameWithoutScope": "gateway",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app: gateway\n    app.kubernetes.io/instance: gateway\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: gateway\n    app.kubernetes.io/part-of: istio\n    app.kubernetes.io/version: 1.30.0\n    helm.sh/chart: gateway-1.30.0\n    istio: gateway\n    istio.io/dataplane-mode: none\n  name: gateway\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - get\n  - watch\n  - list\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gateway",
+          "ResourceNameWithoutScope": "gateway",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "07c538f2-5a13-4a92-98b3-fe50f6426fd7",
+      "UpdatedAt": "2026-06-12T17:20:44.253879Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:20:59.79245Z",
+        "CursorID": 24764,
+        "DisplayName": "Upgrade serviceaccount-default-gateway",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b4900d11-2de1-464e-957b-3a15a32bab54",
+        "LinkID": "35b71690-ea3d-45b2-9d83-7960c7499907",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-gateway",
+        "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+        "SpaceSlug": "IstioGateway-default-staging",
+        "ToSpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+        "ToUnitID": "31c36a2c-a8ee-4503-ac61-942e89c6dcb8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:20:59.79245Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '31c36a2c-a8ee-4503-ac61-942e89c6dcb8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:59.432436Z",
+      "CursorID": 4697,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IstioGateway-default-staging",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "UpdatedAt": "2026-06-12T17:20:59.432436Z",
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f2897dddace05ae544fcb07b1da13e4f73e3e25d83f9457f0f8b7818ea306124",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "35b71690-ea3d-45b2-9d83-7960c7499907"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-gateway",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b4900d11-2de1-464e-957b-3a15a32bab54",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "31c36a2c-a8ee-4503-ac61-942e89c6dcb8",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -59701198,
+      "CreatedAt": "2026-06-12T17:20:24.447192Z",
+      "CursorID": 29462,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBnYXRld2F5CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZ2F0ZXdheQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZ2F0ZXdheQogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogaXN0aW8KICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMzAuMAogICAgaGVsbS5zaC9jaGFydDogZ2F0ZXdheS0xLjMwLjAKICAgIGlzdGlvOiBnYXRld2F5CiAgICBpc3Rpby5pby9kYXRhcGxhbmUtbW9kZTogbm9uZQogIG5hbWU6IGdhdGV3YXkKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "f2897dddace05ae544fcb07b1da13e4f73e3e25d83f9457f0f8b7818ea306124",
+      "DisplayName": "serviceaccount-default-gateway",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 387 bytes; from serviceaccount-default-gateway.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gateway": {}
+          },
+          "AliasesWithoutScopes": {
+            "gateway": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gateway",
+            "ResourceNameWithoutScope": "gateway",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app: gateway\n    app.kubernetes.io/instance: gateway\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: gateway\n    app.kubernetes.io/part-of: istio\n    app.kubernetes.io/version: 1.30.0\n    helm.sh/chart: gateway-1.30.0\n    istio: gateway\n    istio.io/dataplane-mode: none\n  name: gateway\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gateway",
+          "ResourceNameWithoutScope": "gateway",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "31c36a2c-a8ee-4503-ac61-942e89c6dcb8",
+      "UpdatedAt": "2026-06-12T17:20:51.008758Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:20:59.820043Z",
+        "CursorID": 24765,
+        "DisplayName": "Upgrade service-default-gateway",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3f1236da-fa49-4deb-b326-200b12322efb",
+        "LinkID": "cbf60b31-974a-48c8-ad9a-cb6d148bd024",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-gateway",
+        "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+        "SpaceSlug": "IstioGateway-default-staging",
+        "ToSpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+        "ToUnitID": "71e5b329-6dd2-4a50-8a3d-eec9de16d970",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:20:59.820044Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '71e5b329-6dd2-4a50-8a3d-eec9de16d970' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:20:59.432436Z",
+      "CursorID": 4697,
+      "DisplayName": "helm-istio-gateway-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "IstioGateway",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "IstioGateway-default-staging",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "UpdatedAt": "2026-06-12T17:20:59.432436Z",
+      "WhereTrigger": "SpaceID = '77e799fd-b1d6-45ad-a60f-19cc3b571a11'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c43e0eee74480848cbb4271aed71b1a6defb61270279968d246229bfe5f0ece5",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "cbf60b31-974a-48c8-ad9a-cb6d148bd024"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-gateway",
+      "SpaceID": "4bd9a065-2ba8-4528-a8ac-e4a21a1eea69",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3f1236da-fa49-4deb-b326-200b12322efb",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "71e5b329-6dd2-4a50-8a3d-eec9de16d970",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1290207462,
+      "CreatedAt": "2026-06-12T17:20:23.494714Z",
+      "CursorID": 29461,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IGdhdGV3YXkKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBnYXRld2F5CiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBnYXRld2F5CiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBpc3RpbwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4zMC4wCiAgICBoZWxtLnNoL2NoYXJ0OiBnYXRld2F5LTEuMzAuMAogICAgaXN0aW86IGdhdGV3YXkKICAgIGlzdGlvLmlvL2RhdGFwbGFuZS1tb2RlOiBub25lCiAgbmFtZTogZ2F0ZXdheQogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHBvcnRzOgogIC0gbmFtZTogc3RhdHVzLXBvcnQKICAgIHBvcnQ6IDE1MDIxCiAgICBwcm90b2NvbDogVENQCiAgICB0YXJnZXRQb3J0OiAxNTAyMQogIC0gbmFtZTogaHR0cDIKICAgIHBvcnQ6IDgwCiAgICBwcm90b2NvbDogVENQCiAgICB0YXJnZXRQb3J0OiA4MAogIC0gbmFtZTogaHR0cHMKICAgIHBvcnQ6IDQ0MwogICAgcHJvdG9jb2w6IFRDUAogICAgdGFyZ2V0UG9ydDogNDQzCiAgc2VsZWN0b3I6CiAgICBhcHA6IGdhdGV3YXkKICAgIGlzdGlvOiBnYXRld2F5CiAgdHlwZTogTG9hZEJhbGFuY2VyCg==",
+      "DataHash": "c43e0eee74480848cbb4271aed71b1a6defb61270279968d246229bfe5f0ece5",
+      "DisplayName": "service-default-gateway",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "IstioGateway",
+        "HelmChart": "istio-gateway",
+        "HelmChartVersion": "1.30.0",
+        "Package": "istio-gateway",
+        "Proof": "istio-gateway-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/gateway": {}
+          },
+          "AliasesWithoutScopes": {
+            "gateway": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/gateway",
+            "ResourceNameWithoutScope": "gateway",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app: gateway\n    app.kubernetes.io/instance: gateway\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: gateway\n    app.kubernetes.io/part-of: istio\n    app.kubernetes.io/version: 1.30.0\n    helm.sh/chart: gateway-1.30.0\n    istio: gateway\n    istio.io/dataplane-mode: none\n  name: gateway\n  namespace: default\nspec:\n  ports:\n  - name: status-port\n    port: 15021\n    protocol: TCP\n    targetPort: 15021\n  - name: http2\n    port: 80\n    protocol: TCP\n    targetPort: 80\n  - name: https\n    port: 443\n    protocol: TCP\n    targetPort: 443\n  selector:\n    app: gateway\n    istio: gateway\n  type: LoadBalancer\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/gateway",
+          "ResourceNameWithoutScope": "gateway",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-gateway",
+      "SpaceID": "77e799fd-b1d6-45ad-a60f-19cc3b571a11",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "71e5b329-6dd2-4a50-8a3d-eec9de16d970",
+      "UpdatedAt": "2026-06-12T17:20:49.968687Z",
+      "Version": 13
+    }
+  }
+]

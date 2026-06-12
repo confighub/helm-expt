@@ -1,0 +1,2144 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.716546Z",
+        "CursorID": 22715,
+        "DisplayName": "Upgrade clusterrolebinding-cloudnative-pg",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "05c46acf-10f6-4b60-a9e8-6be4ec6d9539",
+        "LinkID": "bebaf0f2-d12e-417b-a331-af45a2d209bf",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-cloudnative-pg",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "8fab6ffb-3e46-44f0-82b2-be3063a3818d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.716546Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8fab6ffb-3e46-44f0-82b2-be3063a3818d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "419f728974f5ed98e37cd58360c29500815d36697bfdc46933cd2faa00373e0b",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "bebaf0f2-d12e-417b-a331-af45a2d209bf"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-cloudnative-pg",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "05c46acf-10f6-4b60-a9e8-6be4ec6d9539",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8fab6ffb-3e46-44f0-82b2-be3063a3818d",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 39752411,
+      "CreatedAt": "2026-06-12T16:50:20.520369Z",
+      "CursorID": 27866,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNsb3VkbmF0aXZlLXBnCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjbG91ZG5hdGl2ZS1wZwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4yOS4xCiAgICBoZWxtLnNoL2NoYXJ0OiBjbG91ZG5hdGl2ZS1wZy0wLjI4LjIKICBuYW1lOiBjbG91ZG5hdGl2ZS1wZwpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBjbG91ZG5hdGl2ZS1wZwpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGNsb3VkbmF0aXZlLXBnCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "419f728974f5ed98e37cd58360c29500815d36697bfdc46933cd2faa00373e0b",
+      "DisplayName": "clusterrolebinding-cloudnative-pg",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cloudnative-pg": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg",
+            "ResourceNameWithoutScope": "cloudnative-pg",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cloudnative-pg\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: cloudnative-pg\nsubjects:\n- kind: ServiceAccount\n  name: cloudnative-pg\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-cloudnative-pg",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8fab6ffb-3e46-44f0-82b2-be3063a3818d",
+      "UpdatedAt": "2026-06-12T16:50:53.555007Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.848708Z",
+        "CursorID": 22718,
+        "DisplayName": "Upgrade clusterrole-cloudnative-pg",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3c03f83e-4bb6-4164-8738-6b6dd2cb7d49",
+        "LinkID": "67d62e46-113e-4a83-97dd-43d2fbfc8349",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-cloudnative-pg",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "d71920ab-e84a-4aa2-8032-6e82284fe528",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.848708Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd71920ab-e84a-4aa2-8032-6e82284fe528' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "863b5d755efe0a6e2450a91283e4c7d8cd4c3b01bf1687f82b781ba51c40a8d8",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "67d62e46-113e-4a83-97dd-43d2fbfc8349"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cloudnative-pg",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3c03f83e-4bb6-4164-8738-6b6dd2cb7d49",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d71920ab-e84a-4aa2-8032-6e82284fe528",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 721898404,
+      "CreatedAt": "2026-06-12T16:50:19.653792Z",
+      "CursorID": 27864,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2xvdWRuYXRpdmUtcGcKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGNsb3VkbmF0aXZlLXBnCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjI5LjEKICAgIGhlbG0uc2gvY2hhcnQ6IGNsb3VkbmF0aXZlLXBnLTAuMjguMgogIG5hbWU6IGNsb3VkbmF0aXZlLXBnCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gbm9kZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhZG1pc3Npb25yZWdpc3RyYXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gbXV0YXRpbmd3ZWJob29rY29uZmlndXJhdGlvbnMKICAtIHZhbGlkYXRpbmd3ZWJob29rY29uZmlndXJhdGlvbnMKICB2ZXJiczoKICAtIGdldAogIC0gcGF0Y2gKLSBhcGlHcm91cHM6CiAgLSBwb3N0Z3Jlc3FsLmNucGcuaW8KICByZXNvdXJjZXM6CiAgLSBjbHVzdGVyaW1hZ2VjYXRhbG9ncwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gY29uZmlnbWFwcwogIC0gc2VjcmV0cwogIC0gc2VydmljZXMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBjb25maWdtYXBzL3N0YXR1cwogIC0gc2VjcmV0cy9zdGF0dXMKICB2ZXJiczoKICAtIGdldAogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHBhdGNoCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwZXJzaXN0ZW50dm9sdW1lY2xhaW1zCiAgLSBwb2RzCiAgLSBwb2RzL2V4ZWMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gcG9kcy9zdGF0dXMKICB2ZXJiczoKICAtIGdldAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gc2VydmljZWFjY291bnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgcmVzb3VyY2VzOgogIC0gZGVwbG95bWVudHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB1cGRhdGUKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gYmF0Y2gKICByZXNvdXJjZXM6CiAgLSBqb2JzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBjb29yZGluYXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gbGVhc2VzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGdldAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gbW9uaXRvcmluZy5jb3Jlb3MuY29tCiAgcmVzb3VyY2VzOgogIC0gcG9kbW9uaXRvcnMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHBvbGljeQogIHJlc291cmNlczoKICAtIHBvZGRpc3J1cHRpb25idWRnZXRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gZ2V0CiAgLSBsaXN0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHBvc3RncmVzcWwuY25wZy5pbwogIHJlc291cmNlczoKICAtIGJhY2t1cHMKICAtIGNsdXN0ZXJzCiAgLSBkYXRhYmFzZXMKICAtIHBvb2xlcnMKICAtIHB1YmxpY2F0aW9ucwogIC0gc2NoZWR1bGVkYmFja3VwcwogIC0gc3Vic2NyaXB0aW9ucwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBwb3N0Z3Jlc3FsLmNucGcuaW8KICByZXNvdXJjZXM6CiAgLSBmYWlsb3ZlcnF1b3J1bXMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCi0gYXBpR3JvdXBzOgogIC0gcG9zdGdyZXNxbC5jbnBnLmlvCiAgcmVzb3VyY2VzOgogIC0gYmFja3Vwcy9zdGF0dXMKICAtIGRhdGFiYXNlcy9zdGF0dXMKICAtIHB1YmxpY2F0aW9ucy9zdGF0dXMKICAtIHNjaGVkdWxlZGJhY2t1cHMvc3RhdHVzCiAgLSBzdWJzY3JpcHRpb25zL3N0YXR1cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gcG9zdGdyZXNxbC5jbnBnLmlvCiAgcmVzb3VyY2VzOgogIC0gaW1hZ2VjYXRhbG9ncwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHBvc3RncmVzcWwuY25wZy5pbwogIHJlc291cmNlczoKICAtIGNsdXN0ZXJzL2ZpbmFsaXplcnMKICAtIHBvb2xlcnMvZmluYWxpemVycwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gcG9zdGdyZXNxbC5jbnBnLmlvCiAgcmVzb3VyY2VzOgogIC0gY2x1c3RlcnMvc3RhdHVzCiAgLSBwb29sZXJzL3N0YXR1cwogIC0gZmFpbG92ZXJxdW9ydW1zL3N0YXR1cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSByb2xlYmluZGluZ3MKICAtIHJvbGVzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIGdldAogIC0gbGlzdAogIC0gcGF0Y2gKICAtIHVwZGF0ZQogIC0gd2F0Y2gKLSBhcGlHcm91cHM6CiAgLSBzbmFwc2hvdC5zdG9yYWdlLms4cy5pbwogIHJlc291cmNlczoKICAtIHZvbHVtZXNuYXBzaG90cwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBnZXQKICAtIGxpc3QKICAtIHBhdGNoCiAgLSB3YXRjaAo=",
+      "DataHash": "863b5d755efe0a6e2450a91283e4c7d8cd4c3b01bf1687f82b781ba51c40a8d8",
+      "DisplayName": "clusterrole-cloudnative-pg",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cloudnative-pg": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg",
+            "ResourceNameWithoutScope": "cloudnative-pg",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cloudnative-pg\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - admissionregistration.k8s.io\n  resources:\n  - mutatingwebhookconfigurations\n  - validatingwebhookconfigurations\n  verbs:\n  - get\n  - patch\n- apiGroups:\n  - postgresql.cnpg.io\n  resources:\n  - clusterimagecatalogs\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps\n  - secrets\n  - services\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps/status\n  - secrets/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n- apiGroups:\n  - \"\"\n  resources:\n  - persistentvolumeclaims\n  - pods\n  - pods/exec\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - pods/status\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - serviceaccounts\n  verbs:\n  - create\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - apps\n  resources:\n  - deployments\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - batch\n  resources:\n  - jobs\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n  - get\n  - update\n- apiGroups:\n  - monitoring.coreos.com\n  resources:\n  - podmonitors\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - watch\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - postgresql.cnpg.io\n  resources:\n  - backups\n  - clusters\n  - databases\n  - poolers\n  - publications\n  - scheduledbackups\n  - subscriptions\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - postgresql.cnpg.io\n  resources:\n  - failoverquorums\n  verbs:\n  - create\n  - delete\n  - get\n  - list\n  - watch\n- apiGroups:\n  - postgresql.cnpg.io\n  resources:\n  - backups/status\n  - databases/status\n  - publications/status\n  - scheduledbackups/status\n  - subscriptions/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - postgresql.cnpg.io\n  resources:\n  - imagecatalogs\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - postgresql.cnpg.io\n  resources:\n  - clusters/finalizers\n  - poolers/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - postgresql.cnpg.io\n  resources:\n  - clusters/status\n  - poolers/status\n  - failoverquorums/status\n  verbs:\n  - get\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - rbac.authorization.k8s.io\n  resources:\n  - rolebindings\n  - roles\n  verbs:\n  - create\n  - get\n  - list\n  - patch\n  - update\n  - watch\n- apiGroups:\n  - snapshot.storage.k8s.io\n  resources:\n  - volumesnapshots\n  verbs:\n  - create\n  - get\n  - list\n  - patch\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/cloudnative-pg",
+          "ResourceNameWithoutScope": "cloudnative-pg",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-cloudnative-pg",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d71920ab-e84a-4aa2-8032-6e82284fe528",
+      "UpdatedAt": "2026-06-12T16:50:35.110417Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.596175Z",
+        "CursorID": 22713,
+        "DisplayName": "Upgrade clusterrole-cloudnative-pg-edit",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "534d21e5-fa99-4c78-95ab-353eb31b52dc",
+        "LinkID": "9e32c7bd-5417-4e4c-bb15-5221e66de3bc",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-cloudnative-pg-edit",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "db1ea722-09b0-44d2-8eae-3869a4ea6f55",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.596175Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'db1ea722-09b0-44d2-8eae-3869a4ea6f55' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fe2328179ecfe48f35135cbcedea4cd552a1e575a33aaa3bd29ba8f9dee27217",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "9e32c7bd-5417-4e4c-bb15-5221e66de3bc"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cloudnative-pg-edit",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "534d21e5-fa99-4c78-95ab-353eb31b52dc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "db1ea722-09b0-44d2-8eae-3869a4ea6f55",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1391108681,
+      "CreatedAt": "2026-06-12T16:50:17.755525Z",
+      "CursorID": 27862,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2xvdWRuYXRpdmUtcGcKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGNsb3VkbmF0aXZlLXBnCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjI5LjEKICAgIGhlbG0uc2gvY2hhcnQ6IGNsb3VkbmF0aXZlLXBnLTAuMjguMgogIG5hbWU6IGNsb3VkbmF0aXZlLXBnLWVkaXQKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gcG9zdGdyZXNxbC5jbnBnLmlvCiAgcmVzb3VyY2VzOgogIC0gYmFja3VwcwogIC0gY2x1c3RlcnMKICAtIGNsdXN0ZXJzL3N0YXR1cwogIC0gZGF0YWJhc2VzCiAgLSBmYWlsb3ZlcnF1b3J1bXMKICAtIHBvb2xlcnMKICAtIHB1YmxpY2F0aW9ucwogIC0gc2NoZWR1bGVkYmFja3VwcwogIC0gaW1hZ2VjYXRhbG9ncwogIC0gY2x1c3RlcmltYWdlY2F0YWxvZ3MKICAtIHN1YnNjcmlwdGlvbnMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBkZWxldGVjb2xsZWN0aW9uCiAgLSBwYXRjaAogIC0gdXBkYXRlCg==",
+      "DataHash": "fe2328179ecfe48f35135cbcedea4cd552a1e575a33aaa3bd29ba8f9dee27217",
+      "DisplayName": "clusterrole-cloudnative-pg-edit",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cloudnative-pg-edit": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg-edit": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg-edit",
+            "ResourceNameWithoutScope": "cloudnative-pg-edit",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cloudnative-pg-edit\nrules:\n- apiGroups:\n  - postgresql.cnpg.io\n  resources:\n  - backups\n  - clusters\n  - clusters/status\n  - databases\n  - failoverquorums\n  - poolers\n  - publications\n  - scheduledbackups\n  - imagecatalogs\n  - clusterimagecatalogs\n  - subscriptions\n  verbs:\n  - create\n  - delete\n  - deletecollection\n  - patch\n  - update\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/cloudnative-pg-edit",
+          "ResourceNameWithoutScope": "cloudnative-pg-edit",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-cloudnative-pg-edit",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "db1ea722-09b0-44d2-8eae-3869a4ea6f55",
+      "UpdatedAt": "2026-06-12T16:50:35.077436Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.808891Z",
+        "CursorID": 22717,
+        "DisplayName": "Upgrade clusterrole-cloudnative-pg-view",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "bdd3d43b-5889-4470-b72b-6cd0436d618c",
+        "LinkID": "41e4a557-a04a-4204-9e9a-da0b95772967",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-cloudnative-pg-view",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "0201cf77-97b5-401c-9170-9658251d801d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.808891Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '0201cf77-97b5-401c-9170-9658251d801d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d5f2d4c0e2d8bf6ea7db62e1854e5dcacdce5752b1d767b275887243955d1c3f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "41e4a557-a04a-4204-9e9a-da0b95772967"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cloudnative-pg-view",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bdd3d43b-5889-4470-b72b-6cd0436d618c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "0201cf77-97b5-401c-9170-9658251d801d",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -679335016,
+      "CreatedAt": "2026-06-12T16:50:18.73373Z",
+      "CursorID": 27863,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2xvdWRuYXRpdmUtcGcKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGNsb3VkbmF0aXZlLXBnCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjI5LjEKICAgIGhlbG0uc2gvY2hhcnQ6IGNsb3VkbmF0aXZlLXBnLTAuMjguMgogIG5hbWU6IGNsb3VkbmF0aXZlLXBnLXZpZXcKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gcG9zdGdyZXNxbC5jbnBnLmlvCiAgcmVzb3VyY2VzOgogIC0gYmFja3VwcwogIC0gY2x1c3RlcnMKICAtIGNsdXN0ZXJzL3N0YXR1cwogIC0gZGF0YWJhc2VzCiAgLSBmYWlsb3ZlcnF1b3J1bXMKICAtIHBvb2xlcnMKICAtIHB1YmxpY2F0aW9ucwogIC0gc2NoZWR1bGVkYmFja3VwcwogIC0gaW1hZ2VjYXRhbG9ncwogIC0gY2x1c3RlcmltYWdlY2F0YWxvZ3MKICAtIHN1YnNjcmlwdGlvbnMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gK",
+      "DataHash": "d5f2d4c0e2d8bf6ea7db62e1854e5dcacdce5752b1d767b275887243955d1c3f",
+      "DisplayName": "clusterrole-cloudnative-pg-view",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cloudnative-pg-view": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg-view": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg-view",
+            "ResourceNameWithoutScope": "cloudnative-pg-view",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cloudnative-pg-view\nrules:\n- apiGroups:\n  - postgresql.cnpg.io\n  resources:\n  - backups\n  - clusters\n  - clusters/status\n  - databases\n  - failoverquorums\n  - poolers\n  - publications\n  - scheduledbackups\n  - imagecatalogs\n  - clusterimagecatalogs\n  - subscriptions\n  verbs:\n  - get\n  - list\n  - watch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/cloudnative-pg-view",
+          "ResourceNameWithoutScope": "cloudnative-pg-view",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-cloudnative-pg-view",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0201cf77-97b5-401c-9170-9658251d801d",
+      "UpdatedAt": "2026-06-12T16:50:35.09517Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.878496Z",
+        "CursorID": 22719,
+        "DisplayName": "Upgrade configmap-default-cnpg-controller-manager-config",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "72e2d394-ce26-493f-b797-29ddd04f5aed",
+        "LinkID": "836bb010-9ca1-49a8-b8f9-e38db41d7901",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-cnpg-controller-manager-config",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "58331619-87d3-4497-9442-9930df84f0ec",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.878496Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '58331619-87d3-4497-9442-9930df84f0ec' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4a825b814dead8a3228c814a9a3b80d6f1b937390715a3aa8cdf827263815c3f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "836bb010-9ca1-49a8-b8f9-e38db41d7901"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-cnpg-controller-manager-config",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "72e2d394-ce26-493f-b797-29ddd04f5aed",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "58331619-87d3-4497-9442-9930df84f0ec",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1148518913,
+      "CreatedAt": "2026-06-12T16:50:21.593012Z",
+      "CursorID": 27868,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToge30Ka2luZDogQ29uZmlnTWFwCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjbG91ZG5hdGl2ZS1wZwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY2xvdWRuYXRpdmUtcGcKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMjkuMQogICAgaGVsbS5zaC9jaGFydDogY2xvdWRuYXRpdmUtcGctMC4yOC4yCiAgbmFtZTogY25wZy1jb250cm9sbGVyLW1hbmFnZXItY29uZmlnCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "4a825b814dead8a3228c814a9a3b80d6f1b937390715a3aa8cdf827263815c3f",
+      "DisplayName": "configmap-default-cnpg-controller-manager-config",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 328 bytes; from configmap-default-cnpg-controller-manager-config.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cnpg-controller-manager-config": {}
+          },
+          "AliasesWithoutScopes": {
+            "cnpg-controller-manager-config": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cnpg-controller-manager-config",
+            "ResourceNameWithoutScope": "cnpg-controller-manager-config",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata: {}\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cnpg-controller-manager-config\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/cnpg-controller-manager-config",
+          "ResourceNameWithoutScope": "cnpg-controller-manager-config",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-cnpg-controller-manager-config",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "58331619-87d3-4497-9442-9930df84f0ec",
+      "UpdatedAt": "2026-06-12T16:50:21.643377Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.930882Z",
+        "CursorID": 22720,
+        "DisplayName": "Upgrade configmap-default-cnpg-default-monitoring",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "70a6a659-a951-4dd7-b942-759186e43da6",
+        "LinkID": "b8367db2-e7f4-4a10-9eda-22ba7197b5cf",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-cnpg-default-monitoring",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "ad9877dc-5459-47a7-8077-605676b728c9",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.930882Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ad9877dc-5459-47a7-8077-605676b728c9' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1325b85bc024f248899b40efb21be939bfcb60f1be4f76dd9de1ee55744e3211",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "b8367db2-e7f4-4a10-9eda-22ba7197b5cf"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-cnpg-default-monitoring",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "70a6a659-a951-4dd7-b942-759186e43da6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ad9877dc-5459-47a7-8077-605676b728c9",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 34234853,
+      "CreatedAt": "2026-06-12T16:50:23.152256Z",
+      "CursorID": 27870,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBxdWVyaWVzOiB8CiAgICBiYWNrZW5kczoKICAgICAgcXVlcnk6IHwKICAgICAgICBTRUxFQ1Qgc2EuZGF0bmFtZQogICAgICAgICAgLCBzYS51c2VuYW1lCiAgICAgICAgICAsIHNhLmFwcGxpY2F0aW9uX25hbWUKICAgICAgICAgICwgc3RhdGVzLnN0YXRlCiAgICAgICAgICAsIENPQUxFU0NFKHNhLmNvdW50LCAwKSBBUyB0b3RhbAogICAgICAgICAgLCBDT0FMRVNDRShzYS5tYXhfdHhfc2VjcywgMCkgQVMgbWF4X3R4X2R1cmF0aW9uX3NlY29uZHMKICAgICAgICBGUk9NICggVkFMVUVTICgnYWN0aXZlJykKICAgICAgICAgICwgKCdpZGxlJykKICAgICAgICAgICwgKCdpZGxlIGluIHRyYW5zYWN0aW9uJykKICAgICAgICAgICwgKCdpZGxlIGluIHRyYW5zYWN0aW9uIChhYm9ydGVkKScpCiAgICAgICAgICAsICgnZmFzdHBhdGggZnVuY3Rpb24gY2FsbCcpCiAgICAgICAgICAsICgnZGlzYWJsZWQnKQogICAgICAgICAgKSBBUyBzdGF0ZXMoc3RhdGUpCiAgICAgICAgTEVGVCBKT0lOICgKICAgICAgICAgIFNFTEVDVCBkYXRuYW1lCiAgICAgICAgICAgICwgc3RhdGUKICAgICAgICAgICAgLCB1c2VuYW1lCiAgICAgICAgICAgICwgQ09BTEVTQ0UoYXBwbGljYXRpb25fbmFtZSwgJycpIEFTIGFwcGxpY2F0aW9uX25hbWUKICAgICAgICAgICAgLCBwZ19jYXRhbG9nLmNvdW50KCopCiAgICAgICAgICAgICwgQ09BTEVTQ0UoRVhUUkFDVCAoRVBPQ0ggRlJPTSAocGdfY2F0YWxvZy5tYXgocGdfY2F0YWxvZy5ub3coKSBPUEVSQVRPUihwZ19jYXRhbG9nLi0pIHhhY3Rfc3RhcnQpKSksIDApIEFTIG1heF90eF9zZWNzCiAgICAgICAgICBGUk9NIHBnX2NhdGFsb2cucGdfc3RhdF9hY3Rpdml0eQogICAgICAgICAgR1JPVVAgQlkgZGF0bmFtZSwgc3RhdGUsIHVzZW5hbWUsIGFwcGxpY2F0aW9uX25hbWUKICAgICAgICApIHNhIE9OIHN0YXRlcy5zdGF0ZSBPUEVSQVRPUihwZ19jYXRhbG9nLj0pIHNhLnN0YXRlCiAgICAgICAgV0hFUkUgc2EudXNlbmFtZSBJUyBOT1QgTlVMTAogICAgICBtZXRyaWNzOgogICAgICAgIC0gZGF0bmFtZToKICAgICAgICAgICAgdXNhZ2U6ICJMQUJFTCIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOYW1lIG9mIHRoZSBkYXRhYmFzZSIKICAgICAgICAtIHVzZW5hbWU6CiAgICAgICAgICAgIHVzYWdlOiAiTEFCRUwiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTmFtZSBvZiB0aGUgdXNlciIKICAgICAgICAtIGFwcGxpY2F0aW9uX25hbWU6CiAgICAgICAgICAgIHVzYWdlOiAiTEFCRUwiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTmFtZSBvZiB0aGUgYXBwbGljYXRpb24iCiAgICAgICAgLSBzdGF0ZToKICAgICAgICAgICAgdXNhZ2U6ICJMQUJFTCIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJTdGF0ZSBvZiB0aGUgYmFja2VuZCIKICAgICAgICAtIHRvdGFsOgogICAgICAgICAgICB1c2FnZTogIkdBVUdFIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiBiYWNrZW5kcyIKICAgICAgICAtIG1heF90eF9kdXJhdGlvbl9zZWNvbmRzOgogICAgICAgICAgICB1c2FnZTogIkdBVUdFIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk1heGltdW0gZHVyYXRpb24gb2YgYSB0cmFuc2FjdGlvbiBpbiBzZWNvbmRzIgoKICAgIGJhY2tlbmRzX3dhaXRpbmc6CiAgICAgIHF1ZXJ5OiB8CiAgICAgICAgU0VMRUNUIHBnX2NhdGFsb2cuY291bnQoKikgQVMgdG90YWwKICAgICAgICBGUk9NIHBnX2NhdGFsb2cucGdfbG9ja3MgYmxvY2tlZF9sb2NrcwogICAgICAgIEpPSU4gcGdfY2F0YWxvZy5wZ19sb2NrcyBibG9ja2luZ19sb2NrcwogICAgICAgICAgT04gYmxvY2tpbmdfbG9ja3MubG9ja3R5cGUgT1BFUkFUT1IocGdfY2F0YWxvZy49KSBibG9ja2VkX2xvY2tzLmxvY2t0eXBlCiAgICAgICAgICBBTkQgYmxvY2tpbmdfbG9ja3MuZGF0YWJhc2UgSVMgTk9UIERJU1RJTkNUIEZST00gYmxvY2tlZF9sb2Nrcy5kYXRhYmFzZQogICAgICAgICAgQU5EIGJsb2NraW5nX2xvY2tzLnJlbGF0aW9uIElTIE5PVCBESVNUSU5DVCBGUk9NIGJsb2NrZWRfbG9ja3MucmVsYXRpb24KICAgICAgICAgIEFORCBibG9ja2luZ19sb2Nrcy5wYWdlIElTIE5PVCBESVNUSU5DVCBGUk9NIGJsb2NrZWRfbG9ja3MucGFnZQogICAgICAgICAgQU5EIGJsb2NraW5nX2xvY2tzLnR1cGxlIElTIE5PVCBESVNUSU5DVCBGUk9NIGJsb2NrZWRfbG9ja3MudHVwbGUKICAgICAgICAgIEFORCBibG9ja2luZ19sb2Nrcy52aXJ0dWFseGlkIElTIE5PVCBESVNUSU5DVCBGUk9NIGJsb2NrZWRfbG9ja3MudmlydHVhbHhpZAogICAgICAgICAgQU5EIGJsb2NraW5nX2xvY2tzLnRyYW5zYWN0aW9uaWQgSVMgTk9UIERJU1RJTkNUIEZST00gYmxvY2tlZF9sb2Nrcy50cmFuc2FjdGlvbmlkCiAgICAgICAgICBBTkQgYmxvY2tpbmdfbG9ja3MuY2xhc3NpZCBJUyBOT1QgRElTVElOQ1QgRlJPTSBibG9ja2VkX2xvY2tzLmNsYXNzaWQKICAgICAgICAgIEFORCBibG9ja2luZ19sb2Nrcy5vYmppZCBJUyBOT1QgRElTVElOQ1QgRlJPTSBibG9ja2VkX2xvY2tzLm9iamlkCiAgICAgICAgICBBTkQgYmxvY2tpbmdfbG9ja3Mub2Jqc3ViaWQgSVMgTk9UIERJU1RJTkNUIEZST00gYmxvY2tlZF9sb2Nrcy5vYmpzdWJpZAogICAgICAgICAgQU5EIGJsb2NraW5nX2xvY2tzLnBpZCBPUEVSQVRPUihwZ19jYXRhbG9nLjw+KSBibG9ja2VkX2xvY2tzLnBpZAogICAgICAgIEpPSU4gcGdfY2F0YWxvZy5wZ19zdGF0X2FjdGl2aXR5IGJsb2NraW5nX2FjdGl2aXR5IE9OIGJsb2NraW5nX2FjdGl2aXR5LnBpZCBPUEVSQVRPUihwZ19jYXRhbG9nLj0pIGJsb2NraW5nX2xvY2tzLnBpZAogICAgICAgIFdIRVJFIE5PVCBibG9ja2VkX2xvY2tzLmdyYW50ZWQKICAgICAgbWV0cmljczoKICAgICAgICAtIHRvdGFsOgogICAgICAgICAgICB1c2FnZTogIkdBVUdFIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIlRvdGFsIG51bWJlciBvZiBiYWNrZW5kcyB0aGF0IGFyZSBjdXJyZW50bHkgd2FpdGluZyBvbiBvdGhlciBxdWVyaWVzIgoKICAgIHBnX2RhdGFiYXNlOgogICAgICBxdWVyeTogfAogICAgICAgIFNFTEVDVCBkYXRuYW1lCiAgICAgICAgICAsIHBnX2NhdGFsb2cucGdfZGF0YWJhc2Vfc2l6ZShkYXRuYW1lKSBBUyBzaXplX2J5dGVzCiAgICAgICAgICAsIHBnX2NhdGFsb2cuYWdlKGRhdGZyb3plbnhpZCkgQVMgeGlkX2FnZQogICAgICAgICAgLCBwZ19jYXRhbG9nLm14aWRfYWdlKGRhdG1pbm14aWQpIEFTIG14aWRfYWdlCiAgICAgICAgRlJPTSBwZ19jYXRhbG9nLnBnX2RhdGFiYXNlCiAgICAgICAgV0hFUkUgZGF0YWxsb3djb25uCiAgICAgIG1ldHJpY3M6CiAgICAgICAgLSBkYXRuYW1lOgogICAgICAgICAgICB1c2FnZTogIkxBQkVMIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk5hbWUgb2YgdGhlIGRhdGFiYXNlIgogICAgICAgIC0gc2l6ZV9ieXRlczoKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJEaXNrIHNwYWNlIHVzZWQgYnkgdGhlIGRhdGFiYXNlIgogICAgICAgIC0geGlkX2FnZToKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgdHJhbnNhY3Rpb25zIGZyb20gdGhlIGZyb3plbiBYSUQgdG8gdGhlIGN1cnJlbnQgb25lIgogICAgICAgIC0gbXhpZF9hZ2U6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIG11bHRpcGxlIHRyYW5zYWN0aW9ucyAoTXVsdGl4YWN0KSBmcm9tIHRoZSBmcm96ZW4gWElEIHRvIHRoZSBjdXJyZW50IG9uZSIKCiAgICBwZ19wb3N0bWFzdGVyOgogICAgICBxdWVyeTogfAogICAgICAgIFNFTEVDVCBFWFRSQUNUKEVQT0NIIEZST00gcGdfcG9zdG1hc3Rlcl9zdGFydF90aW1lKSBBUyBzdGFydF90aW1lCiAgICAgICAgRlJPTSBwZ19jYXRhbG9nLnBnX3Bvc3RtYXN0ZXJfc3RhcnRfdGltZSgpCiAgICAgIG1ldHJpY3M6CiAgICAgICAgLSBzdGFydF90aW1lOgogICAgICAgICAgICB1c2FnZTogIkdBVUdFIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIlRpbWUgYXQgd2hpY2ggcG9zdGdyZXMgc3RhcnRlZCAoYmFzZWQgb24gZXBvY2gpIgoKICAgIHBnX3JlcGxpY2F0aW9uOgogICAgICBxdWVyeTogfAogICAgICAgIFNFTEVDVCBDQVNFIFdIRU4gKAogICAgICAgICAgICBOT1QgcGdfY2F0YWxvZy5wZ19pc19pbl9yZWNvdmVyeSgpCiAgICAgICAgICAgIE9SIHBnX2NhdGFsb2cucGdfbGFzdF93YWxfcmVjZWl2ZV9sc24oKSBPUEVSQVRPUihwZ19jYXRhbG9nLj0pIHBnX2NhdGFsb2cucGdfbGFzdF93YWxfcmVwbGF5X2xzbigpKQogICAgICAgICAgVEhFTiAwCiAgICAgICAgICBFTFNFIEdSRUFURVNUICgwLAogICAgICAgICAgICBFWFRSQUNUKEVQT0NIIEZST00gKHBnX2NhdGFsb2cubm93KCkgT1BFUkFUT1IocGdfY2F0YWxvZy4tKSBwZ19jYXRhbG9nLnBnX2xhc3RfeGFjdF9yZXBsYXlfdGltZXN0YW1wKCkpKSkKICAgICAgICAgIEVORCBBUyBsYWcsCiAgICAgICAgICBwZ19jYXRhbG9nLnBnX2lzX2luX3JlY292ZXJ5KCkgQVMgaW5fcmVjb3ZlcnksCiAgICAgICAgICBFWElTVFMgKFRBQkxFIHBnX2NhdGFsb2cucGdfc3RhdF93YWxfcmVjZWl2ZXIpIEFTIGlzX3dhbF9yZWNlaXZlcl91cCwKICAgICAgICAgIChTRUxFQ1QgcGdfY2F0YWxvZy5jb3VudCgqKSBGUk9NIHBnX2NhdGFsb2cucGdfc3RhdF9yZXBsaWNhdGlvbikgQVMgc3RyZWFtaW5nX3JlcGxpY2FzCiAgICAgIG1ldHJpY3M6CiAgICAgICAgLSBsYWc6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiUmVwbGljYXRpb24gbGFnIGJlaGluZCBwcmltYXJ5IGluIHNlY29uZHMiCiAgICAgICAgLSBpbl9yZWNvdmVyeToKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJXaGV0aGVyIHRoZSBpbnN0YW5jZSBpcyBpbiByZWNvdmVyeSIKICAgICAgICAtIGlzX3dhbF9yZWNlaXZlcl91cDoKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJXaGV0aGVyIHRoZSBpbnN0YW5jZSB3YWxfcmVjZWl2ZXIgaXMgdXAiCiAgICAgICAgLSBzdHJlYW1pbmdfcmVwbGljYXM6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIHN0cmVhbWluZyByZXBsaWNhcyBjb25uZWN0ZWQgdG8gdGhlIGluc3RhbmNlIgoKICAgIHBnX3JlcGxpY2F0aW9uX3Nsb3RzOgogICAgICBxdWVyeTogfAogICAgICAgIFNFTEVDVCBzbG90X25hbWUsCiAgICAgICAgICBzbG90X3R5cGUsCiAgICAgICAgICBkYXRhYmFzZSwKICAgICAgICAgIGFjdGl2ZSwKICAgICAgICAgIChDQVNFIHBnX2NhdGFsb2cucGdfaXNfaW5fcmVjb3ZlcnkoKQogICAgICAgICAgICBXSEVOIFRSVUUgVEhFTiBwZ19jYXRhbG9nLnBnX3dhbF9sc25fZGlmZihwZ19jYXRhbG9nLnBnX2xhc3Rfd2FsX3JlY2VpdmVfbHNuKCksIHJlc3RhcnRfbHNuKQogICAgICAgICAgICBFTFNFIHBnX2NhdGFsb2cucGdfd2FsX2xzbl9kaWZmKHBnX2NhdGFsb2cucGdfY3VycmVudF93YWxfbHNuKCksIHJlc3RhcnRfbHNuKQogICAgICAgICAgRU5EKSBhcyBwZ193YWxfbHNuX2RpZmYKICAgICAgICBGUk9NIHBnX2NhdGFsb2cucGdfcmVwbGljYXRpb25fc2xvdHMKICAgICAgICBXSEVSRSBOT1QgdGVtcG9yYXJ5CiAgICAgIG1ldHJpY3M6CiAgICAgICAgLSBzbG90X25hbWU6CiAgICAgICAgICAgIHVzYWdlOiAiTEFCRUwiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTmFtZSBvZiB0aGUgcmVwbGljYXRpb24gc2xvdCIKICAgICAgICAtIHNsb3RfdHlwZToKICAgICAgICAgICAgdXNhZ2U6ICJMQUJFTCIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJUeXBlIG9mIHRoZSByZXBsaWNhdGlvbiBzbG90IgogICAgICAgIC0gZGF0YWJhc2U6CiAgICAgICAgICAgIHVzYWdlOiAiTEFCRUwiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTmFtZSBvZiB0aGUgZGF0YWJhc2UiCiAgICAgICAgLSBhY3RpdmU6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiRmxhZyBpbmRpY2F0aW5nIHdoZXRoZXIgdGhlIHNsb3QgaXMgYWN0aXZlIgogICAgICAgIC0gcGdfd2FsX2xzbl9kaWZmOgogICAgICAgICAgICB1c2FnZTogIkdBVUdFIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIlJlcGxpY2F0aW9uIGxhZyBpbiBieXRlcyIKCiAgICBwZ19zdGF0X2FyY2hpdmVyOgogICAgICBxdWVyeTogfAogICAgICAgIFNFTEVDVCBhcmNoaXZlZF9jb3VudAogICAgICAgICAgLCBmYWlsZWRfY291bnQKICAgICAgICAgICwgQ09BTEVTQ0UoRVhUUkFDVChFUE9DSCBGUk9NIChwZ19jYXRhbG9nLm5vdygpIE9QRVJBVE9SKHBnX2NhdGFsb2cuLSkgbGFzdF9hcmNoaXZlZF90aW1lKSksIC0xKSBBUyBzZWNvbmRzX3NpbmNlX2xhc3RfYXJjaGl2YWwKICAgICAgICAgICwgQ09BTEVTQ0UoRVhUUkFDVChFUE9DSCBGUk9NIChwZ19jYXRhbG9nLm5vdygpIE9QRVJBVE9SKHBnX2NhdGFsb2cuLSkgbGFzdF9mYWlsZWRfdGltZSkpLCAtMSkgQVMgc2Vjb25kc19zaW5jZV9sYXN0X2ZhaWx1cmUKICAgICAgICAgICwgQ09BTEVTQ0UoRVhUUkFDVChFUE9DSCBGUk9NIGxhc3RfYXJjaGl2ZWRfdGltZSksIC0xKSBBUyBsYXN0X2FyY2hpdmVkX3RpbWUKICAgICAgICAgICwgQ09BTEVTQ0UoRVhUUkFDVChFUE9DSCBGUk9NIGxhc3RfZmFpbGVkX3RpbWUpLCAtMSkgQVMgbGFzdF9mYWlsZWRfdGltZQogICAgICAgICAgLCBDT0FMRVNDRShDQVNUKENBU1QoJ3gnIE9QRVJBVE9SKHBnX2NhdGFsb2cufHwpIHBnX2NhdGFsb2cucmlnaHQocGdfY2F0YWxvZy5zcGxpdF9wYXJ0KGxhc3RfYXJjaGl2ZWRfd2FsLCAnLicsIDEpLCAxNikgQVMgcGdfY2F0YWxvZy5iaXQoNjQpKSBBUyBwZ19jYXRhbG9nLmludDgpLCAtMSkgQVMgbGFzdF9hcmNoaXZlZF93YWxfc3RhcnRfbHNuCiAgICAgICAgICAsIENPQUxFU0NFKENBU1QoQ0FTVCgneCcgT1BFUkFUT1IocGdfY2F0YWxvZy58fCkgcGdfY2F0YWxvZy5yaWdodChwZ19jYXRhbG9nLnNwbGl0X3BhcnQobGFzdF9mYWlsZWRfd2FsLCAnLicsIDEpLCAxNikgQVMgcGdfY2F0YWxvZy5iaXQoNjQpKSBBUyBwZ19jYXRhbG9nLmludDgpLCAtMSkgQVMgbGFzdF9mYWlsZWRfd2FsX3N0YXJ0X2xzbgogICAgICAgICAgLCBFWFRSQUNUKEVQT0NIIEZST00gc3RhdHNfcmVzZXQpIEFTIHN0YXRzX3Jlc2V0X3RpbWUKICAgICAgICBGUk9NIHBnX2NhdGFsb2cucGdfc3RhdF9hcmNoaXZlcgogICAgICBwcmVkaWNhdGVfcXVlcnk6IHwKICAgICAgICBTRUxFQ1QgTk9UIHBnX2NhdGFsb2cucGdfaXNfaW5fcmVjb3ZlcnkoKQogICAgICAgICAgT1IgcGdfY2F0YWxvZy5jdXJyZW50X3NldHRpbmcoJ2FyY2hpdmVfbW9kZScpIE9QRVJBVE9SKHBnX2NhdGFsb2cuPSkgJ2Fsd2F5cycKICAgICAgbWV0cmljczoKICAgICAgICAtIGFyY2hpdmVkX2NvdW50OgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIFdBTCBmaWxlcyB0aGF0IGhhdmUgYmVlbiBzdWNjZXNzZnVsbHkgYXJjaGl2ZWQiCiAgICAgICAgLSBmYWlsZWRfY291bnQ6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgZmFpbGVkIGF0dGVtcHRzIGZvciBhcmNoaXZpbmcgV0FMIGZpbGVzIgogICAgICAgIC0gc2Vjb25kc19zaW5jZV9sYXN0X2FyY2hpdmFsOgogICAgICAgICAgICB1c2FnZTogIkdBVUdFIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIlNlY29uZHMgc2luY2UgdGhlIGxhc3Qgc3VjY2Vzc2Z1bCBhcmNoaXZhbCBvcGVyYXRpb24iCiAgICAgICAgLSBzZWNvbmRzX3NpbmNlX2xhc3RfZmFpbHVyZToKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJTZWNvbmRzIHNpbmNlIHRoZSBsYXN0IGZhaWxlZCBhcmNoaXZhbCBvcGVyYXRpb24iCiAgICAgICAgLSBsYXN0X2FyY2hpdmVkX3RpbWU6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiRXBvY2ggb2YgdGhlIGxhc3QgdGltZSBXQUwgYXJjaGl2aW5nIHN1Y2NlZWRlZCIKICAgICAgICAtIGxhc3RfZmFpbGVkX3RpbWU6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiRXBvY2ggb2YgdGhlIGxhc3QgdGltZSBXQUwgYXJjaGl2aW5nIGZhaWxlZCIKICAgICAgICAtIGxhc3RfYXJjaGl2ZWRfd2FsX3N0YXJ0X2xzbjoKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJBcmNoaXZlZCBXQUwgc3RhcnQgTFNOIgogICAgICAgIC0gbGFzdF9mYWlsZWRfd2FsX3N0YXJ0X2xzbjoKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJMYXN0IGZhaWxlZCBXQUwgTFNOIgogICAgICAgIC0gc3RhdHNfcmVzZXRfdGltZToKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJUaW1lIGF0IHdoaWNoIHRoZXNlIHN0YXRpc3RpY3Mgd2VyZSBsYXN0IHJlc2V0IgoKICAgIHBnX3N0YXRfYmd3cml0ZXI6CiAgICAgIHJ1bm9uc2VydmVyOiAiPDE3LjAuMCIKICAgICAgcXVlcnk6IHwKICAgICAgICBTRUxFQ1QgY2hlY2twb2ludHNfdGltZWQKICAgICAgICAgICwgY2hlY2twb2ludHNfcmVxCiAgICAgICAgICAsIGNoZWNrcG9pbnRfd3JpdGVfdGltZQogICAgICAgICAgLCBjaGVja3BvaW50X3N5bmNfdGltZQogICAgICAgICAgLCBidWZmZXJzX2NoZWNrcG9pbnQKICAgICAgICAgICwgYnVmZmVyc19jbGVhbgogICAgICAgICAgLCBtYXh3cml0dGVuX2NsZWFuCiAgICAgICAgICAsIGJ1ZmZlcnNfYmFja2VuZAogICAgICAgICAgLCBidWZmZXJzX2JhY2tlbmRfZnN5bmMKICAgICAgICAgICwgYnVmZmVyc19hbGxvYwogICAgICAgIEZST00gcGdfY2F0YWxvZy5wZ19zdGF0X2Jnd3JpdGVyCiAgICAgIG1ldHJpY3M6CiAgICAgICAgLSBjaGVja3BvaW50c190aW1lZDoKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiBzY2hlZHVsZWQgY2hlY2twb2ludHMgdGhhdCBoYXZlIGJlZW4gcGVyZm9ybWVkIgogICAgICAgIC0gY2hlY2twb2ludHNfcmVxOgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIHJlcXVlc3RlZCBjaGVja3BvaW50cyB0aGF0IGhhdmUgYmVlbiBwZXJmb3JtZWQiCiAgICAgICAgLSBjaGVja3BvaW50X3dyaXRlX3RpbWU6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJUb3RhbCBhbW91bnQgb2YgdGltZSB0aGF0IGhhcyBiZWVuIHNwZW50IGluIHRoZSBwb3J0aW9uIG9mIGNoZWNrcG9pbnQgcHJvY2Vzc2luZyB3aGVyZSBmaWxlcyBhcmUgd3JpdHRlbiB0byBkaXNrLCBpbiBtaWxsaXNlY29uZHMiCiAgICAgICAgLSBjaGVja3BvaW50X3N5bmNfdGltZToKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIlRvdGFsIGFtb3VudCBvZiB0aW1lIHRoYXQgaGFzIGJlZW4gc3BlbnQgaW4gdGhlIHBvcnRpb24gb2YgY2hlY2twb2ludCBwcm9jZXNzaW5nIHdoZXJlIGZpbGVzIGFyZSBzeW5jaHJvbml6ZWQgdG8gZGlzaywgaW4gbWlsbGlzZWNvbmRzIgogICAgICAgIC0gYnVmZmVyc19jaGVja3BvaW50OgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIGJ1ZmZlcnMgd3JpdHRlbiBkdXJpbmcgY2hlY2twb2ludHMiCiAgICAgICAgLSBidWZmZXJzX2NsZWFuOgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIGJ1ZmZlcnMgd3JpdHRlbiBieSB0aGUgYmFja2dyb3VuZCB3cml0ZXIiCiAgICAgICAgLSBtYXh3cml0dGVuX2NsZWFuOgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIHRpbWVzIHRoZSBiYWNrZ3JvdW5kIHdyaXRlciBzdG9wcGVkIGEgY2xlYW5pbmcgc2NhbiBiZWNhdXNlIGl0IGhhZCB3cml0dGVuIHRvbyBtYW55IGJ1ZmZlcnMiCiAgICAgICAgLSBidWZmZXJzX2JhY2tlbmQ6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgYnVmZmVycyB3cml0dGVuIGRpcmVjdGx5IGJ5IGEgYmFja2VuZCIKICAgICAgICAtIGJ1ZmZlcnNfYmFja2VuZF9mc3luYzoKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiB0aW1lcyBhIGJhY2tlbmQgaGFkIHRvIGV4ZWN1dGUgaXRzIG93biBmc3luYyBjYWxsIChub3JtYWxseSB0aGUgYmFja2dyb3VuZCB3cml0ZXIgaGFuZGxlcyB0aG9zZSBldmVuIHdoZW4gdGhlIGJhY2tlbmQgZG9lcyBpdHMgb3duIHdyaXRlKSIKICAgICAgICAtIGJ1ZmZlcnNfYWxsb2M6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgYnVmZmVycyBhbGxvY2F0ZWQiCgogICAgcGdfc3RhdF9iZ3dyaXRlcl8xNzoKICAgICAgcnVub25zZXJ2ZXI6ICI+PTE3LjAuMCIKICAgICAgbmFtZTogcGdfc3RhdF9iZ3dyaXRlcgogICAgICBxdWVyeTogfAogICAgICAgIFNFTEVDVCBidWZmZXJzX2NsZWFuCiAgICAgICAgICAsIG1heHdyaXR0ZW5fY2xlYW4KICAgICAgICAgICwgYnVmZmVyc19hbGxvYwogICAgICAgICAgLCBFWFRSQUNUKEVQT0NIIEZST00gc3RhdHNfcmVzZXQpIEFTIHN0YXRzX3Jlc2V0X3RpbWUKICAgICAgICBGUk9NIHBnX2NhdGFsb2cucGdfc3RhdF9iZ3dyaXRlcgogICAgICBtZXRyaWNzOgogICAgICAgIC0gYnVmZmVyc19jbGVhbjoKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiBidWZmZXJzIHdyaXR0ZW4gYnkgdGhlIGJhY2tncm91bmQgd3JpdGVyIgogICAgICAgIC0gbWF4d3JpdHRlbl9jbGVhbjoKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiB0aW1lcyB0aGUgYmFja2dyb3VuZCB3cml0ZXIgc3RvcHBlZCBhIGNsZWFuaW5nIHNjYW4gYmVjYXVzZSBpdCBoYWQgd3JpdHRlbiB0b28gbWFueSBidWZmZXJzIgogICAgICAgIC0gYnVmZmVyc19hbGxvYzoKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiBidWZmZXJzIGFsbG9jYXRlZCIKICAgICAgICAtIHN0YXRzX3Jlc2V0X3RpbWU6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiVGltZSBhdCB3aGljaCB0aGVzZSBzdGF0aXN0aWNzIHdlcmUgbGFzdCByZXNldCIKCiAgICBwZ19zdGF0X2NoZWNrcG9pbnRlcjoKICAgICAgcnVub25zZXJ2ZXI6ICI+PTE3LjAuMCIKICAgICAgcXVlcnk6IHwKICAgICAgICBTRUxFQ1QgbnVtX3RpbWVkIEFTIGNoZWNrcG9pbnRzX3RpbWVkCiAgICAgICAgICAsIG51bV9yZXF1ZXN0ZWQgQVMgY2hlY2twb2ludHNfcmVxCiAgICAgICAgICAsIHJlc3RhcnRwb2ludHNfdGltZWQKICAgICAgICAgICwgcmVzdGFydHBvaW50c19yZXEKICAgICAgICAgICwgcmVzdGFydHBvaW50c19kb25lCiAgICAgICAgICAsIHdyaXRlX3RpbWUKICAgICAgICAgICwgc3luY190aW1lCiAgICAgICAgICAsIGJ1ZmZlcnNfd3JpdHRlbgogICAgICAgICAgLCBFWFRSQUNUKEVQT0NIIEZST00gc3RhdHNfcmVzZXQpIEFTIHN0YXRzX3Jlc2V0X3RpbWUKICAgICAgICBGUk9NIHBnX2NhdGFsb2cucGdfc3RhdF9jaGVja3BvaW50ZXIKICAgICAgbWV0cmljczoKICAgICAgICAtIGNoZWNrcG9pbnRzX3RpbWVkOgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIHNjaGVkdWxlZCBjaGVja3BvaW50cyB0aGF0IGhhdmUgYmVlbiBwZXJmb3JtZWQiCiAgICAgICAgLSBjaGVja3BvaW50c19yZXE6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgcmVxdWVzdGVkIGNoZWNrcG9pbnRzIHRoYXQgaGF2ZSBiZWVuIHBlcmZvcm1lZCIKICAgICAgICAtIHJlc3RhcnRwb2ludHNfdGltZWQ6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2Ygc2NoZWR1bGVkIHJlc3RhcnRwb2ludHMgZHVlIHRvIHRpbWVvdXQgb3IgYWZ0ZXIgYSBmYWlsZWQgYXR0ZW1wdCB0byBwZXJmb3JtIGl0IgogICAgICAgIC0gcmVzdGFydHBvaW50c19yZXE6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgcmVxdWVzdGVkIHJlc3RhcnRwb2ludHMgdGhhdCBoYXZlIGJlZW4gcGVyZm9ybWVkIgogICAgICAgIC0gcmVzdGFydHBvaW50c19kb25lOgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIHJlc3RhcnRwb2ludHMgdGhhdCBoYXZlIGJlZW4gcGVyZm9ybWVkIgogICAgICAgIC0gd3JpdGVfdGltZToKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIlRvdGFsIGFtb3VudCBvZiB0aW1lIHRoYXQgaGFzIGJlZW4gc3BlbnQgaW4gdGhlIHBvcnRpb24gb2YgcHJvY2Vzc2luZyBjaGVja3BvaW50cyBhbmQgcmVzdGFydHBvaW50cyB3aGVyZSBmaWxlcyBhcmUgd3JpdHRlbiB0byBkaXNrLCBpbiBtaWxsaXNlY29uZHMiCiAgICAgICAgLSBzeW5jX3RpbWU6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJUb3RhbCBhbW91bnQgb2YgdGltZSB0aGF0IGhhcyBiZWVuIHNwZW50IGluIHRoZSBwb3J0aW9uIG9mIHByb2Nlc3NpbmcgY2hlY2twb2ludHMgYW5kIHJlc3RhcnRwb2ludHMgd2hlcmUgZmlsZXMgYXJlIHN5bmNocm9uaXplZCB0byBkaXNrLCBpbiBtaWxsaXNlY29uZHMiCiAgICAgICAgLSBidWZmZXJzX3dyaXR0ZW46CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgYnVmZmVycyB3cml0dGVuIGR1cmluZyBjaGVja3BvaW50cyBhbmQgcmVzdGFydHBvaW50cyIKICAgICAgICAtIHN0YXRzX3Jlc2V0X3RpbWU6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiVGltZSBhdCB3aGljaCB0aGVzZSBzdGF0aXN0aWNzIHdlcmUgbGFzdCByZXNldCIKCiAgICBwZ19zdGF0X2RhdGFiYXNlOgogICAgICBxdWVyeTogfAogICAgICAgIFNFTEVDVCBkYXRuYW1lCiAgICAgICAgICAsIHhhY3RfY29tbWl0CiAgICAgICAgICAsIHhhY3Rfcm9sbGJhY2sKICAgICAgICAgICwgYmxrc19yZWFkCiAgICAgICAgICAsIGJsa3NfaGl0CiAgICAgICAgICAsIHR1cF9yZXR1cm5lZAogICAgICAgICAgLCB0dXBfZmV0Y2hlZAogICAgICAgICAgLCB0dXBfaW5zZXJ0ZWQKICAgICAgICAgICwgdHVwX3VwZGF0ZWQKICAgICAgICAgICwgdHVwX2RlbGV0ZWQKICAgICAgICAgICwgY29uZmxpY3RzCiAgICAgICAgICAsIHRlbXBfZmlsZXMKICAgICAgICAgICwgdGVtcF9ieXRlcwogICAgICAgICAgLCBkZWFkbG9ja3MKICAgICAgICAgICwgYmxrX3JlYWRfdGltZQogICAgICAgICAgLCBibGtfd3JpdGVfdGltZQogICAgICAgIEZST00gcGdfY2F0YWxvZy5wZ19zdGF0X2RhdGFiYXNlCiAgICAgIG1ldHJpY3M6CiAgICAgICAgLSBkYXRuYW1lOgogICAgICAgICAgICB1c2FnZTogIkxBQkVMIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk5hbWUgb2YgdGhpcyBkYXRhYmFzZSIKICAgICAgICAtIHhhY3RfY29tbWl0OgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIHRyYW5zYWN0aW9ucyBpbiB0aGlzIGRhdGFiYXNlIHRoYXQgaGF2ZSBiZWVuIGNvbW1pdHRlZCIKICAgICAgICAtIHhhY3Rfcm9sbGJhY2s6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgdHJhbnNhY3Rpb25zIGluIHRoaXMgZGF0YWJhc2UgdGhhdCBoYXZlIGJlZW4gcm9sbGVkIGJhY2siCiAgICAgICAgLSBibGtzX3JlYWQ6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgZGlzayBibG9ja3MgcmVhZCBpbiB0aGlzIGRhdGFiYXNlIgogICAgICAgIC0gYmxrc19oaXQ6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2YgdGltZXMgZGlzayBibG9ja3Mgd2VyZSBmb3VuZCBhbHJlYWR5IGluIHRoZSBidWZmZXIgY2FjaGUsIHNvIHRoYXQgYSByZWFkIHdhcyBub3QgbmVjZXNzYXJ5ICh0aGlzIG9ubHkgaW5jbHVkZXMgaGl0cyBpbiB0aGUgUG9zdGdyZVNRTCBidWZmZXIgY2FjaGUsIG5vdCB0aGUgb3BlcmF0aW5nIHN5c3RlbSdzIGZpbGUgc3lzdGVtIGNhY2hlKSIKICAgICAgICAtIHR1cF9yZXR1cm5lZDoKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiByb3dzIHJldHVybmVkIGJ5IHF1ZXJpZXMgaW4gdGhpcyBkYXRhYmFzZSIKICAgICAgICAtIHR1cF9mZXRjaGVkOgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIHJvd3MgZmV0Y2hlZCBieSBxdWVyaWVzIGluIHRoaXMgZGF0YWJhc2UiCiAgICAgICAgLSB0dXBfaW5zZXJ0ZWQ6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2Ygcm93cyBpbnNlcnRlZCBieSBxdWVyaWVzIGluIHRoaXMgZGF0YWJhc2UiCiAgICAgICAgLSB0dXBfdXBkYXRlZDoKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiByb3dzIHVwZGF0ZWQgYnkgcXVlcmllcyBpbiB0aGlzIGRhdGFiYXNlIgogICAgICAgIC0gdHVwX2RlbGV0ZWQ6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOdW1iZXIgb2Ygcm93cyBkZWxldGVkIGJ5IHF1ZXJpZXMgaW4gdGhpcyBkYXRhYmFzZSIKICAgICAgICAtIGNvbmZsaWN0czoKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiBxdWVyaWVzIGNhbmNlbGVkIGR1ZSB0byBjb25mbGljdHMgd2l0aCByZWNvdmVyeSBpbiB0aGlzIGRhdGFiYXNlIgogICAgICAgIC0gdGVtcF9maWxlczoKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk51bWJlciBvZiB0ZW1wb3JhcnkgZmlsZXMgY3JlYXRlZCBieSBxdWVyaWVzIGluIHRoaXMgZGF0YWJhc2UiCiAgICAgICAgLSB0ZW1wX2J5dGVzOgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiVG90YWwgYW1vdW50IG9mIGRhdGEgd3JpdHRlbiB0byB0ZW1wb3JhcnkgZmlsZXMgYnkgcXVlcmllcyBpbiB0aGlzIGRhdGFiYXNlIgogICAgICAgIC0gZGVhZGxvY2tzOgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiTnVtYmVyIG9mIGRlYWRsb2NrcyBkZXRlY3RlZCBpbiB0aGlzIGRhdGFiYXNlIgogICAgICAgIC0gYmxrX3JlYWRfdGltZToKICAgICAgICAgICAgdXNhZ2U6ICJDT1VOVEVSIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIlRpbWUgc3BlbnQgcmVhZGluZyBkYXRhIGZpbGUgYmxvY2tzIGJ5IGJhY2tlbmRzIGluIHRoaXMgZGF0YWJhc2UsIGluIG1pbGxpc2Vjb25kcyIKICAgICAgICAtIGJsa193cml0ZV90aW1lOgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiVGltZSBzcGVudCB3cml0aW5nIGRhdGEgZmlsZSBibG9ja3MgYnkgYmFja2VuZHMgaW4gdGhpcyBkYXRhYmFzZSwgaW4gbWlsbGlzZWNvbmRzIgoKICAgIHBnX3N0YXRfcmVwbGljYXRpb246CiAgICAgIHByaW1hcnk6IHRydWUKICAgICAgcXVlcnk6IHwKICAgICAgICBTRUxFQ1QgdXNlbmFtZQogICAgICAgICAgLCBDT0FMRVNDRShhcHBsaWNhdGlvbl9uYW1lLCAnJykgQVMgYXBwbGljYXRpb25fbmFtZQogICAgICAgICAgLCBDT0FMRVNDRShjbGllbnRfYWRkcjo6dGV4dCwgJycpIEFTIGNsaWVudF9hZGRyCiAgICAgICAgICAsIENPQUxFU0NFKGNsaWVudF9wb3J0Ojp0ZXh0LCAnJykgQVMgY2xpZW50X3BvcnQKICAgICAgICAgICwgRVhUUkFDVChFUE9DSCBGUk9NIGJhY2tlbmRfc3RhcnQpIEFTIGJhY2tlbmRfc3RhcnQKICAgICAgICAgICwgQ09BTEVTQ0UocGdfY2F0YWxvZy5hZ2UoYmFja2VuZF94bWluKSwgMCkgQVMgYmFja2VuZF94bWluX2FnZQogICAgICAgICAgLCBwZ19jYXRhbG9nLnBnX3dhbF9sc25fZGlmZihwZ19jYXRhbG9nLnBnX2N1cnJlbnRfd2FsX2xzbigpLCBzZW50X2xzbikgQVMgc2VudF9kaWZmX2J5dGVzCiAgICAgICAgICAsIHBnX2NhdGFsb2cucGdfd2FsX2xzbl9kaWZmKHBnX2NhdGFsb2cucGdfY3VycmVudF93YWxfbHNuKCksIHdyaXRlX2xzbikgQVMgd3JpdGVfZGlmZl9ieXRlcwogICAgICAgICAgLCBwZ19jYXRhbG9nLnBnX3dhbF9sc25fZGlmZihwZ19jYXRhbG9nLnBnX2N1cnJlbnRfd2FsX2xzbigpLCBmbHVzaF9sc24pIEFTIGZsdXNoX2RpZmZfYnl0ZXMKICAgICAgICAgICwgQ09BTEVTQ0UocGdfY2F0YWxvZy5wZ193YWxfbHNuX2RpZmYocGdfY2F0YWxvZy5wZ19jdXJyZW50X3dhbF9sc24oKSwgcmVwbGF5X2xzbiksMCkgQVMgcmVwbGF5X2RpZmZfYnl0ZXMKICAgICAgICAgICwgQ09BTEVTQ0UoKEVYVFJBQ1QoRVBPQ0ggRlJPTSB3cml0ZV9sYWcpKSwwKTo6ZmxvYXQgQVMgd3JpdGVfbGFnX3NlY29uZHMKICAgICAgICAgICwgQ09BTEVTQ0UoKEVYVFJBQ1QoRVBPQ0ggRlJPTSBmbHVzaF9sYWcpKSwwKTo6ZmxvYXQgQVMgZmx1c2hfbGFnX3NlY29uZHMKICAgICAgICAgICwgQ09BTEVTQ0UoKEVYVFJBQ1QoRVBPQ0ggRlJPTSByZXBsYXlfbGFnKSksMCk6OmZsb2F0IEFTIHJlcGxheV9sYWdfc2Vjb25kcwogICAgICAgIEZST00gcGdfY2F0YWxvZy5wZ19zdGF0X3JlcGxpY2F0aW9uCiAgICAgIG1ldHJpY3M6CiAgICAgICAgLSB1c2VuYW1lOgogICAgICAgICAgICB1c2FnZTogIkxBQkVMIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk5hbWUgb2YgdGhlIHJlcGxpY2F0aW9uIHVzZXIiCiAgICAgICAgLSBhcHBsaWNhdGlvbl9uYW1lOgogICAgICAgICAgICB1c2FnZTogIkxBQkVMIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk5hbWUgb2YgdGhlIGFwcGxpY2F0aW9uIgogICAgICAgIC0gY2xpZW50X2FkZHI6CiAgICAgICAgICAgIHVzYWdlOiAiTEFCRUwiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiQ2xpZW50IElQIGFkZHJlc3MiCiAgICAgICAgLSBjbGllbnRfcG9ydDoKICAgICAgICAgICAgdXNhZ2U6ICJMQUJFTCIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJDbGllbnQgVENQIHBvcnQiCiAgICAgICAgLSBiYWNrZW5kX3N0YXJ0OgogICAgICAgICAgICB1c2FnZTogIkNPVU5URVIiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiVGltZSB3aGVuIHRoaXMgcHJvY2VzcyB3YXMgc3RhcnRlZCIKICAgICAgICAtIGJhY2tlbmRfeG1pbl9hZ2U6CiAgICAgICAgICAgIHVzYWdlOiAiQ09VTlRFUiIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJUaGUgYWdlIG9mIHRoaXMgc3RhbmRieSdzIHhtaW4gaG9yaXpvbiIKICAgICAgICAtIHNlbnRfZGlmZl9ieXRlczoKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJEaWZmZXJlbmNlIGluIGJ5dGVzIGZyb20gdGhlIGxhc3Qgd3JpdGUtYWhlYWQgbG9nIGxvY2F0aW9uIHNlbnQgb24gdGhpcyBjb25uZWN0aW9uIgogICAgICAgIC0gd3JpdGVfZGlmZl9ieXRlczoKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJEaWZmZXJlbmNlIGluIGJ5dGVzIGZyb20gdGhlIGxhc3Qgd3JpdGUtYWhlYWQgbG9nIGxvY2F0aW9uIHdyaXR0ZW4gdG8gZGlzayBieSB0aGlzIHN0YW5kYnkgc2VydmVyIgogICAgICAgIC0gZmx1c2hfZGlmZl9ieXRlczoKICAgICAgICAgICAgdXNhZ2U6ICJHQVVHRSIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJEaWZmZXJlbmNlIGluIGJ5dGVzIGZyb20gdGhlIGxhc3Qgd3JpdGUtYWhlYWQgbG9nIGxvY2F0aW9uIGZsdXNoZWQgdG8gZGlzayBieSB0aGlzIHN0YW5kYnkgc2VydmVyIgogICAgICAgIC0gcmVwbGF5X2RpZmZfYnl0ZXM6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiRGlmZmVyZW5jZSBpbiBieXRlcyBmcm9tIHRoZSBsYXN0IHdyaXRlLWFoZWFkIGxvZyBsb2NhdGlvbiByZXBsYXllZCBpbnRvIHRoZSBkYXRhYmFzZSBvbiB0aGlzIHN0YW5kYnkgc2VydmVyIgogICAgICAgIC0gd3JpdGVfbGFnX3NlY29uZHM6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiVGltZSBlbGFwc2VkIGJldHdlZW4gZmx1c2hpbmcgcmVjZW50IFdBTCBsb2NhbGx5IGFuZCByZWNlaXZpbmcgbm90aWZpY2F0aW9uIHRoYXQgdGhpcyBzdGFuZGJ5IHNlcnZlciBoYXMgd3JpdHRlbiBpdCIKICAgICAgICAtIGZsdXNoX2xhZ19zZWNvbmRzOgogICAgICAgICAgICB1c2FnZTogIkdBVUdFIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIlRpbWUgZWxhcHNlZCBiZXR3ZWVuIGZsdXNoaW5nIHJlY2VudCBXQUwgbG9jYWxseSBhbmQgcmVjZWl2aW5nIG5vdGlmaWNhdGlvbiB0aGF0IHRoaXMgc3RhbmRieSBzZXJ2ZXIgaGFzIHdyaXR0ZW4gYW5kIGZsdXNoZWQgaXQiCiAgICAgICAgLSByZXBsYXlfbGFnX3NlY29uZHM6CiAgICAgICAgICAgIHVzYWdlOiAiR0FVR0UiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiVGltZSBlbGFwc2VkIGJldHdlZW4gZmx1c2hpbmcgcmVjZW50IFdBTCBsb2NhbGx5IGFuZCByZWNlaXZpbmcgbm90aWZpY2F0aW9uIHRoYXQgdGhpcyBzdGFuZGJ5IHNlcnZlciBoYXMgd3JpdHRlbiwgZmx1c2hlZCBhbmQgYXBwbGllZCBpdCIKCiAgICBwZ19zZXR0aW5nczoKICAgICAgcXVlcnk6IHwKICAgICAgICBTRUxFQ1QgbmFtZSwKICAgICAgICBDQVNFIHNldHRpbmcgV0hFTiAnb24nIFRIRU4gJzEnIFdIRU4gJ29mZicgVEhFTiAnMCcgRUxTRSBzZXR0aW5nIEVORCBBUyBzZXR0aW5nCiAgICAgICAgRlJPTSBwZ19jYXRhbG9nLnBnX3NldHRpbmdzCiAgICAgICAgV0hFUkUgdmFydHlwZSBJTiAoJ2ludGVnZXInLCAncmVhbCcsICdib29sJykKICAgICAgICBPUkRFUiBCWSAxCiAgICAgIG1ldHJpY3M6CiAgICAgICAgLSBuYW1lOgogICAgICAgICAgICB1c2FnZTogIkxBQkVMIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIk5hbWUgb2YgdGhlIHNldHRpbmciCiAgICAgICAgLSBzZXR0aW5nOgogICAgICAgICAgICB1c2FnZTogIkdBVUdFIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIlNldHRpbmcgdmFsdWUiCgogICAgcGdfZXh0ZW5zaW9uczoKICAgICAgcXVlcnk6IHwKICAgICAgICBTRUxFQ1QKICAgICAgICAgIHBnX2NhdGFsb2cuY3VycmVudF9kYXRhYmFzZSgpIGFzIGRhdG5hbWUsCiAgICAgICAgICBuYW1lIGFzIGV4dG5hbWUsCiAgICAgICAgICBkZWZhdWx0X3ZlcnNpb24sCiAgICAgICAgICBpbnN0YWxsZWRfdmVyc2lvbiwKICAgICAgICAgIENBU0UKICAgICAgICAgICAgV0hFTiBkZWZhdWx0X3ZlcnNpb24gT1BFUkFUT1IocGdfY2F0YWxvZy49KSBpbnN0YWxsZWRfdmVyc2lvbiBUSEVOIDAKICAgICAgICAgICAgRUxTRSAxCiAgICAgICAgRU5EIEFTIHVwZGF0ZV9hdmFpbGFibGUKICAgICAgICBGUk9NIHBnX2NhdGFsb2cucGdfYXZhaWxhYmxlX2V4dGVuc2lvbnMKICAgICAgICBXSEVSRSBpbnN0YWxsZWRfdmVyc2lvbiBJUyBOT1QgTlVMTAogICAgICBtZXRyaWNzOgogICAgICAgIC0gZGF0bmFtZToKICAgICAgICAgICAgdXNhZ2U6ICJMQUJFTCIKICAgICAgICAgICAgZGVzY3JpcHRpb246ICJOYW1lIG9mIHRoZSBkYXRhYmFzZSIKICAgICAgICAtIGV4dG5hbWU6CiAgICAgICAgICAgIHVzYWdlOiAiTEFCRUwiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiRXh0ZW5zaW9uIG5hbWUiCiAgICAgICAgLSBkZWZhdWx0X3ZlcnNpb246CiAgICAgICAgICAgIHVzYWdlOiAiTEFCRUwiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiRGVmYXVsdCB2ZXJzaW9uIgogICAgICAgIC0gaW5zdGFsbGVkX3ZlcnNpb246CiAgICAgICAgICAgIHVzYWdlOiAiTEFCRUwiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAiSW5zdGFsbGVkIHZlcnNpb24iCiAgICAgICAgLSB1cGRhdGVfYXZhaWxhYmxlOgogICAgICAgICAgICB1c2FnZTogIkdBVUdFIgogICAgICAgICAgICBkZXNjcmlwdGlvbjogIkFuIHVwZGF0ZSBpcyBhdmFpbGFibGUiCiAgICAgIHRhcmdldF9kYXRhYmFzZXM6CiAgICAgICAgLSAnKicKa2luZDogQ29uZmlnTWFwCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjbG91ZG5hdGl2ZS1wZwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY2xvdWRuYXRpdmUtcGcKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMjkuMQogICAgY25wZy5pby9yZWxvYWQ6ICIiCiAgICBoZWxtLnNoL2NoYXJ0OiBjbG91ZG5hdGl2ZS1wZy0wLjI4LjIKICBuYW1lOiBjbnBnLWRlZmF1bHQtbW9uaXRvcmluZwogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "1325b85bc024f248899b40efb21be939bfcb60f1be4f76dd9de1ee55744e3211",
+      "DisplayName": "configmap-default-cnpg-default-monitoring",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 21209 bytes; from configmap-default-cnpg-default-monitoring.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cnpg-default-monitoring": {}
+          },
+          "AliasesWithoutScopes": {
+            "cnpg-default-monitoring": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cnpg-default-monitoring",
+            "ResourceNameWithoutScope": "cnpg-default-monitoring",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  queries: |\n    backends:\n      query: |\n        SELECT sa.datname\n          , sa.usename\n          , sa.application_name\n          , states.state\n          , COALESCE(sa.count, 0) AS total\n          , COALESCE(sa.max_tx_secs, 0) AS max_tx_duration_seconds\n        FROM ( VALUES ('active')\n          , ('idle')\n          , ('idle in transaction')\n          , ('idle in transaction (aborted)')\n          , ('fastpath function call')\n          , ('disabled')\n          ) AS states(state)\n        LEFT JOIN (\n          SELECT datname\n            , state\n            , usename\n            , COALESCE(application_name, '') AS application_name\n            , pg_catalog.count(*)\n            , COALESCE(EXTRACT (EPOCH FROM (pg_catalog.max(pg_catalog.now() OPERATOR(pg_catalog.-) xact_start))), 0) AS max_tx_secs\n          FROM pg_catalog.pg_stat_activity\n          GROUP BY datname, state, usename, application_name\n        ) sa ON states.state OPERATOR(pg_catalog.=) sa.state\n        WHERE sa.usename IS NOT NULL\n      metrics:\n        - datname:\n            usage: \"LABEL\"\n            description: \"Name of the database\"\n        - usename:\n            usage: \"LABEL\"\n            description: \"Name of the user\"\n        - application_name:\n            usage: \"LABEL\"\n            description: \"Name of the application\"\n        - state:\n            usage: \"LABEL\"\n            description: \"State of the backend\"\n        - total:\n            usage: \"GAUGE\"\n            description: \"Number of backends\"\n        - max_tx_duration_seconds:\n            usage: \"GAUGE\"\n            description: \"Maximum duration of a transaction in seconds\"\n\n    backends_waiting:\n      query: |\n        SELECT pg_catalog.count(*) AS total\n        FROM pg_catalog.pg_locks blocked_locks\n        JOIN pg_catalog.pg_locks blocking_locks\n          ON blocking_locks.locktype OPERATOR(pg_catalog.=) blocked_locks.locktype\n          AND blocking_locks.database IS NOT DISTINCT FROM blocked_locks.database\n          AND blocking_locks.relation IS NOT DISTINCT FROM blocked_locks.relation\n          AND blocking_locks.page IS NOT DISTINCT FROM blocked_locks.page\n          AND blocking_locks.tuple IS NOT DISTINCT FROM blocked_locks.tuple\n          AND blocking_locks.virtualxid IS NOT DISTINCT FROM blocked_locks.virtualxid\n          AND blocking_locks.transactionid IS NOT DISTINCT FROM blocked_locks.transactionid\n          AND blocking_locks.classid IS NOT DISTINCT FROM blocked_locks.classid\n          AND blocking_locks.objid IS NOT DISTINCT FROM blocked_locks.objid\n          AND blocking_locks.objsubid IS NOT DISTINCT FROM blocked_locks.objsubid\n          AND blocking_locks.pid OPERATOR(pg_catalog.\u003c\u003e) blocked_locks.pid\n        JOIN pg_catalog.pg_stat_activity blocking_activity ON blocking_activity.pid OPERATOR(pg_catalog.=) blocking_locks.pid\n        WHERE NOT blocked_locks.granted\n      metrics:\n        - total:\n            usage: \"GAUGE\"\n            description: \"Total number of backends that are currently waiting on other queries\"\n\n    pg_database:\n      query: |\n        SELECT datname\n          , pg_catalog.pg_database_size(datname) AS size_bytes\n          , pg_catalog.age(datfrozenxid) AS xid_age\n          , pg_catalog.mxid_age(datminmxid) AS mxid_age\n        FROM pg_catalog.pg_database\n        WHERE datallowconn\n      metrics:\n        - datname:\n            usage: \"LABEL\"\n            description: \"Name of the database\"\n        - size_bytes:\n            usage: \"GAUGE\"\n            description: \"Disk space used by the database\"\n        - xid_age:\n            usage: \"GAUGE\"\n            description: \"Number of transactions from the frozen XID to the current one\"\n        - mxid_age:\n            usage: \"GAUGE\"\n            description: \"Number of multiple transactions (Multixact) from the frozen XID to the current one\"\n\n    pg_postmaster:\n      query: |\n        SELECT EXTRACT(EPOCH FROM pg_postmaster_start_time) AS start_time\n        FROM pg_catalog.pg_postmaster_start_time()\n      metrics:\n        - start_time:\n            usage: \"GAUGE\"\n            description: \"Time at which postgres started (based on epoch)\"\n\n    pg_replication:\n      query: |\n        SELECT CASE WHEN (\n            NOT pg_catalog.pg_is_in_recovery()\n            OR pg_catalog.pg_last_wal_receive_lsn() OPERATOR(pg_catalog.=) pg_catalog.pg_last_wal_replay_lsn())\n          THEN 0\n          ELSE GREATEST (0,\n            EXTRACT(EPOCH FROM (pg_catalog.now() OPERATOR(pg_catalog.-) pg_catalog.pg_last_xact_replay_timestamp())))\n          END AS lag,\n          pg_catalog.pg_is_in_recovery() AS in_recovery,\n          EXISTS (TABLE pg_catalog.pg_stat_wal_receiver) AS is_wal_receiver_up,\n          (SELECT pg_catalog.count(*) FROM pg_catalog.pg_stat_replication) AS streaming_replicas\n      metrics:\n        - lag:\n            usage: \"GAUGE\"\n            description: \"Replication lag behind primary in seconds\"\n        - in_recovery:\n            usage: \"GAUGE\"\n            description: \"Whether the instance is in recovery\"\n        - is_wal_receiver_up:\n            usage: \"GAUGE\"\n            description: \"Whether the instance wal_receiver is up\"\n        - streaming_replicas:\n            usage: \"GAUGE\"\n            description: \"Number of streaming replicas connected to the instance\"\n\n    pg_replication_slots:\n      query: |\n        SELECT slot_name,\n          slot_type,\n          database,\n          active,\n          (CASE pg_catalog.pg_is_in_recovery()\n            WHEN TRUE THEN pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_last_wal_receive_lsn(), restart_lsn)\n            ELSE pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), restart_lsn)\n          END) as pg_wal_lsn_diff\n        FROM pg_catalog.pg_replication_slots\n        WHERE NOT temporary\n      metrics:\n        - slot_name:\n            usage: \"LABEL\"\n            description: \"Name of the replication slot\"\n        - slot_type:\n            usage: \"LABEL\"\n            description: \"Type of the replication slot\"\n        - database:\n            usage: \"LABEL\"\n            description: \"Name of the database\"\n        - active:\n            usage: \"GAUGE\"\n            description: \"Flag indicating whether the slot is active\"\n        - pg_wal_lsn_diff:\n            usage: \"GAUGE\"\n            description: \"Replication lag in bytes\"\n\n    pg_stat_archiver:\n      query: |\n        SELECT archived_count\n          , failed_count\n          , COALESCE(EXTRACT(EPOCH FROM (pg_catalog.now() OPERATOR(pg_catalog.-) last_archived_time)), -1) AS seconds_since_last_archival\n          , COALESCE(EXTRACT(EPOCH FROM (pg_catalog.now() OPERATOR(pg_catalog.-) last_failed_time)), -1) AS seconds_since_last_failure\n          , COALESCE(EXTRACT(EPOCH FROM last_archived_time), -1) AS last_archived_time\n          , COALESCE(EXTRACT(EPOCH FROM last_failed_time), -1) AS last_failed_time\n          , COALESCE(CAST(CAST('x' OPERATOR(pg_catalog.||) pg_catalog.right(pg_catalog.split_part(last_archived_wal, '.', 1), 16) AS pg_catalog.bit(64)) AS pg_catalog.int8), -1) AS last_archived_wal_start_lsn\n          , COALESCE(CAST(CAST('x' OPERATOR(pg_catalog.||) pg_catalog.right(pg_catalog.split_part(last_failed_wal, '.', 1), 16) AS pg_catalog.bit(64)) AS pg_catalog.int8), -1) AS last_failed_wal_start_lsn\n          , EXTRACT(EPOCH FROM stats_reset) AS stats_reset_time\n        FROM pg_catalog.pg_stat_archiver\n      predicate_query: |\n        SELECT NOT pg_catalog.pg_is_in_recovery()\n          OR pg_catalog.current_setting('archive_mode') OPERATOR(pg_catalog.=) 'always'\n      metrics:\n        - archived_count:\n            usage: \"COUNTER\"\n            description: \"Number of WAL files that have been successfully archived\"\n        - failed_count:\n            usage: \"COUNTER\"\n            description: \"Number of failed attempts for archiving WAL files\"\n        - seconds_since_last_archival:\n            usage: \"GAUGE\"\n            description: \"Seconds since the last successful archival operation\"\n        - seconds_since_last_failure:\n            usage: \"GAUGE\"\n            description: \"Seconds since the last failed archival operation\"\n        - last_archived_time:\n            usage: \"GAUGE\"\n            description: \"Epoch of the last time WAL archiving succeeded\"\n        - last_failed_time:\n            usage: \"GAUGE\"\n            description: \"Epoch of the last time WAL archiving failed\"\n        - last_archived_wal_start_lsn:\n            usage: \"GAUGE\"\n            description: \"Archived WAL start LSN\"\n        - last_failed_wal_start_lsn:\n            usage: \"GAUGE\"\n            description: \"Last failed WAL LSN\"\n        - stats_reset_time:\n            usage: \"GAUGE\"\n            description: \"Time at which these statistics were last reset\"\n\n    pg_stat_bgwriter:\n      runonserver: \"\u003c17.0.0\"\n      query: |\n        SELECT checkpoints_timed\n          , checkpoints_req\n          , checkpoint_write_time\n          , checkpoint_sync_time\n          , buffers_checkpoint\n          , buffers_clean\n          , maxwritten_clean\n          , buffers_backend\n          , buffers_backend_fsync\n          , buffers_alloc\n        FROM pg_catalog.pg_stat_bgwriter\n      metrics:\n        - checkpoints_timed:\n            usage: \"COUNTER\"\n            description: \"Number of scheduled checkpoints that have been performed\"\n        - checkpoints_req:\n            usage: \"COUNTER\"\n            description: \"Number of requested checkpoints that have been performed\"\n        - checkpoint_write_time:\n            usage: \"COUNTER\"\n            description: \"Total amount of time that has been spent in the portion of checkpoint processing where files are written to disk, in milliseconds\"\n        - checkpoint_sync_time:\n            usage: \"COUNTER\"\n            description: \"Total amount of time that has been spent in the portion of checkpoint processing where files are synchronized to disk, in milliseconds\"\n        - buffers_checkpoint:\n            usage: \"COUNTER\"\n            description: \"Number of buffers written during checkpoints\"\n        - buffers_clean:\n            usage: \"COUNTER\"\n            description: \"Number of buffers written by the background writer\"\n        - maxwritten_clean:\n            usage: \"COUNTER\"\n            description: \"Number of times the background writer stopped a cleaning scan because it had written too many buffers\"\n        - buffers_backend:\n            usage: \"COUNTER\"\n            description: \"Number of buffers written directly by a backend\"\n        - buffers_backend_fsync:\n            usage: \"COUNTER\"\n            description: \"Number of times a backend had to execute its own fsync call (normally the background writer handles those even when the backend does its own write)\"\n        - buffers_alloc:\n            usage: \"COUNTER\"\n            description: \"Number of buffers allocated\"\n\n    pg_stat_bgwriter_17:\n      runonserver: \"\u003e=17.0.0\"\n      name: pg_stat_bgwriter\n      query: |\n        SELECT buffers_clean\n          , maxwritten_clean\n          , buffers_alloc\n          , EXTRACT(EPOCH FROM stats_reset) AS stats_reset_time\n        FROM pg_catalog.pg_stat_bgwriter\n      metrics:\n        - buffers_clean:\n            usage: \"COUNTER\"\n            description: \"Number of buffers written by the background writer\"\n        - maxwritten_clean:\n            usage: \"COUNTER\"\n            description: \"Number of times the background writer stopped a cleaning scan because it had written too many buffers\"\n        - buffers_alloc:\n            usage: \"COUNTER\"\n            description: \"Number of buffers allocated\"\n        - stats_reset_time:\n            usage: \"GAUGE\"\n            description: \"Time at which these statistics were last reset\"\n\n    pg_stat_checkpointer:\n      runonserver: \"\u003e=17.0.0\"\n      query: |\n        SELECT num_timed AS checkpoints_timed\n          , num_requested AS checkpoints_req\n          , restartpoints_timed\n          , restartpoints_req\n          , restartpoints_done\n          , write_time\n          , sync_time\n          , buffers_written\n          , EXTRACT(EPOCH FROM stats_reset) AS stats_reset_time\n        FROM pg_catalog.pg_stat_checkpointer\n      metrics:\n        - checkpoints_timed:\n            usage: \"COUNTER\"\n            description: \"Number of scheduled checkpoints that have been performed\"\n        - checkpoints_req:\n            usage: \"COUNTER\"\n            description: \"Number of requested checkpoints that have been performed\"\n        - restartpoints_timed:\n            usage: \"COUNTER\"\n            description: \"Number of scheduled restartpoints due to timeout or after a failed attempt to perform it\"\n        - restartpoints_req:\n            usage: \"COUNTER\"\n            description: \"Number of requested restartpoints that have been performed\"\n        - restartpoints_done:\n            usage: \"COUNTER\"\n            description: \"Number of restartpoints that have been performed\"\n        - write_time:\n            usage: \"COUNTER\"\n            description: \"Total amount of time that has been spent in the portion of processing checkpoints and restartpoints where files are written to disk, in milliseconds\"\n        - sync_time:\n            usage: \"COUNTER\"\n            description: \"Total amount of time that has been spent in the portion of processing checkpoints and restartpoints where files are synchronized to disk, in milliseconds\"\n        - buffers_written:\n            usage: \"COUNTER\"\n            description: \"Number of buffers written during checkpoints and restartpoints\"\n        - stats_reset_time:\n            usage: \"GAUGE\"\n            description: \"Time at which these statistics were last reset\"\n\n    pg_stat_database:\n      query: |\n        SELECT datname\n          , xact_commit\n          , xact_rollback\n          , blks_read\n          , blks_hit\n          , tup_returned\n          , tup_fetched\n          , tup_inserted\n          , tup_updated\n          , tup_deleted\n          , conflicts\n          , temp_files\n          , temp_bytes\n          , deadlocks\n          , blk_read_time\n          , blk_write_time\n        FROM pg_catalog.pg_stat_database\n      metrics:\n        - datname:\n            usage: \"LABEL\"\n            description: \"Name of this database\"\n        - xact_commit:\n            usage: \"COUNTER\"\n            description: \"Number of transactions in this database that have been committed\"\n        - xact_rollback:\n            usage: \"COUNTER\"\n            description: \"Number of transactions in this database that have been rolled back\"\n        - blks_read:\n            usage: \"COUNTER\"\n            description: \"Number of disk blocks read in this database\"\n        - blks_hit:\n            usage: \"COUNTER\"\n            description: \"Number of times disk blocks were found already in the buffer cache, so that a read was not necessary (this only includes hits in the PostgreSQL buffer cache, not the operating system's file system cache)\"\n        - tup_returned:\n            usage: \"COUNTER\"\n            description: \"Number of rows returned by queries in this database\"\n        - tup_fetched:\n            usage: \"COUNTER\"\n            description: \"Number of rows fetched by queries in this database\"\n        - tup_inserted:\n            usage: \"COUNTER\"\n            description: \"Number of rows inserted by queries in this database\"\n        - tup_updated:\n            usage: \"COUNTER\"\n            description: \"Number of rows updated by queries in this database\"\n        - tup_deleted:\n            usage: \"COUNTER\"\n            description: \"Number of rows deleted by queries in this database\"\n        - conflicts:\n            usage: \"COUNTER\"\n            description: \"Number of queries canceled due to conflicts with recovery in this database\"\n        - temp_files:\n            usage: \"COUNTER\"\n            description: \"Number of temporary files created by queries in this database\"\n        - temp_bytes:\n            usage: \"COUNTER\"\n            description: \"Total amount of data written to temporary files by queries in this database\"\n        - deadlocks:\n            usage: \"COUNTER\"\n            description: \"Number of deadlocks detected in this database\"\n        - blk_read_time:\n            usage: \"COUNTER\"\n            description: \"Time spent reading data file blocks by backends in this database, in milliseconds\"\n        - blk_write_time:\n            usage: \"COUNTER\"\n            description: \"Time spent writing data file blocks by backends in this database, in milliseconds\"\n\n    pg_stat_replication:\n      primary: true\n      query: |\n        SELECT usename\n          , COALESCE(application_name, '') AS application_name\n          , COALESCE(client_addr::text, '') AS client_addr\n          , COALESCE(client_port::text, '') AS client_port\n          , EXTRACT(EPOCH FROM backend_start) AS backend_start\n          , COALESCE(pg_catalog.age(backend_xmin), 0) AS backend_xmin_age\n          , pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), sent_lsn) AS sent_diff_bytes\n          , pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), write_lsn) AS write_diff_bytes\n          , pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), flush_lsn) AS flush_diff_bytes\n          , COALESCE(pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), replay_lsn),0) AS replay_diff_bytes\n          , COALESCE((EXTRACT(EPOCH FROM write_lag)),0)::float AS write_lag_seconds\n          , COALESCE((EXTRACT(EPOCH FROM flush_lag)),0)::float AS flush_lag_seconds\n          , COALESCE((EXTRACT(EPOCH FROM replay_lag)),0)::float AS replay_lag_seconds\n        FROM pg_catalog.pg_stat_replication\n      metrics:\n        - usename:\n            usage: \"LABEL\"\n            description: \"Name of the replication user\"\n        - application_name:\n            usage: \"LABEL\"\n            description: \"Name of the application\"\n        - client_addr:\n            usage: \"LABEL\"\n            description: \"Client IP address\"\n        - client_port:\n            usage: \"LABEL\"\n            description: \"Client TCP port\"\n        - backend_start:\n            usage: \"COUNTER\"\n            description: \"Time when this process was started\"\n        - backend_xmin_age:\n            usage: \"COUNTER\"\n            description: \"The age of this standby's xmin horizon\"\n        - sent_diff_bytes:\n            usage: \"GAUGE\"\n            description: \"Difference in bytes from the last write-ahead log location sent on this connection\"\n        - write_diff_bytes:\n            usage: \"GAUGE\"\n            description: \"Difference in bytes from the last write-ahead log location written to disk by this standby server\"\n        - flush_diff_bytes:\n            usage: \"GAUGE\"\n            description: \"Difference in bytes from the last write-ahead log location flushed to disk by this standby server\"\n        - replay_diff_bytes:\n            usage: \"GAUGE\"\n            description: \"Difference in bytes from the last write-ahead log location replayed into the database on this standby server\"\n        - write_lag_seconds:\n            usage: \"GAUGE\"\n            description: \"Time elapsed between flushing recent WAL locally and receiving notification that this standby server has written it\"\n        - flush_lag_seconds:\n            usage: \"GAUGE\"\n            description: \"Time elapsed between flushing recent WAL locally and receiving notification that this standby server has written and flushed it\"\n        - replay_lag_seconds:\n            usage: \"GAUGE\"\n            description: \"Time elapsed between flushing recent WAL locally and receiving notification that this standby server has written, flushed and applied it\"\n\n    pg_settings:\n      query: |\n        SELECT name,\n        CASE setting WHEN 'on' THEN '1' WHEN 'off' THEN '0' ELSE setting END AS setting\n        FROM pg_catalog.pg_settings\n        WHERE vartype IN ('integer', 'real', 'bool')\n        ORDER BY 1\n      metrics:\n        - name:\n            usage: \"LABEL\"\n            description: \"Name of the setting\"\n        - setting:\n            usage: \"GAUGE\"\n            description: \"Setting value\"\n\n    pg_extensions:\n      query: |\n        SELECT\n          pg_catalog.current_database() as datname,\n          name as extname,\n          default_version,\n          installed_version,\n          CASE\n            WHEN default_version OPERATOR(pg_catalog.=) installed_version THEN 0\n            ELSE 1\n        END AS update_available\n        FROM pg_catalog.pg_available_extensions\n        WHERE installed_version IS NOT NULL\n      metrics:\n        - datname:\n            usage: \"LABEL\"\n            description: \"Name of the database\"\n        - extname:\n            usage: \"LABEL\"\n            description: \"Extension name\"\n        - default_version:\n            usage: \"LABEL\"\n            description: \"Default version\"\n        - installed_version:\n            usage: \"LABEL\"\n            description: \"Installed version\"\n        - update_available:\n            usage: \"GAUGE\"\n            description: \"An update is available\"\n      target_databases:\n        - '*'\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    cnpg.io/reload: \"\"\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cnpg-default-monitoring\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-queries": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/cnpg-default-monitoring",
+          "ResourceNameWithoutScope": "cnpg-default-monitoring",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-cnpg-default-monitoring",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ad9877dc-5459-47a7-8077-605676b728c9",
+      "UpdatedAt": "2026-06-12T16:50:23.271752Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.994219Z",
+        "CursorID": 22721,
+        "DisplayName": "Upgrade deployment-default-cloudnative-pg",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c93be189-a308-4353-ad3f-f827a18b1d93",
+        "LinkID": "f341c5f4-b847-49f7-a73e-f6e8ece749ff",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-cloudnative-pg",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "91077d1f-cd9d-4ff5-bd91-f22cec293edd",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.994219Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '91077d1f-cd9d-4ff5-bd91-f22cec293edd' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1dbcfaa37654fa5518fca7fc5e03c5cc0e8980caa11420eefb58bbc1d724baa9",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f341c5f4-b847-49f7-a73e-f6e8ece749ff"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-cloudnative-pg",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c93be189-a308-4353-ad3f-f827a18b1d93",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "91077d1f-cd9d-4ff5-bd91-f22cec293edd",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1184728219,
+      "CreatedAt": "2026-06-12T16:50:24.779428Z",
+      "CursorID": 27873,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjbG91ZG5hdGl2ZS1wZwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY2xvdWRuYXRpdmUtcGcKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMjkuMQogICAgaGVsbS5zaC9jaGFydDogY2xvdWRuYXRpdmUtcGctMC4yOC4yCiAgbmFtZTogY2xvdWRuYXRpdmUtcGcKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICByZXBsaWNhczogMQogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjbG91ZG5hdGl2ZS1wZwogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjbG91ZG5hdGl2ZS1wZwogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGFubm90YXRpb25zOgogICAgICAgIGNoZWNrc3VtL2NvbmZpZzogMTQ5NGI3MTJkNTBiMzMzNzVjMTFlYTU3MTY2NDA5Yzk2NGYwYWNmZWEyYzZiNDk4YmZlMDZlOTZhMjM0NmFhZQogICAgICAgIGNoZWNrc3VtL21vbml0b3JpbmctY29uZmlnOiAyODIxZDg1MzE1ZTU5MGFiOTNmYWM1ZTgyNmIxYWZjNzQ0NTIwZGYzNDA1NjUyNDZmNDlhNWEyNTZmNTdhMzMyCiAgICAgICAgY2hlY2tzdW0vcmJhYzogMWM2ODBjMWIyODEwNmJkNmNkY2JlOTY1NDg0YzY2Y2ZlZDgwZDE0MjYzMmIwNWI2N2JhMzAzYTNiZjIzMzA0NQogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNsb3VkbmF0aXZlLXBnCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY2xvdWRuYXRpdmUtcGcKICAgIHNwZWM6CiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIGNvbnRyb2xsZXIKICAgICAgICAtIC0tbGVhZGVyLWVsZWN0CiAgICAgICAgLSAtLW1heC1jb25jdXJyZW50LXJlY29uY2lsZXM9MTAKICAgICAgICAtIC0tY29uZmlnLW1hcC1uYW1lPWNucGctY29udHJvbGxlci1tYW5hZ2VyLWNvbmZpZwogICAgICAgIC0gLS13ZWJob29rLXBvcnQ9OTQ0MwogICAgICAgIGNvbW1hbmQ6CiAgICAgICAgLSAvbWFuYWdlcgogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IE9QRVJBVE9SX0lNQUdFX05BTUUKICAgICAgICAgIHZhbHVlOiBnaGNyLmlvL2Nsb3VkbmF0aXZlLXBnL2Nsb3VkbmF0aXZlLXBnOjEuMjkuMQogICAgICAgIC0gbmFtZTogT1BFUkFUT1JfTkFNRVNQQUNFCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZXNwYWNlCiAgICAgICAgLSBuYW1lOiBNT05JVE9SSU5HX1FVRVJJRVNfQ09ORklHTUFQCiAgICAgICAgICB2YWx1ZTogY25wZy1kZWZhdWx0LW1vbml0b3JpbmcKICAgICAgICBpbWFnZTogZ2hjci5pby9jbG91ZG5hdGl2ZS1wZy9jbG91ZG5hdGl2ZS1wZzoxLjI5LjEKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvcmVhZHl6CiAgICAgICAgICAgIHBvcnQ6IHdlYmhvb2stc2VydmVyCiAgICAgICAgICAgIHNjaGVtZTogSFRUUFMKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDMKICAgICAgICBuYW1lOiBtYW5hZ2VyCiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MDgwCiAgICAgICAgICBuYW1lOiBtZXRyaWNzCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA5NDQzCiAgICAgICAgICBuYW1lOiB3ZWJob29rLXNlcnZlcgogICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL3JlYWR5egogICAgICAgICAgICBwb3J0OiB3ZWJob29rLXNlcnZlcgogICAgICAgICAgICBzY2hlbWU6IEhUVFBTCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiAzCiAgICAgICAgcmVzb3VyY2VzOiB7fQogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICAgIGNhcGFiaWxpdGllczoKICAgICAgICAgICAgZHJvcDoKICAgICAgICAgICAgLSBBTEwKICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IHRydWUKICAgICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAxCiAgICAgICAgICBydW5Bc1VzZXI6IDEwMDAxCiAgICAgICAgICBzZWNjb21wUHJvZmlsZToKICAgICAgICAgICAgdHlwZTogUnVudGltZURlZmF1bHQKICAgICAgICBzdGFydHVwUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiA2CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvcmVhZHl6CiAgICAgICAgICAgIHBvcnQ6IHdlYmhvb2stc2VydmVyCiAgICAgICAgICAgIHNjaGVtZTogSFRUUFMKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICB2b2x1bWVNb3VudHM6CiAgICAgICAgLSBtb3VudFBhdGg6IC9jb250cm9sbGVyCiAgICAgICAgICBuYW1lOiBzY3JhdGNoLWRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3J1bi9zZWNyZXRzL2NucGcuaW8vd2ViaG9vawogICAgICAgICAgbmFtZTogd2ViaG9vay1jZXJ0aWZpY2F0ZXMKICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIHJ1bkFzTm9uUm9vdDogdHJ1ZQogICAgICAgIHNlY2NvbXBQcm9maWxlOgogICAgICAgICAgdHlwZTogUnVudGltZURlZmF1bHQKICAgICAgc2VydmljZUFjY291bnROYW1lOiBjbG91ZG5hdGl2ZS1wZwogICAgICB0ZXJtaW5hdGlvbkdyYWNlUGVyaW9kU2Vjb25kczogMTAKICAgICAgdm9sdW1lczoKICAgICAgLSBlbXB0eURpcjoge30KICAgICAgICBuYW1lOiBzY3JhdGNoLWRhdGEKICAgICAgLSBuYW1lOiB3ZWJob29rLWNlcnRpZmljYXRlcwogICAgICAgIHNlY3JldDoKICAgICAgICAgIGRlZmF1bHRNb2RlOiA0MjAKICAgICAgICAgIG9wdGlvbmFsOiB0cnVlCiAgICAgICAgICBzZWNyZXROYW1lOiBjbnBnLXdlYmhvb2stY2VydAo=",
+      "DataHash": "1dbcfaa37654fa5518fca7fc5e03c5cc0e8980caa11420eefb58bbc1d724baa9",
+      "DisplayName": "deployment-default-cloudnative-pg",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cloudnative-pg": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cloudnative-pg",
+            "ResourceNameWithoutScope": "cloudnative-pg",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cloudnative-pg\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: cloudnative-pg\n      app.kubernetes.io/name: cloudnative-pg\n  template:\n    metadata:\n      annotations:\n        checksum/config: 1494b712d50b33375c11ea57166409c964f0acfea2c6b498bfe06e96a2346aae\n        checksum/monitoring-config: 2821d85315e590ab93fac5e826b1afc744520df340565246f49a5a256f57a332\n        checksum/rbac: 1c680c1b28106bd6cdcbe965484c66cfed80d142632b05b67ba303a3bf233045\n      labels:\n        app.kubernetes.io/instance: cloudnative-pg\n        app.kubernetes.io/name: cloudnative-pg\n    spec:\n      containers:\n      - args:\n        - controller\n        - --leader-elect\n        - --max-concurrent-reconciles=10\n        - --config-map-name=cnpg-controller-manager-config\n        - --webhook-port=9443\n        command:\n        - /manager\n        env:\n        - name: OPERATOR_IMAGE_NAME\n          value: ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1\n        - name: OPERATOR_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: MONITORING_QUERIES_CONFIGMAP\n          value: cnpg-default-monitoring\n        image: ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          httpGet:\n            path: /readyz\n            port: webhook-server\n            scheme: HTTPS\n          initialDelaySeconds: 3\n        name: manager\n        ports:\n        - containerPort: 8080\n          name: metrics\n          protocol: TCP\n        - containerPort: 9443\n          name: webhook-server\n          protocol: TCP\n        readinessProbe:\n          httpGet:\n            path: /readyz\n            port: webhook-server\n            scheme: HTTPS\n          initialDelaySeconds: 3\n        resources: {}\n        securityContext:\n          allowPrivilegeEscalation: false\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsGroup: 10001\n          runAsUser: 10001\n          seccompProfile:\n            type: RuntimeDefault\n        startupProbe:\n          failureThreshold: 6\n          httpGet:\n            path: /readyz\n            port: webhook-server\n            scheme: HTTPS\n          periodSeconds: 5\n        volumeMounts:\n        - mountPath: /controller\n          name: scratch-data\n        - mountPath: /run/secrets/cnpg.io/webhook\n          name: webhook-certificates\n      securityContext:\n        runAsNonRoot: true\n        seccompProfile:\n          type: RuntimeDefault\n      serviceAccountName: cloudnative-pg\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - emptyDir: {}\n        name: scratch-data\n      - name: webhook-certificates\n        secret:\n          defaultMode: 420\n          optional: true\n          secretName: cnpg-webhook-cert\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/cloudnative-pg",
+          "ResourceNameWithoutScope": "cloudnative-pg",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-cloudnative-pg",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "91077d1f-cd9d-4ff5-bd91-f22cec293edd",
+      "UpdatedAt": "2026-06-12T16:50:55.704131Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.677457Z",
+        "CursorID": 22714,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "baeb479d-62cd-4dfd-b86f-9229d3ad951d",
+        "LinkID": "e903aa41-1d44-4f80-98c7-3ac7cea17a7c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "6f5021e2-4fc2-495c-86e0-acbd34d1e095",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.677457Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '6f5021e2-4fc2-495c-86e0-acbd34d1e095' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "70d7fee41481ac17d577bf864e82c894bb0277076226139adab57deb717f7a06",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e903aa41-1d44-4f80-98c7-3ac7cea17a7c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "baeb479d-62cd-4dfd-b86f-9229d3ad951d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "6f5021e2-4fc2-495c-86e0-acbd34d1e095",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "cloudnative-pg-cloudnative-pg",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -308319566,
+      "CreatedAt": "2026-06-12T16:50:33.852886Z",
+      "CursorID": 27887,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImNsb3VkbmF0aXZlLXBnLWNsb3VkbmF0aXZlLXBnIgogIHZlcnNpb246ICIwLjI4LjIiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAiY2xvdWRuYXRpdmUtcGcvY2xvdWRuYXRpdmUtcGcgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gY2xvdWRuYXRpdmUtcGcvY2xvdWRuYXRpdmUtcGdAMC4yOC4yIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJuby1jcmRzIgogICAgcGF0aDogImJhc2VzL25vLWNyZHMiCiAgICBkZXNjcmlwdGlvbjogImNsb3VkbmF0aXZlLXBnL2Nsb3VkbmF0aXZlLXBnIG5vLWNyZHMgdmFyaWFudCByZW5kZXJlZCBmcm9tIGNsb3VkbmF0aXZlLXBnL2Nsb3VkbmF0aXZlLXBnQDAuMjguMiIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogY2xvdWRuYXRpdmUtcGctY2xvdWRuYXRpdmUtcGctZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGNsb3VkbmF0aXZlLXBnLWNsb3VkbmF0aXZlLXBnCiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IGNsb3VkbmF0aXZlLXBnLWNsb3VkbmF0aXZlLXBnLWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogY2xvdWRuYXRpdmUtcGctY2xvdWRuYXRpdmUtcGcKICBuYW1lc3BhY2U6IGNucGctc3lzdGVtCiAgdmFsdWVzOiB7fQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogTWFuaWZlc3RJbmRleAptZXRhZGF0YToKICBuYW1lOiBjbG91ZG5hdGl2ZS1wZy1jbG91ZG5hdGl2ZS1wZy1tYW5pZmVzdC1pbmRleAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogY2xvdWRuYXRpdmUtcGctY2xvdWRuYXRpdmUtcGcKICBmaWxlczoKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS1jbG91ZG5hdGl2ZS1wZy55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1jbG91ZG5hdGl2ZS1wZwogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IGNsb3VkbmF0aXZlLXBnCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtY2xvdWRuYXRpdmUtcGctZWRpdC55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1jbG91ZG5hdGl2ZS1wZy1lZGl0CiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogY2xvdWRuYXRpdmUtcGctZWRpdAogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWNsb3VkbmF0aXZlLXBnLXZpZXcueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtY2xvdWRuYXRpdmUtcGctdmlldwogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IGNsb3VkbmF0aXZlLXBnLXZpZXcKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctY2xvdWRuYXRpdmUtcGcueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLWNsb3VkbmF0aXZlLXBnCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IGNsb3VkbmF0aXZlLXBnCiAgLSBmaWxlbmFtZTogY29uZmlnbWFwLWRlZmF1bHQtY25wZy1jb250cm9sbGVyLW1hbmFnZXItY29uZmlnLnlhbWwKICAgIHNsdWc6IGNvbmZpZ21hcC1kZWZhdWx0LWNucGctY29udHJvbGxlci1tYW5hZ2VyLWNvbmZpZwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IENvbmZpZ01hcAogICAgbmFtZTogY25wZy1jb250cm9sbGVyLW1hbmFnZXItY29uZmlnCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBjb25maWdtYXAtZGVmYXVsdC1jbnBnLWRlZmF1bHQtbW9uaXRvcmluZy55YW1sCiAgICBzbHVnOiBjb25maWdtYXAtZGVmYXVsdC1jbnBnLWRlZmF1bHQtbW9uaXRvcmluZwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IENvbmZpZ01hcAogICAgbmFtZTogY25wZy1kZWZhdWx0LW1vbml0b3JpbmcKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IGRlcGxveW1lbnQtZGVmYXVsdC1jbG91ZG5hdGl2ZS1wZy55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtY2xvdWRuYXRpdmUtcGcKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IERlcGxveW1lbnQKICAgIG5hbWU6IGNsb3VkbmF0aXZlLXBnCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBtdXRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9uLWNucGctbXV0YXRpbmctd2ViaG9vay1jb25maWd1cmF0aW9uLnlhbWwKICAgIHNsdWc6IG11dGF0aW5nd2ViaG9va2NvbmZpZ3VyYXRpb24tY25wZy1tdXRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24KICAgIGFwaVZlcnNpb246IGFkbWlzc2lvbnJlZ2lzdHJhdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IE11dGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KICAgIG5hbWU6IGNucGctbXV0YXRpbmctd2ViaG9vay1jb25maWd1cmF0aW9uCiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWNucGctc3lzdGVtLnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1jbnBnLXN5c3RlbQogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogY25wZy1zeXN0ZW0KICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWRlZmF1bHQtY25wZy13ZWJob29rLXNlcnZpY2UueWFtbAogICAgc2x1Zzogc2VydmljZS1kZWZhdWx0LWNucGctd2ViaG9vay1zZXJ2aWNlCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZQogICAgbmFtZTogY25wZy13ZWJob29rLXNlcnZpY2UKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtY2xvdWRuYXRpdmUtcGcueWFtbAogICAgc2x1Zzogc2VydmljZWFjY291bnQtZGVmYXVsdC1jbG91ZG5hdGl2ZS1wZwogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgICBuYW1lOiBjbG91ZG5hdGl2ZS1wZwogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogdmFsaWRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9uLWNucGctdmFsaWRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24ueWFtbAogICAgc2x1ZzogdmFsaWRhdGluZ3dlYmhvb2tjb25maWd1cmF0aW9uLWNucGctdmFsaWRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24KICAgIGFwaVZlcnNpb246IGFkbWlzc2lvbnJlZ2lzdHJhdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFZhbGlkYXRpbmdXZWJob29rQ29uZmlndXJhdGlvbgogICAgbmFtZTogY25wZy12YWxpZGF0aW5nLXdlYmhvb2stY29uZmlndXJhdGlvbgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IGNsb3VkbmF0aXZlLXBnLWNsb3VkbmF0aXZlLXBnLXNlbGVjdGlvbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogY2xvdWRuYXRpdmUtcGctY2xvdWRuYXRpdmUtcGcKICBiYXNlOiBuby1jcmRzCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogY2xvdWRuYXRpdmUtcGctY2xvdWRuYXRpdmUtcGctdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBjbG91ZG5hdGl2ZS1wZy1jbG91ZG5hdGl2ZS1wZwogIHNwYWNlUGF0dGVybjogaGVsbS1jbG91ZG5hdGl2ZS1wZy1uby1jcmRzLWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IGNsb3VkbmF0aXZlLXBnLWNsb3VkbmF0aXZlLXBnCiAgICBzbHVnOiBoZWxtLWNsb3VkbmF0aXZlLXBnLW5vLWNyZHMtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjUwOjE2WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "70d7fee41481ac17d577bf864e82c894bb0277076226139adab57deb717f7a06",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "cloudnative-pg-cloudnative-pg"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cloudnative-pg-cloudnative-pg": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg-cloudnative-pg": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg-cloudnative-pg",
+            "ResourceNameWithoutScope": "cloudnative-pg-cloudnative-pg",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"cloudnative-pg-cloudnative-pg\"\n  version: \"0.28.2\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"cloudnative-pg/cloudnative-pg default variant rendered from cloudnative-pg/cloudnative-pg@0.28.2\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"no-crds\"\n    path: \"bases/no-crds\"\n    description: \"cloudnative-pg/cloudnative-pg no-crds variant rendered from cloudnative-pg/cloudnative-pg@0.28.2\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/cloudnative-pg-cloudnative-pg-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg-cloudnative-pg-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg-cloudnative-pg-function-chain",
+            "ResourceNameWithoutScope": "cloudnative-pg-cloudnative-pg-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: cloudnative-pg-cloudnative-pg-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: cloudnative-pg-cloudnative-pg\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/cloudnative-pg-cloudnative-pg-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg-cloudnative-pg-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg-cloudnative-pg-inputs",
+            "ResourceNameWithoutScope": "cloudnative-pg-cloudnative-pg-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: cloudnative-pg-cloudnative-pg-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: cloudnative-pg-cloudnative-pg\n  namespace: cnpg-system\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/cloudnative-pg-cloudnative-pg-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg-cloudnative-pg-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg-cloudnative-pg-manifest-index",
+            "ResourceNameWithoutScope": "cloudnative-pg-cloudnative-pg-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: cloudnative-pg-cloudnative-pg-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: cloudnative-pg-cloudnative-pg\n  files:\n  - filename: clusterrole-cloudnative-pg.yaml\n    slug: clusterrole-cloudnative-pg\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: cloudnative-pg\n  - filename: clusterrole-cloudnative-pg-edit.yaml\n    slug: clusterrole-cloudnative-pg-edit\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: cloudnative-pg-edit\n  - filename: clusterrole-cloudnative-pg-view.yaml\n    slug: clusterrole-cloudnative-pg-view\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: cloudnative-pg-view\n  - filename: clusterrolebinding-cloudnative-pg.yaml\n    slug: clusterrolebinding-cloudnative-pg\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: cloudnative-pg\n  - filename: configmap-default-cnpg-controller-manager-config.yaml\n    slug: configmap-default-cnpg-controller-manager-config\n    apiVersion: v1\n    kind: ConfigMap\n    name: cnpg-controller-manager-config\n    namespace: default\n  - filename: configmap-default-cnpg-default-monitoring.yaml\n    slug: configmap-default-cnpg-default-monitoring\n    apiVersion: v1\n    kind: ConfigMap\n    name: cnpg-default-monitoring\n    namespace: default\n  - filename: deployment-default-cloudnative-pg.yaml\n    slug: deployment-default-cloudnative-pg\n    apiVersion: apps/v1\n    kind: Deployment\n    name: cloudnative-pg\n    namespace: default\n  - filename: mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration.yaml\n    slug: mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration\n    apiVersion: admissionregistration.k8s.io/v1\n    kind: MutatingWebhookConfiguration\n    name: cnpg-mutating-webhook-configuration\n  - filename: namespace-cnpg-system.yaml\n    slug: namespace-cnpg-system\n    apiVersion: v1\n    kind: Namespace\n    name: cnpg-system\n  - filename: service-default-cnpg-webhook-service.yaml\n    slug: service-default-cnpg-webhook-service\n    apiVersion: v1\n    kind: Service\n    name: cnpg-webhook-service\n    namespace: default\n  - filename: serviceaccount-default-cloudnative-pg.yaml\n    slug: serviceaccount-default-cloudnative-pg\n    apiVersion: v1\n    kind: ServiceAccount\n    name: cloudnative-pg\n    namespace: default\n  - filename: validatingwebhookconfiguration-cnpg-validating-webhook-configuration.yaml\n    slug: validatingwebhookconfiguration-cnpg-validating-webhook-configuration\n    apiVersion: admissionregistration.k8s.io/v1\n    kind: ValidatingWebhookConfiguration\n    name: cnpg-validating-webhook-configuration\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/cloudnative-pg-cloudnative-pg-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg-cloudnative-pg-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg-cloudnative-pg-selection",
+            "ResourceNameWithoutScope": "cloudnative-pg-cloudnative-pg-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: cloudnative-pg-cloudnative-pg-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: cloudnative-pg-cloudnative-pg\n  base: no-crds\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/cloudnative-pg-cloudnative-pg-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg-cloudnative-pg-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cloudnative-pg-cloudnative-pg-upload",
+            "ResourceNameWithoutScope": "cloudnative-pg-cloudnative-pg-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: cloudnative-pg-cloudnative-pg-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: cloudnative-pg-cloudnative-pg\n  spacePattern: helm-cloudnative-pg-no-crds-confighub-proof\n  spaces:\n  - package: cloudnative-pg-cloudnative-pg\n    slug: helm-cloudnative-pg-no-crds-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:50:16Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6f5021e2-4fc2-495c-86e0-acbd34d1e095",
+      "UpdatedAt": "2026-06-12T16:50:35.07687Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:19.029315Z",
+        "CursorID": 22722,
+        "DisplayName": "Upgrade mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a6c46953-6b59-49fb-9974-6683dba07665",
+        "LinkID": "4d07dd49-d12d-4cb5-95ba-a26b92baa857",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "57313dd0-69fc-4f7c-b463-45b17dfc8998",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:19.029315Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '57313dd0-69fc-4f7c-b463-45b17dfc8998' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9edf77a72d513ff8c6ec421c5b4a215f8c62226e6e43b1bb4685cd2e4389a258",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4d07dd49-d12d-4cb5-95ba-a26b92baa857"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a6c46953-6b59-49fb-9974-6683dba07665",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "57313dd0-69fc-4f7c-b463-45b17dfc8998",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 509619162,
+      "CreatedAt": "2026-06-12T16:50:25.97645Z",
+      "CursorID": 27874,
+      "Data": "YXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBNdXRhdGluZ1dlYmhvb2tDb25maWd1cmF0aW9uCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBjbG91ZG5hdGl2ZS1wZwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogY2xvdWRuYXRpdmUtcGcKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDEuMjkuMQogICAgaGVsbS5zaC9jaGFydDogY2xvdWRuYXRpdmUtcGctMC4yOC4yCiAgbmFtZTogY25wZy1tdXRhdGluZy13ZWJob29rLWNvbmZpZ3VyYXRpb24Kd2ViaG9va3M6Ci0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IGNucGctd2ViaG9vay1zZXJ2aWNlCiAgICAgIG5hbWVzcGFjZTogZGVmYXVsdAogICAgICBwYXRoOiAvbXV0YXRlLXBvc3RncmVzcWwtY25wZy1pby12MS1iYWNrdXAKICAgICAgcG9ydDogNDQzCiAgZmFpbHVyZVBvbGljeTogRmFpbAogIG5hbWU6IG1iYWNrdXAuY25wZy5pbwogIHJ1bGVzOgogIC0gYXBpR3JvdXBzOgogICAgLSBwb3N0Z3Jlc3FsLmNucGcuaW8KICAgIGFwaVZlcnNpb25zOgogICAgLSB2MQogICAgb3BlcmF0aW9uczoKICAgIC0gQ1JFQVRFCiAgICAtIFVQREFURQogICAgcmVzb3VyY2VzOgogICAgLSBiYWNrdXBzCiAgc2lkZUVmZmVjdHM6IE5vbmUKLSBhZG1pc3Npb25SZXZpZXdWZXJzaW9uczoKICAtIHYxCiAgY2xpZW50Q29uZmlnOgogICAgc2VydmljZToKICAgICAgbmFtZTogY25wZy13ZWJob29rLXNlcnZpY2UKICAgICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgICAgIHBhdGg6IC9tdXRhdGUtcG9zdGdyZXNxbC1jbnBnLWlvLXYxLWNsdXN0ZXIKICAgICAgcG9ydDogNDQzCiAgZmFpbHVyZVBvbGljeTogRmFpbAogIG5hbWU6IG1jbHVzdGVyLmNucGcuaW8KICBydWxlczoKICAtIGFwaUdyb3VwczoKICAgIC0gcG9zdGdyZXNxbC5jbnBnLmlvCiAgICBhcGlWZXJzaW9uczoKICAgIC0gdjEKICAgIG9wZXJhdGlvbnM6CiAgICAtIENSRUFURQogICAgLSBVUERBVEUKICAgIHJlc291cmNlczoKICAgIC0gY2x1c3RlcnMKICBzaWRlRWZmZWN0czogTm9uZQotIGFkbWlzc2lvblJldmlld1ZlcnNpb25zOgogIC0gdjEKICBjbGllbnRDb25maWc6CiAgICBzZXJ2aWNlOgogICAgICBuYW1lOiBjbnBnLXdlYmhvb2stc2VydmljZQogICAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgICAgcGF0aDogL211dGF0ZS1wb3N0Z3Jlc3FsLWNucGctaW8tdjEtZGF0YWJhc2UKICAgICAgcG9ydDogNDQzCiAgZmFpbHVyZVBvbGljeTogRmFpbAogIG5hbWU6IG1kYXRhYmFzZS5jbnBnLmlvCiAgcnVsZXM6CiAgLSBhcGlHcm91cHM6CiAgICAtIHBvc3RncmVzcWwuY25wZy5pbwogICAgYXBpVmVyc2lvbnM6CiAgICAtIHYxCiAgICBvcGVyYXRpb25zOgogICAgLSBDUkVBVEUKICAgIC0gVVBEQVRFCiAgICByZXNvdXJjZXM6CiAgICAtIGRhdGFiYXNlcwogIHNpZGVFZmZlY3RzOiBOb25lCi0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IGNucGctd2ViaG9vay1zZXJ2aWNlCiAgICAgIG5hbWVzcGFjZTogZGVmYXVsdAogICAgICBwYXRoOiAvbXV0YXRlLXBvc3RncmVzcWwtY25wZy1pby12MS1zY2hlZHVsZWRiYWNrdXAKICAgICAgcG9ydDogNDQzCiAgZmFpbHVyZVBvbGljeTogRmFpbAogIG5hbWU6IG1zY2hlZHVsZWRiYWNrdXAuY25wZy5pbwogIHJ1bGVzOgogIC0gYXBpR3JvdXBzOgogICAgLSBwb3N0Z3Jlc3FsLmNucGcuaW8KICAgIGFwaVZlcnNpb25zOgogICAgLSB2MQogICAgb3BlcmF0aW9uczoKICAgIC0gQ1JFQVRFCiAgICAtIFVQREFURQogICAgcmVzb3VyY2VzOgogICAgLSBzY2hlZHVsZWRiYWNrdXBzCiAgc2lkZUVmZmVjdHM6IE5vbmUK",
+      "DataHash": "9edf77a72d513ff8c6ec421c5b4a215f8c62226e6e43b1bb4685cd2e4389a258",
+      "DisplayName": "mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cnpg-mutating-webhook-configuration": {}
+          },
+          "AliasesWithoutScopes": {
+            "cnpg-mutating-webhook-configuration": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cnpg-mutating-webhook-configuration",
+            "ResourceNameWithoutScope": "cnpg-mutating-webhook-configuration",
+            "ResourceType": "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: admissionregistration.k8s.io/v1\nkind: MutatingWebhookConfiguration\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cnpg-mutating-webhook-configuration\nwebhooks:\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: cnpg-webhook-service\n      namespace: default\n      path: /mutate-postgresql-cnpg-io-v1-backup\n      port: 443\n  failurePolicy: Fail\n  name: mbackup.cnpg.io\n  rules:\n  - apiGroups:\n    - postgresql.cnpg.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - backups\n  sideEffects: None\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: cnpg-webhook-service\n      namespace: default\n      path: /mutate-postgresql-cnpg-io-v1-cluster\n      port: 443\n  failurePolicy: Fail\n  name: mcluster.cnpg.io\n  rules:\n  - apiGroups:\n    - postgresql.cnpg.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - clusters\n  sideEffects: None\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: cnpg-webhook-service\n      namespace: default\n      path: /mutate-postgresql-cnpg-io-v1-database\n      port: 443\n  failurePolicy: Fail\n  name: mdatabase.cnpg.io\n  rules:\n  - apiGroups:\n    - postgresql.cnpg.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - databases\n  sideEffects: None\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: cnpg-webhook-service\n      namespace: default\n      path: /mutate-postgresql-cnpg-io-v1-scheduledbackup\n      port: 443\n  failurePolicy: Fail\n  name: mscheduledbackup.cnpg.io\n  rules:\n  - apiGroups:\n    - postgresql.cnpg.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - scheduledbackups\n  sideEffects: None\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "57313dd0-69fc-4f7c-b463-45b17dfc8998",
+      "UpdatedAt": "2026-06-12T16:50:57.006518Z",
+      "Version": 9
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.525875Z",
+        "CursorID": 22711,
+        "DisplayName": "Upgrade namespace-cnpg-system",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b10a56ed-6c9e-42b2-a61a-4cde43f2b7aa",
+        "LinkID": "93f89d0d-ebb0-4e8a-b387-11c7fe0ff8c1",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-cnpg-system",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "99b571c0-f256-4e79-ba0e-5c5bb721b565",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.525875Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '99b571c0-f256-4e79-ba0e-5c5bb721b565' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ac03889db7a19858010b171478907a725914ce2a111aa88e05e483a18740cc21",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "93f89d0d-ebb0-4e8a-b387-11c7fe0ff8c1"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-cnpg-system",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b10a56ed-6c9e-42b2-a61a-4cde43f2b7aa",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "99b571c0-f256-4e79-ba0e-5c5bb721b565",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -387224511,
+      "CreatedAt": "2026-06-12T16:50:27.044469Z",
+      "CursorID": 27877,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGNucGctc3lzdGVtCg==",
+      "DataHash": "ac03889db7a19858010b171478907a725914ce2a111aa88e05e483a18740cc21",
+      "DisplayName": "namespace-cnpg-system",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 61 bytes; from namespace-cnpg-system.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cnpg-system": {}
+          },
+          "AliasesWithoutScopes": {
+            "cnpg-system": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cnpg-system",
+            "ResourceNameWithoutScope": "cnpg-system",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: cnpg-system\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/cnpg-system",
+          "ResourceNameWithoutScope": "cnpg-system",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-cnpg-system",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "99b571c0-f256-4e79-ba0e-5c5bb721b565",
+      "UpdatedAt": "2026-06-12T16:50:27.118663Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.496466Z",
+        "CursorID": 22710,
+        "DisplayName": "Upgrade serviceaccount-default-cloudnative-pg",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2e93fd76-2b45-4c4f-be2d-99ba36e4e43a",
+        "LinkID": "d67eec05-4fc2-48a1-8b9a-69c330b77e02",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-cloudnative-pg",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "ccd9ab5d-858a-4ee7-be6b-5301cf0a10ab",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.496467Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ccd9ab5d-858a-4ee7-be6b-5301cf0a10ab' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0a615849b3105bc47cf78c7d42ca0b523512eb286a81fc926509980b9fe73446",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d67eec05-4fc2-48a1-8b9a-69c330b77e02"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-cloudnative-pg",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2e93fd76-2b45-4c4f-be2d-99ba36e4e43a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ccd9ab5d-858a-4ee7-be6b-5301cf0a10ab",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -261249958,
+      "CreatedAt": "2026-06-12T16:50:30.354818Z",
+      "CursorID": 27882,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNsb3VkbmF0aXZlLXBnCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjbG91ZG5hdGl2ZS1wZwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4yOS4xCiAgICBoZWxtLnNoL2NoYXJ0OiBjbG91ZG5hdGl2ZS1wZy0wLjI4LjIKICBuYW1lOiBjbG91ZG5hdGl2ZS1wZwogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "0a615849b3105bc47cf78c7d42ca0b523512eb286a81fc926509980b9fe73446",
+      "DisplayName": "serviceaccount-default-cloudnative-pg",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 308 bytes; from serviceaccount-default-cloudnative-pg.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cloudnative-pg": {}
+          },
+          "AliasesWithoutScopes": {
+            "cloudnative-pg": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cloudnative-pg",
+            "ResourceNameWithoutScope": "cloudnative-pg",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cloudnative-pg\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/cloudnative-pg",
+          "ResourceNameWithoutScope": "cloudnative-pg",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-cloudnative-pg",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ccd9ab5d-858a-4ee7-be6b-5301cf0a10ab",
+      "UpdatedAt": "2026-06-12T16:50:30.406352Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.768705Z",
+        "CursorID": 22716,
+        "DisplayName": "Upgrade service-default-cnpg-webhook-service",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d6b03a50-8da4-4403-9647-6a997933d901",
+        "LinkID": "f38ddb8b-706e-4af9-ae90-3113655228fb",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-cnpg-webhook-service",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "583721f1-5663-480e-9f2a-4dd52bd9e49a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.768705Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '583721f1-5663-480e-9f2a-4dd52bd9e49a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "eb2754354c2d74e5fa4461a3602d3817e90fa76422640ba9cfde68fa6eb48f2a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f38ddb8b-706e-4af9-ae90-3113655228fb"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-cnpg-webhook-service",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d6b03a50-8da4-4403-9647-6a997933d901",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "583721f1-5663-480e-9f2a-4dd52bd9e49a",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 2028874330,
+      "CreatedAt": "2026-06-12T16:50:28.097968Z",
+      "CursorID": 27880,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogY2xvdWRuYXRpdmUtcGcKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGNsb3VkbmF0aXZlLXBnCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAxLjI5LjEKICAgIGhlbG0uc2gvY2hhcnQ6IGNsb3VkbmF0aXZlLXBnLTAuMjguMgogIG5hbWU6IGNucGctd2ViaG9vay1zZXJ2aWNlCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcG9ydHM6CiAgLSBuYW1lOiB3ZWJob29rLXNlcnZlcgogICAgcG9ydDogNDQzCiAgICB0YXJnZXRQb3J0OiB3ZWJob29rLXNlcnZlcgogIHNlbGVjdG9yOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNsb3VkbmF0aXZlLXBnCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjbG91ZG5hdGl2ZS1wZwogIHR5cGU6IENsdXN0ZXJJUAo=",
+      "DataHash": "eb2754354c2d74e5fa4461a3602d3817e90fa76422640ba9cfde68fa6eb48f2a",
+      "DisplayName": "service-default-cnpg-webhook-service",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/cnpg-webhook-service": {}
+          },
+          "AliasesWithoutScopes": {
+            "cnpg-webhook-service": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/cnpg-webhook-service",
+            "ResourceNameWithoutScope": "cnpg-webhook-service",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cnpg-webhook-service\n  namespace: default\nspec:\n  ports:\n  - name: webhook-server\n    port: 443\n    targetPort: webhook-server\n  selector:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/name: cloudnative-pg\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/cnpg-webhook-service",
+          "ResourceNameWithoutScope": "cnpg-webhook-service",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-cnpg-webhook-service",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "583721f1-5663-480e-9f2a-4dd52bd9e49a",
+      "UpdatedAt": "2026-06-12T16:50:59.385812Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:51:18.568771Z",
+        "CursorID": 22712,
+        "DisplayName": "Upgrade validatingwebhookconfiguration-cnpg-validating-webhook-configuration",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "82a0f18f-96d4-4dfa-a671-773aefac92ea",
+        "LinkID": "9ee71eca-03bc-4dcb-98d7-ed8824f1188d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-validatingwebhookconfiguration-cnpg-validating-webhook-configuration",
+        "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+        "SpaceSlug": "CloudNativePG-no-crds-staging",
+        "ToSpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+        "ToUnitID": "c455f545-039c-4997-bde8-36a43510e581",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:51:18.568771Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'c455f545-039c-4997-bde8-36a43510e581' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:51:18.245873Z",
+      "CursorID": 4600,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "CloudNativePG-no-crds-staging",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "UpdatedAt": "2026-06-12T16:51:18.245873Z",
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6eeb7ad0207ac0caad03741c9850e1a3a8840e58a7dc1855cdbbb99f47128f6e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "9ee71eca-03bc-4dcb-98d7-ed8824f1188d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-cnpg-validating-webhook-configuration",
+      "SpaceID": "37f59f95-52ca-42ee-b8eb-f7672d6d5b58",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "82a0f18f-96d4-4dfa-a671-773aefac92ea",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "c455f545-039c-4997-bde8-36a43510e581",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1328321596,
+      "CreatedAt": "2026-06-12T16:50:32.107344Z",
+      "CursorID": 27885,
+      "Data": "YXBpVmVyc2lvbjogYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pby92MQpraW5kOiBWYWxpZGF0aW5nV2ViaG9va0NvbmZpZ3VyYXRpb24KbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGNsb3VkbmF0aXZlLXBnCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBjbG91ZG5hdGl2ZS1wZwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMS4yOS4xCiAgICBoZWxtLnNoL2NoYXJ0OiBjbG91ZG5hdGl2ZS1wZy0wLjI4LjIKICBuYW1lOiBjbnBnLXZhbGlkYXRpbmctd2ViaG9vay1jb25maWd1cmF0aW9uCndlYmhvb2tzOgotIGFkbWlzc2lvblJldmlld1ZlcnNpb25zOgogIC0gdjEKICBjbGllbnRDb25maWc6CiAgICBzZXJ2aWNlOgogICAgICBuYW1lOiBjbnBnLXdlYmhvb2stc2VydmljZQogICAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgICAgcGF0aDogL3ZhbGlkYXRlLXBvc3RncmVzcWwtY25wZy1pby12MS1iYWNrdXAKICAgICAgcG9ydDogNDQzCiAgZmFpbHVyZVBvbGljeTogRmFpbAogIG5hbWU6IHZiYWNrdXAuY25wZy5pbwogIHJ1bGVzOgogIC0gYXBpR3JvdXBzOgogICAgLSBwb3N0Z3Jlc3FsLmNucGcuaW8KICAgIGFwaVZlcnNpb25zOgogICAgLSB2MQogICAgb3BlcmF0aW9uczoKICAgIC0gQ1JFQVRFCiAgICAtIFVQREFURQogICAgcmVzb3VyY2VzOgogICAgLSBiYWNrdXBzCiAgc2lkZUVmZmVjdHM6IE5vbmUKLSBhZG1pc3Npb25SZXZpZXdWZXJzaW9uczoKICAtIHYxCiAgY2xpZW50Q29uZmlnOgogICAgc2VydmljZToKICAgICAgbmFtZTogY25wZy13ZWJob29rLXNlcnZpY2UKICAgICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgICAgIHBhdGg6IC92YWxpZGF0ZS1wb3N0Z3Jlc3FsLWNucGctaW8tdjEtY2x1c3RlcgogICAgICBwb3J0OiA0NDMKICBmYWlsdXJlUG9saWN5OiBGYWlsCiAgbmFtZTogdmNsdXN0ZXIuY25wZy5pbwogIHJ1bGVzOgogIC0gYXBpR3JvdXBzOgogICAgLSBwb3N0Z3Jlc3FsLmNucGcuaW8KICAgIGFwaVZlcnNpb25zOgogICAgLSB2MQogICAgb3BlcmF0aW9uczoKICAgIC0gQ1JFQVRFCiAgICAtIFVQREFURQogICAgcmVzb3VyY2VzOgogICAgLSBjbHVzdGVycwogIHNpZGVFZmZlY3RzOiBOb25lCi0gYWRtaXNzaW9uUmV2aWV3VmVyc2lvbnM6CiAgLSB2MQogIGNsaWVudENvbmZpZzoKICAgIHNlcnZpY2U6CiAgICAgIG5hbWU6IGNucGctd2ViaG9vay1zZXJ2aWNlCiAgICAgIG5hbWVzcGFjZTogZGVmYXVsdAogICAgICBwYXRoOiAvdmFsaWRhdGUtcG9zdGdyZXNxbC1jbnBnLWlvLXYxLXNjaGVkdWxlZGJhY2t1cAogICAgICBwb3J0OiA0NDMKICBmYWlsdXJlUG9saWN5OiBGYWlsCiAgbmFtZTogdnNjaGVkdWxlZGJhY2t1cC5jbnBnLmlvCiAgcnVsZXM6CiAgLSBhcGlHcm91cHM6CiAgICAtIHBvc3RncmVzcWwuY25wZy5pbwogICAgYXBpVmVyc2lvbnM6CiAgICAtIHYxCiAgICBvcGVyYXRpb25zOgogICAgLSBDUkVBVEUKICAgIC0gVVBEQVRFCiAgICByZXNvdXJjZXM6CiAgICAtIHNjaGVkdWxlZGJhY2t1cHMKICBzaWRlRWZmZWN0czogTm9uZQotIGFkbWlzc2lvblJldmlld1ZlcnNpb25zOgogIC0gdjEKICBjbGllbnRDb25maWc6CiAgICBzZXJ2aWNlOgogICAgICBuYW1lOiBjbnBnLXdlYmhvb2stc2VydmljZQogICAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgICAgcGF0aDogL3ZhbGlkYXRlLXBvc3RncmVzcWwtY25wZy1pby12MS1kYXRhYmFzZQogICAgICBwb3J0OiA0NDMKICBmYWlsdXJlUG9saWN5OiBGYWlsCiAgbmFtZTogdmRhdGFiYXNlLmNucGcuaW8KICBydWxlczoKICAtIGFwaUdyb3VwczoKICAgIC0gcG9zdGdyZXNxbC5jbnBnLmlvCiAgICBhcGlWZXJzaW9uczoKICAgIC0gdjEKICAgIG9wZXJhdGlvbnM6CiAgICAtIENSRUFURQogICAgLSBVUERBVEUKICAgIHJlc291cmNlczoKICAgIC0gZGF0YWJhc2VzCiAgc2lkZUVmZmVjdHM6IE5vbmUKLSBhZG1pc3Npb25SZXZpZXdWZXJzaW9uczoKICAtIHYxCiAgY2xpZW50Q29uZmlnOgogICAgc2VydmljZToKICAgICAgbmFtZTogY25wZy13ZWJob29rLXNlcnZpY2UKICAgICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgICAgIHBhdGg6IC92YWxpZGF0ZS1wb3N0Z3Jlc3FsLWNucGctaW8tdjEtcG9vbGVyCiAgICAgIHBvcnQ6IDQ0MwogIGZhaWx1cmVQb2xpY3k6IEZhaWwKICBuYW1lOiB2cG9vbGVyLmNucGcuaW8KICBydWxlczoKICAtIGFwaUdyb3VwczoKICAgIC0gcG9zdGdyZXNxbC5jbnBnLmlvCiAgICBhcGlWZXJzaW9uczoKICAgIC0gdjEKICAgIG9wZXJhdGlvbnM6CiAgICAtIENSRUFURQogICAgLSBVUERBVEUKICAgIHJlc291cmNlczoKICAgIC0gcG9vbGVycwogIHNpZGVFZmZlY3RzOiBOb25lCg==",
+      "DataHash": "6eeb7ad0207ac0caad03741c9850e1a3a8840e58a7dc1855cdbbb99f47128f6e",
+      "DisplayName": "validatingwebhookconfiguration-cnpg-validating-webhook-configuration",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "CloudNativePG",
+        "HelmChart": "cloudnative-pg-cloudnative-pg",
+        "HelmChartVersion": "0.28.2",
+        "Package": "cloudnative-pg-cloudnative-pg",
+        "Proof": "cloudnative-pg-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/cnpg-validating-webhook-configuration": {}
+          },
+          "AliasesWithoutScopes": {
+            "cnpg-validating-webhook-configuration": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/cnpg-validating-webhook-configuration",
+            "ResourceNameWithoutScope": "cnpg-validating-webhook-configuration",
+            "ResourceType": "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: admissionregistration.k8s.io/v1\nkind: ValidatingWebhookConfiguration\nmetadata:\n  labels:\n    app.kubernetes.io/instance: cloudnative-pg\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: cloudnative-pg\n    app.kubernetes.io/version: 1.29.1\n    helm.sh/chart: cloudnative-pg-0.28.2\n  name: cnpg-validating-webhook-configuration\nwebhooks:\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: cnpg-webhook-service\n      namespace: default\n      path: /validate-postgresql-cnpg-io-v1-backup\n      port: 443\n  failurePolicy: Fail\n  name: vbackup.cnpg.io\n  rules:\n  - apiGroups:\n    - postgresql.cnpg.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - backups\n  sideEffects: None\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: cnpg-webhook-service\n      namespace: default\n      path: /validate-postgresql-cnpg-io-v1-cluster\n      port: 443\n  failurePolicy: Fail\n  name: vcluster.cnpg.io\n  rules:\n  - apiGroups:\n    - postgresql.cnpg.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - clusters\n  sideEffects: None\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: cnpg-webhook-service\n      namespace: default\n      path: /validate-postgresql-cnpg-io-v1-scheduledbackup\n      port: 443\n  failurePolicy: Fail\n  name: vscheduledbackup.cnpg.io\n  rules:\n  - apiGroups:\n    - postgresql.cnpg.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - scheduledbackups\n  sideEffects: None\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: cnpg-webhook-service\n      namespace: default\n      path: /validate-postgresql-cnpg-io-v1-database\n      port: 443\n  failurePolicy: Fail\n  name: vdatabase.cnpg.io\n  rules:\n  - apiGroups:\n    - postgresql.cnpg.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - databases\n  sideEffects: None\n- admissionReviewVersions:\n  - v1\n  clientConfig:\n    service:\n      name: cnpg-webhook-service\n      namespace: default\n      path: /validate-postgresql-cnpg-io-v1-pooler\n      port: 443\n  failurePolicy: Fail\n  name: vpooler.cnpg.io\n  rules:\n  - apiGroups:\n    - postgresql.cnpg.io\n    apiVersions:\n    - v1\n    operations:\n    - CREATE\n    - UPDATE\n    resources:\n    - poolers\n  sideEffects: None\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-cnpg-validating-webhook-configuration",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c455f545-039c-4997-bde8-36a43510e581",
+      "UpdatedAt": "2026-06-12T16:51:03.349366Z",
+      "Version": 9
+    }
+  }
+]

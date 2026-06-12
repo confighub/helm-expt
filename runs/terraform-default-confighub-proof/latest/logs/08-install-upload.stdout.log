@@ -1,0 +1,22 @@
+== hashicorp-terraform@ → Space helm-terraform-default-confighub-proof ==
+Successfully created unit customresourcedefinition-workspaces-app-terraform-io (153eb0f6-076a-4f33-8c78-c2ecef0805b2)
+Successfully created unit deployment-default-terraform-terraform-sync-workspace (4c65ab3f-2370-4803-bc0e-c4b36ebbc2a4)
+Successfully created unit namespace-default (b9a96b03-66e6-44f3-8c0a-fe90725716ba)
+Successfully created unit role-terraform-terraform-sync-workspace (7835badb-d07c-4b81-b613-54a93c89774e)
+Successfully created unit rolebinding-terraform-terraform-sync-workspace (a5eb7c06-9bfb-476d-a18c-e08c20c6b83f)
+Successfully created unit serviceaccount-terraform-terraform-sync-workspace (a1da8135-6eff-4aac-936c-0df81ae8222a)
+Successfully created unit installer-record (f9a21517-f79b-420b-9327-00ab0fe87c85)
+Linked deployment-default-terraform-terraform-sync-workspace -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-terraform-terraform-sync-workspace -> serviceaccount-terraform-terraform-sync-workspace (reference:v1/ServiceAccount)
+Linked rolebinding-terraform-terraform-sync-workspace -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-terraform-terraform-sync-workspace -> serviceaccount-terraform-terraform-sync-workspace (reference:v1/ServiceAccount)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - deployment-default-terraform-terraform-sync-workspace -> v1/Secret "terraformrc"
+  - deployment-default-terraform-terraform-sync-workspace -> v1/Secret "workspacesecrets"
+  - role-terraform-terraform-sync-workspace -> v1/ConfigMap "terraform-k8s"
+  - rolebinding-terraform-terraform-sync-workspace -> rbac.authorization.k8s.io/v1/ClusterRole "terraform-terraform-sync-workspace"

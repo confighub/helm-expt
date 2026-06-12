@@ -1,0 +1,1 @@
+cub installer doc packages/hashicorp/consul/2.0.0 --json

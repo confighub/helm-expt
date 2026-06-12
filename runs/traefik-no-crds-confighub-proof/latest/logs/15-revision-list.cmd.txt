@@ -1,0 +1,1 @@
+cub revision list deployment-default-traefik --space helm-traefik-no-crds-confighub-proof

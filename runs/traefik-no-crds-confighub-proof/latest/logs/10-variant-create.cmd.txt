@@ -1,0 +1,1 @@
+cub variant create staging helm-traefik-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:Traefik-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

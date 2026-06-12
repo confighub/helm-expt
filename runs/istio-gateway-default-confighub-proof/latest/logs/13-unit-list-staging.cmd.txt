@@ -1,0 +1,1 @@
+cub unit list --space IstioGateway-default-staging --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

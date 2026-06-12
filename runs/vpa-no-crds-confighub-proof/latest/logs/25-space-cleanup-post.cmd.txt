@@ -1,0 +1,1 @@
+cub space delete --space "helm-vpa-no-crds-confighub-proof,VPA-no-crds-staging" --recursive-force

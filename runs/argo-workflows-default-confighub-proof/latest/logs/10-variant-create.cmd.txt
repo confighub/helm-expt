@@ -1,0 +1,1 @@
+cub variant create staging helm-argo-workflows-default-confighub-proof --environment Staging --region local --space-name-pattern template:ArgoWorkflows-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

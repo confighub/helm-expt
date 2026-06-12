@@ -1,0 +1,5 @@
+Bundled rook-release-rook-ceph@
+  output: .tmp/confighub-proof/rook-ceph-default-archives/rook-ceph-a.tgz
+  files:  4
+  size:   307389 bytes
+  digest: sha256:21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4

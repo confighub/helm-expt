@@ -1,0 +1,1 @@
+cub unit data deployment-default-sealed-secrets --space helm-sealed-secrets-no-crds-confighub-proof

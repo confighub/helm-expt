@@ -1,0 +1,1 @@
+cub revision list deployment-default-jaeger-operator --space helm-jaeger-operator-default-confighub-proof

@@ -1,0 +1,1 @@
+cub unit approve deployment-jaeger --space helm-jaeger-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

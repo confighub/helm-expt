@@ -1,0 +1,114 @@
+== projectcalico-tigera-operator@ → Space helm-tigera-operator-default-confighub-proof ==
+Successfully created unit apiserver-default (445ff89e-f0f7-4a8a-8e3e-79551012e1c2)
+Successfully created unit clusterrole-tigera-operator-secrets (dd89207f-f2f2-435b-965d-c1617fbb54fa)
+Successfully created unit clusterrole-tigera-operator (8398b7cf-ecc5-4370-a4db-25967a7a8d4d)
+Successfully created unit clusterrolebinding-tigera-operator (02e45931-9b01-425b-9397-31fb78c3cfa6)
+Successfully created unit deployment-default-tigera-operator (54eab1fd-2156-457b-9bd3-027a79e294c1)
+Successfully created unit goldmane-default (b91d84e9-b7d9-40dd-a4c2-8d072d500553)
+Successfully created unit installation-default (e1d6bfdf-7bd3-42ce-9b06-ce94e4037fc0)
+Successfully created unit namespace-default (5f7c76f0-51f9-40f4-805d-e83b0758ebd7)
+Successfully created unit rolebinding-default-tigera-operator-secrets (aad949b8-1936-4efc-ac93-b533b7ff3d89)
+Successfully created unit serviceaccount-default-tigera-operator (cd6c2162-47b3-4a25-a82f-17b20eff31d0)
+Successfully created unit whisker-default (9c989fb4-7662-4042-8e2c-05bfd5baf69e)
+Successfully created unit installer-record (e81e3f25-09a5-4734-80ed-3a1172d5613a)
+Linked clusterrolebinding-tigera-operator -> clusterrole-tigera-operator (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-tigera-operator -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-tigera-operator -> serviceaccount-default-tigera-operator (reference:v1/ServiceAccount)
+Linked deployment-default-tigera-operator -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-tigera-operator -> serviceaccount-default-tigera-operator (reference:v1/ServiceAccount)
+Linked rolebinding-default-tigera-operator-secrets -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-tigera-operator-secrets -> serviceaccount-default-tigera-operator (reference:v1/ServiceAccount)
+Linked serviceaccount-default-tigera-operator -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrole-tigera-operator -> v1/ConfigMap "apiservers.operator.tigera.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "backendlbpolicies.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "backends.gateway.envoyproxy.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "backendtlspolicies.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "backendtrafficpolicies.gateway.envoyproxy.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "bgpconfigurations.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "bgpconfigurations.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "bgpfilters.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "bgpfilters.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "bgppeers.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "bgppeers.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "blockaffinities.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "blockaffinities.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "calico-critical-pods"
+  - clusterrole-tigera-operator -> v1/ConfigMap "calico-system"
+  - clusterrole-tigera-operator -> v1/ConfigMap "calico-system.*"
+  - clusterrole-tigera-operator -> v1/ConfigMap "caliconodestatuses.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "caliconodestatuses.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "clienttrafficpolicies.gateway.envoyproxy.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "clusterinformations.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "clusterinformations.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "clusternetworkpolicies.policy.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "envoy-gateway-topology-injector.tigera-gateway"
+  - clusterrole-tigera-operator -> v1/ConfigMap "envoyextensionpolicies.gateway.envoyproxy.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "envoypatchpolicies.gateway.envoyproxy.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "envoyproxies.gateway.envoyproxy.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "felixconfigurations.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "felixconfigurations.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "gatewayapis.operator.tigera.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "gatewayclasses.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "gateways.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "globalnetworkpolicies.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "globalnetworkpolicies.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "globalnetworksets.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "globalnetworksets.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "goldmanes.operator.tigera.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "grpcroutes.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "hostendpoints.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "hostendpoints.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "httproutefilters.gateway.envoyproxy.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "httproutes.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "imagesets.operator.tigera.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "installations.operator.tigera.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ipamblocks.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ipamblocks.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ipamconfigs.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ipamconfigurations.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ipamhandles.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ipamhandles.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ippools.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ippools.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ipreservations.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "ipreservations.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "istio-validator-calico-system"
+  - clusterrole-tigera-operator -> v1/ConfigMap "istiod"
+  - clusterrole-tigera-operator -> v1/ConfigMap "istiod-default-validator"
+  - clusterrole-tigera-operator -> v1/ConfigMap "istios.operator.tigera.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "kubecontrollersconfigurations.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "kubecontrollersconfigurations.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "managementclusterconnections.operator.tigera.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "networkpolicies.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "networkpolicies.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "networksets.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "networksets.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "referencegrants.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "securitypolicies.gateway.envoyproxy.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "stagedglobalnetworkpolicies.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "stagedglobalnetworkpolicies.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "stagedkubernetesnetworkpolicies.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "stagedkubernetesnetworkpolicies.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "stagednetworkpolicies.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "stagednetworkpolicies.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "tcproutes.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "tiers.crd.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "tiers.projectcalico.org"
+  - clusterrole-tigera-operator -> v1/ConfigMap "tigera-critical-pods"
+  - clusterrole-tigera-operator -> v1/ConfigMap "tigera-gateway-api-gateway-helm-certgen"
+  - clusterrole-tigera-operator -> v1/ConfigMap "tigera-operator"
+  - clusterrole-tigera-operator -> v1/ConfigMap "tigerastatuses.operator.tigera.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "tlsroutes.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "udproutes.gateway.networking.k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "whiskers.operator.tigera.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "xbackendtrafficpolicies.gateway.networking.x-k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "xlistenersets.gateway.networking.x-k8s.io"
+  - clusterrole-tigera-operator -> v1/ConfigMap "xmeshes.gateway.networking.x-k8s.io"
+  - deployment-default-tigera-operator -> v1/ConfigMap "kubernetes-services-endpoint"
+  - rolebinding-default-tigera-operator-secrets -> rbac.authorization.k8s.io/v1/Role "tigera-operator-secrets"

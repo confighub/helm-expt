@@ -1,0 +1,1 @@
+cub unit apply --space helm-sealed-secrets-no-crds-confighub-proof --where "Labels.Proof = 'sealed-secrets-no-crds-confighub-proof'" --dry-run --wait --timeout 2m

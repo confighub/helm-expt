@@ -1,0 +1,57 @@
+== istio-istiod@ → Space helm-istiod-default-confighub-proof ==
+Successfully created unit clusterrole-istio-reader-clusterrole-default (20e4f507-2ff3-4afb-9809-174e9864fe5b)
+Successfully created unit clusterrole-istiod-clusterrole-default (4311452e-0be5-462e-8418-149d563c0a70)
+Successfully created unit clusterrole-istiod-gateway-controller-default (bd36bd71-805a-4232-acd9-75d7107cb7a2)
+Successfully created unit clusterrolebinding-istio-reader-clusterrole-default (16e64d27-5c09-4cb6-b74c-60451e6ec80d)
+Successfully created unit clusterrolebinding-istiod-clusterrole-default (fd2e9468-c16e-4bc5-8775-99f516cdcaff)
+Successfully created unit clusterrolebinding-istiod-gateway-controller-default (82069bbc-2c3a-4cf8-8da5-83688a6c8d65)
+Successfully created unit configmap-default-istio-sidecar-injector (1ac07be2-c8bb-48f5-9cbd-03269fb7a163)
+Successfully created unit configmap-default-istio (47a683d4-6205-4480-bafe-173cf923b1de)
+Successfully created unit configmap-default-values (9369a22b-2bef-46c3-86fc-f7c8c67a7057)
+Successfully created unit deployment-default-istiod (eec5d6c6-1d41-455c-85f8-948a83a11d89)
+Successfully created unit horizontalpodautoscaler-default-istiod (91afccb0-1753-40ca-bc3b-9e4f02ba4fc2)
+Successfully created unit mutatingwebhookconfiguration-istio-sidecar-injector-default (e08c0aac-9875-4541-90e3-28f0f997d334)
+Successfully created unit namespace-default (61356cd1-6e59-497c-862b-e7187097f623)
+Successfully created unit role-istio-system-istiod (e345e2ef-8a89-4c15-b4b3-50d268c2f83b)
+Successfully created unit rolebinding-istio-system-istiod (d750760e-623c-45a0-bb49-48ae87f2d937)
+Successfully created unit service-default-istiod (4134618a-d640-4b2e-8227-d79b25def4f3)
+Successfully created unit serviceaccount-istio-system-istiod (d0aa199b-5579-4fa3-b861-fa3062ecf4a6)
+Successfully created unit validatingwebhookconfiguration-istio-validator-istio-system (ef7e07b9-8419-44bb-9fd8-0dd7d1bf1be0)
+Successfully created unit installer-record (2d65d98e-4229-487c-81d7-e2f7e3b2567c)
+Linked clusterrolebinding-istio-reader-clusterrole-default -> clusterrole-istio-reader-clusterrole-default (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-istiod-clusterrole-default -> clusterrole-istiod-clusterrole-default (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-istiod-clusterrole-default -> serviceaccount-istio-system-istiod (reference:v1/ServiceAccount)
+Linked clusterrolebinding-istiod-gateway-controller-default -> clusterrole-istiod-gateway-controller-default (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-istiod-gateway-controller-default -> serviceaccount-istio-system-istiod (reference:v1/ServiceAccount)
+Linked configmap-default-istio -> namespace-default (reference:v1/Namespace)
+Linked configmap-default-istio-sidecar-injector -> namespace-default (reference:v1/Namespace)
+Linked configmap-default-values -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-istiod -> namespace-default (reference:v1/Namespace)
+Linked deployment-default-istiod -> serviceaccount-istio-system-istiod (reference:v1/ServiceAccount)
+Linked horizontalpodautoscaler-default-istiod -> namespace-default (reference:v1/Namespace)
+Linked mutatingwebhookconfiguration-istio-sidecar-injector-default -> namespace-default (reference:v1/Namespace)
+Linked mutatingwebhookconfiguration-istio-sidecar-injector-default -> service-default-istiod (reference:v1/Service)
+Linked rolebinding-istio-system-istiod -> serviceaccount-istio-system-istiod (reference:v1/ServiceAccount)
+Linked service-default-istiod -> deployment-default-istiod (selector)
+Linked service-default-istiod -> namespace-default (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-istio-validator-istio-system -> service-default-istiod (reference:v1/Service)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrolebinding-istio-reader-clusterrole-default -> v1/Namespace "istio-system"
+  - clusterrolebinding-istio-reader-clusterrole-default -> v1/ServiceAccount "istio-reader-service-account"
+  - clusterrolebinding-istiod-clusterrole-default -> v1/Namespace "istio-system"
+  - clusterrolebinding-istiod-gateway-controller-default -> v1/Namespace "istio-system"
+  - deployment-default-istiod -> v1/ConfigMap "istio-ca-root-cert"
+  - deployment-default-istiod -> v1/Secret "cacerts"
+  - deployment-default-istiod -> v1/Secret "istio-kubeconfig"
+  - deployment-default-istiod -> v1/Secret "istiod-tls"
+  - horizontalpodautoscaler-default-istiod -> v1/ReplicationController "istiod"
+  - role-istio-system-istiod -> v1/Namespace "istio-system"
+  - rolebinding-istio-system-istiod -> rbac.authorization.k8s.io/v1/ClusterRole "istiod"
+  - rolebinding-istio-system-istiod -> v1/Namespace "istio-system"
+  - serviceaccount-istio-system-istiod -> v1/Namespace "istio-system"
+  - validatingwebhookconfiguration-istio-validator-istio-system -> v1/Namespace "istio-system"

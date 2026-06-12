@@ -1,0 +1,1 @@
+cub changeset create traefik-safe-ops-20260527 --space helm-traefik-default-confighub-proof --description "traefik safe-ops proof: approve reviewed revisions, dry-run apply only" --label Proof=traefik-default-confighub-proof --label Lane=safe-ops --annotation proof.confighub.com/scope=local-test --annotation proof.confighub.com/live-apply=false --allow-exists

@@ -1,0 +1,1 @@
+cub installer setup --pull packages/opencost/opencost/2.5.21 --base default --work-dir .tmp/confighub-proof/opencost-default --non-interactive --namespace default

@@ -1,0 +1,1 @@
+cub installer package packages/coredns/coredns/1.45.2 -o .tmp/confighub-proof/coredns-archives/coredns-a.tgz

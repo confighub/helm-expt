@@ -1,0 +1,1 @@
+cub unit approve deployment-default-gateway --space helm-istio-gateway-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

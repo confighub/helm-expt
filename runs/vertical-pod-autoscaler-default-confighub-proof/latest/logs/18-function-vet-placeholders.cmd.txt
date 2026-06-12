@@ -1,0 +1,1 @@
+cub function vet vet-placeholders --space helm-vertical-pod-autoscaler-default-confighub-proof --where "Labels.Proof = 'vertical-pod-autoscaler-default-confighub-proof'" --quiet --wait --timeout 10m

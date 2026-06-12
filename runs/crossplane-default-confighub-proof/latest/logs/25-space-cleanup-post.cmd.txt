@@ -1,0 +1,1 @@
+cub space delete --space "helm-crossplane-default-confighub-proof,Crossplane-default-staging" --recursive-force

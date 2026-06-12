@@ -1,0 +1,1178 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:10:01.394105Z",
+        "CursorID": 24225,
+        "DisplayName": "Upgrade customresourcedefinition-workspaces-app-terraform-io",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9927ae59-70c4-48d1-96ab-e5015517263d",
+        "LinkID": "a4ee8b43-f886-4f75-a313-4ae06e47f294",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-customresourcedefinition-workspaces-app-terraform-io",
+        "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+        "SpaceSlug": "Terraform-default-staging",
+        "ToSpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+        "ToUnitID": "153eb0f6-076a-4f33-8c78-c2ecef0805b2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:10:01.394105Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '153eb0f6-076a-4f33-8c78-c2ecef0805b2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:01.157583Z",
+      "CursorID": 4671,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Terraform-default-staging",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "UpdatedAt": "2026-06-12T17:10:01.157583Z",
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d800f092175a938f7a848d924bf58133248b292107d5f3aa80ac1192ae4dd8c0",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "a4ee8b43-f886-4f75-a313-4ae06e47f294"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-workspaces-app-terraform-io",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9927ae59-70c4-48d1-96ab-e5015517263d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "153eb0f6-076a-4f33-8c78-c2ecef0805b2",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -457489978,
+      "CreatedAt": "2026-06-12T17:09:36.967913Z",
+      "CursorID": 28894,
+      "Data": "YXBpVmVyc2lvbjogYXBpZXh0ZW5zaW9ucy5rOHMuaW8vdjEKa2luZDogQ3VzdG9tUmVzb3VyY2VEZWZpbml0aW9uCm1ldGFkYXRhOgogIGFubm90YXRpb25zOgogICAgY29udHJvbGxlci1nZW4ua3ViZWJ1aWxkZXIuaW8vdmVyc2lvbjogdjAuOC4wCiAgY3JlYXRpb25UaW1lc3RhbXA6IG51bGwKICBuYW1lOiB3b3Jrc3BhY2VzLmFwcC50ZXJyYWZvcm0uaW8Kc3BlYzoKICBncm91cDogYXBwLnRlcnJhZm9ybS5pbwogIG5hbWVzOgogICAga2luZDogV29ya3NwYWNlCiAgICBsaXN0S2luZDogV29ya3NwYWNlTGlzdAogICAgcGx1cmFsOiB3b3Jrc3BhY2VzCiAgICBzaW5ndWxhcjogd29ya3NwYWNlCiAgc2NvcGU6IE5hbWVzcGFjZWQKICB2ZXJzaW9uczoKICAtIGFkZGl0aW9uYWxQcmludGVyQ29sdW1uczoKICAgIC0ganNvblBhdGg6IC5tZXRhZGF0YS5jcmVhdGlvblRpbWVzdGFtcAogICAgICBuYW1lOiBBZ2UKICAgICAgdHlwZTogZGF0ZQogICAgLSBqc29uUGF0aDogLnN0YXR1cy5ydW5TdGF0dXMKICAgICAgbmFtZTogU3RhdHVzCiAgICAgIHR5cGU6IHN0cmluZwogICAgbmFtZTogdjFhbHBoYTEKICAgIHNjaGVtYToKICAgICAgb3BlbkFQSVYzU2NoZW1hOgogICAgICAgIGRlc2NyaXB0aW9uOiBXb3Jrc3BhY2UgaXMgdGhlIFNjaGVtYSBmb3IgdGhlIHdvcmtzcGFjZXMgQVBJCiAgICAgICAgcHJvcGVydGllczoKICAgICAgICAgIGFwaVZlcnNpb246CiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAnQVBJVmVyc2lvbiBkZWZpbmVzIHRoZSB2ZXJzaW9uZWQgc2NoZW1hIG9mIHRoaXMgcmVwcmVzZW50YXRpb24gb2YgYW4gb2JqZWN0LiBTZXJ2ZXJzIHNob3VsZCBjb252ZXJ0IHJlY29nbml6ZWQgc2NoZW1hcyB0byB0aGUgbGF0ZXN0IGludGVybmFsIHZhbHVlLCBhbmQgbWF5IHJlamVjdCB1bnJlY29nbml6ZWQgdmFsdWVzLiBNb3JlIGluZm86IGh0dHBzOi8vZ2l0Lms4cy5pby9jb21tdW5pdHkvY29udHJpYnV0b3JzL2RldmVsL3NpZy1hcmNoaXRlY3R1cmUvYXBpLWNvbnZlbnRpb25zLm1kI3Jlc291cmNlcycKICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICBraW5kOgogICAgICAgICAgICBkZXNjcmlwdGlvbjogJ0tpbmQgaXMgYSBzdHJpbmcgdmFsdWUgcmVwcmVzZW50aW5nIHRoZSBSRVNUIHJlc291cmNlIHRoaXMgb2JqZWN0IHJlcHJlc2VudHMuIFNlcnZlcnMgbWF5IGluZmVyIHRoaXMgZnJvbSB0aGUgZW5kcG9pbnQgdGhlIGNsaWVudCBzdWJtaXRzIHJlcXVlc3RzIHRvLiBDYW5ub3QgYmUgdXBkYXRlZC4gSW4gQ2FtZWxDYXNlLiBNb3JlIGluZm86IGh0dHBzOi8vZ2l0Lms4cy5pby9jb21tdW5pdHkvY29udHJpYnV0b3JzL2RldmVsL3NpZy1hcmNoaXRlY3R1cmUvYXBpLWNvbnZlbnRpb25zLm1kI3R5cGVzLWtpbmRzJwogICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgIG1ldGFkYXRhOgogICAgICAgICAgICB0eXBlOiBvYmplY3QKICAgICAgICAgIHNwZWM6CiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBXb3Jrc3BhY2VTcGVjIGRlZmluZXMgdGhlIGRlc2lyZWQgc3RhdGUgb2YgV29ya3NwYWNlCiAgICAgICAgICAgIHByb3BlcnRpZXM6CiAgICAgICAgICAgICAgYWdlbnRQb29sSUQ6CiAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogU3BlY2lmaWVzIHRoZSBhZ2VudCBwb29sIElEIHdlIHdpc2ggdG8gdXNlLgogICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgYWdlbnRQb29sTmFtZToKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBTcGVjaWZpZXMgdGhlIGFnZW50IHBvb2wgbmFtZSB3ZSB3aXNoIHRvIHVzZS4KICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgIG1vZHVsZToKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBNb2R1bGUgc291cmNlIGFuZCB2ZXJzaW9uIHRvIHVzZQogICAgICAgICAgICAgICAgbnVsbGFibGU6IHRydWUKICAgICAgICAgICAgICAgIHByb3BlcnRpZXM6CiAgICAgICAgICAgICAgICAgIHNvdXJjZToKICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogQW55IHJlbW90ZSBtb2R1bGUgc291cmNlICh2ZXJzaW9uIGNvbnRyb2wsIHJlZ2lzdHJ5KQogICAgICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgICAgICB2ZXJzaW9uOgogICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBNb2R1bGUgdmVyc2lvbiBmb3IgcmVnaXN0cnkgbW9kdWxlcwogICAgICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgICAgcmVxdWlyZWQ6CiAgICAgICAgICAgICAgICAtIHNvdXJjZQogICAgICAgICAgICAgICAgdHlwZTogb2JqZWN0CiAgICAgICAgICAgICAgbm90aWZpY2F0aW9uczoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBOb3RpZmljYXRpb24gY29uZmlndXJhdGlvbgogICAgICAgICAgICAgICAgaXRlbXM6CiAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBOb3RpZmljYXRpb24gbm90aWZpY2F0aW9uIGhvbGRzIGFsbCB0aGUgbmVjZXNzYXJ5IGluZm9ybWF0aW9uIHJlcXVpcmVkIHRvIGNvbmZpZ3VyZSBhbnkgd29ya3NwYWNlIG5vdGlmaWNhdGlvbgogICAgICAgICAgICAgICAgICBwcm9wZXJ0aWVzOgogICAgICAgICAgICAgICAgICAgIGVuYWJsZWQ6CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogQ29udHJvbCBpZiB0aGUgbm90aWZpY2F0aW9uIGlzIGVuYWJsZWQgb3Igbm90CiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBib29sZWFuCiAgICAgICAgICAgICAgICAgICAgbmFtZToKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBOYW1lIG9mIHRoZSBob29rCiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICByZWNpcGllbnRzOgogICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IExpc3Qgb2YgcmVjaXBpZW50cycgZW1haWwgYWRkcmVzc2VzLiBPbmx5IGFwcGxpY2FibGUgZm9yIFRGRSBlbmRwb2ludHMuCiAgICAgICAgICAgICAgICAgICAgICBpdGVtczoKICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBhcnJheQogICAgICAgICAgICAgICAgICAgIHRva2VuOgogICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFRva2VuIHVzZWQgdG8gZ2VuZXJhdGUgYW4gSE1BQyBvbiB0aGUgdmVyaWZpY2F0aW8wbiByZXF1ZXN0CiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICB0cmlnZ2VyczoKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBXaGVuIHRoZSB3ZWIgaG9vayBnZXRzIHRyaWdnZXJlZC4gQWNjZXB0YWJsZSB2YWx1ZXMgYXJlIHJ1bjpjcmVhdGVkLCBydW46cGxhbm5pbmcsIHJ1bjpuZWVkc19hdHRlbnRpb24sIHJ1bjphcHBseWluZywgcnVuOmNvbXBsZXRlZCwgcnVuOmVycm9yZWQuCiAgICAgICAgICAgICAgICAgICAgICBpdGVtczoKICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBhcnJheQogICAgICAgICAgICAgICAgICAgIHR5cGU6CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogTm90aWZpY2F0aW9uIHR5cGUuIENhbiBiZSBvbmUgb2YgZW1haWwsIGdlbmVyaWMsIG9yIHNsYWNrCiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICB1cmw6CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogVVJMIG9mIHRoZSBob29rCiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICB1c2VyczoKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBMaXN0IG9mIHVzZXJzIHRvIHJlY2VpdmUgdGhlIG5vdGlmaWNhaXRvbiBlbWFpbC4KICAgICAgICAgICAgICAgICAgICAgIGl0ZW1zOgogICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IGFycmF5CiAgICAgICAgICAgICAgICAgIHJlcXVpcmVkOgogICAgICAgICAgICAgICAgICAtIGVuYWJsZWQKICAgICAgICAgICAgICAgICAgLSBuYW1lCiAgICAgICAgICAgICAgICAgIC0gdHlwZQogICAgICAgICAgICAgICAgICB0eXBlOiBvYmplY3QKICAgICAgICAgICAgICAgIHR5cGU6IGFycmF5CiAgICAgICAgICAgICAgb21pdE5hbWVzcGFjZVByZWZpeDoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBPbWl0IG5hbWVzcGFjZSBwcmVmaXggaW4gd29ya3NwYWNlIG5hbWUKICAgICAgICAgICAgICAgIHR5cGU6IGJvb2xlYW4KICAgICAgICAgICAgICBvcmdhbml6YXRpb246CiAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogVGVycmFmb3JtIENsb3VkIG9yZ2FuaXphdGlvbgogICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgb3V0cHV0czoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBPdXRwdXRzIGRlbm90ZSBvdXRwdXRzIHdhbnRlZAogICAgICAgICAgICAgICAgaXRlbXM6CiAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBPdXRwdXRTcGVjIHNwZWNpZmllcyB3aGljaCB2YWx1ZXMgbmVlZCB0byBiZSBvdXRwdXQKICAgICAgICAgICAgICAgICAgcHJvcGVydGllczoKICAgICAgICAgICAgICAgICAgICBrZXk6CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogT3V0cHV0IG5hbWUKICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgICAgICAgIG1vZHVsZU91dHB1dE5hbWU6CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogQXR0cmlidXRlIG5hbWUgaW4gbW9kdWxlCiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgdHlwZTogb2JqZWN0CiAgICAgICAgICAgICAgICB0eXBlOiBhcnJheQogICAgICAgICAgICAgIHJ1blRyaWdnZXJzOgogICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFJ1biBUcmlnZ2VycyBmcm9tIHNvdXJjZSB3b3Jrc3BhY2VzIHRvIHRyaWdnZXIgdGhpcyB3b3Jrc3BhY2UKICAgICAgICAgICAgICAgIGl0ZW1zOgogICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogUnVuIFRyaWdnZXIgZnJvbSBhIHNvdXJjZSB3b3Jrc3BhY2UKICAgICAgICAgICAgICAgICAgcHJvcGVydGllczoKICAgICAgICAgICAgICAgICAgICBzb3VyY2VhYmxlTmFtZToKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBOYW1lIG9mIHNvdXJjZSB3b3Jrc3BhY2UgdGhhdCB0cmlnZ2VycyB0aGUgY3VycmVudCB3b3Jrc3BhY2UKICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgICAgICByZXF1aXJlZDoKICAgICAgICAgICAgICAgICAgLSBzb3VyY2VhYmxlTmFtZQogICAgICAgICAgICAgICAgICB0eXBlOiBvYmplY3QKICAgICAgICAgICAgICAgIHR5cGU6IGFycmF5CiAgICAgICAgICAgICAgc2VjcmV0c01vdW50UGF0aDoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBGaWxlIHBhdGggd2l0aGluIG9wZXJhdG9yIHBvZCB0byBsb2FkIHdvcmtzcGFjZSBzZWNyZXRzCiAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICBzc2hLZXlJRDoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBTU0ggS2V5IElELiBUaGlzIGtleSBtdXN0IGFscmVhZHkgZXhpc3QgaW4gdGhlIFRGIENsb3VkIG9yZ2FuaXphdGlvbi4gIFRoaXMgY2FuIGVpdGhlciBiZSB0aGUgdXNlciBhc3NpZ25lZCBuYW1lIG9mIHRoZSBTU0ggS2V5LCBvciB0aGUgc3lzdGVtIGFzc2lnbmVkIElELgogICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgdGVycmFmb3JtVmVyc2lvbjoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBUZXJyYWZvcm0gdmVyc2lvbiB1c2VkIGZvciB0aGlzIHdvcmtzcGFjZS4gVGhlIGRlZmF1bHQgaXMgYGxhdGVzdGAuCiAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICB2YXJpYWJsZXM6CiAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogVmFyaWFibGVzIGFzIGlucHV0cyB0byBtb2R1bGUKICAgICAgICAgICAgICAgIGl0ZW1zOgogICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogVmFyaWFibGUgZGVub3RlcyBhbiBpbnB1dCB0byB0aGUgbW9kdWxlCiAgICAgICAgICAgICAgICAgIHByb3BlcnRpZXM6CiAgICAgICAgICAgICAgICAgICAgZW52aXJvbm1lbnRWYXJpYWJsZToKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBFbnZpcm9ubWVudFZhcmlhYmxlIGRlbm90ZXMgaWYgdGhpcyB2YXJpYWJsZSBzaG91bGQgYmUgY3JlYXRlZCBhcyBlbnZpcm9ubWVudCB2YXJpYWJsZQogICAgICAgICAgICAgICAgICAgICAgdHlwZTogYm9vbGVhbgogICAgICAgICAgICAgICAgICAgIGhjbDoKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBTdHJpbmcgaW5wdXQgc2hvdWxkIGJlIGFuIEhDTC1mb3JtYXR0ZWQgdmFyaWFibGUKICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IGJvb2xlYW4KICAgICAgICAgICAgICAgICAgICBrZXk6CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogVmFyaWFibGUgbmFtZQogICAgICAgICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgICAgICAgc2Vuc2l0aXZlOgogICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFZhcmlhYmxlIGlzIGEgc2VjcmV0IGFuZCBzaG91bGQgYmUgcmV0cmlldmVkIGZyb20gZmlsZQogICAgICAgICAgICAgICAgICAgICAgdHlwZTogYm9vbGVhbgogICAgICAgICAgICAgICAgICAgIHZhbHVlOgogICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFZhcmlhYmxlIHZhbHVlCiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogU291cmNlIGZvciB0aGUgdmFyaWFibGUncyB2YWx1ZS4gQ2Fubm90IGJlIHVzZWQgaWYgdmFsdWUgaXMgbm90IGVtcHR5LgogICAgICAgICAgICAgICAgICAgICAgcHJvcGVydGllczoKICAgICAgICAgICAgICAgICAgICAgICAgY29uZmlnTWFwS2V5UmVmOgogICAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBTZWxlY3RzIGEga2V5IG9mIGEgQ29uZmlnTWFwLgogICAgICAgICAgICAgICAgICAgICAgICAgIHByb3BlcnRpZXM6CiAgICAgICAgICAgICAgICAgICAgICAgICAgICBrZXk6CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBUaGUga2V5IHRvIHNlbGVjdC4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lOgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogJ05hbWUgb2YgdGhlIHJlZmVyZW50LiBNb3JlIGluZm86IGh0dHBzOi8va3ViZXJuZXRlcy5pby9kb2NzL2NvbmNlcHRzL292ZXJ2aWV3L3dvcmtpbmctd2l0aC1vYmplY3RzL25hbWVzLyNuYW1lcyBUT0RPOiBBZGQgb3RoZXIgdXNlZnVsIGZpZWxkcy4gYXBpVmVyc2lvbiwga2luZCwgdWlkPycKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBvcHRpb25hbDoKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFNwZWNpZnkgd2hldGhlciB0aGUgQ29uZmlnTWFwIG9yIGl0cyBrZXkgbXVzdCBiZSBkZWZpbmVkCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IGJvb2xlYW4KICAgICAgICAgICAgICAgICAgICAgICAgICByZXF1aXJlZDoKICAgICAgICAgICAgICAgICAgICAgICAgICAtIGtleQogICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IG9iamVjdAogICAgICAgICAgICAgICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogJ1NlbGVjdHMgYSBmaWVsZCBvZiB0aGUgcG9kOiBzdXBwb3J0cyBtZXRhZGF0YS5uYW1lLCBtZXRhZGF0YS5uYW1lc3BhY2UsIGBtZXRhZGF0YS5sYWJlbHNbJyc8S0VZPicnXWAsIGBtZXRhZGF0YS5hbm5vdGF0aW9uc1snJzxLRVk+JyddYCwgc3BlYy5ub2RlTmFtZSwgc3BlYy5zZXJ2aWNlQWNjb3VudE5hbWUsIHN0YXR1cy5ob3N0SVAsIHN0YXR1cy5wb2RJUCwgc3RhdHVzLnBvZElQcy4nCiAgICAgICAgICAgICAgICAgICAgICAgICAgcHJvcGVydGllczoKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFwaVZlcnNpb246CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBWZXJzaW9uIG9mIHRoZSBzY2hlbWEgdGhlIEZpZWxkUGF0aCBpcyB3cml0dGVuIGluIHRlcm1zIG9mLCBkZWZhdWx0cyB0byAidjEiLgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZpZWxkUGF0aDoKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFBhdGggb2YgdGhlIGZpZWxkIHRvIHNlbGVjdCBpbiB0aGUgc3BlY2lmaWVkIEFQSSB2ZXJzaW9uLgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICAgICAgICByZXF1aXJlZDoKICAgICAgICAgICAgICAgICAgICAgICAgICAtIGZpZWxkUGF0aAogICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IG9iamVjdAogICAgICAgICAgICAgICAgICAgICAgICByZXNvdXJjZUZpZWxkUmVmOgogICAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAnU2VsZWN0cyBhIHJlc291cmNlIG9mIHRoZSBjb250YWluZXI6IG9ubHkgcmVzb3VyY2VzIGxpbWl0cyBhbmQgcmVxdWVzdHMgKGxpbWl0cy5jcHUsIGxpbWl0cy5tZW1vcnksIGxpbWl0cy5lcGhlbWVyYWwtc3RvcmFnZSwgcmVxdWVzdHMuY3B1LCByZXF1ZXN0cy5tZW1vcnkgYW5kIHJlcXVlc3RzLmVwaGVtZXJhbC1zdG9yYWdlKSBhcmUgY3VycmVudGx5IHN1cHBvcnRlZC4nCiAgICAgICAgICAgICAgICAgICAgICAgICAgcHJvcGVydGllczoKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lck5hbWU6CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAnQ29udGFpbmVyIG5hbWU6IHJlcXVpcmVkIGZvciB2b2x1bWVzLCBvcHRpb25hbCBmb3IgZW52IHZhcnMnCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgICAgICAgICAgICAgICAgZGl2aXNvcjoKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYW55T2Y6CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0gdHlwZTogaW50ZWdlcgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogU3BlY2lmaWVzIHRoZSBvdXRwdXQgZm9ybWF0IG9mIHRoZSBleHBvc2VkIHJlc291cmNlcywgZGVmYXVsdHMgdG8gIjEiCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhdHRlcm46IF4oXCt8LSk/KChbMC05XSsoXC5bMC05XSopPyl8KFwuWzAtOV0rKSkoKFtLTUdUUEVdaSl8W251bWtNR1RQRV18KFtlRV0oXCt8LSk/KChbMC05XSsoXC5bMC05XSopPyl8KFwuWzAtOV0rKSkpKT8kCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHgta3ViZXJuZXRlcy1pbnQtb3Itc3RyaW5nOiB0cnVlCiAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXNvdXJjZToKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246ICdSZXF1aXJlZDogcmVzb3VyY2UgdG8gc2VsZWN0JwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICAgICAgICByZXF1aXJlZDoKICAgICAgICAgICAgICAgICAgICAgICAgICAtIHJlc291cmNlCiAgICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogb2JqZWN0CiAgICAgICAgICAgICAgICAgICAgICAgIHNlY3JldEtleVJlZjoKICAgICAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogU2VsZWN0cyBhIGtleSBvZiBhIHNlY3JldCBpbiB0aGUgcG9kJ3MgbmFtZXNwYWNlCiAgICAgICAgICAgICAgICAgICAgICAgICAgcHJvcGVydGllczoKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtleToKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFRoZSBrZXkgb2YgdGhlIHNlY3JldCB0byBzZWxlY3QgZnJvbS4gIE11c3QgYmUgYSB2YWxpZCBzZWNyZXQga2V5LgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWU6CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiAnTmFtZSBvZiB0aGUgcmVmZXJlbnQuIE1vcmUgaW5mbzogaHR0cHM6Ly9rdWJlcm5ldGVzLmlvL2RvY3MvY29uY2VwdHMvb3ZlcnZpZXcvd29ya2luZy13aXRoLW9iamVjdHMvbmFtZXMvI25hbWVzIFRPRE86IEFkZCBvdGhlciB1c2VmdWwgZmllbGRzLiBhcGlWZXJzaW9uLCBraW5kLCB1aWQ/JwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9wdGlvbmFsOgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogU3BlY2lmeSB3aGV0aGVyIHRoZSBTZWNyZXQgb3IgaXRzIGtleSBtdXN0IGJlIGRlZmluZWQKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogYm9vbGVhbgogICAgICAgICAgICAgICAgICAgICAgICAgIHJlcXVpcmVkOgogICAgICAgICAgICAgICAgICAgICAgICAgIC0ga2V5CiAgICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogb2JqZWN0CiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBvYmplY3QKICAgICAgICAgICAgICAgICAgcmVxdWlyZWQ6CiAgICAgICAgICAgICAgICAgIC0gZW52aXJvbm1lbnRWYXJpYWJsZQogICAgICAgICAgICAgICAgICAtIGtleQogICAgICAgICAgICAgICAgICAtIHNlbnNpdGl2ZQogICAgICAgICAgICAgICAgICB0eXBlOiBvYmplY3QKICAgICAgICAgICAgICAgIHR5cGU6IGFycmF5CiAgICAgICAgICAgICAgdmNzOgogICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IERldGFpbHMgb2YgdGhlIFZDUyByZXBvc2l0b3J5IHdlIHdhbnQgdG8gY29ubmVjdCB0byB0aGUgd29ya3NwYWNlCiAgICAgICAgICAgICAgICBudWxsYWJsZTogdHJ1ZQogICAgICAgICAgICAgICAgcHJvcGVydGllczoKICAgICAgICAgICAgICAgICAgYnJhbmNoOgogICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBUaGUgcmVwb3NpdG9yeSBicmFuY2ggdG8gdXNlCiAgICAgICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgICAgIGluZ3Jlc3Nfc3VibW9kdWxlczoKICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogV2hldGhlciBzdWJtb2R1bGVzIHNob3VsZCBiZSBmZXRjaGVkIHdoZW4gY2xvbmluZyB0aGUgVkNTIHJlcG9zaXRvcnkgKERlZmF1bHRzIHRvIGZhbHNlKQogICAgICAgICAgICAgICAgICAgIHR5cGU6IGJvb2xlYW4KICAgICAgICAgICAgICAgICAgcmVwb19pZGVudGlmaWVyOgogICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBBIHJlZmVyZW5jZSB0byB5b3VyIFZDUyByZXBvc2l0b3J5IGluIHRoZSBmb3JtYXQgb3JnL3JlcG8KICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgdG9rZW5faWQ6CiAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFRva2VuIElEIG9mIHRoZSBWQ1MgQ29ubmVjdGlvbiAoT0F1dGggQ29ubmVjdGlvbiBUb2tlbikgdG8gdXNlIGh0dHBzOi8vd3d3LnRlcnJhZm9ybS5pby9kb2NzL2Nsb3VkL3ZjcwogICAgICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgICAgcmVxdWlyZWQ6CiAgICAgICAgICAgICAgICAtIHJlcG9faWRlbnRpZmllcgogICAgICAgICAgICAgICAgLSB0b2tlbl9pZAogICAgICAgICAgICAgICAgdHlwZTogb2JqZWN0CiAgICAgICAgICAgIHJlcXVpcmVkOgogICAgICAgICAgICAtIG9yZ2FuaXphdGlvbgogICAgICAgICAgICAtIHNlY3JldHNNb3VudFBhdGgKICAgICAgICAgICAgdHlwZTogb2JqZWN0CiAgICAgICAgICBzdGF0dXM6CiAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBXb3Jrc3BhY2VTdGF0dXMgZGVmaW5lcyB0aGUgb2JzZXJ2ZWQgc3RhdGUgb2YgV29ya3NwYWNlCiAgICAgICAgICAgIHByb3BlcnRpZXM6CiAgICAgICAgICAgICAgY29uZmlnVmVyc2lvbklEOgogICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IENvbmZpZ3VyYXRpb24gVmVyc2lvbiBJRAogICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgb3V0cHV0czoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBPdXRwdXRzIGZyb20gc3RhdGUgZmlsZQogICAgICAgICAgICAgICAgaXRlbXM6CiAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBPdXRwdXRTdGF0dXMgb3V0cHV0cyB0aGUgdmFsdWVzIG9mIFRlcnJhZm9ybSBvdXRwdXQKICAgICAgICAgICAgICAgICAgcHJvcGVydGllczoKICAgICAgICAgICAgICAgICAgICBrZXk6CiAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogQXR0cmlidXRlIG5hbWUgaW4gbW9kdWxlCiAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmcKICAgICAgICAgICAgICAgICAgICB2YWx1ZToKICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBWYWx1ZQogICAgICAgICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgICAgICAgIHR5cGU6IG9iamVjdAogICAgICAgICAgICAgICAgdHlwZTogYXJyYXkKICAgICAgICAgICAgICBydW5JRDoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBSdW4gSUQKICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgIHJ1blN0YXR1czoKICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBSdW4gU3RhdHVzIGdldHMgdGhlIHJ1biBzdGF0dXMKICAgICAgICAgICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgICAgICAgIHdvcmtzcGFjZUlEOgogICAgICAgICAgICAgICAgZGVzY3JpcHRpb246IFdvcmtzcGFjZSBJRAogICAgICAgICAgICAgICAgdHlwZTogc3RyaW5nCiAgICAgICAgICAgIHJlcXVpcmVkOgogICAgICAgICAgICAtIGNvbmZpZ1ZlcnNpb25JRAogICAgICAgICAgICAtIHJ1bklECiAgICAgICAgICAgIC0gcnVuU3RhdHVzCiAgICAgICAgICAgIC0gd29ya3NwYWNlSUQKICAgICAgICAgICAgdHlwZTogb2JqZWN0CiAgICAgICAgdHlwZTogb2JqZWN0CiAgICBzZXJ2ZWQ6IHRydWUKICAgIHN0b3JhZ2U6IHRydWUKICAgIHN1YnJlc291cmNlczoKICAgICAgc3RhdHVzOiB7fQpzdGF0dXM6CiAgYWNjZXB0ZWROYW1lczoKICAgIGtpbmQ6ICIiCiAgICBwbHVyYWw6ICIiCiAgY29uZGl0aW9uczogW10KICBzdG9yZWRWZXJzaW9uczogW10K",
+      "DataHash": "d800f092175a938f7a848d924bf58133248b292107d5f3aa80ac1192ae4dd8c0",
+      "DisplayName": "customresourcedefinition-workspaces-app-terraform-io",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/workspaces.app.terraform.io": {}
+          },
+          "AliasesWithoutScopes": {
+            "workspaces.app.terraform.io": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/workspaces.app.terraform.io",
+            "ResourceNameWithoutScope": "workspaces.app.terraform.io",
+            "ResourceType": "apiextensions.k8s.io/v1/CustomResourceDefinition"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apiextensions.k8s.io/v1\nkind: CustomResourceDefinition\nmetadata:\n  annotations:\n    controller-gen.kubebuilder.io/version: v0.8.0\n  creationTimestamp: null\n  name: workspaces.app.terraform.io\nspec:\n  group: app.terraform.io\n  names:\n    kind: Workspace\n    listKind: WorkspaceList\n    plural: workspaces\n    singular: workspace\n  scope: Namespaced\n  versions:\n  - additionalPrinterColumns:\n    - jsonPath: .metadata.creationTimestamp\n      name: Age\n      type: date\n    - jsonPath: .status.runStatus\n      name: Status\n      type: string\n    name: v1alpha1\n    schema:\n      openAPIV3Schema:\n        description: Workspace is the Schema for the workspaces API\n        properties:\n          apiVersion:\n            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'\n            type: string\n          kind:\n            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'\n            type: string\n          metadata:\n            type: object\n          spec:\n            description: WorkspaceSpec defines the desired state of Workspace\n            properties:\n              agentPoolID:\n                description: Specifies the agent pool ID we wish to use.\n                type: string\n              agentPoolName:\n                description: Specifies the agent pool name we wish to use.\n                type: string\n              module:\n                description: Module source and version to use\n                nullable: true\n                properties:\n                  source:\n                    description: Any remote module source (version control, registry)\n                    type: string\n                  version:\n                    description: Module version for registry modules\n                    type: string\n                required:\n                - source\n                type: object\n              notifications:\n                description: Notification configuration\n                items:\n                  description: Notification notification holds all the necessary information required to configure any workspace notification\n                  properties:\n                    enabled:\n                      description: Control if the notification is enabled or not\n                      type: boolean\n                    name:\n                      description: Name of the hook\n                      type: string\n                    recipients:\n                      description: List of recipients' email addresses. Only applicable for TFE endpoints.\n                      items:\n                        type: string\n                      type: array\n                    token:\n                      description: Token used to generate an HMAC on the verificatio0n request\n                      type: string\n                    triggers:\n                      description: When the web hook gets triggered. Acceptable values are run:created, run:planning, run:needs_attention, run:applying, run:completed, run:errored.\n                      items:\n                        type: string\n                      type: array\n                    type:\n                      description: Notification type. Can be one of email, generic, or slack\n                      type: string\n                    url:\n                      description: URL of the hook\n                      type: string\n                    users:\n                      description: List of users to receive the notificaiton email.\n                      items:\n                        type: string\n                      type: array\n                  required:\n                  - enabled\n                  - name\n                  - type\n                  type: object\n                type: array\n              omitNamespacePrefix:\n                description: Omit namespace prefix in workspace name\n                type: boolean\n              organization:\n                description: Terraform Cloud organization\n                type: string\n              outputs:\n                description: Outputs denote outputs wanted\n                items:\n                  description: OutputSpec specifies which values need to be output\n                  properties:\n                    key:\n                      description: Output name\n                      type: string\n                    moduleOutputName:\n                      description: Attribute name in module\n                      type: string\n                  type: object\n                type: array\n              runTriggers:\n                description: Run Triggers from source workspaces to trigger this workspace\n                items:\n                  description: Run Trigger from a source workspace\n                  properties:\n                    sourceableName:\n                      description: Name of source workspace that triggers the current workspace\n                      type: string\n                  required:\n                  - sourceableName\n                  type: object\n                type: array\n              secretsMountPath:\n                description: File path within operator pod to load workspace secrets\n                type: string\n              sshKeyID:\n                description: SSH Key ID. This key must already exist in the TF Cloud organization.  This can either be the user assigned name of the SSH Key, or the system assigned ID.\n                type: string\n              terraformVersion:\n                description: Terraform version used for this workspace. The default is `latest`.\n                type: string\n              variables:\n                description: Variables as inputs to module\n                items:\n                  description: Variable denotes an input to the module\n                  properties:\n                    environmentVariable:\n                      description: EnvironmentVariable denotes if this variable should be created as environment variable\n                      type: boolean\n                    hcl:\n                      description: String input should be an HCL-formatted variable\n                      type: boolean\n                    key:\n                      description: Variable name\n                      type: string\n                    sensitive:\n                      description: Variable is a secret and should be retrieved from file\n                      type: boolean\n                    value:\n                      description: Variable value\n                      type: string\n                    valueFrom:\n                      description: Source for the variable's value. Cannot be used if value is not empty.\n                      properties:\n                        configMapKeyRef:\n                          description: Selects a key of a ConfigMap.\n                          properties:\n                            key:\n                              description: The key to select.\n                              type: string\n                            name:\n                              description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'\n                              type: string\n                            optional:\n                              description: Specify whether the ConfigMap or its key must be defined\n                              type: boolean\n                          required:\n                          - key\n                          type: object\n                        fieldRef:\n                          description: 'Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels[''\u003cKEY\u003e'']`, `metadata.annotations[''\u003cKEY\u003e'']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.'\n                          properties:\n                            apiVersion:\n                              description: Version of the schema the FieldPath is written in terms of, defaults to \"v1\".\n                              type: string\n                            fieldPath:\n                              description: Path of the field to select in the specified API version.\n                              type: string\n                          required:\n                          - fieldPath\n                          type: object\n                        resourceFieldRef:\n                          description: 'Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.'\n                          properties:\n                            containerName:\n                              description: 'Container name: required for volumes, optional for env vars'\n                              type: string\n                            divisor:\n                              anyOf:\n                              - type: integer\n                              - type: string\n                              description: Specifies the output format of the exposed resources, defaults to \"1\"\n                              pattern: ^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$\n                              x-kubernetes-int-or-string: true\n                            resource:\n                              description: 'Required: resource to select'\n                              type: string\n                          required:\n                          - resource\n                          type: object\n                        secretKeyRef:\n                          description: Selects a key of a secret in the pod's namespace\n                          properties:\n                            key:\n                              description: The key of the secret to select from.  Must be a valid secret key.\n                              type: string\n                            name:\n                              description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'\n                              type: string\n                            optional:\n                              description: Specify whether the Secret or its key must be defined\n                              type: boolean\n                          required:\n                          - key\n                          type: object\n                      type: object\n                  required:\n                  - environmentVariable\n                  - key\n                  - sensitive\n                  type: object\n                type: array\n              vcs:\n                description: Details of the VCS repository we want to connect to the workspace\n                nullable: true\n                properties:\n                  branch:\n                    description: The repository branch to use\n                    type: string\n                  ingress_submodules:\n                    description: Whether submodules should be fetched when cloning the VCS repository (Defaults to false)\n                    type: boolean\n                  repo_identifier:\n                    description: A reference to your VCS repository in the format org/repo\n                    type: string\n                  token_id:\n                    description: Token ID of the VCS Connection (OAuth Connection Token) to use https://www.terraform.io/docs/cloud/vcs\n                    type: string\n                required:\n                - repo_identifier\n                - token_id\n                type: object\n            required:\n            - organization\n            - secretsMountPath\n            type: object\n          status:\n            description: WorkspaceStatus defines the observed state of Workspace\n            properties:\n              configVersionID:\n                description: Configuration Version ID\n                type: string\n              outputs:\n                description: Outputs from state file\n                items:\n                  description: OutputStatus outputs the values of Terraform output\n                  properties:\n                    key:\n                      description: Attribute name in module\n                      type: string\n                    value:\n                      description: Value\n                      type: string\n                  type: object\n                type: array\n              runID:\n                description: Run ID\n                type: string\n              runStatus:\n                description: Run Status gets the run status\n                type: string\n              workspaceID:\n                description: Workspace ID\n                type: string\n            required:\n            - configVersionID\n            - runID\n            - runStatus\n            - workspaceID\n            type: object\n        type: object\n    served: true\n    storage: true\n    subresources:\n      status: {}\nstatus:\n  acceptedNames:\n    kind: \"\"\n    plural: \"\"\n  conditions: []\n  storedVersions: []\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "customresourcedefinition-workspaces-app-terraform-io",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "153eb0f6-076a-4f33-8c78-c2ecef0805b2",
+      "UpdatedAt": "2026-06-12T17:09:44.455605Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:10:01.453371Z",
+        "CursorID": 24226,
+        "DisplayName": "Upgrade deployment-default-terraform-terraform-sync-workspace",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3d9e3955-5864-42a8-a154-a7df27258a4c",
+        "LinkID": "02def29c-8598-42e5-8afb-9fbb6c643955",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-terraform-terraform-sync-workspace",
+        "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+        "SpaceSlug": "Terraform-default-staging",
+        "ToSpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+        "ToUnitID": "4c65ab3f-2370-4803-bc0e-c4b36ebbc2a4",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:10:01.453371Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4c65ab3f-2370-4803-bc0e-c4b36ebbc2a4' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:01.157583Z",
+      "CursorID": 4671,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Terraform-default-staging",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "UpdatedAt": "2026-06-12T17:10:01.157583Z",
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "583e9e0b064ff5fe0c8952874e4f715ac6c158f3a9eb5b0e679b1aa5c2facfb1",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "02def29c-8598-42e5-8afb-9fbb6c643955"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-terraform-terraform-sync-workspace",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3d9e3955-5864-42a8-a154-a7df27258a4c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4c65ab3f-2370-4803-bc0e-c4b36ebbc2a4",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1460766091,
+      "CreatedAt": "2026-06-12T17:09:38.08414Z",
+      "CursorID": 28910,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogdGVycmFmb3JtCiAgICBjaGFydDogdGVycmFmb3JtLWhlbG0KICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiB0ZXJyYWZvcm0KICBuYW1lOiB0ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHA6IHRlcnJhZm9ybQogICAgICBjaGFydDogdGVycmFmb3JtLWhlbG0KICAgICAgY29tcG9uZW50OiBzeW5jLXdvcmtzcGFjZQogICAgICByZWxlYXNlOiB0ZXJyYWZvcm0KICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBsYWJlbHM6CiAgICAgICAgYXBwOiB0ZXJyYWZvcm0KICAgICAgICBjaGFydDogdGVycmFmb3JtLWhlbG0KICAgICAgICBjb21wb25lbnQ6IHN5bmMtd29ya3NwYWNlCiAgICAgICAgcmVsZWFzZTogdGVycmFmb3JtCiAgICBzcGVjOgogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSAtLWVuYWJsZS1sZWFkZXItZWxlY3Rpb24KICAgICAgICAtIC0tazhzLXdhdGNoLW5hbWVzcGFjZT1kZWZhdWx0CiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vdGVycmFmb3JtLWs4cwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IFBPRF9OQU1FCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZQogICAgICAgIC0gbmFtZTogT1BFUkFUT1JfTkFNRQogICAgICAgICAgdmFsdWU6IHRlcnJhZm9ybS1rOHMKICAgICAgICAtIG5hbWU6IFRGX1ZFUlNJT04KICAgICAgICAgIHZhbHVlOiBsYXRlc3QKICAgICAgICAtIG5hbWU6IFRGX0NMSV9DT05GSUdfRklMRQogICAgICAgICAgdmFsdWU6IC9ldGMvdGVycmFmb3JtLy50ZXJyYWZvcm1yYwogICAgICAgIC0gbmFtZTogVEZfVVJMCiAgICAgICAgICB2YWx1ZTogIiIKICAgICAgICBpbWFnZTogaGFzaGljb3JwL3RlcnJhZm9ybS1rOHM6MS4xLjIKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvbWV0cmljcwogICAgICAgICAgICBwb3J0OiA4MzgzCiAgICAgICAgICAgIHNjaGVtZTogSFRUUAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMzAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgbmFtZTogdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiA1CiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvbWV0cmljcwogICAgICAgICAgICBwb3J0OiA4MzgzCiAgICAgICAgICAgIHNjaGVtZTogSFRUUAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogMTAKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvZXRjL3RlcnJhZm9ybQogICAgICAgICAgbmFtZTogdGVycmFmb3JtcmMKICAgICAgICAgIHJlYWRPbmx5OiB0cnVlCiAgICAgICAgLSBtb3VudFBhdGg6IC90bXAvc2VjcmV0cwogICAgICAgICAgbmFtZTogc2Vuc2l0aXZldmFycwogICAgICAgICAgcmVhZE9ubHk6IHRydWUKICAgICAgc2VydmljZUFjY291bnROYW1lOiB0ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlCiAgICAgIHZvbHVtZXM6CiAgICAgIC0gbmFtZTogdGVycmFmb3JtcmMKICAgICAgICBzZWNyZXQ6CiAgICAgICAgICBpdGVtczoKICAgICAgICAgIC0ga2V5OiBjcmVkZW50aWFscwogICAgICAgICAgICBwYXRoOiAudGVycmFmb3JtcmMKICAgICAgICAgIHNlY3JldE5hbWU6IHRlcnJhZm9ybXJjCiAgICAgIC0gbmFtZTogc2Vuc2l0aXZldmFycwogICAgICAgIHNlY3JldDoKICAgICAgICAgIHNlY3JldE5hbWU6IHdvcmtzcGFjZXNlY3JldHMK",
+      "DataHash": "583e9e0b064ff5fe0c8952874e4f715ac6c158f3a9eb5b0e679b1aa5c2facfb1",
+      "DisplayName": "deployment-default-terraform-terraform-sync-workspace",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/terraform-terraform-sync-workspace": {}
+          },
+          "AliasesWithoutScopes": {
+            "terraform-terraform-sync-workspace": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/terraform-terraform-sync-workspace",
+            "ResourceNameWithoutScope": "terraform-terraform-sync-workspace",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app: terraform\n    chart: terraform-helm\n    heritage: Helm\n    release: terraform\n  name: terraform-terraform-sync-workspace\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: terraform\n      chart: terraform-helm\n      component: sync-workspace\n      release: terraform\n  template:\n    metadata:\n      labels:\n        app: terraform\n        chart: terraform-helm\n        component: sync-workspace\n        release: terraform\n    spec:\n      containers:\n      - args:\n        - --enable-leader-election\n        - --k8s-watch-namespace=default\n        command:\n        - /bin/terraform-k8s\n        env:\n        - name: POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: OPERATOR_NAME\n          value: terraform-k8s\n        - name: TF_VERSION\n          value: latest\n        - name: TF_CLI_CONFIG_FILE\n          value: /etc/terraform/.terraformrc\n        - name: TF_URL\n          value: \"\"\n        image: hashicorp/terraform-k8s:1.1.2\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /metrics\n            port: 8383\n            scheme: HTTP\n          initialDelaySeconds: 30\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 5\n        name: terraform-sync-workspace\n        readinessProbe:\n          failureThreshold: 5\n          httpGet:\n            path: /metrics\n            port: 8383\n            scheme: HTTP\n          initialDelaySeconds: 10\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 5\n        volumeMounts:\n        - mountPath: /etc/terraform\n          name: terraformrc\n          readOnly: true\n        - mountPath: /tmp/secrets\n          name: sensitivevars\n          readOnly: true\n      serviceAccountName: terraform-terraform-sync-workspace\n      volumes:\n      - name: terraformrc\n        secret:\n          items:\n          - key: credentials\n            path: .terraformrc\n          secretName: terraformrc\n      - name: sensitivevars\n        secret:\n          secretName: workspacesecrets\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/terraform-terraform-sync-workspace",
+          "ResourceNameWithoutScope": "terraform-terraform-sync-workspace",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-terraform-terraform-sync-workspace",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4c65ab3f-2370-4803-bc0e-c4b36ebbc2a4",
+      "UpdatedAt": "2026-06-12T17:09:53.245889Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:10:01.522293Z",
+        "CursorID": 24227,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6f5888ca-9ab9-4bc9-8305-d7bf974d7dc0",
+        "LinkID": "90e80348-3efc-4aa6-93dd-f23dd3aaad98",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+        "SpaceSlug": "Terraform-default-staging",
+        "ToSpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+        "ToUnitID": "f9a21517-f79b-420b-9327-00ab0fe87c85",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:10:01.522293Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f9a21517-f79b-420b-9327-00ab0fe87c85' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:01.157583Z",
+      "CursorID": 4671,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Terraform-default-staging",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "UpdatedAt": "2026-06-12T17:10:01.157583Z",
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "38db55af756d084c663a1d8c2a4c98bfd4368061b26285e46f60af654183a198",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "90e80348-3efc-4aa6-93dd-f23dd3aaad98"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6f5888ca-9ab9-4bc9-8305-d7bf974d7dc0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f9a21517-f79b-420b-9327-00ab0fe87c85",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "hashicorp-terraform",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1673457084,
+      "CreatedAt": "2026-06-12T17:09:43.664955Z",
+      "CursorID": 28955,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImhhc2hpY29ycC10ZXJyYWZvcm0iCiAgdmVyc2lvbjogIjEuMS4yIgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgYmFzZXM6CiAgLSBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogImhhc2hpY29ycC90ZXJyYWZvcm0gZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gaGFzaGljb3JwL3RlcnJhZm9ybUAxLjEuMiIKICAgIG5hbWU6ICJkZWZhdWx0IgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQiCiAgLSBuYW1lOiAibm8tY3JkcyIKICAgIHBhdGg6ICJiYXNlcy9uby1jcmRzIgogICAgZGVzY3JpcHRpb246ICJoYXNoaWNvcnAvdGVycmFmb3JtIG5vLWNyZHMgdmFyaWFudCByZW5kZXJlZCBmcm9tIGhhc2hpY29ycC90ZXJyYWZvcm1AMS4xLjIiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IGhhc2hpY29ycC10ZXJyYWZvcm0tZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGhhc2hpY29ycC10ZXJyYWZvcm0KICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogaGFzaGljb3JwLXRlcnJhZm9ybS1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGhhc2hpY29ycC10ZXJyYWZvcm0KICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGhhc2hpY29ycC10ZXJyYWZvcm0tbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGhhc2hpY29ycC10ZXJyYWZvcm0KICBmaWxlczoKICAtIGZpbGVuYW1lOiBjdXN0b21yZXNvdXJjZWRlZmluaXRpb24td29ya3NwYWNlcy1hcHAtdGVycmFmb3JtLWlvLnlhbWwKICAgIHNsdWc6IGN1c3RvbXJlc291cmNlZGVmaW5pdGlvbi13b3Jrc3BhY2VzLWFwcC10ZXJyYWZvcm0taW8KICAgIGFwaVZlcnNpb246IGFwaWV4dGVuc2lvbnMuazhzLmlvL3YxCiAgICBraW5kOiBDdXN0b21SZXNvdXJjZURlZmluaXRpb24KICAgIG5hbWU6IHdvcmtzcGFjZXMuYXBwLnRlcnJhZm9ybS5pbwogIC0gZmlsZW5hbWU6IGRlcGxveW1lbnQtZGVmYXVsdC10ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtZGVmYXVsdC10ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiB0ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGUtdGVycmFmb3JtLXRlcnJhZm9ybS1zeW5jLXdvcmtzcGFjZS55YW1sCiAgICBzbHVnOiByb2xlLXRlcnJhZm9ybS10ZXJyYWZvcm0tc3luYy13b3Jrc3BhY2UKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGUKICAgIG5hbWU6IHRlcnJhZm9ybS10ZXJyYWZvcm0tc3luYy13b3Jrc3BhY2UKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy10ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlLnlhbWwKICAgIHNsdWc6IHJvbGViaW5kaW5nLXRlcnJhZm9ybS10ZXJyYWZvcm0tc3luYy13b3Jrc3BhY2UKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGVCaW5kaW5nCiAgICBuYW1lOiB0ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlCiAgLSBmaWxlbmFtZTogc2VydmljZWFjY291bnQtdGVycmFmb3JtLXRlcnJhZm9ybS1zeW5jLXdvcmtzcGFjZS55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC10ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IHRlcnJhZm9ybS10ZXJyYWZvcm0tc3luYy13b3Jrc3BhY2UKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFNlbGVjdGlvbgptZXRhZGF0YToKICBuYW1lOiBoYXNoaWNvcnAtdGVycmFmb3JtLXNlbGVjdGlvbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogaGFzaGljb3JwLXRlcnJhZm9ybQogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBoYXNoaWNvcnAtdGVycmFmb3JtLXVwbG9hZAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogaGFzaGljb3JwLXRlcnJhZm9ybQogIHNwYWNlUGF0dGVybjogaGVsbS10ZXJyYWZvcm0tZGVmYXVsdC1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBoYXNoaWNvcnAtdGVycmFmb3JtCiAgICBzbHVnOiBoZWxtLXRlcnJhZm9ybS1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogICAgaXNQYXJlbnQ6IHRydWUKICB1cGxvYWRlZEF0OiAiMjAyNi0wNi0xMlQxNzowOTozNVoiCiAgc2VydmVyOiBodHRwczovL2h1Yi5jb25maWdodWIuY29tCiAgb3JnYW5pemF0aW9uSUQ6IDU4YjIzYjg1LTk2OTktNDM4NC1iZDU3LTgwZWY2OTVhMWQ1OAo=",
+      "DataHash": "38db55af756d084c663a1d8c2a4c98bfd4368061b26285e46f60af654183a198",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "hashicorp-terraform"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/hashicorp-terraform": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-terraform": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-terraform",
+            "ResourceNameWithoutScope": "hashicorp-terraform",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"hashicorp-terraform\"\n  version: \"1.1.2\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"hashicorp/terraform default variant rendered from hashicorp/terraform@1.1.2\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"no-crds\"\n    path: \"bases/no-crds\"\n    description: \"hashicorp/terraform no-crds variant rendered from hashicorp/terraform@1.1.2\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-terraform-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-terraform-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-terraform-function-chain",
+            "ResourceNameWithoutScope": "hashicorp-terraform-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: hashicorp-terraform-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-terraform\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-terraform-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-terraform-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-terraform-inputs",
+            "ResourceNameWithoutScope": "hashicorp-terraform-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: hashicorp-terraform-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-terraform\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-terraform-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-terraform-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-terraform-manifest-index",
+            "ResourceNameWithoutScope": "hashicorp-terraform-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: hashicorp-terraform-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-terraform\n  files:\n  - filename: customresourcedefinition-workspaces-app-terraform-io.yaml\n    slug: customresourcedefinition-workspaces-app-terraform-io\n    apiVersion: apiextensions.k8s.io/v1\n    kind: CustomResourceDefinition\n    name: workspaces.app.terraform.io\n  - filename: deployment-default-terraform-terraform-sync-workspace.yaml\n    slug: deployment-default-terraform-terraform-sync-workspace\n    apiVersion: apps/v1\n    kind: Deployment\n    name: terraform-terraform-sync-workspace\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-terraform-terraform-sync-workspace.yaml\n    slug: role-terraform-terraform-sync-workspace\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: terraform-terraform-sync-workspace\n  - filename: rolebinding-terraform-terraform-sync-workspace.yaml\n    slug: rolebinding-terraform-terraform-sync-workspace\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: terraform-terraform-sync-workspace\n  - filename: serviceaccount-terraform-terraform-sync-workspace.yaml\n    slug: serviceaccount-terraform-terraform-sync-workspace\n    apiVersion: v1\n    kind: ServiceAccount\n    name: terraform-terraform-sync-workspace\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-terraform-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-terraform-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-terraform-selection",
+            "ResourceNameWithoutScope": "hashicorp-terraform-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: hashicorp-terraform-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-terraform\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/hashicorp-terraform-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "hashicorp-terraform-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/hashicorp-terraform-upload",
+            "ResourceNameWithoutScope": "hashicorp-terraform-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: hashicorp-terraform-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: hashicorp-terraform\n  spacePattern: helm-terraform-default-confighub-proof\n  spaces:\n  - package: hashicorp-terraform\n    slug: helm-terraform-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:09:35Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f9a21517-f79b-420b-9327-00ab0fe87c85",
+      "UpdatedAt": "2026-06-12T17:09:44.512602Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:10:01.61826Z",
+        "CursorID": 24228,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "c31e742c-3306-4e1c-9035-6c41023f9b2c",
+        "LinkID": "68c60bb3-d7f0-4744-a598-6684f0987f05",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+        "SpaceSlug": "Terraform-default-staging",
+        "ToSpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+        "ToUnitID": "b9a96b03-66e6-44f3-8c0a-fe90725716ba",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:10:01.61826Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'b9a96b03-66e6-44f3-8c0a-fe90725716ba' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:01.157583Z",
+      "CursorID": 4671,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Terraform-default-staging",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "UpdatedAt": "2026-06-12T17:10:01.157583Z",
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "68c60bb3-d7f0-4744-a598-6684f0987f05"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c31e742c-3306-4e1c-9035-6c41023f9b2c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "b9a96b03-66e6-44f3-8c0a-fe90725716ba",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:09:38.872847Z",
+      "CursorID": 28931,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b9a96b03-66e6-44f3-8c0a-fe90725716ba",
+      "UpdatedAt": "2026-06-12T17:09:38.95402Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:10:01.664424Z",
+        "CursorID": 24229,
+        "DisplayName": "Upgrade rolebinding-terraform-terraform-sync-workspace",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "072bd3ca-2eb8-46db-a254-45f4e93157dc",
+        "LinkID": "1768d497-022f-4883-b235-05e82948713b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-terraform-terraform-sync-workspace",
+        "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+        "SpaceSlug": "Terraform-default-staging",
+        "ToSpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+        "ToUnitID": "a5eb7c06-9bfb-476d-a18c-e08c20c6b83f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:10:01.664424Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'a5eb7c06-9bfb-476d-a18c-e08c20c6b83f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:01.157583Z",
+      "CursorID": 4671,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Terraform-default-staging",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "UpdatedAt": "2026-06-12T17:10:01.157583Z",
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "90165a0d76ce7fb316d18550b2050628817350e236d7e03e3d501e6ae7670559",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1768d497-022f-4883-b235-05e82948713b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-terraform-terraform-sync-workspace",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "072bd3ca-2eb8-46db-a254-45f4e93157dc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "a5eb7c06-9bfb-476d-a18c-e08c20c6b83f",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -739259578,
+      "CreatedAt": "2026-06-12T17:09:40.616845Z",
+      "CursorID": 28952,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHRlcnJhZm9ybQogICAgY2hhcnQ6IHRlcnJhZm9ybS1oZWxtCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogdGVycmFmb3JtCiAgbmFtZTogdGVycmFmb3JtLXRlcnJhZm9ybS1zeW5jLXdvcmtzcGFjZQpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogUm9sZQogIG5hbWU6IHRlcnJhZm9ybS10ZXJyYWZvcm0tc3luYy13b3Jrc3BhY2UKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiB0ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "90165a0d76ce7fb316d18550b2050628817350e236d7e03e3d501e6ae7670559",
+      "DisplayName": "rolebinding-terraform-terraform-sync-workspace",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/terraform-terraform-sync-workspace": {}
+          },
+          "AliasesWithoutScopes": {
+            "terraform-terraform-sync-workspace": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/terraform-terraform-sync-workspace",
+            "ResourceNameWithoutScope": "terraform-terraform-sync-workspace",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app: terraform\n    chart: terraform-helm\n    heritage: Helm\n    release: terraform\n  name: terraform-terraform-sync-workspace\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: terraform-terraform-sync-workspace\nsubjects:\n- kind: ServiceAccount\n  name: terraform-terraform-sync-workspace\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-terraform-terraform-sync-workspace",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a5eb7c06-9bfb-476d-a18c-e08c20c6b83f",
+      "UpdatedAt": "2026-06-12T17:09:55.295244Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:10:01.69866Z",
+        "CursorID": 24230,
+        "DisplayName": "Upgrade role-terraform-terraform-sync-workspace",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "02eeb8aa-3eb4-43b2-af01-e9a411e37650",
+        "LinkID": "7205da2d-aef9-463f-88fe-20c5413a0ff7",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-terraform-terraform-sync-workspace",
+        "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+        "SpaceSlug": "Terraform-default-staging",
+        "ToSpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+        "ToUnitID": "7835badb-d07c-4b81-b613-54a93c89774e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:10:01.69866Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7835badb-d07c-4b81-b613-54a93c89774e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:01.157583Z",
+      "CursorID": 4671,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Terraform-default-staging",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "UpdatedAt": "2026-06-12T17:10:01.157583Z",
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d5e7a1663c8896051dd189c2151047832f429a1d9957b5bb10f279e95322bfb0",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7205da2d-aef9-463f-88fe-20c5413a0ff7"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-terraform-terraform-sync-workspace",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "02eeb8aa-3eb4-43b2-af01-e9a411e37650",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7835badb-d07c-4b81-b613-54a93c89774e",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1040350124,
+      "CreatedAt": "2026-06-12T17:09:39.82985Z",
+      "CursorID": 28950,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogdGVycmFmb3JtCiAgICBjaGFydDogdGVycmFmb3JtLWhlbG0KICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiB0ZXJyYWZvcm0KICBuYW1lOiB0ZXJyYWZvcm0tdGVycmFmb3JtLXN5bmMtd29ya3NwYWNlCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gcG9kcwogIC0gc2VydmljZXMKICAtIHNlcnZpY2VzL2ZpbmFsaXplcnMKICAtIGVuZHBvaW50cwogIC0gcGVyc2lzdGVudHZvbHVtZWNsYWltcwogIC0gZXZlbnRzCiAgLSBjb25maWdtYXBzCiAgLSBzZWNyZXRzCiAgdmVyYnM6CiAgLSAnKicKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIGNvbmZpZ21hcHMvc3RhdHVzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHVwZGF0ZQogIC0gcGF0Y2gKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgcmVzb3VyY2VzOgogIC0gZGVwbG95bWVudHMKICAtIGRhZW1vbnNldHMKICAtIHJlcGxpY2FzZXRzCiAgLSBzdGF0ZWZ1bHNldHMKICB2ZXJiczoKICAtICcqJwotIGFwaUdyb3VwczoKICAtIG1vbml0b3JpbmcuY29yZW9zLmNvbQogIHJlc291cmNlczoKICAtIHNlcnZpY2Vtb25pdG9ycwogIHZlcmJzOgogIC0gZ2V0CiAgLSBjcmVhdGUKLSBhcGlHcm91cHM6CiAgLSBhcHBzCiAgcmVzb3VyY2VOYW1lczoKICAtIHRlcnJhZm9ybS1rOHMKICByZXNvdXJjZXM6CiAgLSBkZXBsb3ltZW50cy9maW5hbGl6ZXJzCiAgdmVyYnM6CiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHBvZHMKICB2ZXJiczoKICAtIGdldAotIGFwaUdyb3VwczoKICAtIGFwcHMKICByZXNvdXJjZXM6CiAgLSByZXBsaWNhc2V0cwogIHZlcmJzOgogIC0gZ2V0Ci0gYXBpR3JvdXBzOgogIC0gYXBwLnRlcnJhZm9ybS5pbwogIHJlc291cmNlczoKICAtICcqJwogIC0gd29ya3NwYWNlcwogIHZlcmJzOgogIC0gJyonCi0gYXBpR3JvdXBzOgogIC0gY29vcmRpbmF0aW9uLms4cy5pbwogIHJlc291cmNlczoKICAtIGxlYXNlcwogIHZlcmJzOgogIC0gY3JlYXRlCiAgLSBnZXQKICAtIHVwZGF0ZQo=",
+      "DataHash": "d5e7a1663c8896051dd189c2151047832f429a1d9957b5bb10f279e95322bfb0",
+      "DisplayName": "role-terraform-terraform-sync-workspace",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/terraform-terraform-sync-workspace": {}
+          },
+          "AliasesWithoutScopes": {
+            "terraform-terraform-sync-workspace": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/terraform-terraform-sync-workspace",
+            "ResourceNameWithoutScope": "terraform-terraform-sync-workspace",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app: terraform\n    chart: terraform-helm\n    heritage: Helm\n    release: terraform\n  name: terraform-terraform-sync-workspace\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  - services\n  - services/finalizers\n  - endpoints\n  - persistentvolumeclaims\n  - events\n  - configmaps\n  - secrets\n  verbs:\n  - '*'\n- apiGroups:\n  - \"\"\n  resources:\n  - configmaps/status\n  verbs:\n  - get\n  - update\n  - patch\n- apiGroups:\n  - apps\n  resources:\n  - deployments\n  - daemonsets\n  - replicasets\n  - statefulsets\n  verbs:\n  - '*'\n- apiGroups:\n  - monitoring.coreos.com\n  resources:\n  - servicemonitors\n  verbs:\n  - get\n  - create\n- apiGroups:\n  - apps\n  resourceNames:\n  - terraform-k8s\n  resources:\n  - deployments/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  verbs:\n  - get\n- apiGroups:\n  - apps\n  resources:\n  - replicasets\n  verbs:\n  - get\n- apiGroups:\n  - app.terraform.io\n  resources:\n  - '*'\n  - workspaces\n  verbs:\n  - '*'\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n  - get\n  - update\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/terraform-terraform-sync-workspace",
+          "ResourceNameWithoutScope": "terraform-terraform-sync-workspace",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-terraform-terraform-sync-workspace",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7835badb-d07c-4b81-b613-54a93c89774e",
+      "UpdatedAt": "2026-06-12T17:09:44.578579Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:10:01.729834Z",
+        "CursorID": 24231,
+        "DisplayName": "Upgrade serviceaccount-terraform-terraform-sync-workspace",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "39ead78f-cdb5-4098-9767-9b74f67a67ca",
+        "LinkID": "9cce734c-259e-4aac-a176-4c01eac56ed8",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-terraform-terraform-sync-workspace",
+        "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+        "SpaceSlug": "Terraform-default-staging",
+        "ToSpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+        "ToUnitID": "a1da8135-6eff-4aac-936c-0df81ae8222a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:10:01.729834Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'a1da8135-6eff-4aac-936c-0df81ae8222a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:10:01.157583Z",
+      "CursorID": 4671,
+      "DisplayName": "helm-terraform-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Terraform",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Terraform-default-staging",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "UpdatedAt": "2026-06-12T17:10:01.157583Z",
+      "WhereTrigger": "SpaceID = '577d8b87-0298-4542-a81e-ede2b0f49c23'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3a9dbf8c62ad3975c115e0bb6830ab25491b8f33bc6868ba96b813bad65d8865",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "9cce734c-259e-4aac-a176-4c01eac56ed8"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-terraform-terraform-sync-workspace",
+      "SpaceID": "4cc68735-606f-40fe-bb75-47b0106938d4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "39ead78f-cdb5-4098-9767-9b74f67a67ca",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "a1da8135-6eff-4aac-936c-0df81ae8222a",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 907445293,
+      "CreatedAt": "2026-06-12T17:09:41.326116Z",
+      "CursorID": 28953,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiB0ZXJyYWZvcm0KICAgIGNoYXJ0OiB0ZXJyYWZvcm0taGVsbQogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IHRlcnJhZm9ybQogIG5hbWU6IHRlcnJhZm9ybS10ZXJyYWZvcm0tc3luYy13b3Jrc3BhY2UK",
+      "DataHash": "3a9dbf8c62ad3975c115e0bb6830ab25491b8f33bc6868ba96b813bad65d8865",
+      "DisplayName": "serviceaccount-terraform-terraform-sync-workspace",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Terraform",
+        "HelmChart": "hashicorp-terraform",
+        "HelmChartVersion": "1.1.2",
+        "Package": "hashicorp-terraform",
+        "Proof": "terraform-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 186 bytes; from serviceaccount-terraform-terraform-sync-workspace.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/terraform-terraform-sync-workspace": {}
+          },
+          "AliasesWithoutScopes": {
+            "terraform-terraform-sync-workspace": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/terraform-terraform-sync-workspace",
+            "ResourceNameWithoutScope": "terraform-terraform-sync-workspace",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app: terraform\n    chart: terraform-helm\n    heritage: Helm\n    release: terraform\n  name: terraform-terraform-sync-workspace\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/terraform-terraform-sync-workspace",
+          "ResourceNameWithoutScope": "terraform-terraform-sync-workspace",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-terraform-terraform-sync-workspace",
+      "SpaceID": "577d8b87-0298-4542-a81e-ede2b0f49c23",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a1da8135-6eff-4aac-936c-0df81ae8222a",
+      "UpdatedAt": "2026-06-12T17:09:41.520483Z",
+      "Version": 3
+    }
+  }
+]

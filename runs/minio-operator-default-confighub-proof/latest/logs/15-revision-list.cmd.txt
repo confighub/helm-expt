@@ -1,0 +1,1 @@
+cub revision list deployment-default-minio-operator --space helm-minio-operator-default-confighub-proof

@@ -1,0 +1,1 @@
+cub space delete --space "helm-strimzi-kafka-operator-no-crds-confighub-proof,StrimziKafkaOperator-no-crds-staging" --recursive-force

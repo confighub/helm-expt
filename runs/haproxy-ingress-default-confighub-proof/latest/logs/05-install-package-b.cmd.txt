@@ -1,0 +1,1 @@
+cub installer package packages/haproxytech/kubernetes-ingress/1.52.0 -o .tmp/confighub-proof/haproxy-ingress-default-archives/haproxy-ingress-b.tgz

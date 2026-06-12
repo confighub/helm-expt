@@ -1,0 +1,1 @@
+cub unit list --space helm-vault-ha-raft-ui-confighub-proof --where "Labels.Proof = 'vault-ha-raft-ui-confighub-proof'" --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

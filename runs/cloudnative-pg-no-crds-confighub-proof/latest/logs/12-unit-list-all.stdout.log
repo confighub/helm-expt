@@ -1,0 +1,756 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0a615849b3105bc47cf78c7d42ca0b523512eb286a81fc926509980b9fe73446",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-cloudnative-pg",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ccd9ab5d-858a-4ee7-be6b-5301cf0a10ab",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ac03889db7a19858010b171478907a725914ce2a111aa88e05e483a18740cc21",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-cnpg-system",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "99b571c0-f256-4e79-ba0e-5c5bb721b565",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6eeb7ad0207ac0caad03741c9850e1a3a8840e58a7dc1855cdbbb99f47128f6e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-cnpg-validating-webhook-configuration",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "c455f545-039c-4997-bde8-36a43510e581",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "fe2328179ecfe48f35135cbcedea4cd552a1e575a33aaa3bd29ba8f9dee27217",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cloudnative-pg-edit",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "db1ea722-09b0-44d2-8eae-3869a4ea6f55",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "70d7fee41481ac17d577bf864e82c894bb0277076226139adab57deb717f7a06",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6f5021e2-4fc2-495c-86e0-acbd34d1e095",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "419f728974f5ed98e37cd58360c29500815d36697bfdc46933cd2faa00373e0b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-cloudnative-pg",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8fab6ffb-3e46-44f0-82b2-be3063a3818d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "eb2754354c2d74e5fa4461a3602d3817e90fa76422640ba9cfde68fa6eb48f2a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-cnpg-webhook-service",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "583721f1-5663-480e-9f2a-4dd52bd9e49a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d5f2d4c0e2d8bf6ea7db62e1854e5dcacdce5752b1d767b275887243955d1c3f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cloudnative-pg-view",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0201cf77-97b5-401c-9170-9658251d801d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "863b5d755efe0a6e2450a91283e4c7d8cd4c3b01bf1687f82b781ba51c40a8d8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-cloudnative-pg",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d71920ab-e84a-4aa2-8032-6e82284fe528",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4a825b814dead8a3228c814a9a3b80d6f1b937390715a3aa8cdf827263815c3f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-cnpg-controller-manager-config",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "58331619-87d3-4497-9442-9930df84f0ec",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1325b85bc024f248899b40efb21be939bfcb60f1be4f76dd9de1ee55744e3211",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-cnpg-default-monitoring",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ad9877dc-5459-47a7-8077-605676b728c9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1dbcfaa37654fa5518fca7fc5e03c5cc0e8980caa11420eefb58bbc1d724baa9",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-cloudnative-pg",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "91077d1f-cd9d-4ff5-bd91-f22cec293edd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:50:16.609721Z",
+      "CursorID": 4596,
+      "DisplayName": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "CloudNativePG",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-cloudnative-pg-no-crds-confighub-proof",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "UpdatedAt": "2026-06-12T16:50:17.165059Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'eef11193-5148-45b3-810c-26d99f840219'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9edf77a72d513ff8c6ec421c5b4a215f8c62226e6e43b1bb4685cd2e4389a258",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration",
+      "SpaceID": "eef11193-5148-45b3-810c-26d99f840219",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "57313dd0-69fc-4f7c-b463-45b17dfc8998",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

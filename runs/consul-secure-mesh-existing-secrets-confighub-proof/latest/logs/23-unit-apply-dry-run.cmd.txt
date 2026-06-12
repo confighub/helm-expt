@@ -1,0 +1,1 @@
+cub unit apply --space helm-consul-secure-mesh-existing-secrets-confighub-proof --where "Labels.Proof = 'consul-secure-mesh-existing-secrets-confighub-proof'" --dry-run --wait --timeout 2m

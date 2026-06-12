@@ -1,0 +1,5 @@
+No changes.
+
+Images in helm-opencost-default-confighub-proof (post-render):
+      Deployment/opencost [opencost] ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6
+      Deployment/opencost [opencost-ui] ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc

@@ -1,0 +1,1 @@
+cub unit cancel --space helm-cloudnative-pg-no-crds-confighub-proof --where "Labels.Proof = 'cloudnative-pg-no-crds-confighub-proof'"

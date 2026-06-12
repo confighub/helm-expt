@@ -1,0 +1,1 @@
+cub unit data deployment-default-minio-operator --space helm-minio-operator-default-confighub-proof

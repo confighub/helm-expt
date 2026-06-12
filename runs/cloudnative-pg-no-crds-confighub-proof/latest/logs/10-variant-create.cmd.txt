@@ -1,0 +1,1 @@
+cub variant create staging helm-cloudnative-pg-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:CloudNativePG-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

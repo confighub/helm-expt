@@ -1,0 +1,1 @@
+cub installer package packages/hashicorp/consul/2.0.0 -o .tmp/confighub-proof/consul-secure-mesh-existing-secrets-archives/consul-b.tgz

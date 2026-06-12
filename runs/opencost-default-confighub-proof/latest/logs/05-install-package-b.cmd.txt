@@ -1,0 +1,1 @@
+cub installer package packages/opencost/opencost/2.5.21 -o .tmp/confighub-proof/opencost-default-archives/opencost-b.tgz

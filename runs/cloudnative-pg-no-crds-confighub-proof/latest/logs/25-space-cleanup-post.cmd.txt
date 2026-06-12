@@ -1,0 +1,1 @@
+cub space delete --space "helm-cloudnative-pg-no-crds-confighub-proof,CloudNativePG-no-crds-staging" --recursive-force

@@ -1,0 +1,5 @@
+Bundled traefik-traefik@
+  output: .tmp/confighub-proof/traefik-no-crds-archives/traefik-b.tgz
+  files:  6
+  size:   42663 bytes
+  digest: sha256:5d9c0bdf6306b0c196fbee35312d89a6df807bbbae4c64f49f831b8f8959eaa9

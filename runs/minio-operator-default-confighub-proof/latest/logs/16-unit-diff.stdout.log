@@ -1,0 +1,70 @@
+--- helm-minio-operator-default-confighub-proof/deployment-default-minio-operator/1
++++ helm-minio-operator-default-confighub-proof/deployment-default-minio-operator/2
+@@ -25,37 +29,30 @@
+       affinity:
+         podAntiAffinity:
+           requiredDuringSchedulingIgnoredDuringExecution:
+-            - labelSelector:
+-                matchExpressions:
+-                  - key: name
+-                    operator: In
+-                    values:
+-                      - minio-operator
+-              topologyKey: kubernetes.io/hostname
++          - labelSelector:
++              matchExpressions:
++              - key: name
++                operator: In
++                values:
++                - minio-operator
++            topologyKey: kubernetes.io/hostname
+       containers:
+-        - args:
+-            - controller
+-          env:
+-            - name: OPERATOR_STS_ENABLED
+-              value: "on"
+-          image: quay.io/minio/operator:v7.1.1
+-          imagePullPolicy: IfNotPresent
+-          name: operator
+-          resources:
+-            requests:
+-              cpu: 200m
+-              ephemeral-storage: 500Mi
+-              memory: 256Mi
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            runAsGroup: 1000
+-            runAsNonRoot: true
+-            runAsUser: 1000
+-            seccompProfile:
+-              type: RuntimeDefault
++      - args:
++        - controller
++        env:
++        - name: OPERATOR_STS_ENABLED
++          value: "on"
++        image: quay.io/minio/operator:v7.1.1
++        imagePullPolicy: IfNotPresent
++        name: operator
++        resources:
++          requests:
++            cpu: 200m
++            ephemeral-storage: 500Mi
++            memory: 256Mi
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          runAsGroup: 1000
++          runAsNonRoot: true
++          runAsUser: 1000
++          seccompProfile:
++            type: RuntimeDefault
+       securityContext:
+         fsGroup: 1000
+         runAsGroup: 1000

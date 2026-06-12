@@ -1,0 +1,1 @@
+cub unit apply --space helm-vault-ha-raft-ui-confighub-proof --where "Labels.Proof = 'vault-ha-raft-ui-confighub-proof'" --dry-run --wait --timeout 2m

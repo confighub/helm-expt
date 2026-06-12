@@ -1,0 +1,1 @@
+cub unit approve daemonset-default-falco --space helm-falco-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

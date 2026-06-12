@@ -1,0 +1,1 @@
+cub unit cancel --space helm-gatekeeper-no-crds-confighub-proof --where "Labels.Proof = 'gatekeeper-no-crds-confighub-proof'"

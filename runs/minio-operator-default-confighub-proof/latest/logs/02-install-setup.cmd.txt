@@ -1,0 +1,1 @@
+cub installer setup --pull packages/minio-operator/operator/7.1.1 --base default --work-dir .tmp/confighub-proof/minio-operator-default --non-interactive --namespace default

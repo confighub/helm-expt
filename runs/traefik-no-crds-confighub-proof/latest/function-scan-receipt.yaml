@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "traefik-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-traefik-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'traefik-no-crds-confighub-proof'"
+  subject:
+    chart: "traefik/traefik"
+    chartVersion: "40.2.0"
+    packagePath: "packages/traefik/traefik/40.2.0"
+    variant: "no-crds"
+    configHubUnitCount: 7
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-traefik-default"
+      headRevisionNum: 2
+      dataHash: "0824a4f1ff86e78d3f361bc351e47b5988a5607f4030f9195370a8f90ae3c4ba"
+    -
+      slug: "deployment-default-traefik"
+      headRevisionNum: 2
+      dataHash: "8275e662425efe2e77eab60594d71d0bc75ad5e40718c14e211b48799a25afbb"
+    -
+      slug: "ingressclass-traefik"
+      headRevisionNum: 1
+      dataHash: "3a899a8d89c2f9d45baf67e9544debe838087ac34f6a1a613cbb9de365be564f"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "service-default-traefik"
+      headRevisionNum: 2
+      dataHash: "d0ed2d54a9c5d6a3871be7f08b4aed0521157a87ed1c337b7d303de6eed3fbf6"
+    -
+      slug: "clusterrole-traefik-default"
+      headRevisionNum: 2
+      dataHash: "30f1a08c41f5f1d2e838b504cb7a827934394561d63740f35fefcb802d4cd4cd"
+    -
+      slug: "serviceaccount-default-traefik"
+      headRevisionNum: 1
+      dataHash: "1d692e31f2bd616314b8e13138b9b8de58186120bd25e0a6e4fbed3f4efec375"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

@@ -1,0 +1,464 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:19.027185Z",
+      "CursorID": 4663,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opencost-default-confighub-proof",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "UpdatedAt": "2026-06-12T17:06:19.587768Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3e0f254754e95b1c19e346a91b5bf40e0905efa7a901a6016c1dd684e3eafedf",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3372a6d9-b26a-49d2-9f2a-0692bbbf9a09",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:19.027185Z",
+      "CursorID": 4663,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opencost-default-confighub-proof",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "UpdatedAt": "2026-06-12T17:06:19.587768Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4ecca97928655b85bd7332a97f7482586dc980c3c07a91ea154fe7313e924fe7",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "49d85c76-d476-47b0-ac20-dd844aa42506",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:19.027185Z",
+      "CursorID": 4663,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opencost-default-confighub-proof",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "UpdatedAt": "2026-06-12T17:06:19.587768Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8298520b3a9b1ec0a0b7821e25974d7afa0868b5b2a611d438e4bb0d123b25bc",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-opencost-ui-nginx-config",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5c7da5d9-b7a1-48f5-9e7a-2738b44bcce0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:19.027185Z",
+      "CursorID": 4663,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opencost-default-confighub-proof",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "UpdatedAt": "2026-06-12T17:06:19.587768Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d51ed316790bfeec72f689aff74c2166e5397c033d1fd57b17741ea7f93ec86f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "91dec64e-cd41-433d-b8ae-d8104cf625e0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 16
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:19.027185Z",
+      "CursorID": 4663,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opencost-default-confighub-proof",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "UpdatedAt": "2026-06-12T17:06:19.587768Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4b7242f2-1584-44e8-b0e5-f0fcad4d5ab9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:19.027185Z",
+      "CursorID": 4663,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opencost-default-confighub-proof",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "UpdatedAt": "2026-06-12T17:06:19.587768Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9155b84b6371589ba988e22b771fa8f3a6ced4fc8aa1e6f5a0efecbf816fbd28",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ef5f7a92-420e-447b-bb86-d77c88fd3467",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T17:06:19.027185Z",
+      "CursorID": 4663,
+      "DisplayName": "helm-opencost-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Opencost",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-opencost-default-confighub-proof",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "UpdatedAt": "2026-06-12T17:06:19.587768Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '8be27cbc-39ce-4947-9d84-ec8d48f4c3c0'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "2b8affc8f95469857db397dafb2d28e3a48c1ec4b1f34af61d05ceb6869307ce",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Opencost",
+        "HelmChart": "opencost-opencost",
+        "HelmChartVersion": "2.5.21",
+        "Package": "opencost-opencost",
+        "Proof": "opencost-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-opencost",
+      "SpaceID": "8be27cbc-39ce-4947-9d84-ec8d48f4c3c0",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b9808395-0e14-47f4-b4f3-103191d82794",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

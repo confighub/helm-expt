@@ -1,0 +1,266 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:31.064643Z",
+      "CursorID": 4593,
+      "DisplayName": "helm-surveyor-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-surveyor-default-confighub-proof",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "UpdatedAt": "2026-06-12T16:49:31.666955Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f8f44083-987e-4f04-b637-c15c9a400c8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "bdd8a6a409999ea0122cd530f1080d09c5624a3fe630cd8f114977060ad4337c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "HelmChart": "nats-surveyor",
+        "HelmChartVersion": "0.20.9",
+        "Package": "nats-surveyor",
+        "Proof": "surveyor-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-surveyor",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8015fb12-ebc8-4ae0-ad05-dfdf89c1a632",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:31.064643Z",
+      "CursorID": 4593,
+      "DisplayName": "helm-surveyor-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-surveyor-default-confighub-proof",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "UpdatedAt": "2026-06-12T16:49:31.666955Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f8f44083-987e-4f04-b637-c15c9a400c8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "HelmChart": "nats-surveyor",
+        "HelmChartVersion": "0.20.9",
+        "Package": "nats-surveyor",
+        "Proof": "surveyor-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "80e143b7-d4ab-4460-8c1d-9426d87fbed3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:31.064643Z",
+      "CursorID": 4593,
+      "DisplayName": "helm-surveyor-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-surveyor-default-confighub-proof",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "UpdatedAt": "2026-06-12T16:49:31.666955Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f8f44083-987e-4f04-b637-c15c9a400c8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "670a12c219d1f5dd9a4348c65a0e46d12be4d03cd56ed23c09c9974bd2c9c51b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "HelmChart": "nats-surveyor",
+        "HelmChartVersion": "0.20.9",
+        "Package": "nats-surveyor",
+        "Proof": "surveyor-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-surveyor",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f7e0add8-9d68-4d18-8d49-2e4d4a39e1de",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:31.064643Z",
+      "CursorID": 4593,
+      "DisplayName": "helm-surveyor-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-surveyor-default-confighub-proof",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "UpdatedAt": "2026-06-12T16:49:31.666955Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'f8f44083-987e-4f04-b637-c15c9a400c8b'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3b70f0b432b858d032e81e496fd9d95dc2a71e5e68243e9afee7fa53cf847c74",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "NATSSurveyor",
+        "HelmChart": "nats-surveyor",
+        "HelmChartVersion": "0.20.9",
+        "Package": "nats-surveyor",
+        "Proof": "surveyor-default-confighub-proof",
+        "Variant": "default"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-surveyor",
+      "SpaceID": "f8f44083-987e-4f04-b637-c15c9a400c8b",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d78ef6b7-54a9-432a-bcff-84a7385fa211",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

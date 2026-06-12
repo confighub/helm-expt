@@ -1,0 +1,1 @@
+cub installer setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base no-crds --work-dir .tmp/confighub-proof/gatekeeper-no-crds --non-interactive --namespace default

@@ -1,0 +1,98 @@
+--- helm-fluent-bit-default-confighub-proof/daemonset-default-fluent-bit/1
++++ helm-fluent-bit-default-confighub-proof/daemonset-default-fluent-bit/2
+@@ -23,51 +27,44 @@
+         app.kubernetes.io/name: fluent-bit
+     spec:
+       containers:
+-        - args:
+-            - --workdir=/fluent-bit/etc
+-            - --config=/fluent-bit/etc/conf/fluent-bit.conf
+-          command:
+-            - /fluent-bit/bin/fluent-bit
+-          image: cr.fluentbit.io/fluent/fluent-bit:5.0.6
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            httpGet:
+-              path: /
+-              port: http
+-          name: fluent-bit
+-          ports:
+-            - containerPort: 2020
+-              name: http
+-              protocol: TCP
+-          readinessProbe:
+-            httpGet:
+-              path: /api/v2/health
+-              port: http
+-          volumeMounts:
+-            - mountPath: /fluent-bit/etc/conf
+-              name: config
+-            - mountPath: /var/log
+-              name: varlog
+-            - mountPath: /var/lib/docker/containers
+-              name: varlibdockercontainers
+-              readOnly: true
+-            - mountPath: /etc/machine-id
+-              name: etcmachineid
+-              readOnly: true
+-      dnsPolicy: ClusterFirst
+-      hostNetwork: false
+-      serviceAccountName: fluent-bit
+-      volumes:
+-        - configMap:
+-            name: fluent-bit
++      - args:
++        - --workdir=/fluent-bit/etc
++        - --config=/fluent-bit/etc/conf/fluent-bit.conf
++        command:
++        - /fluent-bit/bin/fluent-bit
++        image: cr.fluentbit.io/fluent/fluent-bit:5.0.6
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          httpGet:
++            path: /
++            port: http
++        name: fluent-bit
++        ports:
++        - containerPort: 2020
++          name: http
++          protocol: TCP
++        readinessProbe:
++          httpGet:
++            path: /api/v2/health
++            port: http
++        volumeMounts:
++        - mountPath: /fluent-bit/etc/conf
+           name: config
+-        - hostPath:
+-            path: /var/log
++        - mountPath: /var/log
+           name: varlog
+-        - hostPath:
+-            path: /var/lib/docker/containers
++        - mountPath: /var/lib/docker/containers
+           name: varlibdockercontainers
+-        - hostPath:
+-            path: /etc/machine-id
+-            type: File
++          readOnly: true
++        - mountPath: /etc/machine-id
+           name: etcmachineid
++          readOnly: true
++      dnsPolicy: ClusterFirst
++      hostNetwork: false
++      serviceAccountName: fluent-bit
++      volumes:
++      - configMap:
++          name: fluent-bit
++        name: config
++      - hostPath:
++          path: /var/log
++        name: varlog
++      - hostPath:
++          path: /var/lib/docker/containers
++        name: varlibdockercontainers
++      - hostPath:
++          path: /etc/machine-id
++          type: File
++        name: etcmachineid

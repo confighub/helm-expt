@@ -1,0 +1,18 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "linkerd-linkerd-crds"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "linkerd/linkerd-crds default variant rendered from linkerd/linkerd-crds@1.8.0"
+      }
+    ]
+  }
+}

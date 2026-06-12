@@ -1,0 +1,1 @@
+cub function vet vet-placeholders --space helm-nfs-provisioner-default-confighub-proof --where "Labels.Proof = 'nfs-provisioner-default-confighub-proof'" --quiet --wait --timeout 10m

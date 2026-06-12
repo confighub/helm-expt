@@ -1,0 +1,1586 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ca7c3048dc6cb8b72de0e510f901ec2faa8a30b5d790918082ebea6fe5dbe6c9",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-keda-operator-metrics-apiserver",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f62e29f3-852d-4c06-88d8-27e6e48fb882",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f76cde2b342d9525382f8da35adee519476f05e36cc9fd90ea4cfa481e18058a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-keda-operator-webhook",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e87b1cbd-b857-47e7-8a5b-429361212141",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3b17b3bc9ef45a010f8d2ed42d5ae74439d238cbc4f0f023a55b008df67a92f2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-keda-operator-minimal-cluster-role",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d1b81dfc-0d34-4ab8-965f-71daf5aed812",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7b476af97708eaf44fc3d460619dae6838e7b1ef096a5a96ecbecb6afad432c8",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-keda-operator-external-metrics-reader",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fe236f47-1673-45de-8916-7c3c9f781d79",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c7458f81c4f83bbfb9ccaf5836ddf3256874798eddb044d614e32c2939fb4565",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-keda-operator",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "05616005-e005-46ed-afb3-6f7afd61d010",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5951de36a20f3da16292dad066cde4ed621bdccaa368ccd62d9ebe2df6ed929e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-keda-operator-metrics-apiserver",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8b4cfbf2-61ec-4b57-a48f-36122dec1d14",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "619128b1083d356b127093ed2b2b36088e5ed595dfd91930c80bbc029d73374d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-keda-admission-webhooks",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "98909e9c-0ccb-4b0b-9ff6-807a73560e0e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f2a0398f09bae70cbeda31fbe589709b1a24bad0ec4142d98f60b90dff165f12",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-keda-operator",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3f8de5a6-5955-4701-8ef8-7d5a78f8dc22",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "53021cfb-8e0e-4e73-b02f-d10535434d82",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "26fa4a2ac8fc43817b976a16c27cc6ce5a560a72ce7544087de90c7ec4f9f82e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-keda-operator-certs",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "926884cd-950f-4bd0-a036-ff34d1d917ce",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a56c7f3b8fe5ffe304dc36ac690ee2562a938326e486949866c232073bafd6c7",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-keda-operator",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "04bb08f9-bb65-4d0f-b4f1-7ed5d540136e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f72c2d292cf373a91ef210a0e8ec2f5469a10f6bec9b83b5b06ea8f93bf08332",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-keda-metrics-server",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5454779f-2f63-42d2-9a26-7102d5f66973",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5c819cacc7d469deffd292d3b99cf0e046561bc15c33832d387929dda778ea5a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "apiservice-v1beta1-external-metrics-k8s-io",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "38bff966-0743-410d-92ea-f2566fe3058f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 8
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "44b2af0b333be8ddd4fd1f6046f88aa545e3e35759de04b74f2cf8ac8796d894",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-keda-operator",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4042f679-fa0b-491c-8980-6c0127fa8787",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "48fe69d706325b8f4bd95c6c315a712125433a00cc0a482a0215b158cfb7ad61",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-keda-webhook",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3d14853f-65d5-4a16-b4f5-e59395760e55",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e8a3922904fb1a16e89004a5678bb107df9636d3d6778e8f3c49d826ca16b0c1",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-keda-operator",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cf60ddfd-67f7-49ce-b7b7-e687c9fa15af",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8f2c85da067ca1dade57ae02037cbfd8d0c07dd7972d0acbc94243c49a609209",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-keda-operator-hpa-controller-external-metrics",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ef58d049-7923-46e4-b853-368b68248e8e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 9
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7f75dbd4d1e2eb5bd40da75f432c658b1c3fdf61e3371d5644d8f2f3cdd59483",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-keda-admission",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5fbf3415-79cb-4444-8585-5d9ae8a9dd95",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "14b8393f56bb794776e63c32ee20e3d47efa400d3a829ba8edb0c3411bd8e720",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-keda-operator-minimal",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5508bdde-3fda-4db6-af09-ee34cb68725b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9e78c224106707023a4832255f540e86a92c32ed7fd5e96cf12115dba73a037f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-keda-operator-system-auth-delegator",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "35ee3be3-4ee9-40d6-91dd-3cd800e97e8b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "12089fcd64f8c13ffffacf139943d20306b6bf5b8c9c083d7f7dc92b8271b641",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-keda-operator-webhook",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ca66b521-2866-4859-8aac-bc8fbb55514c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "093a218fd028a18be7a5a82f52c145e3843a73a66c51de2acb8698e6fb69224a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-keda-admission-webhooks",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8b874854-f409-4ad5-8fc9-1f3c2834eb13",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4b796b7479b9c90380013a47e65a967b8f8673809c444738601d1d6e0dd2f7ba",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-keda-operator-certs",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ed4ddda9-0f63-4090-8275-bf3147b6be28",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:41:14.999655Z",
+      "CursorID": 4567,
+      "DisplayName": "helm-keda-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "KEDA",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-keda-no-crds-confighub-proof",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "UpdatedAt": "2026-06-12T16:41:15.542745Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'aa9ace2d-a127-4f4f-8979-031ded6f95f8'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "28f11d323dee32b25b26013513bac76747c1b04f347299bcbe26570be66e4015",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "KEDA",
+        "HelmChart": "kedacore-keda",
+        "HelmChartVersion": "2.19.0",
+        "Package": "kedacore-keda",
+        "Proof": "keda-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-kube-system-keda-operator-auth-reader",
+      "SpaceID": "aa9ace2d-a127-4f4f-8979-031ded6f95f8",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8cf516e9-90b5-4fa8-8b7f-77cdfd694ea0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

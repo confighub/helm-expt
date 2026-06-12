@@ -1,0 +1,1 @@
+cub changeset update ingress-nginx-safe-ops-20260527 --space helm-ingress-nginx-default-confighub-proof --description "Ingress NGINX safe-ops proof: approve reviewed revisions, dry-run apply only" --annotation proof.confighub.com/rechecked=true

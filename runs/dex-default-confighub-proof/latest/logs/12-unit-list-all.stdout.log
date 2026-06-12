@@ -1,0 +1,524 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:05.985482Z",
+      "CursorID": 4591,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-dex-default-confighub-proof",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "UpdatedAt": "2026-06-12T16:49:06.553207Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bf81e118-fd35-4954-bff0-6e9edd9c56d1",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:05.985482Z",
+      "CursorID": 4591,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-dex-default-confighub-proof",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "UpdatedAt": "2026-06-12T16:49:06.553207Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "328110ed624db01d4f7632a5c7395d4136061f5516590649f5c7174047f16bec",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "965228d8-4ee0-45ad-9aa1-a7dd74f32d29",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:05.985482Z",
+      "CursorID": 4591,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-dex-default-confighub-proof",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "UpdatedAt": "2026-06-12T16:49:06.553207Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a81c1eb66986127f49198fa8e49d573ecc5cf18ba087d6885e03dab9f24e4c09",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6f887b81-ebd9-4e18-ba2c-84d6fd48c321",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:05.985482Z",
+      "CursorID": 4591,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-dex-default-confighub-proof",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "UpdatedAt": "2026-06-12T16:49:06.553207Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b3057b5355d370bce5c764f965164bf9f3c8b5ba63449c3dfe44e6c23d6f9019",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "70fdd81e-2920-4e97-a576-e5138580cb69",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:05.985482Z",
+      "CursorID": 4591,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-dex-default-confighub-proof",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "UpdatedAt": "2026-06-12T16:49:06.553207Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8fdcaef560dbc6653929bb8f1a6781de689d7bee9aa0facf0fe48148fc6a6a0a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "95dfc40a-5383-4461-974c-09af8aecc3a7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:05.985482Z",
+      "CursorID": 4591,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-dex-default-confighub-proof",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "UpdatedAt": "2026-06-12T16:49:06.553207Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "aaba58ce334cafce058ec4b2954f22315a21aac274c9944860b95096f7c26626",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a363b8e1-97bd-4c3f-896f-06bc704ab66d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:05.985482Z",
+      "CursorID": 4591,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-dex-default-confighub-proof",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "UpdatedAt": "2026-06-12T16:49:06.553207Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "70111338d8e4ccfbb1ae6db30a1afbcd1ca9224cb94dd872387cf4e905e8450c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-dex-cluster",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4b2c96f3-b343-48bc-a524-ba4a1fba4dcc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:05.985482Z",
+      "CursorID": 4591,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-dex-default-confighub-proof",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "UpdatedAt": "2026-06-12T16:49:06.553207Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c1655656a3e65cb5c0a9b866a1380561818a6f0aa078ab2a5ff1dd80cf815cd2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "19fd553e-06ae-4059-9161-fed91c823574",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:49:05.985482Z",
+      "CursorID": 4591,
+      "DisplayName": "helm-dex-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Dex",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-dex-default-confighub-proof",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "UpdatedAt": "2026-06-12T16:49:06.553207Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = 'd0682fde-8e92-4914-969f-a6aac08da966'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c3127d9a2643018d453507e03ae791130698439de43b46ec9470fc3418abd24f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-dex",
+      "SpaceID": "d0682fde-8e92-4914-969f-a6aac08da966",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "97be2390-6e65-4487-a588-e34b015625a2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

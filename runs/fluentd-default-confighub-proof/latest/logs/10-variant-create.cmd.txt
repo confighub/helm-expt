@@ -1,0 +1,1 @@
+cub variant create staging helm-fluentd-default-confighub-proof --environment Staging --region local --space-name-pattern template:Fluentd-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m

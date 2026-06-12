@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "sealed-secrets-sealed-secrets"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "sealed-secrets/sealed-secrets default variant rendered from sealed-secrets/sealed-secrets@2.18.6"
+      },
+      {
+        "name": "no-crds",
+        "path": "bases/no-crds",
+        "description": "sealed-secrets/sealed-secrets no-crds variant rendered from sealed-secrets/sealed-secrets@2.18.6"
+      }
+    ]
+  }
+}

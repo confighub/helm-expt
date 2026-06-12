@@ -1,0 +1,1 @@
+cub installer package packages/aqua/trivy-operator/0.32.1 -o .tmp/confighub-proof/trivy-operator-no-crds-archives/trivy-operator-b.tgz

@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 0 space(s)
+  Context: Slug IN ('helm-nfs-provisioner-default-confighub-proof', 'NfsProvisioner-default-staging')

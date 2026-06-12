@@ -1,0 +1,1 @@
+cub unit apply --space helm-opencost-default-confighub-proof --where "Labels.Proof = 'opencost-default-confighub-proof'" --dry-run --wait --timeout 2m

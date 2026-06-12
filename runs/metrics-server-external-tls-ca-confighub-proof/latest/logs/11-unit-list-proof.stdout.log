@@ -1,0 +1,662 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "5c495395c7c99ac3fac6e4bb6e72947f023c85ae8a0459e1694373460421a71e",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-kube-system-metrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0b891e82-a047-4d0d-a473-efac6ca9e5f3",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9c8262d3610cec8b10df4d105ba250a418c7648cfd2640f92ff0cc26cd60c341",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-kube-system-metrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "295ad048-17bd-4566-b055-47ab2997caa8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3401b10b938a6360cd399c6884899be8e4f01865eed3f67e61cf8224abafd2e4",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-kube-system-metrics-server-auth-reader",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6c4c2439-13d1-43af-8c90-68e28f9690e0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1b1e7b8cc5ceaaa156df6c4f04fbc4ad6f3234bb7d86b19533cc7b836b3db265",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-kube-system-metrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3f5ca2db-76d6-4046-bacb-740ada10930d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f6eebb9be53987508b62a5df8cb2a874997e2c8c3ffa592b2cf65f264d75eda5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-systemmetrics-server-aggregated-reader",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5a405137-fd74-438f-b7a5-b83f045d8320",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4484776d2c3d810f7db9de9221ee6e5016f86c3884527327420acf9e833bd251",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-kube-system",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0d96b78c-45c7-42cf-8b05-6f8995135e27",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "861bc6169896034ee0ad0838e0c5525b73d4d5eb8886016e5629a2d588cadfac",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-systemmetrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "648da4a5-823e-4a5b-8600-10cb59a37bd8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ba76e38cf77503f85a7ad82a4b0fdeea6cfb9fddbf341fcac5d6af00aa99ffa6",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "apiservice-v1beta1-metrics-k8s-io",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ead5aab1-6d9f-4238-bfa9-8549f03c27cc",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 8
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "dfbe6f8ceb61aa20186f90bc147b5d66ecd8b57e2b86d963767d2ded86e3efcf",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-metrics-serversystemauth-delegator",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fadd33d3-9266-4178-8b69-bf4f2931a065",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:00.692537Z",
+      "CursorID": 4585,
+      "DisplayName": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MetricsServer",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "external-tls-ca"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-metrics-server-external-tls-ca-confighub-proof",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "UpdatedAt": "2026-06-12T16:48:01.251705Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '04525497-422a-49ea-80e9-123eef6c291a'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ad6f512e8c2207ce53763ebb36964c8a7f5a1e2c421792f1d007d1dd4f1d1303",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MetricsServer",
+        "HelmChart": "metrics-server-metrics-server",
+        "HelmChartVersion": "3.13.0",
+        "Package": "metrics-server-metrics-server",
+        "Proof": "metrics-server-external-tls-ca-confighub-proof",
+        "Variant": "external-tls-ca"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-systemmetrics-server",
+      "SpaceID": "04525497-422a-49ea-80e9-123eef6c291a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7e3f5135-1ec5-4425-99fb-f7d6b8246d20",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

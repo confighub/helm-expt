@@ -1,0 +1,3025 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.207905Z",
+        "CursorID": 23382,
+        "DisplayName": "Upgrade clusterrolebinding-strimzi-cluster-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1cd52d19-6c18-4322-863b-43f5cbe60ad0",
+        "LinkID": "bf4eb6a0-d9bc-4114-8a2d-7ac4206d7238",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-strimzi-cluster-operator",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "81fc43b4-11a3-4217-b09d-1642b7090210",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.207905Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '81fc43b4-11a3-4217-b09d-1642b7090210' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "de8f86c08561ad8754e4f6893ebc728a171fd239f15b39d3ae4dfc53efc6e1f3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "bf4eb6a0-d9bc-4114-8a2d-7ac4206d7238"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-strimzi-cluster-operator",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1cd52d19-6c18-4322-863b-43f5cbe60ad0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "81fc43b4-11a3-4217-b09d-1642b7090210",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1638110553,
+      "CreatedAt": "2026-06-12T16:57:49.201752Z",
+      "CursorID": 28236,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBzdHJpbXppCiAgICBjaGFydDogc3RyaW16aS1rYWZrYS1vcGVyYXRvci0xLjAuMAogICAgY29tcG9uZW50OiByb2xlLWJpbmRpbmcKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBzdHJpbXppLWthZmthLW9wZXJhdG9yCiAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yCnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvci1nbG9iYWwKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "de8f86c08561ad8754e4f6893ebc728a171fd239f15b39d3ae4dfc53efc6e1f3",
+      "DisplayName": "clusterrolebinding-strimzi-cluster-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-cluster-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-cluster-operator",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: role-binding\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: strimzi-cluster-operator-global\nsubjects:\n- kind: ServiceAccount\n  name: strimzi-cluster-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "81fc43b4-11a3-4217-b09d-1642b7090210",
+      "UpdatedAt": "2026-06-12T16:58:15.510747Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.237667Z",
+        "CursorID": 23383,
+        "DisplayName": "Upgrade clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "b3bf61a3-159b-4390-b578-1a74029b65fd",
+        "LinkID": "3b324e21-b74d-434c-871c-01172970c51d",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "1e29a3bc-c16c-43ae-a07c-321c158c29f6",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.237667Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1e29a3bc-c16c-43ae-a07c-321c158c29f6' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7fff4350d40a88a27d825c92b994dd94426d147f743c37a1edd8191c79a2b884",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "3b324e21-b74d-434c-871c-01172970c51d"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b3bf61a3-159b-4390-b578-1a74029b65fd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1e29a3bc-c16c-43ae-a07c-321c158c29f6",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -991668026,
+      "CreatedAt": "2026-06-12T16:57:47.576275Z",
+      "CursorID": 28234,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBzdHJpbXppCiAgICBjaGFydDogc3RyaW16aS1rYWZrYS1vcGVyYXRvci0xLjAuMAogICAgY29tcG9uZW50OiBicm9rZXItcm9sZS1iaW5kaW5nCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogc3RyaW16aS1rYWZrYS1vcGVyYXRvcgogIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvci1rYWZrYS1icm9rZXItZGVsZWdhdGlvbgpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBzdHJpbXppLWthZmthLWJyb2tlcgpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "7fff4350d40a88a27d825c92b994dd94426d147f743c37a1edd8191c79a2b884",
+      "DisplayName": "clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-cluster-operator-kafka-broker-delegation": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator-kafka-broker-delegation": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-cluster-operator-kafka-broker-delegation",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator-kafka-broker-delegation",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: broker-role-binding\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator-kafka-broker-delegation\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: strimzi-kafka-broker\nsubjects:\n- kind: ServiceAccount\n  name: strimzi-cluster-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1e29a3bc-c16c-43ae-a07c-321c158c29f6",
+      "UpdatedAt": "2026-06-12T16:58:18.549481Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.338407Z",
+        "CursorID": 23385,
+        "DisplayName": "Upgrade clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a06e508b-3e28-48bd-ad61-504d28ba8581",
+        "LinkID": "ee934882-24b4-4e80-80d3-4bad9c2a477a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "2d936973-c784-404b-b395-604a3f011002",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.338407Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2d936973-c784-404b-b395-604a3f011002' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "921031e6b966d2375f9feac729e69bd3bb0d44acdb01f469adb29b054d710d77",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ee934882-24b4-4e80-80d3-4bad9c2a477a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a06e508b-3e28-48bd-ad61-504d28ba8581",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2d936973-c784-404b-b395-604a3f011002",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1998554429,
+      "CreatedAt": "2026-06-12T16:57:48.402274Z",
+      "CursorID": 28235,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBzdHJpbXppCiAgICBjaGFydDogc3RyaW16aS1rYWZrYS1vcGVyYXRvci0xLjAuMAogICAgY29tcG9uZW50OiBjbGllbnQtcm9sZS1iaW5kaW5nCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogc3RyaW16aS1rYWZrYS1vcGVyYXRvcgogIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvci1rYWZrYS1jbGllbnQtZGVsZWdhdGlvbgpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBzdHJpbXppLWthZmthLWNsaWVudApzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "921031e6b966d2375f9feac729e69bd3bb0d44acdb01f469adb29b054d710d77",
+      "DisplayName": "clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-cluster-operator-kafka-client-delegation": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator-kafka-client-delegation": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-cluster-operator-kafka-client-delegation",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator-kafka-client-delegation",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: client-role-binding\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator-kafka-client-delegation\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: strimzi-kafka-client\nsubjects:\n- kind: ServiceAccount\n  name: strimzi-cluster-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2d936973-c784-404b-b395-604a3f011002",
+      "UpdatedAt": "2026-06-12T16:58:21.429819Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:01.790742Z",
+        "CursorID": 23372,
+        "DisplayName": "Upgrade clusterrole-strimzi-cluster-operator-global",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "88aadbc1-f5dc-4820-81e4-a90a2edc6d85",
+        "LinkID": "e6b40ceb-d007-479d-84dc-54a9daadcd50",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-strimzi-cluster-operator-global",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "bd062748-fe65-4efd-9502-0c54e1ce44c1",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:01.790743Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'bd062748-fe65-4efd-9502-0c54e1ce44c1' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "23369ad59531fc7e68e0e60bba7e986dd4e0be26dd5154693f975a01d63204ea",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e6b40ceb-d007-479d-84dc-54a9daadcd50"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-cluster-operator-global",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "88aadbc1-f5dc-4820-81e4-a90a2edc6d85",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "bd062748-fe65-4efd-9502-0c54e1ce44c1",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1337381586,
+      "CreatedAt": "2026-06-12T16:57:42.436162Z",
+      "CursorID": 28227,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IHJvbGUKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBzdHJpbXppLWthZmthLW9wZXJhdG9yCiAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWdsb2JhbApydWxlczoKLSBhcGlHcm91cHM6CiAgLSByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gY2x1c3RlcnJvbGViaW5kaW5ncwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIHBhdGNoCiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSBzdG9yYWdlLms4cy5pbwogIHJlc291cmNlczoKICAtIHN0b3JhZ2VjbGFzc2VzCiAgdmVyYnM6CiAgLSBnZXQKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIG5vZGVzCiAgdmVyYnM6CiAgLSBsaXN0Cg==",
+      "DataHash": "23369ad59531fc7e68e0e60bba7e986dd4e0be26dd5154693f975a01d63204ea",
+      "DisplayName": "clusterrole-strimzi-cluster-operator-global",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-cluster-operator-global": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator-global": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-cluster-operator-global",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator-global",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: role\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator-global\nrules:\n- apiGroups:\n  - rbac.authorization.k8s.io\n  resources:\n  - clusterrolebindings\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n- apiGroups:\n  - storage.k8s.io\n  resources:\n  - storageclasses\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes\n  verbs:\n  - list\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/strimzi-cluster-operator-global",
+          "ResourceNameWithoutScope": "strimzi-cluster-operator-global",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-strimzi-cluster-operator-global",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bd062748-fe65-4efd-9502-0c54e1ce44c1",
+      "UpdatedAt": "2026-06-12T16:58:01.370947Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:01.835341Z",
+        "CursorID": 23373,
+        "DisplayName": "Upgrade clusterrole-strimzi-cluster-operator-leader-election",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2e0981d6-debe-44f3-9111-c9428f99db71",
+        "LinkID": "0515492d-0e9b-4c14-9bb3-6001cc920c06",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-strimzi-cluster-operator-leader-election",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "abe23b6a-d2c1-42ac-a200-b57e037c4b61",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:01.835342Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'abe23b6a-d2c1-42ac-a200-b57e037c4b61' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "aca7b4b61913970847e6fd72eeba387581655fe1e1fd5fb3ddf97c7b93b1bb79",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0515492d-0e9b-4c14-9bb3-6001cc920c06"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-cluster-operator-leader-election",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2e0981d6-debe-44f3-9111-c9428f99db71",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "abe23b6a-d2c1-42ac-a200-b57e037c4b61",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1309448874,
+      "CreatedAt": "2026-06-12T16:57:43.171806Z",
+      "CursorID": 28228,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IHJvbGUKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBzdHJpbXppLWthZmthLW9wZXJhdG9yCiAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWxlYWRlci1lbGVjdGlvbgpydWxlczoKLSBhcGlHcm91cHM6CiAgLSBjb29yZGluYXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gbGVhc2VzCiAgdmVyYnM6CiAgLSBjcmVhdGUKLSBhcGlHcm91cHM6CiAgLSBjb29yZGluYXRpb24uazhzLmlvCiAgcmVzb3VyY2VOYW1lczoKICAtIHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogIHJlc291cmNlczoKICAtIGxlYXNlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gZGVsZXRlCiAgLSBwYXRjaAogIC0gdXBkYXRlCg==",
+      "DataHash": "aca7b4b61913970847e6fd72eeba387581655fe1e1fd5fb3ddf97c7b93b1bb79",
+      "DisplayName": "clusterrole-strimzi-cluster-operator-leader-election",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-cluster-operator-leader-election": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator-leader-election": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-cluster-operator-leader-election",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator-leader-election",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: role\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator-leader-election\nrules:\n- apiGroups:\n  - coordination.k8s.io\n  resources:\n  - leases\n  verbs:\n  - create\n- apiGroups:\n  - coordination.k8s.io\n  resourceNames:\n  - strimzi-cluster-operator\n  resources:\n  - leases\n  verbs:\n  - get\n  - list\n  - watch\n  - delete\n  - patch\n  - update\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/strimzi-cluster-operator-leader-election",
+          "ResourceNameWithoutScope": "strimzi-cluster-operator-leader-election",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-strimzi-cluster-operator-leader-election",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "abe23b6a-d2c1-42ac-a200-b57e037c4b61",
+      "UpdatedAt": "2026-06-12T16:58:01.385869Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:01.941599Z",
+        "CursorID": 23375,
+        "DisplayName": "Upgrade clusterrole-strimzi-cluster-operator-namespaced",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3ea220ae-f2f4-4497-858a-f4351844ac94",
+        "LinkID": "f4a1c686-8423-4569-bd31-01a2eb71c387",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-strimzi-cluster-operator-namespaced",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "3a158876-adcc-47b3-ae86-605eaed662b5",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:01.941599Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '3a158876-adcc-47b3-ae86-605eaed662b5' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7a6d31f6214027cd65b3bab1935b6fa4574c4ef07639c43c2f30792465d4e2f9",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f4a1c686-8423-4569-bd31-01a2eb71c387"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-cluster-operator-namespaced",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3ea220ae-f2f4-4497-858a-f4351844ac94",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "3a158876-adcc-47b3-ae86-605eaed662b5",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 532534718,
+      "CreatedAt": "2026-06-12T16:57:43.938938Z",
+      "CursorID": 28229,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IHJvbGUKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBzdHJpbXppLWthZmthLW9wZXJhdG9yCiAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLW5hbWVzcGFjZWQKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIHJlc291cmNlczoKICAtIHJvbGViaW5kaW5ncwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIHBhdGNoCiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gcm9sZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwb2RzCiAgLSBzZXJ2aWNlYWNjb3VudHMKICAtIGNvbmZpZ21hcHMKICAtIHNlcnZpY2VzCiAgLSBlbmRwb2ludHMKICAtIHNlY3JldHMKICAtIHBlcnNpc3RlbnR2b2x1bWVjbGFpbXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwb2RzL3Jlc2l6ZQogIHZlcmJzOgogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGFwcHMKICByZXNvdXJjZXM6CiAgLSBkZXBsb3ltZW50cwogIC0gcmVwbGljYXNldHMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gYXBwcwogIHJlc291cmNlczoKICAtIGRlcGxveW1lbnRzL3NjYWxlCiAgdmVyYnM6CiAgLSBnZXQKICAtIHBhdGNoCiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSBldmVudHMuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKLSBhcGlHcm91cHM6CiAgLSBidWlsZC5vcGVuc2hpZnQuaW8KICByZXNvdXJjZXM6CiAgLSBidWlsZGNvbmZpZ3MKICAtIGJ1aWxkY29uZmlncy9pbnN0YW50aWF0ZQogIC0gYnVpbGRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIG5ldHdvcmtpbmcuazhzLmlvCiAgcmVzb3VyY2VzOgogIC0gbmV0d29ya3BvbGljaWVzCiAgLSBpbmdyZXNzZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gcm91dGUub3BlbnNoaWZ0LmlvCiAgcmVzb3VyY2VzOgogIC0gcm91dGVzCiAgLSByb3V0ZXMvY3VzdG9tLWhvc3QKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gZGVsZXRlCiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gaW1hZ2Uub3BlbnNoaWZ0LmlvCiAgcmVzb3VyY2VzOgogIC0gaW1hZ2VzdHJlYW1zCiAgdmVyYnM6CiAgLSBnZXQKLSBhcGlHcm91cHM6CiAgLSBwb2xpY3kKICByZXNvdXJjZXM6CiAgLSBwb2RkaXNydXB0aW9uYnVkZ2V0cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIHBhdGNoCiAgLSB1cGRhdGUK",
+      "DataHash": "7a6d31f6214027cd65b3bab1935b6fa4574c4ef07639c43c2f30792465d4e2f9",
+      "DisplayName": "clusterrole-strimzi-cluster-operator-namespaced",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-cluster-operator-namespaced": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator-namespaced": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-cluster-operator-namespaced",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator-namespaced",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: role\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator-namespaced\nrules:\n- apiGroups:\n  - rbac.authorization.k8s.io\n  resources:\n  - rolebindings\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n- apiGroups:\n  - rbac.authorization.k8s.io\n  resources:\n  - roles\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  - serviceaccounts\n  - configmaps\n  - services\n  - endpoints\n  - secrets\n  - persistentvolumeclaims\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - pods/resize\n  verbs:\n  - patch\n  - update\n- apiGroups:\n  - apps\n  resources:\n  - deployments\n  - replicasets\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n- apiGroups:\n  - apps\n  resources:\n  - deployments/scale\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - events.k8s.io\n  resources:\n  - events\n  verbs:\n  - create\n- apiGroups:\n  - build.openshift.io\n  resources:\n  - buildconfigs\n  - buildconfigs/instantiate\n  - builds\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n- apiGroups:\n  - networking.k8s.io\n  resources:\n  - networkpolicies\n  - ingresses\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n- apiGroups:\n  - route.openshift.io\n  resources:\n  - routes\n  - routes/custom-host\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n- apiGroups:\n  - image.openshift.io\n  resources:\n  - imagestreams\n  verbs:\n  - get\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/strimzi-cluster-operator-namespaced",
+          "ResourceNameWithoutScope": "strimzi-cluster-operator-namespaced",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-strimzi-cluster-operator-namespaced",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3a158876-adcc-47b3-ae86-605eaed662b5",
+      "UpdatedAt": "2026-06-12T16:58:01.48451Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.097918Z",
+        "CursorID": 23378,
+        "DisplayName": "Upgrade clusterrole-strimzi-cluster-operator-watched",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6aa6eb3b-e476-40d5-91dc-ac42a0eab55f",
+        "LinkID": "4549bf91-a334-4202-a8b6-cd95665a3c5a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-strimzi-cluster-operator-watched",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "d4bc94be-5b23-41ee-9a48-f65c0e0a7567",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.097918Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd4bc94be-5b23-41ee-9a48-f65c0e0a7567' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "23364bab319910b4b27031cb4353be7573c6c78a16d50f88e55ab7017076749f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4549bf91-a334-4202-a8b6-cd95665a3c5a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-cluster-operator-watched",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6aa6eb3b-e476-40d5-91dc-ac42a0eab55f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d4bc94be-5b23-41ee-9a48-f65c0e0a7567",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 968950755,
+      "CreatedAt": "2026-06-12T16:57:44.759846Z",
+      "CursorID": 28230,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IHJvbGUKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBzdHJpbXppLWthZmthLW9wZXJhdG9yCiAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLXdhdGNoZWQKcnVsZXM6Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwb2RzCiAgdmVyYnM6CiAgLSB3YXRjaAogIC0gbGlzdAotIGFwaUdyb3VwczoKICAtIGthZmthLnN0cmltemkuaW8KICByZXNvdXJjZXM6CiAgLSBrYWZrYXMKICAtIGthZmthbm9kZXBvb2xzCiAgLSBrYWZrYWNvbm5lY3RzCiAgLSBrYWZrYWNvbm5lY3RvcnMKICAtIGthZmthYnJpZGdlcwogIC0ga2Fma2FtaXJyb3JtYWtlcjJzCiAgLSBrYWZrYXJlYmFsYW5jZXMKICB2ZXJiczoKICAtIGdldAogIC0gbGlzdAogIC0gd2F0Y2gKICAtIGNyZWF0ZQogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGthZmthLnN0cmltemkuaW8KICByZXNvdXJjZXM6CiAgLSBrYWZrYXMvc3RhdHVzCiAgLSBrYWZrYW5vZGVwb29scy9zdGF0dXMKICAtIGthZmthY29ubmVjdHMvc3RhdHVzCiAgLSBrYWZrYWNvbm5lY3RvcnMvc3RhdHVzCiAgLSBrYWZrYWJyaWRnZXMvc3RhdHVzCiAgLSBrYWZrYW1pcnJvcm1ha2VyMnMvc3RhdHVzCiAgLSBrYWZrYXJlYmFsYW5jZXMvc3RhdHVzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHBhdGNoCiAgLSB1cGRhdGUKLSBhcGlHcm91cHM6CiAgLSBrYWZrYS5zdHJpbXppLmlvCiAgcmVzb3VyY2VzOgogIC0ga2Fma2FzL2ZpbmFsaXplcnMKICAtIGthZmthbm9kZXBvb2xzL2ZpbmFsaXplcnMKICAtIGthZmthY29ubmVjdHMvZmluYWxpemVycwogIC0ga2Fma2Fjb25uZWN0b3JzL2ZpbmFsaXplcnMKICAtIGthZmthYnJpZGdlcy9maW5hbGl6ZXJzCiAgLSBrYWZrYW1pcnJvcm1ha2VyMnMvZmluYWxpemVycwogIC0ga2Fma2FyZWJhbGFuY2VzL2ZpbmFsaXplcnMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGNvcmUuc3RyaW16aS5pbwogIHJlc291cmNlczoKICAtIHN0cmltemlwb2RzZXRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIGxpc3QKICAtIHdhdGNoCiAgLSBjcmVhdGUKICAtIGRlbGV0ZQogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGNvcmUuc3RyaW16aS5pbwogIHJlc291cmNlczoKICAtIHN0cmltemlwb2RzZXRzL3N0YXR1cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gY29yZS5zdHJpbXppLmlvCiAgcmVzb3VyY2VzOgogIC0gc3RyaW16aXBvZHNldHMvZmluYWxpemVycwogIHZlcmJzOgogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0ga2Fma2Euc3RyaW16aS5pbwogIHJlc291cmNlczoKICAtIGthZmthcmViYWxhbmNlcwogIHZlcmJzOgogIC0gZGVsZXRlCg==",
+      "DataHash": "23364bab319910b4b27031cb4353be7573c6c78a16d50f88e55ab7017076749f",
+      "DisplayName": "clusterrole-strimzi-cluster-operator-watched",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-cluster-operator-watched": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator-watched": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-cluster-operator-watched",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator-watched",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: role\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator-watched\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  verbs:\n  - watch\n  - list\n- apiGroups:\n  - kafka.strimzi.io\n  resources:\n  - kafkas\n  - kafkanodepools\n  - kafkaconnects\n  - kafkaconnectors\n  - kafkabridges\n  - kafkamirrormaker2s\n  - kafkarebalances\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - patch\n  - update\n- apiGroups:\n  - kafka.strimzi.io\n  resources:\n  - kafkas/status\n  - kafkanodepools/status\n  - kafkaconnects/status\n  - kafkaconnectors/status\n  - kafkabridges/status\n  - kafkamirrormaker2s/status\n  - kafkarebalances/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - kafka.strimzi.io\n  resources:\n  - kafkas/finalizers\n  - kafkanodepools/finalizers\n  - kafkaconnects/finalizers\n  - kafkaconnectors/finalizers\n  - kafkabridges/finalizers\n  - kafkamirrormaker2s/finalizers\n  - kafkarebalances/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - core.strimzi.io\n  resources:\n  - strimzipodsets\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n- apiGroups:\n  - core.strimzi.io\n  resources:\n  - strimzipodsets/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - core.strimzi.io\n  resources:\n  - strimzipodsets/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - kafka.strimzi.io\n  resources:\n  - kafkarebalances\n  verbs:\n  - delete\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/strimzi-cluster-operator-watched",
+          "ResourceNameWithoutScope": "strimzi-cluster-operator-watched",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-strimzi-cluster-operator-watched",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d4bc94be-5b23-41ee-9a48-f65c0e0a7567",
+      "UpdatedAt": "2026-06-12T16:58:01.535782Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.00709Z",
+        "CursorID": 23376,
+        "DisplayName": "Upgrade clusterrole-strimzi-entity-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2394bb2b-18ba-497a-8670-fe526067f163",
+        "LinkID": "e954c9a1-4fbb-42d6-a99d-1033a5f040e6",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-strimzi-entity-operator",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "ba9f32fc-e8e7-420f-8e3a-3938b17a2fc0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.00709Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'ba9f32fc-e8e7-420f-8e3a-3938b17a2fc0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f2c8b47d59706711ccd3f48ce65e92a2fdf2fc9a70b2e634916bcca5d48e4db3",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "e954c9a1-4fbb-42d6-a99d-1033a5f040e6"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-entity-operator",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2394bb2b-18ba-497a-8670-fe526067f163",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "ba9f32fc-e8e7-420f-8e3a-3938b17a2fc0",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -253569245,
+      "CreatedAt": "2026-06-12T16:57:45.503242Z",
+      "CursorID": 28231,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IGVudGl0eS1vcGVyYXRvci1yb2xlCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogc3RyaW16aS1rYWZrYS1vcGVyYXRvcgogIG5hbWU6IHN0cmltemktZW50aXR5LW9wZXJhdG9yCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtIGthZmthLnN0cmltemkuaW8KICByZXNvdXJjZXM6CiAgLSBrYWZrYXRvcGljcwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSBwYXRjaAogIC0gdXBkYXRlCiAgLSBkZWxldGUKLSBhcGlHcm91cHM6CiAgLSBrYWZrYS5zdHJpbXppLmlvCiAgcmVzb3VyY2VzOgogIC0ga2Fma2F1c2VycwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSBwYXRjaAogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0ga2Fma2Euc3RyaW16aS5pbwogIHJlc291cmNlczoKICAtIGthZmthdG9waWNzL3N0YXR1cwogIC0ga2Fma2F1c2Vycy9zdGF0dXMKICB2ZXJiczoKICAtIGdldAogIC0gcGF0Y2gKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtIGthZmthLnN0cmltemkuaW8KICByZXNvdXJjZXM6CiAgLSBrYWZrYXRvcGljcy9maW5hbGl6ZXJzCiAgLSBrYWZrYXVzZXJzL2ZpbmFsaXplcnMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gc2VjcmV0cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAogIC0gY3JlYXRlCiAgLSBkZWxldGUKICAtIHBhdGNoCiAgLSB1cGRhdGUK",
+      "DataHash": "f2c8b47d59706711ccd3f48ce65e92a2fdf2fc9a70b2e634916bcca5d48e4db3",
+      "DisplayName": "clusterrole-strimzi-entity-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-entity-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-entity-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-entity-operator",
+            "ResourceNameWithoutScope": "strimzi-entity-operator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: entity-operator-role\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-entity-operator\nrules:\n- apiGroups:\n  - kafka.strimzi.io\n  resources:\n  - kafkatopics\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - patch\n  - update\n  - delete\n- apiGroups:\n  - kafka.strimzi.io\n  resources:\n  - kafkausers\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - patch\n  - update\n- apiGroups:\n  - kafka.strimzi.io\n  resources:\n  - kafkatopics/status\n  - kafkausers/status\n  verbs:\n  - get\n  - patch\n  - update\n- apiGroups:\n  - kafka.strimzi.io\n  resources:\n  - kafkatopics/finalizers\n  - kafkausers/finalizers\n  verbs:\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - get\n  - list\n  - watch\n  - create\n  - delete\n  - patch\n  - update\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/strimzi-entity-operator",
+          "ResourceNameWithoutScope": "strimzi-entity-operator",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-strimzi-entity-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ba9f32fc-e8e7-420f-8e3a-3938b17a2fc0",
+      "UpdatedAt": "2026-06-12T16:58:01.48762Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.055149Z",
+        "CursorID": 23377,
+        "DisplayName": "Upgrade clusterrole-strimzi-kafka-broker",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "3e97b75a-5ae1-4bca-a3d9-22ae592c078f",
+        "LinkID": "c4833e11-3493-43d2-99ec-09300dab54c4",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-strimzi-kafka-broker",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "2e35e182-a2ea-4789-ab70-02be0be5b37f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.055149Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2e35e182-a2ea-4789-ab70-02be0be5b37f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c7e19fb112b4b3c444817e76f853389e62e612de3853e33dd85e2ad189d52e73",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c4833e11-3493-43d2-99ec-09300dab54c4"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-kafka-broker",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3e97b75a-5ae1-4bca-a3d9-22ae592c078f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2e35e182-a2ea-4789-ab70-02be0be5b37f",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 834185758,
+      "CreatedAt": "2026-06-12T16:57:46.219601Z",
+      "CursorID": 28232,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IGJyb2tlci1yb2xlCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogc3RyaW16aS1rYWZrYS1vcGVyYXRvcgogIG5hbWU6IHN0cmltemkta2Fma2EtYnJva2VyCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gbm9kZXMKICB2ZXJiczoKICAtIGdldAo=",
+      "DataHash": "c7e19fb112b4b3c444817e76f853389e62e612de3853e33dd85e2ad189d52e73",
+      "DisplayName": "clusterrole-strimzi-kafka-broker",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-kafka-broker": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-kafka-broker": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-kafka-broker",
+            "ResourceNameWithoutScope": "strimzi-kafka-broker",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: broker-role\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-kafka-broker\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes\n  verbs:\n  - get\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/strimzi-kafka-broker",
+          "ResourceNameWithoutScope": "strimzi-kafka-broker",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-strimzi-kafka-broker",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2e35e182-a2ea-4789-ab70-02be0be5b37f",
+      "UpdatedAt": "2026-06-12T16:58:01.517136Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.12768Z",
+        "CursorID": 23379,
+        "DisplayName": "Upgrade clusterrole-strimzi-kafka-client",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "465523e9-e83e-4311-87e7-da5af00b0f55",
+        "LinkID": "465a9aa7-7266-48f2-93d2-40d299b8ebdd",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-strimzi-kafka-client",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "2400d761-1ea0-46fe-a24f-0c448a2bad53",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.12768Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2400d761-1ea0-46fe-a24f-0c448a2bad53' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3f28e0252d9229ecfeb245900374b1afedc6f6acbbca12dddd72b625dca0ff3f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "465a9aa7-7266-48f2-93d2-40d299b8ebdd"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-strimzi-kafka-client",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "465523e9-e83e-4311-87e7-da5af00b0f55",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2400d761-1ea0-46fe-a24f-0c448a2bad53",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1305904064,
+      "CreatedAt": "2026-06-12T16:57:46.893483Z",
+      "CursorID": 28233,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IGNsaWVudC1yb2xlCiAgICBoZXJpdGFnZTogSGVsbQogICAgcmVsZWFzZTogc3RyaW16aS1rYWZrYS1vcGVyYXRvcgogIG5hbWU6IHN0cmltemkta2Fma2EtY2xpZW50CnJ1bGVzOgotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gbm9kZXMKICB2ZXJiczoKICAtIGdldAo=",
+      "DataHash": "3f28e0252d9229ecfeb245900374b1afedc6f6acbbca12dddd72b625dca0ff3f",
+      "DisplayName": "clusterrole-strimzi-kafka-client",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-kafka-client": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-kafka-client": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-kafka-client",
+            "ResourceNameWithoutScope": "strimzi-kafka-client",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: client-role\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-kafka-client\nrules:\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes\n  verbs:\n  - get\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/strimzi-kafka-client",
+          "ResourceNameWithoutScope": "strimzi-kafka-client",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-strimzi-kafka-client",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2400d761-1ea0-46fe-a24f-0c448a2bad53",
+      "UpdatedAt": "2026-06-12T16:58:01.546567Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.291021Z",
+        "CursorID": 23384,
+        "DisplayName": "Upgrade configmap-default-strimzi-cluster-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "879f21c3-a48b-46a2-9989-d1205e70dd90",
+        "LinkID": "cf78b547-42cd-4840-835b-d0a257702fd8",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-strimzi-cluster-operator",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "933f9475-e910-4d21-84cf-04064c9d3257",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.291021Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '933f9475-e910-4d21-84cf-04064c9d3257' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ef877f7f31572c2f8010a2918f53f51acf9c7da5103c58057f9cc8d75977349c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "cf78b547-42cd-4840-835b-d0a257702fd8"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-strimzi-cluster-operator",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "879f21c3-a48b-46a2-9989-d1205e70dd90",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "933f9475-e910-4d21-84cf-04064c9d3257",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -624614529,
+      "CreatedAt": "2026-06-12T16:57:49.959487Z",
+      "CursorID": 28237,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBsb2c0ajIucHJvcGVydGllczogfAogICAgbmFtZSA9IENPQ29uZmlnCiAgICBtb25pdG9ySW50ZXJ2YWwgPSAzMAoKICAgIGFwcGVuZGVyLmNvbnNvbGUudHlwZSA9IENvbnNvbGUKICAgIGFwcGVuZGVyLmNvbnNvbGUubmFtZSA9IFNURE9VVAogICAgYXBwZW5kZXIuY29uc29sZS5sYXlvdXQudHlwZSA9IFBhdHRlcm5MYXlvdXQKICAgIGFwcGVuZGVyLmNvbnNvbGUubGF5b3V0LnBhdHRlcm4gPSAlZHt5eXl5LU1NLWRkIEhIOm1tOnNzfSAlLTVwICVjezF9OiVMIC0gJW0lbgoKICAgIHJvb3RMb2dnZXIubGV2ZWwgPSAke2VudjpTVFJJTVpJX0xPR19MRVZFTDotSU5GT30KICAgIHJvb3RMb2dnZXIuYXBwZW5kZXJSZWZzID0gc3Rkb3V0CiAgICByb290TG9nZ2VyLmFwcGVuZGVyUmVmLmNvbnNvbGUucmVmID0gU1RET1VUCgogICAgIyBLYWZrYSBBZG1pbkNsaWVudCBsb2dnaW5nIGlzIGEgYml0IG5vaXN5IGF0IElORk8gbGV2ZWwKICAgIGxvZ2dlci5rYWZrYS5uYW1lID0gb3JnLmFwYWNoZS5rYWZrYQogICAgbG9nZ2VyLmthZmthLmxldmVsID0gV0FSTgoKICAgICMgS2VlcHMgc2VwYXJhdGUgbGV2ZWwgZm9yIE5ldHR5IGxvZ2dpbmcgLT4gdG8gbm90IGJlIGNoYW5nZWQgYnkgdGhlIHJvb3QgbG9nZ2VyCiAgICBsb2dnZXIubmV0dHkubmFtZSA9IGlvLm5ldHR5CiAgICBsb2dnZXIubmV0dHkubGV2ZWwgPSBJTkZPCmtpbmQ6IENvbmZpZ01hcAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IGxvZ2dpbmctY29uZmlnLW1hcAogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IHN0cmltemkta2Fma2Etb3BlcmF0b3IKICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "ef877f7f31572c2f8010a2918f53f51acf9c7da5103c58057f9cc8d75977349c",
+      "DisplayName": "configmap-default-strimzi-cluster-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 951 bytes; from configmap-default-strimzi-cluster-operator.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/strimzi-cluster-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/strimzi-cluster-operator",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  log4j2.properties: |\n    name = COConfig\n    monitorInterval = 30\n\n    appender.console.type = Console\n    appender.console.name = STDOUT\n    appender.console.layout.type = PatternLayout\n    appender.console.layout.pattern = %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n\n\n    rootLogger.level = ${env:STRIMZI_LOG_LEVEL:-INFO}\n    rootLogger.appenderRefs = stdout\n    rootLogger.appenderRef.console.ref = STDOUT\n\n    # Kafka AdminClient logging is a bit noisy at INFO level\n    logger.kafka.name = org.apache.kafka\n    logger.kafka.level = WARN\n\n    # Keeps separate level for Netty logging -\u003e to not be changed by the root logger\n    logger.netty.name = io.netty\n    logger.netty.level = INFO\nkind: ConfigMap\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: logging-config-map\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-log4j2.properties": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/strimzi-cluster-operator",
+          "ResourceNameWithoutScope": "strimzi-cluster-operator",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "933f9475-e910-4d21-84cf-04064c9d3257",
+      "UpdatedAt": "2026-06-12T16:58:22.491706Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.377434Z",
+        "CursorID": 23386,
+        "DisplayName": "Upgrade deployment-default-strimzi-cluster-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "af7edfa1-2e2c-4418-aaa7-c62b0f9bc871",
+        "LinkID": "024a599f-89c7-4ba6-b5a7-15f9866ed60f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-strimzi-cluster-operator",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "e27326a3-8190-44ee-a0d7-11cfb9ab795d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.377434Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e27326a3-8190-44ee-a0d7-11cfb9ab795d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a4a58fe6deeec84cdd038476a616c3a9c17d92119a710c762a870cf0b4f36cca",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "024a599f-89c7-4ba6-b5a7-15f9866ed60f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-strimzi-cluster-operator",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "af7edfa1-2e2c-4418-aaa7-c62b0f9bc871",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e27326a3-8190-44ee-a0d7-11cfb9ab795d",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1785434254,
+      "CreatedAt": "2026-06-12T16:57:50.721319Z",
+      "CursorID": 28238,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcDogc3RyaW16aQogICAgY2hhcnQ6IHN0cmltemkta2Fma2Etb3BlcmF0b3ItMS4wLjAKICAgIGNvbXBvbmVudDogZGVwbG95bWVudAogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IHN0cmltemkta2Fma2Etb3BlcmF0b3IKICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICByZXBsaWNhczogMQogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogICAgICBzdHJpbXppLmlvL2tpbmQ6IGNsdXN0ZXItb3BlcmF0b3IKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBsYWJlbHM6CiAgICAgICAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yCiAgICAgICAgc3RyaW16aS5pby9raW5kOiBjbHVzdGVyLW9wZXJhdG9yCiAgICBzcGVjOgogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSAvb3B0L3N0cmltemkvYmluL2NsdXN0ZXJfb3BlcmF0b3JfcnVuLnNoCiAgICAgICAgZW52OgogICAgICAgIC0gbmFtZTogU1RSSU1aSV9OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFNUUklNWklfRlVMTF9SRUNPTkNJTElBVElPTl9JTlRFUlZBTF9NUwogICAgICAgICAgdmFsdWU6ICIxMjAwMDAiCiAgICAgICAgLSBuYW1lOiBTVFJJTVpJX09QRVJBVElPTl9USU1FT1VUX01TCiAgICAgICAgICB2YWx1ZTogIjMwMDAwMCIKICAgICAgICAtIG5hbWU6IFNUUklNWklfREVGQVVMVF9LQUZLQV9FWFBPUlRFUl9JTUFHRQogICAgICAgICAgdmFsdWU6IHF1YXkuaW8vc3RyaW16aS9rYWZrYToxLjAuMC1rYWZrYS00LjIuMAogICAgICAgIC0gbmFtZTogU1RSSU1aSV9ERUZBVUxUX0NSVUlTRV9DT05UUk9MX0lNQUdFCiAgICAgICAgICB2YWx1ZTogcXVheS5pby9zdHJpbXppL2thZmthOjEuMC4wLWthZmthLTQuMi4wCiAgICAgICAgLSBuYW1lOiBTVFJJTVpJX0tBRktBX0lNQUdFUwogICAgICAgICAgdmFsdWU6IHwKICAgICAgICAgICAgNC4xLjA9cXVheS5pby9zdHJpbXppL2thZmthOjEuMC4wLWthZmthLTQuMS4wCiAgICAgICAgICAgIDQuMS4xPXF1YXkuaW8vc3RyaW16aS9rYWZrYToxLjAuMC1rYWZrYS00LjEuMQogICAgICAgICAgICA0LjEuMj1xdWF5LmlvL3N0cmltemkva2Fma2E6MS4wLjAta2Fma2EtNC4xLjIKICAgICAgICAgICAgNC4yLjA9cXVheS5pby9zdHJpbXppL2thZmthOjEuMC4wLWthZmthLTQuMi4wCiAgICAgICAgLSBuYW1lOiBTVFJJTVpJX0tBRktBX0NPTk5FQ1RfSU1BR0VTCiAgICAgICAgICB2YWx1ZTogfAogICAgICAgICAgICA0LjEuMD1xdWF5LmlvL3N0cmltemkva2Fma2E6MS4wLjAta2Fma2EtNC4xLjAKICAgICAgICAgICAgNC4xLjE9cXVheS5pby9zdHJpbXppL2thZmthOjEuMC4wLWthZmthLTQuMS4xCiAgICAgICAgICAgIDQuMS4yPXF1YXkuaW8vc3RyaW16aS9rYWZrYToxLjAuMC1rYWZrYS00LjEuMgogICAgICAgICAgICA0LjIuMD1xdWF5LmlvL3N0cmltemkva2Fma2E6MS4wLjAta2Fma2EtNC4yLjAKICAgICAgICAtIG5hbWU6IFNUUklNWklfS0FGS0FfTUlSUk9SX01BS0VSXzJfSU1BR0VTCiAgICAgICAgICB2YWx1ZTogfAogICAgICAgICAgICA0LjEuMD1xdWF5LmlvL3N0cmltemkva2Fma2E6MS4wLjAta2Fma2EtNC4xLjAKICAgICAgICAgICAgNC4xLjE9cXVheS5pby9zdHJpbXppL2thZmthOjEuMC4wLWthZmthLTQuMS4xCiAgICAgICAgICAgIDQuMS4yPXF1YXkuaW8vc3RyaW16aS9rYWZrYToxLjAuMC1rYWZrYS00LjEuMgogICAgICAgICAgICA0LjIuMD1xdWF5LmlvL3N0cmltemkva2Fma2E6MS4wLjAta2Fma2EtNC4yLjAKICAgICAgICAtIG5hbWU6IFNUUklNWklfREVGQVVMVF9UT1BJQ19PUEVSQVRPUl9JTUFHRQogICAgICAgICAgdmFsdWU6IHF1YXkuaW8vc3RyaW16aS9vcGVyYXRvcjoxLjAuMAogICAgICAgIC0gbmFtZTogU1RSSU1aSV9ERUZBVUxUX1VTRVJfT1BFUkFUT1JfSU1BR0UKICAgICAgICAgIHZhbHVlOiBxdWF5LmlvL3N0cmltemkvb3BlcmF0b3I6MS4wLjAKICAgICAgICAtIG5hbWU6IFNUUklNWklfREVGQVVMVF9LQUZLQV9JTklUX0lNQUdFCiAgICAgICAgICB2YWx1ZTogcXVheS5pby9zdHJpbXppL29wZXJhdG9yOjEuMC4wCiAgICAgICAgLSBuYW1lOiBTVFJJTVpJX0RFRkFVTFRfS0FGS0FfQlJJREdFX0lNQUdFCiAgICAgICAgICB2YWx1ZTogcXVheS5pby9zdHJpbXppL2thZmthLWJyaWRnZToxLjAuMAogICAgICAgIC0gbmFtZTogU1RSSU1aSV9ERUZBVUxUX0tBTklLT19FWEVDVVRPUl9JTUFHRQogICAgICAgICAgdmFsdWU6IHF1YXkuaW8vc3RyaW16aS9rYW5pa28tZXhlY3V0b3I6MS4wLjAKICAgICAgICAtIG5hbWU6IFNUUklNWklfREVGQVVMVF9CVUlMREFIX0lNQUdFCiAgICAgICAgICB2YWx1ZTogcXVheS5pby9zdHJpbXppL2J1aWxkYWg6MS4wLjAKICAgICAgICAtIG5hbWU6IFNUUklNWklfREVGQVVMVF9NQVZFTl9CVUlMREVSCiAgICAgICAgICB2YWx1ZTogcXVheS5pby9zdHJpbXppL21hdmVuLWJ1aWxkZXI6MS4wLjAKICAgICAgICAtIG5hbWU6IFNUUklNWklfT1BFUkFUT1JfTkFNRVNQQUNFCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZXNwYWNlCiAgICAgICAgLSBuYW1lOiBTVFJJTVpJX0ZFQVRVUkVfR0FURVMKICAgICAgICAgIHZhbHVlOiAiIgogICAgICAgIC0gbmFtZTogU1RSSU1aSV9MRUFERVJfRUxFQ1RJT05fRU5BQkxFRAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogU1RSSU1aSV9MRUFERVJfRUxFQ1RJT05fTEVBU0VfTkFNRQogICAgICAgICAgdmFsdWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogICAgICAgIC0gbmFtZTogU1RSSU1aSV9MRUFERVJfRUxFQ1RJT05fTEVBU0VfTkFNRVNQQUNFCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZXNwYWNlCiAgICAgICAgLSBuYW1lOiBTVFJJTVpJX0xFQURFUl9FTEVDVElPTl9JREVOVElUWQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICBpbWFnZTogcXVheS5pby9zdHJpbXppL29wZXJhdG9yOjEuMC4wCiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGh0dHBHZXQ6CiAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh5CiAgICAgICAgICAgIHBvcnQ6IGh0dHAKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDEwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAzMAogICAgICAgIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogODA4MAogICAgICAgICAgbmFtZTogaHR0cAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL3JlYWR5CiAgICAgICAgICAgIHBvcnQ6IGh0dHAKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDEwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAzMAogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIGxpbWl0czoKICAgICAgICAgICAgY3B1OiAxMDAwbQogICAgICAgICAgICBtZW1vcnk6IDM4NE1pCiAgICAgICAgICByZXF1ZXN0czoKICAgICAgICAgICAgY3B1OiAyMDBtCiAgICAgICAgICAgIG1lbW9yeTogMzg0TWkKICAgICAgICB2b2x1bWVNb3VudHM6CiAgICAgICAgLSBtb3VudFBhdGg6IC90bXAKICAgICAgICAgIG5hbWU6IHN0cmltemktdG1wCiAgICAgICAgLSBtb3VudFBhdGg6IC9vcHQvc3RyaW16aS9jdXN0b20tY29uZmlnLwogICAgICAgICAgbmFtZTogY28tY29uZmlnLXZvbHVtZQogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogICAgICB2b2x1bWVzOgogICAgICAtIGVtcHR5RGlyOgogICAgICAgICAgbWVkaXVtOiBNZW1vcnkKICAgICAgICAgIHNpemVMaW1pdDogMU1pCiAgICAgICAgbmFtZTogc3RyaW16aS10bXAKICAgICAgLSBjb25maWdNYXA6CiAgICAgICAgICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICAgICAgICBuYW1lOiBjby1jb25maWctdm9sdW1lCg==",
+      "DataHash": "a4a58fe6deeec84cdd038476a616c3a9c17d92119a710c762a870cf0b4f36cca",
+      "DisplayName": "deployment-default-strimzi-cluster-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/strimzi-cluster-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/strimzi-cluster-operator",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: deployment\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      name: strimzi-cluster-operator\n      strimzi.io/kind: cluster-operator\n  template:\n    metadata:\n      labels:\n        name: strimzi-cluster-operator\n        strimzi.io/kind: cluster-operator\n    spec:\n      containers:\n      - args:\n        - /opt/strimzi/bin/cluster_operator_run.sh\n        env:\n        - name: STRIMZI_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS\n          value: \"120000\"\n        - name: STRIMZI_OPERATION_TIMEOUT_MS\n          value: \"300000\"\n        - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE\n          value: quay.io/strimzi/kafka:1.0.0-kafka-4.2.0\n        - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE\n          value: quay.io/strimzi/kafka:1.0.0-kafka-4.2.0\n        - name: STRIMZI_KAFKA_IMAGES\n          value: |\n            4.1.0=quay.io/strimzi/kafka:1.0.0-kafka-4.1.0\n            4.1.1=quay.io/strimzi/kafka:1.0.0-kafka-4.1.1\n            4.1.2=quay.io/strimzi/kafka:1.0.0-kafka-4.1.2\n            4.2.0=quay.io/strimzi/kafka:1.0.0-kafka-4.2.0\n        - name: STRIMZI_KAFKA_CONNECT_IMAGES\n          value: |\n            4.1.0=quay.io/strimzi/kafka:1.0.0-kafka-4.1.0\n            4.1.1=quay.io/strimzi/kafka:1.0.0-kafka-4.1.1\n            4.1.2=quay.io/strimzi/kafka:1.0.0-kafka-4.1.2\n            4.2.0=quay.io/strimzi/kafka:1.0.0-kafka-4.2.0\n        - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES\n          value: |\n            4.1.0=quay.io/strimzi/kafka:1.0.0-kafka-4.1.0\n            4.1.1=quay.io/strimzi/kafka:1.0.0-kafka-4.1.1\n            4.1.2=quay.io/strimzi/kafka:1.0.0-kafka-4.1.2\n            4.2.0=quay.io/strimzi/kafka:1.0.0-kafka-4.2.0\n        - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE\n          value: quay.io/strimzi/operator:1.0.0\n        - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE\n          value: quay.io/strimzi/operator:1.0.0\n        - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE\n          value: quay.io/strimzi/operator:1.0.0\n        - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE\n          value: quay.io/strimzi/kafka-bridge:1.0.0\n        - name: STRIMZI_DEFAULT_KANIKO_EXECUTOR_IMAGE\n          value: quay.io/strimzi/kaniko-executor:1.0.0\n        - name: STRIMZI_DEFAULT_BUILDAH_IMAGE\n          value: quay.io/strimzi/buildah:1.0.0\n        - name: STRIMZI_DEFAULT_MAVEN_BUILDER\n          value: quay.io/strimzi/maven-builder:1.0.0\n        - name: STRIMZI_OPERATOR_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: STRIMZI_FEATURE_GATES\n          value: \"\"\n        - name: STRIMZI_LEADER_ELECTION_ENABLED\n          value: \"true\"\n        - name: STRIMZI_LEADER_ELECTION_LEASE_NAME\n          value: strimzi-cluster-operator\n        - name: STRIMZI_LEADER_ELECTION_LEASE_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: STRIMZI_LEADER_ELECTION_IDENTITY\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        image: quay.io/strimzi/operator:1.0.0\n        livenessProbe:\n          httpGet:\n            path: /healthy\n            port: http\n          initialDelaySeconds: 10\n          periodSeconds: 30\n        name: strimzi-cluster-operator\n        ports:\n        - containerPort: 8080\n          name: http\n        readinessProbe:\n          httpGet:\n            path: /ready\n            port: http\n          initialDelaySeconds: 10\n          periodSeconds: 30\n        resources:\n          limits:\n            cpu: 1000m\n            memory: 384Mi\n          requests:\n            cpu: 200m\n            memory: 384Mi\n        volumeMounts:\n        - mountPath: /tmp\n          name: strimzi-tmp\n        - mountPath: /opt/strimzi/custom-config/\n          name: co-config-volume\n      serviceAccountName: strimzi-cluster-operator\n      volumes:\n      - emptyDir:\n          medium: Memory\n          sizeLimit: 1Mi\n        name: strimzi-tmp\n      - configMap:\n          name: strimzi-cluster-operator\n        name: co-config-volume\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/strimzi-cluster-operator",
+          "ResourceNameWithoutScope": "strimzi-cluster-operator",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e27326a3-8190-44ee-a0d7-11cfb9ab795d",
+      "UpdatedAt": "2026-06-12T16:58:27.422864Z",
+      "Version": 16
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.172019Z",
+        "CursorID": 23381,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "7e5c78e8-7fb3-4e7e-b76d-4079f94a9d95",
+        "LinkID": "99d2eaeb-be94-4d5c-b489-5f0c5e9bb8df",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "840a09c2-236f-4eb8-a026-af9e2b9253fa",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.172019Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '840a09c2-236f-4eb8-a026-af9e2b9253fa' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "70372bc676c474ae084c0eb024d4d64d333ffdf03bc6b39dac8b6e4af78c5435",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "99d2eaeb-be94-4d5c-b489-5f0c5e9bb8df"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7e5c78e8-7fb3-4e7e-b76d-4079f94a9d95",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "840a09c2-236f-4eb8-a026-af9e2b9253fa",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "strimzi-strimzi-kafka-operator",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -819490596,
+      "CreatedAt": "2026-06-12T16:57:58.228911Z",
+      "CursorID": 28274,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogInN0cmltemktc3RyaW16aS1rYWZrYS1vcGVyYXRvciIKICB2ZXJzaW9uOiAiMS4wLjAiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAic3RyaW16aS9zdHJpbXppLWthZmthLW9wZXJhdG9yIGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIHN0cmltemkvc3RyaW16aS1rYWZrYS1vcGVyYXRvckAxLjAuMCIKICAgIG5hbWU6ICJkZWZhdWx0IgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQiCiAgLSBuYW1lOiAibm8tY3JkcyIKICAgIHBhdGg6ICJiYXNlcy9uby1jcmRzIgogICAgZGVzY3JpcHRpb246ICJzdHJpbXppL3N0cmltemkta2Fma2Etb3BlcmF0b3Igbm8tY3JkcyB2YXJpYW50IHJlbmRlcmVkIGZyb20gc3RyaW16aS9zdHJpbXppLWthZmthLW9wZXJhdG9yQDEuMC4wIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiBzdHJpbXppLXN0cmltemkta2Fma2Etb3BlcmF0b3ItZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHN0cmltemktc3RyaW16aS1rYWZrYS1vcGVyYXRvcgogIGdyb3VwczogW10KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IElucHV0cwptZXRhZGF0YToKICBuYW1lOiBzdHJpbXppLXN0cmltemkta2Fma2Etb3BlcmF0b3ItaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBzdHJpbXppLXN0cmltemkta2Fma2Etb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IHN0cmltemktc3RyaW16aS1rYWZrYS1vcGVyYXRvci1tYW5pZmVzdC1pbmRleAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogc3RyaW16aS1zdHJpbXppLWthZmthLW9wZXJhdG9yCiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWdsb2JhbC55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3ItZ2xvYmFsCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWdsb2JhbAogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLXN0cmltemktY2x1c3Rlci1vcGVyYXRvci1sZWFkZXItZWxlY3Rpb24ueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWxlYWRlci1lbGVjdGlvbgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvci1sZWFkZXItZWxlY3Rpb24KICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3ItbmFtZXNwYWNlZC55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3ItbmFtZXNwYWNlZAogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvci1uYW1lc3BhY2VkCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLXdhdGNoZWQueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLXdhdGNoZWQKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3Itd2F0Y2hlZAogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLXN0cmltemktZW50aXR5LW9wZXJhdG9yLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlLXN0cmltemktZW50aXR5LW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogc3RyaW16aS1lbnRpdHktb3BlcmF0b3IKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZS1zdHJpbXppLWthZmthLWJyb2tlci55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZS1zdHJpbXppLWthZmthLWJyb2tlcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IHN0cmltemkta2Fma2EtYnJva2VyCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGUtc3RyaW16aS1rYWZrYS1jbGllbnQueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtc3RyaW16aS1rYWZrYS1jbGllbnQKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlCiAgICBuYW1lOiBzdHJpbXppLWthZmthLWNsaWVudAogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlYmluZGluZy1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLXN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGVCaW5kaW5nCiAgICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWthZmthLWJyb2tlci1kZWxlZ2F0aW9uLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlYmluZGluZy1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3Ita2Fma2EtYnJva2VyLWRlbGVnYXRpb24KICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IENsdXN0ZXJSb2xlQmluZGluZwogICAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWthZmthLWJyb2tlci1kZWxlZ2F0aW9uCiAgLSBmaWxlbmFtZTogY2x1c3RlcnJvbGViaW5kaW5nLXN0cmltemktY2x1c3Rlci1vcGVyYXRvci1rYWZrYS1jbGllbnQtZGVsZWdhdGlvbi55YW1sCiAgICBzbHVnOiBjbHVzdGVycm9sZWJpbmRpbmctc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWthZmthLWNsaWVudC1kZWxlZ2F0aW9uCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvci1rYWZrYS1jbGllbnQtZGVsZWdhdGlvbgogIC0gZmlsZW5hbWU6IGNvbmZpZ21hcC1kZWZhdWx0LXN0cmltemktY2x1c3Rlci1vcGVyYXRvci55YW1sCiAgICBzbHVnOiBjb25maWdtYXAtZGVmYXVsdC1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBDb25maWdNYXAKICAgIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LXN0cmltemktY2x1c3Rlci1vcGVyYXRvci55YW1sCiAgICBzbHVnOiBkZXBsb3ltZW50LWRlZmF1bHQtc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiBhcHBzL3YxCiAgICBraW5kOiBEZXBsb3ltZW50CiAgICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1kZWZhdWx0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogTmFtZXNwYWNlCiAgICBuYW1lOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZWJpbmRpbmctZGVmYXVsdC1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IueWFtbAogICAgc2x1Zzogcm9sZWJpbmRpbmctZGVmYXVsdC1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGVCaW5kaW5nCiAgICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGViaW5kaW5nLWRlZmF1bHQtc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWVudGl0eS1vcGVyYXRvci1kZWxlZ2F0aW9uLnlhbWwKICAgIHNsdWc6IHJvbGViaW5kaW5nLWRlZmF1bHQtc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWVudGl0eS1vcGVyYXRvci1kZWxlZ2F0aW9uCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWVudGl0eS1vcGVyYXRvci1kZWxlZ2F0aW9uCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1kZWZhdWx0LXN0cmltemktY2x1c3Rlci1vcGVyYXRvci1sZWFkZXItZWxlY3Rpb24ueWFtbAogICAgc2x1Zzogcm9sZWJpbmRpbmctZGVmYXVsdC1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3ItbGVhZGVyLWVsZWN0aW9uCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWxlYWRlci1lbGVjdGlvbgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZWJpbmRpbmctZGVmYXVsdC1zdHJpbXppLWNsdXN0ZXItb3BlcmF0b3Itd2F0Y2hlZC55YW1sCiAgICBzbHVnOiByb2xlYmluZGluZy1kZWZhdWx0LXN0cmltemktY2x1c3Rlci1vcGVyYXRvci13YXRjaGVkCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlQmluZGluZwogICAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLXdhdGNoZWQKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBTZWxlY3Rpb24KbWV0YWRhdGE6CiAgbmFtZTogc3RyaW16aS1zdHJpbXppLWthZmthLW9wZXJhdG9yLXNlbGVjdGlvbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogc3RyaW16aS1zdHJpbXppLWthZmthLW9wZXJhdG9yCiAgYmFzZTogbm8tY3JkcwotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogVXBsb2FkCm1ldGFkYXRhOgogIG5hbWU6IHN0cmltemktc3RyaW16aS1rYWZrYS1vcGVyYXRvci11cGxvYWQKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHN0cmltemktc3RyaW16aS1rYWZrYS1vcGVyYXRvcgogIHNwYWNlUGF0dGVybjogaGVsbS1zdHJpbXppLWthZmthLW9wZXJhdG9yLW5vLWNyZHMtY29uZmlnaHViLXByb29mCiAgc3BhY2VzOgogIC0gcGFja2FnZTogc3RyaW16aS1zdHJpbXppLWthZmthLW9wZXJhdG9yCiAgICBzbHVnOiBoZWxtLXN0cmltemkta2Fma2Etb3BlcmF0b3Itbm8tY3Jkcy1jb25maWdodWItcHJvb2YKICAgIGlzUGFyZW50OiB0cnVlCiAgdXBsb2FkZWRBdDogIjIwMjYtMDYtMTJUMTY6NTc6NDBaIgogIHNlcnZlcjogaHR0cHM6Ly9odWIuY29uZmlnaHViLmNvbQogIG9yZ2FuaXphdGlvbklEOiA1OGIyM2I4NS05Njk5LTQzODQtYmQ1Ny04MGVmNjk1YTFkNTgK",
+      "DataHash": "70372bc676c474ae084c0eb024d4d64d333ffdf03bc6b39dac8b6e4af78c5435",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "strimzi-strimzi-kafka-operator"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/strimzi-strimzi-kafka-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-strimzi-kafka-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-strimzi-kafka-operator",
+            "ResourceNameWithoutScope": "strimzi-strimzi-kafka-operator",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"strimzi-strimzi-kafka-operator\"\n  version: \"1.0.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"strimzi/strimzi-kafka-operator default variant rendered from strimzi/strimzi-kafka-operator@1.0.0\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"no-crds\"\n    path: \"bases/no-crds\"\n    description: \"strimzi/strimzi-kafka-operator no-crds variant rendered from strimzi/strimzi-kafka-operator@1.0.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/strimzi-strimzi-kafka-operator-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-strimzi-kafka-operator-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-strimzi-kafka-operator-function-chain",
+            "ResourceNameWithoutScope": "strimzi-strimzi-kafka-operator-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: strimzi-strimzi-kafka-operator-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: strimzi-strimzi-kafka-operator\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/strimzi-strimzi-kafka-operator-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-strimzi-kafka-operator-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-strimzi-kafka-operator-inputs",
+            "ResourceNameWithoutScope": "strimzi-strimzi-kafka-operator-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: strimzi-strimzi-kafka-operator-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: strimzi-strimzi-kafka-operator\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/strimzi-strimzi-kafka-operator-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-strimzi-kafka-operator-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-strimzi-kafka-operator-manifest-index",
+            "ResourceNameWithoutScope": "strimzi-strimzi-kafka-operator-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: strimzi-strimzi-kafka-operator-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: strimzi-strimzi-kafka-operator\n  files:\n  - filename: clusterrole-strimzi-cluster-operator-global.yaml\n    slug: clusterrole-strimzi-cluster-operator-global\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: strimzi-cluster-operator-global\n  - filename: clusterrole-strimzi-cluster-operator-leader-election.yaml\n    slug: clusterrole-strimzi-cluster-operator-leader-election\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: strimzi-cluster-operator-leader-election\n  - filename: clusterrole-strimzi-cluster-operator-namespaced.yaml\n    slug: clusterrole-strimzi-cluster-operator-namespaced\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: strimzi-cluster-operator-namespaced\n  - filename: clusterrole-strimzi-cluster-operator-watched.yaml\n    slug: clusterrole-strimzi-cluster-operator-watched\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: strimzi-cluster-operator-watched\n  - filename: clusterrole-strimzi-entity-operator.yaml\n    slug: clusterrole-strimzi-entity-operator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: strimzi-entity-operator\n  - filename: clusterrole-strimzi-kafka-broker.yaml\n    slug: clusterrole-strimzi-kafka-broker\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: strimzi-kafka-broker\n  - filename: clusterrole-strimzi-kafka-client.yaml\n    slug: clusterrole-strimzi-kafka-client\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: strimzi-kafka-client\n  - filename: clusterrolebinding-strimzi-cluster-operator.yaml\n    slug: clusterrolebinding-strimzi-cluster-operator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: strimzi-cluster-operator\n  - filename: clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation.yaml\n    slug: clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: strimzi-cluster-operator-kafka-broker-delegation\n  - filename: clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation.yaml\n    slug: clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: strimzi-cluster-operator-kafka-client-delegation\n  - filename: configmap-default-strimzi-cluster-operator.yaml\n    slug: configmap-default-strimzi-cluster-operator\n    apiVersion: v1\n    kind: ConfigMap\n    name: strimzi-cluster-operator\n    namespace: default\n  - filename: deployment-default-strimzi-cluster-operator.yaml\n    slug: deployment-default-strimzi-cluster-operator\n    apiVersion: apps/v1\n    kind: Deployment\n    name: strimzi-cluster-operator\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: rolebinding-default-strimzi-cluster-operator.yaml\n    slug: rolebinding-default-strimzi-cluster-operator\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: strimzi-cluster-operator\n    namespace: default\n  - filename: rolebinding-default-strimzi-cluster-operator-entity-operator-delegation.yaml\n    slug: rolebinding-default-strimzi-cluster-operator-entity-operator-delegation\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: strimzi-cluster-operator-entity-operator-delegation\n    namespace: default\n  - filename: rolebinding-default-strimzi-cluster-operator-leader-election.yaml\n    slug: rolebinding-default-strimzi-cluster-operator-leader-election\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: strimzi-cluster-operator-leader-election\n    namespace: default\n  - filename: rolebinding-default-strimzi-cluster-operator-watched.yaml\n    slug: rolebinding-default-strimzi-cluster-operator-watched\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: strimzi-cluster-operator-watched\n    namespace: default\n  - filename: serviceaccount-default-strimzi-cluster-operator.yaml\n    slug: serviceaccount-default-strimzi-cluster-operator\n    apiVersion: v1\n    kind: ServiceAccount\n    name: strimzi-cluster-operator\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/strimzi-strimzi-kafka-operator-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-strimzi-kafka-operator-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-strimzi-kafka-operator-selection",
+            "ResourceNameWithoutScope": "strimzi-strimzi-kafka-operator-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: strimzi-strimzi-kafka-operator-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: strimzi-strimzi-kafka-operator\n  base: no-crds\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/strimzi-strimzi-kafka-operator-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-strimzi-kafka-operator-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/strimzi-strimzi-kafka-operator-upload",
+            "ResourceNameWithoutScope": "strimzi-strimzi-kafka-operator-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: strimzi-strimzi-kafka-operator-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: strimzi-strimzi-kafka-operator\n  spacePattern: helm-strimzi-kafka-operator-no-crds-confighub-proof\n  spaces:\n  - package: strimzi-strimzi-kafka-operator\n    slug: helm-strimzi-kafka-operator-no-crds-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:57:40Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "840a09c2-236f-4eb8-a026-af9e2b9253fa",
+      "UpdatedAt": "2026-06-12T16:58:01.735099Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.403128Z",
+        "CursorID": 23387,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "8c008a03-ef63-4791-a034-f4e07660f250",
+        "LinkID": "562d295b-8f6d-43e7-95d9-46bb031ab304",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "155be2a3-7474-4cbe-be0f-efe53d531e55",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.403128Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '155be2a3-7474-4cbe-be0f-efe53d531e55' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "562d295b-8f6d-43e7-95d9-46bb031ab304"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8c008a03-ef63-4791-a034-f4e07660f250",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "155be2a3-7474-4cbe-be0f-efe53d531e55",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:57:51.494838Z",
+      "CursorID": 28239,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "155be2a3-7474-4cbe-be0f-efe53d531e55",
+      "UpdatedAt": "2026-06-12T16:57:51.550657Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.428793Z",
+        "CursorID": 23389,
+        "DisplayName": "Upgrade rolebinding-default-strimzi-cluster-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d71431f1-8122-483d-bd2b-a8ea44c07e63",
+        "LinkID": "6ba73840-ab89-4a89-99a1-f4f9bf66d3de",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-strimzi-cluster-operator",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "8e95eee8-60cb-49b7-a3fa-f2f6fe95e202",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.428793Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8e95eee8-60cb-49b7-a3fa-f2f6fe95e202' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "411bfc4774ca644add53bbb9613067f238273e1429d43d5bb9a0629ba2ee9470",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "6ba73840-ab89-4a89-99a1-f4f9bf66d3de"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d71431f1-8122-483d-bd2b-a8ea44c07e63",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8e95eee8-60cb-49b7-a3fa-f2f6fe95e202",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -82735735,
+      "CreatedAt": "2026-06-12T16:57:54.728665Z",
+      "CursorID": 28271,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IHJvbGUtYmluZGluZwogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IHN0cmltemkta2Fma2Etb3BlcmF0b3IKICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLW5hbWVzcGFjZWQKc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "411bfc4774ca644add53bbb9613067f238273e1429d43d5bb9a0629ba2ee9470",
+      "DisplayName": "rolebinding-default-strimzi-cluster-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/strimzi-cluster-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/strimzi-cluster-operator",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: role-binding\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: strimzi-cluster-operator-namespaced\nsubjects:\n- kind: ServiceAccount\n  name: strimzi-cluster-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8e95eee8-60cb-49b7-a3fa-f2f6fe95e202",
+      "UpdatedAt": "2026-06-12T16:58:31.480062Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.457084Z",
+        "CursorID": 23390,
+        "DisplayName": "Upgrade rolebinding-default-strimzi-cluster-operator-entity-operator-delegation",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "16c4e754-ad8e-4b31-8768-38969a1d7f19",
+        "LinkID": "d9d91b0a-4d08-4d5d-9922-7b10b926633e",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-strimzi-cluster-operator-entity-operator-delegation",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "4c42d662-4300-4d8c-aeec-e836d103c1d7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.457084Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4c42d662-4300-4d8c-aeec-e836d103c1d7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d6a6260a0cb7e931a4dbd5ab54844a48e234760083fc98161f26e956e1562803",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "d9d91b0a-4d08-4d5d-9922-7b10b926633e"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator-entity-operator-delegation",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "16c4e754-ad8e-4b31-8768-38969a1d7f19",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4c42d662-4300-4d8c-aeec-e836d103c1d7",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 2010277495,
+      "CreatedAt": "2026-06-12T16:57:52.184979Z",
+      "CursorID": 28240,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IGVudGl0eS1vcGVyYXRvci1yb2xlLWJpbmRpbmcKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBzdHJpbXppLWthZmthLW9wZXJhdG9yCiAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yLWVudGl0eS1vcGVyYXRvci1kZWxlZ2F0aW9uCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IHN0cmltemktZW50aXR5LW9wZXJhdG9yCnN1YmplY3RzOgotIGtpbmQ6IFNlcnZpY2VBY2NvdW50CiAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "d6a6260a0cb7e931a4dbd5ab54844a48e234760083fc98161f26e956e1562803",
+      "DisplayName": "rolebinding-default-strimzi-cluster-operator-entity-operator-delegation",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/strimzi-cluster-operator-entity-operator-delegation": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator-entity-operator-delegation": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/strimzi-cluster-operator-entity-operator-delegation",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator-entity-operator-delegation",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: entity-operator-role-binding\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator-entity-operator-delegation\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: strimzi-entity-operator\nsubjects:\n- kind: ServiceAccount\n  name: strimzi-cluster-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator-entity-operator-delegation",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4c42d662-4300-4d8c-aeec-e836d103c1d7",
+      "UpdatedAt": "2026-06-12T16:58:34.32118Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:02.481956Z",
+        "CursorID": 23391,
+        "DisplayName": "Upgrade rolebinding-default-strimzi-cluster-operator-leader-election",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d6413b4f-abcc-46d3-bf4b-191ce4005f16",
+        "LinkID": "f42003ab-d192-4515-9e16-df3a30b61619",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-strimzi-cluster-operator-leader-election",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "fd148b05-2919-446e-baff-28048d9ac772",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:02.481956Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'fd148b05-2919-446e-baff-28048d9ac772' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e069d5116269f77636a5b67edb99db8fafd8aed5984ff11b93cba60cd8627644",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f42003ab-d192-4515-9e16-df3a30b61619"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator-leader-election",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d6413b4f-abcc-46d3-bf4b-191ce4005f16",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "fd148b05-2919-446e-baff-28048d9ac772",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -329601846,
+      "CreatedAt": "2026-06-12T16:57:52.911208Z",
+      "CursorID": 28259,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IHJvbGUtYmluZGluZwogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IHN0cmltemkta2Fma2Etb3BlcmF0b3IKICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3ItbGVhZGVyLWVsZWN0aW9uCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnJvbGVSZWY6CiAgYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBDbHVzdGVyUm9sZQogIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvci1sZWFkZXItZWxlY3Rpb24Kc3ViamVjdHM6Ci0ga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3IKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "e069d5116269f77636a5b67edb99db8fafd8aed5984ff11b93cba60cd8627644",
+      "DisplayName": "rolebinding-default-strimzi-cluster-operator-leader-election",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/strimzi-cluster-operator-leader-election": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator-leader-election": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/strimzi-cluster-operator-leader-election",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator-leader-election",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: role-binding\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator-leader-election\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: strimzi-cluster-operator-leader-election\nsubjects:\n- kind: ServiceAccount\n  name: strimzi-cluster-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator-leader-election",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "fd148b05-2919-446e-baff-28048d9ac772",
+      "UpdatedAt": "2026-06-12T16:58:38.345789Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:01.755714Z",
+        "CursorID": 23371,
+        "DisplayName": "Upgrade rolebinding-default-strimzi-cluster-operator-watched",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "631d7441-9bf5-49a3-b17e-e61085e9106c",
+        "LinkID": "871e55aa-3ca4-4a6f-ade1-70b8e4773e18",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-strimzi-cluster-operator-watched",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "9c69acc0-d392-4380-ac91-f2fcb4a04b3f",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:01.755714Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '9c69acc0-d392-4380-ac91-f2fcb4a04b3f' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "24c898d2678990aed13d47007156b348ddf27979bc5e80b6a7eb5f76bac8e21f",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "871e55aa-3ca4-4a6f-ade1-70b8e4773e18"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator-watched",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "631d7441-9bf5-49a3-b17e-e61085e9106c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "9c69acc0-d392-4380-ac91-f2fcb4a04b3f",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -794955026,
+      "CreatedAt": "2026-06-12T16:57:53.597651Z",
+      "CursorID": 28270,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IHN0cmltemkKICAgIGNoYXJ0OiBzdHJpbXppLWthZmthLW9wZXJhdG9yLTEuMC4wCiAgICBjb21wb25lbnQ6IHJvbGUtYmluZGluZwogICAgaGVyaXRhZ2U6IEhlbG0KICAgIHJlbGVhc2U6IHN0cmltemkta2Fma2Etb3BlcmF0b3IKICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3Itd2F0Y2hlZAogIG5hbWVzcGFjZTogZGVmYXVsdApyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBzdHJpbXppLWNsdXN0ZXItb3BlcmF0b3Itd2F0Y2hlZApzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IHN0cmltemktY2x1c3Rlci1vcGVyYXRvcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "24c898d2678990aed13d47007156b348ddf27979bc5e80b6a7eb5f76bac8e21f",
+      "DisplayName": "rolebinding-default-strimzi-cluster-operator-watched",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/strimzi-cluster-operator-watched": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator-watched": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/strimzi-cluster-operator-watched",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator-watched",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: role-binding\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator-watched\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: strimzi-cluster-operator-watched\nsubjects:\n- kind: ServiceAccount\n  name: strimzi-cluster-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-strimzi-cluster-operator-watched",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9c69acc0-d392-4380-ac91-f2fcb4a04b3f",
+      "UpdatedAt": "2026-06-12T16:58:40.74753Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:59:01.866482Z",
+        "CursorID": 23374,
+        "DisplayName": "Upgrade serviceaccount-default-strimzi-cluster-operator",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "88bd4948-371d-425f-8d40-7afcdaa96cef",
+        "LinkID": "78a6ad95-cb67-44cd-a34e-329031268336",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-strimzi-cluster-operator",
+        "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+        "SpaceSlug": "StrimziKafkaOperator-no-crds-staging",
+        "ToSpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+        "ToUnitID": "7d339be5-9355-4ede-b196-ce63afc5bb40",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:59:01.866482Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '7d339be5-9355-4ede-b196-ce63afc5bb40' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:59:01.562374Z",
+      "CursorID": 4636,
+      "DisplayName": "helm-strimzi-kafka-operator-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "StrimziKafkaOperator-no-crds-staging",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "UpdatedAt": "2026-06-12T16:59:01.562374Z",
+      "WhereTrigger": "SpaceID = '11c683f5-4cad-4155-8a31-317827380671'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "aaac41af3a458167c7c1608c1d273a4e86c282a367f0bb25ebfeadf2397daf7e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "78a6ad95-cb67-44cd-a34e-329031268336"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-strimzi-cluster-operator",
+      "SpaceID": "6c92d27c-e8e7-4f88-9011-48107efc3038",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "88bd4948-371d-425f-8d40-7afcdaa96cef",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "7d339be5-9355-4ede-b196-ce63afc5bb40",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1889943388,
+      "CreatedAt": "2026-06-12T16:57:55.483926Z",
+      "CursorID": 28272,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwOiBzdHJpbXppCiAgICBjaGFydDogc3RyaW16aS1rYWZrYS1vcGVyYXRvci0xLjAuMAogICAgY29tcG9uZW50OiBzZXJ2aWNlLWFjY291bnQKICAgIGhlcml0YWdlOiBIZWxtCiAgICByZWxlYXNlOiBzdHJpbXppLWthZmthLW9wZXJhdG9yCiAgbmFtZTogc3RyaW16aS1jbHVzdGVyLW9wZXJhdG9yCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "aaac41af3a458167c7c1608c1d273a4e86c282a367f0bb25ebfeadf2397daf7e",
+      "DisplayName": "serviceaccount-default-strimzi-cluster-operator",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "StrimziKafkaOperator",
+        "HelmChart": "strimzi-strimzi-kafka-operator",
+        "HelmChartVersion": "1.0.0",
+        "Package": "strimzi-strimzi-kafka-operator",
+        "Proof": "strimzi-kafka-operator-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 253 bytes; from serviceaccount-default-strimzi-cluster-operator.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/strimzi-cluster-operator": {}
+          },
+          "AliasesWithoutScopes": {
+            "strimzi-cluster-operator": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/strimzi-cluster-operator",
+            "ResourceNameWithoutScope": "strimzi-cluster-operator",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app: strimzi\n    chart: strimzi-kafka-operator-1.0.0\n    component: service-account\n    heritage: Helm\n    release: strimzi-kafka-operator\n  name: strimzi-cluster-operator\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/strimzi-cluster-operator",
+          "ResourceNameWithoutScope": "strimzi-cluster-operator",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-strimzi-cluster-operator",
+      "SpaceID": "11c683f5-4cad-4155-8a31-317827380671",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7d339be5-9355-4ede-b196-ce63afc5bb40",
+      "UpdatedAt": "2026-06-12T16:58:41.82999Z",
+      "Version": 6
+    }
+  }
+]

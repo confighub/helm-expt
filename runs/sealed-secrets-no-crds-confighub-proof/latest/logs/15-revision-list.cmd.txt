@@ -1,0 +1,1 @@
+cub revision list deployment-default-sealed-secrets --space helm-sealed-secrets-no-crds-confighub-proof

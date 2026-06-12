@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 2 space(s)
+  Context: Slug IN ('helm-jaeger-default-confighub-proof', 'Jaeger-default-staging')

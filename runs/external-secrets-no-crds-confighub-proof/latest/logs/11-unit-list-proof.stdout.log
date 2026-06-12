@@ -1,0 +1,1256 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "784908ac169c9403c82f9a39e2514013aa4be090b981eaf32748daee004db50a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-external-secrets-external-secrets-webhook",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "aecca252-6142-4ac8-864f-57014156e6c7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8a19e7dd9cab6f33a7e052e92981bc19c1ca5b1f383a866b1ee111013dfb976d",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-external-secrets-external-secrets",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5a4b5927-69c5-4f09-8eec-beef4bcfa51e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "38ef0ca014174cfe4b1b081bb10bef5addbf7b737bed0cfe06e421e62cfa4aa9",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-external-secrets-external-secrets-cert-controller",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "b8cf14f4-0e0c-409a-895b-41a770e88459",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "72c931950825d0bebd3fd3a9ed972c3a97f9aacf55d33682945726d4285fbb06",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-external-secrets-external-secrets-webhook",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a34f80f7-6e4f-4ffd-81af-3ef91e3425f6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b89949c22b7070b2347007ecd3db4685f7c3996d4af2052d802fb8bbf6fc7a6b",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-externalsecret-validate",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "93ea1fcd-8b82-4b11-a776-e99156e62b0d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c9164d17887cae3942ce5261f30f74ca7871be27a2d7dda84f6b4bf447932724",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "validatingwebhookconfiguration-secretstore-validate",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0aab7f83-4364-4b96-a22c-2002b812756d",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4379df9a1d3a17cb6b84c539c15f1d53d77342a16a0c23d077ebe21e3f090622",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-external-secrets-cert-controller",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d8e3febf-794f-4ff4-a235-044747180e96",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1b77569aa56d38197435d77bb65c40a6e91178137925313bd028088e2d6d4629",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-external-secrets-controller",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "52e99645-92bd-4547-bc08-073e17f63713",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 15
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9ed0ab628cd33d59c0f421c063a862b79f7b91f907b86566eca36912da0b0e61",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-external-secrets",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e99a22da-1bf7-4036-a769-e110d1e00345",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9ad75871040280af25afecefd5844bc636757045b4832d6b331619f189f95bcb",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-external-secrets-controller",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "135e1c85-fd4a-43b1-86f1-51b210066ab2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "b97c75bc2d0318ad2eb3f80405b62e73b0388935e1b8aab98da318fa525c52cc",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-external-secrets-cert-controller",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "15c2574f-f451-4cc5-8389-b2d8ad6d443f",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a429a42edbf0f16703a94beaa2122a86d68977b8edb920980bac4a76e5631b57",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-external-secrets-view",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "db6d9b97-32a7-4c3c-afac-7fff9f62a88e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1577ee5f222aa46293be4e69218cff6cbfb58dd666482606e6e5300f7332e2bb",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-external-secrets-edit",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f1851077-56e0-4e85-8f44-1a4774ea9938",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c4324feaee371fa1ab691870f59073778db017eece85c085a4a2204f228314ba",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-external-secrets-servicebindings",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a8aa5da5-6706-42db-b35d-c47594cf1cb9",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8ddc142756e100f9f3c47bf52bb6a476906c2deb32b48016b62f1158b52a2a1f",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-external-secrets-external-secrets-cert-controller",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "806fb94d-1ea3-4c6e-aca0-d27d92933ab7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "13dfc8d9a9480237c8315de482f596fc167fc256509944221c3e81945aa38ce0",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-external-secrets-external-secrets-webhook",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9799a741-a1ea-4962-b1da-fffe2fa778d2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "c3aa9f5216df40c0f8add6acee611b021cbb36ecea91797dcec244034404f568",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-external-secrets-external-secrets-leaderelection",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d915648f-d2d7-42d4-91e7-85fed258b5e6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 12
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "0545a5e275dbcd3b098fc17d3cdbf41d7472c79c2bd8e44df6050c76c6ee74f2",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-external-secrets-external-secrets",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "3dc32b29-a241-4818-9e5a-6ac7ac343903",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:53:48.964815Z",
+      "CursorID": 4615,
+      "DisplayName": "helm-external-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "no-crds"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-external-secrets-no-crds-confighub-proof",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "UpdatedAt": "2026-06-12T16:53:49.482608Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '0d3b402f-f1fa-41af-ac32-6e5d4c4324c9'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "921e1452b679d12f88b00f43847bc7a30f2d9efc85b3d2a204ca3e81ac66f765",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "ExternalSecrets",
+        "HelmChart": "external-secrets-external-secrets",
+        "HelmChartVersion": "2.5.0",
+        "Package": "external-secrets-external-secrets",
+        "Proof": "external-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-external-secrets-external-secrets-leaderelection",
+      "SpaceID": "0d3b402f-f1fa-41af-ac32-6e5d4c4324c9",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "302b632b-7904-408a-af5a-ec88f1f8768a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 10
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

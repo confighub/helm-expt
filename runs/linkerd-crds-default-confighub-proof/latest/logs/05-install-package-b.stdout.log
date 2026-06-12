@@ -1,0 +1,5 @@
+Bundled linkerd-linkerd-crds@
+  output: .tmp/confighub-proof/linkerd-crds-default-archives/linkerd-crds-b.tgz
+  files:  4
+  size:   87801 bytes
+  digest: sha256:770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42

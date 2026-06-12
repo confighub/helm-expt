@@ -1,0 +1,1 @@
+cub space delete --space "helm-traefik-no-crds-confighub-proof,Traefik-no-crds-staging" --recursive-force

@@ -1,0 +1,1180 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:34.674013Z",
+        "CursorID": 22592,
+        "DisplayName": "Upgrade clusterrolebinding-descheduler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "9c85803e-bf88-419a-8ee1-599572574626",
+        "LinkID": "05e2f666-f1e0-4601-90c7-3c2d2eadca96",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-descheduler",
+        "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+        "SpaceSlug": "Descheduler-default-staging",
+        "ToSpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+        "ToUnitID": "cb55bbc6-ca2e-43ef-ad60-bb19e8f2e334",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:34.674014Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'cb55bbc6-ca2e-43ef-ad60-bb19e8f2e334' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:34.375061Z",
+      "CursorID": 4588,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Descheduler-default-staging",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "UpdatedAt": "2026-06-12T16:48:34.375062Z",
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "7f3a9fc8c502d976e57204aec841343b8adfd16521ae7dee3de02d1845314491",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "05e2f666-f1e0-4601-90c7-3c2d2eadca96"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-descheduler",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "9c85803e-bf88-419a-8ee1-599572574626",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "cb55bbc6-ca2e-43ef-ad60-bb19e8f2e334",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1306888820,
+      "CreatedAt": "2026-06-12T16:47:58.96122Z",
+      "CursorID": 27726,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGRlc2NoZWR1bGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBkZXNjaGVkdWxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4zNi4wCiAgICBoZWxtLnNoL2NoYXJ0OiBkZXNjaGVkdWxlci0wLjM2LjAKICBuYW1lOiBkZXNjaGVkdWxlcgpyb2xlUmVmOgogIGFwaUdyb3VwOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvCiAga2luZDogQ2x1c3RlclJvbGUKICBuYW1lOiBkZXNjaGVkdWxlcgpzdWJqZWN0czoKLSBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IGRlc2NoZWR1bGVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "7f3a9fc8c502d976e57204aec841343b8adfd16521ae7dee3de02d1845314491",
+      "DisplayName": "clusterrolebinding-descheduler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/descheduler": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/descheduler",
+            "ResourceNameWithoutScope": "descheduler",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: descheduler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: descheduler\n    app.kubernetes.io/version: 0.36.0\n    helm.sh/chart: descheduler-0.36.0\n  name: descheduler\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: descheduler\nsubjects:\n- kind: ServiceAccount\n  name: descheduler\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cb55bbc6-ca2e-43ef-ad60-bb19e8f2e334",
+      "UpdatedAt": "2026-06-12T16:48:14.27778Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:34.790881Z",
+        "CursorID": 22593,
+        "DisplayName": "Upgrade clusterrole-descheduler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "13b917b3-fa84-4271-9cc9-b39c0f3f03c6",
+        "LinkID": "2b360d31-98bc-4337-ad9f-2effda1ebcfc",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-descheduler",
+        "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+        "SpaceSlug": "Descheduler-default-staging",
+        "ToSpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+        "ToUnitID": "8af4977e-fe0e-4c30-8d69-30fc2cc4ddc0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:34.790881Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '8af4977e-fe0e-4c30-8d69-30fc2cc4ddc0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:34.375061Z",
+      "CursorID": 4588,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Descheduler-default-staging",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "UpdatedAt": "2026-06-12T16:48:34.375062Z",
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "192537339a64ca3087f5291cb9efd7d6cffc94690dd7f122388bb64fdc26b027",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "2b360d31-98bc-4337-ad9f-2effda1ebcfc"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-descheduler",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "13b917b3-fa84-4271-9cc9-b39c0f3f03c6",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "8af4977e-fe0e-4c30-8d69-30fc2cc4ddc0",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1197291819,
+      "CreatedAt": "2026-06-12T16:47:58.161902Z",
+      "CursorID": 27725,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZGVzY2hlZHVsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGRlc2NoZWR1bGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjM2LjAKICAgIGhlbG0uc2gvY2hhcnQ6IGRlc2NoZWR1bGVyLTAuMzYuMAogIG5hbWU6IGRlc2NoZWR1bGVyCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtIGV2ZW50cy5rOHMuaW8KICByZXNvdXJjZXM6CiAgLSBldmVudHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gdXBkYXRlCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBub2RlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSB3YXRjaAogIC0gbGlzdAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gbmFtZXNwYWNlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSB3YXRjaAogIC0gbGlzdAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gcG9kcwogIHZlcmJzOgogIC0gZ2V0CiAgLSB3YXRjaAogIC0gbGlzdAogIC0gZGVsZXRlCi0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwb2RzL2V2aWN0aW9uCiAgdmVyYnM6CiAgLSBjcmVhdGUKLSBhcGlHcm91cHM6CiAgLSBzY2hlZHVsaW5nLms4cy5pbwogIHJlc291cmNlczoKICAtIHByaW9yaXR5Y2xhc3NlcwogIHZlcmJzOgogIC0gZ2V0CiAgLSB3YXRjaAogIC0gbGlzdAotIGFwaUdyb3VwczoKICAtIHBvbGljeQogIHJlc291cmNlczoKICAtIHBvZGRpc3J1cHRpb25idWRnZXRzCiAgdmVyYnM6CiAgLSBnZXQKICAtIHdhdGNoCiAgLSBsaXN0Ci0gYXBpR3JvdXBzOgogIC0gIiIKICByZXNvdXJjZXM6CiAgLSBwZXJzaXN0ZW50dm9sdW1lY2xhaW1zCiAgdmVyYnM6CiAgLSBnZXQKICAtIHdhdGNoCiAgLSBsaXN0Cg==",
+      "DataHash": "192537339a64ca3087f5291cb9efd7d6cffc94690dd7f122388bb64fdc26b027",
+      "DisplayName": "clusterrole-descheduler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/descheduler": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/descheduler",
+            "ResourceNameWithoutScope": "descheduler",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: descheduler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: descheduler\n    app.kubernetes.io/version: 0.36.0\n    helm.sh/chart: descheduler-0.36.0\n  name: descheduler\nrules:\n- apiGroups:\n  - events.k8s.io\n  resources:\n  - events\n  verbs:\n  - create\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - nodes\n  verbs:\n  - get\n  - watch\n  - list\n- apiGroups:\n  - \"\"\n  resources:\n  - namespaces\n  verbs:\n  - get\n  - watch\n  - list\n- apiGroups:\n  - \"\"\n  resources:\n  - pods\n  verbs:\n  - get\n  - watch\n  - list\n  - delete\n- apiGroups:\n  - \"\"\n  resources:\n  - pods/eviction\n  verbs:\n  - create\n- apiGroups:\n  - scheduling.k8s.io\n  resources:\n  - priorityclasses\n  verbs:\n  - get\n  - watch\n  - list\n- apiGroups:\n  - policy\n  resources:\n  - poddisruptionbudgets\n  verbs:\n  - get\n  - watch\n  - list\n- apiGroups:\n  - \"\"\n  resources:\n  - persistentvolumeclaims\n  verbs:\n  - get\n  - watch\n  - list\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/descheduler",
+          "ResourceNameWithoutScope": "descheduler",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "8af4977e-fe0e-4c30-8d69-30fc2cc4ddc0",
+      "UpdatedAt": "2026-06-12T16:48:03.614012Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:34.857221Z",
+        "CursorID": 22594,
+        "DisplayName": "Upgrade configmap-default-descheduler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "46a9aa57-2772-4525-9a26-6df53e662d71",
+        "LinkID": "2ffa9dd0-4b1a-4f08-bba8-74b576762bab",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-configmap-default-descheduler",
+        "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+        "SpaceSlug": "Descheduler-default-staging",
+        "ToSpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+        "ToUnitID": "11a6312f-d5fd-4ac4-b50c-65da2f1d8d5d",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:34.857221Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '11a6312f-d5fd-4ac4-b50c-65da2f1d8d5d' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:34.375061Z",
+      "CursorID": 4588,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Descheduler-default-staging",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "UpdatedAt": "2026-06-12T16:48:34.375062Z",
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "6f68edc223765f301f4d8ec392d271232ee051ecc6385377eca1d7600a698f45",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "2ffa9dd0-4b1a-4f08-bba8-74b576762bab"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-descheduler",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "46a9aa57-2772-4525-9a26-6df53e662d71",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "11a6312f-d5fd-4ac4-b50c-65da2f1d8d5d",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -966852142,
+      "CreatedAt": "2026-06-12T16:47:59.667624Z",
+      "CursorID": 27727,
+      "Data": "YXBpVmVyc2lvbjogdjEKZGF0YToKICBwb2xpY3kueWFtbDogfAogICAgYXBpVmVyc2lvbjogImRlc2NoZWR1bGVyL3YxYWxwaGEyIgogICAga2luZDogIkRlc2NoZWR1bGVyUG9saWN5IgogICAgcHJvZmlsZXM6CiAgICAtIG5hbWU6IGRlZmF1bHQKICAgICAgcGx1Z2luQ29uZmlnOgogICAgICAtIGFyZ3M6CiAgICAgICAgICBwb2RQcm90ZWN0aW9uczoKICAgICAgICAgICAgZGVmYXVsdERpc2FibGVkOgogICAgICAgICAgICAtIFBvZHNXaXRoTG9jYWxTdG9yYWdlCiAgICAgICAgICAgIGV4dHJhRW5hYmxlZDoKICAgICAgICAgICAgLSBQb2RzV2l0aFBWQwogICAgICAgIG5hbWU6IERlZmF1bHRFdmljdG9yCiAgICAgIC0gbmFtZTogUmVtb3ZlRHVwbGljYXRlcwogICAgICAtIGFyZ3M6CiAgICAgICAgICBpbmNsdWRpbmdJbml0Q29udGFpbmVyczogdHJ1ZQogICAgICAgICAgcG9kUmVzdGFydFRocmVzaG9sZDogMTAwCiAgICAgICAgbmFtZTogUmVtb3ZlUG9kc0hhdmluZ1Rvb01hbnlSZXN0YXJ0cwogICAgICAtIGFyZ3M6CiAgICAgICAgICBub2RlQWZmaW5pdHlUeXBlOgogICAgICAgICAgLSByZXF1aXJlZER1cmluZ1NjaGVkdWxpbmdJZ25vcmVkRHVyaW5nRXhlY3V0aW9uCiAgICAgICAgbmFtZTogUmVtb3ZlUG9kc1Zpb2xhdGluZ05vZGVBZmZpbml0eQogICAgICAtIG5hbWU6IFJlbW92ZVBvZHNWaW9sYXRpbmdOb2RlVGFpbnRzCiAgICAgIC0gbmFtZTogUmVtb3ZlUG9kc1Zpb2xhdGluZ0ludGVyUG9kQW50aUFmZmluaXR5CiAgICAgIC0gbmFtZTogUmVtb3ZlUG9kc1Zpb2xhdGluZ1RvcG9sb2d5U3ByZWFkQ29uc3RyYWludAogICAgICAtIGFyZ3M6CiAgICAgICAgICB0YXJnZXRUaHJlc2hvbGRzOgogICAgICAgICAgICBjcHU6IDUwCiAgICAgICAgICAgIG1lbW9yeTogNTAKICAgICAgICAgICAgcG9kczogNTAKICAgICAgICAgIHRocmVzaG9sZHM6CiAgICAgICAgICAgIGNwdTogMjAKICAgICAgICAgICAgbWVtb3J5OiAyMAogICAgICAgICAgICBwb2RzOiAyMAogICAgICAgIG5hbWU6IExvd05vZGVVdGlsaXphdGlvbgogICAgICBwbHVnaW5zOgogICAgICAgIGJhbGFuY2U6CiAgICAgICAgICBlbmFibGVkOgogICAgICAgICAgLSBSZW1vdmVEdXBsaWNhdGVzCiAgICAgICAgICAtIFJlbW92ZVBvZHNWaW9sYXRpbmdUb3BvbG9neVNwcmVhZENvbnN0cmFpbnQKICAgICAgICAgIC0gTG93Tm9kZVV0aWxpemF0aW9uCiAgICAgICAgZGVzY2hlZHVsZToKICAgICAgICAgIGVuYWJsZWQ6CiAgICAgICAgICAtIFJlbW92ZVBvZHNIYXZpbmdUb29NYW55UmVzdGFydHMKICAgICAgICAgIC0gUmVtb3ZlUG9kc1Zpb2xhdGluZ05vZGVUYWludHMKICAgICAgICAgIC0gUmVtb3ZlUG9kc1Zpb2xhdGluZ05vZGVBZmZpbml0eQogICAgICAgICAgLSBSZW1vdmVQb2RzVmlvbGF0aW5nSW50ZXJQb2RBbnRpQWZmaW5pdHkKa2luZDogQ29uZmlnTWFwCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBkZXNjaGVkdWxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogZGVzY2hlZHVsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMzYuMAogICAgaGVsbS5zaC9jaGFydDogZGVzY2hlZHVsZXItMC4zNi4wCiAgbmFtZTogZGVzY2hlZHVsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "6f68edc223765f301f4d8ec392d271232ee051ecc6385377eca1d7600a698f45",
+      "DisplayName": "configmap-default-descheduler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 1704 bytes; from configmap-default-descheduler.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/descheduler": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/descheduler",
+            "ResourceNameWithoutScope": "descheduler",
+            "ResourceType": "v1/ConfigMap"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\ndata:\n  policy.yaml: |\n    apiVersion: \"descheduler/v1alpha2\"\n    kind: \"DeschedulerPolicy\"\n    profiles:\n    - name: default\n      pluginConfig:\n      - args:\n          podProtections:\n            defaultDisabled:\n            - PodsWithLocalStorage\n            extraEnabled:\n            - PodsWithPVC\n        name: DefaultEvictor\n      - name: RemoveDuplicates\n      - args:\n          includingInitContainers: true\n          podRestartThreshold: 100\n        name: RemovePodsHavingTooManyRestarts\n      - args:\n          nodeAffinityType:\n          - requiredDuringSchedulingIgnoredDuringExecution\n        name: RemovePodsViolatingNodeAffinity\n      - name: RemovePodsViolatingNodeTaints\n      - name: RemovePodsViolatingInterPodAntiAffinity\n      - name: RemovePodsViolatingTopologySpreadConstraint\n      - args:\n          targetThresholds:\n            cpu: 50\n            memory: 50\n            pods: 50\n          thresholds:\n            cpu: 20\n            memory: 20\n            pods: 20\n        name: LowNodeUtilization\n      plugins:\n        balance:\n          enabled:\n          - RemoveDuplicates\n          - RemovePodsViolatingTopologySpreadConstraint\n          - LowNodeUtilization\n        deschedule:\n          enabled:\n          - RemovePodsHavingTooManyRestarts\n          - RemovePodsViolatingNodeTaints\n          - RemovePodsViolatingNodeAffinity\n          - RemovePodsViolatingInterPodAntiAffinity\nkind: ConfigMap\nmetadata:\n  labels:\n    app.kubernetes.io/instance: descheduler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: descheduler\n    app.kubernetes.io/version: 0.36.0\n    helm.sh/chart: descheduler-0.36.0\n  name: descheduler\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ConfigMap"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "Namespace": "default",
+              "ResourceType": "v1/ConfigMap",
+              "SubPath-policy.yaml": "true"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/descheduler",
+          "ResourceNameWithoutScope": "descheduler",
+          "ResourceType": "v1/ConfigMap"
+        }
+      ],
+      "Slug": "configmap-default-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "11a6312f-d5fd-4ac4-b50c-65da2f1d8d5d",
+      "UpdatedAt": "2026-06-12T16:48:15.407887Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:35.064846Z",
+        "CursorID": 22596,
+        "DisplayName": "Upgrade cronjob-default-descheduler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "2b2f6ffc-d333-45f9-b95b-b7747eaf6661",
+        "LinkID": "140c570b-4d86-4f9c-85d7-a0e9c2beed1c",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-cronjob-default-descheduler",
+        "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+        "SpaceSlug": "Descheduler-default-staging",
+        "ToSpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+        "ToUnitID": "34f1f588-0da1-4b5e-b735-2b4439edc647",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:35.064846Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '34f1f588-0da1-4b5e-b735-2b4439edc647' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:34.375061Z",
+      "CursorID": 4588,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Descheduler-default-staging",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "UpdatedAt": "2026-06-12T16:48:34.375062Z",
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "cde0fef7f32f82c2e9bcb12137b52255ddf380680fcaded64864af3d5369c07a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "140c570b-4d86-4f9c-85d7-a0e9c2beed1c"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "cronjob-default-descheduler",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2b2f6ffc-d333-45f9-b95b-b7747eaf6661",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "34f1f588-0da1-4b5e-b735-2b4439edc647",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1618701922,
+      "CreatedAt": "2026-06-12T16:48:00.361428Z",
+      "CursorID": 27728,
+      "Data": "YXBpVmVyc2lvbjogYmF0Y2gvdjEKa2luZDogQ3JvbkpvYgptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogZGVzY2hlZHVsZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IGRlc2NoZWR1bGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjM2LjAKICAgIGhlbG0uc2gvY2hhcnQ6IGRlc2NoZWR1bGVyLTAuMzYuMAogIG5hbWU6IGRlc2NoZWR1bGVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgY29uY3VycmVuY3lQb2xpY3k6IEZvcmJpZAogIGpvYlRlbXBsYXRlOgogICAgc3BlYzoKICAgICAgdGVtcGxhdGU6CiAgICAgICAgbWV0YWRhdGE6CiAgICAgICAgICBhbm5vdGF0aW9uczoKICAgICAgICAgICAgY2hlY2tzdW0vY29uZmlnOiA2MDYzMDkzYjZjY2I3M2M1OGZhYTk4YmZlZDM5MDMxNTJkMDYyNzA2OTY5Nzg1ZWZkZWFmYjA5YTAwODg3YTgzCiAgICAgICAgICBsYWJlbHM6CiAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBkZXNjaGVkdWxlcgogICAgICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBkZXNjaGVkdWxlcgogICAgICAgICAgbmFtZTogZGVzY2hlZHVsZXIKICAgICAgICBzcGVjOgogICAgICAgICAgY29udGFpbmVyczoKICAgICAgICAgIC0gYXJnczoKICAgICAgICAgICAgLSAtLXBvbGljeS1jb25maWctZmlsZT0vcG9saWN5LWRpci9wb2xpY3kueWFtbAogICAgICAgICAgICAtIC0tdj0zCiAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgIC0gL2Jpbi9kZXNjaGVkdWxlcgogICAgICAgICAgICBpbWFnZTogcmVnaXN0cnkuazhzLmlvL2Rlc2NoZWR1bGVyL2Rlc2NoZWR1bGVyOnYwLjM2LjAKICAgICAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgICAgIHBhdGg6IC9oZWFsdGh6CiAgICAgICAgICAgICAgICBwb3J0OiAxMDI1OAogICAgICAgICAgICAgICAgc2NoZW1lOiBIVFRQUwogICAgICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAyMAogICAgICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgICAgIG5hbWU6IGRlc2NoZWR1bGVyCiAgICAgICAgICAgIHBvcnRzOgogICAgICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDEwMjU4CiAgICAgICAgICAgICAgcHJvdG9jb2w6IFRDUAogICAgICAgICAgICByZXNvdXJjZXM6CiAgICAgICAgICAgICAgbGltaXRzOgogICAgICAgICAgICAgICAgY3B1OiA1MDBtCiAgICAgICAgICAgICAgICBtZW1vcnk6IDI1Nk1pCiAgICAgICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgICAgICBjcHU6IDUwMG0KICAgICAgICAgICAgICAgIG1lbW9yeTogMjU2TWkKICAgICAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICAgICAgICBjYXBhYmlsaXRpZXM6CiAgICAgICAgICAgICAgICBkcm9wOgogICAgICAgICAgICAgICAgLSBBTEwKICAgICAgICAgICAgICBwcml2aWxlZ2VkOiBmYWxzZQogICAgICAgICAgICAgIHJlYWRPbmx5Um9vdEZpbGVzeXN0ZW06IHRydWUKICAgICAgICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICAgICAgICBydW5Bc1VzZXI6IDEwMDAKICAgICAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgICAgICAtIG1vdW50UGF0aDogL3BvbGljeS1kaXIKICAgICAgICAgICAgICBuYW1lOiBwb2xpY3ktdm9sdW1lCiAgICAgICAgICBwcmlvcml0eUNsYXNzTmFtZTogc3lzdGVtLWNsdXN0ZXItY3JpdGljYWwKICAgICAgICAgIHJlc3RhcnRQb2xpY3k6IE5ldmVyCiAgICAgICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IGRlc2NoZWR1bGVyCiAgICAgICAgICB2b2x1bWVzOgogICAgICAgICAgLSBjb25maWdNYXA6CiAgICAgICAgICAgICAgbmFtZTogZGVzY2hlZHVsZXIKICAgICAgICAgICAgbmFtZTogcG9saWN5LXZvbHVtZQogIHNjaGVkdWxlOiAnKi8yICogKiAqIConCg==",
+      "DataHash": "cde0fef7f32f82c2e9bcb12137b52255ddf380680fcaded64864af3d5369c07a",
+      "DisplayName": "cronjob-default-descheduler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/descheduler": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/descheduler",
+            "ResourceNameWithoutScope": "descheduler",
+            "ResourceType": "batch/v1/CronJob"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: batch/v1\nkind: CronJob\nmetadata:\n  labels:\n    app.kubernetes.io/instance: descheduler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: descheduler\n    app.kubernetes.io/version: 0.36.0\n    helm.sh/chart: descheduler-0.36.0\n  name: descheduler\n  namespace: default\nspec:\n  concurrencyPolicy: Forbid\n  jobTemplate:\n    spec:\n      template:\n        metadata:\n          annotations:\n            checksum/config: 6063093b6ccb73c58faa98bfed3903152d062706969785efdeafb09a00887a83\n          labels:\n            app.kubernetes.io/instance: descheduler\n            app.kubernetes.io/name: descheduler\n          name: descheduler\n        spec:\n          containers:\n          - args:\n            - --policy-config-file=/policy-dir/policy.yaml\n            - --v=3\n            command:\n            - /bin/descheduler\n            image: registry.k8s.io/descheduler/descheduler:v0.36.0\n            imagePullPolicy: IfNotPresent\n            livenessProbe:\n              failureThreshold: 3\n              httpGet:\n                path: /healthz\n                port: 10258\n                scheme: HTTPS\n              initialDelaySeconds: 5\n              periodSeconds: 20\n              timeoutSeconds: 5\n            name: descheduler\n            ports:\n            - containerPort: 10258\n              protocol: TCP\n            resources:\n              limits:\n                cpu: 500m\n                memory: 256Mi\n              requests:\n                cpu: 500m\n                memory: 256Mi\n            securityContext:\n              allowPrivilegeEscalation: false\n              capabilities:\n                drop:\n                - ALL\n              privileged: false\n              readOnlyRootFilesystem: true\n              runAsNonRoot: true\n              runAsUser: 1000\n            volumeMounts:\n            - mountPath: /policy-dir\n              name: policy-volume\n          priorityClassName: system-cluster-critical\n          restartPolicy: Never\n          serviceAccountName: descheduler\n          volumes:\n          - configMap:\n              name: descheduler\n            name: policy-volume\n  schedule: '*/2 * * * *'\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "cronjob-default-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "34f1f588-0da1-4b5e-b735-2b4439edc647",
+      "UpdatedAt": "2026-06-12T16:48:24.217361Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:35.151337Z",
+        "CursorID": 22597,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "204cbd36-8e65-413a-94bd-c9d04a60d0b0",
+        "LinkID": "f7f195d8-c473-49bc-92cb-bb2fbc06e0fb",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+        "SpaceSlug": "Descheduler-default-staging",
+        "ToSpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+        "ToUnitID": "79337274-c592-4963-9fd9-17e6f3cb2dd8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:35.151337Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '79337274-c592-4963-9fd9-17e6f3cb2dd8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:34.375061Z",
+      "CursorID": 4588,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Descheduler-default-staging",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "UpdatedAt": "2026-06-12T16:48:34.375062Z",
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8855024c7b77300b905b8247e6dd5637872c2d6267fa95c3125b3c23320e4c8e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "f7f195d8-c473-49bc-92cb-bb2fbc06e0fb"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "204cbd36-8e65-413a-94bd-c9d04a60d0b0",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "79337274-c592-4963-9fd9-17e6f3cb2dd8",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "descheduler-descheduler",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1454983989,
+      "CreatedAt": "2026-06-12T16:48:02.812057Z",
+      "CursorID": 27733,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogImRlc2NoZWR1bGVyLWRlc2NoZWR1bGVyIgogIHZlcnNpb246ICIwLjM2LjAiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIG5hbWU6ICJkZWZhdWx0IgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQiCiAgICBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogImRlc2NoZWR1bGVyL2Rlc2NoZWR1bGVyIGRlZmF1bHQgdmFyaWFudCByZW5kZXJlZCBmcm9tIGRlc2NoZWR1bGVyL2Rlc2NoZWR1bGVyQDAuMzYuMCIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogZGVzY2hlZHVsZXItZGVzY2hlZHVsZXItZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGRlc2NoZWR1bGVyLWRlc2NoZWR1bGVyCiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IGRlc2NoZWR1bGVyLWRlc2NoZWR1bGVyLWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZGVzY2hlZHVsZXItZGVzY2hlZHVsZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IGRlc2NoZWR1bGVyLWRlc2NoZWR1bGVyLW1hbmlmZXN0LWluZGV4CiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBkZXNjaGVkdWxlci1kZXNjaGVkdWxlcgogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLWRlc2NoZWR1bGVyLnlhbWwKICAgIHNsdWc6IGNsdXN0ZXJyb2xlLWRlc2NoZWR1bGVyCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZQogICAgbmFtZTogZGVzY2hlZHVsZXIKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctZGVzY2hlZHVsZXIueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLWRlc2NoZWR1bGVyCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IGRlc2NoZWR1bGVyCiAgLSBmaWxlbmFtZTogY29uZmlnbWFwLWRlZmF1bHQtZGVzY2hlZHVsZXIueWFtbAogICAgc2x1ZzogY29uZmlnbWFwLWRlZmF1bHQtZGVzY2hlZHVsZXIKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBDb25maWdNYXAKICAgIG5hbWU6IGRlc2NoZWR1bGVyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBjcm9uam9iLWRlZmF1bHQtZGVzY2hlZHVsZXIueWFtbAogICAgc2x1ZzogY3JvbmpvYi1kZWZhdWx0LWRlc2NoZWR1bGVyCiAgICBhcGlWZXJzaW9uOiBiYXRjaC92MQogICAga2luZDogQ3JvbkpvYgogICAgbmFtZTogZGVzY2hlZHVsZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1kZWZhdWx0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogTmFtZXNwYWNlCiAgICBuYW1lOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZWFjY291bnQtZGVmYXVsdC1kZXNjaGVkdWxlci55YW1sCiAgICBzbHVnOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LWRlc2NoZWR1bGVyCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IGRlc2NoZWR1bGVyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFNlbGVjdGlvbgptZXRhZGF0YToKICBuYW1lOiBkZXNjaGVkdWxlci1kZXNjaGVkdWxlci1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IGRlc2NoZWR1bGVyLWRlc2NoZWR1bGVyCiAgYmFzZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogVXBsb2FkCm1ldGFkYXRhOgogIG5hbWU6IGRlc2NoZWR1bGVyLWRlc2NoZWR1bGVyLXVwbG9hZAogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogZGVzY2hlZHVsZXItZGVzY2hlZHVsZXIKICBzcGFjZVBhdHRlcm46IGhlbG0tZGVzY2hlZHVsZXItZGVmYXVsdC1jb25maWdodWItcHJvb2YKICBzcGFjZXM6CiAgLSBwYWNrYWdlOiBkZXNjaGVkdWxlci1kZXNjaGVkdWxlcgogICAgc2x1ZzogaGVsbS1kZXNjaGVkdWxlci1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogICAgaXNQYXJlbnQ6IHRydWUKICB1cGxvYWRlZEF0OiAiMjAyNi0wNi0xMlQxNjo0Nzo1NloiCiAgc2VydmVyOiBodHRwczovL2h1Yi5jb25maWdodWIuY29tCiAgb3JnYW5pemF0aW9uSUQ6IDU4YjIzYjg1LTk2OTktNDM4NC1iZDU3LTgwZWY2OTVhMWQ1OAo=",
+      "DataHash": "8855024c7b77300b905b8247e6dd5637872c2d6267fa95c3125b3c23320e4c8e",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "descheduler-descheduler"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/descheduler-descheduler": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler-descheduler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/descheduler-descheduler",
+            "ResourceNameWithoutScope": "descheduler-descheduler",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"descheduler-descheduler\"\n  version: \"0.36.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"descheduler/descheduler default variant rendered from descheduler/descheduler@0.36.0\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/descheduler-descheduler-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler-descheduler-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/descheduler-descheduler-function-chain",
+            "ResourceNameWithoutScope": "descheduler-descheduler-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: descheduler-descheduler-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: descheduler-descheduler\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/descheduler-descheduler-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler-descheduler-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/descheduler-descheduler-inputs",
+            "ResourceNameWithoutScope": "descheduler-descheduler-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: descheduler-descheduler-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: descheduler-descheduler\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/descheduler-descheduler-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler-descheduler-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/descheduler-descheduler-manifest-index",
+            "ResourceNameWithoutScope": "descheduler-descheduler-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: descheduler-descheduler-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: descheduler-descheduler\n  files:\n  - filename: clusterrole-descheduler.yaml\n    slug: clusterrole-descheduler\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: descheduler\n  - filename: clusterrolebinding-descheduler.yaml\n    slug: clusterrolebinding-descheduler\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: descheduler\n  - filename: configmap-default-descheduler.yaml\n    slug: configmap-default-descheduler\n    apiVersion: v1\n    kind: ConfigMap\n    name: descheduler\n    namespace: default\n  - filename: cronjob-default-descheduler.yaml\n    slug: cronjob-default-descheduler\n    apiVersion: batch/v1\n    kind: CronJob\n    name: descheduler\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: serviceaccount-default-descheduler.yaml\n    slug: serviceaccount-default-descheduler\n    apiVersion: v1\n    kind: ServiceAccount\n    name: descheduler\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/descheduler-descheduler-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler-descheduler-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/descheduler-descheduler-selection",
+            "ResourceNameWithoutScope": "descheduler-descheduler-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: descheduler-descheduler-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: descheduler-descheduler\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/descheduler-descheduler-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler-descheduler-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/descheduler-descheduler-upload",
+            "ResourceNameWithoutScope": "descheduler-descheduler-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: descheduler-descheduler-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: descheduler-descheduler\n  spacePattern: helm-descheduler-default-confighub-proof\n  spaces:\n  - package: descheduler-descheduler\n    slug: helm-descheduler-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:47:56Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "79337274-c592-4963-9fd9-17e6f3cb2dd8",
+      "UpdatedAt": "2026-06-12T16:48:03.632365Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:35.186576Z",
+        "CursorID": 22598,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "36381acf-716c-4035-9b8f-657f6d5a93ea",
+        "LinkID": "7858c3ed-9e00-4c4b-b26b-2cad9c6daffd",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+        "SpaceSlug": "Descheduler-default-staging",
+        "ToSpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+        "ToUnitID": "e141ab9b-cd3d-4c9a-992b-2b805b40f897",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:35.186576Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e141ab9b-cd3d-4c9a-992b-2b805b40f897' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:34.375061Z",
+      "CursorID": 4588,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Descheduler-default-staging",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "UpdatedAt": "2026-06-12T16:48:34.375062Z",
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7858c3ed-9e00-4c4b-b26b-2cad9c6daffd"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "36381acf-716c-4035-9b8f-657f6d5a93ea",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e141ab9b-cd3d-4c9a-992b-2b805b40f897",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:48:01.090664Z",
+      "CursorID": 27729,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e141ab9b-cd3d-4c9a-992b-2b805b40f897",
+      "UpdatedAt": "2026-06-12T16:48:01.145275Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:48:35.222894Z",
+        "CursorID": 22599,
+        "DisplayName": "Upgrade serviceaccount-default-descheduler",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "453af9ea-a976-4750-9fd1-4aef369f194b",
+        "LinkID": "cf517307-f421-4f23-98de-18dbb5f1d61f",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-descheduler",
+        "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+        "SpaceSlug": "Descheduler-default-staging",
+        "ToSpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+        "ToUnitID": "1f9403a5-3bee-4a23-a489-a1f8af67aba3",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:48:35.222894Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1f9403a5-3bee-4a23-a489-a1f8af67aba3' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:48:34.375061Z",
+      "CursorID": 4588,
+      "DisplayName": "helm-descheduler-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "Descheduler",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "Descheduler-default-staging",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "UpdatedAt": "2026-06-12T16:48:34.375062Z",
+      "WhereTrigger": "SpaceID = 'ceef7b0d-0f28-4670-87a8-7210328de7e4'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "693bfc7c3481d66f1cc60fbe6273cb7bb3bc74f09e46b57a21d91b449579d36c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "cf517307-f421-4f23-98de-18dbb5f1d61f"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-descheduler",
+      "SpaceID": "ac03d3bf-94c3-4a33-83ec-b6471a27090a",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "453af9ea-a976-4750-9fd1-4aef369f194b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1f9403a5-3bee-4a23-a489-a1f8af67aba3",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1496251863,
+      "CreatedAt": "2026-06-12T16:48:01.978224Z",
+      "CursorID": 27731,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IGRlc2NoZWR1bGVyCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBkZXNjaGVkdWxlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4zNi4wCiAgICBoZWxtLnNoL2NoYXJ0OiBkZXNjaGVkdWxlci0wLjM2LjAKICBuYW1lOiBkZXNjaGVkdWxlcgogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "693bfc7c3481d66f1cc60fbe6273cb7bb3bc74f09e46b57a21d91b449579d36c",
+      "DisplayName": "serviceaccount-default-descheduler",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "Descheduler",
+        "HelmChart": "descheduler-descheduler",
+        "HelmChartVersion": "0.36.0",
+        "Package": "descheduler-descheduler",
+        "Proof": "descheduler-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 296 bytes; from serviceaccount-default-descheduler.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/descheduler": {}
+          },
+          "AliasesWithoutScopes": {
+            "descheduler": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/descheduler",
+            "ResourceNameWithoutScope": "descheduler",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: descheduler\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: descheduler\n    app.kubernetes.io/version: 0.36.0\n    helm.sh/chart: descheduler-0.36.0\n  name: descheduler\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/descheduler",
+          "ResourceNameWithoutScope": "descheduler",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-descheduler",
+      "SpaceID": "ceef7b0d-0f28-4670-87a8-7210328de7e4",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1f9403a5-3bee-4a23-a489-a1f8af67aba3",
+      "UpdatedAt": "2026-06-12T16:48:25.479982Z",
+      "Version": 6
+    }
+  }
+]

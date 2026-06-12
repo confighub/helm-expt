@@ -1,0 +1,5 @@
+Bundled vm-victoria-metrics-single@
+  output: .tmp/confighub-proof/victoria-metrics-single-default-archives/victoria-metrics-single-b.tgz
+  files:  6
+  size:   1447 bytes
+  digest: sha256:add593b97e4b0ad37c7b474f749158ac42ef9f2658ae1aac3f417b206e7274e3

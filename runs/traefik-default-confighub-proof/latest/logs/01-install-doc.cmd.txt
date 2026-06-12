@@ -1,0 +1,1 @@
+cub installer doc packages/traefik/traefik/40.2.0 --json

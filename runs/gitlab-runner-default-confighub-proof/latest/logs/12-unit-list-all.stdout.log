@@ -1,0 +1,234 @@
+[
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.460937Z",
+      "CursorID": 4626,
+      "DisplayName": "helm-gitlab-runner-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "GitlabRunner",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gitlab-runner-default-confighub-proof",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "UpdatedAt": "2026-06-12T16:56:34.997753Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '084e11be-1331-49c1-b04d-a3a90ac03915'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "9a82772ddd8b812e63f0df69019de0af0b94b4df27c5a9e0543b866cb750ce5a",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "configmap-default-gitlab-runner",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "632dd122-fd55-4012-a22e-1ab2b2bb6b5a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.460937Z",
+      "CursorID": 4626,
+      "DisplayName": "helm-gitlab-runner-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "GitlabRunner",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gitlab-runner-default-confighub-proof",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "UpdatedAt": "2026-06-12T16:56:34.997753Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '084e11be-1331-49c1-b04d-a3a90ac03915'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "f1bc903deb6fcd3fafc9ceb541a824b98b665aade9ee566b27bdd8325dda02b5",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-gitlab-runner",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7887b5f3-5ca6-43a7-b178-d2aba9ed671e",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 13
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.460937Z",
+      "CursorID": 4626,
+      "DisplayName": "helm-gitlab-runner-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "GitlabRunner",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gitlab-runner-default-confighub-proof",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "UpdatedAt": "2026-06-12T16:56:34.997753Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '084e11be-1331-49c1-b04d-a3a90ac03915'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "8b9a44ecc7c85e69e6d2e877372e963e3772d2ecb70dcf756a42ae29ec638201",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 2,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "ab064415-75b4-4da5-bc7e-8e0eaa39b18a",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  },
+  {
+    "Space": {
+      "CreatedAt": "2026-06-12T16:56:34.460937Z",
+      "CursorID": 4626,
+      "DisplayName": "helm-gitlab-runner-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "GitlabRunner",
+        "Environment": "Demo",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Variant": "default"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "helm-gitlab-runner-default-confighub-proof",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "UpdatedAt": "2026-06-12T16:56:34.997753Z",
+      "Version": 2,
+      "WhereTrigger": "SpaceID = '084e11be-1331-49c1-b04d-a3a90ac03915'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "084e11be-1331-49c1-b04d-a3a90ac03915",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a63f023c-9dc9-400f-b4ce-db8ad90336dd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    }
+  }
+]

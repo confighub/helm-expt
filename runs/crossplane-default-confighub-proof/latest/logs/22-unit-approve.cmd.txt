@@ -1,0 +1,1 @@
+cub unit approve deployment-default-crossplane-rbac-manager --space helm-crossplane-default-confighub-proof --revision HeadRevisionNum --verbose --wait --timeout 2m

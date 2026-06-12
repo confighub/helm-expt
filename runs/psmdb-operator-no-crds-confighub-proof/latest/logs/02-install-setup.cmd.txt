@@ -1,0 +1,1 @@
+cub installer setup --pull packages/percona/psmdb-operator/1.22.0 --base no-crds --work-dir .tmp/confighub-proof/psmdb-operator-no-crds --non-interactive --namespace default

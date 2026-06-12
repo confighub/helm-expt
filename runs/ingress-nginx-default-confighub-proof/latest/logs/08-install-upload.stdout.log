@@ -1,0 +1,39 @@
+== ingress-nginx-ingress-nginx@ → Space helm-ingress-nginx-default-confighub-proof ==
+Successfully created unit clusterrole-ingress-nginx (f561bba6-acad-4410-b427-fb73385de737)
+Successfully created unit clusterrolebinding-ingress-nginx (e1da42d0-2014-4faf-8930-0614d828b300)
+Successfully created unit configmap-ingress-nginx-ingress-nginx-controller (183827e3-9ce5-4cfd-bd1b-cdd69629e52e)
+Successfully created unit deployment-ingress-nginx-ingress-nginx-controller (78a55365-1315-48ab-a928-b1d5aaef5c44)
+Successfully created unit ingressclass-nginx (3973c757-a250-4454-a8c3-9b752144eb19)
+Successfully created unit namespace-ingress-nginx (bebe3461-3915-40fd-b647-42898fe7e057)
+Successfully created unit role-ingress-nginx-ingress-nginx (1da3d2ad-6c83-4b1e-a7b3-706a920bee38)
+Successfully created unit rolebinding-ingress-nginx-ingress-nginx (d8acd02d-3f23-43f7-847e-6c53857b563a)
+Successfully created unit service-ingress-nginx-ingress-nginx-controller-admission (7b817947-c262-4b2b-b915-fbad727e9adb)
+Successfully created unit service-ingress-nginx-ingress-nginx-controller (8d9e9389-3eb3-496d-bdad-2a7cdbd764b9)
+Successfully created unit serviceaccount-ingress-nginx-ingress-nginx (914cc95f-b3aa-4970-a2cc-d2cc5b73d8f2)
+Successfully created unit validatingwebhookconfiguration-ingress-nginx-admission (8d5f21c3-47d8-4520-961b-1e221f38b46d)
+Successfully created unit installer-record (af434b40-e125-4b7e-9bdf-461daa8880bc)
+Linked clusterrolebinding-ingress-nginx -> clusterrole-ingress-nginx (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-ingress-nginx -> namespace-ingress-nginx (reference:v1/Namespace)
+Linked clusterrolebinding-ingress-nginx -> serviceaccount-ingress-nginx-ingress-nginx (reference:v1/ServiceAccount)
+Linked configmap-ingress-nginx-ingress-nginx-controller -> namespace-ingress-nginx (reference:v1/Namespace)
+Linked deployment-ingress-nginx-ingress-nginx-controller -> namespace-ingress-nginx (reference:v1/Namespace)
+Linked deployment-ingress-nginx-ingress-nginx-controller -> serviceaccount-ingress-nginx-ingress-nginx (reference:v1/ServiceAccount)
+Linked role-ingress-nginx-ingress-nginx -> namespace-ingress-nginx (reference:v1/Namespace)
+Linked rolebinding-ingress-nginx-ingress-nginx -> clusterrole-ingress-nginx (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked rolebinding-ingress-nginx-ingress-nginx -> namespace-ingress-nginx (reference:v1/Namespace)
+Linked rolebinding-ingress-nginx-ingress-nginx -> serviceaccount-ingress-nginx-ingress-nginx (reference:v1/ServiceAccount)
+Linked service-ingress-nginx-ingress-nginx-controller -> deployment-ingress-nginx-ingress-nginx-controller (selector)
+Linked service-ingress-nginx-ingress-nginx-controller -> namespace-ingress-nginx (reference:v1/Namespace)
+Linked service-ingress-nginx-ingress-nginx-controller-admission -> deployment-ingress-nginx-ingress-nginx-controller (selector)
+Linked service-ingress-nginx-ingress-nginx-controller-admission -> namespace-ingress-nginx (reference:v1/Namespace)
+Linked serviceaccount-ingress-nginx-ingress-nginx -> namespace-ingress-nginx (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-ingress-nginx-admission -> namespace-ingress-nginx (reference:v1/Namespace)
+Linked validatingwebhookconfiguration-ingress-nginx-admission -> service-ingress-nginx-ingress-nginx-controller-admission (reference:v1/Service)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - deployment-ingress-nginx-ingress-nginx-controller -> v1/Secret "ingress-nginx-admission"
+  - role-ingress-nginx-ingress-nginx -> v1/ConfigMap "ingress-nginx-leader"

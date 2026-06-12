@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 0 space(s)
+  Context: Slug IN ('helm-external-dns-no-crds-confighub-proof', 'ExternalDNS-no-crds-staging')

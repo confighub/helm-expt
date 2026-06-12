@@ -1,0 +1,5 @@
+Bundled fairwinds-stable-goldilocks@
+  output: .tmp/confighub-proof/goldilocks-default-archives/goldilocks-a.tgz
+  files:  4
+  size:   1494 bytes
+  digest: sha256:1ccb876ce49d490494141334c674ec6da4f46accbea5f1bdda5f59a20454b68a

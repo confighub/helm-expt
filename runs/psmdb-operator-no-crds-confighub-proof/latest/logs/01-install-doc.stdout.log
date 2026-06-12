@@ -1,0 +1,23 @@
+{
+  "apiVersion": "installer.confighub.com/v1alpha1",
+  "kind": "Package",
+  "metadata": {
+    "name": "percona-psmdb-operator"
+  },
+  "installerMetadata": {},
+  "spec": {
+    "bases": [
+      {
+        "name": "default",
+        "path": "bases/default",
+        "default": true,
+        "description": "percona/psmdb-operator default variant rendered from percona/psmdb-operator@1.22.0"
+      },
+      {
+        "name": "no-crds",
+        "path": "bases/no-crds",
+        "description": "percona/psmdb-operator no-crds variant rendered from percona/psmdb-operator@1.22.0"
+      }
+    ]
+  }
+}

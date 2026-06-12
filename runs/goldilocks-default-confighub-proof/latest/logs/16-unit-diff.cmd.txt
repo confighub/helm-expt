@@ -1,0 +1,1 @@
+cub unit diff deployment-default-goldilocks-dashboard --space helm-goldilocks-default-confighub-proof --from 1 --to HeadRevisionNum -u

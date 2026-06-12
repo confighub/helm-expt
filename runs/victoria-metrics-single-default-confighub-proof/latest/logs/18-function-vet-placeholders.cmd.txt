@@ -1,0 +1,1 @@
+cub function vet vet-placeholders --space helm-victoria-metrics-single-default-confighub-proof --where "Labels.Proof = 'victoria-metrics-single-default-confighub-proof'" --quiet --wait --timeout 10m

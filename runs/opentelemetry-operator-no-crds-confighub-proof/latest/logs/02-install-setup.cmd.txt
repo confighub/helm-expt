@@ -1,0 +1,1 @@
+cub installer setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds --work-dir .tmp/confighub-proof/opentelemetry-operator-no-crds --non-interactive --namespace default

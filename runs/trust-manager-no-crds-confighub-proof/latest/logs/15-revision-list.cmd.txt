@@ -1,0 +1,1 @@
+cub revision list deployment-default-trust-manager --space helm-trust-manager-no-crds-confighub-proof

@@ -1,0 +1,5 @@
+Wizard wrote /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/external-dns-no-crds/out/spec/selection.yaml and inputs.yaml
+Base: no-crds; components: []
+Namespace: external-dns
+Rendered 6 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/external-dns-no-crds/out/manifests
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/external-dns-no-crds --space <slug>

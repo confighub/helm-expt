@@ -1,0 +1,1 @@
+cub unit cancel --space helm-linkerd-crds-default-confighub-proof --where "Labels.Proof = 'linkerd-crds-default-confighub-proof'"

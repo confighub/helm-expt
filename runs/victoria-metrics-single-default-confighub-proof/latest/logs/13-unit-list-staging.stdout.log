@@ -1,0 +1,902 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:02:33.4189Z",
+        "CursorID": 23704,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "14b0f3ab-49da-4051-8852-bf254d5f3872",
+        "LinkID": "c7f29bc9-1f59-4c02-8ba9-f253bff25983",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+        "SpaceSlug": "VictoriaMetricsSingle-default-staging",
+        "ToSpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+        "ToUnitID": "67739ad4-6214-4417-ac00-c3153b359361",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:02:33.418901Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '67739ad4-6214-4417-ac00-c3153b359361' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:02:33.056805Z",
+      "CursorID": 4650,
+      "DisplayName": "helm-victoria-metrics-single-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "VictoriaMetricsSingle-default-staging",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "UpdatedAt": "2026-06-12T17:02:33.056805Z",
+      "WhereTrigger": "SpaceID = 'afc7ae69-02dc-41c8-bdea-a25a48e6b03d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "98a0cac68b81ce44bc6b8d4368205e5b22c79fba54cc4b65a4dc48c86e05095a",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c7f29bc9-1f59-4c02-8ba9-f253bff25983"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "14b0f3ab-49da-4051-8852-bf254d5f3872",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "67739ad4-6214-4417-ac00-c3153b359361",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "vm-victoria-metrics-single",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -667107169,
+      "CreatedAt": "2026-06-12T17:02:11.949168Z",
+      "CursorID": 28509,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogInZtLXZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlIgogIHZlcnNpb246ICIwLjM5LjAiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAidm0vdmljdG9yaWEtbWV0cmljcy1zaW5nbGUgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gdm0vdmljdG9yaWEtbWV0cmljcy1zaW5nbGVAMC4zOS4wIgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJkZWZhdWx0LXJldmlld2VkIgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQtcmV2aWV3ZWQiCiAgICBkZWZhdWx0OiBmYWxzZQogICAgZGVzY3JpcHRpb246ICJ2bS92aWN0b3JpYS1tZXRyaWNzLXNpbmdsZSBkZWZhdWx0LXJldmlld2VkIHVzZWZ1bCBiYXNlOyBhbGlhc2VzIHRoZSBkZWZhdWx0IHJlbmRlciB3aXRoIGEgbmFtZWQgdXNlciBzdGFydCBwYXRoIgotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogRnVuY3Rpb25DaGFpbgptZXRhZGF0YToKICBuYW1lOiB2bS12aWN0b3JpYS1tZXRyaWNzLXNpbmdsZS1mdW5jdGlvbi1jaGFpbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogdm0tdmljdG9yaWEtbWV0cmljcy1zaW5nbGUKICBncm91cHM6IFtdCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBJbnB1dHMKbWV0YWRhdGE6CiAgbmFtZTogdm0tdmljdG9yaWEtbWV0cmljcy1zaW5nbGUtaW5wdXRzCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiB2bS12aWN0b3JpYS1tZXRyaWNzLXNpbmdsZQogIG5hbWVzcGFjZTogZGVmYXVsdAogIHZhbHVlczoge30KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IE1hbmlmZXN0SW5kZXgKbWV0YWRhdGE6CiAgbmFtZTogdm0tdmljdG9yaWEtbWV0cmljcy1zaW5nbGUtbWFuaWZlc3QtaW5kZXgKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHZtLXZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlCiAgZmlsZXM6CiAgLSBmaWxlbmFtZTogbmFtZXNwYWNlLWRlZmF1bHQueWFtbAogICAgc2x1ZzogbmFtZXNwYWNlLWRlZmF1bHQKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBOYW1lc3BhY2UKICAgIG5hbWU6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlLWRlZmF1bHQtdmljdG9yaWEtbWV0cmljcy1zaW5nbGUtc2VydmVyLnlhbWwKICAgIHNsdWc6IHNlcnZpY2UtZGVmYXVsdC12aWN0b3JpYS1tZXRyaWNzLXNpbmdsZS1zZXJ2ZXIKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiB2aWN0b3JpYS1tZXRyaWNzLXNpbmdsZS1zZXJ2ZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtdmljdG9yaWEtbWV0cmljcy1zaW5nbGUtc2VydmVyLnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtdmljdG9yaWEtbWV0cmljcy1zaW5nbGUtc2VydmVyCiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogU2VydmljZUFjY291bnQKICAgIG5hbWU6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlLXNlcnZlcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc3RhdGVmdWxzZXQtZGVmYXVsdC12aWN0b3JpYS1tZXRyaWNzLXNpbmdsZS1zZXJ2ZXIueWFtbAogICAgc2x1Zzogc3RhdGVmdWxzZXQtZGVmYXVsdC12aWN0b3JpYS1tZXRyaWNzLXNpbmdsZS1zZXJ2ZXIKICAgIGFwaVZlcnNpb246IGFwcHMvdjEKICAgIGtpbmQ6IFN0YXRlZnVsU2V0CiAgICBuYW1lOiB2aWN0b3JpYS1tZXRyaWNzLXNpbmdsZS1zZXJ2ZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IHZtLXZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlLXNlbGVjdGlvbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogdm0tdmljdG9yaWEtbWV0cmljcy1zaW5nbGUKICBiYXNlOiBkZWZhdWx0Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogdm0tdmljdG9yaWEtbWV0cmljcy1zaW5nbGUtdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiB2bS12aWN0b3JpYS1tZXRyaWNzLXNpbmdsZQogIHNwYWNlUGF0dGVybjogaGVsbS12aWN0b3JpYS1tZXRyaWNzLXNpbmdsZS1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IHZtLXZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlCiAgICBzbHVnOiBoZWxtLXZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlLWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE3OjAyOjA2WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "98a0cac68b81ce44bc6b8d4368205e5b22c79fba54cc4b65a4dc48c86e05095a",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "vm-victoria-metrics-single"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/vm-victoria-metrics-single": {}
+          },
+          "AliasesWithoutScopes": {
+            "vm-victoria-metrics-single": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vm-victoria-metrics-single",
+            "ResourceNameWithoutScope": "vm-victoria-metrics-single",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"vm-victoria-metrics-single\"\n  version: \"0.39.0\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"vm/victoria-metrics-single default variant rendered from vm/victoria-metrics-single@0.39.0\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"default-reviewed\"\n    path: \"bases/default-reviewed\"\n    default: false\n    description: \"vm/victoria-metrics-single default-reviewed useful base; aliases the default render with a named user start path\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/vm-victoria-metrics-single-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "vm-victoria-metrics-single-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vm-victoria-metrics-single-function-chain",
+            "ResourceNameWithoutScope": "vm-victoria-metrics-single-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: vm-victoria-metrics-single-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: vm-victoria-metrics-single\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/vm-victoria-metrics-single-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "vm-victoria-metrics-single-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vm-victoria-metrics-single-inputs",
+            "ResourceNameWithoutScope": "vm-victoria-metrics-single-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: vm-victoria-metrics-single-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: vm-victoria-metrics-single\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/vm-victoria-metrics-single-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "vm-victoria-metrics-single-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vm-victoria-metrics-single-manifest-index",
+            "ResourceNameWithoutScope": "vm-victoria-metrics-single-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: vm-victoria-metrics-single-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: vm-victoria-metrics-single\n  files:\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: service-default-victoria-metrics-single-server.yaml\n    slug: service-default-victoria-metrics-single-server\n    apiVersion: v1\n    kind: Service\n    name: victoria-metrics-single-server\n    namespace: default\n  - filename: serviceaccount-default-victoria-metrics-single-server.yaml\n    slug: serviceaccount-default-victoria-metrics-single-server\n    apiVersion: v1\n    kind: ServiceAccount\n    name: victoria-metrics-single-server\n    namespace: default\n  - filename: statefulset-default-victoria-metrics-single-server.yaml\n    slug: statefulset-default-victoria-metrics-single-server\n    apiVersion: apps/v1\n    kind: StatefulSet\n    name: victoria-metrics-single-server\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/vm-victoria-metrics-single-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "vm-victoria-metrics-single-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vm-victoria-metrics-single-selection",
+            "ResourceNameWithoutScope": "vm-victoria-metrics-single-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: vm-victoria-metrics-single-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: vm-victoria-metrics-single\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/vm-victoria-metrics-single-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "vm-victoria-metrics-single-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/vm-victoria-metrics-single-upload",
+            "ResourceNameWithoutScope": "vm-victoria-metrics-single-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: vm-victoria-metrics-single-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: vm-victoria-metrics-single\n  spacePattern: helm-victoria-metrics-single-default-confighub-proof\n  spaces:\n  - package: vm-victoria-metrics-single\n    slug: helm-victoria-metrics-single-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:02:06Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "67739ad4-6214-4417-ac00-c3153b359361",
+      "UpdatedAt": "2026-06-12T17:02:12.775225Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:02:33.443718Z",
+        "CursorID": 23705,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a22f86d0-9c4e-4f16-836a-037f2052e87b",
+        "LinkID": "45ede45e-0e07-43db-b6ba-4b978bb5f2be",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+        "SpaceSlug": "VictoriaMetricsSingle-default-staging",
+        "ToSpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+        "ToUnitID": "06f160a5-c82b-4915-977e-4de934444b86",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:02:33.443719Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '06f160a5-c82b-4915-977e-4de934444b86' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:02:33.056805Z",
+      "CursorID": 4650,
+      "DisplayName": "helm-victoria-metrics-single-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "VictoriaMetricsSingle-default-staging",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "UpdatedAt": "2026-06-12T17:02:33.056805Z",
+      "WhereTrigger": "SpaceID = 'afc7ae69-02dc-41c8-bdea-a25a48e6b03d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "45ede45e-0e07-43db-b6ba-4b978bb5f2be"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a22f86d0-9c4e-4f16-836a-037f2052e87b",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "06f160a5-c82b-4915-977e-4de934444b86",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:02:08.143427Z",
+      "CursorID": 28501,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "HelmChart": "vm-victoria-metrics-single",
+        "HelmChartVersion": "0.39.0",
+        "Package": "vm-victoria-metrics-single",
+        "Proof": "victoria-metrics-single-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "06f160a5-c82b-4915-977e-4de934444b86",
+      "UpdatedAt": "2026-06-12T17:02:08.210619Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:02:33.469872Z",
+        "CursorID": 23706,
+        "DisplayName": "Upgrade serviceaccount-default-victoria-metrics-single-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "0ba96032-bd85-48c8-89d1-e557d55642bf",
+        "LinkID": "0379da76-ab4a-4632-bb3f-480fae5df07b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-victoria-metrics-single-server",
+        "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+        "SpaceSlug": "VictoriaMetricsSingle-default-staging",
+        "ToSpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+        "ToUnitID": "6d141667-045d-4602-9576-f08f8cf74f72",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:02:33.469872Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '6d141667-045d-4602-9576-f08f8cf74f72' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:02:33.056805Z",
+      "CursorID": 4650,
+      "DisplayName": "helm-victoria-metrics-single-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "VictoriaMetricsSingle-default-staging",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "UpdatedAt": "2026-06-12T17:02:33.056805Z",
+      "WhereTrigger": "SpaceID = 'afc7ae69-02dc-41c8-bdea-a25a48e6b03d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "a205b9feda1f31389e2ee61caf93bbeb75be2714c697bd346f52ad0b7c3c83b4",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "0379da76-ab4a-4632-bb3f-480fae5df07b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-victoria-metrics-single-server",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "0ba96032-bd85-48c8-89d1-e557d55642bf",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "6d141667-045d-4602-9576-f08f8cf74f72",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -756677857,
+      "CreatedAt": "2026-06-12T17:02:10.491112Z",
+      "CursorID": 28505,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgaGVsbS5zaC9jaGFydDogdmljdG9yaWEtbWV0cmljcy1zaW5nbGUtMC4zOS4wCiAgbmFtZTogdmljdG9yaWEtbWV0cmljcy1zaW5nbGUtc2VydmVyCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "a205b9feda1f31389e2ee61caf93bbeb75be2714c697bd346f52ad0b7c3c83b4",
+      "DisplayName": "serviceaccount-default-victoria-metrics-single-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "HelmChart": "vm-victoria-metrics-single",
+        "HelmChartVersion": "0.39.0",
+        "Package": "vm-victoria-metrics-single",
+        "Proof": "victoria-metrics-single-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 205 bytes; from serviceaccount-default-victoria-metrics-single-server.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/victoria-metrics-single-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "victoria-metrics-single-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/victoria-metrics-single-server",
+            "ResourceNameWithoutScope": "victoria-metrics-single-server",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/managed-by: Helm\n    helm.sh/chart: victoria-metrics-single-0.39.0\n  name: victoria-metrics-single-server\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/victoria-metrics-single-server",
+          "ResourceNameWithoutScope": "victoria-metrics-single-server",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-victoria-metrics-single-server",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6d141667-045d-4602-9576-f08f8cf74f72",
+      "UpdatedAt": "2026-06-12T17:02:20.774349Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:02:33.492907Z",
+        "CursorID": 23707,
+        "DisplayName": "Upgrade service-default-victoria-metrics-single-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "a076adc2-6f23-4d33-9a48-777424e05242",
+        "LinkID": "6ced1997-d659-458a-8d69-6bacc04f5de0",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-victoria-metrics-single-server",
+        "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+        "SpaceSlug": "VictoriaMetricsSingle-default-staging",
+        "ToSpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+        "ToUnitID": "97ad763b-9622-4e62-bd3e-b706771e19aa",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:02:33.492907Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '97ad763b-9622-4e62-bd3e-b706771e19aa' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:02:33.056805Z",
+      "CursorID": 4650,
+      "DisplayName": "helm-victoria-metrics-single-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "VictoriaMetricsSingle-default-staging",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "UpdatedAt": "2026-06-12T17:02:33.056805Z",
+      "WhereTrigger": "SpaceID = 'afc7ae69-02dc-41c8-bdea-a25a48e6b03d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "85e8489cac528fb7c4807e33cf475ca8c0f1cf7b123129a52e7c4a6e46a5f038",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "6ced1997-d659-458a-8d69-6bacc04f5de0"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-victoria-metrics-single-server",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "a076adc2-6f23-4d33-9a48-777424e05242",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "97ad763b-9622-4e62-bd3e-b706771e19aa",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -109222730,
+      "CreatedAt": "2026-06-12T17:02:08.871156Z",
+      "CursorID": 28503,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2aWN0b3JpYS1tZXRyaWNzLXNpbmdsZQogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjEuMTQ0LjAKICAgIGhlbG0uc2gvY2hhcnQ6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlLTAuMzkuMAogIG5hbWU6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlLXNlcnZlcgogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIGNsdXN0ZXJJUDogTm9uZQogIHBvcnRzOgogIC0gbmFtZTogaHR0cAogICAgcG9ydDogODQyOAogICAgcHJvdG9jb2w6IFRDUAogICAgdGFyZ2V0UG9ydDogaHR0cAogIHNlbGVjdG9yOgogICAgYXBwOiBzZXJ2ZXIKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2aWN0b3JpYS1tZXRyaWNzLXNpbmdsZQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmljdG9yaWEtbWV0cmljcy1zaW5nbGUKICB0eXBlOiBDbHVzdGVySVAK",
+      "DataHash": "85e8489cac528fb7c4807e33cf475ca8c0f1cf7b123129a52e7c4a6e46a5f038",
+      "DisplayName": "service-default-victoria-metrics-single-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "HelmChart": "vm-victoria-metrics-single",
+        "HelmChartVersion": "0.39.0",
+        "Package": "vm-victoria-metrics-single",
+        "Proof": "victoria-metrics-single-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/victoria-metrics-single-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "victoria-metrics-single-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/victoria-metrics-single-server",
+            "ResourceNameWithoutScope": "victoria-metrics-single-server",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: victoria-metrics-single\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: victoria-metrics-single\n    app.kubernetes.io/version: v1.144.0\n    helm.sh/chart: victoria-metrics-single-0.39.0\n  name: victoria-metrics-single-server\n  namespace: default\nspec:\n  clusterIP: None\n  ports:\n  - name: http\n    port: 8428\n    protocol: TCP\n    targetPort: http\n  selector:\n    app: server\n    app.kubernetes.io/instance: victoria-metrics-single\n    app.kubernetes.io/name: victoria-metrics-single\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/victoria-metrics-single-server",
+          "ResourceNameWithoutScope": "victoria-metrics-single-server",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-victoria-metrics-single-server",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "97ad763b-9622-4e62-bd3e-b706771e19aa",
+      "UpdatedAt": "2026-06-12T17:02:19.339027Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:02:33.52177Z",
+        "CursorID": 23708,
+        "DisplayName": "Upgrade statefulset-default-victoria-metrics-single-server",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "908ab5aa-a641-4554-80d3-fe17cd9cdcb8",
+        "LinkID": "ca2751c4-23ce-46fe-9894-3666591e5835",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-statefulset-default-victoria-metrics-single-server",
+        "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+        "SpaceSlug": "VictoriaMetricsSingle-default-staging",
+        "ToSpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+        "ToUnitID": "f3474cd9-bc99-46ea-bfd8-d5436381eb70",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:02:33.52177Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'f3474cd9-bc99-46ea-bfd8-d5436381eb70' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:02:33.056805Z",
+      "CursorID": 4650,
+      "DisplayName": "helm-victoria-metrics-single-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "VictoriaMetricsSingle-default-staging",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "UpdatedAt": "2026-06-12T17:02:33.056805Z",
+      "WhereTrigger": "SpaceID = 'afc7ae69-02dc-41c8-bdea-a25a48e6b03d'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e1d9d4a11af97796c84d1b75c9a8a2b051ba1e26e5d5c5127baabbce4bc860aa",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "ca2751c4-23ce-46fe-9894-3666591e5835"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "statefulset-default-victoria-metrics-single-server",
+      "SpaceID": "8379367f-69c1-4a0c-bce0-72b00a35de34",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "908ab5aa-a641-4554-80d3-fe17cd9cdcb8",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "f3474cd9-bc99-46ea-bfd8-d5436381eb70",
+      "Version": 7
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -47421434,
+      "CreatedAt": "2026-06-12T17:02:11.279789Z",
+      "CursorID": 28507,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IHNlcnZlcgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2aWN0b3JpYS1tZXRyaWNzLXNpbmdsZQogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogdjEuMTQ0LjAKICAgIGhlbG0uc2gvY2hhcnQ6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlLTAuMzkuMAogIG5hbWU6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlLXNlcnZlcgogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IE9yZGVyZWRSZWFkeQogIHJlcGxpY2FzOiAxCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwOiBzZXJ2ZXIKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlCiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlCiAgc2VydmljZU5hbWU6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlLXNlcnZlcgogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGxhYmVsczoKICAgICAgICBhcHA6IHNlcnZlcgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2NvbXBvbmVudDogc2VydmVyCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlCiAgICBzcGVjOgogICAgICBhdXRvbW91bnRTZXJ2aWNlQWNjb3VudFRva2VuOiB0cnVlCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIC0tZW52ZmxhZy5lbmFibGUKICAgICAgICAtIC0tZW52ZmxhZy5wcmVmaXg9Vk1fCiAgICAgICAgLSAtLWh0dHBMaXN0ZW5BZGRyPTo4NDI4CiAgICAgICAgLSAtLWxvZ2dlckZvcm1hdD1qc29uCiAgICAgICAgLSAtLXJldGVudGlvblBlcmlvZD0xCiAgICAgICAgLSAtLXN0b3JhZ2VEYXRhUGF0aD0vc3RvcmFnZQogICAgICAgIGltYWdlOiB2aWN0b3JpYW1ldHJpY3MvdmljdG9yaWEtbWV0cmljczp2MS4xNDQuMAogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbGl2ZW5lc3NQcm9iZToKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDEwCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiAzMAogICAgICAgICAgcGVyaW9kU2Vjb25kczogMzAKICAgICAgICAgIHRjcFNvY2tldDoKICAgICAgICAgICAgcG9ydDogaHR0cAogICAgICAgICAgdGltZW91dFNlY29uZHM6IDUKICAgICAgICBuYW1lOiB2bXNpbmdsZQogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogODQyOAogICAgICAgICAgbmFtZTogaHR0cAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMwogICAgICAgICAgaHR0cEdldDoKICAgICAgICAgICAgcGF0aDogL2hlYWx0aAogICAgICAgICAgICBwb3J0OiBodHRwCiAgICAgICAgICAgIHNjaGVtZTogSFRUUAogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogNQogICAgICAgICAgcGVyaW9kU2Vjb25kczogMTUKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiA1CiAgICAgICAgc2VjdXJpdHlDb250ZXh0OiB7fQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3N0b3JhZ2UKICAgICAgICAgIG5hbWU6IHNlcnZlci12b2x1bWUKICAgICAgc2VjdXJpdHlDb250ZXh0OiB7fQogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZpY3RvcmlhLW1ldHJpY3Mtc2luZ2xlLXNlcnZlcgogICAgICB0ZXJtaW5hdGlvbkdyYWNlUGVyaW9kU2Vjb25kczogNjAKICAgICAgdm9sdW1lczogbnVsbAogIHVwZGF0ZVN0cmF0ZWd5OiB7fQogIHZvbHVtZUNsYWltVGVtcGxhdGVzOgogIC0gYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFBlcnNpc3RlbnRWb2x1bWVDbGFpbQogICAgbWV0YWRhdGE6CiAgICAgIG5hbWU6IHNlcnZlci12b2x1bWUKICAgIHNwZWM6CiAgICAgIGFjY2Vzc01vZGVzOgogICAgICAtIFJlYWRXcml0ZU9uY2UKICAgICAgcmVzb3VyY2VzOgogICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgc3RvcmFnZTogMTZHaQo=",
+      "DataHash": "e1d9d4a11af97796c84d1b75c9a8a2b051ba1e26e5d5c5127baabbce4bc860aa",
+      "DisplayName": "statefulset-default-victoria-metrics-single-server",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "VictoriaMetricsSingle",
+        "HelmChart": "vm-victoria-metrics-single",
+        "HelmChartVersion": "0.39.0",
+        "Package": "vm-victoria-metrics-single",
+        "Proof": "victoria-metrics-single-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/victoria-metrics-single-server": {}
+          },
+          "AliasesWithoutScopes": {
+            "victoria-metrics-single-server": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/victoria-metrics-single-server",
+            "ResourceNameWithoutScope": "victoria-metrics-single-server",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/component: server\n    app.kubernetes.io/instance: victoria-metrics-single\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: victoria-metrics-single\n    app.kubernetes.io/version: v1.144.0\n    helm.sh/chart: victoria-metrics-single-0.39.0\n  name: victoria-metrics-single-server\n  namespace: default\nspec:\n  podManagementPolicy: OrderedReady\n  replicas: 1\n  selector:\n    matchLabels:\n      app: server\n      app.kubernetes.io/instance: victoria-metrics-single\n      app.kubernetes.io/name: victoria-metrics-single\n  serviceName: victoria-metrics-single-server\n  template:\n    metadata:\n      labels:\n        app: server\n        app.kubernetes.io/component: server\n        app.kubernetes.io/instance: victoria-metrics-single\n        app.kubernetes.io/managed-by: Helm\n        app.kubernetes.io/name: victoria-metrics-single\n    spec:\n      automountServiceAccountToken: true\n      containers:\n      - args:\n        - --envflag.enable\n        - --envflag.prefix=VM_\n        - --httpListenAddr=:8428\n        - --loggerFormat=json\n        - --retentionPeriod=1\n        - --storageDataPath=/storage\n        image: victoriametrics/victoria-metrics:v1.144.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 10\n          initialDelaySeconds: 30\n          periodSeconds: 30\n          tcpSocket:\n            port: http\n          timeoutSeconds: 5\n        name: vmsingle\n        ports:\n        - containerPort: 8428\n          name: http\n        readinessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /health\n            port: http\n            scheme: HTTP\n          initialDelaySeconds: 5\n          periodSeconds: 15\n          timeoutSeconds: 5\n        securityContext: {}\n        volumeMounts:\n        - mountPath: /storage\n          name: server-volume\n      securityContext: {}\n      serviceAccountName: victoria-metrics-single-server\n      terminationGracePeriodSeconds: 60\n      volumes: null\n  updateStrategy: {}\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: server-volume\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 16Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/StatefulSet"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/StatefulSet"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/victoria-metrics-single-server",
+          "ResourceNameWithoutScope": "victoria-metrics-single-server",
+          "ResourceType": "apps/v1/StatefulSet"
+        }
+      ],
+      "Slug": "statefulset-default-victoria-metrics-single-server",
+      "SpaceID": "afc7ae69-02dc-41c8-bdea-a25a48e6b03d",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "f3474cd9-bc99-46ea-bfd8-d5436381eb70",
+      "UpdatedAt": "2026-06-12T17:02:27.517385Z",
+      "Version": 16
+    }
+  }
+]

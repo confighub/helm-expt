@@ -1,0 +1,1 @@
+cub function vet vet-format --space helm-ingress-nginx-admission-disabled-confighub-proof --where "Labels.Proof = 'ingress-nginx-admission-disabled-confighub-proof'" --quiet --wait --timeout 10m

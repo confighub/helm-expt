@@ -1,0 +1,1 @@
+cub function vet vet-format --space helm-longhorn-ui-ingress-confighub-proof --where "Labels.Proof = 'longhorn-ui-ingress-confighub-proof'" --quiet --wait --timeout 10m

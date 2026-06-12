@@ -1,0 +1,1 @@
+cub installer package packages/nats/surveyor/0.20.9 -o .tmp/confighub-proof/surveyor-default-archives/surveyor-a.tgz

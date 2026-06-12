@@ -1,0 +1,5 @@
+Bundled nfs-subdir-external-provisioner-nfs-subdir-external-provisioner@
+  output: .tmp/confighub-proof/nfs-provisioner-default-archives/nfs-provisioner-a.tgz
+  files:  4
+  size:   1288 bytes
+  digest: sha256:c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de

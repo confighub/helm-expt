@@ -1,0 +1,1 @@
+cub installer package packages/strimzi/strimzi-kafka-operator/1.0.0 -o .tmp/confighub-proof/strimzi-kafka-operator-no-crds-archives/strimzi-kafka-operator-b.tgz

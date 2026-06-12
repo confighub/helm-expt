@@ -1,0 +1,1 @@
+cub installer doc packages/sealed-secrets/sealed-secrets/2.18.6 --json

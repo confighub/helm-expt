@@ -1,0 +1,99 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "gatekeeper-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-gatekeeper-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'gatekeeper-no-crds-confighub-proof'"
+  subject:
+    chart: "gatekeeper/gatekeeper"
+    chartVersion: "3.22.2"
+    packagePath: "packages/gatekeeper/gatekeeper/3.22.2"
+    variant: "no-crds"
+    configHubUnitCount: 13
+  unitRevisionBindings:
+    -
+      slug: "mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration"
+      headRevisionNum: 2
+      dataHash: "c434d0f50386af702857c3da4dc0d546e207c29fb426c8a960f617aa21a52d1e"
+    -
+      slug: "poddisruptionbudget-default-gatekeeper-controller-manager"
+      headRevisionNum: 1
+      dataHash: "d38485a5f1625c02c8384f92eb7f1ea61987318e780acc24cbb54f0b23a1e65c"
+    -
+      slug: "role-default-gatekeeper-manager-role"
+      headRevisionNum: 2
+      dataHash: "f5225e24875780b110953f5fbcca5055984d1b5a01396036d4744c5c2baf19b3"
+    -
+      slug: "rolebinding-default-gatekeeper-manager-rolebinding"
+      headRevisionNum: 2
+      dataHash: "7a8aa6d559b16ad702e414ef741cfed1560036afb8dbc8c3a996e4b1bfab14de"
+    -
+      slug: "service-default-gatekeeper-webhook-service"
+      headRevisionNum: 2
+      dataHash: "21a6bf1fd282f8f5c93387e159e193c3a8d5ecff4e2803ce941f6aeb683e7059"
+    -
+      slug: "validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration"
+      headRevisionNum: 2
+      dataHash: "4107dde6480e2cef80351987659e5c634a0234655a0f045f37cb7c216099ed40"
+    -
+      slug: "clusterrolebinding-gatekeeper-manager-rolebinding"
+      headRevisionNum: 2
+      dataHash: "861fed109c074e8870e9daea728880ae96f3c19ca94127d4859a8c77944c69ad"
+    -
+      slug: "deployment-default-gatekeeper-audit"
+      headRevisionNum: 2
+      dataHash: "274c57017ec0f52cf29c7f3f090104f209cd8b37124765930051bf0d9bd160c7"
+    -
+      slug: "clusterrole-gatekeeper-manager-role"
+      headRevisionNum: 2
+      dataHash: "30933a142adc12356650feedbb77f00dff7062373f9fb6a7bbed86466aac7911"
+    -
+      slug: "deployment-default-gatekeeper-controller-manager"
+      headRevisionNum: 2
+      dataHash: "fa03981fc6072a3500993eb39009acc1c27512b8de082b9cadb9cbb8721db325"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "resourcequota-default-gatekeeper-critical-pods"
+      headRevisionNum: 2
+      dataHash: "91a16caf20a3000d7ec4370a12024ac0d0b8feb7625ef29033567cc81beac923"
+    -
+      slug: "serviceaccount-default-gatekeeper-admin"
+      headRevisionNum: 1
+      dataHash: "5481151639f4e7ca325e7483abf35fb4a1a9a8990b4ead8c64d1a477efcd268f"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 13
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 13
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 13
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

@@ -1,0 +1,6 @@
+No changes.
+
+Images in helm-cert-manager-csi-driver-default-confighub-proof (post-render):
+      DaemonSet/cert-manager-csi-driver [cert-manager-csi-driver] quay.io/jetstack/cert-manager-csi-driver:v0.14.0
+      DaemonSet/cert-manager-csi-driver [liveness-probe] quay.io/jetstack/livenessprobe:v2.18.0
+      DaemonSet/cert-manager-csi-driver [node-driver-registrar] quay.io/jetstack/csi-node-driver-registrar:v2.16.0

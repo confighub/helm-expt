@@ -1,0 +1,1 @@
+cub unit cancel --space helm-sealed-secrets-no-crds-confighub-proof --where "Labels.Proof = 'sealed-secrets-no-crds-confighub-proof'"

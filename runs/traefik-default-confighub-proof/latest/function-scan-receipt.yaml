@@ -1,0 +1,175 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "traefik-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-traefik-default-confighub-proof"
+    selector: "Labels.Proof = 'traefik-default-confighub-proof'"
+  subject:
+    chart: "traefik/traefik"
+    chartVersion: "40.2.0"
+    packagePath: "packages/traefik/traefik/40.2.0"
+    variant: "default"
+    configHubUnitCount: 32
+  unitRevisionBindings:
+    -
+      slug: "customresourcedefinition-apicatalogitems-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "1dd71600df872967311edde299705f57a972888b59d63f2056d9120457d4de4c"
+    -
+      slug: "customresourcedefinition-apiplans-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "a3a8d83088c02d565dfbb20ab0d4019a39dc7a1de31b9ffcb5699db7cdcac120"
+    -
+      slug: "customresourcedefinition-apiportalauths-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "e4faebe33dcd19fdb6c21587a4e597cfa75df4284c0052cca496250b3c545917"
+    -
+      slug: "customresourcedefinition-apiratelimits-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "15f3b13ad147741b5afe5046263008638dd46cd142068ca211b0dac07fef63f3"
+    -
+      slug: "customresourcedefinition-apis-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "feebde1f7b493b3e694addd220296566d1c7029c1cf4360bbb2b506768bd7bde"
+    -
+      slug: "customresourcedefinition-apiversions-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "87cc752b3c732fdf7c85133fd28bca958835dfb655cede6b940e3b6255a02277"
+    -
+      slug: "customresourcedefinition-contentitems-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "c49edd108a8d9780be5fe9baeddfebf19a7385603f7b90be5647acdfb599a3f0"
+    -
+      slug: "customresourcedefinition-ingressroutes-traefik-io"
+      headRevisionNum: 2
+      dataHash: "abbea9126e5166347150f6b81b7ec7870fc1e3278979ff612b381c45fc57ed1a"
+    -
+      slug: "customresourcedefinition-ingressroutetcps-traefik-io"
+      headRevisionNum: 2
+      dataHash: "2d90f9937272c9dc62bd56aaf155c6fcc1ecb0f94c6f08ed8a0d75caf3801a39"
+    -
+      slug: "customresourcedefinition-ingressrouteudps-traefik-io"
+      headRevisionNum: 2
+      dataHash: "fa43bcfc805cba43ff748b01fc3f18eb3ab91f14af6c98277d60db145b21926f"
+    -
+      slug: "customresourcedefinition-managedapplications-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "ec9cf689c68e750d415dba63da304eb94edab658e7df372cc69b9904175ee9d7"
+    -
+      slug: "customresourcedefinition-managedsubscriptions-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "33f72bdf3177f5ec6fea7ebeabf92ad577b29adafe5f58385154ce658d3f397e"
+    -
+      slug: "customresourcedefinition-middlewares-traefik-io"
+      headRevisionNum: 2
+      dataHash: "b3f51a295434d496c389b93cb74d148b9568fe4d822df2b946cb2f5656098793"
+    -
+      slug: "customresourcedefinition-middlewaretcps-traefik-io"
+      headRevisionNum: 2
+      dataHash: "7361455b6955c7081a6605be2b9dd15c75886817ce1514485e078d937c5fa188"
+    -
+      slug: "customresourcedefinition-serverstransports-traefik-io"
+      headRevisionNum: 2
+      dataHash: "e454a4dcca950606adf97ddea3f57d800b26ebcd157a204f937ed444f6468dd2"
+    -
+      slug: "customresourcedefinition-serverstransporttcps-traefik-io"
+      headRevisionNum: 2
+      dataHash: "597e6fa86783e7265e027e58aa0cee95381e99ac71043b2c423cec3d0135f5b7"
+    -
+      slug: "customresourcedefinition-tlsoptions-traefik-io"
+      headRevisionNum: 2
+      dataHash: "14cbd8d7f9fcca9c84e4f746d317fd767b48596b8f6c954b653476f025fb6c83"
+    -
+      slug: "customresourcedefinition-traefikservices-traefik-io"
+      headRevisionNum: 2
+      dataHash: "b7b411dee846540526ed6b3ce90509fc65af7a2e4e24dee9dc9dcb8054615a4e"
+    -
+      slug: "customresourcedefinition-uplinks-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "fed6d6bf53cab07f960f7e6720e4f8557ff586cfe43fc1577daaca5e50f25de6"
+    -
+      slug: "ingressclass-traefik"
+      headRevisionNum: 1
+      dataHash: "3a899a8d89c2f9d45baf67e9544debe838087ac34f6a1a613cbb9de365be564f"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "customresourcedefinition-accesscontrolpolicies-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "322fd7141e0230c6ae5df2d18b3c05712e3f0dd94fb7a8875b8283f64a8873a0"
+    -
+      slug: "customresourcedefinition-aiservices-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "b8bdbb724ba5c3cf7f6342ce1342d6f328ac728c2b40fe1ab03887d2c4396c6d"
+    -
+      slug: "clusterrole-traefik-default"
+      headRevisionNum: 2
+      dataHash: "30f1a08c41f5f1d2e838b504cb7a827934394561d63740f35fefcb802d4cd4cd"
+    -
+      slug: "customresourcedefinition-apibundles-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "86b4bfcb1449fcbdfed9390894d5a7fc56fcec23b422be6a20e6b2bb841fe545"
+    -
+      slug: "customresourcedefinition-apiauths-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "3a4918b779a62086686d227786c749c8d8f84ed14c3b26e576def214ea605789"
+    -
+      slug: "customresourcedefinition-apiportals-hub-traefik-io"
+      headRevisionNum: 2
+      dataHash: "62731a1e94d7403ff17923ae17de60590ef34c97eb8f47522aaa18545254477b"
+    -
+      slug: "customresourcedefinition-tlsstores-traefik-io"
+      headRevisionNum: 2
+      dataHash: "ddc6bc75df3347522e7857b9602ed47012d3ef692ee8ab36a322ac989901dce8"
+    -
+      slug: "clusterrolebinding-traefik-default"
+      headRevisionNum: 2
+      dataHash: "0824a4f1ff86e78d3f361bc351e47b5988a5607f4030f9195370a8f90ae3c4ba"
+    -
+      slug: "deployment-default-traefik"
+      headRevisionNum: 2
+      dataHash: "8275e662425efe2e77eab60594d71d0bc75ad5e40718c14e211b48799a25afbb"
+    -
+      slug: "service-default-traefik"
+      headRevisionNum: 2
+      dataHash: "d0ed2d54a9c5d6a3871be7f08b4aed0521157a87ed1c337b7d303de6eed3fbf6"
+    -
+      slug: "serviceaccount-default-traefik"
+      headRevisionNum: 1
+      dataHash: "1d692e31f2bd616314b8e13138b9b8de58186120bd25e0a6e4fbed3f4efec375"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 32
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 32
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 32
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

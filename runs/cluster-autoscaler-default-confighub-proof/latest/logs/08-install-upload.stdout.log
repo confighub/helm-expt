@@ -1,0 +1,28 @@
+== autoscaler-cluster-autoscaler@ → Space helm-cluster-autoscaler-default-confighub-proof ==
+Successfully created unit clusterrole-cluster-autoscaler-aws-cluster-autoscaler (8a0b6731-5e3c-44b2-a336-18eb09030f15)
+Successfully created unit clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler (7c95145c-378e-45d9-ba4b-dc1502e7061d)
+Successfully created unit namespace-default (e596651d-2c26-4585-886b-7d86c57b1ada)
+Successfully created unit poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler (fc285dd3-7c38-4092-be1f-aa974f40e589)
+Successfully created unit role-default-cluster-autoscaler-aws-cluster-autoscaler (ea7a3f35-6ebf-4686-a2e2-c4dc40a70aa9)
+Successfully created unit rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler (bc811e70-9206-4d40-bb5c-69a3f53eace6)
+Successfully created unit service-default-cluster-autoscaler-aws-cluster-autoscaler (81191983-0885-4832-bb43-1f54e42910a8)
+Successfully created unit serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler (845ca29e-c2aa-4bc0-bf61-d558c213bc55)
+Successfully created unit installer-record (aaa3fe0e-dddf-40a9-b62c-bc200f38d8e2)
+Linked clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler -> clusterrole-cluster-autoscaler-aws-cluster-autoscaler (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler -> serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler (reference:v1/ServiceAccount)
+Linked poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler -> namespace-default (reference:v1/Namespace)
+Linked role-default-cluster-autoscaler-aws-cluster-autoscaler -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler -> role-default-cluster-autoscaler-aws-cluster-autoscaler (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-cluster-autoscaler-aws-cluster-autoscaler -> serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler (reference:v1/ServiceAccount)
+Linked service-default-cluster-autoscaler-aws-cluster-autoscaler -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrole-cluster-autoscaler-aws-cluster-autoscaler -> v1/Secret "cluster-autoscaler"
+  - role-default-cluster-autoscaler-aws-cluster-autoscaler -> v1/Secret "cluster-autoscaler-status"

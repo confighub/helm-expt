@@ -1,0 +1,1976 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.182295Z",
+        "CursorID": 23123,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "19a5fa0e-aa27-47fc-8486-81d7a568061c",
+        "LinkID": "fdfb265a-6108-4378-a88c-4d8aa6b87e72",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "26b5f944-a2d0-4510-92bd-554e767122ab",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.182295Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '26b5f944-a2d0-4510-92bd-554e767122ab' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1c46ad7f2b287519ef9326c40063fa0789ebaf46afd75b38aa2e95e9136c8c8e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "fdfb265a-6108-4378-a88c-4d8aa6b87e72"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "19a5fa0e-aa27-47fc-8486-81d7a568061c",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "26b5f944-a2d0-4510-92bd-554e767122ab",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "sealed-secrets-sealed-secrets",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1742992065,
+      "CreatedAt": "2026-06-12T16:55:19.037687Z",
+      "CursorID": 28131,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogInNlYWxlZC1zZWNyZXRzLXNlYWxlZC1zZWNyZXRzIgogIHZlcnNpb246ICIyLjE4LjYiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIGRlZmF1bHQ6IHRydWUKICAgIGRlc2NyaXB0aW9uOiAic2VhbGVkLXNlY3JldHMvc2VhbGVkLXNlY3JldHMgZGVmYXVsdCB2YXJpYW50IHJlbmRlcmVkIGZyb20gc2VhbGVkLXNlY3JldHMvc2VhbGVkLXNlY3JldHNAMi4xOC42IgogICAgbmFtZTogImRlZmF1bHQiCiAgICBwYXRoOiAiYmFzZXMvZGVmYXVsdCIKICAtIG5hbWU6ICJuby1jcmRzIgogICAgcGF0aDogImJhc2VzL25vLWNyZHMiCiAgICBkZXNjcmlwdGlvbjogInNlYWxlZC1zZWNyZXRzL3NlYWxlZC1zZWNyZXRzIG5vLWNyZHMgdmFyaWFudCByZW5kZXJlZCBmcm9tIHNlYWxlZC1zZWNyZXRzL3NlYWxlZC1zZWNyZXRzQDIuMTguNiIKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IEZ1bmN0aW9uQ2hhaW4KbWV0YWRhdGE6CiAgbmFtZTogc2VhbGVkLXNlY3JldHMtc2VhbGVkLXNlY3JldHMtZnVuY3Rpb24tY2hhaW4KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IHNlYWxlZC1zZWNyZXRzLXNlYWxlZC1zZWNyZXRzCiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IHNlYWxlZC1zZWNyZXRzLXNlYWxlZC1zZWNyZXRzLWlucHV0cwogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogc2VhbGVkLXNlY3JldHMtc2VhbGVkLXNlY3JldHMKICBuYW1lc3BhY2U6IGRlZmF1bHQKICB2YWx1ZXM6IHt9Ci0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBNYW5pZmVzdEluZGV4Cm1ldGFkYXRhOgogIG5hbWU6IHNlYWxlZC1zZWNyZXRzLXNlYWxlZC1zZWNyZXRzLW1hbmlmZXN0LWluZGV4CiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBzZWFsZWQtc2VjcmV0cy1zZWFsZWQtc2VjcmV0cwogIGZpbGVzOgogIC0gZmlsZW5hbWU6IGNsdXN0ZXJyb2xlLXNlY3JldHMtdW5zZWFsZXIueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGUtc2VjcmV0cy11bnNlYWxlcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogQ2x1c3RlclJvbGUKICAgIG5hbWU6IHNlY3JldHMtdW5zZWFsZXIKICAtIGZpbGVuYW1lOiBjbHVzdGVycm9sZWJpbmRpbmctc2VhbGVkLXNlY3JldHMueWFtbAogICAgc2x1ZzogY2x1c3RlcnJvbGViaW5kaW5nLXNlYWxlZC1zZWNyZXRzCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKICAgIG5hbWU6IHNlYWxlZC1zZWNyZXRzCiAgLSBmaWxlbmFtZTogZGVwbG95bWVudC1kZWZhdWx0LXNlYWxlZC1zZWNyZXRzLnlhbWwKICAgIHNsdWc6IGRlcGxveW1lbnQtZGVmYXVsdC1zZWFsZWQtc2VjcmV0cwogICAgYXBpVmVyc2lvbjogYXBwcy92MQogICAga2luZDogRGVwbG95bWVudAogICAgbmFtZTogc2VhbGVkLXNlY3JldHMKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IG5hbWVzcGFjZS1kZWZhdWx0LnlhbWwKICAgIHNsdWc6IG5hbWVzcGFjZS1kZWZhdWx0CiAgICBhcGlWZXJzaW9uOiB2MQogICAga2luZDogTmFtZXNwYWNlCiAgICBuYW1lOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZS1kZWZhdWx0LXNlYWxlZC1zZWNyZXRzLWtleS1hZG1pbi55YW1sCiAgICBzbHVnOiByb2xlLWRlZmF1bHQtc2VhbGVkLXNlY3JldHMta2V5LWFkbWluCiAgICBhcGlWZXJzaW9uOiByYmFjLmF1dGhvcml6YXRpb24uazhzLmlvL3YxCiAgICBraW5kOiBSb2xlCiAgICBuYW1lOiBzZWFsZWQtc2VjcmV0cy1rZXktYWRtaW4KICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHJvbGUtZGVmYXVsdC1zZWFsZWQtc2VjcmV0cy1zZXJ2aWNlLXByb3hpZXIueWFtbAogICAgc2x1Zzogcm9sZS1kZWZhdWx0LXNlYWxlZC1zZWNyZXRzLXNlcnZpY2UtcHJveGllcgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogUm9sZQogICAgbmFtZTogc2VhbGVkLXNlY3JldHMtc2VydmljZS1wcm94aWVyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiByb2xlYmluZGluZy1kZWZhdWx0LXNlYWxlZC1zZWNyZXRzLWtleS1hZG1pbi55YW1sCiAgICBzbHVnOiByb2xlYmluZGluZy1kZWZhdWx0LXNlYWxlZC1zZWNyZXRzLWtleS1hZG1pbgogICAgYXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQogICAga2luZDogUm9sZUJpbmRpbmcKICAgIG5hbWU6IHNlYWxlZC1zZWNyZXRzLWtleS1hZG1pbgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogcm9sZWJpbmRpbmctZGVmYXVsdC1zZWFsZWQtc2VjcmV0cy1zZXJ2aWNlLXByb3hpZXIueWFtbAogICAgc2x1Zzogcm9sZWJpbmRpbmctZGVmYXVsdC1zZWFsZWQtc2VjcmV0cy1zZXJ2aWNlLXByb3hpZXIKICAgIGFwaVZlcnNpb246IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8vdjEKICAgIGtpbmQ6IFJvbGVCaW5kaW5nCiAgICBuYW1lOiBzZWFsZWQtc2VjcmV0cy1zZXJ2aWNlLXByb3hpZXIKICAgIG5hbWVzcGFjZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHNlcnZpY2UtZGVmYXVsdC1zZWFsZWQtc2VjcmV0cy55YW1sCiAgICBzbHVnOiBzZXJ2aWNlLWRlZmF1bHQtc2VhbGVkLXNlY3JldHMKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiBzZWFsZWQtc2VjcmV0cwogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgLSBmaWxlbmFtZTogc2VydmljZS1kZWZhdWx0LXNlYWxlZC1zZWNyZXRzLW1ldHJpY3MueWFtbAogICAgc2x1Zzogc2VydmljZS1kZWZhdWx0LXNlYWxlZC1zZWNyZXRzLW1ldHJpY3MKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlCiAgICBuYW1lOiBzZWFsZWQtc2VjcmV0cy1tZXRyaWNzCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAtIGZpbGVuYW1lOiBzZXJ2aWNlYWNjb3VudC1kZWZhdWx0LXNlYWxlZC1zZWNyZXRzLnlhbWwKICAgIHNsdWc6IHNlcnZpY2VhY2NvdW50LWRlZmF1bHQtc2VhbGVkLXNlY3JldHMKICAgIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBTZXJ2aWNlQWNjb3VudAogICAgbmFtZTogc2VhbGVkLXNlY3JldHMKICAgIG5hbWVzcGFjZTogZGVmYXVsdAotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IHNlYWxlZC1zZWNyZXRzLXNlYWxlZC1zZWNyZXRzLXNlbGVjdGlvbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogc2VhbGVkLXNlY3JldHMtc2VhbGVkLXNlY3JldHMKICBiYXNlOiBuby1jcmRzCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBVcGxvYWQKbWV0YWRhdGE6CiAgbmFtZTogc2VhbGVkLXNlY3JldHMtc2VhbGVkLXNlY3JldHMtdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBzZWFsZWQtc2VjcmV0cy1zZWFsZWQtc2VjcmV0cwogIHNwYWNlUGF0dGVybjogaGVsbS1zZWFsZWQtc2VjcmV0cy1uby1jcmRzLWNvbmZpZ2h1Yi1wcm9vZgogIHNwYWNlczoKICAtIHBhY2thZ2U6IHNlYWxlZC1zZWNyZXRzLXNlYWxlZC1zZWNyZXRzCiAgICBzbHVnOiBoZWxtLXNlYWxlZC1zZWNyZXRzLW5vLWNyZHMtY29uZmlnaHViLXByb29mCiAgICBpc1BhcmVudDogdHJ1ZQogIHVwbG9hZGVkQXQ6ICIyMDI2LTA2LTEyVDE2OjU1OjA4WiIKICBzZXJ2ZXI6IGh0dHBzOi8vaHViLmNvbmZpZ2h1Yi5jb20KICBvcmdhbml6YXRpb25JRDogNThiMjNiODUtOTY5OS00Mzg0LWJkNTctODBlZjY5NWExZDU4Cg==",
+      "DataHash": "1c46ad7f2b287519ef9326c40063fa0789ebaf46afd75b38aa2e95e9136c8c8e",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "sealed-secrets-sealed-secrets"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/sealed-secrets-sealed-secrets": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-sealed-secrets": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/sealed-secrets-sealed-secrets",
+            "ResourceNameWithoutScope": "sealed-secrets-sealed-secrets",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"sealed-secrets-sealed-secrets\"\n  version: \"2.18.6\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - default: true\n    description: \"sealed-secrets/sealed-secrets default variant rendered from sealed-secrets/sealed-secrets@2.18.6\"\n    name: \"default\"\n    path: \"bases/default\"\n  - name: \"no-crds\"\n    path: \"bases/no-crds\"\n    description: \"sealed-secrets/sealed-secrets no-crds variant rendered from sealed-secrets/sealed-secrets@2.18.6\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/sealed-secrets-sealed-secrets-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-sealed-secrets-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/sealed-secrets-sealed-secrets-function-chain",
+            "ResourceNameWithoutScope": "sealed-secrets-sealed-secrets-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: sealed-secrets-sealed-secrets-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: sealed-secrets-sealed-secrets\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/sealed-secrets-sealed-secrets-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-sealed-secrets-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/sealed-secrets-sealed-secrets-inputs",
+            "ResourceNameWithoutScope": "sealed-secrets-sealed-secrets-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: sealed-secrets-sealed-secrets-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: sealed-secrets-sealed-secrets\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/sealed-secrets-sealed-secrets-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-sealed-secrets-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/sealed-secrets-sealed-secrets-manifest-index",
+            "ResourceNameWithoutScope": "sealed-secrets-sealed-secrets-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: sealed-secrets-sealed-secrets-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: sealed-secrets-sealed-secrets\n  files:\n  - filename: clusterrole-secrets-unsealer.yaml\n    slug: clusterrole-secrets-unsealer\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRole\n    name: secrets-unsealer\n  - filename: clusterrolebinding-sealed-secrets.yaml\n    slug: clusterrolebinding-sealed-secrets\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: ClusterRoleBinding\n    name: sealed-secrets\n  - filename: deployment-default-sealed-secrets.yaml\n    slug: deployment-default-sealed-secrets\n    apiVersion: apps/v1\n    kind: Deployment\n    name: sealed-secrets\n    namespace: default\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: role-default-sealed-secrets-key-admin.yaml\n    slug: role-default-sealed-secrets-key-admin\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: sealed-secrets-key-admin\n    namespace: default\n  - filename: role-default-sealed-secrets-service-proxier.yaml\n    slug: role-default-sealed-secrets-service-proxier\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: Role\n    name: sealed-secrets-service-proxier\n    namespace: default\n  - filename: rolebinding-default-sealed-secrets-key-admin.yaml\n    slug: rolebinding-default-sealed-secrets-key-admin\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: sealed-secrets-key-admin\n    namespace: default\n  - filename: rolebinding-default-sealed-secrets-service-proxier.yaml\n    slug: rolebinding-default-sealed-secrets-service-proxier\n    apiVersion: rbac.authorization.k8s.io/v1\n    kind: RoleBinding\n    name: sealed-secrets-service-proxier\n    namespace: default\n  - filename: service-default-sealed-secrets.yaml\n    slug: service-default-sealed-secrets\n    apiVersion: v1\n    kind: Service\n    name: sealed-secrets\n    namespace: default\n  - filename: service-default-sealed-secrets-metrics.yaml\n    slug: service-default-sealed-secrets-metrics\n    apiVersion: v1\n    kind: Service\n    name: sealed-secrets-metrics\n    namespace: default\n  - filename: serviceaccount-default-sealed-secrets.yaml\n    slug: serviceaccount-default-sealed-secrets\n    apiVersion: v1\n    kind: ServiceAccount\n    name: sealed-secrets\n    namespace: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/sealed-secrets-sealed-secrets-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-sealed-secrets-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/sealed-secrets-sealed-secrets-selection",
+            "ResourceNameWithoutScope": "sealed-secrets-sealed-secrets-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: sealed-secrets-sealed-secrets-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: sealed-secrets-sealed-secrets\n  base: no-crds\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/sealed-secrets-sealed-secrets-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-sealed-secrets-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/sealed-secrets-sealed-secrets-upload",
+            "ResourceNameWithoutScope": "sealed-secrets-sealed-secrets-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: sealed-secrets-sealed-secrets-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: sealed-secrets-sealed-secrets\n  spacePattern: helm-sealed-secrets-no-crds-confighub-proof\n  spaces:\n  - package: sealed-secrets-sealed-secrets\n    slug: helm-sealed-secrets-no-crds-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T16:55:08Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "26b5f944-a2d0-4510-92bd-554e767122ab",
+      "UpdatedAt": "2026-06-12T16:55:20.101431Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.49622Z",
+        "CursorID": 23131,
+        "DisplayName": "Upgrade serviceaccount-default-sealed-secrets",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "10259162-1e78-41f6-b7df-651625247eff",
+        "LinkID": "2c635291-6131-4553-893b-beeb0b4bb530",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-serviceaccount-default-sealed-secrets",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "1c243d71-41a3-465e-b9d9-d3c1e57ee7b4",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.496221Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1c243d71-41a3-465e-b9d9-d3c1e57ee7b4' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "ba514bc978fec29e86ec96e86a6f7c50a2a5f36f71c3edb36923c0cfa689de56",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "2c635291-6131-4553-893b-beeb0b4bb530"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "serviceaccount-default-sealed-secrets",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "10259162-1e78-41f6-b7df-651625247eff",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1c243d71-41a3-465e-b9d9-d3c1e57ee7b4",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 960507127,
+      "CreatedAt": "2026-06-12T16:55:18.169933Z",
+      "CursorID": 28129,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZUFjY291bnQKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMzcuMAogICAgaGVsbS5zaC9jaGFydDogc2VhbGVkLXNlY3JldHMtMi4xOC42CiAgbmFtZTogc2VhbGVkLXNlY3JldHMKICBuYW1lc3BhY2U6IGRlZmF1bHQK",
+      "DataHash": "ba514bc978fec29e86ec96e86a6f7c50a2a5f36f71c3edb36923c0cfa689de56",
+      "DisplayName": "serviceaccount-default-sealed-secrets",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 354 bytes; from serviceaccount-default-sealed-secrets.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/sealed-secrets": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/sealed-secrets",
+            "ResourceNameWithoutScope": "sealed-secrets",
+            "ResourceType": "v1/ServiceAccount"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: ServiceAccount\nmetadata:\n  labels:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: sealed-secrets\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/ServiceAccount"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/ServiceAccount"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/sealed-secrets",
+          "ResourceNameWithoutScope": "sealed-secrets",
+          "ResourceType": "v1/ServiceAccount"
+        }
+      ],
+      "Slug": "serviceaccount-default-sealed-secrets",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1c243d71-41a3-465e-b9d9-d3c1e57ee7b4",
+      "UpdatedAt": "2026-06-12T16:55:47.50637Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.532271Z",
+        "CursorID": 23132,
+        "DisplayName": "Upgrade clusterrole-secrets-unsealer",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "d36759f6-0af0-4296-b450-ff4614ec1617",
+        "LinkID": "95242446-50f9-44fe-b0ff-db9e024d2dee",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrole-secrets-unsealer",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "e2cd6e79-d3dd-43d6-a56f-2c95aec3d6bd",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.532272Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'e2cd6e79-d3dd-43d6-a56f-2c95aec3d6bd' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "3332e522e2a114ab69b4902485111481cdaa5679a2c34a7150feb07255231f95",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "95242446-50f9-44fe-b0ff-db9e024d2dee"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrole-secrets-unsealer",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d36759f6-0af0-4296-b450-ff4614ec1617",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "e2cd6e79-d3dd-43d6-a56f-2c95aec3d6bd",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 2110955321,
+      "CreatedAt": "2026-06-12T16:55:09.900528Z",
+      "CursorID": 28098,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4zNy4wCiAgICBoZWxtLnNoL2NoYXJ0OiBzZWFsZWQtc2VjcmV0cy0yLjE4LjYKICBuYW1lOiBzZWNyZXRzLXVuc2VhbGVyCnJ1bGVzOgotIGFwaUdyb3VwczoKICAtIGJpdG5hbWkuY29tCiAgcmVzb3VyY2VzOgogIC0gc2VhbGVkc2VjcmV0cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtIGJpdG5hbWkuY29tCiAgcmVzb3VyY2VzOgogIC0gc2VhbGVkc2VjcmV0cy9zdGF0dXMKICB2ZXJiczoKICAtIHVwZGF0ZQotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gc2VjcmV0cwogIHZlcmJzOgogIC0gZ2V0CiAgLSBsaXN0CiAgLSBjcmVhdGUKICAtIHVwZGF0ZQogIC0gZGVsZXRlCiAgLSB3YXRjaAotIGFwaUdyb3VwczoKICAtICIiCiAgcmVzb3VyY2VzOgogIC0gZXZlbnRzCiAgdmVyYnM6CiAgLSBjcmVhdGUKICAtIHBhdGNoCg==",
+      "DataHash": "3332e522e2a114ab69b4902485111481cdaa5679a2c34a7150feb07255231f95",
+      "DisplayName": "clusterrole-secrets-unsealer",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/secrets-unsealer": {}
+          },
+          "AliasesWithoutScopes": {
+            "secrets-unsealer": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/secrets-unsealer",
+            "ResourceNameWithoutScope": "secrets-unsealer",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  labels:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: secrets-unsealer\nrules:\n- apiGroups:\n  - bitnami.com\n  resources:\n  - sealedsecrets\n  verbs:\n  - get\n  - list\n  - watch\n- apiGroups:\n  - bitnami.com\n  resources:\n  - sealedsecrets/status\n  verbs:\n  - update\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - get\n  - list\n  - create\n  - update\n  - delete\n  - watch\n- apiGroups:\n  - \"\"\n  resources:\n  - events\n  verbs:\n  - create\n  - patch\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/ClusterRole"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/secrets-unsealer",
+          "ResourceNameWithoutScope": "secrets-unsealer",
+          "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRole"
+        }
+      ],
+      "Slug": "clusterrole-secrets-unsealer",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "e2cd6e79-d3dd-43d6-a56f-2c95aec3d6bd",
+      "UpdatedAt": "2026-06-12T16:55:19.869478Z",
+      "Version": 7
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.407491Z",
+        "CursorID": 23129,
+        "DisplayName": "Upgrade service-default-sealed-secrets",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "6dab1b8a-bb88-4e49-83f9-7d4243e71a15",
+        "LinkID": "adb6697a-a5a5-46a6-983d-8e430eca624a",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-sealed-secrets",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "1f51baa1-863c-47c3-84e0-24bc67d950c0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.407491Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1f51baa1-863c-47c3-84e0-24bc67d950c0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "4716e6faf0e261ad2d024d6cce03cb12407c7106f7557ef2bbfe92278d4f74ed",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "adb6697a-a5a5-46a6-983d-8e430eca624a"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-sealed-secrets",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "6dab1b8a-bb88-4e49-83f9-7d4243e71a15",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1f51baa1-863c-47c3-84e0-24bc67d950c0",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -490357119,
+      "CreatedAt": "2026-06-12T16:55:17.406871Z",
+      "CursorID": 28127,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4zNy4wCiAgICBoZWxtLnNoL2NoYXJ0OiBzZWFsZWQtc2VjcmV0cy0yLjE4LjYKICBuYW1lOiBzZWFsZWQtc2VjcmV0cwogIG5hbWVzcGFjZTogZGVmYXVsdApzcGVjOgogIHBvcnRzOgogIC0gbmFtZTogaHR0cAogICAgbm9kZVBvcnQ6IG51bGwKICAgIHBvcnQ6IDgwODAKICAgIHByb3RvY29sOiBUQ1AKICAgIHRhcmdldFBvcnQ6IGh0dHAKICBzZWxlY3RvcjoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogc2VhbGVkLXNlY3JldHMKICB0eXBlOiBDbHVzdGVySVAK",
+      "DataHash": "4716e6faf0e261ad2d024d6cce03cb12407c7106f7557ef2bbfe92278d4f74ed",
+      "DisplayName": "service-default-sealed-secrets",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/sealed-secrets": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/sealed-secrets",
+            "ResourceNameWithoutScope": "sealed-secrets",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: sealed-secrets\n  namespace: default\nspec:\n  ports:\n  - name: http\n    nodePort: null\n    port: 8080\n    protocol: TCP\n    targetPort: http\n  selector:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/name: sealed-secrets\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/sealed-secrets",
+          "ResourceNameWithoutScope": "sealed-secrets",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-sealed-secrets",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1f51baa1-863c-47c3-84e0-24bc67d950c0",
+      "UpdatedAt": "2026-06-12T16:55:44.585089Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.457063Z",
+        "CursorID": 23130,
+        "DisplayName": "Upgrade service-default-sealed-secrets-metrics",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "903db2e6-ee7d-4f63-bb55-23056b57ba90",
+        "LinkID": "38492743-618f-46d5-a0df-46843c43dd9e",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-service-default-sealed-secrets-metrics",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "5faf7617-f21f-4bae-8001-b0670fd5621a",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.457063Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '5faf7617-f21f-4bae-8001-b0670fd5621a' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "57314cae203ab10f5c4b20ea9690922241094d85f8944baf995ad1d2c8de81e4",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "38492743-618f-46d5-a0df-46843c43dd9e"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "service-default-sealed-secrets-metrics",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "903db2e6-ee7d-4f63-bb55-23056b57ba90",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "5faf7617-f21f-4bae-8001-b0670fd5621a",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1692188281,
+      "CreatedAt": "2026-06-12T16:55:16.677353Z",
+      "CursorID": 28126,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogU2VydmljZQptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9jb21wb25lbnQ6IG1ldHJpY3MKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjM3LjAKICAgIGhlbG0uc2gvY2hhcnQ6IHNlYWxlZC1zZWNyZXRzLTIuMTguNgogIG5hbWU6IHNlYWxlZC1zZWNyZXRzLW1ldHJpY3MKICBuYW1lc3BhY2U6IGRlZmF1bHQKc3BlYzoKICBwb3J0czoKICAtIG5hbWU6IG1ldHJpY3MKICAgIG5vZGVQb3J0OiBudWxsCiAgICBwb3J0OiA4MDgxCiAgICBwcm90b2NvbDogVENQCiAgICB0YXJnZXRQb3J0OiBtZXRyaWNzCiAgc2VsZWN0b3I6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHNlYWxlZC1zZWNyZXRzCiAgdHlwZTogQ2x1c3RlcklQCg==",
+      "DataHash": "57314cae203ab10f5c4b20ea9690922241094d85f8944baf995ad1d2c8de81e4",
+      "DisplayName": "service-default-sealed-secrets-metrics",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/sealed-secrets-metrics": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-metrics": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/sealed-secrets-metrics",
+            "ResourceNameWithoutScope": "sealed-secrets-metrics",
+            "ResourceType": "v1/Service"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Service\nmetadata:\n  labels:\n    app.kubernetes.io/component: metrics\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: sealed-secrets-metrics\n  namespace: default\nspec:\n  ports:\n  - name: metrics\n    nodePort: null\n    port: 8081\n    protocol: TCP\n    targetPort: metrics\n  selector:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/name: sealed-secrets\n  type: ClusterIP\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Service"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Service"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/sealed-secrets-metrics",
+          "ResourceNameWithoutScope": "sealed-secrets-metrics",
+          "ResourceType": "v1/Service"
+        }
+      ],
+      "Slug": "service-default-sealed-secrets-metrics",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5faf7617-f21f-4bae-8001-b0670fd5621a",
+      "UpdatedAt": "2026-06-12T16:55:46.544468Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.363891Z",
+        "CursorID": 23128,
+        "DisplayName": "Upgrade rolebinding-default-sealed-secrets-service-proxier",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "12190c25-4f3b-49c5-8d67-f08ee04235ab",
+        "LinkID": "11f9eb12-dc1e-4f69-a122-6d012f9ad089",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-sealed-secrets-service-proxier",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "d29f2ada-e09b-4fce-8f26-0e3a111007e0",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.363892Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd29f2ada-e09b-4fce-8f26-0e3a111007e0' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "de116e009a8f578a92bdfa07fc7a7d0388eb9c430ab899f72d4a1c446dbcb715",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "11f9eb12-dc1e-4f69-a122-6d012f9ad089"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-sealed-secrets-service-proxier",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "12190c25-4f3b-49c5-8d67-f08ee04235ab",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d29f2ada-e09b-4fce-8f26-0e3a111007e0",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1510459604,
+      "CreatedAt": "2026-06-12T16:55:15.981712Z",
+      "CursorID": 28125,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4zNy4wCiAgICBoZWxtLnNoL2NoYXJ0OiBzZWFsZWQtc2VjcmV0cy0yLjE4LjYKICBuYW1lOiBzZWFsZWQtc2VjcmV0cy1zZXJ2aWNlLXByb3hpZXIKICBuYW1lc3BhY2U6IGRlZmF1bHQKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IFJvbGUKICBuYW1lOiBzZWFsZWQtc2VjcmV0cy1zZXJ2aWNlLXByb3hpZXIKc3ViamVjdHM6Ci0gYXBpR3JvdXA6IHJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8KICBraW5kOiBHcm91cAogIG5hbWU6IHN5c3RlbTphdXRoZW50aWNhdGVkCg==",
+      "DataHash": "de116e009a8f578a92bdfa07fc7a7d0388eb9c430ab899f72d4a1c446dbcb715",
+      "DisplayName": "rolebinding-default-sealed-secrets-service-proxier",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/sealed-secrets-service-proxier": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-service-proxier": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/sealed-secrets-service-proxier",
+            "ResourceNameWithoutScope": "sealed-secrets-service-proxier",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: sealed-secrets-service-proxier\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: sealed-secrets-service-proxier\nsubjects:\n- apiGroup: rbac.authorization.k8s.io\n  kind: Group\n  name: system:authenticated\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-sealed-secrets-service-proxier",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d29f2ada-e09b-4fce-8f26-0e3a111007e0",
+      "UpdatedAt": "2026-06-12T16:55:42.581263Z",
+      "Version": 12
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.090749Z",
+        "CursorID": 23122,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "554d89eb-1919-4694-b6de-19112c9395a2",
+        "LinkID": "9f144a59-bc51-44d1-8c3e-04da2f42c2d6",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "42a291d5-56df-4ce9-a8cf-e66efea3b4e7",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.090749Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '42a291d5-56df-4ce9-a8cf-e66efea3b4e7' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "9f144a59-bc51-44d1-8c3e-04da2f42c2d6"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "554d89eb-1919-4694-b6de-19112c9395a2",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "42a291d5-56df-4ce9-a8cf-e66efea3b4e7",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T16:55:12.869172Z",
+      "CursorID": 28121,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "42a291d5-56df-4ce9-a8cf-e66efea3b4e7",
+      "UpdatedAt": "2026-06-12T16:55:13.081783Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.303684Z",
+        "CursorID": 23127,
+        "DisplayName": "Upgrade rolebinding-default-sealed-secrets-key-admin",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "eebcd2d8-c67b-4e9d-bf2a-fe91c4242048",
+        "LinkID": "66de9316-0cae-4445-a6f2-3c1195f6dbf2",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-rolebinding-default-sealed-secrets-key-admin",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "bf86f7d6-4c7f-4ab4-b137-c5a88074b9a8",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.303684Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'bf86f7d6-4c7f-4ab4-b137-c5a88074b9a8' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "e1052b89cd4700ae596eb4e964134f4553f56e4df9c698df6d5d62c34fa5fc44",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "66de9316-0cae-4445-a6f2-3c1195f6dbf2"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-sealed-secrets-key-admin",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "eebcd2d8-c67b-4e9d-bf2a-fe91c4242048",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "bf86f7d6-4c7f-4ab4-b137-c5a88074b9a8",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1480439624,
+      "CreatedAt": "2026-06-12T16:55:15.274295Z",
+      "CursorID": 28124,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlQmluZGluZwptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby9wYXJ0LW9mOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vdmVyc2lvbjogMC4zNy4wCiAgICBoZWxtLnNoL2NoYXJ0OiBzZWFsZWQtc2VjcmV0cy0yLjE4LjYKICBuYW1lOiBzZWFsZWQtc2VjcmV0cy1rZXktYWRtaW4KICBuYW1lc3BhY2U6IGRlZmF1bHQKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IFJvbGUKICBuYW1lOiBzZWFsZWQtc2VjcmV0cy1rZXktYWRtaW4Kc3ViamVjdHM6Ci0gYXBpR3JvdXA6ICIiCiAga2luZDogU2VydmljZUFjY291bnQKICBuYW1lOiBzZWFsZWQtc2VjcmV0cwogIG5hbWVzcGFjZTogZGVmYXVsdAo=",
+      "DataHash": "e1052b89cd4700ae596eb4e964134f4553f56e4df9c698df6d5d62c34fa5fc44",
+      "DisplayName": "rolebinding-default-sealed-secrets-key-admin",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/sealed-secrets-key-admin": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-key-admin": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/sealed-secrets-key-admin",
+            "ResourceNameWithoutScope": "sealed-secrets-key-admin",
+            "ResourceType": "rbac.authorization.k8s.io/v1/RoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: sealed-secrets-key-admin\n  namespace: default\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: sealed-secrets-key-admin\nsubjects:\n- apiGroup: \"\"\n  kind: ServiceAccount\n  name: sealed-secrets\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "rolebinding-default-sealed-secrets-key-admin",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "bf86f7d6-4c7f-4ab4-b137-c5a88074b9a8",
+      "UpdatedAt": "2026-06-12T16:55:40.425976Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.565744Z",
+        "CursorID": 23133,
+        "DisplayName": "Upgrade deployment-default-sealed-secrets",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5662eb53-ae4c-45b1-a291-5758e7063693",
+        "LinkID": "7eb085da-79ad-4f7f-8157-f856ae9bcf86",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-deployment-default-sealed-secrets",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "d6c3c35b-377c-46df-bcd5-9f74489c236e",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.565744Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = 'd6c3c35b-377c-46df-bcd5-9f74489c236e' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "d69566b07fd6d2b7c0e5fe117f4a8120b11a0aaa0f3be6558b9c0e68132455af",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "7eb085da-79ad-4f7f-8157-f856ae9bcf86"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "deployment-default-sealed-secrets",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5662eb53-ae4c-45b1-a291-5758e7063693",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "d6c3c35b-377c-46df-bcd5-9f74489c236e",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1161916017,
+      "CreatedAt": "2026-06-12T16:55:11.864153Z",
+      "CursorID": 28110,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBEZXBsb3ltZW50Cm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjM3LjAKICAgIGhlbG0uc2gvY2hhcnQ6IHNlYWxlZC1zZWNyZXRzLTIuMTguNgogIG5hbWU6IHNlYWxlZC1zZWNyZXRzCiAgbmFtZXNwYWNlOiBkZWZhdWx0CnNwZWM6CiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogc2VhbGVkLXNlY3JldHMKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogc2VhbGVkLXNlY3JldHMKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHNlYWxlZC1zZWNyZXRzCiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogc2VhbGVkLXNlY3JldHMKICAgIHNwZWM6CiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIC0tdXBkYXRlLXN0YXR1cwogICAgICAgIC0gLS1rZXktcHJlZml4CiAgICAgICAgLSBzZWFsZWQtc2VjcmV0cy1rZXkKICAgICAgICAtIC0tbGlzdGVuLWFkZHIKICAgICAgICAtIDo4MDgwCiAgICAgICAgLSAtLWxpc3Rlbi1tZXRyaWNzLWFkZHIKICAgICAgICAtIDo4MDgxCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIGNvbnRyb2xsZXIKICAgICAgICBlbnY6IG51bGwKICAgICAgICBpbWFnZTogZG9ja2VyLmlvL2JpdG5hbWkvc2VhbGVkLXNlY3JldHMtY29udHJvbGxlcjowLjM3LjAKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpdmVuZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoegogICAgICAgICAgICBwb3J0OiBodHRwCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiAwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAxMAogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDEKICAgICAgICBuYW1lOiBjb250cm9sbGVyCiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MDgwCiAgICAgICAgICBuYW1lOiBodHRwCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MDgxCiAgICAgICAgICBuYW1lOiBtZXRyaWNzCiAgICAgICAgICBwcm90b2NvbDogVENQCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAzCiAgICAgICAgICBodHRwR2V0OgogICAgICAgICAgICBwYXRoOiAvaGVhbHRoegogICAgICAgICAgICBwb3J0OiBodHRwCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiAwCiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiAxMAogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDEKICAgICAgICByZXNvdXJjZXM6CiAgICAgICAgICBsaW1pdHM6IHt9CiAgICAgICAgICByZXF1ZXN0czoge30KICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBjYXBhYmlsaXRpZXM6CiAgICAgICAgICAgIGRyb3A6CiAgICAgICAgICAgIC0gQUxMCiAgICAgICAgICByZWFkT25seVJvb3RGaWxlc3lzdGVtOiB0cnVlCiAgICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICAgIHJ1bkFzVXNlcjogMTAwMQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3RtcAogICAgICAgICAgbmFtZTogdG1wCiAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICBmc0dyb3VwOiA2NTUzNAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHNlYWxlZC1zZWNyZXRzCiAgICAgIHZvbHVtZXM6CiAgICAgIC0gZW1wdHlEaXI6IHt9CiAgICAgICAgbmFtZTogdG1wCg==",
+      "DataHash": "d69566b07fd6d2b7c0e5fe117f4a8120b11a0aaa0f3be6558b9c0e68132455af",
+      "DisplayName": "deployment-default-sealed-secrets",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/sealed-secrets": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/sealed-secrets",
+            "ResourceNameWithoutScope": "sealed-secrets",
+            "ResourceType": "apps/v1/Deployment"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  labels:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: sealed-secrets\n  namespace: default\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: sealed-secrets\n      app.kubernetes.io/name: sealed-secrets\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/instance: sealed-secrets\n        app.kubernetes.io/name: sealed-secrets\n    spec:\n      containers:\n      - args:\n        - --update-status\n        - --key-prefix\n        - sealed-secrets-key\n        - --listen-addr\n        - :8080\n        - --listen-metrics-addr\n        - :8081\n        command:\n        - controller\n        env: null\n        image: docker.io/bitnami/sealed-secrets-controller:0.37.0\n        imagePullPolicy: IfNotPresent\n        livenessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: http\n          initialDelaySeconds: 0\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 1\n        name: controller\n        ports:\n        - containerPort: 8080\n          name: http\n          protocol: TCP\n        - containerPort: 8081\n          name: metrics\n          protocol: TCP\n        readinessProbe:\n          failureThreshold: 3\n          httpGet:\n            path: /healthz\n            port: http\n          initialDelaySeconds: 0\n          periodSeconds: 10\n          successThreshold: 1\n          timeoutSeconds: 1\n        resources:\n          limits: {}\n          requests: {}\n        securityContext:\n          capabilities:\n            drop:\n            - ALL\n          readOnlyRootFilesystem: true\n          runAsNonRoot: true\n          runAsUser: 1001\n        volumeMounts:\n        - mountPath: /tmp\n          name: tmp\n      securityContext:\n        fsGroup: 65534\n      serviceAccountName: sealed-secrets\n      volumes:\n      - emptyDir: {}\n        name: tmp\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/Deployment"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/Deployment"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/sealed-secrets",
+          "ResourceNameWithoutScope": "sealed-secrets",
+          "ResourceType": "apps/v1/Deployment"
+        }
+      ],
+      "Slug": "deployment-default-sealed-secrets",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "d6c3c35b-377c-46df-bcd5-9f74489c236e",
+      "UpdatedAt": "2026-06-12T16:55:33.711373Z",
+      "Version": 13
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.246451Z",
+        "CursorID": 23125,
+        "DisplayName": "Upgrade role-default-sealed-secrets-key-admin",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "28bd410a-0e5a-4c47-b101-72e45a49b2cd",
+        "LinkID": "9e984ba2-bd4e-4c57-b5da-768bc526de6b",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-sealed-secrets-key-admin",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "2be03c61-c614-4ad4-bae2-279a61ddfd99",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.246451Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2be03c61-c614-4ad4-bae2-279a61ddfd99' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "19f5c161e1312784da89dbc507b813d580fa2ee7c3a3cbdc46f5affd0198a79e",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "9e984ba2-bd4e-4c57-b5da-768bc526de6b"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-sealed-secrets-key-admin",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "28bd410a-0e5a-4c47-b101-72e45a49b2cd",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2be03c61-c614-4ad4-bae2-279a61ddfd99",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -713904069,
+      "CreatedAt": "2026-06-12T16:55:13.814283Z",
+      "CursorID": 28122,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjM3LjAKICAgIGhlbG0uc2gvY2hhcnQ6IHNlYWxlZC1zZWNyZXRzLTIuMTguNgogIG5hbWU6IHNlYWxlZC1zZWNyZXRzLWtleS1hZG1pbgogIG5hbWVzcGFjZTogZGVmYXVsdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlTmFtZXM6CiAgLSBzZWFsZWQtc2VjcmV0cy1rZXkKICByZXNvdXJjZXM6CiAgLSBzZWNyZXRzCiAgdmVyYnM6CiAgLSBnZXQKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlczoKICAtIHNlY3JldHMKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gbGlzdAo=",
+      "DataHash": "19f5c161e1312784da89dbc507b813d580fa2ee7c3a3cbdc46f5affd0198a79e",
+      "DisplayName": "role-default-sealed-secrets-key-admin",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/sealed-secrets-key-admin": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-key-admin": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/sealed-secrets-key-admin",
+            "ResourceNameWithoutScope": "sealed-secrets-key-admin",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: sealed-secrets-key-admin\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resourceNames:\n  - sealed-secrets-key\n  resources:\n  - secrets\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resources:\n  - secrets\n  verbs:\n  - create\n  - list\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/sealed-secrets-key-admin",
+          "ResourceNameWithoutScope": "sealed-secrets-key-admin",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-sealed-secrets-key-admin",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2be03c61-c614-4ad4-bae2-279a61ddfd99",
+      "UpdatedAt": "2026-06-12T16:55:34.631801Z",
+      "Version": 10
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.217771Z",
+        "CursorID": 23124,
+        "DisplayName": "Upgrade clusterrolebinding-sealed-secrets",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "cdf6ddce-1478-4434-b5c3-c7862b49a115",
+        "LinkID": "61979e48-82d0-449a-bb54-2b22b0d2b943",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-clusterrolebinding-sealed-secrets",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "1e61fb2e-b894-46ea-8de9-821c7b3afb09",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.217772Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '1e61fb2e-b894-46ea-8de9-821c7b3afb09' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "99bde0f11ec08758e18f355eb02d515dc5c88ed2cb56c386e5d866ed61cd7be6",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "61979e48-82d0-449a-bb54-2b22b0d2b943"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-sealed-secrets",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "cdf6ddce-1478-4434-b5c3-c7862b49a115",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "1e61fb2e-b894-46ea-8de9-821c7b3afb09",
+      "Version": 6
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": 1400751894,
+      "CreatedAt": "2026-06-12T16:55:11.18586Z",
+      "CursorID": 28099,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBDbHVzdGVyUm9sZUJpbmRpbmcKbWV0YWRhdGE6CiAgbGFiZWxzOgogICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby9tYW5hZ2VkLWJ5OiBIZWxtCiAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vcGFydC1vZjogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3ZlcnNpb246IDAuMzcuMAogICAgaGVsbS5zaC9jaGFydDogc2VhbGVkLXNlY3JldHMtMi4xOC42CiAgbmFtZTogc2VhbGVkLXNlY3JldHMKcm9sZVJlZjoKICBhcGlHcm91cDogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pbwogIGtpbmQ6IENsdXN0ZXJSb2xlCiAgbmFtZTogc2VjcmV0cy11bnNlYWxlcgpzdWJqZWN0czoKLSBhcGlHcm91cDogIiIKICBraW5kOiBTZXJ2aWNlQWNjb3VudAogIG5hbWU6IHNlYWxlZC1zZWNyZXRzCiAgbmFtZXNwYWNlOiBkZWZhdWx0Cg==",
+      "DataHash": "99bde0f11ec08758e18f355eb02d515dc5c88ed2cb56c386e5d866ed61cd7be6",
+      "DisplayName": "clusterrolebinding-sealed-secrets",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/sealed-secrets": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/sealed-secrets",
+            "ResourceNameWithoutScope": "sealed-secrets",
+            "ResourceType": "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  labels:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: sealed-secrets\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: secrets-unsealer\nsubjects:\n- apiGroup: \"\"\n  kind: ServiceAccount\n  name: sealed-secrets\n  namespace: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "clusterrolebinding-sealed-secrets",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1e61fb2e-b894-46ea-8de9-821c7b3afb09",
+      "UpdatedAt": "2026-06-12T16:55:31.636608Z",
+      "Version": 15
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T16:55:58.276466Z",
+        "CursorID": 23126,
+        "DisplayName": "Upgrade role-default-sealed-secrets-service-proxier",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "5f75eae7-cc0b-4168-9226-577fb6e7dbde",
+        "LinkID": "971b3ee2-1ae0-4888-9a08-1135180142c8",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-role-default-sealed-secrets-service-proxier",
+        "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+        "SpaceSlug": "SealedSecrets-no-crds-staging",
+        "ToSpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+        "ToUnitID": "2af381f5-57d5-44ab-b954-e5a2123c29f2",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T16:55:58.276466Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '2af381f5-57d5-44ab-b954-e5a2123c29f2' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T16:55:57.768681Z",
+      "CursorID": 4625,
+      "DisplayName": "helm-sealed-secrets-no-crds-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "SealedSecrets",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "SealedSecrets-no-crds-staging",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "UpdatedAt": "2026-06-12T16:55:57.768682Z",
+      "WhereTrigger": "SpaceID = '87c5cd4b-f8c4-4250-9f68-2de16c313185'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "de6505aa9e4ccaf848dcbfea8a8d72bfa1dd4f883480047d88d6008e4dfa4a60",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "971b3ee2-1ae0-4888-9a08-1135180142c8"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "role-default-sealed-secrets-service-proxier",
+      "SpaceID": "66ffadf7-295d-4c48-adf9-a855705a521f",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "5f75eae7-cc0b-4168-9226-577fb6e7dbde",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "2af381f5-57d5-44ab-b954-e5a2123c29f2",
+      "Version": 5
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1117933830,
+      "CreatedAt": "2026-06-12T16:55:14.558872Z",
+      "CursorID": 28123,
+      "Data": "YXBpVmVyc2lvbjogcmJhYy5hdXRob3JpemF0aW9uLms4cy5pby92MQpraW5kOiBSb2xlCm1ldGFkYXRhOgogIGxhYmVsczoKICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiBzZWFsZWQtc2VjcmV0cwogICAgYXBwLmt1YmVybmV0ZXMuaW8vbWFuYWdlZC1ieTogSGVsbQogICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogc2VhbGVkLXNlY3JldHMKICAgIGFwcC5rdWJlcm5ldGVzLmlvL3BhcnQtb2Y6IHNlYWxlZC1zZWNyZXRzCiAgICBhcHAua3ViZXJuZXRlcy5pby92ZXJzaW9uOiAwLjM3LjAKICAgIGhlbG0uc2gvY2hhcnQ6IHNlYWxlZC1zZWNyZXRzLTIuMTguNgogIG5hbWU6IHNlYWxlZC1zZWNyZXRzLXNlcnZpY2UtcHJveGllcgogIG5hbWVzcGFjZTogZGVmYXVsdApydWxlczoKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlTmFtZXM6CiAgLSBzZWFsZWQtc2VjcmV0cwogIHJlc291cmNlczoKICAtIHNlcnZpY2VzCiAgdmVyYnM6CiAgLSBnZXQKLSBhcGlHcm91cHM6CiAgLSAiIgogIHJlc291cmNlTmFtZXM6CiAgLSAnaHR0cDpzZWFsZWQtc2VjcmV0czonCiAgLSBodHRwOnNlYWxlZC1zZWNyZXRzOmh0dHAKICAtIHNlYWxlZC1zZWNyZXRzCiAgcmVzb3VyY2VzOgogIC0gc2VydmljZXMvcHJveHkKICB2ZXJiczoKICAtIGNyZWF0ZQogIC0gZ2V0Cg==",
+      "DataHash": "de6505aa9e4ccaf848dcbfea8a8d72bfa1dd4f883480047d88d6008e4dfa4a60",
+      "DisplayName": "role-default-sealed-secrets-service-proxier",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "SealedSecrets",
+        "HelmChart": "sealed-secrets-sealed-secrets",
+        "HelmChartVersion": "2.18.6",
+        "Package": "sealed-secrets-sealed-secrets",
+        "Proof": "sealed-secrets-no-crds-confighub-proof",
+        "Variant": "no-crds"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "default/sealed-secrets-service-proxier": {}
+          },
+          "AliasesWithoutScopes": {
+            "sealed-secrets-service-proxier": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "default/sealed-secrets-service-proxier",
+            "ResourceNameWithoutScope": "sealed-secrets-service-proxier",
+            "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  labels:\n    app.kubernetes.io/instance: sealed-secrets\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: sealed-secrets\n    app.kubernetes.io/part-of: sealed-secrets\n    app.kubernetes.io/version: 0.37.0\n    helm.sh/chart: sealed-secrets-2.18.6\n  name: sealed-secrets-service-proxier\n  namespace: default\nrules:\n- apiGroups:\n  - \"\"\n  resourceNames:\n  - sealed-secrets\n  resources:\n  - services\n  verbs:\n  - get\n- apiGroups:\n  - \"\"\n  resourceNames:\n  - 'http:sealed-secrets:'\n  - http:sealed-secrets:http\n  - sealed-secrets\n  resources:\n  - services/proxy\n  verbs:\n  - create\n  - get\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "rbac.authorization.k8s.io/v1/Role"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "default/sealed-secrets-service-proxier",
+          "ResourceNameWithoutScope": "sealed-secrets-service-proxier",
+          "ResourceType": "rbac.authorization.k8s.io/v1/Role"
+        }
+      ],
+      "Slug": "role-default-sealed-secrets-service-proxier",
+      "SpaceID": "87c5cd4b-f8c4-4250-9f68-2de16c313185",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "2af381f5-57d5-44ab-b954-e5a2123c29f2",
+      "UpdatedAt": "2026-06-12T16:55:35.656471Z",
+      "Version": 10
+    }
+  }
+]

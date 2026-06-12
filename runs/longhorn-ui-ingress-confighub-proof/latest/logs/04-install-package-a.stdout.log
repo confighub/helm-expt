@@ -1,0 +1,5 @@
+Bundled longhorn-longhorn@
+  output: .tmp/confighub-proof/longhorn-ui-ingress-archives/longhorn-a.tgz
+  files:  6
+  size:   32269 bytes
+  digest: sha256:b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea

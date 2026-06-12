@@ -1,0 +1,1 @@
+cub installer setup --pull packages/jaegertracing/jaeger-operator/2.57.0 --base default --work-dir .tmp/confighub-proof/jaeger-operator-default --non-interactive --namespace default

@@ -1,0 +1,1 @@
+cub installer setup --pull packages/runix/pgadmin4/1.62.0 --base default --work-dir .tmp/confighub-proof/pgadmin4-default --non-interactive --namespace default

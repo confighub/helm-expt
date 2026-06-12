@@ -1,0 +1,1 @@
+cub function vet vet-merge-keys --space helm-jaeger-operator-default-confighub-proof --where "Labels.Proof = 'jaeger-operator-default-confighub-proof'" --quiet --wait --timeout 10m

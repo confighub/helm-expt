@@ -1,0 +1,35 @@
+== cloudnative-pg-cloudnative-pg@ → Space helm-cloudnative-pg-no-crds-confighub-proof ==
+Successfully created unit clusterrole-cloudnative-pg-edit (db1ea722-09b0-44d2-8eae-3869a4ea6f55)
+Successfully created unit clusterrole-cloudnative-pg-view (0201cf77-97b5-401c-9170-9658251d801d)
+Successfully created unit clusterrole-cloudnative-pg (d71920ab-e84a-4aa2-8032-6e82284fe528)
+Successfully created unit clusterrolebinding-cloudnative-pg (8fab6ffb-3e46-44f0-82b2-be3063a3818d)
+Successfully created unit configmap-default-cnpg-controller-manager-config (58331619-87d3-4497-9442-9930df84f0ec)
+Successfully created unit configmap-default-cnpg-default-monitoring (ad9877dc-5459-47a7-8077-605676b728c9)
+Successfully created unit deployment-default-cloudnative-pg (91077d1f-cd9d-4ff5-bd91-f22cec293edd)
+Successfully created unit mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration (57313dd0-69fc-4f7c-b463-45b17dfc8998)
+Successfully created unit namespace-cnpg-system (99b571c0-f256-4e79-ba0e-5c5bb721b565)
+Successfully created unit service-default-cnpg-webhook-service (583721f1-5663-480e-9f2a-4dd52bd9e49a)
+Successfully created unit serviceaccount-default-cloudnative-pg (ccd9ab5d-858a-4ee7-be6b-5301cf0a10ab)
+Successfully created unit validatingwebhookconfiguration-cnpg-validating-webhook-configuration (c455f545-039c-4997-bde8-36a43510e581)
+Successfully created unit installer-record (6f5021e2-4fc2-495c-86e0-acbd34d1e095)
+Linked clusterrolebinding-cloudnative-pg -> clusterrole-cloudnative-pg (reference:rbac.authorization.k8s.io/v1/ClusterRole)
+Linked clusterrolebinding-cloudnative-pg -> serviceaccount-default-cloudnative-pg (reference:v1/ServiceAccount)
+Linked deployment-default-cloudnative-pg -> serviceaccount-default-cloudnative-pg (reference:v1/ServiceAccount)
+Linked mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration -> service-default-cnpg-webhook-service (reference:v1/Service)
+Linked service-default-cnpg-webhook-service -> deployment-default-cloudnative-pg (selector)
+Linked validatingwebhookconfiguration-cnpg-validating-webhook-configuration -> service-default-cnpg-webhook-service (reference:v1/Service)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrolebinding-cloudnative-pg -> v1/Namespace "default"
+  - configmap-default-cnpg-controller-manager-config -> v1/Namespace "default"
+  - configmap-default-cnpg-default-monitoring -> v1/Namespace "default"
+  - deployment-default-cloudnative-pg -> v1/Namespace "default"
+  - deployment-default-cloudnative-pg -> v1/Secret "cnpg-webhook-cert"
+  - mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration -> v1/Namespace "default"
+  - service-default-cnpg-webhook-service -> v1/Namespace "default"
+  - serviceaccount-default-cloudnative-pg -> v1/Namespace "default"
+  - validatingwebhookconfiguration-cnpg-validating-webhook-configuration -> v1/Namespace "default"

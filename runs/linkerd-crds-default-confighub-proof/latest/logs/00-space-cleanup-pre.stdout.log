@@ -1,0 +1,4 @@
+
+Bulk delete operation completed:
+  Success: 1 space(s)
+  Context: Slug IN ('helm-linkerd-crds-default-confighub-proof', 'LinkerdCrds-default-staging')

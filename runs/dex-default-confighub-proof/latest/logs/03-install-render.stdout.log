@@ -1,0 +1,4 @@
+Rendered 8 manifest(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/dex-default/out/manifests
+Rendered 1 secret(s) to /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/dex-default/out/secrets (not uploaded)
+Spec docs in /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/dex-default/out/spec
+Next: cub installer upload --work-dir /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/dex-default --space <slug>

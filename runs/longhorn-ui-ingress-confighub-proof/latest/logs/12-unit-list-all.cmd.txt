@@ -1,0 +1,1 @@
+cub unit list --space helm-longhorn-ui-ingress-confighub-proof --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

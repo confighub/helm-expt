@@ -1,0 +1,1 @@
+cub unit list --space helm-pxc-operator-no-crds-confighub-proof --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

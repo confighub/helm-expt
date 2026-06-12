@@ -1,0 +1,1 @@
+cub unit list --space helm-cluster-autoscaler-default-confighub-proof --columns "Slug,HeadRevisionNum,DataHash,ToolchainType" -o json

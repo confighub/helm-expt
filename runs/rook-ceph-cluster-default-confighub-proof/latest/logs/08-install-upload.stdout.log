@@ -1,0 +1,78 @@
+== rook-release-rook-ceph-cluster@ → Space helm-rook-ceph-cluster-default-confighub-proof ==
+Successfully created unit cephblockpool-default-ceph-blockpool (2ffdb37d-ca29-44d7-884f-cbaf6d8758f3)
+Successfully created unit cephcluster-default-default (128825cf-98dd-4e41-9f2e-d5d5bec58072)
+Successfully created unit cephfilesystem-default-ceph-filesystem (1d936153-439b-49b1-bb60-345c9c78565f)
+Successfully created unit cephfilesystemsubvolumegroup-default-ceph-filesystem-csi (8ecf3abf-ccb0-4d90-8ecc-f0c7e21efab2)
+Successfully created unit cephobjectstore-default-ceph-objectstore (f5c2c3b8-520e-4a9b-9f57-486b87c8e226)
+Successfully created unit clusterrolebinding-rook-ceph-mgr-cluster-default (a0f03301-45f9-4e9b-affb-0e76737a2d51)
+Successfully created unit clusterrolebinding-rook-ceph-osd-default (3c4ee5db-1173-461f-a95c-38fd73cc06ad)
+Successfully created unit namespace-default (7289a704-11ee-47ad-8efb-db1208c933a2)
+Successfully created unit role-default-rook-ceph-cmd-reporter (6c65552b-d0b5-4daa-8df6-20bf15884414)
+Successfully created unit role-default-rook-ceph-mgr (b6728d2b-d25b-4fd2-b4e5-24b9427603cb)
+Successfully created unit role-default-rook-ceph-osd (3f46b722-8683-41cb-b3d7-c3b43de944ea)
+Successfully created unit role-default-rook-ceph-purge-osd (49ebf40c-44f3-4c0f-86c4-4faea2f9c8cf)
+Successfully created unit rolebinding-default-rook-ceph-cluster-mgmt (fb6ca32d-2c40-47c6-bdc1-766800edb43d)
+Successfully created unit rolebinding-default-rook-ceph-cmd-reporter (15fe6aa9-b742-4377-8ba2-e80b1c22a4bd)
+Successfully created unit rolebinding-default-rook-ceph-mgr (8da93a00-463c-495d-8c67-e9c5e6fb9420)
+Successfully created unit rolebinding-default-rook-ceph-osd (c2ee3a41-0bd4-4ab0-b828-0d9e70e24bb0)
+Successfully created unit rolebinding-default-rook-ceph-purge-osd (fc931ebf-5227-402e-885c-7b2b6eb1269f)
+Successfully created unit rolebinding-rook-ceph-rook-ceph-mgr-system-default (17d74209-f9bd-43a8-aa60-bf6c633d19a9)
+Successfully created unit serviceaccount-default-rook-ceph-cmd-reporter (cb3721b9-4b12-4a79-a203-7e850936c86b)
+Successfully created unit serviceaccount-default-rook-ceph-default (15ea34c3-bcea-459e-83f8-f0482dedb481)
+Successfully created unit serviceaccount-default-rook-ceph-mgr (c9458340-e238-4181-b398-26effe790aaa)
+Successfully created unit serviceaccount-default-rook-ceph-nvmeof (9aa3c618-282f-44e7-a488-ffbda79f1314)
+Successfully created unit serviceaccount-default-rook-ceph-osd (46c4cdf9-c74b-4c3e-b356-d44ed427abdc)
+Successfully created unit serviceaccount-default-rook-ceph-purge-osd (1be83c47-05c2-4cec-8f98-f6aa2ca31f7e)
+Successfully created unit serviceaccount-default-rook-ceph-rgw (fcd6a17b-9d1e-4768-85ef-b6a3cbeb6b7a)
+Successfully created unit storageclass-ceph-block (ef0ac11d-da88-4f08-bd1f-bf4fe026c399)
+Successfully created unit storageclass-ceph-bucket (ddcc0c21-405c-44f7-ba48-191f6f95c19c)
+Successfully created unit storageclass-ceph-filesystem (f8b14fa3-9db3-4e8d-b549-746eed19c004)
+Successfully created unit installer-record (6a2a7add-94ad-4807-82cc-0e6651951bc6)
+Linked cephblockpool-default-ceph-blockpool -> namespace-default (reference:v1/Namespace)
+Linked cephcluster-default-default -> namespace-default (reference:v1/Namespace)
+Linked cephfilesystem-default-ceph-filesystem -> namespace-default (reference:v1/Namespace)
+Linked cephfilesystemsubvolumegroup-default-ceph-filesystem-csi -> namespace-default (reference:v1/Namespace)
+Linked cephobjectstore-default-ceph-objectstore -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-rook-ceph-mgr-cluster-default -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-rook-ceph-mgr-cluster-default -> serviceaccount-default-rook-ceph-mgr (reference:v1/ServiceAccount)
+Linked clusterrolebinding-rook-ceph-osd-default -> namespace-default (reference:v1/Namespace)
+Linked clusterrolebinding-rook-ceph-osd-default -> serviceaccount-default-rook-ceph-osd (reference:v1/ServiceAccount)
+Linked role-default-rook-ceph-cmd-reporter -> namespace-default (reference:v1/Namespace)
+Linked role-default-rook-ceph-mgr -> namespace-default (reference:v1/Namespace)
+Linked role-default-rook-ceph-osd -> namespace-default (reference:v1/Namespace)
+Linked role-default-rook-ceph-purge-osd -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-rook-ceph-cluster-mgmt -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-rook-ceph-cmd-reporter -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-rook-ceph-cmd-reporter -> role-default-rook-ceph-cmd-reporter (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-rook-ceph-cmd-reporter -> serviceaccount-default-rook-ceph-cmd-reporter (reference:v1/ServiceAccount)
+Linked rolebinding-default-rook-ceph-mgr -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-rook-ceph-mgr -> role-default-rook-ceph-mgr (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-rook-ceph-mgr -> serviceaccount-default-rook-ceph-mgr (reference:v1/ServiceAccount)
+Linked rolebinding-default-rook-ceph-osd -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-rook-ceph-osd -> role-default-rook-ceph-osd (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-rook-ceph-osd -> serviceaccount-default-rook-ceph-osd (reference:v1/ServiceAccount)
+Linked rolebinding-default-rook-ceph-purge-osd -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-default-rook-ceph-purge-osd -> role-default-rook-ceph-purge-osd (reference:rbac.authorization.k8s.io/v1/Role)
+Linked rolebinding-default-rook-ceph-purge-osd -> serviceaccount-default-rook-ceph-purge-osd (reference:v1/ServiceAccount)
+Linked rolebinding-rook-ceph-rook-ceph-mgr-system-default -> namespace-default (reference:v1/Namespace)
+Linked rolebinding-rook-ceph-rook-ceph-mgr-system-default -> serviceaccount-default-rook-ceph-mgr (reference:v1/ServiceAccount)
+Linked serviceaccount-default-rook-ceph-cmd-reporter -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-rook-ceph-default -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-rook-ceph-mgr -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-rook-ceph-nvmeof -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-rook-ceph-osd -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-rook-ceph-purge-osd -> namespace-default (reference:v1/Namespace)
+Linked serviceaccount-default-rook-ceph-rgw -> namespace-default (reference:v1/Namespace)
+
+Note: the following references didn't resolve to any Unit in this Space.
+That's expected when the referenced resource lives in the cluster but
+isn't managed by ConfigHub (e.g., a Secret created out-of-band, a
+Namespace owned by the platform team). Verify each against your cluster
+before applying.
+  - clusterrolebinding-rook-ceph-mgr-cluster-default -> rbac.authorization.k8s.io/v1/ClusterRole "rook-ceph-mgr-cluster"
+  - clusterrolebinding-rook-ceph-osd-default -> rbac.authorization.k8s.io/v1/ClusterRole "rook-ceph-osd"
+  - rolebinding-default-rook-ceph-cluster-mgmt -> rbac.authorization.k8s.io/v1/Role "rook-ceph-cluster-mgmt"
+  - rolebinding-default-rook-ceph-cluster-mgmt -> v1/Namespace "rook-ceph"
+  - rolebinding-default-rook-ceph-cluster-mgmt -> v1/ServiceAccount "rook-ceph-system"
+  - rolebinding-rook-ceph-rook-ceph-mgr-system-default -> rbac.authorization.k8s.io/v1/Role "rook-ceph-mgr-system"
+  - rolebinding-rook-ceph-rook-ceph-mgr-system-default -> v1/Namespace "rook-ceph"

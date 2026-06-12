@@ -1,0 +1,122 @@
+--- helm-terraform-default-confighub-proof/deployment-default-terraform-terraform-sync-workspace/1
++++ helm-terraform-default-confighub-proof/deployment-default-terraform-terraform-sync-workspace/2
+@@ -25,62 +29,57 @@
+         release: terraform
+     spec:
+       containers:
+-        - args:
+-            - --enable-leader-election
+-            - --k8s-watch-namespace=default
+-          command:
+-            - /bin/terraform-k8s
+-          env:
+-            - name: POD_NAME
+-              valueFrom:
+-                fieldRef:
+-                  fieldPath: metadata.name
+-            - name: OPERATOR_NAME
+-              value: terraform-k8s
+-            - name: TF_VERSION
+-              value: latest
+-            - name: TF_CLI_CONFIG_FILE
+-              value: /etc/terraform/.terraformrc
+-            - name: TF_URL
+-              value: ""
+-          image: hashicorp/terraform-k8s:1.1.2
+-          imagePullPolicy: IfNotPresent
+-          livenessProbe:
+-            failureThreshold: 3
+-            httpGet:
+-              path: /metrics
+-              port: 8383
+-              scheme: HTTP
+-            initialDelaySeconds: 30
+-            periodSeconds: 5
+-            successThreshold: 1
+-            timeoutSeconds: 5
+-          name: terraform-sync-workspace
+-          readinessProbe:
+-            failureThreshold: 5
+-            httpGet:
+-              path: /metrics
+-              port: 8383
+-              scheme: HTTP
+-            initialDelaySeconds: 10
+-            periodSeconds: 5
+-            successThreshold: 1
+-            timeoutSeconds: 5
+-          volumeMounts:
+-            - mountPath: /etc/terraform
+-              name: terraformrc
+-              readOnly: true
+-            - mountPath: /tmp/secrets
+-              name: sensitivevars
+-              readOnly: true
++      - args:
++        - --enable-leader-election
++        - --k8s-watch-namespace=default
++        command:
++        - /bin/terraform-k8s
++        env:
++        - name: POD_NAME
++          valueFrom:
++            fieldRef:
++              fieldPath: metadata.name
++        - name: OPERATOR_NAME
++          value: terraform-k8s
++        - name: TF_VERSION
++          value: latest
++        - name: TF_CLI_CONFIG_FILE
++          value: /etc/terraform/.terraformrc
++        - name: TF_URL
++          value: ""
++        image: hashicorp/terraform-k8s:1.1.2
++        imagePullPolicy: IfNotPresent
++        livenessProbe:
++          failureThreshold: 3
++          httpGet:
++            path: /metrics
++            port: 8383
++            scheme: HTTP
++          initialDelaySeconds: 30
++          periodSeconds: 5
++          successThreshold: 1
++          timeoutSeconds: 5
++        name: terraform-sync-workspace
++        readinessProbe:
++          failureThreshold: 5
++          httpGet:
++            path: /metrics
++            port: 8383
++            scheme: HTTP
++          initialDelaySeconds: 10
++          periodSeconds: 5
++          successThreshold: 1
++          timeoutSeconds: 5
++        volumeMounts:
++        - mountPath: /etc/terraform
++          name: terraformrc
++          readOnly: true
++        - mountPath: /tmp/secrets
++          name: sensitivevars
++          readOnly: true
+       serviceAccountName: terraform-terraform-sync-workspace
+       volumes:
+-        - name: terraformrc
+-          secret:
+-            items:
+-              - key: credentials
+-                path: .terraformrc
+-            secretName: terraformrc
+-        - name: sensitivevars
+-          secret:
+-            secretName: workspacesecrets
++      - name: terraformrc
++        secret:
++          items:
++          - key: credentials
++            path: .terraformrc
++          secretName: terraformrc
++      - name: sensitivevars
++        secret:
++          secretName: workspacesecrets

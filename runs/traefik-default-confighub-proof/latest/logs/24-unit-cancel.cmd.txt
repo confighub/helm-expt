@@ -1,0 +1,1 @@
+cub unit cancel --space helm-traefik-default-confighub-proof --where "Labels.Proof = 'traefik-default-confighub-proof'"

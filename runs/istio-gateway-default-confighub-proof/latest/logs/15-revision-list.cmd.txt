@@ -1,0 +1,1 @@
+cub revision list deployment-default-gateway --space helm-istio-gateway-default-confighub-proof

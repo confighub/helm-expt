@@ -1,0 +1,1 @@
+cub unit apply --space helm-victoria-metrics-single-default-confighub-proof --where "Labels.Proof = 'victoria-metrics-single-default-confighub-proof'" --dry-run --wait --timeout 2m

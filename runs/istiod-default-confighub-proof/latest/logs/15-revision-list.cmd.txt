@@ -1,0 +1,1 @@
+cub revision list deployment-default-istiod --space helm-istiod-default-confighub-proof

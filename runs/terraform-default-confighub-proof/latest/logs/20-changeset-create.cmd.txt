@@ -1,0 +1,1 @@
+cub changeset create terraform-safe-ops-20260527 --space helm-terraform-default-confighub-proof --description "Terraform safe-ops proof: approve reviewed revisions, dry-run apply only" --label Proof=terraform-default-confighub-proof --label Lane=safe-ops --annotation proof.confighub.com/scope=local-test --annotation proof.confighub.com/live-apply=false --allow-exists

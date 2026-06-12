@@ -1,0 +1,1 @@
+cub changeset create crossplane-safe-ops-20260527 --space helm-crossplane-default-confighub-proof --description "crossplane safe-ops proof: approve reviewed revisions, dry-run apply only" --label Proof=crossplane-default-confighub-proof --label Lane=safe-ops --annotation proof.confighub.com/scope=local-test --annotation proof.confighub.com/live-apply=false --allow-exists

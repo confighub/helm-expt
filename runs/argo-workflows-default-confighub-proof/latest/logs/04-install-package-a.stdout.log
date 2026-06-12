@@ -1,0 +1,5 @@
+Bundled argo-cd-argo-workflows@
+  output: .tmp/confighub-proof/argo-workflows-default-archives/argo-workflows-a.tgz
+  files:  6
+  size:   2900 bytes
+  digest: sha256:09d0f78603a8dea4a5933c094aa9ab1e45b37199fd9a435b6704fdd5341f88b6

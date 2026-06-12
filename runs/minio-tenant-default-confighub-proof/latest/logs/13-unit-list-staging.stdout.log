@@ -1,0 +1,545 @@
+[
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:04:49.694269Z",
+        "CursorID": 23761,
+        "DisplayName": "Upgrade installer-record",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "7cfc31a4-0bed-43fd-80ad-b8f8fe46aeec",
+        "LinkID": "02de11c5-11dd-4790-aa99-3151ba570a07",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-installer-record",
+        "SpaceID": "89ad0d3c-d3a2-4e60-a99d-acefa97820b6",
+        "SpaceSlug": "MinioTenant-default-staging",
+        "ToSpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+        "ToUnitID": "221b1aff-60f6-4d62-a21e-64c91b0bece3",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:04:49.694269Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '221b1aff-60f6-4d62-a21e-64c91b0bece3' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:04:49.484666Z",
+      "CursorID": 4659,
+      "DisplayName": "helm-minio-tenant-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MinioTenant",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MinioTenant-default-staging",
+      "SpaceID": "89ad0d3c-d3a2-4e60-a99d-acefa97820b6",
+      "UpdatedAt": "2026-06-12T17:04:49.484666Z",
+      "WhereTrigger": "SpaceID = 'd4b12cd9-6208-4bb3-81b6-2789becf61f6'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "12079ecaaa119f4f0d08a499f95baa0bb2889a6ba83277b09ae9490cbca6af12",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "02de11c5-11dd-4790-aa99-3151ba570a07"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "89ad0d3c-d3a2-4e60-a99d-acefa97820b6",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "7cfc31a4-0bed-43fd-80ad-b8f8fe46aeec",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "221b1aff-60f6-4d62-a21e-64c91b0bece3",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": "",
+        "installer.confighub.com/package": "minio-operator-tenant",
+        "installer.confighub.com/role": "installer-record"
+      },
+      "ApprovedBy": [],
+      "ContentHash": -940130870,
+      "CreatedAt": "2026-06-12T17:04:41.682832Z",
+      "CursorID": 28640,
+      "Data": "YXBpVmVyc2lvbjogImluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExIgpraW5kOiAiUGFja2FnZSIKbWV0YWRhdGE6CiAgbmFtZTogIm1pbmlvLW9wZXJhdG9yLXRlbmFudCIKICB2ZXJzaW9uOiAiNy4xLjEiCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBiYXNlczoKICAtIG5hbWU6ICJkZWZhdWx0IgogICAgcGF0aDogImJhc2VzL2RlZmF1bHQiCiAgICBkZWZhdWx0OiB0cnVlCiAgICBkZXNjcmlwdGlvbjogIm1pbmlvLW9wZXJhdG9yL3RlbmFudCBkZWZhdWx0IHZhcmlhbnQgcmVuZGVyZWQgZnJvbSBtaW5pby1vcGVyYXRvci90ZW5hbnRANy4xLjEiCi0tLQphcGlWZXJzaW9uOiBpbnN0YWxsZXIuY29uZmlnaHViLmNvbS92MWFscGhhMQpraW5kOiBGdW5jdGlvbkNoYWluCm1ldGFkYXRhOgogIG5hbWU6IG1pbmlvLW9wZXJhdG9yLXRlbmFudC1mdW5jdGlvbi1jaGFpbgogIGFubm90YXRpb25zOgogICAgY29uZmlnLmt1YmVybmV0ZXMuaW8vbG9jYWwtY29uZmlnOiB0cnVlCnNwZWM6CiAgcGFja2FnZTogbWluaW8tb3BlcmF0b3ItdGVuYW50CiAgZ3JvdXBzOiBbXQotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogSW5wdXRzCm1ldGFkYXRhOgogIG5hbWU6IG1pbmlvLW9wZXJhdG9yLXRlbmFudC1pbnB1dHMKICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG1pbmlvLW9wZXJhdG9yLXRlbmFudAogIG5hbWVzcGFjZTogZGVmYXVsdAogIHZhbHVlczoge30KLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IE1hbmlmZXN0SW5kZXgKbWV0YWRhdGE6CiAgbmFtZTogbWluaW8tb3BlcmF0b3ItdGVuYW50LW1hbmlmZXN0LWluZGV4CiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBtaW5pby1vcGVyYXRvci10ZW5hbnQKICBmaWxlczoKICAtIGZpbGVuYW1lOiBuYW1lc3BhY2UtZGVmYXVsdC55YW1sCiAgICBzbHVnOiBuYW1lc3BhY2UtZGVmYXVsdAogICAgYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IE5hbWVzcGFjZQogICAgbmFtZTogZGVmYXVsdAogIC0gZmlsZW5hbWU6IHRlbmFudC1teW1pbmlvLnlhbWwKICAgIHNsdWc6IHRlbmFudC1teW1pbmlvCiAgICBhcGlWZXJzaW9uOiBtaW5pby5taW4uaW8vdjIKICAgIGtpbmQ6IFRlbmFudAogICAgbmFtZTogbXltaW5pbwotLS0KYXBpVmVyc2lvbjogaW5zdGFsbGVyLmNvbmZpZ2h1Yi5jb20vdjFhbHBoYTEKa2luZDogU2VsZWN0aW9uCm1ldGFkYXRhOgogIG5hbWU6IG1pbmlvLW9wZXJhdG9yLXRlbmFudC1zZWxlY3Rpb24KICBhbm5vdGF0aW9uczoKICAgIGNvbmZpZy5rdWJlcm5ldGVzLmlvL2xvY2FsLWNvbmZpZzogdHJ1ZQpzcGVjOgogIHBhY2thZ2U6IG1pbmlvLW9wZXJhdG9yLXRlbmFudAogIGJhc2U6IGRlZmF1bHQKLS0tCmFwaVZlcnNpb246IGluc3RhbGxlci5jb25maWdodWIuY29tL3YxYWxwaGExCmtpbmQ6IFVwbG9hZAptZXRhZGF0YToKICBuYW1lOiBtaW5pby1vcGVyYXRvci10ZW5hbnQtdXBsb2FkCiAgYW5ub3RhdGlvbnM6CiAgICBjb25maWcua3ViZXJuZXRlcy5pby9sb2NhbC1jb25maWc6IHRydWUKc3BlYzoKICBwYWNrYWdlOiBtaW5pby1vcGVyYXRvci10ZW5hbnQKICBzcGFjZVBhdHRlcm46IGhlbG0tbWluaW8tdGVuYW50LWRlZmF1bHQtY29uZmlnaHViLXByb29mCiAgc3BhY2VzOgogIC0gcGFja2FnZTogbWluaW8tb3BlcmF0b3ItdGVuYW50CiAgICBzbHVnOiBoZWxtLW1pbmlvLXRlbmFudC1kZWZhdWx0LWNvbmZpZ2h1Yi1wcm9vZgogICAgaXNQYXJlbnQ6IHRydWUKICB1cGxvYWRlZEF0OiAiMjAyNi0wNi0xMlQxNzowNDozN1oiCiAgc2VydmVyOiBodHRwczovL2h1Yi5jb25maWdodWIuY29tCiAgb3JnYW5pemF0aW9uSUQ6IDU4YjIzYjg1LTk2OTktNDM4NC1iZDU3LTgwZWY2OTVhMWQ1OAo=",
+      "DataHash": "12079ecaaa119f4f0d08a499f95baa0bb2889a6ba83277b09ae9490cbca6af12",
+      "DisplayName": "installer-record",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Package": "minio-operator-tenant"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/minio-operator-tenant": {}
+          },
+          "AliasesWithoutScopes": {
+            "minio-operator-tenant": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/minio-operator-tenant",
+            "ResourceNameWithoutScope": "minio-operator-tenant",
+            "ResourceType": "installer.confighub.com/v1alpha1/Package"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: \"installer.confighub.com/v1alpha1\"\nkind: \"Package\"\nmetadata:\n  name: \"minio-operator-tenant\"\n  version: \"7.1.1\"\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  bases:\n  - name: \"default\"\n    path: \"bases/default\"\n    default: true\n    description: \"minio-operator/tenant default variant rendered from minio-operator/tenant@7.1.1\"\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/minio-operator-tenant-function-chain": {}
+          },
+          "AliasesWithoutScopes": {
+            "minio-operator-tenant-function-chain": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/minio-operator-tenant-function-chain",
+            "ResourceNameWithoutScope": "minio-operator-tenant-function-chain",
+            "ResourceType": "installer.confighub.com/v1alpha1/FunctionChain"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: FunctionChain\nmetadata:\n  name: minio-operator-tenant-function-chain\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: minio-operator-tenant\n  groups: []\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/minio-operator-tenant-inputs": {}
+          },
+          "AliasesWithoutScopes": {
+            "minio-operator-tenant-inputs": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/minio-operator-tenant-inputs",
+            "ResourceNameWithoutScope": "minio-operator-tenant-inputs",
+            "ResourceType": "installer.confighub.com/v1alpha1/Inputs"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Inputs\nmetadata:\n  name: minio-operator-tenant-inputs\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: minio-operator-tenant\n  namespace: default\n  values: {}\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/minio-operator-tenant-manifest-index": {}
+          },
+          "AliasesWithoutScopes": {
+            "minio-operator-tenant-manifest-index": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/minio-operator-tenant-manifest-index",
+            "ResourceNameWithoutScope": "minio-operator-tenant-manifest-index",
+            "ResourceType": "installer.confighub.com/v1alpha1/ManifestIndex"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: ManifestIndex\nmetadata:\n  name: minio-operator-tenant-manifest-index\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: minio-operator-tenant\n  files:\n  - filename: namespace-default.yaml\n    slug: namespace-default\n    apiVersion: v1\n    kind: Namespace\n    name: default\n  - filename: tenant-myminio.yaml\n    slug: tenant-myminio\n    apiVersion: minio.min.io/v2\n    kind: Tenant\n    name: myminio\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/minio-operator-tenant-selection": {}
+          },
+          "AliasesWithoutScopes": {
+            "minio-operator-tenant-selection": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/minio-operator-tenant-selection",
+            "ResourceNameWithoutScope": "minio-operator-tenant-selection",
+            "ResourceType": "installer.confighub.com/v1alpha1/Selection"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Selection\nmetadata:\n  name: minio-operator-tenant-selection\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: minio-operator-tenant\n  base: default\n"
+          }
+        },
+        {
+          "Aliases": {
+            "/minio-operator-tenant-upload": {}
+          },
+          "AliasesWithoutScopes": {
+            "minio-operator-tenant-upload": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/minio-operator-tenant-upload",
+            "ResourceNameWithoutScope": "minio-operator-tenant-upload",
+            "ResourceType": "installer.confighub.com/v1alpha1/Upload"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: installer.confighub.com/v1alpha1\nkind: Upload\nmetadata:\n  name: minio-operator-tenant-upload\n  annotations:\n    config.kubernetes.io/local-config: true\nspec:\n  package: minio-operator-tenant\n  spacePattern: helm-minio-tenant-default-confighub-proof\n  spaces:\n  - package: minio-operator-tenant\n    slug: helm-minio-tenant-default-confighub-proof\n    isParent: true\n  uploadedAt: \"2026-06-12T17:04:37Z\"\n  server: https://hub.confighub.com\n  organizationID: 58b23b85-9699-4384-bd57-80ef695a1d58\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "installer-record",
+      "SpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "221b1aff-60f6-4d62-a21e-64c91b0bece3",
+      "UpdatedAt": "2026-06-12T17:04:42.777754Z",
+      "Version": 6
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:04:49.719388Z",
+        "CursorID": 23762,
+        "DisplayName": "Upgrade namespace-default",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "1a6dbc69-20e9-4bfd-b996-138a96326744",
+        "LinkID": "c56f6169-2e7c-4d2a-ae98-0ce601002e80",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-namespace-default",
+        "SpaceID": "89ad0d3c-d3a2-4e60-a99d-acefa97820b6",
+        "SpaceSlug": "MinioTenant-default-staging",
+        "ToSpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+        "ToUnitID": "4c495494-c73c-437b-9c56-727584b65a61",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:04:49.719389Z",
+        "UpstreamLastMergedRevisionNum": 1,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '4c495494-c73c-437b-9c56-727584b65a61' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:04:49.484666Z",
+      "CursorID": 4659,
+      "DisplayName": "helm-minio-tenant-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MinioTenant",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MinioTenant-default-staging",
+      "SpaceID": "89ad0d3c-d3a2-4e60-a99d-acefa97820b6",
+      "UpdatedAt": "2026-06-12T17:04:49.484666Z",
+      "WhereTrigger": "SpaceID = 'd4b12cd9-6208-4bb3-81b6-2789becf61f6'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "c56f6169-2e7c-4d2a-ae98-0ce601002e80"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "namespace-default",
+      "SpaceID": "89ad0d3c-d3a2-4e60-a99d-acefa97820b6",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1a6dbc69-20e9-4bfd-b996-138a96326744",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "4c495494-c73c-437b-9c56-727584b65a61",
+      "Version": 4
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1383115880,
+      "CreatedAt": "2026-06-12T17:04:39.801184Z",
+      "CursorID": 28636,
+      "Data": "YXBpVmVyc2lvbjogdjEKa2luZDogTmFtZXNwYWNlCm1ldGFkYXRhOgogIG5hbWU6IGRlZmF1bHQK",
+      "DataHash": "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c",
+      "DisplayName": "namespace-default",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 1,
+      "Labels": {
+        "Component": "MinioTenant",
+        "HelmChart": "minio-operator-tenant",
+        "HelmChartVersion": "7.1.1",
+        "Package": "minio-operator-tenant",
+        "Proof": "minio-tenant-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Initial Data: 57 bytes; from namespace-default.yaml",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/default": {}
+          },
+          "AliasesWithoutScopes": {
+            "default": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/default",
+            "ResourceNameWithoutScope": "default",
+            "ResourceType": "v1/Namespace"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: default\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "v1/Namespace"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "v1/Namespace"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "/default",
+          "ResourceNameWithoutScope": "default",
+          "ResourceType": "v1/Namespace"
+        }
+      ],
+      "Slug": "namespace-default",
+      "SpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "4c495494-c73c-437b-9c56-727584b65a61",
+      "UpdatedAt": "2026-06-12T17:04:39.874053Z",
+      "Version": 3
+    }
+  },
+  {
+    "FromLink": [
+      {
+        "CreatedAt": "2026-06-12T17:04:49.745714Z",
+        "CursorID": 23763,
+        "DisplayName": "Upgrade tenant-myminio",
+        "DownstreamLastMergedRevisionNum": 1,
+        "EntityType": "Link",
+        "FromUnitID": "85ac0814-34e1-4099-91ad-321cfcad3fa7",
+        "LinkID": "4e1b1b6b-5ab8-4b62-b2b5-72438993373e",
+        "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+        "Slug": "upgrade-tenant-myminio",
+        "SpaceID": "89ad0d3c-d3a2-4e60-a99d-acefa97820b6",
+        "SpaceSlug": "MinioTenant-default-staging",
+        "ToSpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+        "ToUnitID": "150b1d76-709f-495d-8ab6-c328ddc3a6b1",
+        "UpdateType": "UpgradeUnit",
+        "UpdatedAt": "2026-06-12T17:04:49.745714Z",
+        "UpstreamLastMergedRevisionNum": 2,
+        "WhereMutation": "Revision.Source IN ('CloneUnit', 'UpgradeUnit', 'MergeUnits') AND MergeSourceID = '150b1d76-709f-495d-8ab6-c328ddc3a6b1' IS NOT FALSE"
+      }
+    ],
+    "Space": {
+      "CreatedAt": "2026-06-12T17:04:49.484666Z",
+      "CursorID": 4659,
+      "DisplayName": "helm-minio-tenant-default-confighub-proof",
+      "EntityType": "Space",
+      "Labels": {
+        "Component": "MinioTenant",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "local",
+        "Variant": "staging"
+      },
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Permissions": {
+        "Manage": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        },
+        "ManageChildren": {
+          "UserIDs": {
+            "c5818f81-ae4b-4d17-987f-743f19bdb0ca": true
+          }
+        }
+      },
+      "Slug": "MinioTenant-default-staging",
+      "SpaceID": "89ad0d3c-d3a2-4e60-a99d-acefa97820b6",
+      "UpdatedAt": "2026-06-12T17:04:49.484666Z",
+      "WhereTrigger": "SpaceID = 'd4b12cd9-6208-4bb3-81b6-2789becf61f6'"
+    },
+    "Unit": {
+      "ApprovedBy": null,
+      "CreatedAt": "0001-01-01T00:00:00Z",
+      "DataHash": "1b275268b5c84aa3bcefe4bb0609c82607138d105502b03673db85ac975b6cae",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "4e1b1b6b-5ab8-4b62-b2b5-72438993373e"
+      ],
+      "HeadRevisionNum": 1,
+      "MutationSources": null,
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "tenant-myminio",
+      "SpaceID": "89ad0d3c-d3a2-4e60-a99d-acefa97820b6",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "85ac0814-34e1-4099-91ad-321cfcad3fa7",
+      "UpdatedAt": "0001-01-01T00:00:00Z",
+      "UpstreamUnitID": "150b1d76-709f-495d-8ab6-c328ddc3a6b1",
+      "Version": 3
+    },
+    "UnitStatus": {
+      "Action": "N/A",
+      "ActionResult": "None",
+      "ActionStartedAt": "0001-01-01T00:00:00Z",
+      "ActionTerminatedAt": "0001-01-01T00:00:00Z",
+      "Drift": "N/A",
+      "Status": "NotLive",
+      "SyncStatus": "NotLive"
+    },
+    "UpstreamUnit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApprovedBy": [],
+      "ContentHash": -1369296300,
+      "CreatedAt": "2026-06-12T17:04:40.666904Z",
+      "CursorID": 28638,
+      "Data": "YXBpVmVyc2lvbjogbWluaW8ubWluLmlvL3YyCmtpbmQ6IFRlbmFudAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHA6IG1pbmlvCiAgbmFtZTogbXltaW5pbwpzcGVjOgogIGNvbmZpZ3VyYXRpb246CiAgICBuYW1lOiBteW1pbmlvLWVudi1jb25maWd1cmF0aW9uCiAgZmVhdHVyZXM6CiAgICBidWNrZXRETlM6IGZhbHNlCiAgICBlbmFibGVTRlRQOiBmYWxzZQogIGltYWdlOiBxdWF5LmlvL21pbmlvL21pbmlvOlJFTEVBU0UuMjAyNS0wNC0wOFQxNS00MS0yNFoKICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogIG1vdW50UGF0aDogL2V4cG9ydAogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcG9vbHM6CiAgLSBjb250YWluZXJTZWN1cml0eUNvbnRleHQ6CiAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgY2FwYWJpbGl0aWVzOgogICAgICAgIGRyb3A6CiAgICAgICAgLSBBTEwKICAgICAgcnVuQXNHcm91cDogMTAwMAogICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgcnVuQXNVc2VyOiAxMDAwCiAgICAgIHNlY2NvbXBQcm9maWxlOgogICAgICAgIHR5cGU6IFJ1bnRpbWVEZWZhdWx0CiAgICBuYW1lOiBwb29sLTAKICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgZnNHcm91cDogMTAwMAogICAgICBmc0dyb3VwQ2hhbmdlUG9saWN5OiBPblJvb3RNaXNtYXRjaAogICAgICBydW5Bc0dyb3VwOiAxMDAwCiAgICAgIHJ1bkFzTm9uUm9vdDogdHJ1ZQogICAgICBydW5Bc1VzZXI6IDEwMDAKICAgIHNlcnZlcnM6IDQKICAgIHZvbHVtZUNsYWltVGVtcGxhdGU6CiAgICAgIG1ldGFkYXRhOgogICAgICAgIG5hbWU6IGRhdGEKICAgICAgc3BlYzoKICAgICAgICBhY2Nlc3NNb2RlczoKICAgICAgICAtIFJlYWRXcml0ZU9uY2UKICAgICAgICByZXNvdXJjZXM6CiAgICAgICAgICByZXF1ZXN0czoKICAgICAgICAgICAgc3RvcmFnZTogMTBHaQogICAgdm9sdW1lc1BlclNlcnZlcjogNAogIHBvb2xzTWV0YWRhdGE6CiAgICBhbm5vdGF0aW9uczoge30KICAgIGxhYmVsczoge30KICBwcm9tZXRoZXVzT3BlcmF0b3I6IGZhbHNlCiAgcmVxdWVzdEF1dG9DZXJ0OiB0cnVlCiAgc3ViUGF0aDogL2RhdGEK",
+      "DataHash": "1b275268b5c84aa3bcefe4bb0609c82607138d105502b03673db85ac975b6cae",
+      "DisplayName": "tenant-myminio",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": null,
+      "HeadMutationNum": 1,
+      "HeadRevisionNum": 2,
+      "Labels": {
+        "Component": "MinioTenant",
+        "HelmChart": "minio-operator-tenant",
+        "HelmChartVersion": "7.1.1",
+        "Package": "minio-operator-tenant",
+        "Proof": "minio-tenant-default-confighub-proof",
+        "Variant": "default"
+      },
+      "LastChangeDescription": "Functions: get-resources",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "/myminio": {}
+          },
+          "AliasesWithoutScopes": {
+            "myminio": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "/myminio",
+            "ResourceNameWithoutScope": "myminio",
+            "ResourceType": "minio.min.io/v2/Tenant"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: minio.min.io/v2\nkind: Tenant\nmetadata:\n  labels:\n    app: minio\n  name: myminio\nspec:\n  configuration:\n    name: myminio-env-configuration\n  features:\n    bucketDNS: false\n    enableSFTP: false\n  image: quay.io/minio/minio:RELEASE.2025-04-08T15-41-24Z\n  imagePullPolicy: IfNotPresent\n  mountPath: /export\n  podManagementPolicy: Parallel\n  pools:\n  - containerSecurityContext:\n      allowPrivilegeEscalation: false\n      capabilities:\n        drop:\n        - ALL\n      runAsGroup: 1000\n      runAsNonRoot: true\n      runAsUser: 1000\n      seccompProfile:\n        type: RuntimeDefault\n    name: pool-0\n    securityContext:\n      fsGroup: 1000\n      fsGroupChangePolicy: OnRootMismatch\n      runAsGroup: 1000\n      runAsNonRoot: true\n      runAsUser: 1000\n    servers: 4\n    volumeClaimTemplate:\n      metadata:\n        name: data\n      spec:\n        accessModes:\n        - ReadWriteOnce\n        resources:\n          requests:\n            storage: 10Gi\n    volumesPerServer: 4\n  poolsMetadata:\n    annotations: {}\n    labels: {}\n  prometheusOperator: false\n  requestAutoCert: true\n  subPath: /data\n"
+          }
+        }
+      ],
+      "OrganizationID": "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+      "Slug": "tenant-myminio",
+      "SpaceID": "d4b12cd9-6208-4bb3-81b6-2789becf61f6",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "150b1d76-709f-495d-8ab6-c328ddc3a6b1",
+      "UpdatedAt": "2026-06-12T17:04:42.822862Z",
+      "Version": 6
+    }
+  }
+]

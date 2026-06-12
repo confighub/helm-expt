@@ -1,0 +1,5 @@
+Bundled fluent-fluentd@
+  output: .tmp/confighub-proof/fluentd-default-archives/fluentd-b.tgz
+  files:  4
+  size:   6829 bytes
+  digest: sha256:73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9

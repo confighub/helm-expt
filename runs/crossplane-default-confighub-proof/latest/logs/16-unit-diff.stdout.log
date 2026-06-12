@@ -1,0 +1,138 @@
+--- helm-crossplane-default-confighub-proof/deployment-default-crossplane-rbac-manager/1
++++ helm-crossplane-default-confighub-proof/deployment-default-crossplane-rbac-manager/2
+@@ -35,70 +39,65 @@
+         release: crossplane
+     spec:
+       containers:
+-        - args:
+-            - rbac
+-            - start
+-            - --provider-clusterrole=crossplane:allowed-provider-permissions
+-          env:
+-            - name: GOMAXPROCS
+-              valueFrom:
+-                resourceFieldRef:
+-                  containerName: crossplane
+-                  divisor: "1"
+-                  resource: limits.cpu
+-            - name: GOMEMLIMIT
+-              valueFrom:
+-                resourceFieldRef:
+-                  containerName: crossplane
+-                  divisor: "1"
+-                  resource: limits.memory
+-            - name: LEADER_ELECTION
+-              value: "true"
+-          image: xpkg.crossplane.io/crossplane/crossplane:v2.3.1
+-          imagePullPolicy: IfNotPresent
+-          name: crossplane
+-          resources:
+-            limits:
+-              cpu: 100m
+-              memory: 512Mi
+-            requests:
+-              cpu: 100m
+-              memory: 256Mi
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            readOnlyRootFilesystem: true
+-            runAsGroup: 65532
+-            runAsUser: 65532
++      - args:
++        - rbac
++        - start
++        - --provider-clusterrole=crossplane:allowed-provider-permissions
++        env:
++        - name: GOMAXPROCS
++          valueFrom:
++            resourceFieldRef:
++              containerName: crossplane
++              divisor: "1"
++              resource: limits.cpu
++        - name: GOMEMLIMIT
++          valueFrom:
++            resourceFieldRef:
++              containerName: crossplane
++              divisor: "1"
++              resource: limits.memory
++        - name: LEADER_ELECTION
++          value: "true"
++        image: xpkg.crossplane.io/crossplane/crossplane:v2.3.1
++        imagePullPolicy: IfNotPresent
++        name: crossplane
++        resources:
++          limits:
++            cpu: 100m
++            memory: 512Mi
++          requests:
++            cpu: 100m
++            memory: 256Mi
++        securityContext:
++          allowPrivilegeEscalation: false
++          readOnlyRootFilesystem: true
++          runAsGroup: 65532
++          runAsUser: 65532
+       initContainers:
+-        - args:
+-            - rbac
+-            - init
+-          env:
+-            - name: GOMAXPROCS
+-              valueFrom:
+-                resourceFieldRef:
+-                  containerName: crossplane-init
+-                  divisor: "1"
+-                  resource: limits.cpu
+-            - name: GOMEMLIMIT
+-              valueFrom:
+-                resourceFieldRef:
+-                  containerName: crossplane-init
+-                  divisor: "1"
+-                  resource: limits.memory
+-          image: xpkg.crossplane.io/crossplane/crossplane:v2.3.1
+-          imagePullPolicy: IfNotPresent
+-          name: crossplane-init
+-          resources:
+-            limits:
+-              cpu: 100m
+-              memory: 512Mi
+-            requests:
+-              cpu: 100m
+-              memory: 256Mi
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            readOnlyRootFilesystem: true
+-            runAsGroup: 65532
+-            runAsUser: 65532
++      - args:
++        - rbac
++        - init
++        env:
++        - name: GOMAXPROCS
++          valueFrom:
++            resourceFieldRef:
++              containerName: crossplane-init
++              divisor: "1"
++              resource: limits.cpu
++        - name: GOMEMLIMIT
++          valueFrom:
++            resourceFieldRef:
++              containerName: crossplane-init
++              divisor: "1"
++              resource: limits.memory
++        image: xpkg.crossplane.io/crossplane/crossplane:v2.3.1
++        imagePullPolicy: IfNotPresent
++        name: crossplane-init
++        resources:
++          limits:
++            cpu: 100m
++            memory: 512Mi
++          requests:
++            cpu: 100m
++            memory: 256Mi
++        securityContext:
++          allowPrivilegeEscalation: false
++          readOnlyRootFilesystem: true
++          runAsGroup: 65532
++          runAsUser: 65532
+       serviceAccountName: rbac-manager

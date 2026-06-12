@@ -1,0 +1,411 @@
+--- helm-consul-secure-mesh-existing-secrets-confighub-proof/statefulset-consul-consul-consul-server/1
++++ helm-consul-secure-mesh-existing-secrets-confighub-proof/statefulset-consul-consul-consul-server/2
+@@ -40,173 +44,161 @@
+       affinity:
+         podAntiAffinity:
+           requiredDuringSchedulingIgnoredDuringExecution:
+-            - labelSelector:
+-                matchLabels:
+-                  app: consul
+-                  component: server
+-                  release: consul
+-              topologyKey: kubernetes.io/hostname
++          - labelSelector:
++              matchLabels:
++                app: consul
++                component: server
++                release: consul
++            topologyKey: kubernetes.io/hostname
+       containers:
+-        - command:
++      - command:
++        - /bin/sh
++        - -ec
++        - |
++          cp /consul/tmp/extra-config/extra-from-values.json /consul/extra-config/extra-from-values.json
++          [ -n "${HOST_IP}" ] && sed -Ei "s|HOST_IP|${HOST_IP?}|g" /consul/extra-config/extra-from-values.json
++          [ -n "${POD_IP}" ] && sed -Ei "s|POD_IP|${POD_IP?}|g" /consul/extra-config/extra-from-values.json
++          [ -n "${HOSTNAME}" ] && sed -Ei "s|HOSTNAME|${HOSTNAME?}|g" /consul/extra-config/extra-from-values.json
++
++          exec /usr/local/bin/docker-entrypoint.sh consul agent \
++            -advertise="${ADVERTISE_IP}" \
++            -config-dir=/consul/config \
++            -encrypt="${GOSSIP_KEY}" \
++            -hcl="acl { tokens { initial_management = \"${ACL_BOOTSTRAP_TOKEN}\" } }" \
++            -config-dir=/consul/extra-config \
++        env:
++        - name: ADVERTISE_IP
++          valueFrom:
++            fieldRef:
++              apiVersion: v1
++              fieldPath: status.podIP
++        - name: HOST_IP
++          valueFrom:
++            fieldRef:
++              apiVersion: v1
++              fieldPath: status.hostIP
++        - name: POD_IP
++          valueFrom:
++            fieldRef:
++              apiVersion: v1
++              fieldPath: status.podIP
++        - name: CONSUL_DISABLE_PERM_MGMT
++          value: "true"
++        - name: GOSSIP_KEY
++          valueFrom:
++            secretKeyRef:
++              key: key
++              name: consul-gossip-encryption-key
++        - name: CONSUL_HTTP_ADDR
++          value: https://localhost:8501
++        - name: CONSUL_CACERT
++          value: /consul/tls/ca/tls.crt
++        - name: ACL_BOOTSTRAP_TOKEN
++          valueFrom:
++            secretKeyRef:
++              key: token
++              name: consul-bootstrap-acl-token
++        image: hashicorp/consul:2.0.0
++        imagePullPolicy: IfNotPresent
++        name: consul
++        ports:
++        - containerPort: 8501
++          name: https
++          protocol: TCP
++        - containerPort: 8502
++          name: grpc
++          protocol: TCP
++        - containerPort: 8301
++          name: serflan-tcp
++          protocol: TCP
++        - containerPort: 8301
++          name: serflan-udp
++          protocol: UDP
++        - containerPort: 8302
++          name: serfwan-tcp
++          protocol: TCP
++        - containerPort: 8302
++          name: serfwan-udp
++          protocol: UDP
++        - containerPort: 8300
++          name: server
++          protocol: TCP
++        - containerPort: 8600
++          name: dns-tcp
++          protocol: TCP
++        - containerPort: 8600
++          name: dns-udp
++          protocol: UDP
++        readinessProbe:
++          exec:
++            command:
+             - /bin/sh
+             - -ec
+             - |
+-              cp /consul/tmp/extra-config/extra-from-values.json /consul/extra-config/extra-from-values.json
+-              [ -n "${HOST_IP}" ] && sed -Ei "s|HOST_IP|${HOST_IP?}|g" /consul/extra-config/extra-from-values.json
+-              [ -n "${POD_IP}" ] && sed -Ei "s|POD_IP|${POD_IP?}|g" /consul/extra-config/extra-from-values.json
+-              [ -n "${HOSTNAME}" ] && sed -Ei "s|HOSTNAME|${HOSTNAME?}|g" /consul/extra-config/extra-from-values.json
+-
+-              exec /usr/local/bin/docker-entrypoint.sh consul agent \
+-                -advertise="${ADVERTISE_IP}" \
+-                -config-dir=/consul/config \
+-                -encrypt="${GOSSIP_KEY}" \
+-                -hcl="acl { tokens { initial_management = \"${ACL_BOOTSTRAP_TOKEN}\" } }" \
+-                -config-dir=/consul/extra-config \
+-          env:
+-            - name: ADVERTISE_IP
+-              valueFrom:
+-                fieldRef:
+-                  apiVersion: v1
+-                  fieldPath: status.podIP
+-            - name: HOST_IP
+-              valueFrom:
+-                fieldRef:
+-                  apiVersion: v1
+-                  fieldPath: status.hostIP
+-            - name: POD_IP
+-              valueFrom:
+-                fieldRef:
+-                  apiVersion: v1
+-                  fieldPath: status.podIP
+-            - name: CONSUL_DISABLE_PERM_MGMT
+-              value: "true"
+-            - name: GOSSIP_KEY
+-              valueFrom:
+-                secretKeyRef:
+-                  key: key
+-                  name: consul-gossip-encryption-key
+-            - name: CONSUL_HTTP_ADDR
+-              value: https://localhost:8501
+-            - name: CONSUL_CACERT
+-              value: /consul/tls/ca/tls.crt
+-            - name: ACL_BOOTSTRAP_TOKEN
+-              valueFrom:
+-                secretKeyRef:
+-                  key: token
+-                  name: consul-bootstrap-acl-token
+-          image: hashicorp/consul:2.0.0
+-          imagePullPolicy: IfNotPresent
+-          name: consul
+-          ports:
+-            - containerPort: 8501
+-              name: https
+-              protocol: TCP
+-            - containerPort: 8502
+-              name: grpc
+-              protocol: TCP
+-            - containerPort: 8301
+-              name: serflan-tcp
+-              protocol: TCP
+-            - containerPort: 8301
+-              name: serflan-udp
+-              protocol: UDP
+-            - containerPort: 8302
+-              name: serfwan-tcp
+-              protocol: TCP
+-            - containerPort: 8302
+-              name: serfwan-udp
+-              protocol: UDP
+-            - containerPort: 8300
+-              name: server
+-              protocol: TCP
+-            - containerPort: 8600
+-              name: dns-tcp
+-              protocol: TCP
+-            - containerPort: 8600
+-              name: dns-udp
+-              protocol: UDP
+-          readinessProbe:
+-            exec:
+-              command:
+-                - /bin/sh
+-                - -ec
+-                - |
+-                  curl -k \
+-                    https://127.0.0.1:8501/v1/status/leader \
+-                  2>/dev/null | grep -E '".+"'
+-            failureThreshold: 2
+-            initialDelaySeconds: 5
+-            periodSeconds: 3
+-            successThreshold: 1
+-            timeoutSeconds: 5
+-          resources:
+-            limits:
+-              cpu: 100m
+-              memory: 200Mi
+-            requests:
+-              cpu: 100m
+-              memory: 200Mi
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: true
+-            runAsNonRoot: true
+-            runAsUser: 100
+-            seccompProfile:
+-              type: RuntimeDefault
+-          terminationMessagePath: /dev/termination-log
+-          terminationMessagePolicy: File
+-          volumeMounts:
+-            - mountPath: /consul/data
+-              name: data-consul
+-            - mountPath: /consul/config
+-              name: config
+-            - mountPath: /consul/extra-config
+-              name: extra-config
+-            - mountPath: /consul/tmp/extra-config
+-              name: tmp-extra-config
+-            - mountPath: /consul/tls/ca/
+-              name: consul-ca-cert
+-              readOnly: true
+-            - mountPath: /consul/tls/server
+-              name: consul-server-cert
+-              readOnly: true
+-            - mountPath: /tmp
+-              name: tmp
++              curl -k \
++                https://127.0.0.1:8501/v1/status/leader \
++              2>/dev/null | grep -E '".+"'
++          failureThreshold: 2
++          initialDelaySeconds: 5
++          periodSeconds: 3
++          successThreshold: 1
++          timeoutSeconds: 5
++        resources:
++          limits:
++            cpu: 100m
++            memory: 200Mi
++          requests:
++            cpu: 100m
++            memory: 200Mi
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++          runAsNonRoot: true
++          runAsUser: 100
++          seccompProfile:
++            type: RuntimeDefault
++        terminationMessagePath: /dev/termination-log
++        terminationMessagePolicy: File
++        volumeMounts:
++        - mountPath: /consul/data
++          name: data-consul
++        - mountPath: /consul/config
++          name: config
++        - mountPath: /consul/extra-config
++          name: extra-config
++        - mountPath: /consul/tmp/extra-config
++          name: tmp-extra-config
++        - mountPath: /consul/tls/ca/
++          name: consul-ca-cert
++          readOnly: true
++        - mountPath: /consul/tls/server
++          name: consul-server-cert
++          readOnly: true
++        - mountPath: /tmp
++          name: tmp
+       dnsPolicy: ClusterFirst
+       initContainers:
+-        - command:
+-            - /bin/sh
+-            - -ec
+-            - |
+-              exec consul-k8s-control-plane fetch-server-region -node-name "$NODE_NAME" -output-file /consul/extra-config/locality.json
+-          env:
+-            - name: NODE_NAME
+-              valueFrom:
+-                fieldRef:
+-                  apiVersion: v1
+-                  fieldPath: spec.nodeName
+-          image: hashicorp/consul-k8s-control-plane:2.0.0
+-          imagePullPolicy: IfNotPresent
+-          name: locality-init
+-          resources: {}
+-          securityContext:
+-            allowPrivilegeEscalation: false
+-            capabilities:
+-              drop:
+-                - ALL
+-            readOnlyRootFilesystem: true
+-            runAsNonRoot: true
+-            runAsUser: 100
+-            seccompProfile:
+-              type: RuntimeDefault
+-          terminationMessagePath: /dev/termination-log
+-          terminationMessagePolicy: File
+-          volumeMounts:
+-            - mountPath: /consul/extra-config
+-              name: extra-config
++      - command:
++        - /bin/sh
++        - -ec
++        - |
++          exec consul-k8s-control-plane fetch-server-region -node-name "$NODE_NAME" -output-file /consul/extra-config/locality.json
++        env:
++        - name: NODE_NAME
++          valueFrom:
++            fieldRef:
++              apiVersion: v1
++              fieldPath: spec.nodeName
++        image: hashicorp/consul-k8s-control-plane:2.0.0
++        imagePullPolicy: IfNotPresent
++        name: locality-init
++        resources: {}
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++          runAsNonRoot: true
++          runAsUser: 100
++          seccompProfile:
++            type: RuntimeDefault
++        terminationMessagePath: /dev/termination-log
++        terminationMessagePolicy: File
++        volumeMounts:
++        - mountPath: /consul/extra-config
++          name: extra-config
+       restartPolicy: Always
+       schedulerName: default-scheduler
+       securityContext:
+@@ -226,41 +230,32 @@
+       serviceAccountName: consul-consul-server
+       terminationGracePeriodSeconds: 30
+       volumes:
+-        - emptyDir: {}
+-          name: tmp
+-        - configMap:
+-            defaultMode: 420
+-            name: consul-consul-server-config
+-          name: config
+-        - emptyDir: {}
+-          name: extra-config
+-        - configMap:
+-            defaultMode: 420
+-            name: consul-consul-server-tmp-extra-config
+-          name: tmp-extra-config
+-        - name: consul-ca-cert
+-          secret:
+-            items:
+-              - key: tls.crt
+-                path: tls.crt
+-            secretName: consul-ca-cert
+-        - name: consul-server-cert
+-          secret:
+-            secretName: consul-server-cert
++      - emptyDir: {}
++        name: tmp
++      - configMap:
++          defaultMode: 420
++          name: consul-consul-server-config
++        name: config
++      - emptyDir: {}
++        name: extra-config
++      - configMap:
++          defaultMode: 420
++          name: consul-consul-server-tmp-extra-config
++        name: tmp-extra-config
++      - name: consul-ca-cert
++        secret:
++          items:
++          - key: tls.crt
++            path: tls.crt
++          secretName: consul-ca-cert
++      - name: consul-server-cert
++        secret:
++          secretName: consul-server-cert
+   updateStrategy:
+     rollingUpdate:
+       maxUnavailable: 1
+       partition: 0
+     type: RollingUpdate
+   volumeClaimTemplates:
+-    - apiVersion: v1
+-      kind: PersistentVolumeClaim
+-      metadata:
+-        name: data-consul
+-      spec:
+-        accessModes:
+-          - ReadWriteOnce
+-        resources:
+-          requests:
+-            storage: 10Gi
+-        volumeMode: Filesystem
++  - apiVersion: v1
++    kind: PersistentVolumeClaim
++    metadata:
++      name: data-consul
++    spec:
++      accessModes:
++      - ReadWriteOnce
++      resources:
++        requests:
++          storage: 10Gi
++      volumeMode: Filesystem
