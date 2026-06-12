@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "cluster-metrics-readonly"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-node-exporter"
+    confighub.io/chart-version: "4.55.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+    helm-expt.confighub.com/useful-base-status: "values-profile-rerender"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "prometheus-node-exporter"
+  valuesProfile: "../../effective-values-cluster-metrics-readonly.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  usefulBase:
+    realizationStrategy: "values-profile-rerender"
+    userJob: "Expose node-exporter metrics with an explicit Prometheus Operator ServiceMonitor."
+    renderTimeChoices:
+      - "prometheus.monitor.enabled"
+      - "prometheus.monitor.additionalLabels"
+    addedObjects:
+      - "monitoring.coreos.com/v1|ServiceMonitor|default|prometheus-node-exporter"

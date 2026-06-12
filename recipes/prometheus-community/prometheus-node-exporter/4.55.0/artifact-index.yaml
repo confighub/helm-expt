@@ -45,26 +45,27 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "cluster-metrics-readonly"
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "needs-useful-variant"
-    userStatus: "proof-grade-needs-user-shaped-variant"
+    adoptionBucket: "promote-after-review"
+    userStatus: "proof-grade-ready-for-promotion-review"
     strongestEvidence: "local-kubernetes-live"
     proofLanes:
-      renderParity: "1/1"
-      inConfigHub: "0/1"
-      localLive: "1/1"
-      gitopsLive: "0/1"
-      liveParity: "0/1"
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "1/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
     featureSummary: "required-values;extension-slots"
     hardGap: "-"
-    nextAction: "add at least one user-shaped variant before catalog promotion"
+    nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
     installer: "packages/prometheus-community/prometheus-node-exporter/4.55.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d9b0f78c8f597763983d886cbe36358b8ccb89503fe9ae031fce9b5d8623e912"
+    deterministicBundleSHA256: "67d2b7945f56228bdf7759d820aae518d43beee32492171bcbf47ab7174c3833"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -72,6 +73,11 @@ spec:
         path: "packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/default"
         default: true
         description: "prometheus-community/prometheus-node-exporter default variant rendered from prometheus-community/prometheus-node-exporter@4.55.0"
+      -
+        name: "cluster-metrics-readonly"
+        path: "packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly"
+        default: false
+        description: "prometheus-community/prometheus-node-exporter cluster-metrics-readonly useful base rendered with Prometheus monitor values"
   variants:
     -
       name: "default"
@@ -135,3 +141,65 @@ spec:
               path: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "37862948d7c5d39d7be726864e9c71e6fb9e9fcc1ac40140e97153152aa6ffbc"
+    -
+      name: "cluster-metrics-readonly"
+      variant: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
+      namespace: "default"
+      releaseName: "prometheus-node-exporter"
+      valuesProfile: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/effective-values-cluster-metrics-readonly.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "cluster-metrics-readonly"
+        path: "packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly"
+        default: false
+        description: "prometheus-community/prometheus-node-exporter cluster-metrics-readonly useful base rendered with Prometheus monitor values"
+      setupCheck:
+        command: "cub installer setup --pull packages/prometheus-community/prometheus-node-exporter/4.55.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 4
+        cubInstallObjectCountIncludingSupport: 5
+        semanticObjectMatches: "4/4"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "cluster-metrics-readonly-r001"
+          revision: "r001"
+          variantRevision: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
+          digest: "935f7241802683ceb048f35d354f00662f722fcde4e5fc74fa7b2a9bfac4057f"
+          renderedObjectSetSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+          renderedObjects: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"
+          objectCount: 4
+          helmObjectCount: 4
+          cubInstallObjectCountIncludingSupport: 5
+          semanticObjectMatches: "4/4"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"

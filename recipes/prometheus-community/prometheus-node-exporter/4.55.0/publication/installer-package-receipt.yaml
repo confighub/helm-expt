@@ -4,18 +4,25 @@ metadata:
   name: "prometheus-community-prometheus-node-exporter-4-55-0"
 spec:
   chart:
-    repository: "prometheus-community"
     name: "prometheus-node-exporter"
+    repository: "prometheus-community"
     version: "4.55.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/prometheus-node-exporter/4.55.0 -o <tmp>/prometheus-community-prometheus-node-exporter-4-55-0.tgz"
+    sha256: "67d2b7945f56228bdf7759d820aae518d43beee32492171bcbf47ab7174c3833"
   package:
-    path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
     name: "prometheus-community-prometheus-node-exporter"
-    version: "4.55.0"
+    path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
     sourceFiles:
       -
-        path: "README.md"
-        sha256: "5c84b7ddbcf0d5419819d8a2f391139f0877f216e987389577e52dc3bc850eb8"
-        bytes: 226
+        path: "bases/cluster-metrics-readonly/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/cluster-metrics-readonly/upstream.yaml"
+        sha256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+        bytes: 6079
       -
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -26,20 +33,31 @@ spec:
         bytes: 5221
       -
         path: "installer.yaml"
-        sha256: "ff8e3b3378238f20d04e5c93a883b9549e92c04c7a4aa0a92ee529ac1032ef65"
-        bytes: 390
-  deterministicBundle:
-    command: "cub installer package packages/prometheus-community/prometheus-node-exporter/4.55.0 -o <tmp>/prometheus-community-prometheus-node-exporter-4-55-0.tgz"
-    sha256: "d9b0f78c8f597763983d886cbe36358b8ccb89503fe9ae031fce9b5d8623e912"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "7df4e3f3a32d42238000b7d8542b134a1552c6caf3c7ad16707eb1ce32b0a11e"
+        bytes: 624
+      -
+        path: "README.md"
+        sha256: "5c84b7ddbcf0d5419819d8a2f391139f0877f216e987389577e52dc3bc850eb8"
+        bytes: 226
+    version: "4.55.0"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/prometheus-community/prometheus-node-exporter/4.55.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 3
       cubInstallObjectCountIncludingSupport: 4
+      helmReleaseObjectCount: 3
       semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "cluster-metrics-readonly"
+      base: "cluster-metrics-readonly"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-node-exporter/4.55.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 4
+      cubInstallObjectCountIncludingSupport: 5
+      semanticObjectMatches: "4/4"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

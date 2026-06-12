@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-node-exporter"
+    confighub.io/chart-version: "4.55.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub installer setup for prometheus-community/prometheus-node-exporter@4.55.0 cluster-metrics-readonly"
+    - "4 Helm objects are bound to renderedObjectSetSHA256"
+    - "cluster-metrics-readonly is a values-profile rerender, not an alias of default"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

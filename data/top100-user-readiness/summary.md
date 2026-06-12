@@ -12,9 +12,9 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | Bucket | Charts | Meaning |
 | --- | --- | --- |
 | ready-to-try | 20 | Catalog-supported with live evidence; the recommended first base passes its lanes. Pull it and inspect the exact objects. |
-| works-with-target-prerequisites | 14 | Proof-grade and review-queued; the named gap is something your cluster or team must provide (existing Secret, storage, CRD ownership). |
+| works-with-target-prerequisites | 15 | Proof-grade and review-queued; the named gap is something your cluster or team must provide (existing Secret, storage, CRD ownership). |
 | works-with-operator-review | 22 | Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it. |
-| needs-better-base-variant | 36 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
+| needs-better-base-variant | 35 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
 | not-ready-yet | 8 | A named limitation or target compatibility issue needs a support / disclose / defer / refuse decision before this chart can be promoted. |
 
 ## ready-to-try (20)
@@ -42,7 +42,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | prometheus-community/prometheus@29.8.0 | server-only-ephemeral | a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | nothing beyond a cluster and namespace | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 
-## works-with-target-prerequisites (14)
+## works-with-target-prerequisites (15)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
@@ -51,6 +51,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | prometheus-community/kube-state-metrics@7.4.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; target facts at variant time | run catalog promotion review |
 | elastic/eck-operator@3.4.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; mandatory chart inputs | run catalog promotion review |
 | nats/nats@2.14.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); mandatory chart inputs | run catalog promotion review |
+| prometheus-community/prometheus-node-exporter@4.55.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs | run catalog promotion review |
 | gatekeeper/gatekeeper@3.22.2 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run catalog promotion review |
 | aqua/trivy-operator@0.32.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
@@ -88,7 +89,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | percona/psmdb-operator@1.22.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | vm/victoria-metrics-single@0.39.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 
-## needs-better-base-variant (36)
+## needs-better-base-variant (35)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
@@ -101,7 +102,6 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | jaegertracing/jaeger@4.8.0 | default (unreviewed first guess) | an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | dex/dex@0.24.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | falcosecurity/falco@9.0.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
-| prometheus-community/prometheus-node-exporter@4.55.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | projectcalico/tigera-operator@v3.32.0 | default (unreviewed first guess) | target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | fairwinds-stable/goldilocks@10.3.0 | default (unreviewed first guess) | an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | prometheus-community/prometheus-operator-crds@29.0.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |

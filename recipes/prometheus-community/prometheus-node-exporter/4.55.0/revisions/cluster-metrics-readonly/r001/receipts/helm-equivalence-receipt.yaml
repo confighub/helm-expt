@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-node-exporter"
+    confighub.io/chart-version: "4.55.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+    objectCount: 4
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 5
+    uploadedManifestFiles: 5
+    separatedSecretFiles: 0
+    semanticObjectMatches: "4/4"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  usefulBaseDelta:
+    sourceBase: "default"
+    addedObjects:
+      - "monitoring.coreos.com/v1|ServiceMonitor|default|prometheus-node-exporter"
+    removedObjects:
+      []
+  result: "pass"
+  evidenceCommand: "node scripts/realize-useful-base-rerenders.mjs --verify"

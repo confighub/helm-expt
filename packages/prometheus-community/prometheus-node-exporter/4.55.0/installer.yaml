@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "prometheus-community/prometheus-node-exporter default variant rendered from prometheus-community/prometheus-node-exporter@4.55.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "cluster-metrics-readonly"
+      path: "bases/cluster-metrics-readonly"
+      description: "prometheus-community/prometheus-node-exporter cluster-metrics-readonly useful base rendered with Prometheus monitor values"

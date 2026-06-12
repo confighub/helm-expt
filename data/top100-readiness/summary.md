@@ -23,8 +23,8 @@ source-reviewed hook routes not yet maintained: 8
 | User question | Count | Answer |
 | --- | ---: | --- |
 | What can a user try from the public catalog now? | 20 | Use the catalog entry, then check the exact base and proof lane before making a stronger claim. |
-| What works as a proof but is not promoted yet? | 36 | The recipe/package proof exists and useful variants exist; run catalog review and selected live lanes. |
-| What should not be shown as a real catalog offer yet? | 36 | The default render proves the mechanism, but a realistic user-shaped base variant is still needed. |
+| What works as a proof but is not promoted yet? | 37 | The recipe/package proof exists and useful variants exist; run catalog review and selected live lanes. |
+| What should not be shown as a real catalog offer yet? | 35 | The default render proves the mechanism, but a realistic user-shaped base variant is still needed. |
 | What needs a decision before promotion? | 8 | A named limitation such as existing-secret, HA, or CRD routing must be supported, disclosed, or deferred. |
 
 ## Practical Buckets
@@ -32,8 +32,8 @@ source-reviewed hook routes not yet maintained: 8
 | Question | Count | Read it as | Next move |
 | --- | ---: | --- | --- |
 | Which charts are already public catalog entries? | 20 | Use the catalog, then check exact base status before claiming a lane. | Open `CATALOG.md`, the per-chart catalog page, `base-outcomes.csv`, and the production next-action queue. |
-| Which proof-grade charts are closest to promotion? | 36 | Recipe/package proof and multiple variants exist, but catalog review is not done. | Run catalog promotion review and add live lanes for selected bases. |
-| Which charts need a useful user-shaped variant first? | 36 | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
+| Which proof-grade charts are closest to promotion? | 37 | Recipe/package proof and multiple variants exist, but catalog review is not done. | Run catalog promotion review and add live lanes for selected bases. |
+| Which charts need a useful user-shaped variant first? | 35 | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
 | Which charts need a limitation or compatibility decision first? | 8 | A known gap or target compatibility issue affects the recommended path. | Decide whether to support, disclose, defer, or refuse that capability for the named scope. |
 
 ## Next Workstreams
@@ -41,8 +41,8 @@ source-reviewed hook routes not yet maintained: 8
 | Workstream | Rows | Start with | Done when | First examples |
 | --- | ---: | --- | --- | --- |
 | Use the public catalog | 20 | Open `CATALOG.md` and `data/top20-base-readiness/start-here.md`. | The user chooses a base, checks its proof lane, and avoids production claims until a support decision exists. | `argo-cd/argo-cd@9.5.15`<br>`bitnami/mongodb@19.0.7`<br>`bitnami/mysql@14.0.3`<br>`bitnami/nginx@24.0.2`<br>`bitnami/postgresql@18.6.7` |
-| Promote proof-grade charts | 36 | Run catalog review on the closest proof-grade rows. | A chart has reviewed variants, live evidence for selected bases, and an updated catalog status. | `external-dns/external-dns@1.21.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0`<br>`prometheus-community/kube-state-metrics@7.4.0`<br>`elastic/eck-operator@3.4.0` |
-| Design user-shaped variants | 36 | Add one realistic base variant that a Helm user would actually pick. | The chart stops being default-only and moves into promotion review or limitation review. | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1` |
+| Promote proof-grade charts | 37 | Run catalog review on the closest proof-grade rows. | A chart has reviewed variants, live evidence for selected bases, and an updated catalog status. | `external-dns/external-dns@1.21.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0`<br>`prometheus-community/kube-state-metrics@7.4.0`<br>`elastic/eck-operator@3.4.0` |
+| Design user-shaped variants | 35 | Add one realistic base variant that a Helm user would actually pick. | The chart stops being default-only and moves into promotion review or limitation review. | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1` |
 | Resolve limitations and compatibility blockers | 8 | Decide whether to support, disclose, defer, or refuse the named gap for the target scope. | The catalog page, compatibility decision, or hard-gap row agrees on the supported path. | `traefik/traefik@40.2.0`<br>`kyverno/kyverno@3.8.1`<br>`bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`prometheus-community/prometheus-adapter@5.3.0` |
 | Expand live evidence | 27 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `gitlab/gitlab-runner@0.89.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1`<br>`bitnami/elasticsearch@22.1.6`<br>`dex/dex@0.24.0` |
 | Promote reviewed hook routes | 8 | Open `data/hook-route-candidates/summary.md` and choose one candidate route. | The route has a maintained lifecycle receipt, runtime observation path, or explicit blocker. | `k8s-dashboard/kubernetes-dashboard@7.14.0`<br>`gitlab/gitlab@10.0.0`<br>`bitnami/kafka@32.4.3`<br>`bitnami/minio@17.0.21`<br>`datadog/datadog@3.214.0` |
@@ -96,8 +96,8 @@ for the reviewed source-route inventory.
 | Bucket | Count | What it means | Use this when |
 | --- | ---: | --- | --- |
 | `limitation-decision-first` | 8 | A named capability gap or target compatibility issue affects the recommended path. Decide whether to support, disclose, defer, or refuse it for the named scope. | You need an operator/product compatibility decision before presenting the chart as supported. |
-| `needs-useful-variant` | 36 | The proof mechanism works, but the current default-only path is not yet a compelling catalog offer. | You are deciding which realistic base variants users would actually want. |
-| `promote-after-review` | 36 | Recipe/package proof and multiple variants exist. It is a good candidate for catalog review and selected live lanes. | You are expanding the catalog or choosing the next charts for live evidence. |
+| `needs-useful-variant` | 35 | The proof mechanism works, but the current default-only path is not yet a compelling catalog offer. | You are deciding which realistic base variants users would actually want. |
+| `promote-after-review` | 37 | Recipe/package proof and multiple variants exist. It is a good candidate for catalog review and selected live lanes. | You are expanding the catalog or choosing the next charts for live evidence. |
 | `try-from-public-catalog` | 20 | A public catalog entry exists and at least one base has live evidence. Check the exact base lane before making a broader claim. | You want a maintained public example and can choose a base with the needed proof lane. |
 
 ## Hard Gap Buckets
@@ -114,8 +114,8 @@ for the reviewed source-route inventory.
 | Adoption bucket | Rows | Rows with named hard gaps | Meaning |
 | --- | ---: | ---: | --- |
 | `try-from-public-catalog` | 20 | 10 | The catalog has reviewed bases; the hard gap usually points to another path that still needs support or disclosure. |
-| `promote-after-review` | 36 | 0 | No named hard gap currently blocks promotion review. |
-| `needs-useful-variant` | 36 | 8 | Add realistic variants first; any named hard gap should shape those variants or be disclosed. |
+| `promote-after-review` | 37 | 0 | No named hard gap currently blocks promotion review. |
+| `needs-useful-variant` | 35 | 8 | Add realistic variants first; any named hard gap should shape those variants or be disclosed. |
 | `limitation-decision-first` | 8 | 7 | The named gap blocks the next promotion decision until it is supported, disclosed, or deferred. |
 
 A hard gap is a capability warning, not an automatic failure. A top-20 catalog
@@ -130,8 +130,8 @@ decision before catalog promotion.
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | `catalog-supported-with-live-evidence` | 20 | Top-20 catalog entry with at least one live proof lane. |
-| `proof-grade-needs-user-shaped-variant` | 36 | Proof-grade chart whose current path is too default-only for catalog promotion. |
-| `proof-grade-ready-for-promotion-review` | 36 | Recipe/package proof exists and variants exist; needs human catalog promotion review. |
+| `proof-grade-needs-user-shaped-variant` | 35 | Proof-grade chart whose current path is too default-only for catalog promotion. |
+| `proof-grade-ready-for-promotion-review` | 37 | Recipe/package proof exists and variants exist; needs human catalog promotion review. |
 | `proof-grade-with-named-limitation` | 8 | Proof-grade chart with a named capability gap, target compatibility issue, or operator decision. |
 
 ## Strongest Evidence Per Chart

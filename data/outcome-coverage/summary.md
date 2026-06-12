@@ -9,14 +9,14 @@ the status per chart, base variant, derived variant, and Helm feature.
 ```text
 charts with model support:           108/110
 variant-rich charts:                 74/110
-chart/base rows:                     189
-complete core lane rows:             22/189
-render parity rows:                  189/189
-in-ConfigHub proof rows:             58/189
-local live rows:                     133/189
-GitOps/OCI live pass rows:           24/189
+chart/base rows:                     190
+complete core lane rows:             22/190
+render parity rows:                  190/190
+in-ConfigHub proof rows:             58/190
+local live rows:                     133/190
+GitOps/OCI live pass rows:           24/190
 GitOps/OCI non-pass receipts:        5
-live Helm-vs-ConfigHub pass rows:    22/189
+live Helm-vs-ConfigHub pass rows:    22/190
 live Helm-vs-ConfigHub non-pass receipts: 2
 lifecycle observation rows:          10/10
 selected live parity receipts:       20 pass, 0 watch, 0 blocked
