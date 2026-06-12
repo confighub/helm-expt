@@ -6,6 +6,7 @@ import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-comm
 
 const mode = process.argv[2] ?? "--help";
 const selectedSlug = optionValue("--chart");
+const selectedBase = optionValue("--base");
 const selectedFromRank = numberOption("--from-rank");
 const selectedToRank = numberOption("--to-rank");
 const repoUrlOverride = optionValue("--repo-url");
@@ -47,6 +48,7 @@ if (mode === "--run") {
 } else {
   console.log(`Usage:
   node scripts/run-top20-live-parity.mjs --run --chart metrics-server
+  node scripts/run-top20-live-parity.mjs --run --chart nginx --base existing-tls-ingress
   node scripts/run-top20-live-parity.mjs --run --chart nginx --repo-url oci://registry-1.docker.io/bitnamicharts
   node scripts/run-top20-live-parity.mjs --run --from-rank 2 --to-rank 5 --continue-on-fail
   node scripts/run-top20-live-parity.mjs --run --all --continue-on-fail
@@ -215,10 +217,13 @@ function receiptPath(target) {
 
 function selectedTargets({ requireAllByDefault = false } = {}) {
   if (process.argv.includes("--all")) return targets;
+  if (selectedBase && !selectedSlug) {
+    throw new Error("--base requires --chart");
+  }
   if (selectedSlug) {
     const target = targets.find((item) => item.slug === selectedSlug);
     check(Boolean(target), `unknown live parity chart ${selectedSlug}`);
-    return [target];
+    return [selectedBase ? targetForBase(target, selectedBase) : target];
   }
   let selected = targets;
   if (selectedFromRank !== null) selected = selected.filter((target) => target.rank >= selectedFromRank);
@@ -226,6 +231,17 @@ function selectedTargets({ requireAllByDefault = false } = {}) {
   if (selectedFromRank !== null || selectedToRank !== null) return selected;
   if (requireAllByDefault) return targets;
   return targets.filter((target) => existsSync(join(repoRoot, receiptPath(target))));
+}
+
+function targetForBase(target, base) {
+  const variantPath = join(repoRoot, target.recipe, "variants", base, "variant.yaml");
+  check(existsSync(variantPath), `${target.chart} has no variant ${base}`);
+  const variant = readYaml(variantPath);
+  return {
+    ...target,
+    namespace: variant.spec?.namespace ?? target.namespace,
+    variant: base,
+  };
 }
 
 function optionValue(name) {

@@ -11,7 +11,7 @@ block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
 rows: 0
-lifecycle-routed-not-active-rerun: 1
+lifecycle-routed-not-active-rerun: 0
 blocked: 0
 watch: 0
 configHub-oci-live-comparison: 0
@@ -89,15 +89,6 @@ faithful to the locked chart/version without changing the recipe.
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 
-## Related Lifecycle Evidence
-
-These rows have a separate lifecycle receipt for hook, CRD, webhook, or
-controller-owned behavior. Rows with a passing lifecycle receipt are not active
-rerun work unless the lifecycle decision changes.
-
-| Chart | Base | Rerun result | Lifecycle result | Lifecycle receipt |
-| --- | --- | --- | --- | --- |
-| `jetstack/cert-manager@v1.20.2` | default | blocked | pass | runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml |
 
 
 The machine-readable queue is:
