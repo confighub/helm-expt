@@ -1107,7 +1107,7 @@
       "current_result": "watch",
       "next_step_type": "gitops-runtime-review",
       "reason": "gitops-runtime: Argo sync OutOfSync health Healthy (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/prometheus-community-prometheus-default/receipt.yaml",
       "rerun_command": "npm run live-parity:top20 -- --chart prometheus --base default --continue-on-fail"
     }
@@ -12572,7 +12572,7 @@
       "diagnosis": "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.",
       "rerun_command": "npm run live-parity:top20 -- --chart prometheus --base default --continue-on-fail",
       "followup": "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.",
-      "support_artifact": "",
+      "support_artifact": "recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/prometheus-community-prometheus-default/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""

@@ -1,0 +1,48 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "prometheus-default-argocd-statefulset-sync"
+  chart: "prometheus-community/prometheus"
+  version: "29.8.0"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "cub-lk/kind proof rig with ConfigHub OCI source"
+  receipt: "runs/live-helm-confighub-compare/prometheus-community-prometheus-default/receipt.yaml"
+  observedResult: "watch"
+  passed:
+    - "regular Helm live leg reached the expected runtime state"
+    - "ConfigHub direct-apply leg reached the expected runtime state"
+    - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
+    - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
+    - "Prometheus server Deployment, Alertmanager StatefulSet, node-exporter DaemonSet, kube-state-metrics Deployment, and pushgateway Deployment became ready"
+  gitOpsCondition:
+    sync: "OutOfSync"
+    health: "Healthy"
+    unsyncedResource:
+      apiVersion: "apps/v1"
+      kind: "StatefulSet"
+      namespace: "monitoring-oci"
+      name: "prometheus-alertmanager"
+  diagnosis:
+    summary: "The desired and live Alertmanager StatefulSet matched at the workload level, but Argo reported drift on server-defaulted StatefulSet fields after apply."
+    observedDefaultedFields:
+      - "spec.persistentVolumeClaimRetentionPolicy"
+      - "spec.podManagementPolicy"
+      - "spec.updateStrategy"
+      - "spec.template.spec.restartPolicy"
+      - "spec.template.spec.dnsPolicy"
+      - "spec.template.spec.schedulerName"
+      - "spec.template.spec.terminationGracePeriodSeconds"
+      - "container probe defaults such as failureThreshold, periodSeconds, successThreshold, timeoutSeconds, and scheme"
+      - "volume configMap.defaultMode"
+      - "volumeClaimTemplates apiVersion/kind/status/volumeMode defaults"
+    interpretation: "This is a GitOps/runtime normalization issue to validate, not evidence that the Prometheus recipe changed the rendered Kubernetes semantics."
+  nextActions:
+    - "Confirm whether Argo CD is comparing Kubernetes-defaulted StatefulSet fields against the pre-apply desired manifest for server-side-applied OCI content."
+    - "If confirmed, add a narrow Argo diff-normalization or ignore rule for known StatefulSet server defaults in this proof target."
+    - "Rerun prometheus/default through the strict live parity lane after the normalization rule is in place."
+  notClaimed:
+    - "The GitOps row is not a pass until Argo reports Synced or the approved ignore/normalization rule is part of the proof target."
+    - "This review does not prove production Prometheus storage, retention, HA, backup, or alert routing policy."
+    - "This review does not generalize to every StatefulSet chart without a matching live receipt."
