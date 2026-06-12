@@ -142,7 +142,7 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
     two_cluster_kind_parity: base.two_cluster_kind_parity,
     missing_live_lanes: missingLanes.join(";"),
     remaining_required_work: remaining.join(";"),
-    first_action: "write storage/rollback policy, then run selected live and ConfigHub lanes for the recommended base",
+    first_action: "write storage/rollback policy, then complete the missing proof lanes listed for the recommended base",
     not_a_claim: "not catalog-supported until support decision and selected live lanes exist",
     catalog_path: chartUse?.catalog_path || `${row.recipe_path}/CATALOG.md`,
     parity_receipt: receiptPathFromNotes(base.evidence_notes, "runs/live-kind-parity/"),
@@ -166,7 +166,7 @@ promotion work is narrow enough to be reviewed quickly.
 
 ~~~text
 fast-track rows: ${rows.length}
-required next proof: ConfigHub/live lanes plus storage and rollback policy
+required next proof: missing proof lanes plus storage and rollback policy
 ~~~
 
 ## Rows
@@ -180,8 +180,7 @@ ${rows.map((row) => `| \`${row.chart_ref}\` | \`${row.recommended_base}\` | clea
 1. Open the per-chart catalog page.
 2. Confirm the recommended base is the user-facing base to promote.
 3. Write the storage and rollback policy.
-4. Run the missing ConfigHub, local live, GitOps/OCI, and live parity lanes for
-   the selected base.
+4. Run only the missing proof lanes listed for the selected base.
 5. Record a target-scoped support decision.
 6. Only then consider catalog status changes.
 
@@ -216,7 +215,7 @@ evidence and decisions needed before catalog support can be considered.
 They are review inputs. They do not promote a chart, accept production risk, or
 claim runtime support.
 
-| Chart | Packet | Storage review | Selected base | Decision state | Missing live lanes |
+| Chart | Packet | Storage review | Selected base | Decision state | Missing proof lanes |
 | --- | --- | --- | --- | --- | --- |
 ${rows.map((row) => {
   const fileName = `${slug(row.chart)}.yaml`;
@@ -226,10 +225,9 @@ ${rows.map((row) => {
 
 ## Shared Review Rule
 
-The selected base can move forward only after storage and rollback policy,
-ConfigHub proof, local live observation, GitOps/OCI live observation, live
-Helm-vs-ConfigHub parity, and a target-scoped support decision all exist for
-that exact base.
+The selected base can move forward only after the storage and rollback policy,
+the proof lanes listed in its packet, and a target-scoped support decision all
+exist for that exact base.
 `;
 }
 

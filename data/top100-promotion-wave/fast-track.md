@@ -12,23 +12,22 @@ promotion work is narrow enough to be reviewed quickly.
 
 ~~~text
 fast-track rows: 2
-required next proof: ConfigHub/live lanes plus storage and rollback policy
+required next proof: missing proof lanes plus storage and rollback policy
 ~~~
 
 ## Rows
 
 | Chart | Recommended base | Why this row is first | Remaining required work |
 | --- | --- | --- | --- |
-| `elastic/logstash@8.5.1` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | write storage and rollback policy<br>complete ConfigHub proof lane<br>complete local live observation<br>complete GitOps/OCI live observation<br>complete live Helm-vs-ConfigHub parity<br>record target-scoped support decision |
-| `prometheus-community/alertmanager@1.37.0` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | write storage and rollback policy<br>complete ConfigHub proof lane<br>complete local live observation<br>complete GitOps/OCI live observation<br>complete live Helm-vs-ConfigHub parity<br>record target-scoped support decision |
+| `elastic/logstash@8.5.1` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | write storage and rollback policy<br>complete GitOps/OCI live observation<br>complete live Helm-vs-ConfigHub parity<br>record target-scoped support decision |
+| `prometheus-community/alertmanager@1.37.0` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | write storage and rollback policy<br>complete GitOps/OCI live observation<br>complete live Helm-vs-ConfigHub parity<br>record target-scoped support decision |
 
 ## How To Use This
 
 1. Open the per-chart catalog page.
 2. Confirm the recommended base is the user-facing base to promote.
 3. Write the storage and rollback policy.
-4. Run the missing ConfigHub, local live, GitOps/OCI, and live parity lanes for
-   the selected base.
+4. Run only the missing proof lanes listed for the selected base.
 5. Record a target-scoped support decision.
 6. Only then consider catalog status changes.
 

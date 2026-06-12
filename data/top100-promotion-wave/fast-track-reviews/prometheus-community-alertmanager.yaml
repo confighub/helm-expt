@@ -42,14 +42,10 @@ spec:
       required: true
       reason: "Catalog support is target-scoped and cannot be inferred from machine proof alone."
   missingProofLanes:
-    - "ConfigHub proof lane"
-    - "local live observation"
     - "GitOps/OCI live observation"
     - "live Helm-vs-ConfigHub parity"
   nextActions:
     - "write storage and rollback policy"
-    - "complete ConfigHub proof lane"
-    - "complete local live observation"
     - "complete GitOps/OCI live observation"
     - "complete live Helm-vs-ConfigHub parity"
     - "record target-scoped support decision"

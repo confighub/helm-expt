@@ -131,7 +131,7 @@ evidence work before it becomes production-supported for a target scope.
 | --- | ---: | --- |
 | Use public catalog now | 20 | Open CATALOG.md and top20 base readiness; choose a base with the lane you need. |
 | Promote proof-grade charts | 37 | Run catalog promotion review, select realistic bases, and add selected live lanes. |
-| Fast-track low-residue promotion rows | 2 | Write storage/rollback policy, complete missing live and ConfigHub lanes, then record target-scoped support decisions. |
+| Fast-track low-residue promotion rows | 2 | Write storage/rollback policy, complete the missing proof lanes listed in fast-track.csv, then record target-scoped support decisions. |
 | Design useful base variants | 46 | Build the proposed recipe/package bases, then rerun render parity and promotion review before treating them as catalog offers. |
 | Resolve limitation decisions | 8 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
 

@@ -1037,7 +1037,7 @@ function top100WorkQueueObjects(top100Rows, workRows, usefulBaseRows, fastTrackR
       item_type: "queue",
       item: "Fast-track low-residue promotion rows",
       count: fastTrackRows.length,
-      next_action: "Write storage/rollback policy, complete missing live and ConfigHub lanes, then record target-scoped support decisions.",
+      next_action: "Write storage/rollback policy, complete the missing proof lanes listed in fast-track.csv, then record target-scoped support decisions.",
       source: "data/top100-promotion-wave/fast-track.csv",
       detail: previewChartRefs(fastTrackRows),
     },
