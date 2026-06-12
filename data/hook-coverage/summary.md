@@ -21,8 +21,8 @@ source rows with maintained hook coverage:   3
 source rows with candidate route coverage:   8
 source rows still uncovered:                 0
 maintained hook queue rows total:            5
-candidate route rows total:                  9
-hook-like candidate rows outside inventory:  1
+candidate route rows total:                  10
+hook-like candidate rows outside inventory:  2
 maintained rows outside source top100 hooks: 2
 ~~~
 
@@ -56,6 +56,7 @@ These rows are useful, but they are not counted as source top-100 hook coverage.
 | Type | Chart | Version | Why |
 | --- | --- | --- | --- |
 | hook-like candidate | `apache-airflow/airflow` | 1.21.0 | candidate route exists, but this exact chart row is not in the source top-100 hook inventory |
+| hook-like candidate | `argo-cd/argo-workflows` | 1.0.14 | candidate route exists, but this exact chart row is not in the source top-100 hook inventory |
 | maintained hook row | `projectcalico/tigera-operator` | v3.32.0 | maintained hook lifecycle row exists outside the source top-100 hook inventory |
 | maintained hook row | `gatekeeper/gatekeeper` | 3.22.2 | maintained hook lifecycle row exists outside the source top-100 hook inventory |
 

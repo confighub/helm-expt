@@ -905,8 +905,8 @@
     {
       "section": "hooks",
       "metric": "hook-like candidate rows outside source inventory",
-      "value": "1",
-      "total": "9",
+      "value": "2",
+      "total": "10",
       "status": "partial",
       "source": "data/hook-route-candidates/candidates.csv",
       "note": "Candidate rows that are useful lifecycle work but are not counted as source top-100 hook coverage."
@@ -914,8 +914,8 @@
     {
       "section": "hooks",
       "metric": "hook candidate route work orders",
-      "value": "66",
-      "total": "66",
+      "value": "72",
+      "total": "72",
       "status": "partial",
       "source": "data/hook-route-candidates/work-orders.csv",
       "note": "Assignable work orders for turning candidate routes into maintained route receipts, runtime observations, or explicit blockers."

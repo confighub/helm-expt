@@ -1,0 +1,76 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteCandidate
+metadata:
+  name: argo-cd-argo-workflows-hook-route-candidate
+spec:
+  chart: argo-cd/argo-workflows
+  version: 1.0.14
+  base: default and controller-default-reviewed (current aliases; route not yet maintained)
+  result: candidate-route-plan
+  reviewedAt: "2026-06-12"
+  hooks:
+    count: 1
+    phases: [pre-install, pre-upgrade]
+    deletePolicies: present on the hook template
+    weights: present on the hook template
+    templates:
+      - argo-workflows/templates/crds-install-job.yaml
+  dependencySource: chart-own templates
+  targetDependencies:
+    - The full Argo Workflows CRDs must exist before workflow-controller and
+      server workloads can converge.
+    - The chart's default path sets crds.full=true. That routes full CRD
+      installation through a Helm pre-install/pre-upgrade hook Job using
+      server-side apply instead of rendering the CRDs as ordinary desired
+      objects.
+  route:
+    summary: The hook is install-critical lifecycle work, not an optional
+      post-install test. A config-only path must either make CRDs ordinary
+      rendered objects by selecting a self-contained CRD mode, or declare the
+      full CRDs as target prerequisites and drive the server-side apply step as
+      a separate lifecycle action with a receipt.
+    phases:
+      - hookTypes: [pre-install, pre-upgrade]
+        action: preflight-or-presync-crd-apply
+        reason: The workloads fail when the workflow CRDs are absent. The
+          hook exists because the full CRDs exceed the client-side apply
+          annotation limit, so a safe replacement must preserve server-side
+          apply semantics.
+    supportedRouteOptions:
+      - name: self-contained-minimal-crds-base
+        status: recommended-catalog-base-candidate
+        valuesBoundary: crds.full=false so minimal CRDs render as ordinary
+          templates.
+        tradeoff: Minimal CRDs use preserve-unknown-fields rather than full
+          OpenAPI schemas; this needs to be stated on the base.
+      - name: target-prerequisite-full-crds
+        status: lifecycle-action-candidate
+        valuesBoundary: crds.full=true remains the source chart default.
+        tradeoff: The base is not self-contained; it requires the eight
+          argoproj.io CRDs to be staged or applied by a pre-sync/server-side
+          apply action before workloads are expected to converge.
+    gitopsMapping: Argo CD PreSync or an equivalent Flux/ConfigHub lifecycle
+      action that applies the full CRDs server-side before normal workloads.
+  evidence:
+    - path: https://github.com/confighub/helm-expt/issues/643
+      claim: Live debugging found workflow-controller and server failures when
+        the CRDs are omitted from the normal rendered object set.
+    - path: recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/receipts/render-receipt.yaml
+      claim: The current render uses --no-hooks and therefore does not execute
+        the CRD install hook.
+    - path: recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml
+      claim: The chart is already marked as containing hook lifecycle behavior
+        that must be handled separately before production.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+  promotionNextStep: Create a maintained route receipt for the chosen route.
+    Prefer a self-contained crds.full=false base first; otherwise declare the
+    full CRDs as target facts and prove a pre-sync/server-side-apply action
+    before counting the base as live-ready.
+  notClaimed:
+    - production readiness
+    - hook execution
+    - live workload convergence
+    - full CRD upgrade safety
+    - semantic equivalence between minimal CRDs and full CRDs
