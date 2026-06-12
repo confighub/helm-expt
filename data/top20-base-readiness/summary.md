@@ -15,8 +15,8 @@ or runtime review.
 
 ~~~text
 base variants: 42
-start-here: 21
-try-with-proof: 21
+start-here: 22
+try-with-proof: 20
 runtime-watch: 0
 runtime-review-needed: 0
 operating-policy-needed: 0
@@ -31,6 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
+ready-to-collect: 15
 model-or-stage-first: 0
 review-target-first: 0
 inspect-diff-first: 0
@@ -60,45 +61,45 @@ rerun-now-after-cleanup: 0
 | `argo-cd/argo-cd@9.5.15` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `argo-cd/argo-cd@9.5.15` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
 | `bitnami/mongodb@19.0.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `bitnami/mysql@14.0.3` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/mysql@14.0.3` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `bitnami/mysql@14.0.3` | existing-secret | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `bitnami/nginx@24.0.2` | http-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/nginx@24.0.2` | existing-tls-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `bitnami/nginx@24.0.2` | existing-tls-ingress | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `bitnami/postgresql@18.6.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/postgresql@18.6.7` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, live helm vs confighub dual compare | - |
+| `bitnami/postgresql@18.6.7` | existing-secret | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, live helm vs confighub dual compare | - |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/rabbitmq@16.0.14` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `bitnami/rabbitmq@16.0.14` | existing-secret | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `bitnami/redis@25.5.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/redis@25.5.3` | reuse-existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, live helm vs confighub dual compare | - |
+| `bitnami/redis@25.5.3` | reuse-existing-secret | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, live helm vs confighub dual compare | - |
 | `external-secrets/external-secrets@2.5.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `external-secrets/external-secrets@2.5.0` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
 | `grafana/grafana@10.5.15` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `grafana/grafana@10.5.15` | existing-secret-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `grafana/grafana@10.5.15` | existing-secret-ingress | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `grafana/loki@7.0.0` | simple-scalable-minio | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `grafana/loki@7.0.0` | simple-scalable-minio | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `grafana/tempo@1.24.4` | local-persistent | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/tempo@1.24.4` | s3-query-observability | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
 | `hashicorp/vault@0.32.0` | dev-mode | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `hashicorp/vault@0.32.0` | default | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `hashicorp/vault@0.32.0` | default | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `ingress-nginx/ingress-nginx@4.15.1` | default | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `jetstack/cert-manager@v1.20.2` | default | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub oci argo live, live helm vs confighub dual compare | - |
+| `jetstack/cert-manager@v1.20.2` | default | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `longhorn/longhorn@1.11.2` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `longhorn/longhorn@1.11.2` | ui-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `longhorn/longhorn@1.11.2` | ui-ingress | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `metrics-server/metrics-server@3.13.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `prometheus-community/prometheus@29.8.0` | default | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `prometheus-community/prometheus@29.8.0` | default | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
 
 ## Files
 
@@ -110,6 +111,10 @@ rerun-now-after-cleanup: 0
 | `data/live-kind-parity/summary.md` | Two-cluster Helm-vs-installer parity receipts and non-pass reasons. |
 | `data/live-parity-rerun-plan/rerun-plan.csv` | Rerun readiness, next step, and exact rerun command for non-pass live rows. |
 | `CATALOG.md` | Top-level chart and variant catalog. |
+
+Rows marked `ready-to-collect` in the CSV already have render parity and
+two-cluster parity. Use their `live_rerun_command` value to collect the
+missing live Helm-vs-ConfigHub receipt for that specific base.
 
 Regenerate:
 

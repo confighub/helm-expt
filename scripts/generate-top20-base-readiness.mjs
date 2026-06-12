@@ -57,6 +57,7 @@ function buildReport() {
       check(Boolean(baseRow), `missing base outcome row for ${chartKey} ${base}`);
       const lifecycle = lifecycleObservations.get(`${chartKey}|${base}`);
       const rerun = rerunPlan.get(`${chartKey}|${base}`);
+      const liveCollection = liveParityCollectionFor(production.chart, baseRow);
       const supportArtifact = supportArtifactFor(production.recipe_path, baseRow.two_cluster_kind_parity_reason || "");
       const readiness = readinessFor(baseRow, lifecycle, supportArtifact);
       const supportedBase = supportedBaseByChart.get(chartKey);
@@ -75,9 +76,9 @@ function buildReport() {
         why: readiness.why,
         next_action: readiness.nextAction,
         support_artifact: supportArtifact,
-        live_rerun_readiness: rerun?.rerun_readiness ?? "",
-        live_rerun_next_step: rerun?.next_step_type ?? "",
-        live_rerun_command: rerun?.rerun_command ?? "",
+        live_rerun_readiness: rerun?.rerun_readiness ?? liveCollection.readiness,
+        live_rerun_next_step: rerun?.next_step_type ?? liveCollection.nextStep,
+        live_rerun_command: rerun?.rerun_command ?? liveCollection.command,
         command: `cub installer setup --pull ${production.package_path} --base ${base} --work-dir <tmp> --non-interactive --namespace ${variant.namespace}`,
         target_facts: variant.targetFactSummary || "none",
         render_parity: baseRow.render_parity,
@@ -138,6 +139,7 @@ render-only: ${counts.get("render-only") ?? 0}
 Live rerun readiness for non-pass rows:
 
 ~~~text
+ready-to-collect: ${rerunCounts.get("ready-to-collect") ?? 0}
 model-or-stage-first: ${rerunCounts.get("model-or-stage-first") ?? 0}
 review-target-first: ${rerunCounts.get("review-target-first") ?? 0}
 inspect-diff-first: ${rerunCounts.get("inspect-diff-first") ?? 0}
@@ -176,6 +178,10 @@ ${rows.map((row) => `| \`${row.chart}\` | ${row.base} | ${row.recommended_first}
 | \`data/live-kind-parity/summary.md\` | Two-cluster Helm-vs-installer parity receipts and non-pass reasons. |
 | \`data/live-parity-rerun-plan/rerun-plan.csv\` | Rerun readiness, next step, and exact rerun command for non-pass live rows. |
 | \`CATALOG.md\` | Top-level chart and variant catalog. |
+
+Rows marked \`ready-to-collect\` in the CSV already have render parity and
+two-cluster parity. Use their \`live_rerun_command\` value to collect the
+missing live Helm-vs-ConfigHub receipt for that specific base.
 
 Regenerate:
 
@@ -354,6 +360,25 @@ function missingLaneText(value) {
     .filter(Boolean)
     .map((lane) => lane.replaceAll("_", " "))
     .join(", ");
+}
+
+function liveParityCollectionFor(chart, row) {
+  if (row.live_helm_vs_confighub_parity === "pass") return emptyLiveCollection();
+  if (row.render_parity !== "pass") return emptyLiveCollection();
+  if (row.two_cluster_kind_parity !== "pass") return emptyLiveCollection();
+  if (!["pass", "watch"].includes(row.local_live) && !["pass", "watch"].includes(row.gitops_oci_live)) {
+    return emptyLiveCollection();
+  }
+  const slug = chart.split("/").pop();
+  return {
+    readiness: "ready-to-collect",
+    nextStep: "collect-live-helm-vs-confighub",
+    command: `npm run live-parity:top20 -- --chart ${slug} --base ${row.base}`,
+  };
+}
+
+function emptyLiveCollection() {
+  return { readiness: "", nextStep: "", command: "" };
 }
 
 function supportArtifactFor(recipePath, reason) {
