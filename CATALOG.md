@@ -1091,7 +1091,7 @@ need catalog promotion review before support is claimed.
 | falcosecurity/falcosidekick@0.13.1 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/falcosecurity/falcosidekick/0.13.1/CATALOG.md) |
 | fluent/fluent-bit@0.57.6 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/fluent/fluent-bit/0.57.6/CATALOG.md) |
 | fluent/fluentd@0.5.3 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/fluent/fluentd/0.5.3/CATALOG.md) |
-| gatekeeper/gatekeeper@3.22.2 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md) |
+| gatekeeper/gatekeeper@3.22.2 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md) |
 | gitlab/gitlab-runner@0.89.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/gitlab/gitlab-runner/0.89.0/CATALOG.md) |
 | grafana/alloy@1.8.2 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/grafana/alloy/1.8.2/CATALOG.md) |
 | grafana/promtail@6.17.1 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/grafana/promtail/6.17.1/CATALOG.md) |

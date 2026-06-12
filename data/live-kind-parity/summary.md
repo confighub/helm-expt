@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 57
+pass: 58
 watch: 3
 blocked: 2
-semantic parity pass: 61
+semantic parity pass: 62
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 4
 non-pass rows with related lifecycle evidence: 1
@@ -85,6 +85,7 @@ records the chart-specific startup API check route.
 | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | default | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | no-crds | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
+| `gatekeeper/gatekeeper@3.22.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/gatekeeper-gatekeeper-default/receipt.yaml |
 | `grafana/alloy@1.8.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-alloy-default/receipt.yaml |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
 | `grafana/grafana@10.5.15` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml |

@@ -88,7 +88,7 @@ They should not disappear into a generic promotion-review queue.
 ## How This Relates To Top100
 
 - Every row here already has a maintained recipe/package proof path.
-- Most rows still have render parity as their strongest evidence. 13 row(s)
+- Most rows still have render parity as their strongest evidence. 14 row(s)
   now have two-cluster kind parity, meaning regular Helm and `cub installer`
   reached equivalent live outcomes in separate vanilla kind clusters.
 - Promotion needs useful variants, selected live evidence, and any target facts,
