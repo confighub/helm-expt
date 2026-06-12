@@ -142,13 +142,13 @@
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../offering.html">Offering &amp; tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>grafana/grafana</h1>
     <p class="tagline">Public catalog page for grafana/grafana@10.5.15.</p>
-    <pre>cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace grafana</pre>
+    <pre>cub installer setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir &lt;tmp&gt; --non-interactive --namespace grafana</pre>
   </header>
   <main>
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
       <div class="grid">
-        <div class="metric"><strong>generated-passwords</strong><span>Recommended first base</span></div>
+        <div class="metric"><strong>existing-secret-ingress</strong><span>Recommended first base</span></div>
         <div class="metric"><strong>2</strong><span>Supported base variants</span></div>
         <div class="metric"><strong>start-here</strong><span>Start-base status</span></div>
         <div class="metric"><strong>production-review-ready</strong><span>Production disposition</span></div>
@@ -171,7 +171,7 @@
       <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
-        <tbody><tr><td>Render parity</td><td>pass: 2/2</td></tr><tr><td>ConfigHub proof</td><td>pass: 2/2</td></tr><tr><td>Local live</td><td>pass: 2/2</td></tr><tr><td>GitOps/OCI live</td><td>pass: 1/2; watch: 1/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>pass: 1/2; watch: 1/2</td></tr><tr><td>Two-cluster kind</td><td>pass: 2/2</td></tr></tbody>
+        <tbody><tr><td>Render parity</td><td>pass: 2/2</td></tr><tr><td>ConfigHub proof</td><td>pass: 2/2</td></tr><tr><td>Local live</td><td>pass: 2/2</td></tr><tr><td>GitOps/OCI live</td><td>pass: 2/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>pass: 2/2</td></tr><tr><td>Two-cluster kind</td><td>pass: 2/2</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -181,7 +181,7 @@
       </style>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
-        <tbody><tr><td>generated-passwords</td><td>start-here</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td></tr><tr><td>existing-secret-ingress</td><td>runtime-watch</td><td>pass</td><td>pass</td><td>pass</td><td>watch</td><td>watch</td><td>pass</td></tr></tbody>
+        <tbody><tr><td>existing-secret-ingress</td><td>start-here</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td></tr><tr><td>generated-passwords</td><td>start-here</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

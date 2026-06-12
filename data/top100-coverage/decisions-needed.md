@@ -4,8 +4,33 @@ These rows need a human support decision before catalog promotion. The generator
 does not decide the outcome. It records the evidence and the options to review.
 
 ~~~text
-decision rows: 7
+decision rows: 8
 ~~~
+
+## prometheus-community/prometheus-adapter@5.3.0
+
+Current evidence: in-confighub-proof.
+
+Named limitation: -.
+
+Known variants: default;cluster-metrics-readonly.
+
+Source features: tpl;capabilities;cluster-rbac.
+
+Options:
+
+1. Support the path by adding the required base variant, lifecycle route, target fact, or live evidence.
+2. Disclose the limitation and promote only the safe supported base.
+3. Defer promotion until the chart has a better user-shaped path.
+4. Block the path for public catalog use if it cannot be represented safely.
+
+Next action: decide whether to support, disclose, defer, or block: -.
+
+Evidence:
+
+```text
+recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml;recipes/prometheus-community/prometheus-adapter/5.3.0/helm-pain-report.yaml;recipes/prometheus-community/prometheus-adapter/5.3.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/prometheus-community/prometheus-adapter/5.3.0/control-points.yaml;recipes/prometheus-community/prometheus-adapter/5.3.0/value-model.yaml;recipes/prometheus-community/prometheus-adapter/5.3.0/helm-plan.yaml;recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md;recipes/prometheus-community/prometheus-adapter/5.3.0/helm-pain-report.yaml
+```
 
 ## bitnami/contour@21.1.4
 
@@ -109,7 +134,7 @@ recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/variant-revision.yaml;re
 
 ## grafana/pyroscope@2.0.2
 
-Current evidence: render-parity.
+Current evidence: local-kubernetes-live.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 
@@ -134,7 +159,7 @@ recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml;rec
 
 ## kyverno/kyverno@3.8.1
 
-Current evidence: render-parity.
+Current evidence: local-kubernetes-live.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 
@@ -159,7 +184,7 @@ recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml;recip
 
 ## traefik/traefik@40.2.0
 
-Current evidence: render-parity.
+Current evidence: local-kubernetes-live.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 

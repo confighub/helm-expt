@@ -104,9 +104,6 @@ function allLiveComparisonReceiptRows() {
 }
 
 function rerunCommandForConfigHubOci(row) {
-  if (row.rank) {
-    return `npm run live-parity:top20 -- --from-rank ${row.rank} --to-rank ${row.rank}${repoUrlFlag(row)} --continue-on-fail`;
-  }
   return `npm run live-parity:top20 -- --chart ${liveTargetSlug(row.chart)} --base ${row.variant}${repoUrlFlag(row)} --continue-on-fail`;
 }
 

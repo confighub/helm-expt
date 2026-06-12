@@ -35,8 +35,8 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 190 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 547 / 18 / 59 / 706 / 0 |
-| Variants with the complete core lane set | 29 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 555 / 10 / 59 / 706 / 0 |
+| Variants with the complete core lane set | 30 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
@@ -67,7 +67,7 @@ otherwise.
 | Promote after review | 76 | Proof-grade rows that need catalog/product review before becoming public starting points. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-events@2.4.21/default` |
 | Design a more useful base | 35 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/apache@11.4.29/default` |
 | Decide a limitation first | 17 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/contour@21.1.4/default`, `bitnami/contour@21.1.4/no-crds`, `bitnami/elasticsearch@22.1.6/default` |
-| Complete the core proof lane | 161 | Rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
+| Complete the core proof lane | 160 | Rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
 | Record or finish production scope | 170 | Rows without a target-scoped supported, superseded, or rejected production decision. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
 | Investigate hard gaps | 43 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
 
@@ -129,7 +129,7 @@ user/product view with those columns visible.
 |  | generated-passwords | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `bitnami/mysql@14.0.3` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 |  | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-| `bitnami/nginx@24.0.2` | existing-tls-ingress | top20 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ✅ | ⚠️ | ⚠️ | ✅ | two-cluster-kind-parity | ⬜ |
+| `bitnami/nginx@24.0.2` | existing-tls-ingress | top20 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 |  | http-clusterip | top20 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 | `bitnami/nginx@24.0.4` | existing-tls-ingress | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | http-clusterip | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
@@ -186,7 +186,7 @@ user/product view with those columns visible.
 | `gitlab/gitlab-runner@0.89.0` | default | next80 | `generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `grafana/alloy@1.8.2` | default | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 |  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `grafana/grafana@10.5.15` | existing-secret-ingress | top20 | — | — | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | two-cluster-kind-parity | ⬜ |
+| `grafana/grafana@10.5.15` | existing-secret-ingress | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 |  | generated-passwords | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | superseded |
 | `grafana/loki@7.0.0` | simple-scalable-minio | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 |  | single-binary-filesystem | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
@@ -227,9 +227,9 @@ user/product view with those columns visible.
 | `kyverno/kyverno-policies@3.8.0` | default | next80 | `lookup;tpl` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `linkerd/linkerd-crds@1.8.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `longhorn/longhorn@1.11.2` | default | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | ui-ingress | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⚠️ | ⚠️ | ✅ | two-cluster-kind-parity | ⬜ |
+|  | ui-ingress | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 | `metrics-server/metrics-server@3.13.0` | default | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | external-tls-ca | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⚠️ | ⚠️ | ✅ | two-cluster-kind-parity | ⬜ |
+|  | external-tls-ca | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 | `minio-operator/operator@7.1.1` | default | next80 | `cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `minio-operator/tenant@7.1.1` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/nack@0.34.0` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |

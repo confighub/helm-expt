@@ -10,7 +10,7 @@ required.
 charts: 100
 covered: 20
 partial: 80
-average coverage: 83%
+average coverage: 88%
 ~~~
 
 ## Coverage By Item
@@ -23,7 +23,7 @@ average coverage: 83%
 | d | pain report and quirk axes | 100 | 0 | 0 |
 | e | facts declared | 100 | 0 | 0 |
 | f | scan and production disposition | 20 | 80 | 0 |
-| g | live witness or routed reason | 43 | 57 | 0 |
+| g | live witness or routed reason | 81 | 19 | 0 |
 | h | catalog and site entry | 100 | 0 | 0 |
 
 ## Coverage By Bucket
@@ -31,29 +31,29 @@ average coverage: 83%
 | Bucket | Charts |
 | --- | ---: |
 | `try-from-public-catalog` | 20 |
-| `limitation-decision-first` | 7 |
-| `promote-after-review` | 27 |
-| `needs-useful-variant` | 46 |
+| `limitation-decision-first` | 8 |
+| `promote-after-review` | 37 |
+| `needs-useful-variant` | 35 |
 
 ## Lowest Coverage Rows
 
 | Chart | Coverage | Bucket | Next action |
 | --- | ---: | --- | --- |
-| `aqua/trivy-operator@0.32.1` | 75% | `promote-after-review` | run catalog promotion review |
-| `argo-cd/argo-events@2.4.21` | 75% | `promote-after-review` | run catalog promotion review |
-| `argo-cd/argo-rollouts@2.40.9` | 75% | `promote-after-review` | run catalog promotion review |
-| `argo-cd/argo-workflows@1.0.14` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `autoscaler/cluster-autoscaler@9.57.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `autoscaler/vertical-pod-autoscaler@0.9.0` | 75% | `promote-after-review` | run catalog promotion review |
+| `argo-cd/argo-workflows@1.0.14` | 75% | `promote-after-review` | run catalog promotion review |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `bitnami/opensearch@2.0.10` | 75% | `promote-after-review` | run catalog promotion review |
-| `coredns/coredns@1.45.2` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `crossplane-stable/crossplane@2.3.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `descheduler/descheduler@0.36.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `dex/dex@0.24.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `elastic/filebeat@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `elastic/filebeat@8.5.1` | 75% | `promote-after-review` | run catalog promotion review |
 | `elastic/kibana@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `elastic/metricbeat@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `gitlab/gitlab-runner@0.89.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `hashicorp/terraform@1.1.2` | 75% | `promote-after-review` | run catalog promotion review |
+| `istio/gateway@1.30.0` | 75% | `promote-after-review` | run catalog promotion review |
+| `istio/istiod@1.30.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `jaegertracing/jaeger-operator@2.57.0` | 75% | `promote-after-review` | run catalog promotion review |
+| `jetstack/trust-manager@v0.22.1` | 75% | `promote-after-review` | run catalog promotion review |
+| `nats/surveyor@0.20.9` | 75% | `promote-after-review` | run catalog promotion review |
+| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 
 ## Files
 

@@ -9,18 +9,18 @@ chart use,better base variant needed answers,46,100,gap,data/chart-use-guide/cha
 chart use,limitation decision needed answers,7,100,gap,data/chart-use-guide/chart-use-guide.csv,"Rows where a named capability gap must be supported, disclosed, deferred, or blocked before promotion."
 top100,covered by top100 contract,20,100,partial,data/top100-coverage/coverage.csv,"Rows satisfying all top100 coverage contract items, including disposition and live witness route."
 top100,partial by top100 contract,80,100,partial,data/top100-coverage/coverage.csv,Rows with at least one coverage contract item still todo.
-top100,average top100 coverage,83,100,partial,data/top100-coverage/coverage.csv,Average of the generated per-chart coverage percentage.
-top100,top100 promotion-review queue,27,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows ready for catalog promotion review under the strict coverage contract.
-top100,first strict top100 promotion wave,8,27,partial,data/top100-promotion-wave/wave.csv,Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave.
+top100,average top100 coverage,88,100,partial,data/top100-coverage/coverage.csv,Average of the generated per-chart coverage percentage.
+top100,top100 promotion-review queue,37,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows ready for catalog promotion review under the strict coverage contract.
+top100,first strict top100 promotion wave,8,37,partial,data/top100-promotion-wave/wave.csv,Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave.
 top100,fast-track top100 promotion candidates,2,8,partial,data/top100-promotion-wave/fast-track.csv,Low-residue promotion-review rows with clean scan/gate state and no hook/CRD/webhook lifecycle class.
 top100,fast-track promotion review packets,2,2,partial,data/top100-promotion-wave/fast-track-reviews/review-packets.csv,Review-input packets for low-residue candidates. These are not support decisions.
 top100,fast-track storage rollback reviews,2,2,partial,data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv,"Rendered storage-shape and rollback-boundary review inputs for low-residue candidates. These are not backup, restore, or support decisions."
-top100,top100 user-shaped variant queue,46,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.
-top100,useful-base proposal rows,46,46,partial,data/useful-base-design-queue/queue.csv,Proposed base shapes for default-shaped proof-grade charts. These are not supported bases until rendered and proved.
+top100,top100 user-shaped variant queue,35,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.
+top100,useful-base proposal rows,46,35,partial,data/useful-base-design-queue/queue.csv,Proposed base shapes for default-shaped proof-grade charts. These are not supported bases until rendered and proved.
 top100,useful-base realized rows,10,46,partial,data/useful-base-realization-wave/wave.csv,"Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."
 top100,useful-base proposal families,7,7,partial,data/useful-base-design-queue/families.csv,Grouped proposal families used to assign related base-design work.
 top100,useful-base proposals not yet built,35,46,gap,data/useful-base-design-queue/queue.csv,Rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion.
-top100,top100 limitation-decision queue,7,80,partial,data/top100-coverage/work-queue.csv,"Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
+top100,top100 limitation-decision queue,8,80,partial,data/top100-coverage/work-queue.csv,"Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
 refresh,top20 proofs still current,13,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot.
 refresh,top20 upstream update candidates,7,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 charts with newer upstream Helm versions that must not be promoted until the full lane reruns.
 refresh,update candidates with proof-complete root paths,7,7,partial,data/refresh-survival/refreshes.csv,"Latest-version candidates that have root recipe/package paths and proof-complete evidence, but are not replacement catalog rows."
@@ -36,13 +36,13 @@ proof lanes,in-ConfigHub proof rows,85,190,partial,data/outcome-coverage/base-ou
 proof lanes,local live rows,134,190,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
 proof lanes,explicit lifecycle observation rows,10,10,good,data/outcome-coverage/base-outcomes.csv,"Rows where CRD, webhook, controller-owned field, or post-apply API readiness was proven through an explicit lifecycle receipt rather than a plain bulk apply."
 proof lanes,local live non-pass rows classified,56,56,good,data/local-live-triage/triage.csv,"Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."
-proof lanes,GitOps/OCI live pass rows,29,190,partial,data/outcome-coverage/base-outcomes.csv,12 rows have non-pass GitOps/OCI receipts.
-proof lanes,live Helm-vs-ConfigHub parity pass rows,29,190,partial,data/outcome-coverage/base-outcomes.csv,9 rows have non-pass live parity receipts.
+proof lanes,GitOps/OCI live pass rows,33,190,partial,data/outcome-coverage/base-outcomes.csv,8 rows have non-pass GitOps/OCI receipts.
+proof lanes,live Helm-vs-ConfigHub parity pass rows,33,190,partial,data/outcome-coverage/base-outcomes.csv,5 rows have non-pass live parity receipts.
 proof lanes,two-cluster kind parity pass rows,70,70,partial,data/live-kind-parity/summary.csv,"Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
 proof lanes,two-cluster semantic parity pass rows,70,70,good,data/live-kind-parity/summary.csv,"Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."
-proof lanes,complete core lane rows,29,190,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
-proof lanes,top20 start-here base variants,28,42,partial,data/top20-base-readiness/base-readiness.csv,Base variants that are the cleanest first catalog paths today.
-proof lanes,top20 bases needing unresolved prerequisite or runtime review,9,42,partial,data/top20-base-readiness/base-readiness.csv,"Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."
+proof lanes,complete core lane rows,30,190,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
+proof lanes,top20 start-here base variants,29,42,partial,data/top20-base-readiness/base-readiness.csv,Base variants that are the cleanest first catalog paths today.
+proof lanes,top20 bases needing unresolved prerequisite or runtime review,5,42,partial,data/top20-base-readiness/base-readiness.csv,"Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."
 derived variants,derived variant golden rows,10,10,good,data/variant-goldens/derived-expansion-wave/work-orders.csv,"Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."
 derived variants,derived variant live create receipts,10,10,good,runs/derived-variant-execution,Receipts from current cub variant create executions without hidden Helm rerender.
 derived variants,target-bound derived variant receipts,6,10,partial,runs/derived-variant-target-bound,"Derived variants that went further through target binding, ConfigHub OCI, Argo sync, and runtime observation."
@@ -52,12 +52,12 @@ graph bridge,target-fact graph edges,59,102,partial,data/edge-recovery/edges.csv
 graph bridge,generated-fact graph edges,1,102,partial,data/edge-recovery/edges.csv,Edges from generated facts to the rendered fields they affect where field reachability is available.
 graph bridge,rows with field reachability,4,102,partial,data/edge-recovery/edges.csv,"Rows that connect an input, generated fact, or variant change to rendered output fields."
 live evidence,runtime/GitOps wave rows,11,11,partial,data/runtime-gitops/wave1.csv,Selected Argo/Flux OCI wave rows; this is not the whole corpus.
-live evidence,selected live Helm-vs-ConfigHub parity receipts,20,20,good,data/live-helm-confighub-compare/summary.csv,Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row.
+live evidence,selected live Helm-vs-ConfigHub parity receipts,33,38,partial,data/live-helm-confighub-compare/summary.csv,Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row.
 live evidence,two-cluster kind parity receipts,70,70,partial,data/live-kind-parity/summary.csv,"Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
-live evidence,live parity rerun rows needing decisions,6,6,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."
-live evidence,live parity rows needing model or staging first,2,6,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."
-live evidence,live parity rows needing target review first,4,6,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."
-live evidence,ConfigHub/OCI semantic parity defect receipts,0,20,good,data/live-helm-confighub-compare/summary.csv,Rows whose committed receipt currently points at a semantic object comparison defect.
+live evidence,live parity rerun rows needing decisions,5,5,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."
+live evidence,live parity rows needing model or staging first,2,5,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."
+live evidence,live parity rows needing target review first,3,5,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."
+live evidence,ConfigHub/OCI semantic parity defect receipts,0,38,good,data/live-helm-confighub-compare/summary.csv,Rows whose committed receipt currently points at a semantic object comparison defect.
 live evidence,two-cluster semantic parity defect receipts,0,70,good,data/live-kind-parity/summary.csv,Rows whose committed two-cluster receipt currently points at a semantic object comparison defect.
 production disposition,top20 production-review-ready charts,20,20,partial,data/production-disposition/top20.csv,Top-20 catalog charts with required pre-review dispositions closed.
 production disposition,top20 production-blocked charts,0,20,partial,data/production-disposition/top20.csv,Top-20 catalog charts that still have open disposition work before support review.

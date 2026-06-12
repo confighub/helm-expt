@@ -1,0 +1,10 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: GitOpsCanonicalizationReceipt
+spec:
+  name: k8s-zero-defaults
+  result: pass
+  changes:
+  - 'apiservice-v1beta1-metrics-k8s-io.yaml: APIService/v1beta1.metrics.k8s.io: removed
+    spec.insecureSkipTLSVerify=false'
+  rationale: Remove Kubernetes API zero-value fields before publishing the OCI GitOps
+    artifact; semantic parity remains checked against Helm.

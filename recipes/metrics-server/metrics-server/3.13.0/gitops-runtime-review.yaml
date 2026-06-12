@@ -7,36 +7,42 @@ metadata:
 spec:
   base: "external-tls-ca"
   controller: "Argo CD"
-  targetShape: "cub-lk/kind proof rig with ConfigHub OCI source and staged metrics-server TLS target facts"
+  targetShape: "cub-lk/kind proof rig with ConfigHub OCI source, staged metrics-server TLS target facts, and GitOps zero-default canonicalization"
   receipt: "runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/receipt.yaml"
-  observedResult: "watch"
+  observedResult: "pass"
   passed:
     - "regular Helm live leg reached the expected runtime state"
     - "ConfigHub direct-apply leg reached the expected runtime state"
+    - "ConfigHub OCI/Argo leg reached Synced/Healthy"
     - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
     - "target facts for kube-system/metrics-server-tls were staged and validated"
+    - "GitOps canonicalization removed APIService spec.insecureSkipTLSVerify=false before OCI publication"
     - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
     - "APIService v1beta1.metrics.k8s.io was Available=True"
   gitOpsCondition:
-    sync: "OutOfSync"
+    sync: "Synced"
     health: "Healthy"
-    unsyncedResource:
-      apiVersion: "apiregistration.k8s.io/v1"
-      kind: "APIService"
-      name: "v1beta1.metrics.k8s.io"
+    ociRevision: "sha256:24f7d354402fb31d83893b0b396a25210334996e8255e754cb1b60b9fca2d0a3"
+  gitOpsCanonicalization:
+    profile: "k8s-zero-defaults"
+    receipt: "runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/gitops-canonicalization-k8s-zero-defaults.yaml"
+    change: "APIService/v1beta1.metrics.k8s.io: removed spec.insecureSkipTLSVerify=false from the OCI-bound desired object"
+    semanticNormalizations:
+      - "prune-null-fields"
+      - "k8s-zero-defaults"
   diagnosis:
-    summary: "The live and desired APIService matched after ordinary server metadata was removed, except that desired included spec.insecureSkipTLSVerify=false and the live Kubernetes API omitted that zero-value field."
+    summary: "The APIService live object omits spec.insecureSkipTLSVerify when it is false. The GitOps artifact now removes that Kubernetes zero-default before OCI publication, while the semantic comparison still proves equivalence with regular Helm."
     desiredField:
       path: "spec.insecureSkipTLSVerify"
-      value: false
+      valueBeforeCanonicalization: false
+      valueInOciArtifact: "absent"
     liveField:
       path: "spec.insecureSkipTLSVerify"
       value: "absent"
-    interpretation: "This is a GitOps/runtime normalization issue to validate, not evidence that the metrics-server recipe or target facts changed Kubernetes semantics."
+    interpretation: "This is a delivery-stage canonicalization, not a chart fork. The rendered recipe still compares against regular Helm, and the OCI-bound desired object is normalized only where Kubernetes would omit the zero-value field."
   nextActions:
-    - "Confirm whether Argo CD is comparing the explicit false field against the API server's omitted zero value for APIService."
-    - "If confirmed, add a narrow Argo diff-normalization rule or controller-side ignore rule for APIService spec.insecureSkipTLSVerify=false."
-    - "Rerun metrics-server/external-tls-ca through the strict live parity lane after the normalization rule is in place."
+    - "Apply the same profile only to charts whose receipts show Kubernetes zero-default drift, then rerun the strict live parity lane per chart."
+    - "Do not generalize this to StatefulSet defaulting until a StatefulSet chart has its own passing canonicalization receipt."
   notClaimed:
-    - "The GitOps row is not a pass until Argo reports Synced or the approved ignore/normalization rule is part of the proof target."
-    - "This review does not generalize to every APIService chart without a matching live receipt."
+    - "This does not prove every APIService chart without a matching live receipt."
+    - "This does not prove StatefulSet, CRD, webhook, or admission-controller GitOps canonicalization."

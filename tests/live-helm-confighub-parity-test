@@ -248,6 +248,11 @@ def normalize_json_configmap_data(doc: dict):
 
 def apply_semantic_normalizations(doc: dict, semantic_normalizations: list[str]) -> dict:
     identity = object_identity(doc)
+    if "k8s-zero-defaults" in semantic_normalizations:
+        if doc.get("apiVersion") == "apiregistration.k8s.io/v1" and doc.get("kind") == "APIService":
+            spec = doc.get("spec") or {}
+            if spec.get("insecureSkipTLSVerify") is False:
+                spec.pop("insecureSkipTLSVerify", None)
     if (
         "loki-configmap-leading-blank-line-pruned-by-kustomize" in semantic_normalizations
         and identity == "v1|ConfigMap|loki|loki"
@@ -670,6 +675,55 @@ def install_target_profile(profile: str, kubeconfig: Path, context: str, run_roo
     return profile_receipt
 
 
+def canonicalize_gitops_doc(doc: dict, profile: str) -> tuple[dict, list[str]]:
+    changes = []
+    if profile != "k8s-zero-defaults":
+        return doc, changes
+
+    if doc.get("apiVersion") == "apiregistration.k8s.io/v1" and doc.get("kind") == "APIService":
+        spec = doc.get("spec") or {}
+        if spec.get("insecureSkipTLSVerify") is False:
+            spec.pop("insecureSkipTLSVerify", None)
+            name = (doc.get("metadata") or {}).get("name", "")
+            changes.append(f"APIService/{name}: removed spec.insecureSkipTLSVerify=false")
+    return doc, changes
+
+
+def canonicalize_gitops_manifest_dir(manifests_dir: Path, profile: str, run_root: Path) -> dict:
+    if profile in ("", "none"):
+        return {"name": "none", "result": "pass", "changes": []}
+    if profile != "k8s-zero-defaults":
+        raise RuntimeError(f"unsupported GitOps canonicalization profile: {profile}")
+
+    changes = []
+    for path in sorted(manifests_dir.glob("*.yaml")):
+        docs = yaml_docs(path.read_text())
+        changed_docs = []
+        path_changes = []
+        for doc in docs:
+            changed_doc, doc_changes = canonicalize_gitops_doc(doc, profile)
+            changed_docs.append(changed_doc)
+            path_changes.extend(doc_changes)
+        if path_changes:
+            write_text(path, render_docs_to_yaml(changed_docs))
+            changes.extend(f"{path.name}: {item}" for item in path_changes)
+    receipt = {
+        "name": profile,
+        "result": "pass",
+        "changes": changes,
+        "rationale": "Remove Kubernetes API zero-value fields before publishing the OCI GitOps artifact; semantic parity remains checked against Helm.",
+    }
+    write_yaml(run_root / f"gitops-canonicalization-{profile}.yaml", {
+        "apiVersion": "helm-expt.confighub.com/v1alpha1",
+        "kind": "GitOpsCanonicalizationReceipt",
+        "spec": receipt,
+    })
+    return {
+        **receipt,
+        "receipt": str(run_root / f"gitops-canonicalization-{profile}.yaml"),
+    }
+
+
 def protected_namespace(namespace: str) -> bool:
     return namespace in ("default", "kube-system", "kube-public", "kube-node-lease")
 
@@ -820,6 +874,7 @@ def main() -> int:
     parser.add_argument("--out", required=True)
     parser.add_argument("--wait", default="8m")
     parser.add_argument("--target-profile", default="none", choices=["none", "kind-ingress-nginx"])
+    parser.add_argument("--gitops-canonicalization-profile", default="none", choices=["none", "k8s-zero-defaults"])
     parser.add_argument(
         "--lock-timeout-seconds",
         type=int,
@@ -864,6 +919,7 @@ def main() -> int:
             "recipe": {"path": args.recipe},
             "variantRevision": args.variant_revision,
             "targetProfile": {"name": args.target_profile},
+            "gitOpsCanonicalizationProfile": {"name": args.gitops_canonicalization_profile},
             "run": {
                 "rig": rig,
                 "kubeContext": context,
@@ -1129,6 +1185,12 @@ def main() -> int:
             raise RuntimeError(f"installer setup for oci failed: {(setup_err or setup_out)[:1000]}")
         manifests_dir = workdir / "out" / "manifests"
         secrets_dir = workdir / "out" / "secrets"
+        gitops_canonicalization = canonicalize_gitops_manifest_dir(
+            manifests_dir,
+            args.gitops_canonicalization_profile,
+            run_root,
+        )
+        receipt["spec"]["gitOpsCanonicalizationProfile"] = gitops_canonicalization
         cub_manifest_oci = combine_yaml_parts(collect_yaml(manifests_dir), collect_yaml(secrets_dir))
         write_text(run_root / "confighub-rendered-oci-manifest.yaml", cub_manifest_oci)
 
@@ -1270,19 +1332,28 @@ def main() -> int:
             {apply_namespace: args.namespace},
             semantic_normalizations,
         )
+        oci_semantic_normalizations = [*semantic_normalizations]
+        if args.gitops_canonicalization_profile != "none":
+            oci_semantic_normalizations.append(args.gitops_canonicalization_profile)
         comparison_argo = semantic_compare(
             canonical_helm_manifest,
             cub_manifest_oci,
             [f"v1|Namespace||{args.namespace}"],
             {oci_namespace: args.namespace},
-            semantic_normalizations,
+            oci_semantic_normalizations,
         )
         receipt["spec"]["semanticComparison"]["helmVsConfigHubKubectlApply"] = comparison_apply
         receipt["spec"]["semanticComparison"]["helmVsConfigHubOciArgo"] = comparison_argo
-        check_item("semantic-object-parity", comparison_apply["result"], f"missing={len(comparison_apply['missingFromConfigHub'])} extra={comparison_apply['extraInConfigHub']} diffs={len(comparison_apply['semanticDiffs'])}")
+        semantic_result = "pass" if comparison_apply["result"] == "pass" and comparison_argo["result"] == "pass" else "blocked"
+        check_item(
+            "semantic-object-parity",
+            semantic_result,
+            f"apply={comparison_apply['result']} argo={comparison_argo['result']} "
+            f"applyDiffs={len(comparison_apply['semanticDiffs'])} argoDiffs={len(comparison_argo['semanticDiffs'])}",
+        )
 
         leg_results = [item.get("result") for item in receipt["spec"]["legs"].values()]
-        comparison_ok = comparison_apply["result"] == "pass"
+        comparison_ok = semantic_result == "pass"
         receipt["spec"]["result"] = "pass" if all(item == "pass" for item in leg_results) and comparison_ok else "watch"
         if "blocked" in leg_results or not canonical_helm_manifest or not comparison_ok:
             receipt["spec"]["result"] = "blocked"
