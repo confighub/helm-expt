@@ -7,7 +7,7 @@ spec:
   version: 1.37.0
   base: ha
   result: watch
-  observedAt: '2026-06-12T22:38:48Z'
+  observedAt: '2026-06-12T23:04:35Z'
   package:
     path: packages/prometheus-community/alertmanager/1.37.0
   recipe:
@@ -22,24 +22,24 @@ spec:
     result: pass
     changes: []
   run:
-    rig: helm-expt-parity-alertmanager-ha-1781303928
-    kubeContext: kind-helm-expt-parity-alertmanager-ha-1781303928
+    rig: helm-expt-parity-alertmanager-ha-1781305475
+    kubeContext: kind-helm-expt-parity-alertmanager-ha-1781305475
     namespace: default
     legNamespaces:
-      regularHelm: default
-      configHubKubectlApply: default
-      configHubOciArgo: default
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-alertmanager-ha-1781303928 --force
+      command: cub lk down --name helm-expt-parity-alertmanager-ha-1781305475 --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-alertmanager-ha-1781303928"...
+      detail: 'Deleting kind cluster "helm-expt-parity-alertmanager-ha-1781305475"...
 
-        Deleting cluster "helm-expt-parity-alertmanager-ha-1781303928" ...
+        Deleting cluster "helm-expt-parity-alertmanager-ha-1781305475" ...
 
-        Deleted nodes: ["helm-expt-parity-alertmanager-ha-1781303928-control-plane"]
+        Deleted nodes: ["helm-expt-parity-alertmanager-ha-1781305475-control-plane"]
 
-        Deleting Space "helm-expt-parity-alertmanager-ha-1781303928-cluster" (recursive:
+        Deleting Space "helm-expt-parity-alertmanager-ha-1781305475-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -48,17 +48,17 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install alertmanager alertmanager --repo https://prometheus-community.github.io/helm-charts
-        --version 1.37.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-alertmanager-ha/regular-helm-values.yaml
+        --version 1.37.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-alertmanager-ha/regular-helm-values.yaml
         --wait --timeout 420s
       manifestSHA256: a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4
       objectCount: 5
-      liveHelmManifestSHA256: a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4
+      liveHelmManifestSHA256: 1b1bb1b450f97751287e6aec1e34bbd72a044a046813d99eb904885e3b10aed4
       liveHelmManifestObjectCount: 5
-      namespace: default
+      namespace: default-helm
       runtime:
         result: pass
-        workloads: statefulset.apps/alertmanager   3/3   20s
-        pods: 'alertmanager-0   1/1   Running   0     20s
+        workloads: statefulset.apps/alertmanager   3/3   25s
+        pods: 'alertmanager-0   1/1   Running   0     25s
 
           alertmanager-1   1/1   Running   0     10s
 
@@ -70,14 +70,15 @@ spec:
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/alertmanager/1.37.0
-        --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-alertmanager-ha-1781303928-prometheus-community-alertmanager
-        --non-interactive --namespace default
+        --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-alertmanager-ha-1781305475-prometheus-community-alertmanager
+        --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
-      manifestSHA256: fcbc5f4789865ebf55bc4ad18ffcc2a639565c55b719685ee48d44e4d86d3719
+      manifestSHA256: b18544274cfb13195d6d8a9023873354dd73d12e562eb7c138353de60ec2ccae
       objectCount: 6
-      namespace: default
+      namespace: default-apply
       manifestNamespaces:
       - default
+      - default-apply
       runtimeNamespaces: &id001
       - default
       runtime:
@@ -85,33 +86,50 @@ spec:
         namespaces: *id001
         workloads: '# default
 
-          statefulset.apps/alertmanager   3/3   20s'
+          statefulset.apps/alertmanager   3/3   21s'
         pods: '# default
 
-          alertmanager-0   1/1   Running   0     20s
+          alertmanager-0   1/1   Running   0     21s
 
-          alertmanager-1   1/1   Running   0     20s
+          alertmanager-1   1/1   Running   0     16s
 
-          alertmanager-2   1/1   Running   0     9s'
+          alertmanager-2   1/1   Running   0     11s'
         notReady: []
       cleanupBeforeOci:
-        namespaces: []
+        namespaces:
+        - default-apply
         retainedNamespaces: []
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 5
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'configmap "alertmanager" deleted from default namespace
+
+            service "alertmanager-headless" deleted from default namespace
+
+            service "alertmanager" deleted from default namespace
+
+            serviceaccount "alertmanager" deleted from default namespace
+
+            statefulset.apps "alertmanager" deleted from default namespace'
         reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
           parity rigs
     configHubOciArgo:
       result: watch
-      workloadSpace: helm-expt-parity-alertmanager-ha-1781303928-prometheus-community-alertmanager
+      workloadSpace: helm-expt-parity-alertmanager-ha-1781305475-prometheus-community-alertmanager
       controller: Argo CD OCI
       app: prometheus-community-alertmanager-parity
-      manifestSHA256: fcbc5f4789865ebf55bc4ad18ffcc2a639565c55b719685ee48d44e4d86d3719
+      manifestSHA256: cf791a7a6e315f2c7deb86c5f7b94c02f8c074cb4be94a3fd7c1c15b406dd463
       objectCount: 6
-      namespace: default
+      namespace: default-oci
       manifestNamespaces:
       - default
+      - default-oci
       runtimeNamespaces: &id002
       - default
-      ociRevision: sha256:cba8d614701747d2aeb752c13214c86c94e14ff20c1caa0d7e02189d450f4b69
+      ociRevision: sha256:ba894e34a37c589e422f3b77a94676212ac13d0a48eaae70551507f917aa3e7a
       sync: OutOfSync
       health: Healthy
       separatedSecrets: []
@@ -120,16 +138,16 @@ spec:
         sync:
           comparedTo:
             destination:
-              namespace: default
+              namespace: default-oci
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-alertmanager-ha-1781303928-prometheus-community-alertmanager
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-alertmanager-ha-1781303928-cluster/oci
+              path: ./helm-expt-parity-alertmanager-ha-1781305475-prometheus-community-alertmanager
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-alertmanager-ha-1781305475-cluster/oci
               targetRevision: latest
-          revision: sha256:cba8d614701747d2aeb752c13214c86c94e14ff20c1caa0d7e02189d450f4b69
+          revision: sha256:ba894e34a37c589e422f3b77a94676212ac13d0a48eaae70551507f917aa3e7a
           status: OutOfSync
         health:
-          lastTransitionTime: '2026-06-12T22:41:45Z'
+          lastTransitionTime: '2026-06-12T23:07:27Z'
           status: Healthy
         operationState:
           phase: Succeeded
@@ -146,7 +164,7 @@ spec:
         - group: ''
           kind: Namespace
           namespace: ''
-          name: default
+          name: default-oci
           status: Synced
           health: ''
           hook: false
@@ -183,14 +201,14 @@ spec:
         namespaces: *id002
         workloads: '# default
 
-          statefulset.apps/alertmanager   3/3   8m'
+          statefulset.apps/alertmanager   3/3   6m48s'
         pods: '# default
 
-          alertmanager-0   1/1   Running   0     8m
+          alertmanager-0   1/1   Running   0     6m48s
 
-          alertmanager-1   1/1   Running   0     8m
+          alertmanager-1   1/1   Running   0     6m47s
 
-          alertmanager-2   1/1   Running   0     7m49s'
+          alertmanager-2   1/1   Running   0     6m46s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -222,9 +240,9 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-alertmanager-ha-1781303928\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-alertmanager-ha-1781303928.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-alertmanager-ha-1781303928\" ...\n \u2022\
+    detail: "Creating kind cluster \"helm-expt-parity-alertmanager-ha-1781305475\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-alertmanager-ha-1781305475.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-alertmanager-ha-1781305475\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
       \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
@@ -232,24 +250,24 @@ spec:
       \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
       \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-alertmanager-ha-1781303928\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-alertmanager-ha-1781303928\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-alertmanager-ha-1781303928.kubeconfig\n\
-      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
-      Installing "
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-alertmanager-ha-1781305475\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-alertmanager-ha-1781305475\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-alertmanager-ha-1781305475.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind:"
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=0 crds=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"alertmanager\" does not exist. Installing it now.\nNAME: alertmanager\n\
-      LAST DEPLOYED: Fri Jun 12 23:40:15 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      LAST DEPLOYED: Sat Jun 13 00:05:35 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Get\
       \ the application URL by running these commands:\n  export POD_NAME=$(kubectl\
-      \ get pods --namespace default -l \"app.kubernetes.io/name=alertmanager,app.kubernetes.io/instance=alertmanager\"\
+      \ get pods --namespace default-helm -l \"app.kubernetes.io/name=alertmanager,app.kubernetes.io/instance=alertmanager\"\
       \ -o jsonpath=\"{.items[0].metadata.name}\")\n  echo \"Visit http://127.0.0.1:9093\
-      \ to use your application\"\n  kubectl --namespace default port-forward $POD_NAME\
-      \ 9093:80"
+      \ to use your application\"\n  kubectl --namespace default-helm port-forward\
+      \ $POD_NAME 9093:80"
   - name: target-facts-confighub-apply
     result: pass
     detail: secrets=0 crds=0
@@ -257,7 +275,10 @@ spec:
     result: pass
     detail: '# default
 
-      statefulset.apps/alertmanager   3/3   20s'
+      statefulset.apps/alertmanager   3/3   21s'
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=5 namespaces=default
   - name: target-facts-confighub-oci
     result: pass
     detail: secrets=0 crds=0
@@ -287,8 +308,8 @@ spec:
     configHubKubectlApply:
       result: pass
       operation: none
-      namespace: default
+      namespace: default-apply
     configHubOciArgo:
       result: pass
       operation: none
-      namespace: default
+      namespace: default-oci
