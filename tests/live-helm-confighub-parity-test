@@ -636,6 +636,18 @@ def namespaced_cleanup_docs(text: str, namespaces: set[str]) -> list[dict]:
     return docs
 
 
+def cluster_scoped_cleanup_docs(text: str) -> list[dict]:
+    docs = []
+    for doc in yaml_docs(text):
+        if doc.get("kind") == "Namespace":
+            continue
+        meta = doc.get("metadata") or {}
+        namespace = meta.get("namespace")
+        if not isinstance(namespace, str) or not namespace:
+            docs.append(doc)
+    return docs
+
+
 def workload_namespaces(text: str, fallback: str) -> list[str]:
     workload_kinds = {"Deployment", "StatefulSet", "DaemonSet"}
     namespaces = set()
@@ -1723,6 +1735,7 @@ def main() -> int:
         apply_cleanup_namespaces = apply_cleanup_candidates
         apply_retained_namespaces = []
         apply_protected_cleanup = {"result": "not-needed", "namespaces": sorted(apply_protected_cleanup_namespaces), "objectCount": 0}
+        apply_cluster_cleanup = {"result": "not-needed", "objectCount": 0}
         leg("configHubKubectlApply",
             result=apply_result,
             renderCommand=" ".join(setup_cmd),
@@ -1736,11 +1749,36 @@ def main() -> int:
             cleanupBeforeOci={
                 "namespaces": apply_cleanup_namespaces,
                 "retainedNamespaces": apply_retained_namespaces,
+                "clusterScopedResources": apply_cluster_cleanup,
                 "protectedNamespaceResources": apply_protected_cleanup,
                 "reason": "isolate the OCI/Argo leg from direct-apply workloads in single-cluster parity rigs",
             },
         )
         check_item("confighub-kubectl-apply-live", apply_result, apply_runtime.get("workloads", ""))
+        cluster_cleanup_docs = cluster_scoped_cleanup_docs(cub_manifest)
+        if cluster_cleanup_docs:
+            cleanup_path = run_root / "cluster-scoped-apply-cleanup.yaml"
+            write_text(cleanup_path, render_docs_to_yaml(cluster_cleanup_docs))
+            rc, out, err = kubectl(
+                ["delete", "--ignore-not-found=true", "--wait=true", "--timeout=300s", "-f", str(cleanup_path)],
+                kubeconfig,
+                context,
+                timeout=330,
+            )
+            apply_cluster_cleanup = {
+                "result": "pass" if rc == 0 else "blocked",
+                "objectCount": len(cluster_cleanup_docs),
+                "manifest": str(cleanup_path.relative_to(run_root)),
+                "detail": (err or out)[:1000],
+            }
+            receipt["spec"]["legs"]["configHubKubectlApply"]["cleanupBeforeOci"]["clusterScopedResources"] = apply_cluster_cleanup
+            check_item(
+                "confighub-kubectl-apply-cluster-cleanup",
+                apply_cluster_cleanup["result"],
+                f"objects={len(cluster_cleanup_docs)}",
+            )
+            if rc != 0:
+                raise RuntimeError(f"direct-apply cluster-scoped cleanup failed: {(err or out)[:1000]}")
         protected_cleanup_docs = namespaced_cleanup_docs(cub_manifest, apply_protected_cleanup_namespaces)
         if protected_cleanup_docs:
             cleanup_path = run_root / "protected-namespace-apply-cleanup.yaml"
