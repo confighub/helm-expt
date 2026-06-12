@@ -88,7 +88,7 @@
     "top500Rows": 500,
     "top500MatchedProofs": 91,
     "latestCandidates": 7,
-    "runtimeGitopsWave": 10,
+    "runtimeGitopsWave": 11,
     "imageSubjectsNeedingResolution": 149,
     "nextTenGapRows": 9,
     "baseVariants": 42,
@@ -590,8 +590,8 @@
     {
       "section": "live evidence",
       "metric": "runtime/GitOps wave rows",
-      "value": "10",
-      "total": "10",
+      "value": "11",
+      "total": "11",
       "status": "partial",
       "source": "data/runtime-gitops/wave1.csv",
       "note": "Selected Argo/Flux OCI wave rows; this is not the whole corpus."

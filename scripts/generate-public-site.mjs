@@ -466,7 +466,7 @@ function html(catalog) {
 </head>
 <body>
   <header>
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="../docs/user/choose-your-path.md">Choose path</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="../docs/user/choose-your-path.md">Choose path</a> · <a href="../docs/user/generative-gitops-fit.md">Generative GitOps fit</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     <p class="tagline">The catalog turns popular public Helm charts into reviewed cub installer packages, named variants, rendered objects, checks, and proof receipts.</p>
     <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
@@ -853,6 +853,7 @@ function offeringHtml(catalog) {
       <h2 id="problem">The Problem We Are Solving</h2>
       <p>Helm users can usually install something. The harder problem is knowing exactly what was produced, whether the same thing was promoted, what changed between environments, whether the exact objects were scanned, and what the cluster actually observed after deployment.</p>
       <p>The catalog keeps the supported path close to the chart author's golden path, but makes each stage visible. That matters when humans or AI agents make changes: the recipe, variant, rendered objects, scans, gates, and live receipts show whether the change stayed on the path or created a new install shape that needs review.</p>
+      <p>This is the Helm-facing slice of Generative GitOps: render once, hold the result as data, prove the boundaries, and keep GitOps delivery. The current catalog proves the import and staged lifecycle path; full field authority, fleet propagation, and authorized live-to-desired reconciliation remain product frontier work. <a href="../docs/user/generative-gitops-fit.md">Read the fit and limits</a>.</p>
       <p>Render parity is necessary, but it is only the starting point. It proves the cub installer path preserved Helm's intended object set for recorded inputs. The harder value is making target facts and lifecycle prerequisites explicit: staged CRDs, admission certificates, provider credentials, controller-owned fields, hook routes, and live observation boundaries.</p>
       <p>kube-prometheus-stack is the main example. Its no-CRDs base is not just a smaller YAML bundle; it is a contract that compatible CRDs and admission certificate material must already exist or be staged before config-only delivery. The catalog records that contract instead of treating a green render as a complete install.</p>
       <div class="grid">

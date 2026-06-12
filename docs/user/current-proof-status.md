@@ -35,6 +35,11 @@ Use the generated [Claims Register](../../data/claims-register/summary.md)
 when you want to check whether a public claim is backed, partial, planned, or
 explicitly refused.
 
+Use the generated [Master Catalog Matrix](../../data/master-catalog-matrix/matrix.html)
+when you want the broad chart/version/base view in one browser page. It shows
+the current user route, strongest evidence, core-lane status, production
+scope, hooks, quirks, hard gap, and next action for each row.
+
 ## Find The Answer Fast
 
 One generated file answers each common evidence question. Open the file; do
@@ -42,6 +47,7 @@ not rely on prose summaries for counts.
 
 | Question | Open | What it gives you |
 | --- | --- | --- |
+| What is the broad product status of this chart, version, and base? | [Master Catalog Matrix](../../data/master-catalog-matrix/matrix.html) | One browser table with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action. |
 | Which top-20 charts are live tested? | [Live E2E Summary](../../data/live-e2e/summary.md) | One row per chart: local kind live/e2e result and the strict witness columns. |
 | Does the selected top-20 path match regular Helm in live clusters? | [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md) | One row per selected chart/base: regular Helm compared with ConfigHub delivery and live semantic parity. |
 | Which latest chart versions are ready for promotion work? | [Promotion Work Orders](../../data/latest-top20-refresh/promotion-work-orders.md) | Per-candidate work orders for newer upstream versions. |

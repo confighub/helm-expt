@@ -19,6 +19,7 @@ All contents are experimental and unofficial.
 Public entry points:
 
 - [Offering page](./docs/user/offering.md): plain-English overview for Helm users.
+- [Generative GitOps fit](./docs/user/generative-gitops-fit.md): what this repo proves for generated config, AI-assisted change, and GitOps, and what remains product frontier.
 - [Static HTML offering page](./site/offering.html): generated page for a public site.
 - [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.

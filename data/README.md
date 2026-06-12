@@ -18,6 +18,7 @@ smallest generated surface that answers it.
 | Question | Start with |
 | --- | --- |
 | I want the compact catalog data routing index. | [catalog-index/summary.md](./catalog-index/summary.md) |
+| I want the broad chart/version/base status in one browser sheet. | [master-catalog-matrix/matrix.html](./master-catalog-matrix/matrix.html)<br>[master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md)<br>[master-catalog-matrix/matrix.csv](./master-catalog-matrix/matrix.csv) |
 | I want the current headline status. | [status-dashboard/summary.md](./status-dashboard/summary.md) |
 | I want to know if I can use a specific chart. | [chart-use-guide/summary.md](./chart-use-guide/summary.md)<br>[chart-use-guide/chart-use-guide.csv](./chart-use-guide/chart-use-guide.csv) |
 | I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions. | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md)<br>[chart-evidence-router/router.csv](./chart-evidence-router/router.csv) |
@@ -51,6 +52,9 @@ smallest generated surface that answers it.
 | File | Use it for |
 | --- | --- |
 | [catalog-index/summary.md](./catalog-index/summary.md) | Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence. |
+| [master-catalog-matrix/matrix.html](./master-catalog-matrix/matrix.html) | Human/product browser view: one row per chart/version/base with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action. |
+| [master-catalog-matrix/matrix.csv](./master-catalog-matrix/matrix.csv) | Machine/spreadsheet form of the master catalog matrix. Same row set as matrix.html, without relying on color. |
+| [master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md) | Compact GitHub orientation for the master catalog matrix. |
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first. |
 | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | Per-chart evidence router: chart-use answer, first base, catalog path, proof lanes, variant revisions, receipts, hooks, quirks, production decisions, and next action. |
