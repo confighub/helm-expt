@@ -18,6 +18,20 @@ spec:
       []
   hookPolicy: "no-hooks"
   targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "opentelemetry-operator-controller-manager-service-cert"
+        keys:
+          - "tls.crt"
+          - "tls.key"
+        purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
+        suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
     requiredCRDs:
       -
         name: "certificates.cert-manager.io"
