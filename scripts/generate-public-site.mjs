@@ -45,6 +45,7 @@ if (mode === "--generate") {
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
+  write(join(siteRoot, "matrix.html"), site.matrixHtml);
   write(chartIndexPath, site.chartIndexHtml);
   for (const page of site.chartPages) write(page.path, page.html);
   write(catalogJsonPath, site.catalogJson);
@@ -61,6 +62,8 @@ if (mode === "--generate") {
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
+  check(existsSync(join(siteRoot, "matrix.html")), "site/matrix.html is missing; run npm run site:generate");
+  check(readFileSync(join(siteRoot, "matrix.html"), "utf8") === site.matrixHtml, "site/matrix.html is stale (regen master matrix first)");
   check(readFileSync(chartIndexPath, "utf8") === site.chartIndexHtml, "site/charts/index.html is stale");
   const expectedChartPages = new Map(site.chartPages.map((page) => [page.fileName, page]));
   const actualChartPages = readdirSync(chartPagesRoot).filter((name) => name.endsWith(".html") && name !== "index.html").sort();
@@ -253,6 +256,7 @@ function buildSite() {
     tryHtml: tryHtml(catalog),
     chartIndexHtml: chartIndexHtml(catalog),
     chartPages,
+    matrixHtml: readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
     readme: readme(),
   };
 }
@@ -399,81 +403,55 @@ function html(catalog) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ConfigHub Helm Catalog</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --ink: #172026;
-      --muted: #5b6872;
-      --line: #d9e0e6;
-      --panel: #f7f9fb;
-      --accent: #0b6bcb;
-      --good: #16794c;
-      --warn: #a05a00;
-      --surface: #ffffff;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background: var(--surface);
-      line-height: 1.45;
-    }
-    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 28px 20px; }
-    header { padding-top: 44px; border-bottom: 1px solid var(--line); }
-    h1 { margin: 0 0 12px; font-size: clamp(2rem, 4vw, 4rem); line-height: 1.02; letter-spacing: 0; }
-    h2 { margin: 36px 0 12px; font-size: 1.45rem; letter-spacing: 0; }
-    h3 { margin: 0 0 8px; font-size: 1.02rem; letter-spacing: 0; }
-    p { max-width: 820px; color: var(--muted); }
-    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    pre {
-      overflow-wrap: anywhere;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #0f1720;
-      color: #e9f2ff;
-      white-space: pre-wrap;
-    }
-    .tagline { font-size: 1.2rem; color: var(--ink); }
-    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-    .card, .metric, .lane {
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: var(--surface);
-      padding: 14px;
-    }
-    .metric strong { display: block; font-size: 2rem; line-height: 1; color: var(--accent); }
-    .metric span { display: block; margin-top: 8px; color: var(--muted); font-size: .92rem; }
-    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
-    .card dt { color: var(--muted); }
-    .card dd { margin: 0; }
-    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .82rem; border: 1px solid var(--line); }
-    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
-    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
-    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
-    .lane { background: var(--panel); }
-    .bar { height: 8px; border-radius: 999px; background: #dfe7ee; overflow: hidden; margin-top: 12px; }
-    .bar span { display: block; height: 100%; background: var(--accent); }
-    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 36px; }
-    @media (max-width: 900px) {
-      .grid, .catalog, .lanes { grid-template-columns: 1fr; }
-      .card dl { grid-template-columns: 1fr; }
-    }
-  </style>
+  <style>${siteCss()}</style>
 </head>
 <body>
   <header>
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="../docs/user/choose-your-path.md">Choose path</a> · <a href="../docs/user/generative-gitops-fit.md">Generative GitOps fit</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
-    <h1>Use Helm charts. Ship ConfigHub variants.</h1>
-    <p class="tagline">The catalog turns popular public Helm charts into reviewed cub installer packages, named variants, rendered objects, checks, and proof receipts.</p>
-    <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
-  --base default \\
-  --work-dir .tmp/redis \\
-  --non-interactive \\
-  --namespace redis</pre>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./offering.html">Offering &amp; tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <h1>Helm charts in. Proof-carrying ConfigHub packages out.</h1>
+    <p class="tagline">helm-expt turns the most-used public Helm charts into reviewed <code>cub installer</code> packages with named variants, rendered objects, and a receipt behind every claim. Nothing here asks to be trusted: green cells are backed by committed evidence, with links to the chart, package, revision, and source data.</p>
+    <div class="doors">
+      <div class="door">
+        <span class="kicker">Run it</span>
+        <h3><a href="./try.html">Try the catalog in 5 minutes</a></h3>
+        <p>Render, review, and apply Redis from the public catalog — locally, no account.</p>
+        <pre><code>cub installer setup \\
+  --pull packages/bitnami/redis/25.5.3 \\
+  --base default --work-dir .tmp/redis \\
+  --non-interactive --namespace redis</code></pre>
+        <span class="go"><a href="./try.html">All three try paths →</a></span>
+      </div>
+      <div class="door">
+        <span class="kicker">See the state</span>
+        <h3><a href="./matrix.html">The whole catalog, one matrix</a></h3>
+        <p>Every chart variant against every proof lane — render parity, ConfigHub, local live, GitOps, parity — colored by committed evidence. Grey means not yet run, never hidden.</p>
+        <span class="go"><a href="./matrix.html">Open the status matrix →</a></span>
+      </div>
+      <div class="door">
+        <span class="kicker">Check our honesty</span>
+        <h3><a href="../docs/user/what-we-refuse-to-claim.md">What we refuse to claim</a></h3>
+        <p>The narrow-claims register: what is proven, what is partial, what we will not say. Every public statement maps to a verifier you can run.</p>
+        <span class="go"><a href="../data/claims-register/summary.md">Claims → evidence register →</a></span>
+      </div>
+    </div>
+    <h2>The chain of proof</h2>
+    <div class="chain">
+      <a href="../docs/user/verify-it-yourself.md">Helm-equivalent render, byte-compared</a>
+      <a href="../docs/user/helm-pain-points.md">Provenance, quirks &amp; hooks classified</a>
+      <a href="./charts/index.html">Package + named base variants</a>
+      <a href="../data/README.md">ConfigHub units, scans, safe ops</a>
+      <a href="./matrix.html">Live observation on real clusters</a>
+      <a href="../docs/user/live-parity.md">Helm-vs-ConfigHub parity receipts</a>
+    </div>
+    <h2>Where it goes from free</h2>
+    <div class="tiers">
+      <div class="tier"><span class="stage">tier 0</span><h3>Public catalog</h3><p>Top charts, proof-grade recipes and packages, with committed receipts that can be checked locally.</p><span class="badge now">available</span></div>
+      <div class="tier"><span class="stage">tier 1</span><h3>Verified install</h3><p>Resolve, verify, apply, and record an in-cluster receipt — before any login.</p><span class="badge planned">planned</span></div>
+      <div class="tier"><span class="stage">tier 2</span><h3>Catalog subscription</h3><p>Refresh cadence, CVE turnaround, and the attestation pack per variant.</p><span class="badge planned">planned</span></div>
+      <div class="tier"><span class="stage">tier 3</span><h3>Private catalog</h3><p>The same render-scan-sign pipeline over your own charts and overlays.</p><span class="badge planned">planned</span></div>
+      <div class="tier"><span class="stage">tier 4</span><h3>ConfigHub Server</h3><p>Fleet inventory, variants, promotions, gates, and live operations at estate scale.</p><span class="badge planned">planned</span></div>
+    </div>
+    <p>Tier boundaries and what each one proves are spelled out on the <a href="./offering.html">offering page</a>; planned tiers are plans, not shipped behavior — the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
   </header>
   <main>
     <section aria-labelledby="first-time">
@@ -845,7 +823,7 @@ function offeringHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="../docs/user/choose-your-path.md">Choose path</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./offering.html">Offering &amp; tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
     <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
     <p>Helm is still the renderer. ConfigHub turns the result into reviewed packages, named variants, rendered objects, scans, gates, receipts, and live evidence.</p>
@@ -1025,7 +1003,7 @@ function tryHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="../docs/user/choose-your-path.md">Choose path</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./offering.html">Offering &amp; tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Try the catalog in three short paths.</h1>
     <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
     ${markdownLikeTable([
@@ -1178,7 +1156,7 @@ function chartIndexHtml(catalog) {
 </head>
 <body>
   <header>
-    <nav><a href="../offering.html">Offering</a> · <a href="../try.html">Try now</a> · <a href="../../docs/user/choose-your-path.md">Choose path</a> · <a href="../index.html">Catalog dashboard</a> · <a href="../../README.md">Repository</a></nav>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../offering.html">Offering &amp; tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>Catalog Chart Pages</h1>
     <p class="tagline">One public page per catalog-supported chart: base variants, proof lanes, production boundary, quirks, and artifact links.</p>
   </header>
@@ -1246,7 +1224,7 @@ function chartPageHtml(catalog, entry) {
 </head>
 <body>
   <header>
-    <nav><a href="./index.html">All chart pages</a> · <a href="../index.html">Catalog dashboard</a> · <a href="../try.html">Try now</a> · <a href="../../docs/user/choose-your-path.md">Choose path</a> · <a href="../../README.md">Repository</a></nav>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../offering.html">Offering &amp; tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>${escapeHtml(entry.chart)}</h1>
     <p class="tagline">Public catalog page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
     <pre>${escapeHtml(entry.start_command || `cub installer setup --pull ${entry.package_path} --base ${entry.start_variant} --work-dir <tmp> --non-interactive`)}</pre>
@@ -1608,69 +1586,135 @@ function siteCss() {
   return `
     :root {
       color-scheme: light;
-      --ink: #172026;
+      --ink: #15191d;
       --muted: #5b6872;
-      --line: #d9e0e6;
-      --panel: #f7f9fb;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
       --accent: #0b6bcb;
-      --good: #16794c;
-      --warn: #a05a00;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
       --surface: #ffffff;
+      --term: #0e1419;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
       background: var(--surface);
-      line-height: 1.45;
+      line-height: 1.5;
+      font-size: 15px;
     }
-    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 28px 20px; }
-    header { padding-top: 44px; border-bottom: 1px solid var(--line); }
-    h1 { margin: 0 0 12px; font-size: clamp(2rem, 4vw, 4rem); line-height: 1.02; letter-spacing: 0; }
-    h2 { margin: 36px 0 12px; font-size: 1.45rem; letter-spacing: 0; }
-    h3 { margin: 0 0 8px; font-size: 1.02rem; letter-spacing: 0; }
-    p { max-width: 820px; color: var(--muted); }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0 auto; padding: 12px 20px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .topbar .brand::before { content: "▣ "; color: var(--good); }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
     pre {
       overflow-wrap: anywhere;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #0f1720;
-      color: #e9f2ff;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
       white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
     }
-    nav { color: var(--muted); margin-bottom: 24px; }
-    .tagline { font-size: 1.2rem; color: var(--ink); }
-    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
     .card, .metric, .lane {
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 10px;
       background: var(--surface);
       padding: 14px;
     }
-    .metric strong { display: block; font-size: 2rem; line-height: 1.08; color: var(--accent); overflow-wrap: anywhere; }
-    .metric span { display: block; margin-top: 8px; color: var(--muted); font-size: .92rem; }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
     .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
     .card dt { color: var(--muted); }
     .card dd { margin: 0; }
-    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .82rem; border: 1px solid var(--line); }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
     .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
     .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
-    .bar { height: 8px; border-radius: 999px; background: #dfe7ee; overflow: hidden; margin-top: 12px; }
-    .bar span { display: block; height: 100%; background: var(--accent); }
-    li { margin: 8px 0; color: var(--muted); }
-    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 36px; }
-    @media (max-width: 900px) {
-      .grid, .catalog, .lanes { grid-template-columns: 1fr; }
-      .card dl { grid-template-columns: 1fr; }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr 1fr; }
     }
-  `;
+    @media (max-width: 640px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .topbar { flex-wrap: wrap; }
+      .navlinks { margin-left: 0; }
+    }
+`;
 }
 
 function readme() {
