@@ -4,17 +4,16 @@ metadata:
   name: "open-telemetry-opentelemetry-operator-0-114-0"
 spec:
   chart:
-    repository: "open-telemetry"
     name: "opentelemetry-operator"
+    repository: "open-telemetry"
     version: "0.114.0"
   deterministicBundle:
-    command: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz"
-    sha256: "3608f56044757a16e773312bb3c46f5bdb31d014e8c78480b1d7c93ea0659311"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz"
+    sha256: "7912e478b5ea5ad5f7f2c428ed63c9734377ce5361db9d83dde83705d5ab56d2"
   package:
-    path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
     name: "open-telemetry-opentelemetry-operator"
-    version: "0.114.0"
+    path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"
         bytes: 24145
       -
+        path: "collector/target-facts.sh"
+        sha256: "d8b3adf454e4f32744c06065853f09759582e6711afc87c2377d5c77b2cce797"
+        bytes: 3531
+      -
         path: "installer.yaml"
-        sha256: "5750bf6c7a580bdf53d31782d28698a04ac6cf32a8f6c8c0937b4e9f19335a4e"
-        bytes: 559
+        sha256: "a1beff8d7c8079c838de9a4efafe514e2626752f3ba3734b6d55df12232f99c1"
+        bytes: 1416
+    version: "0.114.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -51,13 +55,17 @@ spec:
       semanticObjectMatches: "17/17"
       separatedSecretCount: 0
       variant: "default"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 13
-      cubInstallObjectCountIncludingSupport: 14
-      semanticObjectMatches: "13/13"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 14
+      helmReleaseObjectCount: 13
+      semanticObjectMatches: "13/13"
+      separatedSecretCount: 0
+      variant: "no-crds"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
