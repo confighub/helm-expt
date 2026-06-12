@@ -1,0 +1,326 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: aqua-trivy-operator-0.32.1-default-live-parity-20260605
+spec:
+  chart: aqua/trivy-operator
+  version: 0.32.1
+  base: default
+  result: pass
+  observedAt: '2026-06-12T21:58:12Z'
+  package:
+    path: packages/aqua/trivy-operator/0.32.1
+  recipe:
+    path: recipes/aqua/trivy-operator/0.32.1
+  variantRevision: recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-aquatrivy-1781301492
+    kubeContext: kind-helm-expt-parity-aquatrivy-1781301492
+    namespace: default
+    legNamespaces:
+      regularHelm: default
+      configHubKubectlApply: default
+      configHubOciArgo: default
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-aquatrivy-1781301492 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-aquatrivy-1781301492"...
+
+        Deleting cluster "helm-expt-parity-aquatrivy-1781301492" ...
+
+        Deleted nodes: ["helm-expt-parity-aquatrivy-1781301492-control-plane"]
+
+        Deleting Space "helm-expt-parity-aquatrivy-1781301492-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install trivy-operator trivy-operator --repo https://aquasecurity.github.io/helm-charts/
+        --version 0.32.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/aqua-trivy-operator-default/regular-helm-values.yaml
+        --wait --timeout 420s
+      manifestSHA256: 4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25
+      objectCount: 33
+      liveHelmManifestSHA256: 875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492
+      liveHelmManifestObjectCount: 21
+      namespace: default
+      runtime:
+        result: pass
+        workloads: deployment.apps/trivy-operator   1/1   1     1     20s
+        pods: 'node-collector-6b9c744f54-dq5gs             0/1   ContainerCreating   0     13s
+
+          scan-vulnerabilityreport-549c45f7b-df4c2    0/1   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-55d69b7bcd-ccgft   0/2   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-56f755bd46-72k5b   0/1   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-5844b7667-5zbg9    0/1   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-586849b65-q6dpt    0/1   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-59c9b4c57f-tc7b6   0/1   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-5b76c9cc84-54ml2   0/2   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-5d7549b559-bsltt   0/1   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-6f8c47bfb5-x7bw9   0/1   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-74b9cf67dd-k8rk7   0/1   Init:0/1            0     13s
+
+          scan-vulnerabilityreport-c78c644f7-v2gkz    0/1   Init:0/1            0     13s
+
+          trivy-operator-7b77959c86-vwsv9             1/1   Running             0     20s'
+        notReady: []
+        ignoredJobPods:
+        - pod: node-collector-6b9c744f54-dq5gs
+          ready: 0/1
+          status: ContainerCreating
+        - pod: scan-vulnerabilityreport-549c45f7b-df4c2
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-55d69b7bcd-ccgft
+          ready: 0/2
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-56f755bd46-72k5b
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-5844b7667-5zbg9
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-586849b65-q6dpt
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-59c9b4c57f-tc7b6
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-5b76c9cc84-54ml2
+          ready: 0/2
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-5d7549b559-bsltt
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-6f8c47bfb5-x7bw9
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-74b9cf67dd-k8rk7
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-c78c644f7-v2gkz
+          ready: 0/1
+          status: Init:0/1
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aqua/trivy-operator/0.32.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-aquatrivy-1781301492-aqua-trivy-operator
+        --non-interactive --namespace default
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 726ebf28413851da2135b35d2426977b513308b7b352db0c8133e44242459241
+      objectCount: 34
+      namespace: default
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/trivy-operator   1/1   1     1     21s'
+        pods: '# default
+
+          node-collector-6b9c744f54-dq5gs             0/1   ContainerCreating   0     37s
+
+          scan-vulnerabilityreport-549c45f7b-df4c2    0/1   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-55d69b7bcd-ccgft   0/2   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-56f755bd46-72k5b   0/1   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-5844b7667-5zbg9    0/1   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-586849b65-q6dpt    0/1   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-59c9b4c57f-tc7b6   0/1   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-5b76c9cc84-54ml2   0/2   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-5d7549b559-bsltt   0/1   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-6f8c47bfb5-x7bw9   0/1   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-74b9cf67dd-k8rk7   0/1   Init:0/1            0     37s
+
+          scan-vulnerabilityreport-c78c644f7-v2gkz    0/1   Init:0/1            0     37s
+
+          trivy-operator-7b77959c86-hhzkf             1/1   Running             0     21s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces: []
+        retainedNamespaces: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-aquatrivy-1781301492-aqua-trivy-operator
+      controller: Argo CD OCI
+      app: aqua-trivy-operator-parity
+      manifestSHA256: 726ebf28413851da2135b35d2426977b513308b7b352db0c8133e44242459241
+      objectCount: 34
+      namespace: default
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:e6eafc6c9dabbcb3463bf52b28843383740c87ddd5baf1d35545eef86e52f9ec
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-default-trivy-operator-trivy-config.yaml
+      - secret-default-trivy-operator.yaml
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/trivy-operator   1/1   1     1     3m3s'
+        pods: '# default
+
+          scan-vulnerabilityreport-549c45f7b-df4c2    1/1   Running    0     3m19s
+
+          scan-vulnerabilityreport-55d69b7bcd-8nkpq   0/2   Init:0/1   0     4s
+
+          scan-vulnerabilityreport-578fc5b667-nqts6   0/1   Init:0/1   0     32s
+
+          scan-vulnerabilityreport-59c9b4c57f-tc7b6   1/1   Running    0     3m19s
+
+          scan-vulnerabilityreport-5d7549b559-bsltt   1/1   Running    0     3m19s
+
+          scan-vulnerabilityreport-5f5749859c-bc8bc   0/2   Init:0/1   0     32s
+
+          scan-vulnerabilityreport-6f8c47bfb5-x7bw9   1/1   Running    0     3m19s
+
+          scan-vulnerabilityreport-7458d6cd5-crvx6    0/1   Init:0/1   0     2s
+
+          scan-vulnerabilityreport-795494fd6b-xz44v   0/1   Init:0/1   0     2s
+
+          trivy-operator-7b77959c86-hhzkf             1/1   Running    0     3m3s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 33
+      configHubObjectCount: 34
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 33
+      configHubObjectCount: 34
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-aquatrivy-1781301492\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-aquatrivy-1781301492.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-aquatrivy-1781301492\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-aquatrivy-1781301492\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-aquatrivy-1781301492\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-aquatrivy-1781301492.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace "
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"trivy-operator\" does not exist. Installing it now.\nNAME:\
+      \ trivy-operator\nLAST DEPLOYED: Fri Jun 12 22:59:42 2026\nNAMESPACE: default\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nYou have installed Trivy Operator in the default namespace.\nIt is configured\
+      \ to discover Kubernetes workloads and resources in\nall namespace(s).\n\nInspect\
+      \ created VulnerabilityReports by:\n\n    kubectl get vulnerabilityreports --all-namespaces\
+      \ -o wide\n\nInspect created ConfigAuditReports by:\n\n    kubectl get configauditreports\
+      \ --all-namespaces -o wide\n\nInspect the work log of trivy-operator by:\n\n\
+      \    kubectl logs -n default deployment/trivy-operator"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/trivy-operator   1/1   1     1     21s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default

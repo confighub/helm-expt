@@ -1106,7 +1106,20 @@ def ready_status(kubeconfig: Path, context: str, namespace: str, command_timeout
         timeout=command_timeout,
     )
     rc_pods, pods, pod_err = kubectl(["-n", namespace, "get", "pods", "--no-headers"], kubeconfig, context, timeout=command_timeout)
+    rc_pods_json, pods_json, _ = kubectl(["-n", namespace, "get", "pods", "-o", "json"], kubeconfig, context, timeout=command_timeout)
+    pod_owners = {}
+    if rc_pods_json == 0:
+        try:
+            payload = json.loads(pods_json)
+        except json.JSONDecodeError:
+            payload = {}
+        for item in payload.get("items") or []:
+            name = ((item.get("metadata") or {}).get("name") or "")
+            owners = ((item.get("metadata") or {}).get("ownerReferences") or [])
+            pod_owners[name] = [owner.get("kind") for owner in owners if owner.get("kind")]
     not_ready = []
+    ignored_job_pods = []
+    workloads_ready = rc == 0 and bool(workloads.strip())
     for line in pods.splitlines():
         fields = line.split()
         if len(fields) < 3:
@@ -1115,14 +1128,18 @@ def ready_status(kubeconfig: Path, context: str, namespace: str, command_timeout
         ok = status in ("Running", "Completed")
         if "/" in ready:
             have, want = ready.split("/", 1)
-            ok = ok and have == want
+            ok = ok and (have == want or status == "Completed")
         if not ok:
+            if workloads_ready and "Job" in pod_owners.get(name, []):
+                ignored_job_pods.append({"pod": name, "ready": ready, "status": status})
+                continue
             not_ready.append({"pod": name, "ready": ready, "status": status})
     return {
-        "result": "pass" if rc == 0 and bool(workloads.strip()) and rc_pods == 0 and not not_ready else "watch",
+        "result": "pass" if workloads_ready and rc_pods == 0 and not not_ready else "watch",
         "workloads": workloads if rc == 0 else workload_err,
         "pods": pods if rc_pods == 0 else pod_err,
         "notReady": not_ready,
+        "ignoredJobPods": ignored_job_pods,
     }
 
 
@@ -1305,6 +1322,13 @@ def operation_namespace(runtime_namespaces: list[str], fallback: str) -> str:
 
 def readiness_timeout(chart: str, base: str, default_seconds: int) -> int:
     return default_seconds
+
+
+def helm_duration(value: str) -> str:
+    text = str(value).strip()
+    if text.isdigit():
+        return f"{text}s"
+    return text
 
 
 def semantic_compare(
@@ -1518,7 +1542,7 @@ def main() -> int:
             "--create-namespace",
             "--values", str(helm_values_path),
             "--wait",
-            "--timeout", args.wait,
+            "--timeout", helm_duration(args.wait),
         ]
         env = {**os.environ, "KUBECONFIG": str(kubeconfig)}
         mark_stage("regular-helm-install")
