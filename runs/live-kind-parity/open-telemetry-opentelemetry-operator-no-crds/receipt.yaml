@@ -1,0 +1,218 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: open-telemetry-opentelemetry-operator-0.114.0-no-crds-kind-parity-20260606
+spec:
+  chart: open-telemetry/opentelemetry-operator
+  version: 0.114.0
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-12T04:13:10Z'
+  package:
+    path: packages/open-telemetry/opentelemetry-operator/0.114.0
+  recipe:
+    path: recipes/open-telemetry/opentelemetry-operator/0.114.0
+  variantRevision: recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-opente-77130-vdcg-helm
+    installerCluster: hx-opente-77130-vdcg-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-opente-77130-vdcg-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-opente-77130-vdcg-helm" ...
+
+          Deleted nodes: ["hx-opente-77130-vdcg-helm-control-plane"]'
+      - cluster: hx-opente-77130-vdcg-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-opente-77130-vdcg-installer" ...
+
+          Deleted nodes: ["hx-opente-77130-vdcg-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install opentelemetry-operator opentelemetry-operator
+        --repo https://open-telemetry.github.io/opentelemetry-helm-charts --version
+        0.114.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1
+      objectCount: 13
+      liveHelmManifestSHA256: 88df427c8f96df77710caec7b7e2788e7a3bfc963ea79edb232263f2ae1dc223
+      liveHelmManifestObjectCount: 13
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/opentelemetry-operator   1/1   1     1     17s'
+        pods: '# default
+
+          opentelemetry-operator-7b79f764b-n2tfj   1/1   Running   0     17s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-opente-77130-vdcg-opentelemetry-operator
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 60da685913cbbc73f2ab608c30f38097a1a78ba04ac564add8e8ae279ce1fc90
+      objectCount: 14
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/opentelemetry-operator   1/1   1     1     20s'
+        pods: '# default
+
+          opentelemetry-operator-7b79f764b-fmk96   1/1   Running   0     21s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 13
+      installerObjectCount: 14
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=1 crds=6
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=1 crds=6
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"opentelemetry-operator\" does not exist. Installing it now.\n\
+      NAME: opentelemetry-operator\nLAST DEPLOYED: Fri Jun 12 05:14:08 2026\nNAMESPACE:\
+      \ default\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nNOTES:\n\
+      [WARNING] No resource limits or requests were set. Consider setter resource\
+      \ requests and limits via the `resources` field.\n\n\nopentelemetry-operator\
+      \ has been installed. Check its status by running:\n  kubectl --namespace default\
+      \ get pods -l \"app.kubernetes.io/instance=opentelemetry-operator\"\n\nVisit\
+      \ https://github.com/open-telemetry/opentelemetry-operator for instructions\
+      \ on how to create & configure OpenTelemetryCollector and Instrumentation custom\
+      \ resources by using the Operator."
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/opentelemetry-operator   1/1   1     1     20s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: default
+        name: opentelemetry-operator-controller-manager-service-cert
+        keys:
+        - tls.crt
+        - tls.key
+        lane: regularHelm
+      stagedCRDs:
+      - name: certificates.cert-manager.io
+        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+        lane: regularHelm
+      - name: issuers.cert-manager.io
+        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+        lane: regularHelm
+      - name: instrumentations.opentelemetry.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: opampbridges.opentelemetry.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: opentelemetrycollectors.opentelemetry.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: targetallocators.opentelemetry.io
+        sourceVariant: default
+        lane: regularHelm
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets:
+      - namespace: default
+        name: opentelemetry-operator-controller-manager-service-cert
+        keys:
+        - tls.crt
+        - tls.key
+        lane: cubInstallerApply
+      stagedCRDs:
+      - name: certificates.cert-manager.io
+        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+        lane: cubInstallerApply
+      - name: issuers.cert-manager.io
+        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+        lane: cubInstallerApply
+      - name: instrumentations.opentelemetry.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: opampbridges.opentelemetry.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: opentelemetrycollectors.opentelemetry.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: targetallocators.opentelemetry.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

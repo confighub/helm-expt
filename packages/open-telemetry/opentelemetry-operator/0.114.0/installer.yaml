@@ -11,6 +11,11 @@ spec:
       externalRequires:
         -
           kind: "ClusterFeature"
+          name: "Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key"
+          namespace: "default"
+          suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+        -
+          kind: "ClusterFeature"
           name: "CRD certificates.cert-manager.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
         -
@@ -24,11 +29,32 @@ spec:
       externalRequires:
         -
           kind: "ClusterFeature"
+          name: "Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key"
+          namespace: "default"
+          suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+        -
+          kind: "ClusterFeature"
           name: "CRD certificates.cert-manager.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
         -
           kind: "ClusterFeature"
           name: "CRD issuers.cert-manager.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD instrumentations.opentelemetry.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD opampbridges.opentelemetry.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD opentelemetrycollectors.opentelemetry.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD targetallocators.opentelemetry.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
       name: "no-crds"
       path: "bases/no-crds"

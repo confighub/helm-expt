@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz"
-    sha256: "493d0ab58e276db8a0427e7172e468d4b7218b29234a45b64d4979c0a9789ed2"
+    sha256: "e7089ed3f2f16699e8a0713beee3c6af770ac7d877012e2a2ae2aa3b65dfd86b"
   package:
     name: "open-telemetry-opentelemetry-operator"
     path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
@@ -37,12 +37,12 @@ spec:
         bytes: 24145
       -
         path: "collector/target-facts.sh"
-        sha256: "b3fc2fd18d19c98227dff675d8884a26387cfda6ee581793c31114f86af9e6ff"
-        bytes: 4103
+        sha256: "85435769358c4547fb4e44d6da555cc9c7d7badb3ca6d48206a5f8b44cdf34e6"
+        bytes: 7493
       -
         path: "installer.yaml"
-        sha256: "0b6ed1feb7292c93a222ee269cddfc8ff4b4cc8718576ecfcdf336ce328233bf"
-        bytes: 1416
+        sha256: "58f038e3e8cb4eb4dcebd06d63e5f150ae13d0a5d3349e1d05ff8e5bd7be0c66"
+        bytes: 2765
     version: "0.114.0"
   setupChecks:
     -

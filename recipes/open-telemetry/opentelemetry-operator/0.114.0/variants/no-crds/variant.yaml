@@ -17,6 +17,20 @@ spec:
       []
   hookPolicy: "no-hooks"
   targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "opentelemetry-operator-controller-manager-service-cert"
+        keys:
+          - "tls.crt"
+          - "tls.key"
+        purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
+        suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
     requiredCRDs:
       -
         name: "certificates.cert-manager.io"
@@ -35,6 +49,50 @@ spec:
         sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
         purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
         suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "instrumentations.opentelemetry.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "opampbridges.opentelemetry.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "opentelemetrycollectors.opentelemetry.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "targetallocators.opentelemetry.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
         deliveryLanes:
           - "regularHelm"
           - "cubInstallerApply"

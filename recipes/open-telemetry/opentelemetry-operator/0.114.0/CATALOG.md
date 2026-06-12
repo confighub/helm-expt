@@ -30,7 +30,7 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
-| Strongest evidence | in-confighub-proof |
+| Strongest evidence | two-cluster-kind-parity |
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | crds;extension-slots |
 | Hard gap | - |
@@ -57,8 +57,8 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default](../../../../packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default) | [recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 17 | 18 | 17/17 | pass | warn | warn | required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io |
-| no-crds | [recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/open-telemetry/opentelemetry-operator/0.114.0/bases/no-crds](../../../../packages/open-telemetry/opentelemetry-operator/0.114.0/bases/no-crds) | [recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 13 |  | 13/13 | pass |  | allow | required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io |
+| default | [recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default](../../../../packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default) | [recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 17 | 18 | 17/17 | pass | warn | warn | required Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key; required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io |
+| no-crds | [recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/open-telemetry/opentelemetry-operator/0.114.0/bases/no-crds](../../../../packages/open-telemetry/opentelemetry-operator/0.114.0/bases/no-crds) | [recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 13 |  | 13/13 | pass |  | allow | required Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key; required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io; required CRD instrumentations.opentelemetry.io; required CRD opampbridges.opentelemetry.io; required CRD opentelemetrycollectors.opentelemetry.io; required CRD targetallocators.opentelemetry.io |
 
 ## Package Bases
 

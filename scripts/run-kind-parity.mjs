@@ -356,6 +356,13 @@ function classifyReceipt(receipt) {
     return `helm-hook: post-install hook failed${paritySuffix}`;
   }
   if (
+    (text.includes("missing-required-secret") || text.includes("mountvolume.setup failed")) &&
+    text.includes("secret") &&
+    text.includes("not found")
+  ) {
+    return `target-prerequisite: required Secret missing${paritySuffix}`;
+  }
+  if (
     spec.chart === "ingress-nginx/ingress-nginx"
     && text.includes("ingress-nginx-admission")
     && text.includes("not found")

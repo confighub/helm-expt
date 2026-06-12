@@ -20,6 +20,7 @@ import base64
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -799,8 +800,12 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
             have, want = ready.split("/", 1)
             ok = ok and have == want
         if not ok:
-            not_ready.append({"pod": name, "ready": ready, "status": status})
+            item = {"pod": name, "ready": ready, "status": status}
+            if pod_status_is_terminal_blocker(status):
+                item["blockedReason"] = "pod-runtime-failure"
+            not_ready.append(item)
     diagnostics = []
+    blockers = []
     for item in not_ready:
         rc_describe, describe, describe_err = kubectl(
             ["-n", namespace, "describe", "pod", item["pod"]],
@@ -809,12 +814,33 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
             timeout=60,
         )
         detail = describe if rc_describe == 0 else describe_err
-        diagnostics.append({
+        diagnostic = {
             "pod": item["pod"],
             "result": "pass" if rc_describe == 0 else "blocked",
             "detailHead": detail[:3000],
             "detailTail": detail[-3000:],
-        })
+        }
+        missing_secret = missing_required_secret(detail)
+        if missing_secret:
+            item["blockedReason"] = "missing-required-secret"
+            item["missingSecret"] = missing_secret
+            diagnostic["result"] = "blocked"
+            diagnostic["blockedReason"] = "missing-required-secret"
+            diagnostic["missingSecret"] = missing_secret
+            blockers.append({
+                "pod": item["pod"],
+                "reason": "missing-required-secret",
+                "secret": missing_secret,
+            })
+        elif item.get("blockedReason") == "pod-runtime-failure":
+            diagnostic["result"] = "blocked"
+            diagnostic["blockedReason"] = "pod-runtime-failure"
+            blockers.append({
+                "pod": item["pod"],
+                "reason": "pod-runtime-failure",
+                "status": item.get("status", ""),
+            })
+        diagnostics.append(diagnostic)
     if rc == 0 and not workloads.strip():
         # No long-running workloads in this namespace. A CronJob-only chart
         # (issue #517) must classify instead of wedging the readiness loop:
@@ -845,11 +871,42 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
                 "cronJobEvidence": {"completedJobs": sorted(set(completed)), "failedJobs": sorted(set(failed))},
             }
     return {
-        "result": "pass" if rc == 0 and bool(workloads.strip()) and rc_pods == 0 and not not_ready else "watch",
+        "result": (
+            "blocked"
+            if blockers
+            else "pass"
+            if rc == 0 and bool(workloads.strip()) and rc_pods == 0 and not not_ready
+            else "watch"
+        ),
+        **({"blockedReasons": blockers} if blockers else {}),
         "workloads": workloads if rc == 0 else workload_err,
         "pods": pods if rc_pods == 0 else pod_err,
         "notReady": not_ready,
         "diagnostics": diagnostics,
+    }
+
+
+def missing_required_secret(detail: str) -> str:
+    lower = detail.lower()
+    if "secret" not in lower or "not found" not in lower:
+        return ""
+    match = re.search(r'secret "([^"]+)" not found', detail, flags=re.IGNORECASE)
+    if match:
+        return match.group(1)
+    match = re.search(r"SecretName:\s*([^\s]+)", detail)
+    if match and "MountVolume.SetUp failed" in detail:
+        return match.group(1)
+    return ""
+
+
+def pod_status_is_terminal_blocker(status: str) -> bool:
+    return status in {
+        "CrashLoopBackOff",
+        "CreateContainerConfigError",
+        "ErrImagePull",
+        "Error",
+        "ImagePullBackOff",
+        "InvalidImageName",
     }
 
 
