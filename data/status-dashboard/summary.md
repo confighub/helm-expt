@@ -200,9 +200,9 @@ needs a support artifact or a direct receipt review before rerun.
 | bitnami/nginx@24.0.2 | existing-tls-ingress | watch | gitops-runtime-review | [recipes/bitnami/nginx/24.0.2/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/24.0.2/gitops-runtime-review.yaml) |
 | grafana/grafana@10.5.15 | existing-secret-ingress | watch | gitops-runtime-review | [recipes/grafana/grafana/10.5.15/gitops-runtime-review.yaml](../../recipes/grafana/grafana/10.5.15/gitops-runtime-review.yaml) |
 | hashicorp/vault@0.32.0 | default | watch | operating-policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
-| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | target-fit-review | - |
-| ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime-review | - |
-| longhorn/longhorn@1.11.2 | ui-ingress | watch | gitops-runtime-review | - |
+| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | target-fit-review | [recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml) |
+| ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime-review | [recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml) |
+| longhorn/longhorn@1.11.2 | ui-ingress | watch | gitops-runtime-review | [recipes/longhorn/longhorn/1.11.2/gitops-runtime-review.yaml](../../recipes/longhorn/longhorn/1.11.2/gitops-runtime-review.yaml) |
 | metrics-server/metrics-server@3.13.0 | external-tls-ca | watch | gitops-runtime-review | [recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml](../../recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml) |
 | prometheus-community/prometheus@29.8.0 | default | watch | gitops-runtime-review | [recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml](../../recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml) |
 

@@ -1067,7 +1067,7 @@
       "current_result": "watch",
       "next_step_type": "target-fit-review",
       "reason": "target-fit: LoadBalancer Service has no external IP on kind (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml",
       "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml",
       "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --continue-on-fail"
     },
@@ -1077,7 +1077,7 @@
       "current_result": "watch",
       "next_step_type": "gitops-runtime-review",
       "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml",
       "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base default --continue-on-fail"
     },
@@ -1087,7 +1087,7 @@
       "current_result": "watch",
       "next_step_type": "gitops-runtime-review",
       "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/longhorn/longhorn/1.11.2/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/longhorn-longhorn-ui-ingress/receipt.yaml",
       "rerun_command": "npm run live-parity:top20 -- --chart longhorn --base ui-ingress --continue-on-fail"
     },
@@ -12500,7 +12500,7 @@
       "diagnosis": "Semantic parity and workload readiness passed, but the proof target lacks a required platform behavior such as LoadBalancer external IP assignment.",
       "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --continue-on-fail",
       "followup": "Use a target with the required platform behavior, or create a separate base that matches the proof target.",
-      "support_artifact": "",
+      "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml",
       "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""
@@ -12518,7 +12518,7 @@
       "diagnosis": "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.",
       "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base default --continue-on-fail",
       "followup": "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.",
-      "support_artifact": "",
+      "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""
@@ -12536,7 +12536,7 @@
       "diagnosis": "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.",
       "rerun_command": "npm run live-parity:top20 -- --chart longhorn --base ui-ingress --continue-on-fail",
       "followup": "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.",
-      "support_artifact": "",
+      "support_artifact": "recipes/longhorn/longhorn/1.11.2/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/longhorn-longhorn-ui-ingress/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""

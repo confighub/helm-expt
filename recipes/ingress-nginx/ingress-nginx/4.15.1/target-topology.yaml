@@ -1,0 +1,69 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetTopology"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  chart: "ingress-nginx/ingress-nginx@4.15.1"
+  scope: "target shape required by each supported base after render parity has passed"
+  summary: "The public ingress-nginx chart defaults to a LoadBalancer controller Service. On the standard kind proof target the controller workload becomes ready, but no load balancer controller assigns an external address. That is a target-fit condition, not a render-parity defect."
+  bases:
+    default:
+      variant: "default"
+      status: "target-fit-and-lifecycle-review"
+      targetFit:
+        serviceType: "LoadBalancer"
+        service: "ingress-nginx-oci/ingress-nginx-controller"
+        observedLoadBalancerStatus: {}
+        reason: "vanilla kind does not assign an external IP for Service.type=LoadBalancer"
+      lifecycle:
+        admissionWebhook: "enabled"
+        targetFactSecret: "ingress-nginx-oci/ingress-nginx-admission"
+        note: "Regular Helm creates and patches the admission webhook certificate with hook Jobs. The ConfigHub path stages the Secret as a target fact and observes the webhook objects after apply."
+      liveEvidence:
+        receipt: "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml"
+        regularHelm: "pass"
+        configHubKubectlApply: "pass"
+        configHubOciArgoRuntime: "pass"
+        semanticObjectParity: "pass"
+        argoSync: "Synced"
+        argoHealth: "Progressing"
+    admissionDisabled:
+      variant: "admission-disabled"
+      status: "target-fit-review"
+      targetFit:
+        serviceType: "LoadBalancer"
+        service: "ingress-nginx-oci/ingress-nginx-controller"
+        observedLoadBalancerStatus: {}
+        reason: "vanilla kind does not assign an external IP for Service.type=LoadBalancer"
+      lifecycle:
+        admissionWebhook: "disabled"
+        note: "This base deliberately removes the admission Service and ValidatingWebhookConfiguration. It has no admission Secret target fact."
+      liveEvidence:
+        receipt: "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml"
+        regularHelm: "pass"
+        configHubKubectlApply: "pass"
+        configHubOciArgoRuntime: "pass"
+        semanticObjectParity: "pass"
+        argoSync: "Synced"
+        argoHealth: "Progressing"
+    internalClusterIP:
+      variant: "internal-clusterip"
+      status: "local-target-fit-selected"
+      targetFit:
+        serviceType: "ClusterIP"
+        reason: "this base changes the controller Service to ClusterIP for local or internal targets where no external load balancer is expected"
+      lifecycle:
+        admissionWebhook: "disabled"
+        note: "Use this base when the target does not need ingress-nginx admission webhook objects or external Service exposure."
+  recommendedUse:
+    - "Use default when the target provides LoadBalancer support and the admission webhook lifecycle route is staged and observed."
+    - "Use admission-disabled when the target should run an ingress-nginx controller without the admission webhook, but still provides LoadBalancer support or accepts a pending external IP during local proof."
+    - "Use internal-clusterip for local/internal proof targets that should not require a LoadBalancer address."
+  requiredReceipts:
+    - "live parity receipt for the chosen base"
+    - "target-fit observation receipt for Service exposure"
+    - "admission webhook lifecycle receipt when the default base is used"
+  notProvenBy:
+    - "render parity alone"
+    - "a ready controller Deployment without Service exposure evidence"
+    - "Argo CD Synced without a target-specific health decision for LoadBalancer address assignment"

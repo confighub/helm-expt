@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "ingress-nginx-default-argocd-loadbalancer-health"
+  chart: "ingress-nginx/ingress-nginx"
+  version: "4.15.1"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "cub-lk/kind proof rig without a load balancer controller assigning external addresses for Service.type=LoadBalancer"
+  receipt: "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml"
+  observedResult: "watch"
+  passed:
+    - "regular Helm live leg reached the expected runtime state"
+    - "ConfigHub direct-apply leg reached the expected runtime state"
+    - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
+    - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
+    - "Argo CD reported the application Synced"
+    - "controller Deployment ingress-nginx-controller became ready"
+    - "target fact Secret ingress-nginx-oci/ingress-nginx-admission was staged with tls.crt, tls.key, and ca"
+    - "ValidatingWebhookConfiguration ingress-nginx-admission and admission Service were present"
+  gitOpsCondition:
+    sync: "Synced"
+    health: "Progressing"
+    healthResource:
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "ingress-nginx-oci"
+      name: "ingress-nginx-controller"
+  diagnosis:
+    summary: "The controller workload was ready and the desired object set matched regular Helm, but the proof target did not provide a load balancer implementation that assigns an external address for the controller Service."
+    observedService:
+      type: "LoadBalancer"
+      statusLoadBalancer: {}
+      ports:
+        - "80"
+        - "443"
+    lifecycleContext:
+      admissionWebhook: "enabled"
+      hookHandling: "Regular Helm executes admission create/patch hook Jobs. The ConfigHub path stages the admission Secret as a target fact and observes the admission Service and ValidatingWebhookConfiguration."
+    interpretation: "This is a target topology and lifecycle review condition for the default base, not evidence that the recipe changed Helm semantics."
+  nextActions:
+    - "Rerun this base on a target with a working LoadBalancer implementation and admission webhook lifecycle evidence."
+    - "Use internal-clusterip for local/internal proof targets that should not require external Service exposure."
+    - "Keep the row as watch until Argo reports Healthy for the target shape or the supported scope explicitly excludes external LoadBalancer readiness."
+  notClaimed:
+    - "This row does not prove external ingress reachability through a real load balancer."
+    - "This row does not prove admission webhook certificate rotation or long-term lifecycle management."
+    - "This row does not generalize to every ingress controller chart without a matching target-topology receipt."
