@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-12 (commit `226b2b99`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-12 (commit `e581c678`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -58,7 +58,7 @@ most recently changed triggers.
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-12 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-12)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-06-10 | 1 | `data/lifecycle-boundary/summary.md (2026-06-11)` |
 | [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-06-12 | 1 | `data/live-parity-rerun-plan/summary.md (2026-06-12)`<br>`data/status-dashboard/active-proof-queue.csv (2026-06-12)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 1 | `data/status-dashboard/status.csv (2026-06-12)`<br>`data/status-dashboard/summary.md (2026-06-12)`<br>`data/outcome-coverage/base-outcomes.csv (2026-06-12)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 1 | `data/status-dashboard/summary.md (2026-06-12)`<br>`data/status-dashboard/status.csv (2026-06-12)`<br>`data/outcome-coverage/base-outcomes.csv (2026-06-12)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-06-11 | 1 | `data/high-fanout-demo/prometheus-kps.csv (2026-06-12)`<br>`data/high-fanout-demo/summary.md (2026-06-12)`<br>`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-06-11 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-06-12 | 1 | `data/master-catalog-matrix/summary.md (2026-06-12)`<br>`data/live-kind-parity/summary.md (2026-06-12)` |
