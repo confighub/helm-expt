@@ -89,8 +89,8 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 30 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | target-fit: LoadBalancer Service has no external IP on kind (parity passed) | [`recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml) | `npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --continue-on-fail` |
-| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart ingress-nginx --base default --continue-on-fail` |
+| 30 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | target-fit: LoadBalancer Service has no external IP on kind (parity passed) | [`recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml) | `npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --target-profile kind-loadbalancer --continue-on-fail` |
+| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer --continue-on-fail` |
 
 
 
