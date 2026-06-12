@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "trust-manager-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-trust-manager-confighub-proof"
+    selector: "Labels.Proof = 'trust-manager-confighub-proof'"
+  subject:
+    chart: "jetstack/trust-manager"
+    chartVersion: "v0.22.1"
+    packagePath: "packages/jetstack/trust-manager/v0.22.1"
+    variant: "default"
+  changeset:
+    slug: "trust-manager-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "trust-manager safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "trust-manager-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-trust-manager --space helm-trust-manager-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-trust-manager"
+    output: "Unit deployment-default-trust-manager (ace22769-1dbb-4b25-9916-90971e256170) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-trust-manager-confighub-proof --where \"Labels.Proof = 'trust-manager-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req hPexWfRJQhqZAGdjJhcnBSxzElQMxDCx: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-trust-manager-confighub-proof --where \"Labels.Proof = 'trust-manager-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

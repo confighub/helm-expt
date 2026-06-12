@@ -1104,7 +1104,7 @@ need catalog promotion review before support is claimed.
 | jaegertracing/jaeger-operator@2.57.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.md) |
 | jaegertracing/jaeger@4.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/jaegertracing/jaeger/4.8.0/CATALOG.md) |
 | jetstack/cert-manager-csi-driver@v0.14.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md) |
-| jetstack/trust-manager@v0.22.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/jetstack/trust-manager/v0.22.1/CATALOG.md) |
+| jetstack/trust-manager@v0.22.1 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/jetstack/trust-manager/v0.22.1/CATALOG.md) |
 | kedacore/keda@2.19.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
 | kyverno/kyverno-policies@3.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md) |
 | kyverno/kyverno@3.8.1 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/kyverno/kyverno/3.8.1/CATALOG.md) |

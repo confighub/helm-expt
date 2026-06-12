@@ -1,0 +1,163 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "vpa-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-vpa-confighub-proof"
+    selector: "Labels.Proof = 'vpa-confighub-proof'"
+  subject:
+    chart: "fairwinds-stable/vpa"
+    chartVersion: "4.11.0"
+    packagePath: "packages/fairwinds-stable/vpa/4.11.0"
+    variant: "default"
+    configHubUnitCount: 29
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-vpa-checkpoint-actor"
+      headRevisionNum: 2
+      dataHash: "db29d9b1376db49d1d385060ee2bed6585378c4d7b0c2d9da15fd22ec5292650"
+    -
+      slug: "customresourcedefinition-verticalpodautoscalercheckpoints-autoscaling-k8s-io"
+      headRevisionNum: 2
+      dataHash: "39d0e598cce3245051a4665c723795b711390b9ab94f6715ef65e4ed7e528b84"
+    -
+      slug: "customresourcedefinition-verticalpodautoscalers-autoscaling-k8s-io"
+      headRevisionNum: 2
+      dataHash: "9cd350d6d2f21b6fd54d55905bad9757d86162f9eb70350a6373bbeb23055c8f"
+    -
+      slug: "deployment-default-vpa-admission-controller"
+      headRevisionNum: 2
+      dataHash: "aa74404ebe6c51b7c11042e9bb68b92be0f6de2b2f19baf5422d3a71cb62ca9e"
+    -
+      slug: "mutatingwebhookconfiguration-vpa-webhook-config"
+      headRevisionNum: 2
+      dataHash: "b8c4eef8d40b9b32f6c01806adea5850e869d73f66da198faed7a4ef03564430"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-vpa-recommender"
+      headRevisionNum: 1
+      dataHash: "e58a403dd995c40777734d0a037d42f363dc50aa9206a5f292739bffc8b19612"
+    -
+      slug: "clusterrolebinding-vpa-evictionter-binding"
+      headRevisionNum: 2
+      dataHash: "dbcd24cd91b606f0371bc49ffda1275c26d665d659e66bca0123737e3ed31162"
+    -
+      slug: "clusterrolebinding-vpa-metrics-reader"
+      headRevisionNum: 2
+      dataHash: "b0335b7ed28dcdc6f518e1453abcb5d3090d3a0a3eb03b667e1440dec4a9807c"
+    -
+      slug: "clusterrole-vpa-actor"
+      headRevisionNum: 2
+      dataHash: "12b20206045610ddf36b18caa7ba42c9c94c9c8cfd43514a271739859d9bc0a2"
+    -
+      slug: "clusterrole-vpa-metrics-reader"
+      headRevisionNum: 2
+      dataHash: "1abbb790c3c565b82e3838f73f3ef0f72f6457a347a5adb53e169c84c6a586a3"
+    -
+      slug: "clusterrole-vpa-checkpoint-actor"
+      headRevisionNum: 2
+      dataHash: "58d4c106a7c0ae2c93f681b79e88eccfa6af23dbb582d16a16a14f28558498e5"
+    -
+      slug: "clusterrole-vpa-admission-controller"
+      headRevisionNum: 2
+      dataHash: "f2e118534d28f69df8343715798d9defc56c967daaf52a0b6e756c4a5846b1e6"
+    -
+      slug: "clusterrole-vpa-evictioner"
+      headRevisionNum: 2
+      dataHash: "35fd2b31da961fe5c2e90b58d0518450852eff3fa045d8fe43ee6b75db173c84"
+    -
+      slug: "clusterrole-vpa-status-actor"
+      headRevisionNum: 2
+      dataHash: "f55b665e6dd20cbcedf16e60f8610fb37ac96fb64e66a1e1f5c0d5da7100e945"
+    -
+      slug: "clusterrole-vpa-status-reader"
+      headRevisionNum: 2
+      dataHash: "fff9f42374b44ac191a082349919c7d71fd12bd7a892cf0ced7ed01e6c1de259"
+    -
+      slug: "clusterrole-vpa-updater-in-place"
+      headRevisionNum: 2
+      dataHash: "ef550e0c1e220f107e3b582f590536d6ca7c4475a7e053806ddf43f94d0aa89e"
+    -
+      slug: "clusterrole-vpa-target-reader"
+      headRevisionNum: 2
+      dataHash: "fd61d9489e6353437446a175af4a6c03ebbc497992eee3aa742873d3af176e5e"
+    -
+      slug: "clusterrolebinding-vpa-actor"
+      headRevisionNum: 2
+      dataHash: "8c7d49c8d60a36af545cb637f082a23d630ed0b5cabe78619a3a1de38ddcc818"
+    -
+      slug: "clusterrolebinding-vpa-admission-controller"
+      headRevisionNum: 2
+      dataHash: "df309f9937791536c9b97abcef569c4ba8c993a6f91245b330ea68ba2e22c6d5"
+    -
+      slug: "clusterrolebinding-vpa-status-actor"
+      headRevisionNum: 2
+      dataHash: "1b1570016a77b468c11e70a4877ea95bced5c1e630a5aeacc4ea21c2b28669e2"
+    -
+      slug: "clusterrolebinding-vpa-status-reader-binding"
+      headRevisionNum: 2
+      dataHash: "8f5f01db8cf9858761c295c6c5f614b2f40b4e42ddd78f086f91ff3dfd92881e"
+    -
+      slug: "clusterrolebinding-vpa-target-reader-binding"
+      headRevisionNum: 2
+      dataHash: "b28ecf3b3a95627c35cbfb24b6dc48bc1e11b93861e2c1651ad0d2fdf8ff97b6"
+    -
+      slug: "clusterrolebinding-vpa-updater-in-place-binding"
+      headRevisionNum: 2
+      dataHash: "6815c9f43378526ef8aebeb77cfa96830ea06d5666d88bfa3639b79d56b4da19"
+    -
+      slug: "deployment-default-vpa-recommender"
+      headRevisionNum: 2
+      dataHash: "bb3dfa16822a2f9fa4cbfcb90d2e200f2273b2c7bb9fd296805a759432b8cb31"
+    -
+      slug: "deployment-default-vpa-updater"
+      headRevisionNum: 2
+      dataHash: "7c5dc3d1d44186a900d3a6baaa8da9266d70bcbb6d487c166fb49e1e13dcac2f"
+    -
+      slug: "service-default-vpa-webhook"
+      headRevisionNum: 2
+      dataHash: "188deb3147dae24f41260f64f2dae2067701265a711e771418608238a22e2940"
+    -
+      slug: "serviceaccount-default-vpa-admission-controller"
+      headRevisionNum: 1
+      dataHash: "fe6cc1adb92ecef17b134013c047914e7ed47da5a0f80c8b50407b2004b44700"
+    -
+      slug: "serviceaccount-default-vpa-updater"
+      headRevisionNum: 1
+      dataHash: "5b5136c6c023e9e2bd9074ee3669a56559a0b0ad14c0b492783640e6c82ba85f"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 29
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 29
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 29
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
