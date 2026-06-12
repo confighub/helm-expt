@@ -1,0 +1,184 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: strimzi-strimzi-kafka-operator-1.0.0-default-kind-parity-20260606
+spec:
+  chart: strimzi/strimzi-kafka-operator
+  version: 1.0.0
+  base: default
+  result: pass
+  observedAt: '2026-06-12T01:41:32Z'
+  package:
+    path: packages/strimzi/strimzi-kafka-operator/1.0.0
+  recipe:
+    path: recipes/strimzi/strimzi-kafka-operator/1.0.0
+  variantRevision: recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-strimz-670e4-gd68-helm
+    installerCluster: hx-strimz-670e4-gd68-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-strimz-670e4-gd68-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-strimz-670e4-gd68-helm" ...
+
+          Deleted nodes: ["hx-strimz-670e4-gd68-helm-control-plane"]'
+      - cluster: hx-strimz-670e4-gd68-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-strimz-670e4-gd68-installer" ...
+
+          Deleted nodes: ["hx-strimz-670e4-gd68-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install strimzi-kafka-operator strimzi-kafka-operator
+        --repo https://strimzi.io/charts/ --version 1.0.0 --namespace default --create-namespace
+        --values /Users/alexis/code/helm-expt/runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b
+      objectCount: 27
+      liveHelmManifestSHA256: 96d5d0996c494944daf4cf99660c26c3efc10fa7057c3ff7634911c3f6bca882
+      liveHelmManifestObjectCount: 17
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/strimzi-cluster-operator   1/1   1     1     61s'
+        pods: '# default
+
+          strimzi-cluster-operator-57856f5f9b-brxcc   1/1   Running   0     61s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-strimz-670e4-gd68-strimzi-kafka-operator
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: dcff023f93787776266e396dbc3f987cf4f081454f2158242a3f81dc0bdb4c39
+      objectCount: 28
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/strimzi-cluster-operator   1/1   1     1     61s'
+        pods: '# default
+
+          strimzi-cluster-operator-57856f5f9b-bglsx   1/1   Running   0     61s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 27
+      installerObjectCount: 28
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "strimzi-kafka-operator" does not exist. Installing it now.
+
+      NAME: strimzi-kafka-operator
+
+      LAST DEPLOYED: Fri Jun 12 02:42:25 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Thank you for installing strimzi-kafka-operator-1.0.0
+
+
+      To create a Kafka cluster refer to the following documentation.
+
+
+      https://strimzi.io/docs/operators/latest/deploying.html#deploying-cluster-operator-helm-chart-str'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/strimzi-cluster-operator   1/1   1     1     61s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

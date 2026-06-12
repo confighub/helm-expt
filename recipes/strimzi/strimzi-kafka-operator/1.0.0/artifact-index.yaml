@@ -53,7 +53,7 @@ spec:
   proofSummary:
     adoptionBucket: "promote-after-review"
     userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "two-cluster-kind-parity"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "1/2"
