@@ -1,0 +1,267 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation-live-parity-20260605
+spec:
+  chart: secrets-store-csi-driver/secrets-store-csi-driver
+  version: 1.6.0
+  base: sync-secret-rotation
+  result: pass
+  observedAt: '2026-06-12T08:06:36Z'
+  package:
+    path: packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+  recipe:
+    path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+  variantRevision: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1
+    kubeContext: kind-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1
+    namespace: kube-system
+    legNamespaces:
+      regularHelm: kube-system
+      configHubKubectlApply: kube-system
+      configHubOciArgo: kube-system
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1"...
+
+        Deleting cluster "helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1" ...
+
+        Deleted nodes: ["helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane"]
+
+        Deleting Space "helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install secrets-store-csi-driver secrets-store-csi-driver
+        --repo https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts --version
+        1.6.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182
+      objectCount: 12
+      liveHelmManifestSHA256: 56b8462329e96035aa176043ebacb5ec697490d140c5018c40f7f346eef27d24
+      liveHelmManifestObjectCount: 10
+      namespace: kube-system
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/coredns   2/2   2     2     100s
+
+          daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   99s
+
+          daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   100s
+
+          daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   13s'
+        pods: 'coredns-7d764666f9-9gkdk                                                                  1/1   Running   0     93s
+
+          coredns-7d764666f9-jxbr4                                                                  1/1   Running   0     93s
+
+          etcd-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane                      1/1   Running   0     100s
+
+          kindnet-z4249                                                                             1/1   Running   0     94s
+
+          kube-apiserver-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane            1/1   Running   0     100s
+
+          kube-controller-manager-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane   1/1   Running   0     100s
+
+          kube-proxy-tr9xh                                                                          1/1   Running   0     94s
+
+          kube-scheduler-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane            1/1   Running   0     100s
+
+          secrets-store-csi-driver-tpfq9                                                            3/3   Running   0     13s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+        --base sync-secret-rotation --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-secrets-store-csi-driver
+        --non-interactive --namespace kube-system
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 9f1a8a4bb1386e829e943c2ac921949570cfcac5c83ecf140e53402950b0c96c
+      objectCount: 13
+      namespace: kube-system
+      manifestNamespaces:
+      - kube-system
+      runtimeNamespaces: &id001
+      - kube-system
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# kube-system
+
+          deployment.apps/coredns   2/2   2     2     112s
+
+          daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   111s
+
+          daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   112s
+
+          daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   10s'
+        pods: '# kube-system
+
+          coredns-7d764666f9-9gkdk                                                                  1/1   Running   0     105s
+
+          coredns-7d764666f9-jxbr4                                                                  1/1   Running   0     105s
+
+          etcd-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane                      1/1   Running   0     112s
+
+          kindnet-z4249                                                                             1/1   Running   0     106s
+
+          kube-apiserver-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane            1/1   Running   0     112s
+
+          kube-controller-manager-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane   1/1   Running   0     112s
+
+          kube-proxy-tr9xh                                                                          1/1   Running   0     106s
+
+          kube-scheduler-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane            1/1   Running   0     112s
+
+          secrets-store-csi-driver-99l8r                                                            3/3   Running   0     10s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-secrets-store-csi-driver
+      controller: Argo CD OCI
+      app: secrets-store-csi-driver-parity
+      manifestSHA256: 9f1a8a4bb1386e829e943c2ac921949570cfcac5c83ecf140e53402950b0c96c
+      objectCount: 13
+      namespace: kube-system
+      manifestNamespaces:
+      - kube-system
+      runtimeNamespaces: &id002
+      - kube-system
+      ociRevision: sha256:53b8da406510a9a49957c56de0d9ea522d3ca5e667e302ed4242eddb50855a78
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# kube-system
+
+          deployment.apps/coredns   2/2   2     2     3m4s
+
+          daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   3m3s
+
+          daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   3m4s
+
+          daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   82s'
+        pods: '# kube-system
+
+          coredns-7d764666f9-9gkdk                                                                  1/1   Running   0     2m57s
+
+          coredns-7d764666f9-jxbr4                                                                  1/1   Running   0     2m57s
+
+          etcd-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane                      1/1   Running   0     3m4s
+
+          kindnet-z4249                                                                             1/1   Running   0     2m58s
+
+          kube-apiserver-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane            1/1   Running   0     3m4s
+
+          kube-controller-manager-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane   1/1   Running   0     3m4s
+
+          kube-proxy-tr9xh                                                                          1/1   Running   0     2m58s
+
+          kube-scheduler-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1-control-plane            1/1   Running   0     3m4s
+
+          secrets-store-csi-driver-99l8r                                                            3/3   Running   0     82s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||kube-system
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 12
+      configHubObjectCount: 13
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||kube-system
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: dd1ab08dc555fd279b5cc7a2eba6c019d56d207ca42c144e3f817e3a6efdfd3e
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 12
+      configHubObjectCount: 13
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||kube-system
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: dd1ab08dc555fd279b5cc7a2eba6c019d56d207ca42c144e3f817e3a6efdfd3e
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-secretsstorece4481-mqan7kh0-1qd1.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namesp"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"secrets-store-csi-driver\" does not exist. Installing it now.\n\
+      NAME: secrets-store-csi-driver\nLAST DEPLOYED: Fri Jun 12 09:08:04 2026\nNAMESPACE:\
+      \ kube-system\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nThe Secrets Store CSI Driver is getting deployed to\
+      \ your cluster.\n\nTo verify that Secrets Store CSI Driver has started, run:\n\
+      \n  kubectl --namespace=kube-system get pods -l \"app=secrets-store-csi-driver\"\
+      \n\nNow you can follow these steps https://secrets-store-csi-driver.sigs.k8s.io/getting-started/usage.html\n\
+      to create a SecretProviderClass resource, and a deployment using the SecretProviderClass."
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# kube-system
+
+      deployment.apps/coredns   2/2   2     2     112s
+
+      daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   111s
+
+      daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   112s
+
+      daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   10s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||kube-system'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []

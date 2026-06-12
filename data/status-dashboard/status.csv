@@ -36,8 +36,8 @@ proof lanes,in-ConfigHub proof rows,60,190,partial,data/outcome-coverage/base-ou
 proof lanes,local live rows,134,190,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
 proof lanes,explicit lifecycle observation rows,10,10,good,data/outcome-coverage/base-outcomes.csv,"Rows where CRD, webhook, controller-owned field, or post-apply API readiness was proven through an explicit lifecycle receipt rather than a plain bulk apply."
 proof lanes,local live non-pass rows classified,56,56,good,data/local-live-triage/triage.csv,"Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."
-proof lanes,GitOps/OCI live pass rows,25,190,partial,data/outcome-coverage/base-outcomes.csv,7 rows have non-pass GitOps/OCI receipts.
-proof lanes,live Helm-vs-ConfigHub parity pass rows,23,190,partial,data/outcome-coverage/base-outcomes.csv,4 rows have non-pass live parity receipts.
+proof lanes,GitOps/OCI live pass rows,26,190,partial,data/outcome-coverage/base-outcomes.csv,7 rows have non-pass GitOps/OCI receipts.
+proof lanes,live Helm-vs-ConfigHub parity pass rows,24,190,partial,data/outcome-coverage/base-outcomes.csv,4 rows have non-pass live parity receipts.
 proof lanes,two-cluster kind parity pass rows,70,70,partial,data/live-kind-parity/summary.csv,"Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
 proof lanes,two-cluster semantic parity pass rows,70,70,good,data/live-kind-parity/summary.csv,"Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."
 proof lanes,complete core lane rows,23,190,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
