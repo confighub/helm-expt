@@ -264,6 +264,13 @@ function readinessFor(row, lifecycle, supportArtifact = "") {
       nextAction: "use as the first catalog path; check production disposition before production use",
     };
   }
+  if (row.gitops_oci_live === "watch" || row.live_helm_vs_confighub_parity === "watch") {
+    return {
+      status: "runtime-watch",
+      why: "object parity passed, but a live GitOps/controller condition needs review",
+      nextAction: "inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary",
+    };
+  }
   if (row.two_cluster_kind_parity === "pass") {
     const missing = missingLaneText(row.missing_or_non_pass_lanes);
     return {
@@ -363,7 +370,8 @@ function missingLaneText(value) {
 }
 
 function liveParityCollectionFor(chart, row) {
-  if (row.live_helm_vs_confighub_parity === "pass") return emptyLiveCollection();
+  if (row.live_helm_vs_confighub_parity !== "missing") return emptyLiveCollection();
+  if (["watch", "blocked", "fail"].includes(row.gitops_oci_live)) return emptyLiveCollection();
   if (row.render_parity !== "pass") return emptyLiveCollection();
   if (row.two_cluster_kind_parity !== "pass") return emptyLiveCollection();
   if (!["pass", "watch"].includes(row.local_live) && !["pass", "watch"].includes(row.gitops_oci_live)) {
