@@ -26,7 +26,7 @@ const firstWave = [
   { chart: "prometheus-community/prometheus", base: "server-only-ephemeral", controller: "Flux OCI" },
   { chart: "bitnami/postgresql", base: "existing-secret", controller: "Flux OCI" },
   { chart: "external-secrets/external-secrets", base: "no-crds", controller: "Argo CD OCI" },
-  { chart: "ingress-nginx/ingress-nginx", base: "admission-disabled", controller: "Argo CD OCI" },
+  { chart: "ingress-nginx/ingress-nginx", base: "internal-clusterip", controller: "Argo CD OCI" },
   { chart: "argo-cd/argo-cd", base: "no-crds", controller: "Argo CD OCI" },
   { chart: "prometheus-community/kube-prometheus-stack", base: "no-crds", controller: "Flux OCI" },
   { chart: "hashicorp/consul", base: "secure-mesh-existing-secrets", controller: "Flux OCI" },

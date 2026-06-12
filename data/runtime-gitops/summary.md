@@ -14,8 +14,8 @@ first-wave chart/base pairs:      10
 Argo CD OCI lanes:                5
 Flux OCI lanes:                   5
 first-wave receipts present:      10
-first-wave pass receipts:         5
-first-wave non-pass receipts:     5
+first-wave pass receipts:         6
+first-wave non-pass receipts:     4
 ```
 
 Non-pass receipts are still useful evidence. `watch` means the controller
