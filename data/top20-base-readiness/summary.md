@@ -16,8 +16,8 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 23
-try-with-proof: 12
-runtime-watch: 7
+try-with-proof: 11
+runtime-watch: 8
 runtime-review-needed: 0
 operating-policy-needed: 0
 target-fit-needed: 0
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-ready-to-collect: 3
+ready-to-collect: 2
 model-or-stage-first: 0
 review-target-first: 0
 inspect-diff-first: 0
@@ -97,7 +97,7 @@ rerun-now-after-cleanup: 0
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `prometheus-community/prometheus@29.8.0` | default | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `prometheus-community/prometheus@29.8.0` | default | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops | - |
 

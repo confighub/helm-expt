@@ -60,7 +60,7 @@ Which detailed CSV should I open next?
 | proof lanes | two-cluster semantic parity pass rows | 70/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 24/190 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 23/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
-| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 7/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
+| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 8/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
@@ -337,7 +337,7 @@ spreadsheet.
 | longhorn/longhorn@1.11.2 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
 | metrics-server/metrics-server@3.13.0 | default (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| prometheus-community/prometheus@29.8.0 | server-only-ephemeral (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| prometheus-community/prometheus@29.8.0 | server-only-ephemeral (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
 
 The table is deliberately lane-specific. A chart can be useful today without
@@ -354,8 +354,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 80 | 0 | 110 | 190 |
 | local live | 134 | 56 | 0 | 190 |
-| GitOps/OCI live | 29 | 10 | 151 | 190 |
-| live Helm-vs-ConfigHub parity | 28 | 7 | 155 | 190 |
+| GitOps/OCI live | 29 | 11 | 150 | 190 |
+| live Helm-vs-ConfigHub parity | 28 | 8 | 154 | 190 |
 | two-cluster kind parity | 70 | 0 | 0 | 70 |
 
 Non-pass live receipts are useful evidence. They usually identify a target

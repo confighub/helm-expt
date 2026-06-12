@@ -1034,6 +1034,10 @@ def main() -> int:
         mark_stage("configHub-direct-readiness")
         apply_runtime = wait_ready_many(kubeconfig, context, apply_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 300))
         apply_result = "pass" if apply_runtime["result"] == "pass" else "watch"
+        apply_cleanup_namespaces = [
+            namespace for namespace in sorted(set(apply_manifest_namespaces + apply_runtime_namespaces))
+            if not protected_namespace(namespace)
+        ]
         leg("configHubKubectlApply",
             result=apply_result,
             renderCommand=" ".join(setup_cmd),
@@ -1044,8 +1048,14 @@ def main() -> int:
             manifestNamespaces=apply_manifest_namespaces,
             runtimeNamespaces=apply_runtime_namespaces,
             runtime=apply_runtime,
+            cleanupBeforeOci={
+                "namespaces": apply_cleanup_namespaces,
+                "reason": "isolate the OCI/Argo leg from direct-apply workloads in single-cluster parity rigs",
+            },
         )
         check_item("confighub-kubectl-apply-live", apply_result, apply_runtime.get("workloads", ""))
+        for namespace in apply_cleanup_namespaces:
+            delete_namespace_if_safe(namespace, kubeconfig, context)
 
         # Re-render for the OCI leg so the applied artifact is isolated from the
         # direct kubectl/apply namespace.
