@@ -811,6 +811,14 @@ function offeringHtml(catalog) {
     ["SRE/operator", "Wants receipts for what was applied, observed, promoted, upgraded, or rolled back."],
     ["Catalog maintainer", "Wants to know which charts are ready, watch, blocked, or need better variants."],
   ];
+  const frontierRows = [
+    ["Field provenance", "Some value-to-object and blast-radius evidence exists; not every rendered field in every chart has provenance."],
+    ["Change authority", "ConfigHub records and gates operations; full per-field authority for every user or agent is not yet proven."],
+    ["Live-to-desired flow", "Live observations are recorded; authorized live fixes flowing back into desired state are future product work."],
+    ["Hook execution", "Hooks are inventoried, routed, observed, refused, or marked per-target; universal hook execution is not claimed."],
+    ["Fleet propagation", "Derived variants, blast-radius cases, and promotion examples exist; complete fleet propagation is still being built."],
+    ["Signatures as trust", "Digests and signatures prove origin and integrity only when signer, authority, and verification context are known."],
+  ];
   const pathRows = [
     ["Quick render", "See what a chart renders without ConfigHub state.", "cub helm template", "Free/direct"],
     ["One-shot upload", "Load one Helm render into ConfigHub Units quickly.", "cub helm install", "ConfigHub account"],
@@ -856,6 +864,10 @@ function offeringHtml(catalog) {
       <p>This is the Helm-facing slice of Generative GitOps: render once, hold the result as data, prove the boundaries, and keep GitOps delivery. The current catalog proves the import and staged lifecycle path; full field authority, fleet propagation, and authorized live-to-desired reconciliation remain product frontier work. <a href="../docs/user/generative-gitops-fit.md">Read the fit and limits</a>.</p>
       <p>Render parity is necessary, but it is only the starting point. It proves the cub installer path preserved Helm's intended object set for recorded inputs. The harder value is making target facts and lifecycle prerequisites explicit: staged CRDs, admission certificates, provider credentials, controller-owned fields, hook routes, and live observation boundaries.</p>
       <p>kube-prometheus-stack is the main example. Its no-CRDs base is not just a smaller YAML bundle; it is a contract that compatible CRDs and admission certificate material must already exist or be staged before config-only delivery. The catalog records that contract instead of treating a green render as a complete install.</p>
+      ${markdownLikeTable([
+        ["Frontier", "Current status"],
+        ...frontierRows,
+      ])}
       <div class="grid">
         ${personaRows.map(([title, body]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>

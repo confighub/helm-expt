@@ -101,6 +101,16 @@
       <p>This is the Helm-facing slice of Generative GitOps: render once, hold the result as data, prove the boundaries, and keep GitOps delivery. The current catalog proves the import and staged lifecycle path; full field authority, fleet propagation, and authorized live-to-desired reconciliation remain product frontier work. <a href="../docs/user/generative-gitops-fit.md">Read the fit and limits</a>.</p>
       <p>Render parity is necessary, but it is only the starting point. It proves the cub installer path preserved Helm's intended object set for recorded inputs. The harder value is making target facts and lifecycle prerequisites explicit: staged CRDs, admission certificates, provider credentials, controller-owned fields, hook routes, and live observation boundaries.</p>
       <p>kube-prometheus-stack is the main example. Its no-CRDs base is not just a smaller YAML bundle; it is a contract that compatible CRDs and admission certificate material must already exist or be staged before config-only delivery. The catalog records that contract instead of treating a green render as a complete install.</p>
+      <div class="card"><table>
+        <thead><tr><th>Frontier</th><th>Current status</th></tr></thead>
+        <tbody><tr><td>Field provenance</td><td>Some value-to-object and blast-radius evidence exists; not every rendered field in every chart has provenance.</td></tr><tr><td>Change authority</td><td>ConfigHub records and gates operations; full per-field authority for every user or agent is not yet proven.</td></tr><tr><td>Live-to-desired flow</td><td>Live observations are recorded; authorized live fixes flowing back into desired state are future product work.</td></tr><tr><td>Hook execution</td><td>Hooks are inventoried, routed, observed, refused, or marked per-target; universal hook execution is not claimed.</td></tr><tr><td>Fleet propagation</td><td>Derived variants, blast-radius cases, and promotion examples exist; complete fleet propagation is still being built.</td></tr><tr><td>Signatures as trust</td><td>Digests and signatures prove origin and integrity only when signer, authority, and verification context are known.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <div class="grid">
         <div class="card"><h3>Platform engineer</h3><p>Wants a safer path from public Helm chart to approved cluster config.</p></div>
         <div class="card"><h3>App team</h3><p>Wants a simple install path that still allows dev/prod/customer variants.</p></div>
