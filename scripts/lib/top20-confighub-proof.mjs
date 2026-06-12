@@ -583,6 +583,17 @@ export const CONFIGHUB_PROMOTION_PROOF_CHARTS = [
     skipDemoDocs: true,
   },
   {
+    slug: "prometheus-node-exporter",
+    displayName: "Prometheus Node Exporter",
+    component: "PrometheusNodeExporter",
+    packagePath: "packages/prometheus-community/prometheus-node-exporter/4.55.0",
+    chart: "prometheus-community/prometheus-node-exporter",
+    chartVersion: "4.55.0",
+    namespace: "default",
+    defaultBase: "cluster-metrics-readonly",
+    skipDemoDocs: true,
+  },
+  {
     slug: "prometheus-adapter",
     displayName: "Prometheus Adapter",
     component: "PrometheusAdapter",
