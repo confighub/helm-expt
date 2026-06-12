@@ -10,6 +10,7 @@ const selectedBase = optionValue("--base");
 const selectedFromRank = numberOption("--from-rank");
 const selectedToRank = numberOption("--to-rank");
 const repoUrlOverride = optionValue("--repo-url");
+const targetProfile = optionValue("--target-profile");
 const continueOnFail = process.argv.includes("--continue-on-fail");
 const keep = process.argv.includes("--keep");
 
@@ -49,6 +50,7 @@ if (mode === "--run") {
   console.log(`Usage:
   node scripts/run-top20-live-parity.mjs --run --chart metrics-server
   node scripts/run-top20-live-parity.mjs --run --chart nginx --base existing-tls-ingress
+  node scripts/run-top20-live-parity.mjs --run --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx
   node scripts/run-top20-live-parity.mjs --run --chart nginx --repo-url oci://registry-1.docker.io/bitnamicharts
   node scripts/run-top20-live-parity.mjs --run --from-rank 2 --to-rank 5 --continue-on-fail
   node scripts/run-top20-live-parity.mjs --run --all --continue-on-fail
@@ -77,6 +79,7 @@ function runTarget(target) {
     "--rig", rig,
     "--out", out,
   ];
+  if (targetProfile) command.push("--target-profile", targetProfile);
   if (keep) command.push("--keep");
   const result = spawnSync(command[0], command.slice(1), {
     cwd: repoRoot,

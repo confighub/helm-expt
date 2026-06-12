@@ -7,36 +7,45 @@ metadata:
 spec:
   base: "existing-secret-ingress"
   controller: "Argo CD"
-  targetShape: "cub-lk/kind proof rig without an ingress controller assigning addresses for ingressClassName=nginx"
+  targetShape: "cub-lk/kind proof rig with target profile kind-ingress-nginx"
   receipt: "runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/receipt.yaml"
-  observedResult: "watch"
+  observedResult: "pass"
+  targetProfile:
+    name: "kind-ingress-nginx"
+    provides:
+      - "Ingress controller for ingressClassName=nginx"
+      - "Ingress status.loadBalancer.ingress=localhost on kind"
   passed:
     - "regular Helm live leg reached the expected runtime state"
     - "ConfigHub direct-apply leg reached the expected runtime state"
     - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
     - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
     - "Argo CD reported the application Synced"
+    - "Argo CD reported the application Healthy"
     - "Deployment grafana became ready"
     - "target fact Secret grafana/grafana-admin was staged with admin-user and admin-password"
+    - "Ingress grafana-oci/grafana received status.loadBalancer.ingress=localhost"
   gitOpsCondition:
     sync: "Synced"
-    health: "Progressing"
+    health: "Healthy"
     healthResource:
       apiVersion: "networking.k8s.io/v1"
       kind: "Ingress"
       namespace: "grafana-oci"
       name: "grafana"
   diagnosis:
-    summary: "The Ingress object synced and the Grafana workload was ready, but the proof target did not provide an ingress controller that assigns an address for ingressClassName=nginx."
+    summary: "The previous watch row was target-fit, not parity. When the proof target includes the kind-ingress-nginx profile, the Ingress receives a localhost address and Argo reports Healthy."
     observedIngress:
       ingressClassName: "nginx"
       host: "grafana.example.test"
-      statusLoadBalancer: {}
-    interpretation: "This is a target topology limitation for the existing-secret-ingress base, not evidence that the recipe or existing-secret target fact changed Helm semantics."
+      statusLoadBalancer:
+        ingress:
+          - hostname: "localhost"
+    interpretation: "The existing-secret-ingress base is live-ready for the tested kind ingress target profile with the required admin Secret staged. Production support still depends on the target's real ingress controller, DNS, auth, TLS, and edge policy."
   nextActions:
-    - "Rerun this base on a target with an ingress controller for class nginx and address assignment."
+    - "Use kind-ingress-nginx for local live proof of this base when ingress behavior is part of the test."
+    - "For production, replace the kind target profile with the target's real ingress controller, DNS, auth, TLS, and edge policy evidence."
     - "Alternatively, use the generated-passwords base as the simple local proof path when ingress and existing admin Secret are not part of the target."
-    - "Keep the row as watch until Argo reports Healthy for the Ingress target shape or the supported scope explicitly excludes ingress address readiness."
   notClaimed:
     - "This row does not prove external ingress reachability on a real load balancer."
     - "This row does not prove authentication policy beyond staging the expected admin Secret target fact."

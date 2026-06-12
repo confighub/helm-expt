@@ -6,16 +6,27 @@ spec:
   chart: bitnami/nginx
   version: 24.0.2
   base: existing-tls-ingress
-  result: watch
-  observedAt: '2026-06-12T07:42:39Z'
+  result: pass
+  observedAt: '2026-06-12T14:50:22Z'
   package:
     path: packages/bitnami/nginx/24.0.2
   recipe:
     path: recipes/bitnami/nginx/24.0.2
   variantRevision: recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml
+  targetProfile:
+    name: kind-ingress-nginx
+    result: pass
+    manifest: https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.15.1/deploy/static/provider/kind/deploy.yaml
+    resources:
+    - namespace/ingress-nginx
+    - deployment/ingress-nginx-controller
+    - ingressclass/nginx
+    - validatingwebhookconfiguration/ingress-nginx-admission
+    observedBehavior: Ingress objects with ingressClassName=nginx receive status.loadBalancer.ingress
+      on kind.
   run:
-    rig: helm-expt-parity-nginx-mqamcr1o-152t
-    kubeContext: kind-helm-expt-parity-nginx-mqamcr1o-152t
+    rig: helm-expt-parity-nginx-mqb1msyn-rh8
+    kubeContext: kind-helm-expt-parity-nginx-mqb1msyn-rh8
     namespace: nginx
     legNamespaces:
       regularHelm: nginx-helm
@@ -23,23 +34,23 @@ spec:
       configHubOciArgo: nginx-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-nginx-mqamcr1o-152t --force
+      command: cub lk down --name helm-expt-parity-nginx-mqb1msyn-rh8 --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-nginx-mqamcr1o-152t"...
+      detail: 'Deleting kind cluster "helm-expt-parity-nginx-mqb1msyn-rh8"...
 
-        Deleting cluster "helm-expt-parity-nginx-mqamcr1o-152t" ...
+        Deleting cluster "helm-expt-parity-nginx-mqb1msyn-rh8" ...
 
-        Deleted nodes: ["helm-expt-parity-nginx-mqamcr1o-152t-control-plane"]
+        Deleted nodes: ["helm-expt-parity-nginx-mqb1msyn-rh8-control-plane"]
 
-        Deleting Space "helm-expt-parity-nginx-mqamcr1o-152t-cluster" (recursive:
-        cascades to Unit, Target, Worker)...
+        Deleting Space "helm-expt-parity-nginx-mqb1msyn-rh8-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
 
 
         Done.'
   legs:
     regularHelm:
-      result: watch
-      command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
+      result: pass
+      command: helm upgrade --install nginx oci://registry-1.docker.io/bitnamicharts/nginx
         --version 24.0.2 --namespace nginx-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f
@@ -48,22 +59,16 @@ spec:
       liveHelmManifestObjectCount: 6
       namespace: nginx-helm
       runtime:
-        result: watch
-        workloads: deployment.apps/nginx   0/1   1     0     11m
-        pods: nginx-5c568bf554-cj4pv   0/1   Init:0/1   0     11m
-        notReady:
-        - pod: nginx-5c568bf554-cj4pv
-          ready: 0/1
-          status: Init:0/1
-      stderr: 'Error: resource Deployment/nginx-helm/nginx not ready. status: InProgress,
-        message: Available: 0/1
-
-        context deadline exceeded'
+        result: pass
+        workloads: deployment.apps/nginx   1/1   1     1     16s
+        pods: nginx-5c568bf554-x84t8   1/1   Running   0     16s
+        notReady: []
+      stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.2
-        --base existing-tls-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqamcr1o-152t-nginx
+        --base existing-tls-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqb1msyn-rh8-nginx
         --non-interactive --namespace nginx-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: ee6c6964dd7a08e46f115bf18042f2a4bb5ac15489c88e019151a69447300e31
@@ -79,14 +84,21 @@ spec:
         namespaces: *id001
         workloads: '# nginx
 
-          deployment.apps/nginx   1/1   1     1     21s'
+          deployment.apps/nginx   1/1   1     1     11s'
         pods: '# nginx
 
-          nginx-5c568bf554-8lq76   1/1   Running   0     20s'
+          nginx-5c568bf554-pbdq5   1/1   Running   0     11s'
         notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - nginx-apply
+        retainedNamespaces:
+        - nginx
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-nginx-mqamcr1o-152t-nginx
+      result: pass
+      workloadSpace: helm-expt-parity-nginx-mqb1msyn-rh8-nginx
       controller: Argo CD OCI
       app: nginx-parity
       manifestSHA256: 205623ad31f6fd9684877c49ce4c207616e2d5614601d170ac3c492590c41a44
@@ -97,19 +109,19 @@ spec:
       - nginx-oci
       runtimeNamespaces: &id002
       - nginx
-      ociRevision: sha256:42d35dec48d19060ec180005cc2d7ae4bef704536cdd3635ced6729c3c9678fb
+      ociRevision: sha256:04d86eec633156f95457c3bb83e665bda702340c78b11fde0bf83181779ae179
       sync: Synced
-      health: Progressing
+      health: Healthy
       separatedSecrets: []
       runtime:
         result: pass
         namespaces: *id002
         workloads: '# nginx
 
-          deployment.apps/nginx   1/1   1     1     7m49s'
+          deployment.apps/nginx   1/1   1     1     67s'
         pods: '# nginx
 
-          nginx-5c568bf554-8lq76   1/1   Running   0     7m48s'
+          nginx-5c568bf554-pbdq5   1/1   Running   0     67s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -142,9 +154,9 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-nginx-mqamcr1o-152t\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqamcr1o-152t.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-nginx-mqamcr1o-152t\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-nginx-mqb1msyn-rh8\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqb1msyn-rh8.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-nginx-mqb1msyn-rh8\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
       \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
@@ -152,34 +164,37 @@ spec:
       \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
       \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-nginx-mqamcr1o-152t\"\nYou\
-      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nginx-mqamcr1o-152t\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqamcr1o-152t.kubeconfig\n\
+      \nSet kubectl context to \"kind-helm-expt-parity-nginx-mqb1msyn-rh8\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nginx-mqb1msyn-rh8\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqb1msyn-rh8.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
-      Installing Argo CD...\nCreating namespace \"argocd\"...\n"
+      Installing Argo CD...\nCreating namespace \"argocd\"...\napiVer"
+  - name: target-profile
+    result: pass
+    detail: 'kind-ingress-nginx: Ingress objects with ingressClassName=nginx receive
+      status.loadBalancer.ingress on kind.'
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=2 crds=0
   - name: regular-helm-live
-    result: watch
-    detail: 'Error: resource Deployment/nginx-helm/nginx not ready. status: InProgress,
-      message: Available: 0/1
+    result: pass
+    detail: 'Pulled: registry-1.docker.io/bitnamicharts/nginx:24.0.2
 
-      context deadline exceeded'
+      Digest: sha256:81491eef5618b86c77b200cbfbb0c3fc3f77fe39c97758a3b8bf60116ca56f12'
   - name: target-facts-confighub-apply
     result: pass
-    detail: secrets=2 crds=0
+    detail: secrets=4 crds=0
   - name: confighub-kubectl-apply-live
     result: pass
     detail: '# nginx
 
-      deployment.apps/nginx   1/1   1     1     21s'
+      deployment.apps/nginx   1/1   1     1     11s'
   - name: target-facts-confighub-oci
     result: pass
-    detail: secrets=2 crds=0
+    detail: secrets=4 crds=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=Synced health=Progressing after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||nginx'] diffs=0
@@ -187,19 +202,21 @@ spec:
     regularHelm:
       result: pass
       stagedSecrets:
-      - namespace: nginx
+      - namespace: nginx-helm
         name: nginx-backend-tls
         keys:
         - ca.crt
         - tls.crt
         - tls.key
         lane: regularHelm
-      - namespace: nginx
+        sourceNamespace: nginx
+      - namespace: nginx-helm
         name: nginx-ingress-tls
         keys:
         - tls.crt
         - tls.key
         lane: regularHelm
+        sourceNamespace: nginx
       stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/target-facts-regular-helm.yaml
     configHubKubectlApply:
@@ -212,12 +229,27 @@ spec:
         - tls.crt
         - tls.key
         lane: configHubKubectlApply
+      - namespace: nginx-apply
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+        lane: configHubKubectlApply
+        sourceNamespace: nginx
       - namespace: nginx
         name: nginx-ingress-tls
         keys:
         - tls.crt
         - tls.key
         lane: configHubKubectlApply
+      - namespace: nginx-apply
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubKubectlApply
+        sourceNamespace: nginx
       stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/target-facts-confighub-apply.yaml
     configHubOciArgo:
@@ -230,11 +262,26 @@ spec:
         - tls.crt
         - tls.key
         lane: configHubOciArgo
+      - namespace: nginx-oci
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+        lane: configHubOciArgo
+        sourceNamespace: nginx
       - namespace: nginx
         name: nginx-ingress-tls
         keys:
         - tls.crt
         - tls.key
         lane: configHubOciArgo
+      - namespace: nginx-oci
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubOciArgo
+        sourceNamespace: nginx
       stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/target-facts-confighub-oci.yaml
