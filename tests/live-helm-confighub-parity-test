@@ -846,6 +846,95 @@ def install_target_profile(profile: str, kubeconfig: Path, context: str, run_roo
     return profile_receipt
 
 
+METALLB_MANIFEST = "https://raw.githubusercontent.com/metallb/metallb/v0.14.9/config/manifests/metallb-native.yaml"
+
+
+def install_metallb_l2_profile(kubeconfig: Path, context: str, run_root: Path, cpk_detail: str) -> dict:
+    rc, out, err = kubectl(["apply", "-f", METALLB_MANIFEST], kubeconfig, context, timeout=180)
+    if rc != 0:
+        raise RuntimeError(f"target profile kind-loadbalancer metallb install failed: {(err or out)[:1000]}")
+    rc, out, err = kubectl(
+        ["-n", "metallb-system", "wait", "--for=condition=Available", "deploy/controller", "--timeout=180s"],
+        kubeconfig,
+        context,
+        timeout=200,
+    )
+    if rc != 0:
+        raise RuntimeError(f"target profile kind-loadbalancer metallb controller not ready: {(err or out)[:1000]}")
+    kubectl(["-n", "metallb-system", "rollout", "status", "daemonset/speaker", "--timeout=120s"], kubeconfig, context, timeout=140)
+
+    # Address pool from the kind Docker network: take the top /27 of the
+    # first IPv4 subnet so pool addresses cannot collide with node IPs.
+    import ipaddress
+    rc, subnet_out, err = sh(["docker", "network", "inspect", "kind", "-f", "{{range .IPAM.Config}}{{.Subnet}}\n{{end}}"], timeout=30)
+    if rc != 0:
+        raise RuntimeError(f"target profile kind-loadbalancer could not inspect the kind docker network: {(err or subnet_out)[:500]}")
+    subnet = next((line.strip() for line in subnet_out.splitlines() if line.strip() and ":" not in line), "")
+    if not subnet:
+        raise RuntimeError("target profile kind-loadbalancer found no IPv4 subnet on the kind docker network")
+    network = ipaddress.ip_network(subnet)
+    hosts = list(network.subnets(new_prefix=27))[-1]
+    pool_start, pool_end = str(list(hosts.hosts())[0]), str(list(hosts.hosts())[-1])
+
+    pool_yaml = f"""apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: kind-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - {pool_start}-{pool_end}
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: kind-l2
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - kind-pool
+"""
+    # The MetalLB admission webhook can lag behind deployment readiness;
+    # retry the pool apply briefly instead of failing on the first webhook
+    # connection refusal.
+    deadline = time.monotonic() + 90
+    last = ""
+    while time.monotonic() < deadline:
+        proc = subprocess.run(
+            ["kubectl", "--kubeconfig", str(kubeconfig), "--context", context, "apply", "-f", "-"],
+            input=pool_yaml,
+            text=True,
+            capture_output=True,
+            timeout=60,
+        )
+        if proc.returncode == 0:
+            break
+        last = (proc.stderr or proc.stdout or "")[:500]
+        time.sleep(5)
+    else:
+        raise RuntimeError(f"target profile kind-loadbalancer metallb pool apply failed: {last}")
+
+    profile_receipt = {
+        "name": "kind-loadbalancer",
+        "result": "pass",
+        "provider": "metallb-l2",
+        "fallbackReason": f"cloud-provider-kind requires host privileges on this machine: {cpk_detail.strip().splitlines()[-1][:200] if cpk_detail.strip() else 'sudo required'}",
+        "addressPool": f"{pool_start}-{pool_end}",
+        "resources": [
+            "namespace/metallb-system",
+            "ipaddresspool/kind-pool",
+            "l2advertisement/kind-l2",
+        ],
+        "observedBehavior": (
+            "Service.type=LoadBalancer objects receive an in-Docker-network address via MetalLB L2. "
+            "Addresses populate status.loadBalancer.ingress (sufficient for parity and controller health); "
+            "they are NOT reachable from the macOS host."
+        ),
+    }
+    write_yaml(run_root / "target-profile-kind-loadbalancer.yaml", profile_receipt)
+    return profile_receipt
+
+
 def install_kind_loadbalancer_profile(kubeconfig: Path, context: str, run_root: Path) -> dict:
     # cloud-provider-kind is the upstream-recommended way to make
     # Service.type=LoadBalancer work on kind. It observes all kind clusters on
@@ -859,9 +948,15 @@ def install_kind_loadbalancer_profile(kubeconfig: Path, context: str, run_root: 
     clusters = kind_clusters()
     unexpected = [cluster for cluster in clusters if cluster != rig]
     if unexpected:
-        raise RuntimeError(
-            "target profile kind-loadbalancer refused to start because cloud-provider-kind "
-            f"would observe other kind clusters: {', '.join(unexpected)}"
+        # cloud-provider-kind observes every kind cluster on the host, so it
+        # cannot run safely next to foreign clusters. MetalLB is scoped to
+        # THIS cluster only, so the no-privilege fallback is also the
+        # safe-under-concurrency route.
+        return install_metallb_l2_profile(
+            kubeconfig,
+            context,
+            run_root,
+            f"cloud-provider-kind would observe other kind clusters: {', '.join(unexpected)}",
         )
 
     node_name = f"{rig}-control-plane"
@@ -891,6 +986,15 @@ def install_kind_loadbalancer_profile(kubeconfig: Path, context: str, run_root: 
             detail = log_path.read_text()[-2000:]
         except Exception:
             pass
+        if "sudo" in detail.lower():
+            # cloud-provider-kind needs host privileges on macOS (its host
+            # tunnel) in every mode. MetalLB in L2 mode is the no-privilege
+            # fallback: it runs entirely as pods and assigns in-Docker-network
+            # addresses, which is exactly what the parity and Argo-health
+            # checks consume (status.loadBalancer.ingress) - the addresses
+            # are not reachable from the macOS host, and the profile receipt
+            # says so.
+            return install_metallb_l2_profile(kubeconfig, context, run_root, detail)
         raise RuntimeError(f"target profile kind-loadbalancer exited early: {detail}")
 
     profile_receipt = {
