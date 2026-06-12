@@ -96,6 +96,12 @@ requires a target-scoped decision and fresh receipts. The current path from
 review-ready to supported is described in
 [Production Support Decisions](./production-support-decisions.md).
 
+The same boundary applies to the broader product. Field-complete provenance,
+full change authority, reverse live-to-desired flow, universal hook execution,
+fleet-wide bounded propagation, and trust from signatures all remain bounded
+frontiers. They are tracked in
+[Current Proof Status](./current-proof-status.md#product-frontiers).
+
 The catalog is also meant to expose hard cases. For example, the strict
 cub-scout witness found Kubernetes 1.30 CRD capability issues in cert-manager
 and External Secrets, and a Grafana RBAC server-normalization watch item:

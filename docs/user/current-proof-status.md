@@ -40,6 +40,26 @@ when you want the broad chart/version/base view in one browser page. It shows
 the current user route, strongest evidence, core-lane status, production
 scope, hooks, quirks, hard gap, and next action for each row.
 
+## Product Frontiers
+
+These are the main places where the catalog is useful but the product claim is
+still bounded. A chart can have strong render and live evidence while one of
+these frontiers remains open.
+
+| Frontier | Current status |
+| --- | --- |
+| Field-complete provenance | Some value-to-object and blast-radius evidence exists, but not every rendered field in every chart has provenance. |
+| Full change authority | ConfigHub can record and gate operations, but the repo does not yet prove a complete per-field authority model for every agent or user. |
+| Reverse live-to-desired flow | Live observations are recorded. Authorized live fixes flowing back into desired state are still future product work. |
+| Universal hook execution | Hooks are inventoried, routed, observed, refused, or marked per-target. This is not a claim that every Helm hook in the top-100 runs automatically. |
+| Fleet-wide bounded propagation | Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built. |
+| Signatures as trust | Digests and signatures help with integrity and transport. They only create trust when the signer, authority, and verification context are known. |
+
+The sceptic-proofing work is also not finished. The claims register,
+blast-radius scoreboard, torture suite, and environment matrix exist today.
+Cluster-matrix, external reproduction, time-travel re-verification, and the
+upgrade gauntlet remain open proof work.
+
 ## Find The Answer Fast
 
 One generated file answers each common evidence question. Open the file; do
