@@ -28,6 +28,7 @@ Public entry points:
 - [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
 - [Top-100 status](./docs/user/top100-status.md): plain-English groups for Helm users.
 - [Serious chart proof](./docs/user/serious-chart-proof.md): the kube-prometheus-stack proof path and its limits.
+- [Target prerequisites](./docs/user/target-prerequisites.md): why hard charts need explicit CRDs, Secrets, lifecycle checks, and target facts beyond YAML parity.
 - [Chain of proof](./docs/user/chain-of-proof.md): which tool proves which boundary.
 
 If you have a public Helm chart that breaks this model, or a chart where the
