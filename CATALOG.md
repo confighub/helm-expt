@@ -1123,7 +1123,7 @@ need catalog promotion review before support is claimed.
 | projectcalico/tigera-operator@v3.32.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md) |
 | prometheus-community/alertmanager@1.37.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md) |
 | prometheus-community/kube-prometheus-stack@86.1.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/86.1.0/CATALOG.md) |
-| prometheus-community/kube-state-metrics@7.4.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
+| prometheus-community/kube-state-metrics@7.4.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
 | prometheus-community/prometheus-adapter@5.3.0 | proof-grade | limitation-decision-first | in-confighub-proof | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md) |
 | prometheus-community/prometheus-node-exporter@4.55.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md) |
