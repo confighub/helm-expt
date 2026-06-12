@@ -1,0 +1,143 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: open-telemetry-opentelemetry-operator-0.114.0-default-kind-parity-20260606
+spec:
+  chart: open-telemetry/opentelemetry-operator
+  version: 0.114.0
+  base: default
+  result: blocked
+  observedAt: '2026-06-12T02:21:20Z'
+  package:
+    path: packages/open-telemetry/opentelemetry-operator/0.114.0
+  recipe:
+    path: recipes/open-telemetry/opentelemetry-operator/0.114.0
+  variantRevision: recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-opente-09456-vjdb-helm
+    installerCluster: hx-opente-09456-vjdb-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-opente-09456-vjdb-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-opente-09456-vjdb-helm" ...
+
+          Deleted nodes: ["hx-opente-09456-vjdb-helm-control-plane"]'
+      - cluster: hx-opente-09456-vjdb-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-opente-09456-vjdb-installer" ...
+
+          Deleted nodes: ["hx-opente-09456-vjdb-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install opentelemetry-operator opentelemetry-operator
+        --repo https://open-telemetry.github.io/opentelemetry-helm-charts --version
+        0.114.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873
+      objectCount: 17
+      liveHelmManifestSHA256: ''
+      liveHelmManifestObjectCount: 0
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default'
+        pods: '# default'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: unable to build kubernetes objects from release manifest: [resource
+        mapping not found for name: "opentelemetry-operator-serving-cert" namespace:
+        "default" from "": no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+        ensure CRDs are installed first, resource mapping not found for name: "opentelemetry-operator-selfsigned-issuer"
+        namespace: "default" from "": no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+        ensure CRDs are installed first]'
+      getManifestError: 'Error: release: not found'
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations:
+    - prune-null-fields
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: unable to build kubernetes objects from release manifest: [resource
+      mapping not found for name: "opentelemetry-operator-serving-cert" namespace:
+      "default" from "": no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first, resource mapping not found for name: "opentelemetry-operator-selfsigned-issuer"
+      namespace: "default" from "": no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first]'
+  - name: failure
+    result: blocked
+    detail: 'manifest apply failed: resource mapping not found for name: "opentelemetry-operator-serving-cert"
+      namespace: "default" from "/tmp/helm-expt-kind-parity-hx-opente-09456-vjdb-opentelemetry-operator/out/manifests/certificate-default-opentelemetry-operator-serving-cert.yaml":
+      no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "opentelemetry-operator-selfsigned-issuer"
+      namespace: "default" from "/tmp/helm-expt-kind-parity-hx-opente-09456-vjdb-opentelemetry-operator/out/manifests/issuer-default-opentelemetry-operator-selfsigned-issuer.yaml":
+      no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first'
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+  failure:
+    message: 'manifest apply failed: resource mapping not found for name: "opentelemetry-operator-serving-cert"
+      namespace: "default" from "/tmp/helm-expt-kind-parity-hx-opente-09456-vjdb-opentelemetry-operator/out/manifests/certificate-default-opentelemetry-operator-serving-cert.yaml":
+      no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "opentelemetry-operator-selfsigned-issuer"
+      namespace: "default" from "/tmp/helm-expt-kind-parity-hx-opente-09456-vjdb-opentelemetry-operator/out/manifests/issuer-default-opentelemetry-operator-selfsigned-issuer.yaml":
+      no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first'

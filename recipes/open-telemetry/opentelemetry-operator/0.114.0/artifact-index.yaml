@@ -70,7 +70,7 @@ spec:
     path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
     installer: "packages/open-telemetry/opentelemetry-operator/0.114.0/installer.yaml"
     receipt: "recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3608f56044757a16e773312bb3c46f5bdb31d014e8c78480b1d7c93ea0659311"
+    deterministicBundleSHA256: "7912e478b5ea5ad5f7f2c428ed63c9734377ce5361db9d83dde83705d5ab56d2"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -96,8 +96,28 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+            sourceVariant: "cert-manager"
+            suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+            sourceVariant: "cert-manager"
+            suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+      targetFactSummary: "required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io"
       packageBase:
         name: "default"
         path: "packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default"
@@ -158,8 +178,28 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+            sourceVariant: "cert-manager"
+            suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+            sourceVariant: "cert-manager"
+            suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+      targetFactSummary: "required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io"
       packageBase:
         name: "no-crds"
         path: "packages/open-telemetry/opentelemetry-operator/0.114.0/bases/no-crds"

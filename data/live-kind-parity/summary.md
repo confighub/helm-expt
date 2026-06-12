@@ -13,7 +13,7 @@ the same live outcome as cub installer output?
 ```text
 pass: 63
 watch: 3
-blocked: 2
+blocked: 3
 semantic parity pass: 67
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 4
@@ -32,9 +32,9 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
+| target-prerequisite: CRDs missing | 2 |
 | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 2 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
-| target-prerequisite: CRDs missing | 1 |
 | watch: object parity passed; readiness needs review | 1 |
 
 ## How To Read Non-Pass Rows
@@ -109,6 +109,7 @@ records the chart-specific startup API check route.
 | `metrics-server/metrics-server@3.13.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | pass | pass |  |  | live parity passed | runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
 | `nats/nats@2.14.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/nats-nats-default/receipt.yaml |
+| `open-telemetry/opentelemetry-operator@0.114.0` | default | blocked | unknown | target-prerequisite: CRDs missing |  | inspect receipt | runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/receipt.yaml |
 | `percona/pg-operator@3.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pg-operator-default/receipt.yaml |
 | `percona/psmdb-operator@1.22.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml |
 | `percona/pxc-operator@1.19.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml |
