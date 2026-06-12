@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 62
+pass: 63
 watch: 3
 blocked: 2
-semantic parity pass: 66
+semantic parity pass: 67
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 4
 non-pass rows with related lifecycle evidence: 1
@@ -120,6 +120,7 @@ records the chart-specific startup API check route.
 | `prometheus-community/prometheus-node-exporter@4.55.0` | cluster-metrics-readonly | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |
+| `sealed-secrets/sealed-secrets@2.18.6` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/sealed-secrets-sealed-secrets-default/receipt.yaml |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | pass | pass |  |  | live parity passed | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/receipt.yaml |
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/receipt.yaml |
