@@ -1,0 +1,274 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-alertmanager-1.37.0-default-live-parity-20260605
+spec:
+  chart: prometheus-community/alertmanager
+  version: 1.37.0
+  base: default
+  result: pass
+  observedAt: '2026-06-12T20:52:17Z'
+  package:
+    path: packages/prometheus-community/alertmanager/1.37.0
+  recipe:
+    path: recipes/prometheus-community/alertmanager/1.37.0
+  variantRevision: recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: k8s-zero-defaults
+    result: pass
+    changes:
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: removed spec.minReadySeconds=0'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.persistentVolumeClaimRetentionPolicy=Retain/Retain'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.podManagementPolicy=OrderedReady'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.updateStrategy RollingUpdate defaults'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.restartPolicy=Always'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.dnsPolicy=ClusterFirst'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.schedulerName=default-scheduler'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.terminationGracePeriodSeconds=30'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: spec.template.spec.serviceAccount=serviceAccountName'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].terminationMessagePath default'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].terminationMessagePolicy default'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].livenessProbe.failureThreshold=3'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].livenessProbe.periodSeconds=10'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].livenessProbe.successThreshold=1'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].livenessProbe.timeoutSeconds=1'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].livenessProbe.httpGet.scheme=HTTP'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].readinessProbe.failureThreshold=3'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].readinessProbe.periodSeconds=10'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].readinessProbe.successThreshold=1'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].readinessProbe.timeoutSeconds=1'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.containers[alertmanager].readinessProbe.httpGet.scheme=HTTP'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.template.spec.volumes[config].configMap.defaultMode=420'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.volumeClaimTemplates[storage].apiVersion=v1'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.volumeClaimTemplates[storage].kind=PersistentVolumeClaim'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.volumeClaimTemplates[storage].status.phase=Pending'
+    - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+      spec.volumeClaimTemplates[storage].spec.volumeMode=Filesystem'
+    rationale: Normalize Kubernetes API zero/default fields before publishing the
+      OCI GitOps artifact; semantic parity remains checked against Helm.
+    receipt: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/gitops-canonicalization-k8s-zero-defaults.yaml
+  run:
+    rig: helm-expt-parity-alertmanager-1781297537
+    kubeContext: kind-helm-expt-parity-alertmanager-1781297537
+    namespace: default
+    legNamespaces:
+      regularHelm: default
+      configHubKubectlApply: default
+      configHubOciArgo: default
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-alertmanager-1781297537 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-alertmanager-1781297537"...
+
+        Deleting cluster "helm-expt-parity-alertmanager-1781297537" ...
+
+        Deleted nodes: ["helm-expt-parity-alertmanager-1781297537-control-plane"]
+
+        Deleting Space "helm-expt-parity-alertmanager-1781297537-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install alertmanager alertmanager --repo https://prometheus-community.github.io/helm-charts
+        --version 1.37.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: fc6c693435a12f92b94f3f59435e1e23af1cf4b87fc4564cda64ea502e7e1dc6
+      objectCount: 5
+      liveHelmManifestSHA256: fc6c693435a12f92b94f3f59435e1e23af1cf4b87fc4564cda64ea502e7e1dc6
+      liveHelmManifestObjectCount: 5
+      namespace: default
+      runtime:
+        result: pass
+        workloads: statefulset.apps/alertmanager   1/1   11s
+        pods: alertmanager-0   1/1   Running   0     11s
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/alertmanager/1.37.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-alertmanager-1781297537-alertmanager
+        --non-interactive --namespace default
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: c6e8e230c24fe2f4fdf547e652ad5b065f408cc8fd8b7781836fd6ffcfb32846
+      objectCount: 6
+      namespace: default
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/alertmanager   1/1   10s'
+        pods: '# default
+
+          alertmanager-0   1/1   Running   0     8s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces: []
+        retainedNamespaces: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-alertmanager-1781297537-alertmanager
+      controller: Argo CD OCI
+      app: alertmanager-parity
+      manifestSHA256: 3280de34192528f2e75a70949fa85cdb40942e010f79ceb005eff27d5e6f6a25
+      objectCount: 6
+      namespace: default
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:7f3c10b80a5368ecd311782ab7e75f97dd557f9c210cdf2026662977f3982e67
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/alertmanager   1/1   60s'
+        pods: '# default
+
+          alertmanager-0   1/1   Running   0     58s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      - k8s-zero-defaults
+      comparisonSHA256: 2ab8b111e44939c9f6a0e10e1d63118cca7e95587bf928397d043cd5edc9661d
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-alertmanager-1781297537\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-alertmanager-1781297537.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-alertmanager-1781297537\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-alertmanager-1781297537\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-alertmanager-1781297537\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-alertmanager-1781297537.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"alertmanager\" does not exist. Installing it now.\nNAME: alertmanager\n\
+      LAST DEPLOYED: Fri Jun 12 21:53:44 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Get\
+      \ the application URL by running these commands:\n  export POD_NAME=$(kubectl\
+      \ get pods --namespace default -l \"app.kubernetes.io/name=alertmanager,app.kubernetes.io/instance=alertmanager\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n  echo \"Visit http://127.0.0.1:9093\
+      \ to use your application\"\n  kubectl --namespace default port-forward $POD_NAME\
+      \ 9093:80"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/alertmanager   1/1   10s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default

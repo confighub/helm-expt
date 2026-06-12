@@ -142,7 +142,9 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
     two_cluster_kind_parity: base.two_cluster_kind_parity,
     missing_live_lanes: missingLanes.join(";"),
     remaining_required_work: remaining.join(";"),
-    first_action: "write storage/rollback policy, then complete the missing proof lanes listed for the recommended base",
+    first_action: missingLanes.length
+      ? "write storage/rollback policy, then complete the missing proof lanes listed for the recommended base"
+      : "write storage/rollback policy, then record a target-scoped support decision",
     not_a_claim: "not catalog-supported until support decision and selected live lanes exist",
     catalog_path: chartUse?.catalog_path || `${row.recipe_path}/CATALOG.md`,
     parity_receipt: receiptPathFromNotes(base.evidence_notes, "runs/live-kind-parity/"),
@@ -152,6 +154,13 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
 }
 
 function summary(rows) {
+  const rowsWithMissingProof = rows.filter((row) => splitList(row.missing_live_lanes).length > 0).length;
+  const nextProof = rowsWithMissingProof
+    ? "missing proof lanes plus storage and rollback policy"
+    : "storage and rollback policy plus target-scoped support decisions";
+  const fourthStep = rowsWithMissingProof
+    ? "Run only the missing proof lanes listed for the selected base."
+    : "Confirm no missing proof lanes remain for the selected base.";
   return `# Top-100 Promotion Fast Track
 
 This generated slice identifies the simplest rows in the first top-100
@@ -166,7 +175,7 @@ promotion work is narrow enough to be reviewed quickly.
 
 ~~~text
 fast-track rows: ${rows.length}
-required next proof: missing proof lanes plus storage and rollback policy
+required next proof: ${nextProof}
 ~~~
 
 ## Rows
@@ -180,7 +189,7 @@ ${rows.map((row) => `| \`${row.chart_ref}\` | \`${row.recommended_base}\` | clea
 1. Open the per-chart catalog page.
 2. Confirm the recommended base is the user-facing base to promote.
 3. Write the storage and rollback policy.
-4. Run only the missing proof lanes listed for the selected base.
+4. ${fourthStep}
 5. Record a target-scoped support decision.
 6. Only then consider catalog status changes.
 
@@ -207,6 +216,10 @@ ${rows.map((row) => `| \`${row.chart_ref}\` | \`${row.recommended_base}\` | clea
 }
 
 function reviewIndex(rows) {
+  const rowsWithMissingProof = rows.filter((row) => splitList(row.missing_live_lanes).length > 0).length;
+  const reviewRule = rowsWithMissingProof
+    ? "The selected base can move forward only after the storage and rollback policy, the proof lanes listed in its packet, and a target-scoped support decision all exist for that exact base."
+    : "The selected base can move forward only after the storage and rollback policy and a target-scoped support decision exist for that exact base.";
   return `# Fast-Track Promotion Review Packets
 
 These generated packets bind the low-residue promotion candidates to the
@@ -225,9 +238,7 @@ ${rows.map((row) => {
 
 ## Shared Review Rule
 
-The selected base can move forward only after the storage and rollback policy,
-the proof lanes listed in its packet, and a target-scoped support decision all
-exist for that exact base.
+${reviewRule}
 `;
 }
 

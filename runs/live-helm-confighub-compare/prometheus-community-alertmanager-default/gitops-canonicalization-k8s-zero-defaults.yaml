@@ -1,0 +1,58 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: GitOpsCanonicalizationReceipt
+spec:
+  name: k8s-zero-defaults
+  result: pass
+  changes:
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: removed spec.minReadySeconds=0'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.persistentVolumeClaimRetentionPolicy=Retain/Retain'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.podManagementPolicy=OrderedReady'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.updateStrategy RollingUpdate defaults'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.restartPolicy=Always'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.dnsPolicy=ClusterFirst'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.schedulerName=default-scheduler'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.terminationGracePeriodSeconds=30'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: spec.template.spec.serviceAccount=serviceAccountName'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].terminationMessagePath default'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].terminationMessagePolicy default'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].livenessProbe.failureThreshold=3'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].livenessProbe.periodSeconds=10'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].livenessProbe.successThreshold=1'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].livenessProbe.timeoutSeconds=1'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].livenessProbe.httpGet.scheme=HTTP'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].readinessProbe.failureThreshold=3'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].readinessProbe.periodSeconds=10'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].readinessProbe.successThreshold=1'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].readinessProbe.timeoutSeconds=1'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.containers[alertmanager].readinessProbe.httpGet.scheme=HTTP'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.template.spec.volumes[config].configMap.defaultMode=420'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.volumeClaimTemplates[storage].apiVersion=v1'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.volumeClaimTemplates[storage].kind=PersistentVolumeClaim'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.volumeClaimTemplates[storage].status.phase=Pending'
+  - 'statefulset-default-alertmanager.yaml: StatefulSet/alertmanager: materialized
+    spec.volumeClaimTemplates[storage].spec.volumeMode=Filesystem'
+  rationale: Normalize Kubernetes API zero/default fields before publishing the OCI
+    GitOps artifact; semantic parity remains checked against Helm.
