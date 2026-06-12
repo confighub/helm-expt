@@ -1027,7 +1027,7 @@
       "current_result": "watch",
       "next_step_type": "gitops-runtime-review",
       "reason": "gitops-runtime: Argo sync OutOfSync health Healthy (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/bitnami/mongodb/19.0.7/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml",
       "rerun_command": "npm run live-parity:top20 -- --chart mongodb --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts --continue-on-fail"
     },
@@ -12428,7 +12428,7 @@
       "diagnosis": "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.",
       "rerun_command": "npm run live-parity:top20 -- --chart mongodb --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts --continue-on-fail",
       "followup": "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.",
-      "support_artifact": "",
+      "support_artifact": "recipes/bitnami/mongodb/19.0.7/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""
