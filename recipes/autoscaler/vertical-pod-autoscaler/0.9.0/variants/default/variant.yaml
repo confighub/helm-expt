@@ -17,3 +17,19 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "vpa-tls-certs"
+        keys:
+          - "ca"
+          - "cert"
+          - "key"
+        purpose: "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
+        suggestedSource: "Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"

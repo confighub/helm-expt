@@ -11,12 +11,12 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 64
-watch: 3
+pass: 66
+watch: 1
 blocked: 3
 semantic parity pass: 68
 semantic parity defects: 0
-non-pass rows where semantic parity passed: 4
+non-pass rows where semantic parity passed: 2
 non-pass rows with related lifecycle evidence: 1
 ```
 
@@ -33,7 +33,6 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | target-prerequisite: CRDs missing | 2 |
-| target-prerequisite: required Secret missing (parity passed) | 2 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
 | watch: object parity passed; readiness needs review | 1 |
 
@@ -64,8 +63,8 @@ records the chart-specific startup API check route.
 | `argo-cd/argo-events@2.4.21` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-events-no-crds/receipt.yaml |
 | `argo-cd/argo-rollouts@2.40.9` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-default/receipt.yaml |
 | `argo-cd/argo-rollouts@2.40.9` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/receipt.yaml |
-| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | watch | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
-| `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | watch | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
 | `bitnami/mysql@14.0.3` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml |

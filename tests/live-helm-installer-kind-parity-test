@@ -435,6 +435,10 @@ DNS.4 = metrics-server.kube-system.svc.cluster.local
 
 
 def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+    if secret_name == "vpa-tls-certs" and key in ("ca", "cert"):
+        return ensure_tls_material(run_root)[0]
+    if secret_name == "vpa-tls-certs" and key == "key":
+        return ensure_tls_material(run_root)[1]
     if secret_name == "consul-ca-cert" and key in ("tls.crt", "ca.crt"):
         return ensure_consul_tls_material(run_root)[0]
     if secret_name == "consul-server-cert" and key == "tls.crt":
