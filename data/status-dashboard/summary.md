@@ -54,8 +54,8 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 134/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 56/56 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 26/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 25/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 27/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 26/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 70/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 23/190 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
@@ -354,8 +354,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 60 | 0 | 130 | 190 |
 | local live | 134 | 56 | 0 | 190 |
-| GitOps/OCI live | 26 | 7 | 157 | 190 |
-| live Helm-vs-ConfigHub parity | 25 | 4 | 161 | 190 |
+| GitOps/OCI live | 27 | 7 | 156 | 190 |
+| live Helm-vs-ConfigHub parity | 26 | 4 | 160 | 190 |
 | two-cluster kind parity | 70 | 0 | 0 | 70 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
