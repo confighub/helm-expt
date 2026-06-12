@@ -6,8 +6,8 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 34
-watch: 4
+pass: 35
+watch: 3
 blocked: 0
 not-started: 0
 ```
@@ -55,6 +55,6 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 14 | `prometheus-community/prometheus@29.8.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-default/receipt.yaml |
 | 15 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass | - | runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/receipt.yaml |
 | 16 | `bitnami/mysql@14.0.3` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-mysql-existing-secret/receipt.yaml |
-| 17 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | watch | gitops-runtime: Argo sync OutOfSync health Healthy (parity passed) | runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
+| 17 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | - | runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.2` | existing-tls-ingress | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |

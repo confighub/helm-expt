@@ -6,16 +6,120 @@ spec:
   chart: bitnami/mongodb
   version: 19.0.7
   base: existing-secret-replicaset
-  result: watch
-  observedAt: '2026-06-12T10:01:40Z'
+  result: pass
+  observedAt: '2026-06-12T17:10:00Z'
   package:
     path: packages/bitnami/mongodb/19.0.7
   recipe:
     path: recipes/bitnami/mongodb/19.0.7
   variantRevision: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: k8s-zero-defaults
+    result: pass
+    changes:
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.persistentVolumeClaimRetentionPolicy=Retain/Retain'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.revisionHistoryLimit=10'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.restartPolicy=Always'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.dnsPolicy=ClusterFirst'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.schedulerName=default-scheduler'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.terminationGracePeriodSeconds=30'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      spec.template.spec.serviceAccount=serviceAccountName'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].terminationMessagePath
+      default'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].terminationMessagePolicy
+      default'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].ports[mongodb].protocol=TCP'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[BITNAMI_DEBUG].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MY_POD_NAME].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MY_POD_NAMESPACE].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MONGODB_REPLICA_SET_MODE].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MONGODB_INITIAL_PRIMARY_HOST].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MONGODB_REPLICA_SET_NAME].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[OPENSSL_FIPS].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MONGODB_ADVERTISED_HOSTNAME].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MONGODB_PORT_NUMBER].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MONGODB_ENABLE_IPV6].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MONGODB_INITIAL_PRIMARY_ROOT_USER].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD_FILE].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[MONGODB_REPLICA_SET_KEY_FILE].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.containers[mongodb-arbiter].env[ALLOW_EMPTY_PASSWORD].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb-arbiter.yaml: StatefulSet/mongodb-arbiter:
+      materialized spec.template.spec.volumes[mongodb-secrets].secret.defaultMode=420'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.persistentVolumeClaimRetentionPolicy=Retain/Retain'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.revisionHistoryLimit=10'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.restartPolicy=Always'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.dnsPolicy=ClusterFirst'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.schedulerName=default-scheduler'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.terminationGracePeriodSeconds=30'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: spec.template.spec.serviceAccount=serviceAccountName'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].terminationMessagePath
+      default'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].terminationMessagePolicy
+      default'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].ports[mongodb].protocol=TCP'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[BITNAMI_DEBUG].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MY_POD_NAME].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MY_POD_NAMESPACE].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MY_POD_HOST_IP].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_INITIAL_PRIMARY_HOST].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_REPLICA_SET_NAME].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[OPENSSL_FIPS].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_ADVERTISED_HOSTNAME].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_ROOT_USER].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_ROOT_PASSWORD_FILE].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_REPLICA_SET_KEY_FILE].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[ALLOW_EMPTY_PASSWORD].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_SYSTEM_LOG_VERBOSITY].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_DISABLE_SYSTEM_LOG].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_DISABLE_JAVASCRIPT].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_ENABLE_JOURNAL].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_PORT_NUMBER].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_ENABLE_IPV6].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.containers[mongodb].env[MONGODB_ENABLE_DIRECTORY_PER_DB].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.initContainers[log-dir].terminationMessagePath
+      default'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.initContainers[log-dir].terminationMessagePolicy
+      default'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.initContainers[log-dir].env[OPENSSL_FIPS].fieldRef.apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.template.spec.volumes[mongodb-secrets].secret.defaultMode=420'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.volumeClaimTemplates[datadir].apiVersion=v1'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.volumeClaimTemplates[datadir].kind=PersistentVolumeClaim'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.volumeClaimTemplates[datadir].status.phase=Pending'
+    - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.volumeClaimTemplates[datadir].spec.volumeMode=Filesystem'
+    rationale: Normalize Kubernetes API zero/default fields before publishing the
+      OCI GitOps artifact; semantic parity remains checked against Helm.
+    receipt: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/gitops-canonicalization-k8s-zero-defaults.yaml
   run:
-    rig: helm-expt-parity-mongodb-mqarbjkx-1q5h
-    kubeContext: kind-helm-expt-parity-mongodb-mqarbjkx-1q5h
+    rig: helm-expt-parity-mongodb-mqb6mdqq-23a3
+    kubeContext: kind-helm-expt-parity-mongodb-mqb6mdqq-23a3
     namespace: mongodb
     legNamespaces:
       regularHelm: mongodb-helm
@@ -23,15 +127,15 @@ spec:
       configHubOciArgo: mongodb-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-mongodb-mqarbjkx-1q5h --force
+      command: cub lk down --name helm-expt-parity-mongodb-mqb6mdqq-23a3 --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-mongodb-mqarbjkx-1q5h"...
+      detail: 'Deleting kind cluster "helm-expt-parity-mongodb-mqb6mdqq-23a3"...
 
-        Deleting cluster "helm-expt-parity-mongodb-mqarbjkx-1q5h" ...
+        Deleting cluster "helm-expt-parity-mongodb-mqb6mdqq-23a3" ...
 
-        Deleted nodes: ["helm-expt-parity-mongodb-mqarbjkx-1q5h-control-plane"]
+        Deleted nodes: ["helm-expt-parity-mongodb-mqb6mdqq-23a3-control-plane"]
 
-        Deleting Space "helm-expt-parity-mongodb-mqarbjkx-1q5h-cluster" (recursive:
+        Deleting Space "helm-expt-parity-mongodb-mqb6mdqq-23a3-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -39,7 +143,7 @@ spec:
   legs:
     regularHelm:
       result: pass
-      command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
+      command: helm upgrade --install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb
         --version 19.0.7 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231
@@ -49,21 +153,21 @@ spec:
       namespace: mongodb-helm
       runtime:
         result: pass
-        workloads: 'statefulset.apps/mongodb           2/2   65s
+        workloads: 'statefulset.apps/mongodb           2/2   83s
 
-          statefulset.apps/mongodb-arbiter   1/1   65s'
-        pods: 'mongodb-0           1/1   Running   0     65s
+          statefulset.apps/mongodb-arbiter   1/1   83s'
+        pods: 'mongodb-0           1/1   Running   0     83s
 
-          mongodb-1           1/1   Running   0     17s
+          mongodb-1           1/1   Running   0     36s
 
-          mongodb-arbiter-0   1/1   Running   0     65s'
+          mongodb-arbiter-0   1/1   Running   0     83s'
         notReady: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.7
-        --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqarbjkx-1q5h-mongodb
+        --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqb6mdqq-23a3-mongodb
         --non-interactive --namespace mongodb-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: 92dabccd1002b02f8721e76ccf185efe676ab090eea45c2feeecabe3290eec02
@@ -78,31 +182,37 @@ spec:
         namespaces: *id001
         workloads: '# mongodb-apply
 
-          statefulset.apps/mongodb           2/2   61s
+          statefulset.apps/mongodb           2/2   40s
 
-          statefulset.apps/mongodb-arbiter   1/1   61s'
+          statefulset.apps/mongodb-arbiter   1/1   40s'
         pods: '# mongodb-apply
 
-          mongodb-0           1/1   Running   0     61s
+          mongodb-0           1/1   Running   0     40s
 
-          mongodb-1           1/1   Running   0     43s
+          mongodb-1           1/1   Running   0     23s
 
-          mongodb-arbiter-0   1/1   Running   0     61s'
+          mongodb-arbiter-0   1/1   Running   0     40s'
         notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - mongodb-apply
+        retainedNamespaces: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-mongodb-mqarbjkx-1q5h-mongodb
+      result: pass
+      workloadSpace: helm-expt-parity-mongodb-mqb6mdqq-23a3-mongodb
       controller: Argo CD OCI
       app: mongodb-parity
-      manifestSHA256: 4f3fbf063e18a71b374936ab0076973f4c2d7c54b35238b40d5f3e6024949f96
+      manifestSHA256: 017f4a149952c56fad3a9c396a2c6078cd0810cd67616b52a402acc75535c014
       objectCount: 11
       namespace: mongodb-oci
       manifestNamespaces:
       - mongodb-oci
       runtimeNamespaces: &id002
       - mongodb-oci
-      ociRevision: sha256:12f376c197ce2f935d924d8bff1322c36542fb4fb7478ce126cf5cc6146ae059
-      sync: OutOfSync
+      ociRevision: sha256:77d0da1a59636abe5a22cb6cd88d675dee3fa0c42192f6936579a525700eced1
+      sync: Synced
       health: Healthy
       separatedSecrets: []
       runtime:
@@ -110,16 +220,16 @@ spec:
         namespaces: *id002
         workloads: '# mongodb-oci
 
-          statefulset.apps/mongodb           2/2   6m50s
+          statefulset.apps/mongodb           2/2   58s
 
-          statefulset.apps/mongodb-arbiter   1/1   6m50s'
+          statefulset.apps/mongodb-arbiter   1/1   58s'
         pods: '# mongodb-oci
 
-          mongodb-0           1/1   Running   0     6m51s
+          mongodb-0           1/1   Running   0     59s
 
-          mongodb-1           1/1   Running   0     6m35s
+          mongodb-1           1/1   Running   0     39s
 
-          mongodb-arbiter-0   1/1   Running   0     6m51s'
+          mongodb-arbiter-0   1/1   Running   0     59s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -144,17 +254,19 @@ spec:
       extraInConfigHub:
       - v1|Namespace||mongodb
       semanticDiffs: []
-      semanticNormalizations: *id003
-      comparisonSHA256: 2591245b77ed39e866bd1a3753767f8f1edb0bd3eac14ad79101ce6133d129e5
+      semanticNormalizations:
+      - prune-null-fields
+      - k8s-zero-defaults
+      comparisonSHA256: 6620313cab0beca9ae538fdad068192c667c0dd1da63d846c779b92e78a1355d
   checks:
   - name: live-lane-lock
     result: pass
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-mongodb-mqarbjkx-1q5h\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqarbjkx-1q5h.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-mongodb-mqarbjkx-1q5h\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-mongodb-mqb6mdqq-23a3\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqb6mdqq-23a3.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-mongodb-mqb6mdqq-23a3\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
       \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
@@ -162,9 +274,9 @@ spec:
       \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
       \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-mongodb-mqarbjkx-1q5h\"\nYou\
-      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mongodb-mqarbjkx-1q5h\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqarbjkx-1q5h.kubeconfig\n\
+      \nSet kubectl context to \"kind-helm-expt-parity-mongodb-mqb6mdqq-23a3\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mongodb-mqb6mdqq-23a3\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqb6mdqq-23a3.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace "
   - name: target-facts-regular-helm
@@ -172,18 +284,9 @@ spec:
     detail: secrets=1 crds=0
   - name: regular-helm-live
     result: pass
-    detail: "Release \"mongodb\" does not exist. Installing it now.\nNAME: mongodb\n\
-      LAST DEPLOYED: Fri Jun 12 11:02:46 2026\nNAMESPACE: mongodb-helm\nSTATUS: deployed\n\
-      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
-      \ NAME: mongodb\nCHART VERSION: 19.0.7\nAPP VERSION: 8.3.2\n\n\u26A0 WARNING:\
-      \ Since August 28th, 2025, only a limited subset of images/charts are available\
-      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
-      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
-      \n** Please be patient while the chart is being deployed **\n\nMongoDB&reg;\
-      \ can be accessed on the following DNS name(s) and ports from within your cluster:\n\
-      \n    mongodb-0.mongodb-headless.mongodb-helm.svc.cluster.local:27017\n    mongodb-1.mongodb-headless.mongodb-helm.svc.cluster.local:27017\n\
-      \nTo get the root password run:\n\n    export MONGODB_ROOT_PASSWORD=$(kubectl\
-      \ get secret --namespace mongodb-helm mongodb-auth -o jsonpath=\"{.data.mongodb-"
+    detail: 'Pulled: registry-1.docker.io/bitnamicharts/mongodb:19.0.7
+
+      Digest: sha256:0fddefc7871ddfb1f7a385a9ae6cd2e092e830f3cc324a9e798843765a7c0eec'
   - name: target-facts-confighub-apply
     result: pass
     detail: secrets=1 crds=0
@@ -191,18 +294,18 @@ spec:
     result: pass
     detail: '# mongodb-apply
 
-      statefulset.apps/mongodb           2/2   61s
+      statefulset.apps/mongodb           2/2   40s
 
-      statefulset.apps/mongodb-arbiter   1/1   61s'
+      statefulset.apps/mongodb-arbiter   1/1   40s'
   - name: target-facts-confighub-oci
     result: pass
     detail: secrets=1 crds=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=OutOfSync health=Healthy after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 70s
   - name: semantic-object-parity
     result: pass
-    detail: missing=0 extra=['v1|Namespace||mongodb'] diffs=0
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
   targetFacts:
     regularHelm:
       result: pass
