@@ -54,11 +54,11 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 135/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 56/56 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 38/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 38/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 39/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 39/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 70/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 38/191 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | complete core lane rows | 39/191 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 32/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 2/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
@@ -70,11 +70,11 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 38/39 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 39/39 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 1/1 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 0/1 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 1/1 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/39 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -185,7 +185,7 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| none | 0 | No current queue rows. |
 
 ### Active Proof Queue
 
@@ -195,7 +195,7 @@ needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
-| ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime-review | [recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml) |
+| none | - | - | - | - |
 
 ### Local Live Non-Pass Triage
 
@@ -354,8 +354,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 155 | 0 | 36 | 191 |
 | local live | 135 | 56 | 0 | 191 |
-| GitOps/OCI live | 38 | 4 | 149 | 191 |
-| live Helm-vs-ConfigHub parity | 38 | 1 | 152 | 191 |
+| GitOps/OCI live | 39 | 3 | 149 | 191 |
+| live Helm-vs-ConfigHub parity | 39 | 0 | 152 | 191 |
 | two-cluster kind parity | 70 | 0 | 0 | 70 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -382,20 +382,16 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| gitops-runtime-review | 1 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
+
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.
 
-Current ConfigHub/OCI live parity non-pass receipts:
-
-| Chart | Variant | Result | Reason |
-| --- | --- | --- | --- |
-| ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |
+There are no current live parity non-pass receipts.
 
 
 There are no current two-cluster kind parity non-pass receipts.

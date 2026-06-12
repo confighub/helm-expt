@@ -10,23 +10,23 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 1
+rows: 0
 lifecycle-routed-not-active-rerun: 0
 blocked: 0
-watch: 1
-configHub-oci-live-comparison: 1
+watch: 0
+configHub-oci-live-comparison: 0
 two-cluster-kind-parity: 0
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 0
-runtime-or-watch-rows: 1
+runtime-or-watch-rows: 0
 ```
 
 ## Lane Breakdown
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 1 | 0 | 1 | 0 | 0 |
+| configHub-oci-live-comparison | 0 | 0 | 0 | 0 | 0 |
 | two-cluster-kind-parity | 0 | 0 | 0 | 0 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
@@ -48,7 +48,7 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-| gitops-runtime-review | 1 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
+
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -63,7 +63,7 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+
 
 ## Run Safety
 
@@ -87,7 +87,7 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer --continue-on-fail` |
+
 
 
 

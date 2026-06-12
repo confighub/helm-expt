@@ -105,7 +105,7 @@
     "latestCandidatesAwaitingReplacementDecision": 0,
     "latestRefreshP0Rows": 0,
     "top100ChartsWithLiveEvidence": 76,
-    "liveParityRerunRows": 1,
+    "liveParityRerunRows": 0,
     "liveParityRerunSemanticDefects": 0,
     "productionSupportedCharts": 17,
     "productionSupersededCharts": 2,
@@ -455,20 +455,20 @@
     {
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
-      "value": "38",
+      "value": "39",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "4 rows have non-pass GitOps/OCI receipts."
+      "note": "3 rows have non-pass GitOps/OCI receipts."
     },
     {
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
-      "value": "38",
+      "value": "39",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "1 rows have non-pass live parity receipts."
+      "note": "0 rows have non-pass live parity receipts."
     },
     {
       "section": "proof lanes",
@@ -491,7 +491,7 @@
     {
       "section": "proof lanes",
       "metric": "complete core lane rows",
-      "value": "38",
+      "value": "39",
       "total": "191",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -599,9 +599,9 @@
     {
       "section": "live evidence",
       "metric": "selected live Helm-vs-ConfigHub parity receipts",
-      "value": "38",
+      "value": "39",
       "total": "39",
-      "status": "partial",
+      "status": "good",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row."
     },
@@ -617,8 +617,8 @@
     {
       "section": "live evidence",
       "metric": "live parity rerun rows needing decisions",
-      "value": "1",
-      "total": "1",
+      "value": "0",
+      "total": "0",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."
@@ -627,7 +627,7 @@
       "section": "live evidence",
       "metric": "live parity rows needing model or staging first",
       "value": "0",
-      "total": "1",
+      "total": "0",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."
@@ -635,8 +635,8 @@
     {
       "section": "live evidence",
       "metric": "live parity rows needing target review first",
-      "value": "1",
-      "total": "1",
+      "value": "0",
+      "total": "0",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."
@@ -1020,18 +1020,7 @@
       "note": "Rows where APIService is visible in the source scan but no maintained recipe/package row exists yet."
     }
   ],
-  "activeProofQueue": [
-    {
-      "chart": "ingress-nginx/ingress-nginx@4.15.1",
-      "base": "default",
-      "current_result": "watch",
-      "next_step_type": "gitops-runtime-review",
-      "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml",
-      "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml",
-      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer --continue-on-fail"
-    }
-  ],
+  "activeProofQueue": [],
   "catalogEntries": [
     {
       "proof_surface": "top20-catalog-supported",
@@ -12334,26 +12323,7 @@
       "pain_report": "recipes/vm/victoria-metrics-single/0.39.0/helm-pain-report.yaml"
     }
   ],
-  "liveParityRerunPlan": [
-    {
-      "priority": "30",
-      "lane": "configHub-oci-live-comparison",
-      "chart": "ingress-nginx/ingress-nginx",
-      "version": "4.15.1",
-      "base": "default",
-      "current_result": "watch",
-      "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "next_step_type": "gitops-runtime-review",
-      "rerun_readiness": "review-target-first",
-      "diagnosis": "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.",
-      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer --continue-on-fail",
-      "followup": "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.",
-      "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml",
-      "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml",
-      "related_lifecycle_result": "",
-      "related_lifecycle_receipt": ""
-    }
-  ],
+  "liveParityRerunPlan": [],
   "productionDisposition": [
     {
       "chart": "argo-cd/argo-cd",

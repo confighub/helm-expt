@@ -10,16 +10,16 @@ the status per chart, base variant, derived variant, and Helm feature.
 charts with model support:           108/110
 variant-rich charts:                 74/110
 chart/base rows:                     191
-complete core lane rows:             38/191
+complete core lane rows:             39/191
 render parity rows:                  191/191
 in-ConfigHub proof rows:             155/191
 local live rows:                     135/191
-GitOps/OCI live pass rows:           38/191
-GitOps/OCI non-pass receipts:        4
-live Helm-vs-ConfigHub pass rows:    38/191
-live Helm-vs-ConfigHub non-pass receipts: 1
+GitOps/OCI live pass rows:           39/191
+GitOps/OCI non-pass receipts:        3
+live Helm-vs-ConfigHub pass rows:    39/191
+live Helm-vs-ConfigHub non-pass receipts: 0
 lifecycle observation rows:          10/10
-selected live parity receipts:       38 pass, 1 watch, 0 blocked
+selected live parity receipts:       39 pass, 0 watch, 0 blocked
 two-cluster kind parity receipts:    70 pass, 0 watch, 0 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
@@ -74,7 +74,7 @@ related lifecycle observations:      10/10
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 2/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 2/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `hashicorp/vault@0.32.0` | dev-mode;default;ha-raft-ui | yes | 3/3 | 2/3 | 0/3 | 2/3 | 2/3 | 3/3 | - |
-| `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 3/3 | 3/3 | 1/3 | 2/3 | 2/3 | 3/3 | - |
+| `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 3/3 | 3/3 | 1/3 | 3/3 | 3/3 | 3/3 | - |
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | no | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |

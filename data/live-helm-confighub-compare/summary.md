@@ -6,8 +6,8 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 38
-watch: 1
+pass: 39
+watch: 0
 blocked: 0
 not-started: 0
 ```
@@ -43,7 +43,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 1 | `bitnami/redis@25.5.3` | reuse-existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/receipt.yaml |
 | 2 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | pass | - | runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
 | 3 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass | - | runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
-| 3 | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml |
+| 3 | `ingress-nginx/ingress-nginx@4.15.1` | default | pass | - | runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml |
 | 4 | `jetstack/cert-manager@v1.20.2` | default | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-default/receipt.yaml |
 | 7 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | pass | - | runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
 | 8 | `bitnami/postgresql@18.6.7` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/receipt.yaml |
