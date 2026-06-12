@@ -66,7 +66,7 @@ spec:
     path: "packages/jetstack/cert-manager/v1.20.2"
     installer: "packages/jetstack/cert-manager/v1.20.2/installer.yaml"
     receipt: "recipes/jetstack/cert-manager/v1.20.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "79ae248a548e647adfa660412021cae0237955bb77a719f516987c33cc06266f"
+    deterministicBundleSHA256: "84f9e1aacfc398c5f402f03d217d3913d02721b4f6506537f352a0f6de79c782"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -92,8 +92,44 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            name: "challenges.acme.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "orders.acme.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "certificaterequests.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "clusterissuers.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      targetFactSummary: "required CRD challenges.acme.cert-manager.io; required CRD orders.acme.cert-manager.io; required CRD certificaterequests.cert-manager.io; required CRD certificates.cert-manager.io; required CRD clusterissuers.cert-manager.io; required CRD issuers.cert-manager.io"
       packageBase:
         name: "default"
         path: "packages/jetstack/cert-manager/v1.20.2/bases/default"

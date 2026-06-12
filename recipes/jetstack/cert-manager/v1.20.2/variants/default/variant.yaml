@@ -12,3 +12,41 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "challenges.acme.cert-manager.io"
+        sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "crds-enabled"
+        purpose: "cert-manager CRD managed outside this default base"
+        suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "orders.acme.cert-manager.io"
+        sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "crds-enabled"
+        purpose: "cert-manager CRD managed outside this default base"
+        suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "certificaterequests.cert-manager.io"
+        sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "crds-enabled"
+        purpose: "cert-manager CRD managed outside this default base"
+        suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "certificates.cert-manager.io"
+        sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "crds-enabled"
+        purpose: "cert-manager CRD managed outside this default base"
+        suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "clusterissuers.cert-manager.io"
+        sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "crds-enabled"
+        purpose: "cert-manager CRD managed outside this default base"
+        suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "issuers.cert-manager.io"
+        sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "crds-enabled"
+        purpose: "cert-manager CRD managed outside this default base"
+        suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"

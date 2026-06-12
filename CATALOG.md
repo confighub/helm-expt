@@ -267,7 +267,7 @@ Variants:
 When to use: cert-manager default variant rendered from jetstack/cert-manager@v1.20.2
 Readiness: lifecycle-observed
 Namespace: cert-manager
-Target facts: none
+Target facts: required CRD challenges.acme.cert-manager.io; required CRD orders.acme.cert-manager.io; required CRD certificaterequests.cert-manager.io; required CRD certificates.cert-manager.io; required CRD clusterissuers.cert-manager.io; required CRD issuers.cert-manager.io
 Package base: [packages/jetstack/cert-manager/v1.20.2/bases/default](packages/jetstack/cert-manager/v1.20.2/bases/default)
 Variant file: [recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml](recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml)
 Rendered objects: [recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml](recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml)
@@ -1077,7 +1077,7 @@ need catalog promotion review before support is claimed.
 | cloudnative-pg/cloudnative-pg@0.28.2 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md) |
 | coredns/coredns@1.45.2 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/coredns/coredns/1.45.2/CATALOG.md) |
 | crossplane-stable/crossplane@2.3.1 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md) |
-| descheduler/descheduler@0.36.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/descheduler/descheduler/0.36.0/CATALOG.md) |
+| descheduler/descheduler@0.36.0 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/descheduler/descheduler/0.36.0/CATALOG.md) |
 | dex/dex@0.24.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/dex/dex/0.24.0/CATALOG.md) |
 | elastic/eck-operator@3.4.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/elastic/eck-operator/3.4.0/CATALOG.md) |
 | elastic/filebeat@8.5.1 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/elastic/filebeat/8.5.1/CATALOG.md) |
