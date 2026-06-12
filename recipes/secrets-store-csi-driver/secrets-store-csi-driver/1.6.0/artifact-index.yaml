@@ -57,10 +57,10 @@ spec:
     strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "1/2"
+      inConfigHub: "2/2"
       localLive: "2/2"
-      gitopsLive: "1/2"
-      liveParity: "1/2"
+      gitopsLive: "2/2"
+      liveParity: "2/2"
     featureSummary: "extension-slots"
     hardGap: "-"
     nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"

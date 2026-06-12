@@ -46,7 +46,78 @@ spec:
       valueSourceMapCoverage:
         []
   targetFactEdges:
-    []
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "challenges.acme.cert-manager.io"
+      keys:
+        []
+      fact: "CRD/challenges.acme.cert-manager.io"
+      purpose: "cert-manager CRD managed outside this default base"
+      sourceVariant: "crds-enabled"
+      deliveryLanes:
+        []
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "orders.acme.cert-manager.io"
+      keys:
+        []
+      fact: "CRD/orders.acme.cert-manager.io"
+      purpose: "cert-manager CRD managed outside this default base"
+      sourceVariant: "crds-enabled"
+      deliveryLanes:
+        []
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "certificaterequests.cert-manager.io"
+      keys:
+        []
+      fact: "CRD/certificaterequests.cert-manager.io"
+      purpose: "cert-manager CRD managed outside this default base"
+      sourceVariant: "crds-enabled"
+      deliveryLanes:
+        []
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "certificates.cert-manager.io"
+      keys:
+        []
+      fact: "CRD/certificates.cert-manager.io"
+      purpose: "cert-manager CRD managed outside this default base"
+      sourceVariant: "crds-enabled"
+      deliveryLanes:
+        []
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "clusterissuers.cert-manager.io"
+      keys:
+        []
+      fact: "CRD/clusterissuers.cert-manager.io"
+      purpose: "cert-manager CRD managed outside this default base"
+      sourceVariant: "crds-enabled"
+      deliveryLanes:
+        []
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "issuers.cert-manager.io"
+      keys:
+        []
+      fact: "CRD/issuers.cert-manager.io"
+      purpose: "cert-manager CRD managed outside this default base"
+      sourceVariant: "crds-enabled"
+      deliveryLanes:
+        []
   generatedFactEdges:
     []
   fieldReachability:

@@ -55,10 +55,10 @@ spec:
     strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "1/2"
+      inConfigHub: "2/2"
       localLive: "2/2"
-      gitopsLive: "1/2"
-      liveParity: "1/2"
+      gitopsLive: "2/2"
+      liveParity: "2/2"
     featureSummary: "generated-secrets;required-values;values-schema;install-vs-upgrade;remote-dependencies;dependency-range-frozen"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
