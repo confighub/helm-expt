@@ -6,8 +6,8 @@ spec:
   chart: autoscaler/vertical-pod-autoscaler
   version: 0.9.0
   base: default
-  result: watch
-  observedAt: '2026-06-11T09:56:51Z'
+  result: pass
+  observedAt: '2026-06-12T04:31:36Z'
   package:
     path: packages/autoscaler/vertical-pod-autoscaler/0.9.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-vertic-1204f-phms-helm
-    installerCluster: hx-vertic-1204f-phms-installer
+    helmCluster: hx-vertic-1204f-j2re-helm
+    installerCluster: hx-vertic-1204f-j2re-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-vertic-1204f-phms-helm
+      - cluster: hx-vertic-1204f-j2re-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-vertic-1204f-phms-helm" ...
+        detail: 'Deleting cluster "hx-vertic-1204f-j2re-helm" ...
 
-          Deleted nodes: ["hx-vertic-1204f-phms-helm-control-plane"]'
-      - cluster: hx-vertic-1204f-phms-installer
+          Deleted nodes: ["hx-vertic-1204f-j2re-helm-control-plane"]'
+      - cluster: hx-vertic-1204f-j2re-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-vertic-1204f-phms-installer" ...
+        detail: 'Deleting cluster "hx-vertic-1204f-j2re-installer" ...
 
-          Deleted nodes: ["hx-vertic-1204f-phms-installer-control-plane"]'
+          Deleted nodes: ["hx-vertic-1204f-j2re-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -55,24 +55,24 @@ spec:
         namespaces: *id001
         workloads: '# default
 
-          deployment.apps/vertical-pod-autoscaler-admission-controller   2/2   2     2     13s
+          deployment.apps/vertical-pod-autoscaler-admission-controller   2/2   2     2     12s
 
-          deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     13s
+          deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     12s
 
-          deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     13s'
+          deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     12s'
         pods: '# default
 
-          vertical-pod-autoscaler-admission-controller-b7787b7f8-9dmtd   1/1   Running   0     13s
+          vertical-pod-autoscaler-admission-controller-b7787b7f8-f84cv   1/1   Running   0     12s
 
-          vertical-pod-autoscaler-admission-controller-b7787b7f8-9rv8b   1/1   Running   0     13s
+          vertical-pod-autoscaler-admission-controller-b7787b7f8-zmb2c   1/1   Running   0     12s
 
-          vertical-pod-autoscaler-recommender-65cf99b9bd-nsjjf           1/1   Running   0     13s
+          vertical-pod-autoscaler-recommender-65cf99b9bd-2twkn           1/1   Running   0     12s
 
-          vertical-pod-autoscaler-recommender-65cf99b9bd-tdg26           1/1   Running   0     13s
+          vertical-pod-autoscaler-recommender-65cf99b9bd-r7t2l           1/1   Running   0     12s
 
-          vertical-pod-autoscaler-updater-6bd8467c99-m778p               1/1   Running   0     13s
+          vertical-pod-autoscaler-updater-6bd8467c99-68ksk               1/1   Running   0     12s
 
-          vertical-pod-autoscaler-updater-6bd8467c99-qpr9g               1/1   Running   0     13s'
+          vertical-pod-autoscaler-updater-6bd8467c99-nd6c9               1/1   Running   0     12s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -81,9 +81,9 @@ spec:
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: watch
+      result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/vertical-pod-autoscaler/0.9.0
-        --base default --work-dir /tmp/helm-expt-kind-parity-hx-vertic-1204f-phms-vertical-pod-autoscaler
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-vertic-1204f-j2re-vertical-pod-autoscaler
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -95,208 +95,30 @@ spec:
       runtimeNamespaces: &id002
       - default
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
         workloads: '# default
 
-          deployment.apps/vertical-pod-autoscaler-admission-controller   0/2   2     0     7m58s
+          deployment.apps/vertical-pod-autoscaler-admission-controller   2/2   2     2     10s
 
-          deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     7m58s
+          deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     10s
 
-          deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     7m58s'
+          deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     10s'
         pods: '# default
 
-          vertical-pod-autoscaler-admission-controller-b7787b7f8-6s8w7   0/1   ContainerCreating   0     7m58s
+          vertical-pod-autoscaler-admission-controller-b7787b7f8-7rsq5   1/1   Running   0     10s
 
-          vertical-pod-autoscaler-admission-controller-b7787b7f8-r6r92   0/1   ContainerCreating   0     7m58s
+          vertical-pod-autoscaler-admission-controller-b7787b7f8-t5l4b   1/1   Running   0     10s
 
-          vertical-pod-autoscaler-recommender-65cf99b9bd-ldlvf           1/1   Running             0     7m58s
+          vertical-pod-autoscaler-recommender-65cf99b9bd-bq8sl           1/1   Running   0     10s
 
-          vertical-pod-autoscaler-recommender-65cf99b9bd-v2lj2           1/1   Running             0     7m58s
+          vertical-pod-autoscaler-recommender-65cf99b9bd-sb6xp           1/1   Running   0     10s
 
-          vertical-pod-autoscaler-updater-6bd8467c99-7zbvl               1/1   Running             0     7m58s
+          vertical-pod-autoscaler-updater-6bd8467c99-jj7mz               1/1   Running   0     10s
 
-          vertical-pod-autoscaler-updater-6bd8467c99-bvxrl               1/1   Running             0     7m58s'
-        notReady:
-        - namespace: default
-          pod: vertical-pod-autoscaler-admission-controller-b7787b7f8-6s8w7
-          ready: 0/1
-          status: ContainerCreating
-        - namespace: default
-          pod: vertical-pod-autoscaler-admission-controller-b7787b7f8-r6r92
-          ready: 0/1
-          status: ContainerCreating
-        diagnostics:
-        - namespace: default
-          pod: vertical-pod-autoscaler-admission-controller-b7787b7f8-6s8w7
-          result: pass
-          detailHead: "Name:             vertical-pod-autoscaler-admission-controller-b7787b7f8-6s8w7\n\
-            Namespace:        default\nPriority:         0\nService Account:  vertical-pod-autoscaler-admission-controller\n\
-            Node:             hx-vertic-1204f-phms-installer-control-plane/192.168.97.4\n\
-            Start Time:       Thu, 11 Jun 2026 10:58:06 +0100\nLabels:           app.kubernetes.io/component=admission-controller\n\
-            \                  app.kubernetes.io/instance=vertical-pod-autoscaler\n\
-            \                  app.kubernetes.io/name=vertical-pod-autoscaler\n  \
-            \                pod-template-hash=b7787b7f8\nAnnotations:      <none>\n\
-            Status:           Pending\nIP:               \nIPs:              <none>\n\
-            Controlled By:    ReplicaSet/vertical-pod-autoscaler-admission-controller-b7787b7f8\n\
-            Containers:\n  admission-controller:\n    Container ID:  \n    Image:\
-            \         registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\n\
-            \    Image ID:      \n    Ports:         8000/TCP, 8944/TCP (prometheus)\n\
-            \    Host Ports:    0/TCP, 0/TCP (prometheus)\n    Args:\n      --v=4\n\
-            \      --stderrthreshold=info\n      --register-webhook=false\n      --webhook-service=vpa-webhook\n\
-            \    State:          Waiting\n      Reason:       ContainerCreating\n\
-            \    Ready:          False\n    Restart Count:  0\n    Liveness:     \
-            \  http-get http://:prometheus/health-check delay=5s timeout=1s period=10s\
-            \ #success=1 #failure=3\n    Readiness:      http-get http://:prometheus/health-check\
-            \ delay=0s timeout=1s period=10s #success=1 #failure=3\n    Environment:\n\
-            \      NAMESPACE:  default (v1:metadata.namespace)\n    Mounts:\n    \
-            \  /etc/tls-certs from tls-certs (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-jq5mt (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  tls-certs:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  vpa-tls-certs\n    Optional:    false\n  kube-api-access-jq5mt:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
-            \     false\n    DownwardAPI:             true\nQoS Class:           \
-            \        BestEffort\nNode-Selectors:              <none>\nTolerations:\
-            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
-            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
-            \         From               Message\n  ----     ------       ----   \
-            \                ----               -------\n  Normal   Scheduled    7m58s\
-            \                  default-scheduler  Successfully assigned default/vertical-pod-autoscaler-admission-controller-b7787b7f8-6s8w7\
-            \ to hx-vertic-1204f-phms-installer-control-plane\n  Warning  FailedMount\
-            \  106s (x11 over 7m58s)  kubelet            MountVolume.SetUp failed\
-            \ for"
-          detailTail: "ntroller-b7787b7f8-6s8w7\nNamespace:        default\nPriority:\
-            \         0\nService Account:  vertical-pod-autoscaler-admission-controller\n\
-            Node:             hx-vertic-1204f-phms-installer-control-plane/192.168.97.4\n\
-            Start Time:       Thu, 11 Jun 2026 10:58:06 +0100\nLabels:           app.kubernetes.io/component=admission-controller\n\
-            \                  app.kubernetes.io/instance=vertical-pod-autoscaler\n\
-            \                  app.kubernetes.io/name=vertical-pod-autoscaler\n  \
-            \                pod-template-hash=b7787b7f8\nAnnotations:      <none>\n\
-            Status:           Pending\nIP:               \nIPs:              <none>\n\
-            Controlled By:    ReplicaSet/vertical-pod-autoscaler-admission-controller-b7787b7f8\n\
-            Containers:\n  admission-controller:\n    Container ID:  \n    Image:\
-            \         registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\n\
-            \    Image ID:      \n    Ports:         8000/TCP, 8944/TCP (prometheus)\n\
-            \    Host Ports:    0/TCP, 0/TCP (prometheus)\n    Args:\n      --v=4\n\
-            \      --stderrthreshold=info\n      --register-webhook=false\n      --webhook-service=vpa-webhook\n\
-            \    State:          Waiting\n      Reason:       ContainerCreating\n\
-            \    Ready:          False\n    Restart Count:  0\n    Liveness:     \
-            \  http-get http://:prometheus/health-check delay=5s timeout=1s period=10s\
-            \ #success=1 #failure=3\n    Readiness:      http-get http://:prometheus/health-check\
-            \ delay=0s timeout=1s period=10s #success=1 #failure=3\n    Environment:\n\
-            \      NAMESPACE:  default (v1:metadata.namespace)\n    Mounts:\n    \
-            \  /etc/tls-certs from tls-certs (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-jq5mt (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  tls-certs:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  vpa-tls-certs\n    Optional:    false\n  kube-api-access-jq5mt:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
-            \     false\n    DownwardAPI:             true\nQoS Class:           \
-            \        BestEffort\nNode-Selectors:              <none>\nTolerations:\
-            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
-            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
-            \         From               Message\n  ----     ------       ----   \
-            \                ----               -------\n  Normal   Scheduled    7m58s\
-            \                  default-scheduler  Successfully assigned default/vertical-pod-autoscaler-admission-controller-b7787b7f8-6s8w7\
-            \ to hx-vertic-1204f-phms-installer-control-plane\n  Warning  FailedMount\
-            \  106s (x11 over 7m58s)  kubelet            MountVolume.SetUp failed\
-            \ for volume \"tls-certs\" : secret \"vpa-tls-certs\" not found"
-        - namespace: default
-          pod: vertical-pod-autoscaler-admission-controller-b7787b7f8-r6r92
-          result: pass
-          detailHead: "Name:             vertical-pod-autoscaler-admission-controller-b7787b7f8-r6r92\n\
-            Namespace:        default\nPriority:         0\nService Account:  vertical-pod-autoscaler-admission-controller\n\
-            Node:             hx-vertic-1204f-phms-installer-control-plane/192.168.97.4\n\
-            Start Time:       Thu, 11 Jun 2026 10:58:06 +0100\nLabels:           app.kubernetes.io/component=admission-controller\n\
-            \                  app.kubernetes.io/instance=vertical-pod-autoscaler\n\
-            \                  app.kubernetes.io/name=vertical-pod-autoscaler\n  \
-            \                pod-template-hash=b7787b7f8\nAnnotations:      <none>\n\
-            Status:           Pending\nIP:               \nIPs:              <none>\n\
-            Controlled By:    ReplicaSet/vertical-pod-autoscaler-admission-controller-b7787b7f8\n\
-            Containers:\n  admission-controller:\n    Container ID:  \n    Image:\
-            \         registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\n\
-            \    Image ID:      \n    Ports:         8000/TCP, 8944/TCP (prometheus)\n\
-            \    Host Ports:    0/TCP, 0/TCP (prometheus)\n    Args:\n      --v=4\n\
-            \      --stderrthreshold=info\n      --register-webhook=false\n      --webhook-service=vpa-webhook\n\
-            \    State:          Waiting\n      Reason:       ContainerCreating\n\
-            \    Ready:          False\n    Restart Count:  0\n    Liveness:     \
-            \  http-get http://:prometheus/health-check delay=5s timeout=1s period=10s\
-            \ #success=1 #failure=3\n    Readiness:      http-get http://:prometheus/health-check\
-            \ delay=0s timeout=1s period=10s #success=1 #failure=3\n    Environment:\n\
-            \      NAMESPACE:  default (v1:metadata.namespace)\n    Mounts:\n    \
-            \  /etc/tls-certs from tls-certs (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-mkdx9 (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  tls-certs:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  vpa-tls-certs\n    Optional:    false\n  kube-api-access-mkdx9:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
-            \     false\n    DownwardAPI:             true\nQoS Class:           \
-            \        BestEffort\nNode-Selectors:              <none>\nTolerations:\
-            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
-            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
-            \         From               Message\n  ----     ------       ----   \
-            \                ----               -------\n  Normal   Scheduled    7m58s\
-            \                  default-scheduler  Successfully assigned default/vertical-pod-autoscaler-admission-controller-b7787b7f8-r6r92\
-            \ to hx-vertic-1204f-phms-installer-control-plane\n  Warning  FailedMount\
-            \  106s (x11 over 7m58s)  kubelet            MountVolume.SetUp failed\
-            \ for"
-          detailTail: "ntroller-b7787b7f8-r6r92\nNamespace:        default\nPriority:\
-            \         0\nService Account:  vertical-pod-autoscaler-admission-controller\n\
-            Node:             hx-vertic-1204f-phms-installer-control-plane/192.168.97.4\n\
-            Start Time:       Thu, 11 Jun 2026 10:58:06 +0100\nLabels:           app.kubernetes.io/component=admission-controller\n\
-            \                  app.kubernetes.io/instance=vertical-pod-autoscaler\n\
-            \                  app.kubernetes.io/name=vertical-pod-autoscaler\n  \
-            \                pod-template-hash=b7787b7f8\nAnnotations:      <none>\n\
-            Status:           Pending\nIP:               \nIPs:              <none>\n\
-            Controlled By:    ReplicaSet/vertical-pod-autoscaler-admission-controller-b7787b7f8\n\
-            Containers:\n  admission-controller:\n    Container ID:  \n    Image:\
-            \         registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\n\
-            \    Image ID:      \n    Ports:         8000/TCP, 8944/TCP (prometheus)\n\
-            \    Host Ports:    0/TCP, 0/TCP (prometheus)\n    Args:\n      --v=4\n\
-            \      --stderrthreshold=info\n      --register-webhook=false\n      --webhook-service=vpa-webhook\n\
-            \    State:          Waiting\n      Reason:       ContainerCreating\n\
-            \    Ready:          False\n    Restart Count:  0\n    Liveness:     \
-            \  http-get http://:prometheus/health-check delay=5s timeout=1s period=10s\
-            \ #success=1 #failure=3\n    Readiness:      http-get http://:prometheus/health-check\
-            \ delay=0s timeout=1s period=10s #success=1 #failure=3\n    Environment:\n\
-            \      NAMESPACE:  default (v1:metadata.namespace)\n    Mounts:\n    \
-            \  /etc/tls-certs from tls-certs (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-mkdx9 (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  tls-certs:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  vpa-tls-certs\n    Optional:    false\n  kube-api-access-mkdx9:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
-            \     false\n    DownwardAPI:             true\nQoS Class:           \
-            \        BestEffort\nNode-Selectors:              <none>\nTolerations:\
-            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
-            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
-            \         From               Message\n  ----     ------       ----   \
-            \                ----               -------\n  Normal   Scheduled    7m58s\
-            \                  default-scheduler  Successfully assigned default/vertical-pod-autoscaler-admission-controller-b7787b7f8-r6r92\
-            \ to hx-vertic-1204f-phms-installer-control-plane\n  Warning  FailedMount\
-            \  106s (x11 over 7m58s)  kubelet            MountVolume.SetUp failed\
-            \ for volume \"tls-certs\" : secret \"vpa-tls-certs\" not found"
+          vertical-pod-autoscaler-updater-6bd8467c99-jz5dg               1/1   Running   0     10s'
+        notReady: []
+        diagnostics: []
         apiServices:
           result: pass
           items: []
@@ -324,17 +146,17 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=1 crds=0
   - name: target-facts-installer
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=1 crds=0
   - name: regular-helm-operating-policy
     result: pass
     detail: none
   - name: regular-helm-live
     result: pass
     detail: "Release \"vertical-pod-autoscaler\" does not exist. Installing it now.\n\
-      NAME: vertical-pod-autoscaler\nLAST DEPLOYED: Thu Jun 11 10:57:44 2026\nNAMESPACE:\
+      NAME: vertical-pod-autoscaler\nLAST DEPLOYED: Fri Jun 12 05:32:29 2026\nNAMESPACE:\
       \ default\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST\
       \ SUITE: None\nNOTES:\nVertical Pod Autoscaler has been installed!\n\nComponents\
       \ deployed:\n   \u2713 admission-controller\n   \u2713 recommender\n   \u2713\
@@ -345,28 +167,44 @@ spec:
     result: pass
     detail: none
   - name: cub-installer-apply-live
-    result: watch
+    result: pass
     detail: '# default
 
-      deployment.apps/vertical-pod-autoscaler-admission-controller   0/2   2     0     7m58s
+      deployment.apps/vertical-pod-autoscaler-admission-controller   2/2   2     2     10s
 
-      deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     7m58s
+      deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     10s
 
-      deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     7m58s'
+      deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     10s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||default'] diffs=0
   targetFacts:
     regularHelm:
       result: pass
-      stagedSecrets: []
+      stagedSecrets:
+      - namespace: default
+        name: vpa-tls-certs
+        keys:
+        - ca
+        - cert
+        - key
+        lane: regularHelm
       stagedCRDs: []
       stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
-      stagedSecrets: []
+      stagedSecrets:
+      - namespace: default
+        name: vpa-tls-certs
+        keys:
+        - ca
+        - cert
+        - key
+        lane: cubInstallerApply
       stagedCRDs: []
       stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

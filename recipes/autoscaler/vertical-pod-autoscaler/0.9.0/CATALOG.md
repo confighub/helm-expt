@@ -30,7 +30,7 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
-| Strongest evidence | in-confighub-proof |
+| Strongest evidence | two-cluster-kind-parity |
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | crds;extension-slots |
 | Hard gap | - |
@@ -57,8 +57,8 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default](../../../../packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default) | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 39 | 40 | 39/39 | pass | warn | warn | none |
-| no-crds | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/no-crds](../../../../packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/no-crds) | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 37 |  | 37/37 | pass |  | allow | none |
+| default | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default](../../../../packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default) | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 39 | 40 | 39/39 | pass | warn | warn | required Secret default/vpa-tls-certs keys ca,cert,key |
+| no-crds | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/no-crds](../../../../packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/no-crds) | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 37 |  | 37/37 | pass |  | allow | required Secret default/vpa-tls-certs keys ca,cert,key |
 
 ## Package Bases
 

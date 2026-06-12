@@ -1057,7 +1057,7 @@ need catalog promotion review before support is claimed.
 | argo-cd/argo-workflows@1.0.14 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md) |
 | argo-cd/argocd-image-updater@1.2.2 | proof-grade | needs-useful-variant | local-kubernetes-live | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.md) |
 | autoscaler/cluster-autoscaler@9.57.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md) |
-| autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
+| autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md) |
 | bitnami/apache@11.4.29 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/apache/11.4.29/CATALOG.md) |
 | bitnami/contour@21.1.4 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/contour/21.1.4/CATALOG.md) |

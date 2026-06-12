@@ -99,7 +99,7 @@ function buildReport() {
     return {
       chart: `${row.chart}@${row.version}`,
       base: row.variant,
-      outcome_level: outcomeLevel(row, lifecycle),
+      outcome_level: outcomeLevel(row, lifecycle, kindParity),
       render_parity: row.helm_template_vs_installer_setup,
       in_confighub: row.confighub_upload_variant_scan_safe_ops,
       local_live: row.local_kind_kubectl_apply,
@@ -407,15 +407,16 @@ means the lane has not been proven for that exact chart/base row. \`fail\`,
 as-is on the tested target.
 
 Use the narrowest true claim: model-supported, render parity, in-ConfigHub,
-local live, GitOps live, live parity, hook route selected, lifecycle observed,
-or production-ready.
+local live, two-cluster kind parity, GitOps live, live parity, hook route
+selected, lifecycle observed, or production-ready.
 `;
 }
 
-function outcomeLevel(row, lifecycle) {
+function outcomeLevel(row, lifecycle, kindParity) {
   const order = [
     ["live-parity", row.live_helm_vs_confighub_dual_compare],
     ["gitops-live", row.confighub_oci_argo_live],
+    ["two-cluster-kind-parity", kindParity?.result],
     ["local-live", row.local_kind_kubectl_apply],
     ["lifecycle-observed", lifecycle?.result],
     ["in-confighub", row.confighub_upload_variant_scan_safe_ops],
