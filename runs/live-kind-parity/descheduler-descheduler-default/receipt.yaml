@@ -6,8 +6,8 @@ spec:
   chart: descheduler/descheduler
   version: 0.36.0
   base: default
-  result: watch
-  observedAt: '2026-06-11T12:35:48Z'
+  result: pass
+  observedAt: '2026-06-12T04:59:56Z'
   package:
     path: packages/descheduler/descheduler/0.36.0
   recipe:
@@ -15,32 +15,32 @@ spec:
   variantRevision: recipes/descheduler/descheduler/0.36.0/revisions/default/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-desche-1d534-dw75-helm
-    installerCluster: hx-desche-1d534-dw75-installer
+    helmCluster: hx-desche-1d534-ji8m-helm
+    installerCluster: hx-desche-1d534-ji8m-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-desche-1d534-dw75-helm
+      - cluster: hx-desche-1d534-ji8m-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-desche-1d534-dw75-helm" ...
+        detail: 'Deleting cluster "hx-desche-1d534-ji8m-helm" ...
 
-          Deleted nodes: ["hx-desche-1d534-dw75-helm-control-plane"]'
-      - cluster: hx-desche-1d534-dw75-installer
+          Deleted nodes: ["hx-desche-1d534-ji8m-helm-control-plane"]'
+      - cluster: hx-desche-1d534-ji8m-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-desche-1d534-dw75-installer" ...
+        detail: 'Deleting cluster "hx-desche-1d534-ji8m-installer" ...
 
-          Deleted nodes: ["hx-desche-1d534-dw75-installer-control-plane"]'
+          Deleted nodes: ["hx-desche-1d534-ji8m-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
   legs:
     regularHelm:
-      result: watch
+      result: pass
       command: helm upgrade --install descheduler descheduler --repo https://kubernetes-sigs.github.io/descheduler/
-        --version 0.36.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/descheduler-descheduler-default/regular-helm-values.yaml
+        --version 0.36.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/descheduler-descheduler-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707
@@ -50,32 +50,25 @@ spec:
       runtimeNamespaces: &id001
       - default
       runtime:
-        result: watch
+        result: pass
         cronJobEvidence:
           default:
-            completedJobs: []
+            completedJobs:
+            - descheduler-29687342
             failedJobs: []
         namespaces: *id001
         workloads: '# default
 
           cronjobs:
 
-          descheduler   */2 * * * *   <none>   False   0     37s   5m55s
+          descheduler   */2 * * * *   <none>   False   0     9s    81s
 
           jobs:
 
-          descheduler-29686358   Complete   1/1   9s    4m37s
-
-          descheduler-29686360   Complete   1/1   3s    2m37s
-
-          descheduler-29686362   Complete   1/1   3s    37s'
+          descheduler-29687342   Complete   1/1   9s    9s'
         pods: '# default
 
-          descheduler-29686358-xdgb7   0/1   Completed   0     4m37s
-
-          descheduler-29686360-vkgsw   0/1   Completed   0     2m37s
-
-          descheduler-29686362-r8dz9   0/1   Completed   0     37s'
+          descheduler-29687342-p2ffp   0/1   Completed   0     9s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -84,9 +77,9 @@ spec:
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/descheduler/descheduler/0.36.0
-        --base default --work-dir /tmp/helm-expt-kind-parity-hx-desche-1d534-dw75-descheduler
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/descheduler/descheduler/0.36.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-desche-1d534-ji8m-descheduler
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -98,32 +91,25 @@ spec:
       runtimeNamespaces: &id002
       - default
       runtime:
-        result: watch
+        result: pass
         cronJobEvidence:
           default:
-            completedJobs: []
+            completedJobs:
+            - descheduler-29687344
             failedJobs: []
         namespaces: *id002
         workloads: '# default
 
           cronjobs:
 
-          descheduler   */2 * * * *   <none>   False   0     43s   5m55s
+          descheduler   */2 * * * *   <none>   False   0     12s   2m2s
 
           jobs:
 
-          descheduler-29686364   Complete   1/1   9s    4m43s
-
-          descheduler-29686366   Complete   1/1   3s    2m43s
-
-          descheduler-29686368   Complete   1/1   3s    43s'
+          descheduler-29687344   Complete   1/1   9s    12s'
         pods: '# default
 
-          descheduler-29686364-cq7pw   0/1   Completed   0     4m43s
-
-          descheduler-29686366-gzlnk   0/1   Completed   0     2m43s
-
-          descheduler-29686368-4ckxm   0/1   Completed   0     43s'
+          descheduler-29687344-k6wkt   0/1   Completed   0     12s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -161,12 +147,12 @@ spec:
     result: pass
     detail: none
   - name: regular-helm-live
-    result: watch
+    result: pass
     detail: 'Release "descheduler" does not exist. Installing it now.
 
       NAME: descheduler
 
-      LAST DEPLOYED: Thu Jun 11 13:36:41 2026
+      LAST DEPLOYED: Fri Jun 12 06:00:48 2026
 
       NAMESPACE: default
 
@@ -200,20 +186,16 @@ spec:
     result: pass
     detail: none
   - name: cub-installer-apply-live
-    result: watch
+    result: pass
     detail: '# default
 
       cronjobs:
 
-      descheduler   */2 * * * *   <none>   False   0     43s   5m55s
+      descheduler   */2 * * * *   <none>   False   0     12s   2m2s
 
       jobs:
 
-      descheduler-29686364   Complete   1/1   9s    4m43s
-
-      descheduler-29686366   Complete   1/1   3s    2m43s
-
-      descheduler-29686368   Complete   1/1   3s    43s'
+      descheduler-29687344   Complete   1/1   9s    12s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||default'] diffs=0

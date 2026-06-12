@@ -81,14 +81,14 @@ They should not disappear into a generic promotion-review queue.
 | `runix/pgadmin4@1.62.0` | `default` | `local-kubernetes-live` | - | - | add at least one user-shaped variant before catalog promotion |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 | `elastic/kibana@8.5.1` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
-| `descheduler/descheduler@0.36.0` | `default` | `local-kubernetes-live` | - | - | add at least one user-shaped variant before catalog promotion |
+| `descheduler/descheduler@0.36.0` | `default` | `two-cluster-kind-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 | `jaegertracing/jaeger@4.8.0` | `default` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | add at least one user-shaped variant before catalog promotion |
 | `dex/dex@0.24.0` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 
 ## How This Relates To Top100
 
 - Every row here already has a maintained recipe/package proof path.
-- Most rows still have render parity as their strongest evidence. 21 row(s)
+- Most rows still have render parity as their strongest evidence. 22 row(s)
   now have two-cluster kind parity, meaning regular Helm and `cub installer`
   reached equivalent live outcomes in separate vanilla kind clusters.
 - Promotion needs useful variants, selected live evidence, and any target facts,
