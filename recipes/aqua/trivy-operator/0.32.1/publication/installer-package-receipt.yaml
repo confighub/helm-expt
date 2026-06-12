@@ -4,17 +4,16 @@ metadata:
   name: "aqua-trivy-operator-0-32-1"
 spec:
   chart:
-    repository: "aqua"
     name: "trivy-operator"
+    repository: "aqua"
     version: "0.32.1"
   deterministicBundle:
-    command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0.32.1.tgz"
-    sha256: "debcc8623ee9a61303bdb7df297c62f46ba17dc85355b7d35f0bd5257e000ef5"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0.32.1.tgz"
+    sha256: "1173b06d9073953455f7b9b4dd7abb5fc11c43bdba94685841e31a3139da0b9e"
   package:
-    path: "packages/aqua/trivy-operator/0.32.1"
     name: "aqua-trivy-operator"
-    version: "0.32.1"
+    path: "packages/aqua/trivy-operator/0.32.1"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
         bytes: 66741
       -
+        path: "collector/target-facts.sh"
+        sha256: "04fbff971d9b1f457f42765d315b97f29cc6996ad54de137fd67500199595b75"
+        bytes: 6260
+      -
         path: "installer.yaml"
-        sha256: "f69ea5d8631853d475bd68a367985ba47528079a1e500349e8f9134a71357427"
-        bytes: 466
+        sha256: "880a03e4db4edf9fb0dd0fc20e1c24b9c6975eb41e6f767784a2284f90b83b9c"
+        bytes: 2792
+    version: "0.32.1"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -51,13 +55,17 @@ spec:
       semanticObjectMatches: "33/33"
       separatedSecretCount: 2
       variant: "default"
+      targetFactMode: "not-required"
+      targetFactsBound: false
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/aqua/trivy-operator/0.32.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 21
-      cubInstallObjectCountIncludingSupport: 22
-      semanticObjectMatches: "21/21"
-      separatedSecretCount: 2
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/aqua/trivy-operator/0.32.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 2
+      variant: "no-crds"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
