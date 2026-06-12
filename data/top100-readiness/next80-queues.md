@@ -7,9 +7,9 @@ Read it as a work queue, not as a support claim:
 
 ~~~text
 next80 charts: 80
-promotion-review: 36
+promotion-review: 37
 limitation-review: 8
-user-shaped-variant: 36
+user-shaped-variant: 35
 ~~~
 
 ## Queues

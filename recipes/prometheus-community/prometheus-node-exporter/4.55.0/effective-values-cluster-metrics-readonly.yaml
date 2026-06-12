@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-node-exporter"
+    confighub.io/chart-version: "4.55.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+spec:
+  files:
+    -
+      path: "effective-values-cluster-metrics-readonly.yaml"
+      source: "useful-base-rerender"
+      sha256: "f3eb8b6ae62e76e9a1df0bf354f547fdd18acb13908f55b75c3985d06c2455ad"
+  mergedValuesCaptured: false
+  values:
+    prometheus:
+      monitor:
+        enabled: true
+        additionalLabels:
+          release: "prometheus"

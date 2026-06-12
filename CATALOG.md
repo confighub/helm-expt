@@ -1126,7 +1126,7 @@ need catalog promotion review before support is claimed.
 | prometheus-community/kube-state-metrics@7.4.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
 | prometheus-community/prometheus-adapter@5.3.0 | proof-grade | limitation-decision-first | in-confighub-proof | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md) |
-| prometheus-community/prometheus-node-exporter@4.55.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md) |
+| prometheus-community/prometheus-node-exporter@4.55.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md) |
 | prometheus-community/prometheus-operator-crds@29.0.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md) |
 | prometheus-community/prometheus-pushgateway@3.6.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.md) |
 | prometheus-community/prometheus@29.9.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/prometheus-community/prometheus/29.9.0/CATALOG.md) |

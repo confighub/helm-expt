@@ -21,6 +21,7 @@ const outputs = {
 };
 
 const realizationWavePath = "data/useful-base-realization-wave/wave.csv";
+const baseOutcomesPath = "data/outcome-coverage/base-outcomes.csv";
 
 const familyRules = [
   {
@@ -208,6 +209,15 @@ function buildReport() {
   const realizedByKey = new Map(
     readCsvIfPresent(realizationWavePath).map((row) => [`${row.chart}@${row.version}#${row.base}`, row]),
   );
+  for (const row of readCsvIfPresent(baseOutcomesPath)) {
+    if (row.base === "default" || row.render_parity !== "pass") continue;
+    if (!realizedByKey.has(`${row.chart}#${row.base}`)) {
+      realizedByKey.set(`${row.chart}#${row.base}`, {
+        status: "realized-values-profile-base",
+        evidence: "data/outcome-coverage/base-outcomes.csv",
+      });
+    }
+  }
 
   const rows = chartUseRows.map((chartUse) => {
     const { chart, version } = splitChart(chartUse.chart);
@@ -237,7 +247,12 @@ function buildReport() {
       done_when: realized
         ? "the realized base has ConfigHub proof, selected live evidence, production disposition, and a catalog decision"
         : coverage.done_when || "the proposed base has recipe/package artifacts, render parity, scan/gate evidence, and a catalog decision",
-      evidence: [chartUse.catalog_path, chartUse.helm_pain_report, coverage.evidence, realized ? realizationWavePath : ""].filter(Boolean).join(";"),
+      evidence: [
+        chartUse.catalog_path,
+        chartUse.helm_pain_report,
+        coverage.evidence,
+        realized?.evidence ?? (realized ? realizationWavePath : ""),
+      ].filter(Boolean).join(";"),
     };
   });
 

@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-node-exporter"
+    confighub.io/chart-version: "4.55.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+  objectCount: 4
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|default|prometheus-node-exporter"
+      kind: "DaemonSet"
+      name: "prometheus-node-exporter"
+      namespace: "default"
+    -
+      apiVersion: "monitoring.coreos.com/v1"
+      identity: "monitoring.coreos.com/v1|ServiceMonitor|default|prometheus-node-exporter"
+      kind: "ServiceMonitor"
+      name: "prometheus-node-exporter"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|prometheus-node-exporter"
+      kind: "ServiceAccount"
+      name: "prometheus-node-exporter"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|prometheus-node-exporter"
+      kind: "Service"
+      name: "prometheus-node-exporter"
+      namespace: "default"

@@ -20,7 +20,7 @@ What must be proven before that base becomes a catalog offer?
 ~~~text
 charts needing useful bases: 46
 families: 7
-proposal statuses: proposal-not-built=36, realized-alias-base=10
+proposal statuses: proposal-not-built=35, realized-alias-base=10, realized-values-profile-base=1
 ~~~
 
 ## Design Families
@@ -54,7 +54,7 @@ proposal statuses: proposal-not-built=36, realized-alias-base=10
 | 37 | jaegertracing/jaeger@4.8.0 | node-or-cluster-collector | proposal-not-built | run an observability collector or security agent with explicit output destinations | Secret reference; target facts | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy |
 | 37 | prometheus-community/prometheus-operator-crds@29.0.0 | cluster-metrics-readonly | proposal-not-built | collect or expose cluster metrics without changing application workloads | Secret reference; CRD ownership choice; target facts | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; CRD lifecycle route; Secret/target-fact policy |
 | 40 | dex/dex@0.24.0 | web-ui-existing-secret | proposal-not-built | deploy a reviewable web UI using existing credentials or external identity | Secret reference | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy |
-| 43 | prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly | proposal-not-built | collect or expose cluster metrics without changing application workloads | Secret reference; target facts; required chart values | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy |
+| 43 | prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly | realized-values-profile-base | collect or expose cluster metrics without changing application workloads | Secret reference; target facts; required chart values | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy |
 | 46 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | realized-alias-base | collect or expose cluster metrics without changing application workloads | namespace and target only | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition |
 | 50 | bitnami/phpmyadmin@20.0.0 | web-ui-existing-secret | proposal-not-built | deploy a reviewable web UI using existing credentials or external identity | Secret reference; StorageClass or persistence choice; target facts; required chart values | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy; storage and rollback note |
 | 51 | elastic/filebeat@8.5.1 | node-or-cluster-collector | realized-alias-base | run an observability collector or security agent with explicit output destinations | namespace and target only | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition |
