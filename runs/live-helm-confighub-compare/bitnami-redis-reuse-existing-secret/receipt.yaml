@@ -1,0 +1,264 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-redis-25.5.3-reuse-existing-secret-live-parity-20260605
+spec:
+  chart: bitnami/redis
+  version: 25.5.3
+  base: reuse-existing-secret
+  result: pass
+  observedAt: '2026-06-12T11:53:38Z'
+  package:
+    path: packages/bitnami/redis/25.5.3
+  recipe:
+    path: recipes/bitnami/redis/25.5.3
+  variantRevision: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-redis-mqavbiun-m9s
+    kubeContext: kind-helm-expt-parity-redis-mqavbiun-m9s
+    namespace: redis
+    legNamespaces:
+      regularHelm: redis-helm
+      configHubKubectlApply: redis-apply
+      configHubOciArgo: redis-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-redis-mqavbiun-m9s --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-redis-mqavbiun-m9s"...
+
+        Deleting cluster "helm-expt-parity-redis-mqavbiun-m9s" ...
+
+        Deleted nodes: ["helm-expt-parity-redis-mqavbiun-m9s-control-plane"]
+
+        Deleting Space "helm-expt-parity-redis-mqavbiun-m9s-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install redis redis --repo https://charts.bitnami.com/bitnami
+        --version 25.5.3 --namespace redis-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f
+      objectCount: 13
+      liveHelmManifestSHA256: 9ca4fcf6becedfc4fd941f5b8c6aa017d358385ef5409690bb6c2a56743be6a2
+      liveHelmManifestObjectCount: 13
+      namespace: redis-helm
+      runtime:
+        result: pass
+        workloads: 'statefulset.apps/redis-master     1/1   93s
+
+          statefulset.apps/redis-replicas   3/3   93s'
+        pods: 'redis-master-0     1/1   Running   0     93s
+
+          redis-replicas-0   1/1   Running   0     93s
+
+          redis-replicas-1   1/1   Running   0     54s
+
+          redis-replicas-2   1/1   Running   0     28s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/redis/25.5.3
+        --base reuse-existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-redis-mqavbiun-m9s-redis
+        --non-interactive --namespace redis-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 156c522017c57d437f7a027a1cd9b12401e83016a9f88615f7e6f5e4d17e84ba
+      objectCount: 14
+      namespace: redis-apply
+      manifestNamespaces:
+      - redis
+      - redis-apply
+      runtimeNamespaces: &id001
+      - redis
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# redis
+
+          statefulset.apps/redis-master     1/1   80s
+
+          statefulset.apps/redis-replicas   3/3   80s'
+        pods: '# redis
+
+          redis-master-0     1/1   Running   0     80s
+
+          redis-replicas-0   1/1   Running   0     80s
+
+          redis-replicas-1   1/1   Running   0     51s
+
+          redis-replicas-2   1/1   Running   0     27s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - redis-apply
+        retainedNamespaces:
+        - redis
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-redis-mqavbiun-m9s-redis
+      controller: Argo CD OCI
+      app: redis-parity
+      manifestSHA256: af52a39dcdd0810c24b3c8e1ff19a49f668ff9f3dfc7f155e3e89254b9226f31
+      objectCount: 14
+      namespace: redis-oci
+      manifestNamespaces:
+      - redis
+      - redis-oci
+      runtimeNamespaces: &id002
+      - redis
+      ociRevision: sha256:a2c4a98fe2e44fd54588b1e8c4330ac9862a31898313cb25c44d79d245cda152
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# redis
+
+          statefulset.apps/redis-master     1/1   2m51s
+
+          statefulset.apps/redis-replicas   3/3   2m51s'
+        pods: '# redis
+
+          redis-master-0     1/1   Running   0     2m51s
+
+          redis-replicas-0   1/1   Running   0     2m51s
+
+          redis-replicas-1   1/1   Running   0     2m22s
+
+          redis-replicas-2   1/1   Running   0     118s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||redis
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 13
+      configHubObjectCount: 14
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||redis
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: ea112fb4d1279713ea885f9b52c41480a34915c12262f81e8d31ba6f624ca9fa
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 13
+      configHubObjectCount: 14
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||redis
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: ea112fb4d1279713ea885f9b52c41480a34915c12262f81e8d31ba6f624ca9fa
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-redis-mqavbiun-m9s\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-redis-mqavbiun-m9s.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-redis-mqavbiun-m9s\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-redis-mqavbiun-m9s\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-redis-mqavbiun-m9s\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-redis-mqavbiun-m9s.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argocd\"...\napiVer"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=1 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"redis\" does not exist. Installing it now.\nNAME: redis\nLAST\
+      \ DEPLOYED: Fri Jun 12 12:55:11 2026\nNAMESPACE: redis-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: redis\nCHART VERSION: 25.5.3\nAPP VERSION: 8.6.3\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nRedis(R) can\
+      \ be accessed on the following DNS names from within your cluster:\n\n    redis-master.redis-helm.svc.cluster.local\
+      \ for read/write operations (port 6379)\n    redis-replicas.redis-helm.svc.cluster.local\
+      \ for read-only operations (port 6379)\n\nTo get your password run:\n\n    export\
+      \ REDIS_PASSWORD=$(kubectl get secret --namespace redis-helm redis-existing-secret\
+      \ -o jsonpath=\"{.data.red"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=2 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# redis
+
+      statefulset.apps/redis-master     1/1   80s
+
+      statefulset.apps/redis-replicas   3/3   80s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=2 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||redis'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: redis-helm
+        name: redis-existing-secret
+        keys:
+        - redis-password
+        lane: regularHelm
+        sourceNamespace: redis
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: redis
+        name: redis-existing-secret
+        keys:
+        - redis-password
+        lane: configHubKubectlApply
+      - namespace: redis-apply
+        name: redis-existing-secret
+        keys:
+        - redis-password
+        lane: configHubKubectlApply
+        sourceNamespace: redis
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: redis
+        name: redis-existing-secret
+        keys:
+        - redis-password
+        lane: configHubOciArgo
+      - namespace: redis-oci
+        name: redis-existing-secret
+        keys:
+        - redis-password
+        lane: configHubOciArgo
+        sourceNamespace: redis
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/target-facts-confighub-oci.yaml
