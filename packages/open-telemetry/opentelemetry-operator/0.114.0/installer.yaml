@@ -8,21 +8,19 @@ spec:
     -
       default: true
       description: "open-telemetry/opentelemetry-operator default variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD certificates.cert-manager.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD issuers.cert-manager.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
       name: "default"
       path: "bases/default"
-      externalRequires:
-        -
-          kind: "ClusterFeature"
-          name: "CRD certificates.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
-        -
-          kind: "ClusterFeature"
-          name: "CRD issuers.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
     -
       description: "open-telemetry/opentelemetry-operator no-crds variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
-      name: "no-crds"
-      path: "bases/no-crds"
       externalRequires:
         -
           kind: "ClusterFeature"
@@ -32,6 +30,8 @@ spec:
           kind: "ClusterFeature"
           name: "CRD issuers.cert-manager.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+      name: "no-crds"
+      path: "bases/no-crds"
   collector:
     command: "/bin/sh"
     args:

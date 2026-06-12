@@ -71,7 +71,8 @@ targetFacts:
     name: certificates.cert-manager.io
     purpose: cert-manager Certificate CRD required by the chart-rendered serving certificate
       object
-    sourceVariant: cert-manager
+    sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
+    sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
     suggestedSource: Install cert-manager or apply the cert-manager Certificate CRD
       before applying this base
   - deliveryLanes:
@@ -82,7 +83,8 @@ targetFacts:
     name: issuers.cert-manager.io
     purpose: cert-manager Issuer CRD required by the chart-rendered self-signed issuer
       object
-    sourceVariant: cert-manager
+    sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
+    sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
     suggestedSource: Install cert-manager or apply the cert-manager Issuer CRD before
       applying this base
 
@@ -113,7 +115,8 @@ targetFacts:
     name: certificates.cert-manager.io
     purpose: cert-manager Certificate CRD required by the chart-rendered serving certificate
       object
-    sourceVariant: cert-manager
+    sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
+    sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
     suggestedSource: Install cert-manager or apply the cert-manager Certificate CRD
       before applying this base
   - deliveryLanes:
@@ -124,7 +127,8 @@ targetFacts:
     name: issuers.cert-manager.io
     purpose: cert-manager Issuer CRD required by the chart-rendered self-signed issuer
       object
-    sourceVariant: cert-manager
+    sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
+    sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
     suggestedSource: Install cert-manager or apply the cert-manager Issuer CRD before
       applying this base
 
