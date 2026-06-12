@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "nack-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-nack-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'nack-no-crds-confighub-proof'"
+  subject:
+    chart: "nats/nack"
+    chartVersion: "0.34.0"
+    packagePath: "packages/nats/nack/0.34.0"
+    variant: "no-crds"
+  changeset:
+    slug: "nack-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "NACK safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "nack-no-crds-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-nack --space helm-nack-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-nack"
+    output: "Unit deployment-default-nack (d9e0b8a5-366f-4730-b271-e4a8ed2e04e6) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-nack-no-crds-confighub-proof --where \"Labels.Proof = 'nack-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req nridUSZxBzdojGVjqeRwfkNTVmjSxGgh: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-nack-no-crds-confighub-proof --where \"Labels.Proof = 'nack-no-crds-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

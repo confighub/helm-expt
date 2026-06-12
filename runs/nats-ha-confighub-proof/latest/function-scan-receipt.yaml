@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "nats-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-nats-ha-confighub-proof"
+    selector: "Labels.Proof = 'nats-ha-confighub-proof'"
+  subject:
+    chart: "nats/nats"
+    chartVersion: "2.14.0"
+    packagePath: "packages/nats/nats/2.14.0"
+    variant: "ha"
+    configHubUnitCount: 7
+  unitRevisionBindings:
+    -
+      slug: "configmap-nats-config"
+      headRevisionNum: 1
+      dataHash: "65deb52335b454ea67a5c274836a117dd39ecf1ed3fa486adbcfbbc9dda6c285"
+    -
+      slug: "deployment-nats-box"
+      headRevisionNum: 2
+      dataHash: "15f5b5c247ece65a8ff10e76a00d0efb6c8dbe289f71b2a996ec9a0508e8ce48"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "poddisruptionbudget-nats"
+      headRevisionNum: 1
+      dataHash: "7fd1387787431eabb2b2384bf35853680ba9d355754ba58b7d8783014bf652d6"
+    -
+      slug: "service-nats"
+      headRevisionNum: 2
+      dataHash: "e441bdd6fd36399ac4ba6563375b6ebe9b4e10270aa0470ce6daa10b002a073c"
+    -
+      slug: "service-nats-headless"
+      headRevisionNum: 2
+      dataHash: "e417a4e5acb8e665e957bed097fe2370af223b253904e487dd324cd5e17fc5d0"
+    -
+      slug: "statefulset-nats"
+      headRevisionNum: 2
+      dataHash: "8c98f7f4a7e4d5a42973e057779a2af2a61819983350b9172fea386ab7304b00"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

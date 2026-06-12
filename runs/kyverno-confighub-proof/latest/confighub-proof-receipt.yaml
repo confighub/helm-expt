@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "kyverno-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/kyverno/kyverno/3.8.1"
+    name: "kyverno-kyverno"
+    chart: "kyverno/kyverno"
+    chartVersion: "3.8.1"
+    bases:
+      - "default"
+      - "no-crds"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base default --work-dir .tmp/confighub-proof/kyverno-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 70
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/kyverno-default"
+    result: "pass"
+    manifestCount: 70
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/kyverno/kyverno/3.8.1 -o .tmp/confighub-proof/kyverno-archives/kyverno-a.tgz"
+    sha256: "870c7579ffef1a15847aca668fd5b1ae00ddbf6306593e9371b69dc9f069ad5b"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/kyverno-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/kyverno-default --space helm-kyverno-confighub-proof --component Kyverno --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Kyverno --unit-label HelmChart=kyverno-kyverno --unit-label HelmChartVersion=3.8.1 --unit-label Variant=default --unit-label Proof=kyverno-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-kyverno-confighub-proof"
+    unitCount: 71
+    kubernetesUnitCount: 70
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/kyverno-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/kyverno-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-kyverno-confighub-proof (post-render):\n  init  Deployment/kyverno-admission-controller [kyverno-pre] reg.kyverno.io/kyverno/kyvernopre:v1.18.1\n      Deployment/kyverno-admission-controller [kyverno] reg.kyverno.io/kyverno/kyverno:v1.18.1\n      Deployment/kyverno-background-controller [controller] reg.kyverno.io/kyverno/background-controller:v1.18.1\n      Deployment/kyverno-cleanup-controller [controller] reg.kyverno.io/kyverno/cleanup-controller:v1.18.1\n      Deployment/kyverno-reports-controller [controller] reg.kyverno.io/kyverno/reports-controller:v1.18.1"
+  serverSideVariant:
+    command: "cub variant create staging helm-kyverno-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-kyverno-confighub-proof"
+    downstreamSpace: "Kyverno-staging"
+    clonedUnitCount: 71
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-kyverno-admission-controller"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-kyverno-confighub-proof"
+      - "Kyverno-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

@@ -1,0 +1,87 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "grafana-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-grafana-existing-secret-ingress-confighub-proof"
+    selector: "Labels.Proof = 'grafana-existing-secret-ingress-confighub-proof'"
+  subject:
+    chart: "grafana/grafana"
+    chartVersion: "10.5.15"
+    packagePath: "packages/grafana/grafana/10.5.15"
+    variant: "existing-secret-ingress"
+    configHubUnitCount: 10
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-grafana-clusterrolebinding"
+      headRevisionNum: 2
+      dataHash: "2146ab77aa747864c421a5d15153a0c065b2391e561e27feb4fd420ebb650d32"
+    -
+      slug: "clusterrole-grafana-clusterrole"
+      headRevisionNum: 1
+      dataHash: "22eac23d084ad42121f04ec3ca269df49491c33ab2c78187cd5bb97b45a57902"
+    -
+      slug: "configmap-grafana-grafana"
+      headRevisionNum: 1
+      dataHash: "31ba044e5a33297e7de3a68aa0b2655d6f8b8a51d88947fc880f7772e5488d26"
+    -
+      slug: "deployment-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "894315aa41fc453eaaea6e623dfedec3d193e4ee2250a45d580317602b66751e"
+    -
+      slug: "ingress-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "b029d04eb35db0fc4b91e0c81d82efa2e9e617c821fd612f6287fb78265c7a2c"
+    -
+      slug: "namespace-grafana"
+      headRevisionNum: 1
+      dataHash: "9a6d07873598075408cc98b6a419ba393d678c58128137d7856e392b676bdbbb"
+    -
+      slug: "rolebinding-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "d0daf596a17e1e240d2568b12ce23c527f2f797b923367fe8917fa4d5933eb21"
+    -
+      slug: "role-grafana-grafana"
+      headRevisionNum: 1
+      dataHash: "7ee5f968b209b6d7734a2b59e81c2d72b2fb89af81d28c5731910c4089bd2466"
+    -
+      slug: "serviceaccount-grafana-grafana"
+      headRevisionNum: 1
+      dataHash: "5e71e31ed1b6a5efe3f182877206506c63766268bb03b84a38df62f807199cb2"
+    -
+      slug: "service-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "910b2e0eaa17556d92b9de40b63f9a7d7886237c15deb7e01b215bfd0905b781"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 10
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 10
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 10
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

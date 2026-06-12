@@ -12,7 +12,7 @@ variant-rich charts:                 74/110
 chart/base rows:                     190
 complete core lane rows:             23/190
 render parity rows:                  190/190
-in-ConfigHub proof rows:             60/190
+in-ConfigHub proof rows:             80/190
 local live rows:                     134/190
 GitOps/OCI live pass rows:           27/190
 GitOps/OCI non-pass receipts:        7
@@ -61,7 +61,7 @@ related lifecycle observations:      10/10
 
 | Chart | Variants | Model | In-ConfigHub | Local live | Lifecycle | GitOps live | Live parity | Two-cluster parity | Hard gap |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 2/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |
 | `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
@@ -69,9 +69,9 @@ related lifecycle observations:      10/10
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 0/2 | 2/2 | 1/2 | 2/2 | - |
 | `external-secrets/external-secrets@2.5.0` | default;no-crds | no | 1/2 | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
-| `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |
-| `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |
-| `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
+| `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 2/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |
+| `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 2/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |
+| `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 2/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `hashicorp/vault@0.32.0` | dev-mode;default;ha-raft-ui | yes | 1/3 | 2/3 | 0/3 | 1/3 | 1/3 | 3/3 | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 1/3 | 3/3 | 1/3 | 1/3 | 1/3 | 3/3 | - |

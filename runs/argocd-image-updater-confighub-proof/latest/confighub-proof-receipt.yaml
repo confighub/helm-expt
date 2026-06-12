@@ -1,0 +1,82 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "argocd-image-updater-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/argo-cd/argocd-image-updater/1.2.2"
+    name: "argo-cd-argocd-image-updater"
+    chart: "argo-cd/argocd-image-updater"
+    chartVersion: "1.2.2"
+    bases:
+      - "default"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/argo-cd/argocd-image-updater/1.2.2 --base default --work-dir .tmp/confighub-proof/argocd-image-updater-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 12
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/argocd-image-updater-default"
+    result: "pass"
+    manifestCount: 12
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/argo-cd/argocd-image-updater/1.2.2 -o .tmp/confighub-proof/argocd-image-updater-archives/argocd-image-updater-a.tgz"
+    sha256: "f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/argocd-image-updater-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/argocd-image-updater-default --space helm-argocd-image-updater-confighub-proof --component ArgoCDImageUpdater --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ArgoCDImageUpdater --unit-label HelmChart=argo-cd-argocd-image-updater --unit-label HelmChartVersion=1.2.2 --unit-label Variant=default --unit-label Proof=argocd-image-updater-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-argocd-image-updater-confighub-proof"
+    unitCount: 13
+    kubernetesUnitCount: 12
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/argocd-image-updater-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/argocd-image-updater-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-argocd-image-updater-confighub-proof (post-render):\n      Deployment/argocd-image-updater-controller [argocd-image-updater-controller] quay.io/argoprojlabs/argocd-image-updater:v1.2.1"
+  serverSideVariant:
+    command: "cub variant create staging helm-argocd-image-updater-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-argocd-image-updater-confighub-proof"
+    downstreamSpace: "ArgoCDImageUpdater-staging"
+    clonedUnitCount: 13
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-argocd-image-updater-controller"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-argocd-image-updater-confighub-proof"
+      - "ArgoCDImageUpdater-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

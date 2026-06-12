@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "kyverno-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-kyverno-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'kyverno-no-crds-confighub-proof'"
+  subject:
+    chart: "kyverno/kyverno"
+    chartVersion: "3.8.1"
+    packagePath: "packages/kyverno/kyverno/3.8.1"
+    variant: "no-crds"
+  changeset:
+    slug: "kyverno-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Kyverno safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "kyverno-no-crds-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-kyverno-admission-controller --space helm-kyverno-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-kyverno-admission-controller"
+    output: "Unit deployment-default-kyverno-admission-controller (644375cb-7132-4b09-9267-a01c20d64f4e) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-kyverno-no-crds-confighub-proof --where \"Labels.Proof = 'kyverno-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req gnYBGuiEYpEjqcMAvxRCtPkecWHanAly: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-kyverno-no-crds-confighub-proof --where \"Labels.Proof = 'kyverno-no-crds-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

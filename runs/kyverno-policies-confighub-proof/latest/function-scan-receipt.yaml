@@ -1,0 +1,95 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "kyverno-policies-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-kyverno-policies-confighub-proof"
+    selector: "Labels.Proof = 'kyverno-policies-confighub-proof'"
+  subject:
+    chart: "kyverno/kyverno-policies"
+    chartVersion: "3.8.0"
+    packagePath: "packages/kyverno/kyverno-policies/3.8.0"
+    variant: "default"
+    configHubUnitCount: 12
+  unitRevisionBindings:
+    -
+      slug: "clusterpolicy-disallow-capabilities"
+      headRevisionNum: 2
+      dataHash: "fae8eeaf521ec0c2060888a01faa6095f5fd8fddf7638f2181456ddcc1554e15"
+    -
+      slug: "clusterpolicy-disallow-host-namespaces"
+      headRevisionNum: 2
+      dataHash: "e01e13a5428fbf861bf73b131840da9789599dc63b72497d0fbb8818b34b9569"
+    -
+      slug: "clusterpolicy-disallow-host-path"
+      headRevisionNum: 2
+      dataHash: "5ea86412e5bcd11c96f42450f8fb9c2b5a5577eee2e96b3806507b4ef4de95db"
+    -
+      slug: "clusterpolicy-disallow-host-ports"
+      headRevisionNum: 2
+      dataHash: "52f2f60e3a5f9d877441855a1b521faaac6dcb693ab4a7ed00559fa487f3b555"
+    -
+      slug: "clusterpolicy-disallow-host-process"
+      headRevisionNum: 2
+      dataHash: "f0eac1ee20dfe58b7eacb9bbc8136b0134df7cf9e4ef3cdee64965caa27ff163"
+    -
+      slug: "clusterpolicy-disallow-privileged-containers"
+      headRevisionNum: 2
+      dataHash: "9b9802a15c9889a8fe1654c4dbd9c74cc46900f244c84badd3a80421250f9a1a"
+    -
+      slug: "clusterpolicy-disallow-proc-mount"
+      headRevisionNum: 2
+      dataHash: "dba12a1ae91460e3f1179a40ed89fe3f7d38e479ec533dba833053819cd775b3"
+    -
+      slug: "clusterpolicy-disallow-selinux"
+      headRevisionNum: 2
+      dataHash: "2a92dae4cbc2b9f34ccb03b942fe432e52c2932e25854c147d3eebc768fc82f0"
+    -
+      slug: "clusterpolicy-restrict-apparmor-profiles"
+      headRevisionNum: 2
+      dataHash: "959fae5c3d6fdb48f5e1c2cd11ce3879e5e94e1c13f826f4e0664357d7ef2da2"
+    -
+      slug: "clusterpolicy-restrict-seccomp"
+      headRevisionNum: 2
+      dataHash: "7749aef247e76093f02f2c086604c0b8ee3b4602ee05c82d6e142ac32641518f"
+    -
+      slug: "clusterpolicy-restrict-sysctls"
+      headRevisionNum: 2
+      dataHash: "1d8c158cec6b9aa20d1871eb1d9a1f2760fb42c2dd3548dfb002e58b79d334ff"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
