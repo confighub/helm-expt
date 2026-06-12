@@ -6,16 +6,27 @@ spec:
   chart: longhorn/longhorn
   version: 1.11.2
   base: ui-ingress
-  result: watch
-  observedAt: '2026-06-12T11:39:05Z'
+  result: pass
+  observedAt: '2026-06-12T15:03:59Z'
   package:
     path: packages/longhorn/longhorn/1.11.2
   recipe:
     path: recipes/longhorn/longhorn/1.11.2
   variantRevision: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml
+  targetProfile:
+    name: kind-ingress-nginx
+    result: pass
+    manifest: https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.15.1/deploy/static/provider/kind/deploy.yaml
+    resources:
+    - namespace/ingress-nginx
+    - deployment/ingress-nginx-controller
+    - ingressclass/nginx
+    - validatingwebhookconfiguration/ingress-nginx-admission
+    observedBehavior: Ingress objects with ingressClassName=nginx receive status.loadBalancer.ingress
+      on kind.
   run:
-    rig: helm-expt-parity-longhorn-mqaust6s-48z
-    kubeContext: kind-helm-expt-parity-longhorn-mqaust6s-48z
+    rig: helm-expt-parity-longhorn-mqb24bq4-ssl
+    kubeContext: kind-helm-expt-parity-longhorn-mqb24bq4-ssl
     namespace: longhorn-system
     legNamespaces:
       regularHelm: longhorn-system-helm
@@ -23,15 +34,15 @@ spec:
       configHubOciArgo: longhorn-system-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-longhorn-mqaust6s-48z --force
+      command: cub lk down --name helm-expt-parity-longhorn-mqb24bq4-ssl --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-longhorn-mqaust6s-48z"...
+      detail: 'Deleting kind cluster "helm-expt-parity-longhorn-mqb24bq4-ssl"...
 
-        Deleting cluster "helm-expt-parity-longhorn-mqaust6s-48z" ...
+        Deleting cluster "helm-expt-parity-longhorn-mqb24bq4-ssl" ...
 
-        Deleted nodes: ["helm-expt-parity-longhorn-mqaust6s-48z-control-plane"]
+        Deleted nodes: ["helm-expt-parity-longhorn-mqb24bq4-ssl-control-plane"]
 
-        Deleting Space "helm-expt-parity-longhorn-mqaust6s-48z-cluster" (recursive:
+        Deleting Space "helm-expt-parity-longhorn-mqb24bq4-ssl-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -50,29 +61,69 @@ spec:
       namespace: longhorn-system-helm
       runtime:
         result: pass
-        workloads: 'deployment.apps/longhorn-driver-deployer   1/1   1     1     74s
+        workloads: 'deployment.apps/csi-attacher               3/3   3     3     98s
 
-          deployment.apps/longhorn-ui                2/2   2     2     74s
+          deployment.apps/csi-provisioner            3/3   3     3     98s
 
-          daemonset.apps/engine-image-ei-c9fa6d45   1     1     1     1     1     <none>   24s
+          deployment.apps/csi-resizer                3/3   3     3     98s
 
-          daemonset.apps/longhorn-manager           1     1     1     1     1     <none>   74s'
-        pods: 'engine-image-ei-c9fa6d45-mv7gt              1/1   Running   0     24s
+          deployment.apps/csi-snapshotter            3/3   3     3     98s
 
-          longhorn-driver-deployer-7f5b6fb9b8-87r8x   1/1   Running   0     74s
+          deployment.apps/longhorn-driver-deployer   1/1   1     1     2m59s
 
-          longhorn-manager-fr8lw                      2/2   Running   0     74s
+          deployment.apps/longhorn-ui                2/2   2     2     2m59s
 
-          longhorn-ui-7fb5c57b8b-46jkn                1/1   Running   0     74s
+          daemonset.apps/engine-image-ei-c9fa6d45   1     1     1     1     1     <none>   2m15s
 
-          longhorn-ui-7fb5c57b8b-b7w7x                1/1   Running   0     74s'
+          daemonset.apps/longhorn-csi-plugin        1     1     1     1     1     <none>   98s
+
+          daemonset.apps/longhorn-manager           1     1     1     1     1     <none>   2m59s'
+        pods: 'csi-attacher-5557d89ccf-k6btt                       1/1   Running   0             98s
+
+          csi-attacher-5557d89ccf-tgrvd                       1/1   Running   0             98s
+
+          csi-attacher-5557d89ccf-zv2tt                       1/1   Running   1 (16s
+          ago)   98s
+
+          csi-provisioner-857485dbfb-8n4hr                    1/1   Running   0             98s
+
+          csi-provisioner-857485dbfb-s6qzt                    1/1   Running   1 (10s
+          ago)   98s
+
+          csi-provisioner-857485dbfb-zzdvf                    1/1   Running   0             98s
+
+          csi-resizer-64dcb47b78-k9k52                        1/1   Running   0             98s
+
+          csi-resizer-64dcb47b78-s8zdn                        1/1   Running   0             98s
+
+          csi-resizer-64dcb47b78-sjkqc                        1/1   Running   0             98s
+
+          csi-snapshotter-9dc596c7c-7nz5x                     1/1   Running   0             98s
+
+          csi-snapshotter-9dc596c7c-gfz92                     1/1   Running   0             98s
+
+          csi-snapshotter-9dc596c7c-zxqkf                     1/1   Running   0             98s
+
+          engine-image-ei-c9fa6d45-86mr4                      1/1   Running   0             2m15s
+
+          instance-manager-2d4cf4c6c8c757ed13b36930e2352754   1/1   Running   0             105s
+
+          longhorn-csi-plugin-nwhkp                           3/3   Running   0             98s
+
+          longhorn-driver-deployer-7f5b6fb9b8-tdt2r           1/1   Running   0             2m59s
+
+          longhorn-manager-l56dt                              2/2   Running   0             2m59s
+
+          longhorn-ui-7fb5c57b8b-5jkjk                        1/1   Running   0             2m59s
+
+          longhorn-ui-7fb5c57b8b-fbm4p                        1/1   Running   0             2m59s'
         notReady: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/longhorn/longhorn/1.11.2
-        --base ui-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-longhorn-mqaust6s-48z-longhorn
+        --base ui-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-longhorn-mqb24bq4-ssl-longhorn
         --non-interactive --namespace longhorn-system-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: 9aa0f6755f61cb35997f67dfc30bf1a2f15ea75c79ccb55b597cd0c9e2246204
@@ -92,20 +143,20 @@ spec:
 
           deployment.apps/longhorn-ui                2/2   2     2     20s
 
-          daemonset.apps/engine-image-ei-c9fa6d45   1     1     1     1     1     <none>   13s
+          daemonset.apps/engine-image-ei-c9fa6d45   1     1     1     1     1     <none>   14s
 
           daemonset.apps/longhorn-manager           1     1     1     1     1     <none>   20s'
         pods: '# longhorn-system
 
-          engine-image-ei-c9fa6d45-68l8f              1/1   Running   0     13s
+          engine-image-ei-c9fa6d45-52sm4              1/1   Running   0     14s
 
-          longhorn-driver-deployer-7f5b6fb9b8-7lkl6   1/1   Running   0     20s
+          longhorn-driver-deployer-7f5b6fb9b8-wmkdg   1/1   Running   0     20s
 
-          longhorn-manager-smdlv                      2/2   Running   0     20s
+          longhorn-manager-bvl7j                      2/2   Running   0     20s
 
-          longhorn-ui-7fb5c57b8b-hbc5v                1/1   Running   0     20s
+          longhorn-ui-7fb5c57b8b-bnzqn                1/1   Running   0     20s
 
-          longhorn-ui-7fb5c57b8b-pbm9n                1/1   Running   0     20s'
+          longhorn-ui-7fb5c57b8b-m765k                1/1   Running   0     20s'
         notReady: []
       cleanupBeforeOci:
         namespaces:
@@ -115,8 +166,8 @@ spec:
         reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
           parity rigs
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-longhorn-mqaust6s-48z-longhorn
+      result: pass
+      workloadSpace: helm-expt-parity-longhorn-mqb24bq4-ssl-longhorn
       controller: Argo CD OCI
       app: longhorn-parity
       manifestSHA256: ac793e77b652372f3a3e01511475797e30e14a60516086d92696e77aca594dfc
@@ -127,74 +178,71 @@ spec:
       - longhorn-system-oci
       runtimeNamespaces: &id002
       - longhorn-system
-      ociRevision: sha256:d47735e3329a6b4c705a3d6016c07f8fa7e25d4f5423ce2367b954a100ee9bf5
+      ociRevision: sha256:39d2f071c8631a11b0947c3e0fa40e32ea22e40647bf957a86819b95814738a0
       sync: Synced
-      health: Progressing
+      health: Healthy
       separatedSecrets: []
       runtime:
         result: pass
         namespaces: *id002
         workloads: '# longhorn-system
 
-          deployment.apps/csi-attacher               3/3   3     3     8m40s
+          deployment.apps/csi-attacher               3/3   3     3     118s
 
-          deployment.apps/csi-provisioner            3/3   3     3     8m40s
+          deployment.apps/csi-provisioner            3/3   3     3     118s
 
-          deployment.apps/csi-resizer                3/3   3     3     8m40s
+          deployment.apps/csi-resizer                3/3   3     3     118s
 
-          deployment.apps/csi-snapshotter            3/3   3     3     8m40s
+          deployment.apps/csi-snapshotter            3/3   3     3     118s
 
-          deployment.apps/longhorn-driver-deployer   1/1   1     1     9m23s
+          deployment.apps/longhorn-driver-deployer   1/1   1     1     2m40s
 
-          deployment.apps/longhorn-ui                2/2   2     2     9m23s
+          deployment.apps/longhorn-ui                2/2   2     2     2m40s
 
-          daemonset.apps/engine-image-ei-c9fa6d45   1     1     1     1     1     <none>   9m16s
+          daemonset.apps/engine-image-ei-c9fa6d45   1     1     1     1     1     <none>   2m34s
 
-          daemonset.apps/longhorn-csi-plugin        1     1     1     1     1     <none>   8m40s
+          daemonset.apps/longhorn-csi-plugin        1     1     1     1     1     <none>   118s
 
-          daemonset.apps/longhorn-manager           1     1     1     1     1     <none>   9m23s'
+          daemonset.apps/longhorn-manager           1     1     1     1     1     <none>   2m40s'
         pods: '# longhorn-system
 
-          csi-attacher-5557d89ccf-8ct7h                       1/1   Running   1 (8m10s
-          ago)   8m40s
+          csi-attacher-5557d89ccf-cpxvt                       1/1   Running   0     119s
 
-          csi-attacher-5557d89ccf-ftsm8                       1/1   Running   1 (8m10s
-          ago)   8m40s
+          csi-attacher-5557d89ccf-fvnzc                       1/1   Running   0     119s
 
-          csi-attacher-5557d89ccf-njgcz                       1/1   Running   1 (8m10s
-          ago)   8m40s
+          csi-attacher-5557d89ccf-sdkg9                       1/1   Running   0     119s
 
-          csi-provisioner-857485dbfb-7zltz                    1/1   Running   0               8m40s
+          csi-provisioner-857485dbfb-44krb                    1/1   Running   0     119s
 
-          csi-provisioner-857485dbfb-jbszx                    1/1   Running   0               8m40s
+          csi-provisioner-857485dbfb-kgw4s                    1/1   Running   0     119s
 
-          csi-provisioner-857485dbfb-lkmsz                    1/1   Running   0               8m40s
+          csi-provisioner-857485dbfb-vh992                    1/1   Running   0     119s
 
-          csi-resizer-64dcb47b78-6rjg7                        1/1   Running   0               8m40s
+          csi-resizer-64dcb47b78-dgb4k                        1/1   Running   0     119s
 
-          csi-resizer-64dcb47b78-kjk2j                        1/1   Running   0               8m40s
+          csi-resizer-64dcb47b78-j6jgk                        1/1   Running   0     119s
 
-          csi-resizer-64dcb47b78-xn2vh                        1/1   Running   0               8m40s
+          csi-resizer-64dcb47b78-zl4j9                        1/1   Running   0     119s
 
-          csi-snapshotter-9dc596c7c-6w5rp                     1/1   Running   0               8m40s
+          csi-snapshotter-9dc596c7c-cjfz7                     1/1   Running   0     119s
 
-          csi-snapshotter-9dc596c7c-p585s                     1/1   Running   0               8m40s
+          csi-snapshotter-9dc596c7c-s7gq2                     1/1   Running   0     119s
 
-          csi-snapshotter-9dc596c7c-w4xwd                     1/1   Running   0               8m40s
+          csi-snapshotter-9dc596c7c-tf4bw                     1/1   Running   0     119s
 
-          engine-image-ei-c9fa6d45-68l8f                      1/1   Running   0               9m16s
+          engine-image-ei-c9fa6d45-52sm4                      1/1   Running   0     2m35s
 
-          instance-manager-f8c262536af72de90bdd4e1d549f4973   1/1   Running   0               8m46s
+          instance-manager-2d4cf4c6c8c757ed13b36930e2352754   1/1   Running   0     2m5s
 
-          longhorn-csi-plugin-tw9bt                           3/3   Running   0               8m40s
+          longhorn-csi-plugin-h6rj5                           3/3   Running   0     119s
 
-          longhorn-driver-deployer-7f5b6fb9b8-7lkl6           1/1   Running   0               9m23s
+          longhorn-driver-deployer-7f5b6fb9b8-wmkdg           1/1   Running   0     2m41s
 
-          longhorn-manager-smdlv                              2/2   Running   0               9m23s
+          longhorn-manager-bvl7j                              2/2   Running   0     2m41s
 
-          longhorn-ui-7fb5c57b8b-hbc5v                        1/1   Running   0               9m23s
+          longhorn-ui-7fb5c57b8b-bnzqn                        1/1   Running   0     2m41s
 
-          longhorn-ui-7fb5c57b8b-pbm9n                        1/1   Running   0               9m23s'
+          longhorn-ui-7fb5c57b8b-m765k                        1/1   Running   0     2m41s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -227,9 +275,9 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-longhorn-mqaust6s-48z\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-longhorn-mqaust6s-48z.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-longhorn-mqaust6s-48z\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-longhorn-mqb24bq4-ssl\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-longhorn-mqb24bq4-ssl.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-longhorn-mqb24bq4-ssl\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
       \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
@@ -237,26 +285,30 @@ spec:
       \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
       \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-longhorn-mqaust6s-48z\"\nYou\
-      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-longhorn-mqaust6s-48z\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-longhorn-mqaust6s-48z.kubeconfig\n\
+      \nSet kubectl context to \"kind-helm-expt-parity-longhorn-mqb24bq4-ssl\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-longhorn-mqb24bq4-ssl\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-longhorn-mqb24bq4-ssl.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
+  - name: target-profile
+    result: pass
+    detail: 'kind-ingress-nginx: Ingress objects with ingressClassName=nginx receive
+      status.loadBalancer.ingress on kind.'
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=0 crds=0
   - name: regular-helm-live
     result: pass
-    detail: 'I0612 12:40:03.312689    5721 warnings.go:107] "Warning: unrecognized
+    detail: 'I0612 16:06:06.434306   37485 warnings.go:107] "Warning: unrecognized
       format \"int64\""
 
-      I0612 12:40:03.315670    5721 warnings.go:107] "Warning: unrecognized format
+      I0612 16:06:06.436142   37485 warnings.go:107] "Warning: unrecognized format
       \"int64\""
 
-      I0612 12:40:03.315774    5721 warnings.go:107] "Warning: unrecognized format
+      I0612 16:06:06.441033   37485 warnings.go:107] "Warning: unrecognized format
       \"int64\""
 
-      I0612 12:40:03.316877    5721 warnings.go:107] "Warning: unrecognized format
+      I0612 16:06:06.441247   37485 warnings.go:107] "Warning: unrecognized format
       \"int64\""'
   - name: target-facts-confighub-apply
     result: pass
@@ -269,15 +321,15 @@ spec:
 
       deployment.apps/longhorn-ui                2/2   2     2     20s
 
-      daemonset.apps/engine-image-ei-c9fa6d45   1     1     1     1     1     <none>   13s
+      daemonset.apps/engine-image-ei-c9fa6d45   1     1     1     1     1     <none>   14s
 
       daemonset.apps/longhorn-manager           1     1     1     1     1     <none>   20s'
   - name: target-facts-confighub-oci
     result: pass
     detail: secrets=0 crds=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=Synced health=Progressing after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||longhorn-system'] diffs=0

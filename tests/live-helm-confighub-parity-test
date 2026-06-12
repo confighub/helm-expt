@@ -630,6 +630,46 @@ def delete_namespace_if_safe(namespace: str, kubeconfig: Path, context: str) -> 
     kubectl(["delete", "namespace", namespace, "--wait=true", "--timeout=180s"], kubeconfig, context, timeout=210)
 
 
+def install_target_profile(profile: str, kubeconfig: Path, context: str, run_root: Path) -> dict:
+    if profile in ("", "none"):
+        return {"name": "none", "result": "pass", "resources": []}
+    if profile != "kind-ingress-nginx":
+        raise RuntimeError(f"unsupported target profile: {profile}")
+
+    # This pinned ingress-nginx kind provider is a target capability, not part of
+    # the chart under test. It gives ingressClassName=nginx an actual controller
+    # and writes Ingress status.loadBalancer.ingress=localhost on kind.
+    manifest_url = "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.15.1/deploy/static/provider/kind/deploy.yaml"
+    rc, out, err = kubectl(["apply", "-f", manifest_url], kubeconfig, context, timeout=300)
+    if rc != 0:
+        raise RuntimeError(f"target profile {profile} apply failed: {(err or out)[:1000]}")
+    kubectl_must(
+        ["-n", "ingress-nginx", "rollout", "status", "deployment/ingress-nginx-controller", "--timeout=300s"],
+        kubeconfig,
+        context,
+        f"target profile {profile} controller ready",
+        timeout=330,
+    )
+    profile_receipt = {
+        "name": profile,
+        "result": "pass",
+        "manifest": manifest_url,
+        "resources": [
+            "namespace/ingress-nginx",
+            "deployment/ingress-nginx-controller",
+            "ingressclass/nginx",
+            "validatingwebhookconfiguration/ingress-nginx-admission",
+        ],
+        "observedBehavior": "Ingress objects with ingressClassName=nginx receive status.loadBalancer.ingress on kind.",
+    }
+    write_yaml(run_root / f"target-profile-{profile}.yaml", {
+        "apiVersion": "helm-expt.confighub.com/v1alpha1",
+        "kind": "TargetProfileReceipt",
+        "spec": profile_receipt,
+    })
+    return profile_receipt
+
+
 def protected_namespace(namespace: str) -> bool:
     return namespace in ("default", "kube-system", "kube-public", "kube-node-lease")
 
@@ -779,6 +819,7 @@ def main() -> int:
     parser.add_argument("--rig", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--wait", default="8m")
+    parser.add_argument("--target-profile", default="none", choices=["none", "kind-ingress-nginx"])
     parser.add_argument(
         "--lock-timeout-seconds",
         type=int,
@@ -822,6 +863,7 @@ def main() -> int:
             "package": {"path": args.package},
             "recipe": {"path": args.recipe},
             "variantRevision": args.variant_revision,
+            "targetProfile": {"name": args.target_profile},
             "run": {
                 "rig": rig,
                 "kubeContext": context,
@@ -891,6 +933,12 @@ def main() -> int:
             raise RuntimeError(f"cub lk up failed after retries: {(err or out)[:1000]}")
         receipt["spec"]["run"]["clusterLifecycle"] = "created"
         check_item("cub-lk-up", "pass", out or "cub lk up passed")
+
+        mark_stage("target-profile")
+        target_profile = install_target_profile(args.target_profile, kubeconfig, context, run_root)
+        receipt["spec"]["targetProfile"] = target_profile
+        if args.target_profile != "none":
+            check_item("target-profile", target_profile["result"], f"{args.target_profile}: {target_profile.get('observedBehavior', '')}")
 
         if workdir.exists():
             shutil.rmtree(workdir)
@@ -968,6 +1016,7 @@ def main() -> int:
         # The other legs use separate namespaces, so Helm cleanup does not block
         # their execution. cub-lk teardown removes the whole rig at the end.
         sh(["helm", "uninstall", args.release, "--namespace", helm_namespace, "--wait"], timeout=300, env=env)
+        delete_namespace_if_safe(helm_namespace, kubeconfig, context)
 
         mark_stage("configHub-direct-render")
         setup_cmd = [

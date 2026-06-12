@@ -10,23 +10,23 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 9
+rows: 6
 lifecycle-routed-not-active-rerun: 0
 blocked: 0
-watch: 9
-configHub-oci-live-comparison: 9
+watch: 6
+configHub-oci-live-comparison: 6
 two-cluster-kind-parity: 0
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 0
-runtime-or-watch-rows: 7
+runtime-or-watch-rows: 4
 ```
 
 ## Lane Breakdown
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 9 | 0 | 9 | 0 | 0 |
+| configHub-oci-live-comparison | 6 | 0 | 6 | 0 | 0 |
 | two-cluster-kind-parity | 0 | 0 | 0 | 0 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
@@ -48,7 +48,7 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-| gitops-runtime-review | 7 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
+| gitops-runtime-review | 4 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
@@ -66,7 +66,7 @@ reasonable live rerun candidates.
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
 | model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 7 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 4 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
 
@@ -91,12 +91,9 @@ faithful to the locked chart/version without changing the recipe.
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | watch | gitops-runtime: Argo sync OutOfSync health Healthy (parity passed) | [`recipes/bitnami/mongodb/19.0.7/gitops-runtime-review.yaml`](../../recipes/bitnami/mongodb/19.0.7/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart mongodb --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts --continue-on-fail` |
-| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/nginx@24.0.2` | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/nginx/24.0.2/gitops-runtime-review.yaml`](../../recipes/bitnami/nginx/24.0.2/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts --continue-on-fail` |
-| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `grafana/grafana@10.5.15` | existing-secret-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/grafana/grafana/10.5.15/gitops-runtime-review.yaml`](../../recipes/grafana/grafana/10.5.15/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart grafana --base existing-secret-ingress --continue-on-fail` |
 | 30 | model-or-stage-first | operating-policy | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | operate-policy: Vault init/unseal readiness (parity passed) | [`recipes/hashicorp/vault/0.32.0/operating-policy.yaml`](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) | `npm run live-parity:top20 -- --chart vault --base default --continue-on-fail` |
 | 30 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | target-fit: LoadBalancer Service has no external IP on kind (parity passed) | [`recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml) | `npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --continue-on-fail` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart ingress-nginx --base default --continue-on-fail` |
-| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `longhorn/longhorn@1.11.2` | ui-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/longhorn/longhorn/1.11.2/gitops-runtime-review.yaml`](../../recipes/longhorn/longhorn/1.11.2/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart longhorn --base ui-ingress --continue-on-fail` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `metrics-server/metrics-server@3.13.0` | external-tls-ca | watch | gitops-runtime: Argo sync OutOfSync health Healthy (parity passed) | [`recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml`](../../recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart metrics-server --base external-tls-ca --continue-on-fail` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `prometheus-community/prometheus@29.8.0` | default | watch | gitops-runtime: Argo sync OutOfSync health Healthy (parity passed) | [`recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml`](../../recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart prometheus --base default --continue-on-fail` |
 

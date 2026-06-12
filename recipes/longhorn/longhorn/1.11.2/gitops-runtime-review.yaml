@@ -7,31 +7,40 @@ metadata:
 spec:
   base: "ui-ingress"
   controller: "Argo CD"
-  targetShape: "cub-lk/kind proof rig without an ingress controller assigning addresses for ingressClassName=nginx"
+  targetShape: "cub-lk/kind proof rig with target profile kind-ingress-nginx"
   receipt: "runs/live-helm-confighub-compare/longhorn-longhorn-ui-ingress/receipt.yaml"
-  observedResult: "watch"
+  observedResult: "pass"
+  targetProfile:
+    name: "kind-ingress-nginx"
+    provides:
+      - "Ingress controller for ingressClassName=nginx"
+      - "Ingress status.loadBalancer.ingress=localhost on kind"
   passed:
     - "regular Helm live leg reached the harness-defined runtime state"
     - "ConfigHub direct-apply leg reached the harness-defined runtime state"
     - "ConfigHub OCI/Argo leg reached the harness-defined workload runtime state"
     - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
     - "Argo CD reported the application Synced"
+    - "Argo CD reported the application Healthy"
     - "Longhorn manager, driver deployer, engine image, UI, and CSI workloads became ready in the chart's longhorn-system namespace"
     - "Longhorn UI Ingress was rendered and applied with host longhorn.example.test and ingressClassName nginx"
+    - "Longhorn UI Ingress received status.loadBalancer.ingress=localhost"
   gitOpsCondition:
     sync: "Synced"
-    health: "Progressing"
+    health: "Healthy"
     healthResource:
       apiVersion: "networking.k8s.io/v1"
       kind: "Ingress"
       namespace: "longhorn-system"
       name: "longhorn-ingress"
   diagnosis:
-    summary: "The Longhorn workloads and object parity were good in the proof target, but the UI Ingress had no assigned address because the target does not provide an ingress controller for class nginx."
+    summary: "The previous watch row was target-fit, not parity. When the proof target includes the kind-ingress-nginx profile, the UI Ingress receives a localhost address and Argo reports Healthy."
     observedIngress:
       ingressClassName: "nginx"
       host: "longhorn.example.test"
-      statusLoadBalancer: {}
+      statusLoadBalancer:
+        ingress:
+          - hostname: "localhost"
     namespaceModel:
       requestedOciNamespace: "longhorn-system-oci"
       chartResourceNamespace: "longhorn-system"
@@ -40,12 +49,14 @@ spec:
       observedDuringRetainedRun: "CSI provisioner pods in an alternate Helm namespace failed RBAC when the chart was exercised outside its expected longhorn-system namespace."
       logSignal: "csistoragecapacities.storage.k8s.io is forbidden for system:serviceaccount:longhorn-system-helm:longhorn-service-account"
       interpretation: "This reinforces the namespace/topology requirement. It is not a ConfigHub semantic-diff finding for the supported longhorn-system scope."
+    lifecycleCaution:
+      observedDuringProfileRun: "Deleting an alternate Longhorn Helm namespace can be delayed by Longhorn's own validating webhook protecting default resources."
+      interpretation: "Longhorn production support still needs explicit uninstall, upgrade, backup, and storage lifecycle policy even when install parity and UI ingress are green."
   nextActions:
-    - "Rerun ui-ingress on a target with an ingress controller for class nginx and address assignment."
+    - "Use kind-ingress-nginx for local live proof of the UI ingress base when ingress behavior is part of the test."
     - "Keep longhorn-system as the supported workload namespace unless a separate recipe/base proves another namespace and RBAC model."
     - "Expand the Longhorn runtime check before production promotion so CSI provisioner, CSI plugin, manager, UI, admission webhook, CRDs, StorageClass policy, and UI ingress all have explicit observed conditions."
   notClaimed:
-    - "This row does not prove external UI reachability through a real ingress controller."
+    - "This row does not prove external UI reachability through a production ingress controller."
     - "This row does not prove production storage safety, backup/restore, replica placement, disk scheduling, or upgrade policy."
     - "This row does not prove Longhorn can be safely installed into arbitrary namespaces."
-    - "This row does not claim Argo CD Healthy until the ingress target shape is provided or an explicit target-scoped health decision is approved."

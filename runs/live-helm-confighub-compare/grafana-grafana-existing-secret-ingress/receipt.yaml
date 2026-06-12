@@ -6,16 +6,27 @@ spec:
   chart: grafana/grafana
   version: 10.5.15
   base: existing-secret-ingress
-  result: watch
-  observedAt: '2026-06-12T10:15:10Z'
+  result: pass
+  observedAt: '2026-06-12T14:54:01Z'
   package:
     path: packages/grafana/grafana/10.5.15
   recipe:
     path: recipes/grafana/grafana/10.5.15
   variantRevision: recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml
+  targetProfile:
+    name: kind-ingress-nginx
+    result: pass
+    manifest: https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.15.1/deploy/static/provider/kind/deploy.yaml
+    resources:
+    - namespace/ingress-nginx
+    - deployment/ingress-nginx-controller
+    - ingressclass/nginx
+    - validatingwebhookconfiguration/ingress-nginx-admission
+    observedBehavior: Ingress objects with ingressClassName=nginx receive status.loadBalancer.ingress
+      on kind.
   run:
-    rig: helm-expt-parity-grafana-mqarswiy-2ju
-    kubeContext: kind-helm-expt-parity-grafana-mqarswiy-2ju
+    rig: helm-expt-parity-grafana-mqb1rhr4-rvp
+    kubeContext: kind-helm-expt-parity-grafana-mqb1rhr4-rvp
     namespace: grafana
     legNamespaces:
       regularHelm: grafana-helm
@@ -23,15 +34,15 @@ spec:
       configHubOciArgo: grafana-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-grafana-mqarswiy-2ju --force
+      command: cub lk down --name helm-expt-parity-grafana-mqb1rhr4-rvp --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-grafana-mqarswiy-2ju"...
+      detail: 'Deleting kind cluster "helm-expt-parity-grafana-mqb1rhr4-rvp"...
 
-        Deleting cluster "helm-expt-parity-grafana-mqarswiy-2ju" ...
+        Deleting cluster "helm-expt-parity-grafana-mqb1rhr4-rvp" ...
 
-        Deleted nodes: ["helm-expt-parity-grafana-mqarswiy-2ju-control-plane"]
+        Deleted nodes: ["helm-expt-parity-grafana-mqb1rhr4-rvp-control-plane"]
 
-        Deleting Space "helm-expt-parity-grafana-mqarswiy-2ju-cluster" (recursive:
+        Deleting Space "helm-expt-parity-grafana-mqb1rhr4-rvp-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -49,15 +60,15 @@ spec:
       namespace: grafana-helm
       runtime:
         result: pass
-        workloads: deployment.apps/grafana   1/1   1     1     37s
-        pods: grafana-d87c7f949-wd84j   1/1   Running   0     37s
+        workloads: deployment.apps/grafana   1/1   1     1     38s
+        pods: grafana-d87c7f949-6xx5c   1/1   Running   0     38s
         notReady: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/grafana/10.5.15
-        --base existing-secret-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-grafana-mqarswiy-2ju-grafana
+        --base existing-secret-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-grafana-mqb1rhr4-rvp-grafana
         --non-interactive --namespace grafana-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: f430ff99ecd74e04d5864ec1307e27a3fb42643d62f5db836a17e0819242df4e
@@ -75,11 +86,17 @@ spec:
           deployment.apps/grafana   1/1   1     1     20s'
         pods: '# grafana-apply
 
-          grafana-d87c7f949-kmwx6   1/1   Running   0     20s'
+          grafana-d87c7f949-twhnv   1/1   Running   0     20s'
         notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - grafana-apply
+        retainedNamespaces: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-grafana-mqarswiy-2ju-grafana
+      result: pass
+      workloadSpace: helm-expt-parity-grafana-mqb1rhr4-rvp-grafana
       controller: Argo CD OCI
       app: grafana-parity
       manifestSHA256: a60d156951cde7fb2ccadabfde574745f904e37c3ebb59a3a56e42a4a1b1bd91
@@ -89,19 +106,19 @@ spec:
       - grafana-oci
       runtimeNamespaces: &id002
       - grafana-oci
-      ociRevision: sha256:caa2b4940c08b41acff4d929b3746d43faa8f7ed56167ead1b613053bb461490
+      ociRevision: sha256:ff3fa8b52d477b36b73821327c89b2c2b8c039e59a56e789caac8b2c0a8a8393
       sync: Synced
-      health: Progressing
+      health: Healthy
       separatedSecrets: []
       runtime:
         result: pass
         namespaces: *id002
         workloads: '# grafana-oci
 
-          deployment.apps/grafana   1/1   1     1     6m47s'
+          deployment.apps/grafana   1/1   1     1     48s'
         pods: '# grafana-oci
 
-          grafana-d87c7f949-tpjgz   1/1   Running   0     6m47s'
+          grafana-d87c7f949-kx2ln   1/1   Running   0     48s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -134,9 +151,9 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-grafana-mqarswiy-2ju\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mqarswiy-2ju.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-grafana-mqarswiy-2ju\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-grafana-mqb1rhr4-rvp\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mqb1rhr4-rvp.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-grafana-mqb1rhr4-rvp\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
       \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
@@ -144,11 +161,15 @@ spec:
       \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
       \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-grafana-mqarswiy-2ju\"\nYou\
-      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-grafana-mqarswiy-2ju\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mqarswiy-2ju.kubeconfig\n\
-      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
-      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n"
+      \nSet kubectl context to \"kind-helm-expt-parity-grafana-mqb1rhr4-rvp\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-grafana-mqb1rhr4-rvp\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mqb1rhr4-rvp.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec: "
+  - name: target-profile
+    result: pass
+    detail: 'kind-ingress-nginx: Ingress objects with ingressClassName=nginx receive
+      status.loadBalancer.ingress on kind.'
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=1 crds=0
@@ -167,8 +188,8 @@ spec:
     result: pass
     detail: secrets=1 crds=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=Synced health=Progressing after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 60s
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||grafana'] diffs=0
