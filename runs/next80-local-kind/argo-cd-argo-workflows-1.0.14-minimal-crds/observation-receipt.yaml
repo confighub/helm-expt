@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14-minimal-crds-local-kind"
+spec:
+  variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-12T16:51:15.443Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "minimal-crds"
+  targetFacts:
+    {}
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "2e200933fa25c8b511faf8b6d9e3822f5772ed4553af63f06246c925cf75327a"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "8 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "27 object(s) from recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|argo-workflows-workflow-controller"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|argo-workflows-server"

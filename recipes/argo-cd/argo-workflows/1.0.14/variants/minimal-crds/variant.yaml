@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "minimal-crds"
+  labels:
+    confighub.io/chart: "argo-cd/argo-workflows"
+    confighub.io/version: "1.0.14"
+    confighub.io/variant: "minimal-crds"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "argo-workflows"
+  valuesProfile: "../../effective-values-minimal-crds.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

@@ -65,6 +65,7 @@ if (!kindClusters().includes(clusterName)) {
 
 const checks = [];
 let blockedReasons = [];
+const missingPrereqs = [];
 let observedPayload = "";
 const createdNamespaces = [];
 // Some charts render objects into namespaces other than the variant's (for
@@ -100,6 +101,7 @@ try {
         reason: `required CRD ${name} was not present before apply`,
       });
       blockedReasons.push(`target fact: required CRD ${name} missing`);
+      missingPrereqs.push(name);
     }
   }
 
@@ -148,10 +150,21 @@ try {
     const podStates = podStateSummary(ns);
     const imageBlocked = /ImagePullBackOff|ErrImagePull|ImageInspectError/.test(podStates);
     const prereqBlocked = !imageBlocked && /ContainerCreating|CreateContainerConfigError/.test(podStates);
-    const kind = imageBlocked ? "image-pull-blocked" : prereqBlocked ? "prerequisite-blocked (stuck creating: missing mount/secret/config)" : "not-ready";
+    // When a declared target-fact prerequisite is already missing, a
+    // non-converging workload is BLOCKED BY that prerequisite, not a chart
+    // failure — the receipt chains the causality instead of recording a
+    // misleading fail (issue #643: CRDs delivered via a dropped hook).
+    const factBlocked = !imageBlocked && !prereqBlocked && missingPrereqs.length > 0;
+    const kind = imageBlocked
+      ? "image-pull-blocked"
+      : prereqBlocked
+        ? "prerequisite-blocked (stuck creating: missing mount/secret/config)"
+        : factBlocked
+          ? `prerequisite-blocked (missing target facts: ${missingPrereqs.slice(0, 4).join(", ")}${missingPrereqs.length > 4 ? ", ..." : ""})`
+          : "not-ready";
     checks.push({
       name: "workload-converged",
-      result: imageBlocked || prereqBlocked ? "blocked" : "fail",
+      result: imageBlocked || prereqBlocked || factBlocked ? "blocked" : "fail",
       object: `${workload.kind}|${ns}|${workload.metadata.name}`,
       reason: `${kind}: ${podStates.slice(0, 300) || "did not converge within the budget"}`,
     });
