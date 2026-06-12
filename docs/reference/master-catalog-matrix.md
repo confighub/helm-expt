@@ -18,10 +18,16 @@ The generated master matrix has three surfaces:
 | --- | --- |
 | [matrix.html](../../data/master-catalog-matrix/matrix.html) | Human and product review. This is the browser view with visible color, user route, strongest evidence, core-lane status, production scope, hard gap, hooks, quirks, and next action. |
 | [matrix.csv](../../data/master-catalog-matrix/matrix.csv) | Machine and spreadsheet import. This carries the full row data as text, without relying on color. |
-| [summary.md](../../data/master-catalog-matrix/summary.md) | Compact GitHub orientation. This is useful in a pull request or code review, but it deliberately omits some wide user/product columns. |
+| [summary.md](../../data/master-catalog-matrix/summary.md) | Compact GitHub orientation. This includes the current product queues, then a narrower table for pull requests and code review. |
 
 The HTML view is the primary human decision surface. The CSV is the primary
 machine surface. The Markdown summary is a compact index.
+
+The product queues in the HTML and Markdown summary are derived from the same
+rows. They are not a second roadmap. They group the current matrix into the
+actions a reviewer or product owner can take next: try public catalog rows,
+promote proof-grade rows, design better bases, decide limitations, complete
+core lanes, finish production scope, or investigate named hard gaps.
 
 ## What Belongs In The Matrix
 

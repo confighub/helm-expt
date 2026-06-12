@@ -250,6 +250,7 @@ function summary(rows, charts, unmatchedReadiness) {
   const superseded = rows.filter((row) => row.production_decision === "superseded").length;
   const rejected = rows.filter((row) => row.production_decision === "no").length;
   const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
+  const queues = productQueues(rows);
 
   let lastChart = "";
   const table = rows
@@ -316,6 +317,28 @@ from a different chart version's disposition row.
 | Hook-flagged variants with no disposition row (unrouted) | ${unrouted} |
 
 ${unmatchedReadiness.length ? `Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): ${unmatchedReadiness.map((chart) => `\`${chart}\``).join(", ")}.\n` : ""}
+## How To Use This Sheet
+
+Each row is one chart/version/base variant. Use the row to answer three
+questions before deciding what to do next:
+
+| Question | Column to check |
+| --- | --- |
+| Can I try this now, promote it, or does it need more design? | Use / adoption bucket |
+| What is the strongest evidence currently available? | Evidence, R/C/L/G/P/K, Core |
+| What prevents a stronger claim? | Prod, Scope, Gap, Next action |
+
+The HTML view carries these user/product columns directly:
+[matrix.html](matrix.html). The CSV carries the same fields for filtering:
+[matrix.csv](matrix.csv). Counts below are variant rows unless stated
+otherwise.
+
+## Current Product Queues
+
+| Queue | Rows | Meaning | Examples |
+| --- | ---: | --- | --- |
+${queues.map((queue) => `| ${queue.label} | ${queue.rows.length} | ${queue.meaning} | ${examples(queue.rows)} |`).join("\n")}
+
 ## Sources joined, and what this view compresses
 
 The matrix is the variant-granularity overview, not a replacement for its
@@ -362,6 +385,7 @@ function htmlReport(rows, charts, unmatchedReadiness) {
   const superseded = rows.filter((row) => row.production_decision === "superseded").length;
   const rejected = rows.filter((row) => row.production_decision === "no").length;
   const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
+  const queues = productQueues(rows);
 
   const statusCell = (value, title, label) => {
     const cls = value === "yes" ? "y" : value === "watch" ? "w" : value === "no" ? "n" : value === "todo" ? "t" : "na";
@@ -433,6 +457,12 @@ td.gap{max-width:220px;color:#7a4f00}
 <p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
 <p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– n/a</span></p>
 <p class="sub">This is the user/product front door: Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where production support is bounded, and Gap names the main product or chart gap. The Links column jumps to the chart catalog, variant definition, package base, variant revision, and GitHub folder. Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · G OCI+Argo live · P live dual parity · K two-cluster kind parity. Hover cells for detail (hooks, quirks, production target scope, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
+<table class="queues">
+<thead><tr><th>Current product queue</th><th>Rows</th><th>Meaning</th><th>Examples</th></tr></thead>
+<tbody>
+${queues.map((queue) => `<tr><td>${escapeHtml(queue.label)}</td><td>${queue.rows.length}</td><td>${escapeHtml(queue.meaning)}</td><td class="note">${escapeHtml(examples(queue.rows, 4, false))}</td></tr>`).join("\n")}
+</tbody>
+</table>
 <table>
 <thead><tr><th>Chart</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>R</th><th>C</th><th>L</th><th>G</th><th>P</th><th>K</th><th>Outcome</th><th>Prod</th><th>Scope</th><th>Gap</th><th>Next action</th></tr></thead>
 <tbody>
@@ -474,6 +504,57 @@ function evidenceShort(evidence) {
 function compactText(text, limit) {
   const value = String(text);
   return value.length > limit ? `${value.slice(0, limit - 3)}...` : value;
+}
+
+function productQueues(rows) {
+  return [
+    {
+      label: "Public catalog rows",
+      rows: rows.filter((row) => row.adoption_bucket === "try-from-public-catalog"),
+      meaning: "Reviewed top-20 catalog rows. Use base-readiness or the per-chart catalog page to choose the easiest first base.",
+    },
+    {
+      label: "Promote after review",
+      rows: rows.filter((row) => row.adoption_bucket === "promote-after-review"),
+      meaning: "Proof-grade rows that need catalog/product review before becoming public starting points.",
+    },
+    {
+      label: "Design a more useful base",
+      rows: rows.filter((row) => row.adoption_bucket === "needs-useful-variant"),
+      meaning: "Rows where plain render proof exists but the first user-facing base is not yet good enough.",
+    },
+    {
+      label: "Decide a limitation first",
+      rows: rows.filter((row) => row.adoption_bucket === "limitation-decision-first"),
+      meaning: "Rows where a product or operator boundary must be chosen before promotion.",
+    },
+    {
+      label: "Complete the core proof lane",
+      rows: rows.filter((row) => row.core_lanes_complete !== "yes"),
+      meaning: "Rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity.",
+    },
+    {
+      label: "Record or finish production scope",
+      rows: rows.filter((row) => row.production_decision === "todo"),
+      meaning: "Rows without a target-scoped supported, superseded, or rejected production decision.",
+    },
+    {
+      label: "Investigate hard gaps",
+      rows: rows.filter((row) => row.hard_gap),
+      meaning: "Rows with a named chart/product gap rather than a simple missing receipt.",
+    },
+  ];
+}
+
+function examples(rows, limit = 3, markdown = true) {
+  if (rows.length === 0) return "—";
+  return rows
+    .slice(0, limit)
+    .map((row) => {
+      const label = `${row.chart}@${row.version}/${row.variant}`;
+      return markdown ? `\`${label}\`` : label;
+    })
+    .join(", ");
 }
 
 function linkFor(label, path, row) {
