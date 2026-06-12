@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "postgresql-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-postgresql-existing-secret-confighub-proof"
+    selector: "Labels.Proof = 'postgresql-existing-secret-confighub-proof'"
+  subject:
+    chart: "bitnami/postgresql"
+    chartVersion: "18.6.7"
+    packagePath: "packages/bitnami/postgresql/18.6.7"
+    variant: "existing-secret"
+    configHubUnitCount: 7
+  unitRevisionBindings:
+    -
+      slug: "namespace-postgresql"
+      headRevisionNum: 1
+      dataHash: "b0b8c9c4b096e2f66a91248a031e79b8bf7995fd5a80b6ea39512ba3e8dc807a"
+    -
+      slug: "networkpolicy-postgresql-postgresql"
+      headRevisionNum: 2
+      dataHash: "4b113e5802d4562aa74d26745d15c454ce31989fcc88a0128fd3199a62755879"
+    -
+      slug: "poddisruptionbudget-postgresql-postgresql"
+      headRevisionNum: 1
+      dataHash: "ffe560444dce5eb054637f28e347579f0669013140bd783d609f0db3abd2ab17"
+    -
+      slug: "serviceaccount-postgresql-postgresql"
+      headRevisionNum: 1
+      dataHash: "f393715bd9a7e36cc860515d3ea2186393a31694db052c49294c72fdb4a2d663"
+    -
+      slug: "service-postgresql-postgresql"
+      headRevisionNum: 2
+      dataHash: "7e864926c0809b88a0fc93809a317cc010223c3577a6f5cdf2e615cd4598a1fa"
+    -
+      slug: "service-postgresql-postgresql-hl"
+      headRevisionNum: 2
+      dataHash: "f4ddc3664ecf50084e0d4eecaa8f669e77e56742c6f440225a6da256f1fc42c7"
+    -
+      slug: "statefulset-postgresql-postgresql"
+      headRevisionNum: 2
+      dataHash: "369c07c82413d6e21b174aa53e51b6742da090ec9a8addbeac57341129203d06"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
