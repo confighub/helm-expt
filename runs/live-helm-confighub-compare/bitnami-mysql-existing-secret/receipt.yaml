@@ -1,0 +1,228 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-mysql-14.0.3-existing-secret-live-parity-20260605
+spec:
+  chart: bitnami/mysql
+  version: 14.0.3
+  base: existing-secret
+  result: pass
+  observedAt: '2026-06-12T09:40:11Z'
+  package:
+    path: packages/bitnami/mysql/14.0.3
+  recipe:
+    path: recipes/bitnami/mysql/14.0.3
+  variantRevision: recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-mysql-mqaqjwkn-155v
+    kubeContext: kind-helm-expt-parity-mysql-mqaqjwkn-155v
+    namespace: mysql
+    legNamespaces:
+      regularHelm: mysql-helm
+      configHubKubectlApply: mysql-apply
+      configHubOciArgo: mysql-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-mysql-mqaqjwkn-155v --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-mysql-mqaqjwkn-155v"...
+
+        Deleting cluster "helm-expt-parity-mysql-mqaqjwkn-155v" ...
+
+        Deleted nodes: ["helm-expt-parity-mysql-mqaqjwkn-155v-control-plane"]
+
+        Deleting Space "helm-expt-parity-mysql-mqaqjwkn-155v-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install mysql mysql --repo https://charts.bitnami.com/bitnami
+        --version 14.0.3 --namespace mysql-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mysql-existing-secret/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8
+      objectCount: 7
+      liveHelmManifestSHA256: c7454f448aa08a5c7cea233c25dc65fa87f7104099549c96468beb2c33d15baf
+      liveHelmManifestObjectCount: 7
+      namespace: mysql-helm
+      runtime:
+        result: pass
+        workloads: statefulset.apps/mysql   1/1   55s
+        pods: mysql-0   1/1   Running   0     54s
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mysql/14.0.3
+        --base existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mysql-mqaqjwkn-155v-mysql
+        --non-interactive --namespace mysql-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 1cfbdce7245a3c91fd8b5a0078fde99d6417e915d9379aa30669d3bdff9f5451
+      objectCount: 8
+      namespace: mysql-apply
+      manifestNamespaces:
+      - mysql-apply
+      runtimeNamespaces: &id001
+      - mysql-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# mysql-apply
+
+          statefulset.apps/mysql   1/1   31s'
+        pods: '# mysql-apply
+
+          mysql-0   1/1   Running   0     31s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-mysql-mqaqjwkn-155v-mysql
+      controller: Argo CD OCI
+      app: mysql-parity
+      manifestSHA256: f8b52f1aa338153903dd88b845fb61d926f4ea08a48dd4a4b415263118662b4b
+      objectCount: 8
+      namespace: mysql-oci
+      manifestNamespaces:
+      - mysql-oci
+      runtimeNamespaces: &id002
+      - mysql-oci
+      ociRevision: sha256:b0695b023b8f0d65a91cc7f935f3c281f578573027801695afca1aa871ee8296
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# mysql-oci
+
+          statefulset.apps/mysql   1/1   32s'
+        pods: '# mysql-oci
+
+          mysql-0   1/1   Running   0     32s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||mysql
+    semanticNormalizations: &id003
+    - prune-null-fields
+    - mysql-statefulset-gitops-defaults
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||mysql
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: f680e3fc7c7a38af16c7c8a301d850023c0b7f16b8412f51f7729207b7541c90
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||mysql
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: f680e3fc7c7a38af16c7c8a301d850023c0b7f16b8412f51f7729207b7541c90
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-mysql-mqaqjwkn-155v\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-mysql-mqaqjwkn-155v.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-mysql-mqaqjwkn-155v\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-mysql-mqaqjwkn-155v\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mysql-mqaqjwkn-155v\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mysql-mqaqjwkn-155v.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nsta"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=1 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"mysql\" does not exist. Installing it now.\nNAME: mysql\nLAST\
+      \ DEPLOYED: Fri Jun 12 10:41:43 2026\nNAMESPACE: mysql-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: mysql\nCHART VERSION: 14.0.3\nAPP VERSION: 9.4.0\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nTip:\n\n  Watch\
+      \ the deployment status using the command: kubectl get pods -w --namespace mysql-helm\n\
+      \nServices:\n\n  echo Primary: mysql.mysql-helm.svc.cluster.local:3306\n\nExecute\
+      \ the following to get the administrator credentials:\n\n  echo Username: root\n\
+      \  MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace mysql-helm mysql-auth\
+      \ -o jsonpath=\"{.data.mysql-root-password}\" | base64 -d)\n\nTo conne"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=1 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# mysql-apply
+
+      statefulset.apps/mysql   1/1   31s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=1 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 50s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||mysql'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: mysql-helm
+        name: mysql-auth
+        keys:
+        - mysql-password
+        - mysql-replication-password
+        - mysql-root-password
+        lane: regularHelm
+        sourceNamespace: mysql
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mysql-existing-secret/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: mysql-apply
+        name: mysql-auth
+        keys:
+        - mysql-password
+        - mysql-replication-password
+        - mysql-root-password
+        lane: configHubKubectlApply
+        sourceNamespace: mysql
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mysql-existing-secret/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: mysql-oci
+        name: mysql-auth
+        keys:
+        - mysql-password
+        - mysql-replication-password
+        - mysql-root-password
+        lane: configHubOciArgo
+        sourceNamespace: mysql
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mysql-existing-secret/target-facts-confighub-oci.yaml
