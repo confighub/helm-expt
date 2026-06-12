@@ -15,8 +15,8 @@ or runtime review.
 
 ~~~text
 base variants: 42
-start-here: 24
-try-with-proof: 9
+start-here: 25
+try-with-proof: 8
 runtime-watch: 9
 runtime-review-needed: 0
 operating-policy-needed: 0
@@ -69,7 +69,7 @@ rerun-now-after-cleanup: 0
 | `bitnami/postgresql@18.6.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/postgresql@18.6.7` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops | - |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/rabbitmq@16.0.14` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops | - |
+| `bitnami/rabbitmq@16.0.14` | existing-secret | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/redis@25.5.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/redis@25.5.3` | reuse-existing-secret | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `external-secrets/external-secrets@2.5.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
