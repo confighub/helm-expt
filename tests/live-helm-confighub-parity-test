@@ -246,13 +246,173 @@ def normalize_json_configmap_data(doc: dict):
         data[key] = json.dumps(parsed, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
 
 
+def apply_k8s_zero_defaults(doc: dict) -> list[str]:
+    changes = []
+
+    def pop_if_equal(obj: dict, key: str, expected, path: str) -> None:
+        if isinstance(obj, dict) and obj.get(key) == expected:
+            obj.pop(key, None)
+            changes.append(path)
+
+    def pop_if_empty(obj: dict, key: str, path: str) -> None:
+        if isinstance(obj, dict) and obj.get(key) in (None, [], {}):
+            obj.pop(key, None)
+            changes.append(path)
+
+    if doc.get("apiVersion") == "apiregistration.k8s.io/v1" and doc.get("kind") == "APIService":
+        spec = doc.get("spec") or {}
+        pop_if_equal(spec, "insecureSkipTLSVerify", False, "spec.insecureSkipTLSVerify=false")
+
+    if doc.get("apiVersion") != "apps/v1" or doc.get("kind") != "StatefulSet":
+        return changes
+
+    spec = doc.get("spec") or {}
+    pop_if_equal(spec, "minReadySeconds", 0, "spec.minReadySeconds=0")
+    pop_if_equal(spec, "persistentVolumeClaimRetentionPolicy", {"whenDeleted": "Retain", "whenScaled": "Retain"}, "spec.persistentVolumeClaimRetentionPolicy=Retain/Retain")
+    pop_if_equal(spec, "podManagementPolicy", "OrderedReady", "spec.podManagementPolicy=OrderedReady")
+    pop_if_equal(spec, "revisionHistoryLimit", 10, "spec.revisionHistoryLimit=10")
+    pop_if_equal(spec, "updateStrategy", {"type": "RollingUpdate"}, "spec.updateStrategy.type=RollingUpdate")
+    pop_if_equal(spec, "updateStrategy", {"rollingUpdate": {"maxUnavailable": 1, "partition": 0}, "type": "RollingUpdate"}, "spec.updateStrategy RollingUpdate defaults")
+
+    pod_spec = (((spec.get("template") or {}).get("spec")) or {})
+    pop_if_equal(pod_spec, "restartPolicy", "Always", "spec.template.spec.restartPolicy=Always")
+    pop_if_equal(pod_spec, "dnsPolicy", "ClusterFirst", "spec.template.spec.dnsPolicy=ClusterFirst")
+    pop_if_equal(pod_spec, "schedulerName", "default-scheduler", "spec.template.spec.schedulerName=default-scheduler")
+    pop_if_equal(pod_spec, "terminationGracePeriodSeconds", 30, "spec.template.spec.terminationGracePeriodSeconds=30")
+    if pod_spec.get("serviceAccount") and pod_spec.get("serviceAccount") == pod_spec.get("serviceAccountName"):
+        pod_spec.pop("serviceAccount", None)
+        changes.append("spec.template.spec.serviceAccount=serviceAccountName")
+
+    security_context = pod_spec.get("securityContext") or {}
+    pop_if_empty(security_context, "supplementalGroups", "spec.template.spec.securityContext.supplementalGroups empty")
+    pop_if_empty(security_context, "sysctls", "spec.template.spec.securityContext.sysctls empty")
+    affinity = pod_spec.get("affinity") or {}
+    pop_if_empty(affinity, "nodeAffinity", "spec.template.spec.affinity.nodeAffinity empty")
+    pop_if_empty(affinity, "podAffinity", "spec.template.spec.affinity.podAffinity empty")
+
+    for container_field in ("containers", "initContainers"):
+        for container in pod_spec.get(container_field) or []:
+            name = container.get("name", "?")
+            pop_if_empty(container, "envFrom", f"spec.template.spec.{container_field}[{name}].envFrom empty")
+            pop_if_equal(container, "resources", {}, f"spec.template.spec.{container_field}[{name}].resources empty")
+            pop_if_equal(container, "terminationMessagePath", "/dev/termination-log", f"spec.template.spec.{container_field}[{name}].terminationMessagePath default")
+            pop_if_equal(container, "terminationMessagePolicy", "File", f"spec.template.spec.{container_field}[{name}].terminationMessagePolicy default")
+            for port in container.get("ports") or []:
+                port_name = port.get("name") or port.get("containerPort") or "?"
+                pop_if_equal(port, "protocol", "TCP", f"spec.template.spec.{container_field}[{name}].ports[{port_name}].protocol=TCP")
+            for env in container.get("env") or []:
+                env_name = env.get("name", "?")
+                field_ref = (((env.get("valueFrom") or {}).get("fieldRef") or {}))
+                pop_if_equal(field_ref, "apiVersion", "v1", f"spec.template.spec.{container_field}[{name}].env[{env_name}].fieldRef.apiVersion=v1")
+            for probe_field in ("livenessProbe", "readinessProbe", "startupProbe"):
+                probe = container.get(probe_field)
+                if not isinstance(probe, dict):
+                    continue
+                pop_if_equal(probe, "failureThreshold", 3, f"spec.template.spec.{container_field}[{name}].{probe_field}.failureThreshold=3")
+                pop_if_equal(probe, "periodSeconds", 10, f"spec.template.spec.{container_field}[{name}].{probe_field}.periodSeconds=10")
+                pop_if_equal(probe, "successThreshold", 1, f"spec.template.spec.{container_field}[{name}].{probe_field}.successThreshold=1")
+                pop_if_equal(probe, "timeoutSeconds", 1, f"spec.template.spec.{container_field}[{name}].{probe_field}.timeoutSeconds=1")
+                http_get = probe.get("httpGet")
+                if isinstance(http_get, dict):
+                    pop_if_equal(http_get, "scheme", "HTTP", f"spec.template.spec.{container_field}[{name}].{probe_field}.httpGet.scheme=HTTP")
+
+    for volume in pod_spec.get("volumes") or []:
+        name = volume.get("name", "?")
+        if isinstance(volume.get("configMap"), dict):
+            pop_if_equal(volume["configMap"], "defaultMode", 420, f"spec.template.spec.volumes[{name}].configMap.defaultMode=420")
+        if isinstance(volume.get("secret"), dict):
+            pop_if_equal(volume["secret"], "defaultMode", 420, f"spec.template.spec.volumes[{name}].secret.defaultMode=420")
+
+    for claim in spec.get("volumeClaimTemplates") or []:
+        name = (claim.get("metadata") or {}).get("name", "?")
+        pop_if_equal(claim, "apiVersion", "v1", f"spec.volumeClaimTemplates[{name}].apiVersion=v1")
+        pop_if_equal(claim, "kind", "PersistentVolumeClaim", f"spec.volumeClaimTemplates[{name}].kind=PersistentVolumeClaim")
+        pop_if_empty(claim, "status", f"spec.volumeClaimTemplates[{name}].status empty")
+        pop_if_equal(claim, "status", {"phase": "Pending"}, f"spec.volumeClaimTemplates[{name}].status.phase=Pending")
+        claim_spec = claim.get("spec") or {}
+        pop_if_equal(claim_spec, "volumeMode", "Filesystem", f"spec.volumeClaimTemplates[{name}].spec.volumeMode=Filesystem")
+
+    return changes
+
+
+def materialize_statefulset_gitops_defaults(doc: dict) -> list[str]:
+    changes = []
+    if doc.get("apiVersion") != "apps/v1" or doc.get("kind") != "StatefulSet":
+        return changes
+
+    def set_default(obj: dict, key: str, value, path: str) -> None:
+        if isinstance(obj, dict) and key not in obj:
+            obj[key] = value
+            changes.append(f"materialized {path}")
+
+    def drop_zero(obj: dict, key: str, value, path: str) -> None:
+        if isinstance(obj, dict) and obj.get(key) == value:
+            obj.pop(key, None)
+            changes.append(f"removed {path}")
+
+    spec = doc.get("spec") or {}
+    drop_zero(spec, "minReadySeconds", 0, "spec.minReadySeconds=0")
+    set_default(spec, "persistentVolumeClaimRetentionPolicy", {"whenDeleted": "Retain", "whenScaled": "Retain"}, "spec.persistentVolumeClaimRetentionPolicy=Retain/Retain")
+    set_default(spec, "podManagementPolicy", "OrderedReady", "spec.podManagementPolicy=OrderedReady")
+    set_default(spec, "revisionHistoryLimit", 10, "spec.revisionHistoryLimit=10")
+    set_default(spec, "updateStrategy", {"rollingUpdate": {"maxUnavailable": 1, "partition": 0}, "type": "RollingUpdate"}, "spec.updateStrategy RollingUpdate defaults")
+
+    pod_spec = (((spec.get("template") or {}).get("spec")) or {})
+    set_default(pod_spec, "restartPolicy", "Always", "spec.template.spec.restartPolicy=Always")
+    set_default(pod_spec, "dnsPolicy", "ClusterFirst", "spec.template.spec.dnsPolicy=ClusterFirst")
+    set_default(pod_spec, "schedulerName", "default-scheduler", "spec.template.spec.schedulerName=default-scheduler")
+    set_default(pod_spec, "terminationGracePeriodSeconds", 30, "spec.template.spec.terminationGracePeriodSeconds=30")
+    if pod_spec.get("serviceAccountName") and "serviceAccount" not in pod_spec:
+        pod_spec["serviceAccount"] = pod_spec["serviceAccountName"]
+        changes.append("spec.template.spec.serviceAccount=serviceAccountName")
+
+    for container_field in ("containers", "initContainers"):
+        for container in pod_spec.get(container_field) or []:
+            name = container.get("name", "?")
+            set_default(container, "resources", {}, f"spec.template.spec.{container_field}[{name}].resources empty")
+            set_default(container, "terminationMessagePath", "/dev/termination-log", f"spec.template.spec.{container_field}[{name}].terminationMessagePath default")
+            set_default(container, "terminationMessagePolicy", "File", f"spec.template.spec.{container_field}[{name}].terminationMessagePolicy default")
+            for port in container.get("ports") or []:
+                port_name = port.get("name") or port.get("containerPort") or "?"
+                set_default(port, "protocol", "TCP", f"spec.template.spec.{container_field}[{name}].ports[{port_name}].protocol=TCP")
+            for env in container.get("env") or []:
+                env_name = env.get("name", "?")
+                field_ref = (((env.get("valueFrom") or {}).get("fieldRef") or {}))
+                set_default(field_ref, "apiVersion", "v1", f"spec.template.spec.{container_field}[{name}].env[{env_name}].fieldRef.apiVersion=v1")
+            for probe_field in ("livenessProbe", "readinessProbe", "startupProbe"):
+                probe = container.get(probe_field)
+                if not isinstance(probe, dict):
+                    continue
+                set_default(probe, "failureThreshold", 3, f"spec.template.spec.{container_field}[{name}].{probe_field}.failureThreshold=3")
+                set_default(probe, "periodSeconds", 10, f"spec.template.spec.{container_field}[{name}].{probe_field}.periodSeconds=10")
+                set_default(probe, "successThreshold", 1, f"spec.template.spec.{container_field}[{name}].{probe_field}.successThreshold=1")
+                set_default(probe, "timeoutSeconds", 1, f"spec.template.spec.{container_field}[{name}].{probe_field}.timeoutSeconds=1")
+                http_get = probe.get("httpGet")
+                if isinstance(http_get, dict):
+                    set_default(http_get, "scheme", "HTTP", f"spec.template.spec.{container_field}[{name}].{probe_field}.httpGet.scheme=HTTP")
+
+    for volume in pod_spec.get("volumes") or []:
+        name = volume.get("name", "?")
+        if isinstance(volume.get("configMap"), dict):
+            set_default(volume["configMap"], "defaultMode", 420, f"spec.template.spec.volumes[{name}].configMap.defaultMode=420")
+        if isinstance(volume.get("secret"), dict):
+            set_default(volume["secret"], "defaultMode", 420, f"spec.template.spec.volumes[{name}].secret.defaultMode=420")
+
+    for claim in spec.get("volumeClaimTemplates") or []:
+        name = (claim.get("metadata") or {}).get("name", "?")
+        set_default(claim, "apiVersion", "v1", f"spec.volumeClaimTemplates[{name}].apiVersion=v1")
+        set_default(claim, "kind", "PersistentVolumeClaim", f"spec.volumeClaimTemplates[{name}].kind=PersistentVolumeClaim")
+        set_default(claim, "status", {"phase": "Pending"}, f"spec.volumeClaimTemplates[{name}].status.phase=Pending")
+        claim_spec = claim.get("spec") or {}
+        set_default(claim_spec, "volumeMode", "Filesystem", f"spec.volumeClaimTemplates[{name}].spec.volumeMode=Filesystem")
+
+    return changes
+
+
 def apply_semantic_normalizations(doc: dict, semantic_normalizations: list[str]) -> dict:
-    identity = object_identity(doc)
     if "k8s-zero-defaults" in semantic_normalizations:
-        if doc.get("apiVersion") == "apiregistration.k8s.io/v1" and doc.get("kind") == "APIService":
-            spec = doc.get("spec") or {}
-            if spec.get("insecureSkipTLSVerify") is False:
-                spec.pop("insecureSkipTLSVerify", None)
+        apply_k8s_zero_defaults(doc)
+    identity = object_identity(doc)
     if (
         "loki-configmap-leading-blank-line-pruned-by-kustomize" in semantic_normalizations
         and identity == "v1|ConfigMap|loki|loki"
@@ -680,12 +840,13 @@ def canonicalize_gitops_doc(doc: dict, profile: str) -> tuple[dict, list[str]]:
     if profile != "k8s-zero-defaults":
         return doc, changes
 
+    name = (doc.get("metadata") or {}).get("name", "")
     if doc.get("apiVersion") == "apiregistration.k8s.io/v1" and doc.get("kind") == "APIService":
-        spec = doc.get("spec") or {}
-        if spec.get("insecureSkipTLSVerify") is False:
-            spec.pop("insecureSkipTLSVerify", None)
-            name = (doc.get("metadata") or {}).get("name", "")
-            changes.append(f"APIService/{name}: removed spec.insecureSkipTLSVerify=false")
+        for change in apply_k8s_zero_defaults(doc):
+            changes.append(f"{doc.get('kind')}/{name}: removed {change}")
+    if doc.get("apiVersion") == "apps/v1" and doc.get("kind") == "StatefulSet":
+        for change in materialize_statefulset_gitops_defaults(doc):
+            changes.append(f"{doc.get('kind')}/{name}: {change}")
     return doc, changes
 
 
@@ -711,7 +872,7 @@ def canonicalize_gitops_manifest_dir(manifests_dir: Path, profile: str, run_root
         "name": profile,
         "result": "pass",
         "changes": changes,
-        "rationale": "Remove Kubernetes API zero-value fields before publishing the OCI GitOps artifact; semantic parity remains checked against Helm.",
+        "rationale": "Normalize Kubernetes API zero/default fields before publishing the OCI GitOps artifact; semantic parity remains checked against Helm.",
     }
     write_yaml(run_root / f"gitops-canonicalization-{profile}.yaml", {
         "apiVersion": "helm-expt.confighub.com/v1alpha1",

@@ -16,8 +16,8 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 29
-try-with-proof: 8
-runtime-watch: 5
+try-with-proof: 9
+runtime-watch: 4
 runtime-review-needed: 0
 operating-policy-needed: 0
 target-fit-needed: 0
@@ -33,7 +33,7 @@ Live rerun readiness for non-pass rows:
 ~~~text
 ready-to-collect: 0
 model-or-stage-first: 2
-review-target-first: 3
+review-target-first: 2
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
 ~~~
@@ -97,7 +97,7 @@ rerun-now-after-cleanup: 0
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `prometheus-community/prometheus@29.8.0` | default | no | runtime-watch | review-target-first | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
+| `prometheus-community/prometheus@29.8.0` | default | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops | - |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 

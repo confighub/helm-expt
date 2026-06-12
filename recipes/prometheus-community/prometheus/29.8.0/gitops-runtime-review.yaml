@@ -9,24 +9,22 @@ spec:
   controller: "Argo CD"
   targetShape: "cub-lk/kind proof rig with ConfigHub OCI source"
   receipt: "runs/live-helm-confighub-compare/prometheus-community-prometheus-default/receipt.yaml"
-  observedResult: "watch"
+  observedResult: "pass"
   passed:
     - "regular Helm live leg reached the expected runtime state"
     - "ConfigHub direct-apply leg reached the expected runtime state"
     - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
+    - "ConfigHub OCI/Argo Application reached Synced/Healthy"
     - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
     - "Prometheus server Deployment, Alertmanager StatefulSet, node-exporter DaemonSet, kube-state-metrics Deployment, and pushgateway Deployment became ready"
   gitOpsCondition:
-    sync: "OutOfSync"
+    sync: "Synced"
     health: "Healthy"
-    unsyncedResource:
-      apiVersion: "apps/v1"
-      kind: "StatefulSet"
-      namespace: "monitoring-oci"
-      name: "prometheus-alertmanager"
+    canonicalizationProfile: "k8s-zero-defaults"
   diagnosis:
-    summary: "The desired and live Alertmanager StatefulSet matched at the workload level, but Argo reported drift on server-defaulted StatefulSet fields after apply."
-    observedDefaultedFields:
+    summary: "The desired OCI artifact materializes Kubernetes StatefulSet defaults that Argo otherwise reports as drift after server-side apply."
+    materializedDefaultedFields:
+      - "spec.minReadySeconds=0 removed because the API omits the zero value"
       - "spec.persistentVolumeClaimRetentionPolicy"
       - "spec.podManagementPolicy"
       - "spec.updateStrategy"
@@ -37,12 +35,11 @@ spec:
       - "container probe defaults such as failureThreshold, periodSeconds, successThreshold, timeoutSeconds, and scheme"
       - "volume configMap.defaultMode"
       - "volumeClaimTemplates apiVersion/kind/status/volumeMode defaults"
-    interpretation: "This is a GitOps/runtime normalization issue to validate, not evidence that the Prometheus recipe changed the rendered Kubernetes semantics."
+    interpretation: "This is GitOps/runtime canonicalization for Kubernetes API defaults. Semantic parity remains checked against the Helm render and passed for both direct apply and OCI/Argo."
   nextActions:
-    - "Confirm whether Argo CD is comparing Kubernetes-defaulted StatefulSet fields against the pre-apply desired manifest for server-side-applied OCI content."
-    - "If confirmed, add a narrow Argo diff-normalization or ignore rule for known StatefulSet server defaults in this proof target."
-    - "Rerun prometheus/default through the strict live parity lane after the normalization rule is in place."
+    - "Keep the canonicalization profile opt-in and receipt-bound for StatefulSet-heavy GitOps rows."
+    - "Apply the same profile only when a live receipt proves the target chart needs Kubernetes default materialization."
+    - "Record separate production decisions for Prometheus storage, retention, HA, backup, and alert-routing policy before claiming production support."
   notClaimed:
-    - "The GitOps row is not a pass until Argo reports Synced or the approved ignore/normalization rule is part of the proof target."
     - "This review does not prove production Prometheus storage, retention, HA, backup, or alert routing policy."
     - "This review does not generalize to every StatefulSet chart without a matching live receipt."

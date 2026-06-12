@@ -6,16 +6,81 @@ spec:
   chart: prometheus-community/prometheus
   version: 29.8.0
   base: default
-  result: watch
-  observedAt: '2026-06-12T11:15:55Z'
+  result: pass
+  observedAt: '2026-06-12T16:46:41Z'
   package:
     path: packages/prometheus-community/prometheus/29.8.0
   recipe:
     path: recipes/prometheus-community/prometheus/29.8.0
   variantRevision: recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: k8s-zero-defaults
+    result: pass
+    changes:
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      removed spec.minReadySeconds=0'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.persistentVolumeClaimRetentionPolicy=Retain/Retain'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.podManagementPolicy=OrderedReady'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.updateStrategy RollingUpdate defaults'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.restartPolicy=Always'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.dnsPolicy=ClusterFirst'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.schedulerName=default-scheduler'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.terminationGracePeriodSeconds=30'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      spec.template.spec.serviceAccount=serviceAccountName'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].terminationMessagePath
+      default'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].terminationMessagePolicy
+      default'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].livenessProbe.failureThreshold=3'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].livenessProbe.periodSeconds=10'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].livenessProbe.successThreshold=1'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].livenessProbe.timeoutSeconds=1'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].livenessProbe.httpGet.scheme=HTTP'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].readinessProbe.failureThreshold=3'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].readinessProbe.periodSeconds=10'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].readinessProbe.successThreshold=1'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].readinessProbe.timeoutSeconds=1'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.containers[alertmanager].readinessProbe.httpGet.scheme=HTTP'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.template.spec.volumes[config].configMap.defaultMode=420'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.volumeClaimTemplates[storage].apiVersion=v1'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.volumeClaimTemplates[storage].kind=PersistentVolumeClaim'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.volumeClaimTemplates[storage].status.phase=Pending'
+    - 'statefulset-monitoring-oci-prometheus-alertmanager.yaml: StatefulSet/prometheus-alertmanager:
+      materialized spec.volumeClaimTemplates[storage].spec.volumeMode=Filesystem'
+    rationale: Normalize Kubernetes API zero/default fields before publishing the OCI
+      GitOps artifact; semantic parity remains checked against Helm.
+    receipt: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default/gitops-canonicalization-k8s-zero-defaults.yaml
   run:
-    rig: helm-expt-parity-prometheus-mqatz0h8-1lic
-    kubeContext: kind-helm-expt-parity-prometheus-mqatz0h8-1lic
+    rig: helm-expt-parity-prometheus-mqb5sea2-zys
+    kubeContext: kind-helm-expt-parity-prometheus-mqb5sea2-zys
     namespace: monitoring
     legNamespaces:
       regularHelm: monitoring-helm
@@ -23,15 +88,15 @@ spec:
       configHubOciArgo: monitoring-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-prometheus-mqatz0h8-1lic --force
+      command: cub lk down --name helm-expt-parity-prometheus-mqb5sea2-zys --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-prometheus-mqatz0h8-1lic"...
+      detail: 'Deleting kind cluster "helm-expt-parity-prometheus-mqb5sea2-zys"...
 
-        Deleting cluster "helm-expt-parity-prometheus-mqatz0h8-1lic" ...
+        Deleting cluster "helm-expt-parity-prometheus-mqb5sea2-zys" ...
 
-        Deleted nodes: ["helm-expt-parity-prometheus-mqatz0h8-1lic-control-plane"]
+        Deleted nodes: ["helm-expt-parity-prometheus-mqb5sea2-zys-control-plane"]
 
-        Deleting Space "helm-expt-parity-prometheus-mqatz0h8-1lic-cluster" (recursive:
+        Deleting Space "helm-expt-parity-prometheus-mqb5sea2-zys-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -49,31 +114,31 @@ spec:
       namespace: monitoring-helm
       runtime:
         result: pass
-        workloads: 'deployment.apps/prometheus-kube-state-metrics       1/1   1     1     78s
+        workloads: 'deployment.apps/prometheus-kube-state-metrics       1/1   1     1     71s
 
-          deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     78s
+          deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     71s
 
-          deployment.apps/prometheus-server                   1/1   1     1     78s
+          deployment.apps/prometheus-server                   1/1   1     1     71s
 
-          statefulset.apps/prometheus-alertmanager   1/1   78s
+          statefulset.apps/prometheus-alertmanager   1/1   71s
 
-          daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   78s'
-        pods: 'prometheus-alertmanager-0                            1/1   Running   0     78s
+          daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   71s'
+        pods: 'prometheus-alertmanager-0                            1/1   Running   0     71s
 
-          prometheus-kube-state-metrics-68ff7c5cc5-8z4sb       1/1   Running   0     78s
+          prometheus-kube-state-metrics-68ff7c5cc5-mrpdw       1/1   Running   0     71s
 
-          prometheus-prometheus-node-exporter-x9xzk            1/1   Running   0     78s
+          prometheus-prometheus-node-exporter-w7fzb            1/1   Running   0     71s
 
-          prometheus-prometheus-pushgateway-75b8bf7c77-6xstv   1/1   Running   0     78s
+          prometheus-prometheus-pushgateway-75b8bf7c77-f7bgp   1/1   Running   0     71s
 
-          prometheus-server-84f77dc9fd-hnnhh                   2/2   Running   0     78s'
+          prometheus-server-84f77dc9fd-xtvg5                   2/2   Running   0     71s'
         notReady: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.8.0
-        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqatz0h8-1lic-prometheus
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqb5sea2-zys-prometheus
         --non-interactive --namespace monitoring-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: df517a995d9373f542b99f303c899579c55653b11ea1ff87eafa957f35a059a4
@@ -101,33 +166,34 @@ spec:
 
           prometheus-alertmanager-0                            1/1   Running   0     41s
 
-          prometheus-kube-state-metrics-68ff7c5cc5-57xxn       1/1   Running   0     41s
+          prometheus-kube-state-metrics-68ff7c5cc5-vmdj6       1/1   Running   0     41s
 
-          prometheus-prometheus-node-exporter-ncnhj            1/1   Running   0     41s
+          prometheus-prometheus-node-exporter-6kr76            1/1   Running   0     41s
 
-          prometheus-prometheus-pushgateway-75b8bf7c77-gkl6l   1/1   Running   0     41s
+          prometheus-prometheus-pushgateway-75b8bf7c77-7f2js   1/1   Running   0     41s
 
-          prometheus-server-84f77dc9fd-68qtm                   2/2   Running   0     41s'
+          prometheus-server-84f77dc9fd-mdxmt                   2/2   Running   0     40s'
         notReady: []
       cleanupBeforeOci:
         namespaces:
         - monitoring-apply
+        retainedNamespaces: []
         reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
           parity rigs
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-prometheus-mqatz0h8-1lic-prometheus
+      result: pass
+      workloadSpace: helm-expt-parity-prometheus-mqb5sea2-zys-prometheus
       controller: Argo CD OCI
       app: prometheus-parity
-      manifestSHA256: 5a613acea05666d10fddeedbf801961d75dbac6018f6375c96c758ad5c461a29
+      manifestSHA256: a6f31f1a0c86c80a48ec5279e2ad5484e99a312b1bf73e1cb30e6fb00385c665
       objectCount: 24
       namespace: monitoring-oci
       manifestNamespaces:
       - monitoring-oci
       runtimeNamespaces: &id002
       - monitoring-oci
-      ociRevision: sha256:21e5831f8ff3f7e8368d1fbb7753db4b9066c961b512ebb93d38271009b992f6
-      sync: OutOfSync
+      ociRevision: sha256:db0c4eaf1321cf8502b13af22f69c9c607d68682104b060fbd669f05d6cd4b02
+      sync: Synced
       health: Healthy
       separatedSecrets: []
       runtime:
@@ -135,26 +201,26 @@ spec:
         namespaces: *id002
         workloads: '# monitoring-oci
 
-          deployment.apps/prometheus-kube-state-metrics       1/1   1     1     6m49s
+          deployment.apps/prometheus-kube-state-metrics       1/1   1     1     45s
 
-          deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     6m49s
+          deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     45s
 
-          deployment.apps/prometheus-server                   1/1   1     1     6m49s
+          deployment.apps/prometheus-server                   1/1   1     1     45s
 
-          statefulset.apps/prometheus-alertmanager   1/1   6m49s
+          statefulset.apps/prometheus-alertmanager   1/1   45s
 
-          daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   6m49s'
+          daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   45s'
         pods: '# monitoring-oci
 
-          prometheus-alertmanager-0                            1/1   Running   0     6m49s
+          prometheus-alertmanager-0                            1/1   Running   0     45s
 
-          prometheus-kube-state-metrics-68ff7c5cc5-g55wq       1/1   Running   0     6m49s
+          prometheus-kube-state-metrics-68ff7c5cc5-9r8cq       1/1   Running   0     45s
 
-          prometheus-prometheus-node-exporter-gtt89            1/1   Running   0     6m49s
+          prometheus-prometheus-node-exporter-9g7vc            1/1   Running   0     45s
 
-          prometheus-prometheus-pushgateway-75b8bf7c77-xtdc7   1/1   Running   0     6m49s
+          prometheus-prometheus-pushgateway-75b8bf7c77-fcz8z   1/1   Running   0     45s
 
-          prometheus-server-84f77dc9fd-nhpxc                   2/2   Running   0     6m49s'
+          prometheus-server-84f77dc9fd-wrkvl                   2/2   Running   0     45s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -179,36 +245,38 @@ spec:
       extraInConfigHub:
       - v1|Namespace||monitoring
       semanticDiffs: []
-      semanticNormalizations: *id003
-      comparisonSHA256: 3f2c1e1bbf8a7e191f39bca794d0ac2ec61b3a1490da34eca38570a32b1d8136
+      semanticNormalizations:
+      - prune-null-fields
+      - k8s-zero-defaults
+      comparisonSHA256: b99abf78618d34bf4d4a78eccf3240df2db79bb73e44a4913da46ffab823b521
   checks:
   - name: live-lane-lock
     result: pass
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-prometheus-mqatz0h8-1lic\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqatz0h8-1lic.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-prometheus-mqatz0h8-1lic\" ...\n \u2022\
-      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
-      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
-      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
-      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
-      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
-      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
-      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-prometheus-mqatz0h8-1lic\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheus-mqatz0h8-1lic\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqatz0h8-1lic.kubeconfig\n\
+    detail: "Creating kind cluster \"helm-expt-parity-prometheus-mqb5sea2-zys\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqb5sea2-zys.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-prometheus-mqb5sea2-zys\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-prometheus-mqb5sea2-zys\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheus-mqb5sea2-zys\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqb5sea2-zys.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
-      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=0 crds=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"prometheus\" does not exist. Installing it now.\nNAME: prometheus\n\
-      LAST DEPLOYED: Fri Jun 12 12:16:53 2026\nNAMESPACE: monitoring-helm\nSTATUS:\
+      LAST DEPLOYED: Fri Jun 12 17:48:13 2026\nNAMESPACE: monitoring-helm\nSTATUS:\
       \ deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n\
       The Prometheus server can be accessed via port 80 on the following DNS name\
       \ from within your cluster:\nprometheus-server.monitoring-helm.svc.cluster.local\n\
@@ -239,11 +307,11 @@ spec:
     result: pass
     detail: secrets=0 crds=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=OutOfSync health=Healthy after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 60s
   - name: semantic-object-parity
     result: pass
-    detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
   targetFacts:
     regularHelm:
       result: pass
