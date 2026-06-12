@@ -20,6 +20,9 @@ public Helm chart
 Helm is still the renderer. ConfigHub is the layer that makes the rendered
 objects durable, comparable, promotable, and auditable.
 
+For how this fits the broader generated-config and AI/GitOps thesis, see
+[Generative GitOps Fit](./generative-gitops-fit.md).
+
 ## Why This Helps
 
 First, it makes changes safer. When a person or AI agent changes chart inputs,
@@ -123,6 +126,7 @@ belong in managed ConfigHub workflows.
 - [Catalog dashboard](../../site/index.html)
 - [Chart Use Guide](../../data/chart-use-guide/summary.md)
 - [Static offering page](../../site/offering.html)
+- [Generative GitOps Fit](./generative-gitops-fit.md)
 - [Choose Your Path](./choose-your-path.md)
 - [What You Get](./what-you-get.md)
 - [Choosing Commands](./choosing-commands.md)
