@@ -182,6 +182,9 @@ function classifyLiveComparisonReason(spec) {
   const message = String(spec.failure?.message ?? "").toLowerCase();
   if (message.includes("kind create cluster")) return "infra: kind create failed";
   if (message.includes("argocd-server")) return "infra: rig bootstrap (argocd) not ready";
+  if (message.includes("please run this again with `sudo`") || message.includes("please run this again with sudo")) {
+    return "infra: target profile requires sudo";
+  }
   if (message.includes("timeout after")) return "infra: provisioning timeout";
   if (message.includes("etcdserver") || message.includes("request timed out")) return "infra: etcd/apiserver overload";
   const semanticPassed = Object.values(semantic).some(
@@ -238,6 +241,9 @@ function priorityForTwoCluster(row) {
 
 function diagnosisForConfigHubOci(row) {
   if (row.reason?.startsWith("infra:")) {
+    if (row.reason === "infra: target profile requires sudo") {
+      return "The selected target profile needs host-level network privileges before it can provide LoadBalancer behavior.";
+    }
     return "Rerun on a clean host with serial execution and authoritative cluster/container cleanup.";
   }
   if (row.reason?.startsWith("helm-runtime:")) {
@@ -256,6 +262,9 @@ function diagnosisForConfigHubOci(row) {
 }
 
 function followupForConfigHubOci(row) {
+  if (row.reason === "infra: target profile requires sudo") {
+    return "Run the LoadBalancer target profile with the required host privilege, or use a non-LoadBalancer proof target for this base.";
+  }
   if (row.reason?.startsWith("infra:")) return "If it still blocks, fix rig provisioning before judging chart parity.";
   if (row.reason?.startsWith("helm-runtime:")) return "If object comparison remains clean, record this as upstream runtime readiness rather than a ConfigHub parity defect.";
   if (row.reason?.startsWith("target-fit:")) return "Use a target with the required platform behavior, or create a separate base that matches the proof target.";
@@ -341,6 +350,7 @@ function supportArtifactFor(row) {
   const recipePath = join("recipes", row.chart ?? "", row.version ?? "");
   const reason = row.reason ?? "";
   const candidates = [];
+  if (reason.startsWith("infra:")) return "data/live-helm-confighub-compare/blocked-triage.md";
   if (reason.startsWith("target-prerequisite:")) candidates.push("target-prerequisite-plan.yaml");
   if (reason.startsWith("helm-hook:")) candidates.push("lifecycle-policy.yaml");
   if (reason.startsWith("operate-policy:")) candidates.push("operating-policy.yaml");

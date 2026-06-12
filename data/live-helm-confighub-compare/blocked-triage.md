@@ -6,12 +6,20 @@ This file explains the non-pass rows in
 Current status:
 
 ```text
-pass:    15
-watch:    5
-blocked:  0
+pass:    36
+watch:    1
+blocked:  1
 ```
 
-There are no current blocked rows.
+The current blocked row is an infrastructure prerequisite for the
+`kind-loadbalancer` target profile. It is not evidence of a Helm-vs-ConfigHub
+semantic parity defect.
+
+## Current Blocked Rows
+
+| Rank | Chart | Base | Current reading | Next action |
+| ---: | --- | --- | --- | --- |
+| 3 | ingress-nginx/ingress-nginx | admission-disabled | The rerun exited before deployment because the `kind-loadbalancer` target profile uses `cloud-provider-kind`, which requested host-level privilege. | Rerun with the host privilege required by `cloud-provider-kind`, or use a proof target that does not require LoadBalancer behavior. |
 
 A `watch` row means the live comparison ran far enough to compare regular Helm
 with ConfigHub delivery, and semantic object parity passed. The remaining issue
@@ -22,8 +30,7 @@ policy condition.
 
 | Rank | Chart | Base | Current reading | Next action |
 | ---: | --- | --- | --- | --- |
-| 3 | ingress-nginx/ingress-nginx | admission-disabled | Regular Helm and ConfigHub kubectl-apply became ready. ConfigHub OCI/Argo synced and the controller Deployment became ready, but the LoadBalancer Service has no external IP on kind, so Argo health remains `Progressing`. Semantic parity passed. | Use a target with LoadBalancer behavior, or create a separate base that uses an exposure mode suited to kind or internal-only targets. |
-| 12 | hashicorp/vault | default | All paths install the same object set, but the default Vault server remains sealed and uninitialized. Semantic parity passed. | Treat initialization and unseal as an operating policy, not a recipe parity fix. |
+| 3 | ingress-nginx/ingress-nginx | default | Regular Helm and ConfigHub kubectl-apply became ready. ConfigHub OCI/Argo synced, but Argo health remained `Progressing`. Semantic parity passed. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 
 ## Recently Resolved Rows
 

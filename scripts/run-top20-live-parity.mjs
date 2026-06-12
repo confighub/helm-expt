@@ -418,6 +418,9 @@ function classifyReason(receipt, target) {
   const message = String(spec.failure?.message ?? "").toLowerCase();
   if (message.includes("kind create cluster")) return "infra: kind create failed";
   if (message.includes("argocd-server")) return "infra: rig bootstrap (argocd) not ready";
+  if (message.includes("please run this again with `sudo`") || message.includes("please run this again with sudo")) {
+    return "infra: target profile requires sudo";
+  }
   if (message.includes("timeout after")) return "infra: provisioning timeout";
   if (message.includes("etcdserver") || message.includes("request timed out")) return "infra: etcd/apiserver overload";
   const semanticPassed = Object.values(semantic).some(

@@ -36,7 +36,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 191 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 633 / 4 / 59 / 519 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 633 / 3 / 60 / 519 / 122 |
 | Variants with the complete core lane set | 36 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -214,7 +214,7 @@ when you want the user/product view with those columns visible.
 |  | dev-mode | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | live-parity | ❌ |
 |  | ha-raft-ui | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | two-cluster-kind-parity | ⬜ |
-|  | admission-disabled | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ✅ | two-cluster-kind-parity | ⬜ |
+|  | admission-disabled | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ❌ | ✅ | two-cluster-kind-parity | ⬜ |
 |  | internal-clusterip | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | live-parity | ✅ |
 | `istio/gateway@1.30.0` | default | next80 | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |

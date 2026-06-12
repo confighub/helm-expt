@@ -7,15 +7,15 @@ completed row has a receipt under
 
 ```text
 pass: 36
-watch: 2
-blocked: 0
+watch: 1
+blocked: 1
 not-started: 0
 ```
 
 Blocked rows broken down by cause (see `blocked-triage.md`):
 
 ```text
-(none)
+infra: target profile requires sudo: 1
 ```
 
 | Rank | Chart | Base | Result | Reason | Receipt |
@@ -42,7 +42,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 20 | `hashicorp/consul@2.0.0` | default-control-plane | pass | - | runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml |
 | 1 | `bitnami/redis@25.5.3` | reuse-existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/receipt.yaml |
 | 2 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | pass | - | runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
-| 3 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | target-fit: LoadBalancer Service has no external IP on kind (parity passed) | runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
+| 3 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | blocked | infra: target profile requires sudo | runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
 | 3 | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml |
 | 4 | `jetstack/cert-manager@v1.20.2` | default | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-default/receipt.yaml |
 | 7 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | pass | - | runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |

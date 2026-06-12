@@ -73,7 +73,7 @@ Which detailed CSV should I open next?
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 36/38 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | live evidence | live parity rerun rows needing decisions | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 1/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 0/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing target review first | 1/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/38 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
@@ -185,7 +185,7 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| model-or-stage-first | 1 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| rerun-now-after-cleanup | 1 | Rerun serially on a clean host after confirming no other live lane is running. |
 | review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ### Active Proof Queue
@@ -196,7 +196,7 @@ needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
-| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | target-fit-review | [recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml) |
+| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | blocked | clean-rerun | [data/live-helm-confighub-compare/blocked-triage.md](../../data/live-helm-confighub-compare/blocked-triage.md) |
 | ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime-review | [recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml) |
 
 ### Local Live Non-Pass Triage
@@ -384,12 +384,12 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 1 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| rerun-now-after-cleanup | 1 | Rerun serially on a clean host after confirming no other live lane is running. |
 | review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
+| clean-rerun | 1 | Rerun once on a clean host with serial execution and authoritative cleanup. |
 | gitops-runtime-review | 1 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
@@ -399,7 +399,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
-| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | target-fit: LoadBalancer Service has no external IP on kind (parity passed) |
+| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | blocked | infra: target profile requires sudo |
 | ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |
 
 

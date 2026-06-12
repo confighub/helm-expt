@@ -389,7 +389,7 @@
       </div>
       <div class="card"><table>
         <thead><tr><th>Chart</th><th>Base</th><th>Current</th><th>Next step</th><th>Reason</th><th>Support artifact</th></tr></thead>
-        <tbody><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>admission-disabled</td><td>watch</td><td>target-fit-review</td><td>target-fit: LoadBalancer Service has no external IP on kind (parity passed)</td><td>recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml</td></tr><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>default</td><td>watch</td><td>gitops-runtime-review</td><td>gitops-runtime: Argo health Progressing (parity passed)</td><td>recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml</td></tr></tbody>
+        <tbody><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>admission-disabled</td><td>blocked</td><td>clean-rerun</td><td>infra: target profile requires sudo</td><td>data/live-helm-confighub-compare/blocked-triage.md</td></tr><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>default</td><td>watch</td><td>gitops-runtime-review</td><td>gitops-runtime: Argo health Progressing (parity passed)</td><td>recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
