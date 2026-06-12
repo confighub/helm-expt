@@ -113,6 +113,8 @@ function targetProfileCheck(profile) {
   if (profile === "kind-loadbalancer") {
     const provider = toolCheck("cloud-provider-kind");
     if (provider.result !== "pass") return { ...provider, name: "target profile kind-loadbalancer" };
+    const privilege = cloudProviderKindPrivilegeCheck();
+    if (privilege.result !== "pass") return privilege;
     const clusters = currentKindClusters();
     if (clusters.length > 0) {
       return {
@@ -124,6 +126,40 @@ function targetProfileCheck(profile) {
     return { name: "target profile kind-loadbalancer host isolation", result: "pass", detail: "no existing kind clusters" };
   }
   return { name: `target profile ${profile}`, result: "blocked", detail: "unknown target profile" };
+}
+
+function cloudProviderKindPrivilegeCheck() {
+  const result = spawnSync("cloud-provider-kind", [
+    "--enable-default-ingress=true",
+    "--enable-lb-port-mapping=true",
+  ], { encoding: "utf8", stdio: "pipe", timeout: 2500 });
+  const output = `${result.stdout ?? ""}\n${result.stderr ?? ""}`.trim();
+  if (result.error?.code === "ETIMEDOUT") {
+    return {
+      name: "target profile kind-loadbalancer privilege",
+      result: "pass",
+      detail: "cloud-provider-kind did not reject the privilege check before timeout",
+    };
+  }
+  if (output.toLowerCase().includes("please run this again with `sudo`") || output.toLowerCase().includes("please run this again with sudo")) {
+    return {
+      name: "target profile kind-loadbalancer privilege",
+      result: "blocked",
+      detail: "cloud-provider-kind requires sudo for this host profile",
+    };
+  }
+  if (result.status !== 0) {
+    return {
+      name: "target profile kind-loadbalancer privilege",
+      result: "blocked",
+      detail: firstLine(output) || `cloud-provider-kind exited ${result.status}`,
+    };
+  }
+  return {
+    name: "target profile kind-loadbalancer privilege",
+    result: "pass",
+    detail: firstLine(output) || "cloud-provider-kind privilege check passed",
+  };
 }
 
 function currentKindClusters() {
