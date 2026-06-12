@@ -1037,7 +1037,7 @@
       "current_result": "watch",
       "next_step_type": "gitops-runtime-review",
       "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/bitnami/nginx/24.0.2/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml",
       "rerun_command": "npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts --continue-on-fail"
     },
@@ -12446,7 +12446,7 @@
       "diagnosis": "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.",
       "rerun_command": "npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts --continue-on-fail",
       "followup": "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.",
-      "support_artifact": "",
+      "support_artifact": "recipes/bitnami/nginx/24.0.2/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""

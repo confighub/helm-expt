@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "nginx-existing-tls-ingress-argocd-ingress-health"
+  chart: "bitnami/nginx"
+  version: "24.0.2"
+spec:
+  base: "existing-tls-ingress"
+  controller: "Argo CD"
+  targetShape: "cub-lk/kind proof rig without an ingress controller assigning addresses for ingressClassName=nginx"
+  receipt: "runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml"
+  observedResult: "watch"
+  passed:
+    - "regular Helm live leg reached the expected runtime state"
+    - "ConfigHub direct-apply leg reached the expected runtime state"
+    - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
+    - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
+    - "Argo CD reported the application Synced"
+    - "Deployment nginx became ready"
+    - "target fact Secret nginx/nginx-ingress-tls was staged"
+  gitOpsCondition:
+    sync: "Synced"
+    health: "Progressing"
+    healthResource:
+      apiVersion: "networking.k8s.io/v1"
+      kind: "Ingress"
+      namespace: "nginx"
+      name: "nginx"
+  diagnosis:
+    summary: "The Ingress object synced and the NGINX workload was ready, but the proof target did not provide an ingress controller that assigns an address for ingressClassName=nginx."
+    observedIngress:
+      ingressClassName: "nginx"
+      host: "nginx.example.test"
+      tlsSecret: "nginx-ingress-tls"
+      statusLoadBalancer: {}
+    interpretation: "This is a target topology limitation for the existing-tls-ingress base, not evidence that the recipe changed Helm semantics."
+  nextActions:
+    - "Rerun this base on a target with an ingress controller for class nginx and address assignment."
+    - "Alternatively, use the http-clusterip base as the simple local proof path when ingress is not part of the target."
+    - "Keep the row as watch until Argo reports Healthy for the Ingress target shape or the supported scope explicitly excludes ingress address readiness."
+  notClaimed:
+    - "This row does not prove external ingress reachability on a real load balancer."
+    - "This row does not prove certificate trust from an outside client."
+    - "This row does not generalize to every ingress-enabled chart without a matching target-topology receipt."
