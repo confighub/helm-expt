@@ -338,6 +338,7 @@ function supportArtifactFor(row) {
   if (reason.startsWith("helm-hook:")) candidates.push("lifecycle-policy.yaml");
   if (reason.startsWith("operate-policy:")) candidates.push("operating-policy.yaml");
   if (reason.startsWith("target-fit:")) candidates.push("target-topology.yaml", "operating-policy.yaml");
+  if (reason.startsWith("gitops-runtime:")) candidates.push("gitops-runtime-review.yaml");
   for (const candidate of candidates) {
     const absolutePath = join(repoRoot, recipePath, candidate);
     if (existsSync(absolutePath)) return `${recipePath}/${candidate}`;
