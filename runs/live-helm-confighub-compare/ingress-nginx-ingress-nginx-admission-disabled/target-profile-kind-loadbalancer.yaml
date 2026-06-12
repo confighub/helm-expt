@@ -1,0 +1,13 @@
+name: kind-loadbalancer
+result: pass
+provider: metallb-l2
+fallbackReason: 'cloud-provider-kind requires host privileges on this machine: Error:
+  please run this again with `sudo`'
+addressPool: 192.168.97.225-192.168.97.254
+resources:
+- namespace/metallb-system
+- ipaddresspool/kind-pool
+- l2advertisement/kind-l2
+observedBehavior: Service.type=LoadBalancer objects receive an in-Docker-network address
+  via MetalLB L2. Addresses populate status.loadBalancer.ingress (sufficient for parity
+  and controller health); they are NOT reachable from the macOS host.
