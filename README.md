@@ -88,10 +88,15 @@ Four questions, answered up front:
   the GitOps/OCI runtime lane is partial; the stricter in-ConfigHub proof lane
   covers a minority of chart/base rows; live claims are bounded to the tested
   Kubernetes capability profile; and production support is a per-target
-  decision, never implied by a green render.
+  decision, never implied by a green render. Product frontiers such as
+  field-complete provenance, full change authority, reverse live-to-desired
+  flow, fleet-wide propagation, and universal hook execution remain bounded
+  claims, not finished product proof.
   Current counts live in the
   [status dashboard](./data/status-dashboard/summary.md); deliberate refusals
-  live in [What We Refuse To Claim](./docs/user/what-we-refuse-to-claim.md).
+  live in [What We Refuse To Claim](./docs/user/what-we-refuse-to-claim.md);
+  the concise frontier table is in
+  [Current Proof Status](./docs/user/current-proof-status.md#product-frontiers).
 
 Core flow:
 

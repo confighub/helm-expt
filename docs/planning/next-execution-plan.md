@@ -63,15 +63,21 @@ production, or refresh counts by hand in this plan.
 Current generated facts, at the time of this plan update:
 
 ```text
-100 charts have model support.
-20 top-100 charts are catalog-supported for the current public catalog scope.
-80 top-100 charts are proof-grade non-catalog rows.
-158 chart/base rows have render parity.
-ConfigHub proof, local live proof, GitOps/OCI proof, and live parity are partial by exact row.
-17 top-20 charts have supported target-scoped proof scopes; 2 are superseded source charts; 1 is rejected for the current target scope; 20/20 are production-review-ready.
+108/110 maintained chart rows have model support.
+20/100 top-100 charts are catalog-supported for the current public catalog scope.
+80/100 top-100 charts are proof-grade non-catalog rows.
+190/190 chart/base rows have render parity.
+60/190 chart/base rows have in-ConfigHub proof.
+134/190 chart/base rows have local live proof.
+25/190 chart/base rows have GitOps/OCI live proof.
+23/190 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
+23/190 chart/base rows have the complete core lane set.
+70/70 two-cluster kind parity rows pass semantic parity.
+22/42 top-20 base variants are start-here rows.
+17/20 top-20 charts have supported target-scoped production decisions; 2 are superseded source charts; 1 is rejected for the current target scope; 20/20 are production-review-ready.
 ```
 
-## Current 90 To 95 Push
+## Current 99% Goal Shape
 
 The repo now has the main matrices that were missing earlier: pain-point
 coverage, edge recovery, variant-path coverage, quirk coverage, outcome
@@ -79,8 +85,44 @@ coverage, top100/top500 analysis, live-parity status, and production-support
 work items.
 
 The next step is to turn those artifacts into product-grade confidence. This is
-not a request for more broad verifier output. It is a request to close the
-important chart and workflow residues that users will feel.
+not a request for more broad verifier output or fake green cells. It is a
+request to close the important chart and workflow residues that users will
+feel.
+
+The goal for the master matrix is not "make every cell green." The goal is that
+every top-100 chart/base cell has a verified disposition:
+
+```text
+pass        the lane is proven for the stated scope
+watch       the main path works, but a runtime, lifecycle, or target behavior needs review
+blocked     the lane cannot make a green claim until a named prerequisite, model gap, or product decision is closed
+refused     the chart, option, or lane is intentionally outside the current catalog boundary
+n/a         the lane does not apply to that row
+todo        temporary state only; every todo must have a named next action
+```
+
+This matters more than a green dashboard. A correct `watch`, `blocked`,
+`refused`, or `n/a` cell is part of the product because it tells a user where
+the proof stops.
+
+The four working goals are:
+
+| Goal | Meaning | Evidence |
+| --- | --- | --- |
+| 1. Top-100 matrix completeness | Every top-100 chart/base has a clear user route, evidence status, lifecycle/quirk status, production scope, and next action. Green where real; `n/a`, `watch`, `blocked`, or `refused` where honest. | `data/master-catalog-matrix/matrix.html`, `data/chart-use-guide/summary.md`, `data/top100-readiness/summary.md`, `data/outcome-coverage/summary.md`. |
+| 2. Excellent public website and docs | A user can move from zero-touch public use to full ConfigHub operations and understand why, what, how, limits, free tier, and paid/managed boundary at each stage. | `README.md`, `docs/user/offering.md`, `docs/user/choose-your-path.md`, `docs/user/try-now.md`, `site/*.html`. |
+| 3. Tested UX, including Pilot | A fresh team user or Pilot run can follow the docs, install or inspect a chart, verify the result, see ConfigHub Units, understand variants, and know what to do next. | `docs/planning/pilot-adversarial-testing.md`, Pilot reports under `runs/`, tutorial receipts, `docs/user/tutorial-sequence.md`. |
+| 4. Strategy docs converted into product outcomes | The planning corpus maps to visible product claims, catalog features, tests, roadmap items, and commercial tiers. No orphan ideas. | `docs/planning/`, `docs/user/product-support-tiers.md`, `data/claims-register/summary.md`, `data/outcome-evidence-contract/summary.md`. |
+
+Five supporting goals keep those four honest:
+
+| Goal | Why it matters | Evidence |
+| --- | --- | --- |
+| 5. Lifecycle and hard-chart proof | Hooks, CRDs, webhooks, generated facts, target facts, APIService, admission mutation, upgrades, and rollbacks are where skeptical Helm users will test the model. | `data/hook-disposition/`, `data/lifecycle-boundary/`, `data/lifecycle-observations/`, `data/apiservice-coverage/`, serious-chart packets. |
+| 6. Production readiness by target scope | Users need to know what is safe for dev, what is review-ready, and what is production-supported for a specific target shape. | `data/production-support-decisions/`, `data/production-disposition/`, per-chart catalog status. |
+| 7. Maintenance and freshness | Upstream chart updates, stale receipts, old-version support, patching, top100/top500 refresh, and promotion must be predictable. | `data/refresh-survival/`, `data/latest-top20-refresh/`, `docs/user/maintenance-sla.md`. |
+| 8. External reproduction and sceptic proofing | Internal evidence is not enough for strong trust claims. The cluster matrix, external reproduction, time-travel re-verification, and upgrade gauntlet remain open proof work. | `docs/planning/robust-sceptic-plan.md`, `data/claims-register/`, `data/blast-radius-accuracy/`, `data/torture-suite/`, `data/environment-matrix/`. |
+| 9. Variant and commercial clarity | Users must understand base variants, derived ConfigHub variants, custom overlays, fleets, promotions, free use, and managed/paid services without seeing proof machinery first. | `docs/user/creating-variants.md`, `docs/user/custom-overlays.md`, `docs/user/product-support-tiers.md`, `docs/planning/verified-install-commercial-model.md`. |
 
 The maturity target is:
 
