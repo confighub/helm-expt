@@ -1442,7 +1442,12 @@ def main() -> int:
         }
         app_path = run_root / "argo-application.json"
         app_path.write_text(json.dumps(app, indent=2))
-        sh(["cub", "unit", "create", "--space", cluster_space, f"{child_app}-app", str(app_path), "--target", target, "--allow-exists"], timeout=180)
+        rc, app_create_out, app_create_err = sh([
+            "cub", "unit", "create", "--space", cluster_space, f"{child_app}-app",
+            str(app_path), "--target", target, "--allow-exists",
+        ], timeout=180)
+        if rc != 0:
+            raise RuntimeError(f"application unit create failed: {(app_create_err or app_create_out)[:1000]}")
         rc, app_apply_out, app_apply_err = sh(["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{child_app}-app"], timeout=180)
         if rc != 0:
             raise RuntimeError(f"application apply failed: {(app_apply_err or app_apply_out)[:1000]}")

@@ -10,23 +10,23 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 4
+rows: 3
 lifecycle-routed-not-active-rerun: 0
 blocked: 0
-watch: 4
-configHub-oci-live-comparison: 4
+watch: 3
+configHub-oci-live-comparison: 3
 two-cluster-kind-parity: 0
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 0
-runtime-or-watch-rows: 2
+runtime-or-watch-rows: 1
 ```
 
 ## Lane Breakdown
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 4 | 0 | 4 | 0 | 0 |
+| configHub-oci-live-comparison | 3 | 0 | 3 | 0 | 0 |
 | two-cluster-kind-parity | 0 | 0 | 0 | 0 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
@@ -48,7 +48,7 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-| gitops-runtime-review | 2 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
+| gitops-runtime-review | 1 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
@@ -66,7 +66,7 @@ reasonable live rerun candidates.
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
 | model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 2 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
 
@@ -90,7 +90,6 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | watch | gitops-runtime: Argo sync OutOfSync health Healthy (parity passed) | [`recipes/bitnami/mongodb/19.0.7/gitops-runtime-review.yaml`](../../recipes/bitnami/mongodb/19.0.7/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart mongodb --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts --continue-on-fail` |
 | 30 | model-or-stage-first | operating-policy | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | operate-policy: Vault init/unseal readiness (parity passed) | [`recipes/hashicorp/vault/0.32.0/operating-policy.yaml`](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) | `npm run live-parity:top20 -- --chart vault --base default --continue-on-fail` |
 | 30 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | target-fit: LoadBalancer Service has no external IP on kind (parity passed) | [`recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml) | `npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --continue-on-fail` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml) | `npm run live-parity:top20 -- --chart ingress-nginx --base default --continue-on-fail` |

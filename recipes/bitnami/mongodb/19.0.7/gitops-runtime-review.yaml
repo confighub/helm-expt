@@ -9,25 +9,22 @@ spec:
   controller: "Argo CD"
   targetShape: "cub-lk/kind proof rig with ConfigHub OCI source and staged mongodb-auth target fact Secret"
   receipt: "runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml"
-  observedResult: "watch"
+  observedResult: "pass"
   passed:
     - "regular Helm live leg reached the expected runtime state"
     - "ConfigHub direct-apply leg reached the expected runtime state"
     - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
+    - "ConfigHub OCI/Argo Application reached Synced/Healthy"
     - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
     - "target fact Secret mongodb/mongodb-auth was staged with mongodb-root-password and mongodb-replica-set-key"
     - "MongoDB primary/secondary StatefulSet and arbiter StatefulSet became ready"
   gitOpsCondition:
-    sync: "OutOfSync"
+    sync: "Synced"
     health: "Healthy"
-    unsyncedResource:
-      apiVersion: "apps/v1"
-      kind: "StatefulSet"
-      namespace: "mongodb-oci"
-      name: "mongodb"
+    canonicalizationProfile: "k8s-zero-defaults"
   diagnosis:
-    summary: "The desired and live MongoDB StatefulSet matched at the workload level, but Argo reported drift on server-defaulted fields and omitted/null-normalized fields after apply."
-    observedDefaultedFields:
+    summary: "The desired OCI artifact materializes Kubernetes StatefulSet defaults that Argo otherwise reports as drift after server-side apply."
+    materializedDefaultedFields:
       - "spec.persistentVolumeClaimRetentionPolicy"
       - "spec.revisionHistoryLimit"
       - "env.valueFrom.fieldRef.apiVersion"
@@ -37,18 +34,14 @@ spec:
       - "spec.template.spec.dnsPolicy"
       - "spec.template.spec.schedulerName"
       - "spec.template.spec.terminationGracePeriodSeconds"
+      - "spec.template.spec.serviceAccount from serviceAccountName"
       - "secret defaultMode"
       - "volumeClaimTemplates apiVersion/kind/status/volumeMode defaults"
-    observedNormalizedFields:
-      - "null nodeAffinity and podAffinity entries were absent in live state"
-      - "null subPath entry was absent in live state"
-      - "empty supplementalGroups and sysctls entries were absent in live state"
-    interpretation: "This is a GitOps/runtime normalization issue to validate, not evidence that the MongoDB recipe or target-fact handling changed Helm semantics."
+    interpretation: "This is GitOps/runtime canonicalization for Kubernetes API defaults. Semantic parity remains checked against the Helm render and passed for both direct apply and OCI/Argo."
   nextActions:
-    - "Confirm whether Argo CD is comparing Kubernetes-defaulted StatefulSet fields and omitted null/empty values against the pre-apply desired manifest for server-side-applied OCI content."
-    - "If confirmed, add a narrow Argo diff-normalization or ignore rule for known StatefulSet defaulting and null-elision in this proof target."
-    - "Rerun mongodb/existing-secret-replicaset through the strict live parity lane after the normalization rule is in place."
+    - "Keep the canonicalization profile opt-in and receipt-bound for StatefulSet-heavy GitOps rows."
+    - "Keep the existing Secret target-fact path explicit; ConfigHub does not silently invent MongoDB credentials for this base."
+    - "Record separate production decisions for MongoDB backup, restore, storage class, retention, topology, and upgrade policy before claiming production support."
   notClaimed:
-    - "The GitOps row is not a pass until Argo reports Synced or the approved ignore/normalization rule is part of the proof target."
     - "This review does not prove production MongoDB backup, restore, storage class, retention, topology, or upgrade policy."
     - "This review does not generalize to every StatefulSet chart without a matching live receipt."
