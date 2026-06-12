@@ -1034,9 +1034,17 @@ def main() -> int:
         mark_stage("configHub-direct-readiness")
         apply_runtime = wait_ready_many(kubeconfig, context, apply_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 300))
         apply_result = "pass" if apply_runtime["result"] == "pass" else "watch"
-        apply_cleanup_namespaces = [
+        apply_cleanup_candidates = [
             namespace for namespace in sorted(set(apply_manifest_namespaces + apply_runtime_namespaces))
             if not protected_namespace(namespace)
+        ]
+        apply_cleanup_namespaces = [
+            namespace for namespace in apply_cleanup_candidates
+            if namespace == apply_namespace or namespace.endswith("-apply")
+        ]
+        apply_retained_namespaces = [
+            namespace for namespace in apply_cleanup_candidates
+            if namespace not in apply_cleanup_namespaces
         ]
         leg("configHubKubectlApply",
             result=apply_result,
@@ -1050,6 +1058,7 @@ def main() -> int:
             runtime=apply_runtime,
             cleanupBeforeOci={
                 "namespaces": apply_cleanup_namespaces,
+                "retainedNamespaces": apply_retained_namespaces,
                 "reason": "isolate the OCI/Argo leg from direct-apply workloads in single-cluster parity rigs",
             },
         )
