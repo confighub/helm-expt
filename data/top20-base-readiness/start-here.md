@@ -11,7 +11,7 @@ target-scoped support decision for the chart/base/target you intend to use.
 ## Summary
 
 ~~~text
-start-here bases: 24
+start-here bases: 25
 top-20 base variants: 42
 target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
@@ -29,6 +29,7 @@ target-scoped draft decisions: 0
 | `bitnami/nginx@24.0.2` | http-clusterip | `cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx` | check production decision for bitnami/nginx |
 | `bitnami/postgresql@18.6.7` | generated-passwords | `cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql` | check production decision for bitnami/postgresql |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | `cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq` | check production decision for bitnami/rabbitmq |
+| `bitnami/rabbitmq@16.0.14` | existing-secret | `cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base existing-secret --work-dir <tmp> --non-interactive --namespace rabbitmq` | check production decision for bitnami/rabbitmq |
 | `bitnami/redis@25.5.3` | default | `cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis` | check production decision for bitnami/redis |
 | `bitnami/redis@25.5.3` | reuse-existing-secret | `cub installer setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis` | check production decision for bitnami/redis |
 | `external-secrets/external-secrets@2.5.0` | default | `cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets` | check production decision for external-secrets/external-secrets |
