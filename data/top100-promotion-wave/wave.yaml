@@ -10,6 +10,163 @@ spec:
   boundary: "This wave is a promotion review queue, not a catalog support claim. Promotion still requires explicit support decisions and current target-scoped evidence."
   rows:
     -
+      chart: "aqua/trivy-operator"
+      version: "0.32.1"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        []
+      scan:
+        high: 0
+        medium: 19
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/variant-revision.yaml"
+        - "recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml"
+        - "recipes/aqua/trivy-operator/0.32.1/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/aqua/trivy-operator/0.32.1/control-points.yaml"
+        - "recipes/aqua/trivy-operator/0.32.1/value-model.yaml"
+        - "recipes/aqua/trivy-operator/0.32.1/helm-plan.yaml"
+        - "recipes/aqua/trivy-operator/0.32.1/CATALOG.md"
+        - "recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml"
+    -
+      chart: "argo-cd/argo-events"
+      version: "2.4.21"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        []
+      scan:
+        high: 0
+        medium: 5
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml"
+        - "recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml"
+        - "recipes/argo-cd/argo-events/2.4.21/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/argo-cd/argo-events/2.4.21/control-points.yaml"
+        - "recipes/argo-cd/argo-events/2.4.21/value-model.yaml"
+        - "recipes/argo-cd/argo-events/2.4.21/helm-plan.yaml"
+        - "recipes/argo-cd/argo-events/2.4.21/CATALOG.md"
+        - "recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml"
+    -
+      chart: "argo-cd/argo-rollouts"
+      version: "2.40.9"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        []
+      scan:
+        high: 0
+        medium: 10
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/variant-revision.yaml"
+        - "recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
+        - "recipes/argo-cd/argo-rollouts/2.40.9/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/argo-cd/argo-rollouts/2.40.9/control-points.yaml"
+        - "recipes/argo-cd/argo-rollouts/2.40.9/value-model.yaml"
+        - "recipes/argo-cd/argo-rollouts/2.40.9/helm-plan.yaml"
+        - "recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md"
+        - "recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
+    -
+      chart: "autoscaler/vertical-pod-autoscaler"
+      version: "0.9.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        []
+      scan:
+        high: 0
+        medium: 25
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+        - "webhook readiness/observation policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
+        - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/control-points.yaml"
+        - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/value-model.yaml"
+        - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-plan.yaml"
+        - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md"
+        - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
+    -
       chart: "cloudnative-pg/cloudnative-pg"
       version: "0.28.2"
       variants:
@@ -179,6 +336,50 @@ spec:
         - "recipes/external-dns/external-dns/1.21.1/CATALOG.md"
         - "recipes/external-dns/external-dns/1.21.1/helm-pain-report.yaml"
     -
+      chart: "gatekeeper/gatekeeper"
+      version: "3.22.2"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "capabilities"
+        - "hooks"
+        - "crds"
+        - "cluster-rbac"
+        - "webhooks"
+      scan:
+        high: 0
+        medium: 22
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+        - "webhook readiness/observation policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+        - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+        - "recipes/gatekeeper/gatekeeper/3.22.2/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/gatekeeper/gatekeeper/3.22.2/control-points.yaml"
+        - "recipes/gatekeeper/gatekeeper/3.22.2/value-model.yaml"
+        - "recipes/gatekeeper/gatekeeper/3.22.2/helm-plan.yaml"
+        - "recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md"
+        - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+    -
       chart: "grafana/alloy"
       version: "1.8.2"
       variants:
@@ -222,50 +423,6 @@ spec:
         - "recipes/grafana/alloy/1.8.2/CATALOG.md"
         - "recipes/grafana/alloy/1.8.2/helm-pain-report.yaml"
     -
-      chart: "kedacore/keda"
-      version: "2.19.0"
-      variants:
-        - "default"
-        - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
-      sourceFeatures:
-        - "tpl"
-        - "capabilities"
-        - "crds"
-        - "cluster-rbac"
-        - "webhooks"
-      scan:
-        high: 0
-        medium: 17
-        gateDecisions:
-          - "allow"
-          - "warn"
-      currentState:
-        supportLevel: "machine-proof-only"
-        productionReadiness: "not-reviewed-for-production"
-        catalogStatus: "proof-grade"
-        supportedVariants:
-          []
-      gaps:
-        - "human review needed: confirm variants are the obvious Helm-user paths"
-        - "medium scan findings require review or waiver before production support"
-        - "install gate warns"
-        - "production support requires documented disposition or acceptance"
-        - "CRD lifecycle policy must be catalog-readable"
-        - "webhook readiness/observation policy must be catalog-readable"
-      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
-      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
-      evidence:
-        - "recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml"
-        - "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
-        - "recipes/kedacore/keda/2.19.0/control-points.yaml"
-        - "data/outcome-coverage/feature-outcomes.csv"
-        - "recipes/kedacore/keda/2.19.0/control-points.yaml"
-        - "recipes/kedacore/keda/2.19.0/value-model.yaml"
-        - "recipes/kedacore/keda/2.19.0/helm-plan.yaml"
-        - "recipes/kedacore/keda/2.19.0/CATALOG.md"
-        - "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
-    -
       chart: "nats/nats"
       version: "2.14.0"
       variants:
@@ -305,6 +462,165 @@ spec:
         - "recipes/nats/nats/2.14.0/CATALOG.md"
         - "recipes/nats/nats/2.14.0/helm-pain-report.yaml"
     -
+      chart: "open-telemetry/opentelemetry-operator"
+      version: "0.114.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        []
+      scan:
+        high: 0
+        medium: 9
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+        - "webhook readiness/observation policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
+        - "recipes/open-telemetry/opentelemetry-operator/0.114.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/open-telemetry/opentelemetry-operator/0.114.0/control-points.yaml"
+        - "recipes/open-telemetry/opentelemetry-operator/0.114.0/value-model.yaml"
+        - "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-plan.yaml"
+        - "recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.md"
+        - "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
+    -
+      chart: "percona/pg-operator"
+      version: "3.0.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        []
+      scan:
+        high: 0
+        medium: 8
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
+        - "recipes/percona/pg-operator/3.0.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/percona/pg-operator/3.0.0/control-points.yaml"
+        - "recipes/percona/pg-operator/3.0.0/value-model.yaml"
+        - "recipes/percona/pg-operator/3.0.0/helm-plan.yaml"
+        - "recipes/percona/pg-operator/3.0.0/CATALOG.md"
+        - "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
+    -
+      chart: "percona/psmdb-operator"
+      version: "1.22.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        []
+      scan:
+        high: 0
+        medium: 3
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
+        - "recipes/percona/psmdb-operator/1.22.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/percona/psmdb-operator/1.22.0/control-points.yaml"
+        - "recipes/percona/psmdb-operator/1.22.0/value-model.yaml"
+        - "recipes/percona/psmdb-operator/1.22.0/helm-plan.yaml"
+        - "recipes/percona/psmdb-operator/1.22.0/CATALOG.md"
+        - "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
+    -
+      chart: "percona/pxc-operator"
+      version: "1.19.1"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "lookup"
+        - "crds"
+        - "cluster-rbac"
+      scan:
+        high: 0
+        medium: 3
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml"
+        - "recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml"
+        - "recipes/percona/pxc-operator/1.19.1/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/percona/pxc-operator/1.19.1/control-points.yaml"
+        - "recipes/percona/pxc-operator/1.19.1/value-model.yaml"
+        - "recipes/percona/pxc-operator/1.19.1/helm-plan.yaml"
+        - "recipes/percona/pxc-operator/1.19.1/CATALOG.md"
+        - "recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml"
+    -
       chart: "prometheus-community/alertmanager"
       version: "1.37.0"
       variants:
@@ -340,3 +656,203 @@ spec:
         - "recipes/prometheus-community/alertmanager/1.37.0/helm-plan.yaml"
         - "recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md"
         - "recipes/prometheus-community/alertmanager/1.37.0/helm-pain-report.yaml"
+    -
+      chart: "prometheus-community/kube-state-metrics"
+      version: "7.4.0"
+      variants:
+        - "default"
+        - "cluster-metrics-readonly"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "generated-facts"
+        - "tpl"
+        - "capabilities"
+        - "cluster-rbac"
+        - "stateful-storage"
+      scan:
+        high: 0
+        medium: 2
+        gateDecisions:
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "default-only"
+        - "add or explicitly defer obvious user variants"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
+        - "recipes/prometheus-community/kube-state-metrics/7.4.0/helm-pain-report.yaml"
+        - "recipes/prometheus-community/kube-state-metrics/7.4.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/prometheus-community/kube-state-metrics/7.4.0/control-points.yaml"
+        - "recipes/prometheus-community/kube-state-metrics/7.4.0/value-model.yaml"
+        - "recipes/prometheus-community/kube-state-metrics/7.4.0/helm-plan.yaml"
+        - "recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md"
+        - "recipes/prometheus-community/kube-state-metrics/7.4.0/helm-pain-report.yaml"
+    -
+      chart: "prometheus-community/prometheus-blackbox-exporter"
+      version: "11.10.0"
+      variants:
+        - "default"
+        - "cluster-metrics-readonly"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "tpl"
+        - "capabilities"
+      scan:
+        high: 0
+        medium: 0
+        gateDecisions:
+          - "allow"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "default-only"
+        - "add or explicitly defer obvious user variants"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
+        - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/helm-pain-report.yaml"
+        - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/control-points.yaml"
+        - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/value-model.yaml"
+        - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/helm-plan.yaml"
+        - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md"
+        - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/helm-pain-report.yaml"
+    -
+      chart: "prometheus-community/prometheus-node-exporter"
+      version: "4.55.0"
+      variants:
+        - "default"
+        - "cluster-metrics-readonly"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "generated-facts"
+        - "tpl"
+        - "capabilities"
+        - "cluster-rbac"
+      scan:
+        high: 0
+        medium: 1
+        gateDecisions:
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "default-only"
+        - "add or explicitly defer obvious user variants"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
+        - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-pain-report.yaml"
+        - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/control-points.yaml"
+        - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/value-model.yaml"
+        - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-plan.yaml"
+        - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md"
+        - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-pain-report.yaml"
+    -
+      chart: "sealed-secrets/sealed-secrets"
+      version: "2.18.6"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        []
+      scan:
+        high: 0
+        medium: 3
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/variant-revision.yaml"
+        - "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
+        - "recipes/sealed-secrets/sealed-secrets/2.18.6/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/sealed-secrets/sealed-secrets/2.18.6/control-points.yaml"
+        - "recipes/sealed-secrets/sealed-secrets/2.18.6/value-model.yaml"
+        - "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-plan.yaml"
+        - "recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.md"
+        - "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
+    -
+      chart: "strimzi/strimzi-kafka-operator"
+      version: "1.0.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "tpl"
+        - "capabilities"
+        - "crds"
+        - "cluster-rbac"
+      scan:
+        high: 0
+        medium: 20
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-pain-report.yaml"
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/control-points.yaml"
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/value-model.yaml"
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-plan.yaml"
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md"
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-pain-report.yaml"

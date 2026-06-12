@@ -23,7 +23,7 @@ average coverage: 88%
 | d | pain report and quirk axes | 100 | 0 | 0 |
 | e | facts declared | 100 | 0 | 0 |
 | f | scan and production disposition | 20 | 80 | 0 |
-| g | live witness or routed reason | 81 | 19 | 0 |
+| g | live witness or routed reason | 82 | 18 | 0 |
 | h | catalog and site entry | 100 | 0 | 0 |
 
 ## Coverage By Bucket
@@ -39,7 +39,6 @@ average coverage: 88%
 
 | Chart | Coverage | Bucket | Next action |
 | --- | ---: | --- | --- |
-| `argo-cd/argo-workflows@1.0.14` | 75% | `promote-after-review` | run catalog promotion review |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `bitnami/opensearch@2.0.10` | 75% | `promote-after-review` | run catalog promotion review |
 | `dex/dex@0.24.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
@@ -54,6 +53,7 @@ average coverage: 88%
 | `jetstack/trust-manager@v0.22.1` | 75% | `promote-after-review` | run catalog promotion review |
 | `nats/surveyor@0.20.9` | 75% | `promote-after-review` | run catalog promotion review |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `opencost/opencost@2.5.21` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 
 ## Files
 

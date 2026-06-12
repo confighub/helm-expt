@@ -11,6 +11,7 @@ application-level data safety, or production support.
 | --- | --- | --- | --- | --- |
 | `elastic/logstash@8.5.1` | [elastic-logstash.yaml](./elastic-logstash.yaml) | `default` | StatefulSet rendered with no volumeClaimTemplates in selected base | manifest rollback only; no PVC-backed data durability claim in selected base |
 | `prometheus-community/alertmanager@1.37.0` | [prometheus-community-alertmanager.yaml](./prometheus-community-alertmanager.yaml) | `default` | 1 volumeClaimTemplate(s) rendered | manifest rollback can preserve PVC identity, but backup/restore and data retention are target-scoped |
+| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | [prometheus-community-prometheus-blackbox-exporter.yaml](./prometheus-community-prometheus-blackbox-exporter.yaml) | `cluster-metrics-readonly` | no StatefulSet or volumeClaimTemplates in selected base | manifest rollback only; no PVC-backed data durability claim in selected base |
 
 ## Shared Rule
 

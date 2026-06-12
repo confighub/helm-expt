@@ -1,0 +1,96 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Top100PromotionReviewPacket"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0-promotion-review"
+spec:
+  chart: "prometheus-community/prometheus-node-exporter"
+  version: "4.55.0"
+  selectedBaseCandidate: "cluster-metrics-readonly"
+  candidateVariants:
+    - "default"
+    - "cluster-metrics-readonly"
+  decisionState: "review-input-only"
+  catalogSupportClaimAllowed: false
+  whyThisChartIsInTheWave:
+    - "The chart is proof-grade in the maintained top-100 corpus."
+    - "The chart has multiple named variants, so there is a real selection question."
+    - "The selected base has two-cluster kind parity evidence."
+    - "No named limitation currently blocks promotion review."
+  currentEvidence:
+    catalog: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md"
+    helmPainReport: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-pain-report.yaml"
+    controlPoints: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/control-points.yaml"
+    valueModel: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/value-model.yaml"
+    helmPlan: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-plan.yaml"
+    variant: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
+    variantRevision: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
+    helmEquivalence: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/receipts/helm-equivalence-receipt.yaml"
+    scanReceipt: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/receipts/scan-receipt.yaml"
+    installGate: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/receipts/install-gate.yaml"
+    packageBase: "packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly/kustomization.yaml"
+    twoClusterKindParity: "runs/live-kind-parity/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/receipt.yaml"
+  currentState:
+    supportLevel: "machine-proof-only"
+    productionReadiness: "not-reviewed-for-production"
+    catalogStatus: "proof-grade"
+    strongestEvidence: "two-cluster-kind-parity"
+    scanHigh: 0
+    scanMedium: 1
+    gateDecisions:
+      - "warn"
+    featureFocus:
+      - "generated-facts"
+      - "tpl"
+      - "capabilities"
+      - "cluster-rbac"
+  decisionsNeeded:
+    -
+      workType: "variant-selection"
+      reviewer: "catalog reviewer"
+      reason: "Confirm the promoted base is a real Helm-user path, not merely the first rendered baseline."
+      doneWhen: "A selected variant is named from default;cluster-metrics-readonly and the non-selected variants have a written promote/defer reason."
+      evidence: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md"
+    -
+      workType: "scan-and-gate-disposition"
+      reviewer: "security reviewer"
+      reason: "Scan/gate state is high=0, medium=1, gates=warn."
+      doneWhen: "Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support."
+      evidence: "data/catalog-promotion-review/review.csv"
+    -
+      workType: "generated-fact-policy"
+      reviewer: "catalog reviewer"
+      reason: "The chart has generated or once-only values that can affect repeatability."
+      doneWhen: "Generated facts are persisted, replaced by target facts, or explicitly scoped out of the promoted base."
+      evidence: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/control-points.yaml"
+    -
+      workType: "rbac-scope"
+      reviewer: "security reviewer"
+      reason: "The chart creates cluster-scoped RBAC or similar permissions."
+      doneWhen: "Cluster permissions are accepted for the support scope or a narrower base is selected."
+      evidence: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-pain-report.yaml"
+    -
+      workType: "template-and-capability-boundary"
+      reviewer: "catalog reviewer"
+      reason: "The chart has template-powered inputs or Kubernetes capability branches."
+      doneWhen: "The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base."
+      evidence: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-plan.yaml"
+    -
+      workType: "selected-live-evidence"
+      reviewer: "operator reviewer"
+      reason: "Two-cluster kind parity exists; catalog promotion needs the selected runtime evidence boundary."
+      doneWhen: "The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale."
+      evidence: "data/live-kind-parity/summary.csv"
+    -
+      workType: "target-scoped-support-decision"
+      reviewer: "catalog owner"
+      reason: "Catalog support is not implied by machine proof."
+      doneWhen: "A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome."
+      evidence: "data/production-support-decisions/summary.md"
+  claimsNotMade:
+    - "catalog support"
+    - "production support"
+    - "support for non-selected variants"
+    - "support for private values overlays or wrapper charts"
+    - "support outside the eventual target scope"
+    - "least-privilege RBAC hardening"
+  nextAction: "Use this packet to choose the promoted base, close the listed review decisions, link selected live evidence or a routed deferral, then write a target-scoped support decision before changing catalog status."

@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Top100PromotionReviewPacket"
+metadata:
+  name: "percona-pxc-operator-1-19-1-promotion-review"
+spec:
+  chart: "percona/pxc-operator"
+  version: "1.19.1"
+  selectedBaseCandidate: "default"
+  candidateVariants:
+    - "default"
+    - "no-crds"
+  decisionState: "review-input-only"
+  catalogSupportClaimAllowed: false
+  whyThisChartIsInTheWave:
+    - "The chart is proof-grade in the maintained top-100 corpus."
+    - "The chart has multiple named variants, so there is a real selection question."
+    - "The selected base has two-cluster kind parity evidence."
+    - "No named limitation currently blocks promotion review."
+  currentEvidence:
+    catalog: "recipes/percona/pxc-operator/1.19.1/CATALOG.md"
+    helmPainReport: "recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml"
+    controlPoints: "recipes/percona/pxc-operator/1.19.1/control-points.yaml"
+    valueModel: "recipes/percona/pxc-operator/1.19.1/value-model.yaml"
+    helmPlan: "recipes/percona/pxc-operator/1.19.1/helm-plan.yaml"
+    variant: "recipes/percona/pxc-operator/1.19.1/variants/default/variant.yaml"
+    variantRevision: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml"
+    helmEquivalence: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    scanReceipt: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/receipts/scan-receipt.yaml"
+    installGate: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/receipts/install-gate.yaml"
+    packageBase: "packages/percona/pxc-operator/1.19.1/bases/default/kustomization.yaml"
+    twoClusterKindParity: "runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml"
+  currentState:
+    supportLevel: "machine-proof-only"
+    productionReadiness: "not-reviewed-for-production"
+    catalogStatus: "proof-grade"
+    strongestEvidence: "two-cluster-kind-parity"
+    scanHigh: 0
+    scanMedium: 3
+    gateDecisions:
+      - "allow"
+      - "warn"
+    featureFocus:
+      - "lookup"
+      - "crds"
+      - "cluster-rbac"
+  decisionsNeeded:
+    -
+      workType: "variant-selection"
+      reviewer: "catalog reviewer"
+      reason: "Confirm the promoted base is a real Helm-user path, not merely the first rendered baseline."
+      doneWhen: "A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason."
+      evidence: "recipes/percona/pxc-operator/1.19.1/CATALOG.md"
+    -
+      workType: "scan-and-gate-disposition"
+      reviewer: "security reviewer"
+      reason: "Scan/gate state is high=0, medium=3, gates=allow;warn."
+      doneWhen: "Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support."
+      evidence: "data/catalog-promotion-review/review.csv"
+    -
+      workType: "crd-lifecycle"
+      reviewer: "platform reviewer"
+      reason: "The chart includes CRDs or CRD-like lifecycle concerns."
+      doneWhen: "CRD install, upgrade, ownership, and no-CRDs behavior are recorded or explicitly deferred for the selected base."
+      evidence: "recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml"
+    -
+      workType: "rbac-scope"
+      reviewer: "security reviewer"
+      reason: "The chart creates cluster-scoped RBAC or similar permissions."
+      doneWhen: "Cluster permissions are accepted for the support scope or a narrower base is selected."
+      evidence: "recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml"
+    -
+      workType: "selected-live-evidence"
+      reviewer: "operator reviewer"
+      reason: "Two-cluster kind parity exists; catalog promotion needs the selected runtime evidence boundary."
+      doneWhen: "The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale."
+      evidence: "data/live-kind-parity/summary.csv"
+    -
+      workType: "target-scoped-support-decision"
+      reviewer: "catalog owner"
+      reason: "Catalog support is not implied by machine proof."
+      doneWhen: "A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome."
+      evidence: "data/production-support-decisions/summary.md"
+  claimsNotMade:
+    - "catalog support"
+    - "production support"
+    - "support for non-selected variants"
+    - "support for private values overlays or wrapper charts"
+    - "support outside the eventual target scope"
+    - "CRD upgrade or uninstall safety"
+    - "least-privilege RBAC hardening"
+  nextAction: "Use this packet to choose the promoted base, close the listed review decisions, link selected live evidence or a routed deferral, then write a target-scoped support decision before changing catalog status."

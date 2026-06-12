@@ -79,6 +79,7 @@ function buildReport() {
   const rows = waveRows
     .filter(isFastTrackCandidate)
     .map((row) => fastTrackRow(row, baseByKey, chartUseByRef))
+    .filter(Boolean)
     .sort((left, right) => left.chart_ref.localeCompare(right.chart_ref));
 
   check(rows.length > 0, "expected at least one fast-track promotion row");
@@ -116,7 +117,8 @@ function isFastTrackCandidate(row) {
 }
 
 function fastTrackRow(row, baseByKey, chartUseByRef) {
-  const recommendedBase = firstListItem(row.variants) || "default";
+  const recommendedBase = fastTrackBase(row, baseByKey);
+  if (!recommendedBase) return null;
   const base = baseByKey.get(`${row.chart_ref},${recommendedBase}`);
   check(base, `missing base outcome for ${row.chart_ref} ${recommendedBase}`);
   const chartUse = chartUseByRef.get(row.chart_ref);
@@ -570,6 +572,14 @@ function parseCsvLine(line) {
 
 function firstListItem(value) {
   return splitList(value)[0] ?? "";
+}
+
+function fastTrackBase(row, baseByKey) {
+  for (const base of splitList(row.variants)) {
+    const outcome = baseByKey.get(`${row.chart_ref},${base}`);
+    if (outcome?.two_cluster_kind_parity === "pass") return base;
+  }
+  return "";
 }
 
 function receiptPathFromNotes(notes, prefix) {
