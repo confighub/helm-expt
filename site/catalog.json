@@ -459,7 +459,7 @@
       "total": "190",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "8 rows have non-pass GitOps/OCI receipts."
+      "note": "9 rows have non-pass GitOps/OCI receipts."
     },
     {
       "section": "proof lanes",
@@ -468,7 +468,7 @@
       "total": "190",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "5 rows have non-pass live parity receipts."
+      "note": "6 rows have non-pass live parity receipts."
     },
     {
       "section": "proof lanes",
@@ -509,7 +509,7 @@
     {
       "section": "proof lanes",
       "metric": "top20 bases needing unresolved prerequisite or runtime review",
-      "value": "5",
+      "value": "6",
       "total": "42",
       "status": "partial",
       "source": "data/top20-base-readiness/base-readiness.csv",
@@ -4322,20 +4322,20 @@
       "chart": "grafana/grafana@10.5.15",
       "base": "existing-secret-ingress",
       "recommended_first": "no",
-      "user_readiness": "try-with-proof",
-      "why": "render parity and two-cluster live parity pass, but one or more broader lanes are missing",
-      "next_action": "complete the missing lane(s): confighub oci argo live, live helm vs confighub dual compare",
+      "user_readiness": "runtime-watch",
+      "why": "object parity passed, but a live GitOps/controller condition needs review",
+      "next_action": "inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary",
       "support_artifact": "",
-      "live_rerun_readiness": "ready-to-collect",
-      "live_rerun_next_step": "collect-live-helm-vs-confighub",
-      "live_rerun_command": "npm run live-parity:top20 -- --chart grafana --base existing-secret-ingress",
+      "live_rerun_readiness": "",
+      "live_rerun_next_step": "",
+      "live_rerun_command": "",
       "command": "cub installer setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana",
       "target_facts": "required Secret grafana/grafana-admin keys admin-user,admin-password",
       "render_parity": "pass",
       "in_confighub": "pass",
       "local_live": "pass",
-      "gitops_oci_live": "missing",
-      "live_helm_vs_confighub_parity": "missing",
+      "gitops_oci_live": "watch",
+      "live_helm_vs_confighub_parity": "watch",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
       "lifecycle_observation": "",

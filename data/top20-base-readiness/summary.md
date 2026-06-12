@@ -16,8 +16,8 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 22
-try-with-proof: 15
-runtime-watch: 5
+try-with-proof: 14
+runtime-watch: 6
 runtime-review-needed: 0
 operating-policy-needed: 0
 target-fit-needed: 0
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-ready-to-collect: 6
+ready-to-collect: 5
 model-or-stage-first: 0
 review-target-first: 0
 inspect-diff-first: 0
@@ -75,7 +75,7 @@ rerun-now-after-cleanup: 0
 | `external-secrets/external-secrets@2.5.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `external-secrets/external-secrets@2.5.0` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
 | `grafana/grafana@10.5.15` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `grafana/grafana@10.5.15` | existing-secret-ingress | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub oci argo live, live helm vs confighub dual compare | - |
+| `grafana/grafana@10.5.15` | existing-secret-ingress | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/loki@7.0.0` | simple-scalable-minio | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub oci argo live, live helm vs confighub dual compare | - |
 | `grafana/tempo@1.24.4` | local-persistent | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
