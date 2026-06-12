@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "tempo-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-tempo-s3-query-observability-confighub-proof"
+    selector: "Labels.Proof = 'tempo-s3-query-observability-confighub-proof'"
+  subject:
+    chart: "grafana/tempo"
+    chartVersion: "1.24.4"
+    packagePath: "packages/grafana/tempo/1.24.4"
+    variant: "s3-query-observability"
+    configHubUnitCount: 9
+  unitRevisionBindings:
+    -
+      slug: "configmap-tempo-tempo"
+      headRevisionNum: 1
+      dataHash: "8e166e638c1c7edfe91b3510ec4edc458519dffb0709cb0362509d57dc87f31e"
+    -
+      slug: "configmap-tempo-tempo-query"
+      headRevisionNum: 1
+      dataHash: "99a819255326862cd4f064f3a40dacb8e8bc38fa6bd9ae3685bf0c292341ee16"
+    -
+      slug: "ingress-tempo-tempo"
+      headRevisionNum: 2
+      dataHash: "7b843b89b8c89d8fd149eb7bd13be7dee7924f06ad68b0de88ae54ae514f5f0b"
+    -
+      slug: "namespace-tempo"
+      headRevisionNum: 1
+      dataHash: "29ce4902601df34b153bfedc91dc0792b8c073430fa762c7d3c7b8e1e6f4a33c"
+    -
+      slug: "networkpolicy-tempo-tempo"
+      headRevisionNum: 2
+      dataHash: "0a19068fe8ba18e86837bacd939134e9dd38af4921734fa42d88cf645f604d1f"
+    -
+      slug: "serviceaccount-tempo-tempo"
+      headRevisionNum: 1
+      dataHash: "7a93f0c56b8e9452603f8d7aa98cbe2e91c4d98d74a013300ca9930f52c18c41"
+    -
+      slug: "servicemonitor-tempo-tempo"
+      headRevisionNum: 2
+      dataHash: "d2890c90ea0fe060a87833bba3eec5e52b484004fa76e09af2b3cca07850d3b6"
+    -
+      slug: "service-tempo-tempo"
+      headRevisionNum: 2
+      dataHash: "d6c7fbfac9e32953d62f4e7eab572e925ac0527839f9847b7efd68b0319ec189"
+    -
+      slug: "statefulset-tempo-tempo"
+      headRevisionNum: 2
+      dataHash: "e4eb5f5b0466fbf952938168b334c35a8b807d09a7c75af6326e24537705f818"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

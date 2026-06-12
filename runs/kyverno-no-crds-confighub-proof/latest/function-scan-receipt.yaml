@@ -1,0 +1,239 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "kyverno-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-kyverno-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'kyverno-no-crds-confighub-proof'"
+  subject:
+    chart: "kyverno/kyverno"
+    chartVersion: "3.8.1"
+    packagePath: "packages/kyverno/kyverno/3.8.1"
+    variant: "no-crds"
+    configHubUnitCount: 48
+  unitRevisionBindings:
+    -
+      slug: "configmap-default-kyverno-metrics"
+      headRevisionNum: 1
+      dataHash: "02b8926107eba5876702b9bcebd43d3674e1ab82f57c099bce8aad5677d866fe"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "service-default-kyverno-cleanup-controller"
+      headRevisionNum: 2
+      dataHash: "1264d7fc0693b7b1fdc16766bb0ca57156aa0b8421697807399554499052f19b"
+    -
+      slug: "service-default-kyverno-reports-controller-metrics"
+      headRevisionNum: 2
+      dataHash: "873d0e7d36ce789ee40fe3b54846eb619a5db688d0a27e09acdcc1ec896bf64e"
+    -
+      slug: "service-default-kyverno-svc-metrics"
+      headRevisionNum: 2
+      dataHash: "f6a7a826584200b94c97466de6160d8d1a89fc806fdb15abff5f0281f54f14b0"
+    -
+      slug: "clusterrole-kyvernoreports-controllercore"
+      headRevisionNum: 2
+      dataHash: "761a3320cbfb797b697f5cbb39599c8f55dfdd780662deb05d28edbf1e5bb8e9"
+    -
+      slug: "deployment-default-kyverno-admission-controller"
+      headRevisionNum: 2
+      dataHash: "aa0ba7ca2f3d61053674678be2e0385fb0bd34463bfbba92ae7c214ac8cc59d2"
+    -
+      slug: "deployment-default-kyverno-background-controller"
+      headRevisionNum: 2
+      dataHash: "c1cbe540db94db9b6884170f2f7d8091b922553bb2acc8f006b3fc572150aa34"
+    -
+      slug: "service-default-kyverno-background-controller-metrics"
+      headRevisionNum: 2
+      dataHash: "705f2a93e944a56f3825f7760811faa6fc7d1cb45599500c9266ecbc3d51ade0"
+    -
+      slug: "clusterrole-kyvernorbacadminpolicyreports"
+      headRevisionNum: 2
+      dataHash: "00d4cc8186d208f15ac6fe80d04dd93f8e60f001ecf88b3f35d0a18fc3f2ff7b"
+    -
+      slug: "clusterrole-kyvernorbacadminupdaterequests"
+      headRevisionNum: 2
+      dataHash: "7c6b19fb3ac697d0ced07a577689807bbe1699177c121781c90414e78790a0ac"
+    -
+      slug: "clusterrole-kyvernorbacadminreports"
+      headRevisionNum: 2
+      dataHash: "2ba393feec7316399f5051d3f594d76a977a1ce1e533eaf1b6e299e36eec8eef"
+    -
+      slug: "clusterrole-kyvernorbacviewupdaterequests"
+      headRevisionNum: 2
+      dataHash: "ba48009137eafa0b7383f50c6ce61ea0e700acea928d3235b2b6e5264f779f6d"
+    -
+      slug: "clusterrolebinding-kyvernoadmission-controller"
+      headRevisionNum: 2
+      dataHash: "9ea100a25c397c505a450a9fbd9aab505e9848e0bf436294fa356333de374187"
+    -
+      slug: "clusterrolebinding-kyvernoadmission-controllerview"
+      headRevisionNum: 2
+      dataHash: "71ad6c5adc14184046cb4906fd001e221278f8bb9dffcaa7788dc039a821b28f"
+    -
+      slug: "clusterrolebinding-kyvernobackground-controller"
+      headRevisionNum: 2
+      dataHash: "d833c5681c7af46863783a864c1394289bb741914f19c428a0c161b3e068c88f"
+    -
+      slug: "clusterrolebinding-kyvernobackground-controllerview"
+      headRevisionNum: 2
+      dataHash: "1f521a8653ba9e0cbd4774766cc58a8c339b41bdc8c7a8baec78d5d28d629952"
+    -
+      slug: "clusterrolebinding-kyvernocleanup-controller"
+      headRevisionNum: 2
+      dataHash: "f5c9cbcaebc03bad563d525e44fbf824a5c8f0e20a5b0154af7ded5000883fa5"
+    -
+      slug: "clusterrolebinding-kyvernoreports-controller"
+      headRevisionNum: 2
+      dataHash: "053b5d1631e48539d0b5ea663126cc9d26f4a72eb807a714497ab6dd1a2f5eff"
+    -
+      slug: "clusterrolebinding-kyvernoreports-controllerview"
+      headRevisionNum: 2
+      dataHash: "9acbd27b2f388ae94441ae86f12242f9dc9d89c1ef09f101066f174efbb7c005"
+    -
+      slug: "configmap-default-kyverno"
+      headRevisionNum: 1
+      dataHash: "634fa981554b52503e20dd682ed234d3ac06f0f2a856ad37b845c7ff1bcfbba6"
+    -
+      slug: "deployment-default-kyverno-cleanup-controller"
+      headRevisionNum: 2
+      dataHash: "784820353d7c8dd7980b1261adac045fe3e9d03b3f7e47f114f4ab5b79c0536d"
+    -
+      slug: "deployment-default-kyverno-reports-controller"
+      headRevisionNum: 2
+      dataHash: "13bc5ce2002257585ed027021ed018c9d8da222e03f85ac2b64ba239e35b420f"
+    -
+      slug: "role-default-kyvernoadmission-controller"
+      headRevisionNum: 2
+      dataHash: "47c3d012a2aa38745b2d61e07cc4672876809ad453933b138993df15ea61eda1"
+    -
+      slug: "role-default-kyvernobackground-controller"
+      headRevisionNum: 2
+      dataHash: "599c056db7455a098efe4af485c1d7ab93935d35debfa36f7d6f5c414ae24155"
+    -
+      slug: "role-default-kyvernocleanup-controller"
+      headRevisionNum: 2
+      dataHash: "ea0be92b2190348507ce2a7ba496f691cb6ca07a7d5e7f06329c79afb821f5f3"
+    -
+      slug: "role-default-kyvernoreports-controller"
+      headRevisionNum: 2
+      dataHash: "c69c588f64fdef2b448234c2b977b5b516b48276061566df72e8a3d3d3457264"
+    -
+      slug: "rolebinding-default-kyvernoadmission-controller"
+      headRevisionNum: 2
+      dataHash: "db8aa0436c2917595198a675bf1ea9d71e80e9f974da302f2f9b51d6a3c4ccb7"
+    -
+      slug: "rolebinding-default-kyvernobackground-controller"
+      headRevisionNum: 2
+      dataHash: "75d83c68fb3433888706089060ecf3cea115a16a0bf475fb87c4e26c531db28e"
+    -
+      slug: "rolebinding-default-kyvernocleanup-controller"
+      headRevisionNum: 2
+      dataHash: "2614f8a541dda0ab9981e397f8b9c1c4631330dd8f12dfc265c21e28d2a2a516"
+    -
+      slug: "rolebinding-default-kyvernoreports-controller"
+      headRevisionNum: 2
+      dataHash: "79b1ca020e5662152e2e78cb21e6c33b9d7acf513dd907fd03f1f52735bdb147"
+    -
+      slug: "service-default-kyverno-cleanup-controller-metrics"
+      headRevisionNum: 2
+      dataHash: "559c4167aa007a593e1b8b892ae661560382d00bab916b4850ea5612404eb9d3"
+    -
+      slug: "service-default-kyverno-svc"
+      headRevisionNum: 2
+      dataHash: "8fc8fbee09820206399d919456e27131c40fe6ebd337556d4b01c00c65ce3d2d"
+    -
+      slug: "serviceaccount-default-kyverno-admission-controller"
+      headRevisionNum: 1
+      dataHash: "1b914781077af36452ba34595589d67957320b099c9c445e576420eba80348b7"
+    -
+      slug: "serviceaccount-default-kyverno-background-controller"
+      headRevisionNum: 1
+      dataHash: "475ba9ec945b90bbd97848a2906cce0edbf3fa9e73a1e6143e2f097cbb1a5414"
+    -
+      slug: "serviceaccount-default-kyverno-cleanup-controller"
+      headRevisionNum: 1
+      dataHash: "ce27f93be6b955da9e3145ec1aa351a6a319d17f807d20fd05a6b1266ad2587c"
+    -
+      slug: "serviceaccount-default-kyverno-reports-controller"
+      headRevisionNum: 1
+      dataHash: "ae69876248d212286c6f61426658adfb38f197e0636d49fe2db55b0baca3913f"
+    -
+      slug: "clusterrole-kyvernoadmission-controller"
+      headRevisionNum: 2
+      dataHash: "dbdcf1f8b9ed490e1e9f7eaa20b15cbc88a908f3f7e759e1548475a6e540fcdd"
+    -
+      slug: "clusterrole-kyvernoadmission-controllercore"
+      headRevisionNum: 2
+      dataHash: "8d2c5f807bc3a3ab7e6b709228008057746f114f852a69866ab0a963188d2915"
+    -
+      slug: "clusterrole-kyvernobackground-controller"
+      headRevisionNum: 2
+      dataHash: "7b0912dedebea5e677a5b2eedd7de8bed8cd2ebdf4da488d6c4fcaa88ecb3aa9"
+    -
+      slug: "clusterrole-kyvernobackground-controllercore"
+      headRevisionNum: 2
+      dataHash: "e44649b711a22ec483731fc814f9b27b00130703ecf1c9e1618f185776d50de8"
+    -
+      slug: "clusterrole-kyvernocleanup-controller"
+      headRevisionNum: 2
+      dataHash: "11c6a2da831a9c576289b8294b148d6e68e6203568c6bbeb9f4fc876f245567f"
+    -
+      slug: "clusterrole-kyvernocleanup-controllercore"
+      headRevisionNum: 2
+      dataHash: "87f609a8d3dbebe579349cffa897573c3f1c2ac8b948b1ca43a00bc402bb9967"
+    -
+      slug: "clusterrole-kyvernorbacadminpolicies"
+      headRevisionNum: 2
+      dataHash: "954d5b801d36c1abb2e044806da8e6b4a191e38f606abb5b61f7051b778b29ce"
+    -
+      slug: "clusterrole-kyvernorbacviewpolicies"
+      headRevisionNum: 2
+      dataHash: "9133ecf25bef540d3cf280ca7d3bf7612e9072b72ded1cc0941101346b4a86bc"
+    -
+      slug: "clusterrole-kyvernorbacviewpolicyreports"
+      headRevisionNum: 2
+      dataHash: "00fdace0ea2d82fb6efacfb009580f8ccfd82eacfc4af9a6cde51e311d238018"
+    -
+      slug: "clusterrole-kyvernorbacviewreports"
+      headRevisionNum: 2
+      dataHash: "b3566e3bcf9a5dddb34f94ab4f1720902171f7f6668661bb1dc3422deceb8e51"
+    -
+      slug: "clusterrole-kyvernoreports-controller"
+      headRevisionNum: 2
+      dataHash: "32b641cf6c51a318fb62c46016fdd919ae4d110813e056bd263335921bd14f50"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 48
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 48
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 48
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "pyroscope-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-pyroscope-confighub-proof"
+    selector: "Labels.Proof = 'pyroscope-confighub-proof'"
+  subject:
+    chart: "grafana/pyroscope"
+    chartVersion: "2.0.2"
+    packagePath: "packages/grafana/pyroscope/2.0.2"
+    variant: "default"
+    configHubUnitCount: 19
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-pyroscope-alloy"
+      headRevisionNum: 2
+      dataHash: "8e06c1f4c4894c04bb0a6105f7526734c3b4ae46aaa93b146dfb0cb8ca4f66a1"
+    -
+      slug: "clusterrole-pyroscope-alloy"
+      headRevisionNum: 2
+      dataHash: "75137a9ff47e0761eb010ab4f729f06a696c795e88038d9757cda63701e83200"
+    -
+      slug: "configmap-default-alloy-config-pyroscope"
+      headRevisionNum: 1
+      dataHash: "44e060c3addf23a588627f2e1fc16da57fe0670205437155211d800a94b3a0d0"
+    -
+      slug: "configmap-default-pyroscope-config"
+      headRevisionNum: 1
+      dataHash: "afd4886dce84b5a2108dc10dc40e07c7b5d0759154a19cbdaf705a794b726303"
+    -
+      slug: "configmap-default-pyroscope-overrides-config"
+      headRevisionNum: 1
+      dataHash: "75dfea5d6396c5efadc7f9fb88a5c885a3e7facbea558f383a6f639bc03b2ba0"
+    -
+      slug: "customresourcedefinition-podlogs-monitoring-grafana-com"
+      headRevisionNum: 2
+      dataHash: "e3be88752f15a9e7d8a70f489cd50c7f9aee2d3ea484e6acd02db96a7df61ee1"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "poddisruptionbudget-default-pyroscope"
+      headRevisionNum: 1
+      dataHash: "3cac0663006e098c83c7708ba1f8d108800788f78554b7ae87942181331662e5"
+    -
+      slug: "rolebinding-pyroscope-discovery"
+      headRevisionNum: 2
+      dataHash: "f3732b7af40e2e48148bc11c3b5dc4b281c98ec54fcf3ad95e6e72a694c7439d"
+    -
+      slug: "role-pyroscope-discovery"
+      headRevisionNum: 2
+      dataHash: "347feec45eb1530c0d87226f17762c0c686db0193baa28c34b9c9cabb163908f"
+    -
+      slug: "serviceaccount-default-pyroscope"
+      headRevisionNum: 1
+      dataHash: "ee0e85ad3fd66819726128f5ed00e2a26de164f1b435e65857ec3c7c88eca61d"
+    -
+      slug: "serviceaccount-default-pyroscope-alloy"
+      headRevisionNum: 1
+      dataHash: "7518609733b2e119ae705ca862e61d8cb7225c684e728b37308e91551c0b7ab4"
+    -
+      slug: "service-default-pyroscope"
+      headRevisionNum: 2
+      dataHash: "59e7112228425c764256ac5493e5100aa8e6cdea972800be8ef9e72cb5ee76b4"
+    -
+      slug: "service-default-pyroscope-alloy"
+      headRevisionNum: 2
+      dataHash: "4e2dc735bc7fe1347e267920fbc45f48b710cf2e54f2564cc528ab5cb3d4f2dc"
+    -
+      slug: "service-default-pyroscope-alloy-cluster"
+      headRevisionNum: 2
+      dataHash: "d3b4f89d7a2b8f1d01cb39108382d790732db72606f0e8b7b5ee9301cc6f076b"
+    -
+      slug: "service-default-pyroscope-headless"
+      headRevisionNum: 2
+      dataHash: "623368b000fc9198195995220255ac55736b8ec11852d35ceef61806e08f7829"
+    -
+      slug: "service-default-pyroscope-memberlist"
+      headRevisionNum: 2
+      dataHash: "cb18fb25d331d9106c586abeeaec751cfc008b5bc80e876c9d68553ffa20bc5b"
+    -
+      slug: "statefulset-default-pyroscope"
+      headRevisionNum: 2
+      dataHash: "da2b52a87227d3f251b7df768de940817deeeb801655c43457e8075b80a65129"
+    -
+      slug: "statefulset-default-pyroscope-alloy"
+      headRevisionNum: 2
+      dataHash: "bb33c3ed2cc8be56a569a0001d3fd9f6db130d8c2febad4e88fe4ffe15a83a9a"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 19
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 19
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 19
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

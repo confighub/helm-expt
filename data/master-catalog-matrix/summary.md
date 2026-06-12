@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 190 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 517 / 8 / 59 / 746 / 0 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 537 / 8 / 59 / 726 / 0 |
 | Variants with the complete core lane set | 23 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -100,16 +100,16 @@ user/product view with those columns visible.
 | `aqua/trivy-operator@0.32.1` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 | `argo-cd/argo-cd@9.5.15` | default | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | no-crds | top20 | — | — | ✅ | ⬜ | ❌ | ❌ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
-| `argo-cd/argo-cd@9.5.17` | default | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | no-crds | top20 | — | — | ✅ | ✅ | ❌ | ❌ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+| `argo-cd/argo-cd@9.5.17` | default | — | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | no-crds | — | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `argo-cd/argo-events@2.4.21` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 | `argo-cd/argo-rollouts@2.40.9` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 | `argo-cd/argo-workflows@1.0.14` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
-| `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
@@ -185,19 +185,19 @@ user/product view with those columns visible.
 |  | no-crds | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | 4 observed ✅ | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `gitlab/gitlab-runner@0.89.0` | default | next80 | `generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `grafana/alloy@1.8.2` | default | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
-|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `grafana/grafana@10.5.15` | existing-secret-ingress | top20 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `grafana/grafana@10.5.15` | existing-secret-ingress | top20 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 |  | generated-passwords | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | superseded |
-| `grafana/loki@7.0.0` | simple-scalable-minio | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+| `grafana/loki@7.0.0` | simple-scalable-minio | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 |  | single-binary-filesystem | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-| `grafana/promtail@6.17.1` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `grafana/pyroscope@2.0.2` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `grafana/promtail@6.17.1` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `grafana/pyroscope@2.0.2` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
+|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `grafana/rollout-operator@0.49.0` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `grafana/tempo@1.24.4` | local-persistent | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | superseded |
-|  | s3-query-observability | top20 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+|  | s3-query-observability | top20 | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 | `haproxytech/kubernetes-ingress@1.52.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `hashicorp/consul@2.0.0` | default-control-plane | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | secure-mesh-existing-secrets | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ❌ | ❌ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
@@ -222,9 +222,9 @@ user/product view with those columns visible.
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `kedacore/keda@2.19.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 |  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `kyverno/kyverno@3.8.1` | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `kyverno/kyverno-policies@3.8.0` | default | next80 | `lookup;tpl` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `kyverno/kyverno@3.8.1` | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
+| `kyverno/kyverno-policies@3.8.0` | default | next80 | `lookup;tpl` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `linkerd/linkerd-crds@1.8.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `longhorn/longhorn@1.11.2` | default | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | ui-ingress | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
@@ -233,9 +233,9 @@ user/product view with those columns visible.
 | `minio-operator/operator@7.1.1` | default | next80 | `cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `minio-operator/tenant@7.1.1` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/nack@0.34.0` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/nats@2.14.0` | default | next80 | `tpl` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
-|  | ha | next80 | `tpl` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | ha | next80 | `tpl` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/surveyor@0.20.9` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | default-reviewed | next80 | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | next80 | `capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |

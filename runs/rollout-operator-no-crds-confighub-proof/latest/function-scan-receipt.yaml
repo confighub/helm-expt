@@ -1,0 +1,103 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "rollout-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-rollout-operator-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'rollout-operator-no-crds-confighub-proof'"
+  subject:
+    chart: "grafana/rollout-operator"
+    chartVersion: "0.49.0"
+    packagePath: "packages/grafana/rollout-operator/0.49.0"
+    variant: "no-crds"
+    configHubUnitCount: 14
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-rollout-operator-webhook-clusterrolebinding"
+      headRevisionNum: 2
+      dataHash: "60060596755777bc051daf0e204791def2756d5b42721278e28991062b7bbee0"
+    -
+      slug: "clusterrole-rollout-operator-webhook-clusterrole"
+      headRevisionNum: 2
+      dataHash: "3bff21aedce62b7a0d66894acaf3664ace0ba31a2a4ed44ab97317b5f67fa49f"
+    -
+      slug: "deployment-default-rollout-operator"
+      headRevisionNum: 2
+      dataHash: "4049f318078c9c8201d18e166cc2c5c79be31684e6c07c26680e4db8285cc0f6"
+    -
+      slug: "mutatingwebhookconfiguration-prepare-downscale-default"
+      headRevisionNum: 2
+      dataHash: "fd1209864cda428e69bc5d3b8f996630cd381b7e5e62961b7b876beb63f91b0f"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-rollout-operator"
+      headRevisionNum: 2
+      dataHash: "886ae29072f8b7c35fcd5b3cb9547ad5527ad6a080897cb4ad6aa432a875d203"
+    -
+      slug: "rolebinding-default-rollout-operator-webhook-rolebinding"
+      headRevisionNum: 2
+      dataHash: "e7629e06803a5dddd62611fca154b095f50c5e63af2fb31e1b4f2675aad2a5e4"
+    -
+      slug: "role-default-rollout-operator"
+      headRevisionNum: 2
+      dataHash: "0adbcf26eb525a741cab69bddd619b0238d259d7fbf93ac8ecb2872da85dd618"
+    -
+      slug: "role-default-rollout-operator-webhook-role"
+      headRevisionNum: 2
+      dataHash: "fb9be51c5c8b57a43a8057fa2d2e1f2a1da1e763b573ba7d92e2341f23d90e32"
+    -
+      slug: "serviceaccount-default-rollout-operator"
+      headRevisionNum: 1
+      dataHash: "730b4e0bb7d6e5a827c3d29f27278b3697030b89a89ac388ae6d5738decfe09a"
+    -
+      slug: "service-default-rollout-operator"
+      headRevisionNum: 2
+      dataHash: "bae487eb0e4e38626425392f629d517806243adb16591db7ad345a36a18b0942"
+    -
+      slug: "validatingwebhookconfiguration-no-downscale-default"
+      headRevisionNum: 2
+      dataHash: "038d6d18a2669e6946c070eb2f20a76222838398063060d34aa0d2ef9b264b61"
+    -
+      slug: "validatingwebhookconfiguration-pod-eviction-default"
+      headRevisionNum: 2
+      dataHash: "42676e2405dedd22bc7fa461ca35acb06cdc15f7a3860263f5da1e64ba199bc0"
+    -
+      slug: "validatingwebhookconfiguration-zpdb-validation-default"
+      headRevisionNum: 2
+      dataHash: "d8bfcf2d9f782098c724feaf79fb1e8f4711fc1fd36a8bccf7183d64f5a4d2a4"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 14
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 14
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 14
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

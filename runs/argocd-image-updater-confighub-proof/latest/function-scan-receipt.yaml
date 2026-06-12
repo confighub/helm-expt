@@ -1,0 +1,95 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "argocd-image-updater-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-argocd-image-updater-confighub-proof"
+    selector: "Labels.Proof = 'argocd-image-updater-confighub-proof'"
+  subject:
+    chart: "argo-cd/argocd-image-updater"
+    chartVersion: "1.2.2"
+    packagePath: "packages/argo-cd/argocd-image-updater/1.2.2"
+    variant: "default"
+    configHubUnitCount: 12
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-argocd-image-updater"
+      headRevisionNum: 2
+      dataHash: "a28e9abcdacc0eab75df4771e6ffbd74f6c3065e873cd6adf5d605fb1bfdd471"
+    -
+      slug: "clusterrolebinding-argocd-image-updater"
+      headRevisionNum: 2
+      dataHash: "b71cae79867b51a9e03d6b59fa1b7861c08d22f01b78be535900fcc2796dffad"
+    -
+      slug: "configmap-default-argocd-image-updater-config"
+      headRevisionNum: 1
+      dataHash: "e370a45e577da1d3213e2e34f9cebfe9221e0d069e093215484204ea40a5a412"
+    -
+      slug: "configmap-default-argocd-image-updater-ssh-config"
+      headRevisionNum: 1
+      dataHash: "1b05fedd09ec5b5d87d000f9889c3da58f280d5c24ad81a3c7954995a1b4be86"
+    -
+      slug: "customresourcedefinition-imageupdaters-argocd-image-updater-argoproj-io"
+      headRevisionNum: 2
+      dataHash: "8fdad9d659581e9f7e225f309dd9bc4a14a6a5bb3bac11fabcc3e56cc2986fef"
+    -
+      slug: "deployment-default-argocd-image-updater-controller"
+      headRevisionNum: 2
+      dataHash: "9fb137749658f2f17f0b75504f09307cd35184bc5a53c5356365071e7a638ed4"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-argocd-image-updater"
+      headRevisionNum: 2
+      dataHash: "e3d66d0f3bd02a031f52cbb7766d310c0d83ed089275b202682ff5bf57a91285"
+    -
+      slug: "rolebinding-default-argocd-image-updater-leader-election-rolebinding"
+      headRevisionNum: 2
+      dataHash: "b70d31dcb4244c92f02e607a4d600e206282be39efc61059c6bd3fce1e7462c5"
+    -
+      slug: "role-default-argocd-image-updater"
+      headRevisionNum: 2
+      dataHash: "e2330cdeca66e252b2c6453ec3593ab4961a2474a1dedb7f85d14723ebe6973e"
+    -
+      slug: "role-default-argocd-image-updater-leader-election-role"
+      headRevisionNum: 2
+      dataHash: "ebf399b0f0466f6aeef7a52ebe5865f2c642aab6072bfbab03550fc1909d7e9f"
+    -
+      slug: "serviceaccount-default-argocd-image-updater"
+      headRevisionNum: 1
+      dataHash: "32dd4ede390c5310ae5622d78a3bdf31657cca835e7eabf38a394b199cc75b69"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

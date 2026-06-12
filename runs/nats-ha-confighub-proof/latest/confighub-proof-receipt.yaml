@@ -1,0 +1,84 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "nats-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/nats/nats/2.14.0"
+    name: "nats-nats"
+    chart: "nats/nats"
+    chartVersion: "2.14.0"
+    bases:
+      - "default"
+      - "ha"
+    selectedBase: "ha"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/nats/nats/2.14.0 --base ha --work-dir .tmp/confighub-proof/nats-ha --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 1
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/nats-ha"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 1
+  deterministicPackage:
+    command: "cub installer package packages/nats/nats/2.14.0 -o .tmp/confighub-proof/nats-ha-archives/nats-a.tgz"
+    sha256: "61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/nats-ha"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/nats-ha --space helm-nats-ha-confighub-proof --component NATS --layer App --environment Demo --owner ConfigHubHelm --variant ha --unit-label Component=NATS --unit-label HelmChart=nats-nats --unit-label HelmChartVersion=2.14.0 --unit-label Variant=ha --unit-label Proof=nats-ha-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-nats-ha-confighub-proof"
+    unitCount: 8
+    kubernetesUnitCount: 7
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret nats-box-contexts"
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/nats-ha"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/nats-ha"
+    result: "pass"
+    summary: "No changes.\nImages in helm-nats-ha-confighub-proof (post-render):\n      Deployment/nats-box [nats-box] natsio/nats-box:0.19.5\n      StatefulSet/nats [nats] nats:2.14.0-alpine\n      StatefulSet/nats [reloader] natsio/nats-server-config-reloader:0.23.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-nats-ha-confighub-proof --environment Staging --region local --space-name-pattern template:NATS-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-nats-ha-confighub-proof"
+    downstreamSpace: "NATS-ha-staging"
+    clonedUnitCount: 8
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-nats"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-nats-ha-confighub-proof"
+      - "NATS-ha-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

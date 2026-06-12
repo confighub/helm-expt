@@ -1,0 +1,84 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "loki-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/grafana/loki/7.0.0"
+    name: "grafana-loki"
+    chart: "grafana/loki"
+    chartVersion: "7.0.0"
+    bases:
+      - "single-binary-filesystem"
+      - "simple-scalable-minio"
+    selectedBase: "simple-scalable-minio"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir .tmp/confighub-proof/loki-simple-scalable-minio --non-interactive --namespace loki"
+    result: "pass"
+    manifestCount: 33
+    separatedSecretCount: 1
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/loki-simple-scalable-minio"
+    result: "pass"
+    manifestCount: 33
+    separatedSecretCount: 1
+  deterministicPackage:
+    command: "cub installer package packages/grafana/loki/7.0.0 -o .tmp/confighub-proof/loki-simple-scalable-minio-archives/loki-a.tgz"
+    sha256: "811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/loki-simple-scalable-minio"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/loki-simple-scalable-minio --space helm-loki-simple-scalable-minio-confighub-proof --component Loki --layer App --environment Demo --owner ConfigHubHelm --variant simple-scalable-minio --unit-label Component=Loki --unit-label HelmChart=grafana-loki --unit-label HelmChartVersion=7.0.0 --unit-label Variant=simple-scalable-minio --unit-label Proof=loki-simple-scalable-minio-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-loki-simple-scalable-minio-confighub-proof"
+    unitCount: 34
+    kubernetesUnitCount: 33
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret loki-minio"
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/loki-simple-scalable-minio"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/loki-simple-scalable-minio"
+    result: "pass"
+    summary: "No changes.\nImages in helm-loki-simple-scalable-minio-confighub-proof (post-render):\n      DaemonSet/loki-canary [loki-canary] docker.io/grafana/loki-canary:3.6.7\n      Deployment/loki-gateway [nginx] docker.io/nginxinc/nginx-unprivileged:1.29-alpine\n      Deployment/loki-read [loki] docker.io/grafana/loki:3.6.7\n      StatefulSet/loki-backend [loki] docker.io/grafana/loki:3.6.7\n      StatefulSet/loki-backend [loki-sc-rules] docker.io/kiwigrid/k8s-sidecar:2.5.0\n      StatefulSet/loki-chunks-cache [exporter] prom/memcached-exporter:v0.15.4\n      StatefulSet/loki-chunks-cache [memcached] memcached:1.6.39-alpine\n      StatefulSet/loki-minio [minio] docker.io/pgsty/minio:RELEASE.2026-03-14T12-00-00Z"
+  serverSideVariant:
+    command: "cub variant create staging helm-loki-simple-scalable-minio-confighub-proof --environment Staging --region local --space-name-pattern template:Loki-simple-scalable-minio-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-loki-simple-scalable-minio-confighub-proof"
+    downstreamSpace: "Loki-simple-scalable-minio-staging"
+    clonedUnitCount: 34
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-loki-loki-write"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-loki-simple-scalable-minio-confighub-proof"
+      - "Loki-simple-scalable-minio-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."
