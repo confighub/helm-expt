@@ -5,6 +5,7 @@ import { dirname, join } from "node:path";
 import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--help";
+const wantsHelp = process.argv.includes("--help") || process.argv.includes("-h");
 const selectedSlug = optionValue("--chart");
 const selectedBase = optionValue("--base");
 const selectedFromRank = numberOption("--from-rank");
@@ -38,7 +39,9 @@ const targets = [
   { rank: 20, slug: "consul", chart: "hashicorp/consul", version: "2.0.0", namespace: "consul", variant: "default-control-plane", recipe: "recipes/hashicorp/consul/2.0.0" },
 ];
 
-if (mode === "--run") {
+if (wantsHelp) {
+  printUsage();
+} else if (mode === "--run") {
   const selected = selectedTargets();
   for (const target of selected) runTarget(target);
   writeSummary();
@@ -48,6 +51,10 @@ if (mode === "--run") {
   verifyExpectedReceipts();
   verifySummary();
 } else {
+  printUsage();
+}
+
+function printUsage() {
   console.log(`Usage:
   node scripts/run-top20-live-parity.mjs --run --chart metrics-server
   node scripts/run-top20-live-parity.mjs --run --chart metrics-server --base external-tls-ca --gitops-canonicalization-profile k8s-zero-defaults
