@@ -6,8 +6,8 @@ spec:
   chart: aqua/trivy-operator
   version: 0.32.1
   base: no-crds
-  result: blocked
-  observedAt: '2026-06-11T09:40:51Z'
+  result: pass
+  observedAt: '2026-06-12T04:48:25Z'
   package:
     path: packages/aqua/trivy-operator/0.32.1
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-trivyo-1b6ad-4wz1-helm
-    installerCluster: hx-trivyo-1b6ad-4wz1-installer
+    helmCluster: hx-trivyo-1b6ad-4onm-helm
+    installerCluster: hx-trivyo-1b6ad-4onm-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-trivyo-1b6ad-4wz1-helm
+      - cluster: hx-trivyo-1b6ad-4onm-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-trivyo-1b6ad-4wz1-helm" ...
+        detail: 'Deleting cluster "hx-trivyo-1b6ad-4onm-helm" ...
 
-          Deleted nodes: ["hx-trivyo-1b6ad-4wz1-helm-control-plane"]'
-      - cluster: hx-trivyo-1b6ad-4wz1-installer
+          Deleted nodes: ["hx-trivyo-1b6ad-4onm-helm-control-plane"]'
+      - cluster: hx-trivyo-1b6ad-4onm-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-trivyo-1b6ad-4wz1-installer" ...
+        detail: 'Deleting cluster "hx-trivyo-1b6ad-4onm-installer" ...
 
-          Deleted nodes: ["hx-trivyo-1b6ad-4wz1-installer-control-plane"]'
+          Deleted nodes: ["hx-trivyo-1b6ad-4onm-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -57,7 +57,11 @@ spec:
           deployment.apps/trivy-operator   1/1   1     1     2m44s'
         pods: '# default
 
-          trivy-operator-7b77959c86-4rfqs   1/1   Running   0     2m44s'
+          scan-vulnerabilityreport-7f49d4545b-5gc6r   1/1   Running   0     2m37s
+
+          scan-vulnerabilityreport-885c796c6-xzkb6    1/1   Running   0     2m37s
+
+          trivy-operator-7b77959c86-9zmkt             1/1   Running   0     2m44s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -65,10 +69,54 @@ spec:
           items: []
       stderr: ''
       getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aqua/trivy-operator/0.32.1
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-trivyo-1b6ad-4onm-trivy-operator
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: cd8dff17752e314aa6688393776e5687db3ae8bef212e0565bc9dba9acc48323
+      objectCount: 22
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/trivy-operator   1/1   1     1     2m36s'
+        pods: '# default
+
+          scan-vulnerabilityreport-5df7776f76-69dhv   1/1   Running   0     2m28s
+
+          scan-vulnerabilityreport-65f4c84797-8vhkd   1/1   Running   0     2m28s
+
+          scan-vulnerabilityreport-6f8c47bfb5-m8cwv   1/1   Running   0     2m28s
+
+          trivy-operator-7b77959c86-wf9pg             1/1   Running   0     2m36s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||default
     semanticNormalizations: []
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 21
+      installerObjectCount: 22
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
   checks:
   - name: kind-create-helm
     result: pass
@@ -78,17 +126,17 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=0 crds=12
   - name: target-facts-installer
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=0 crds=12
   - name: regular-helm-operating-policy
     result: pass
     detail: none
   - name: regular-helm-live
     result: pass
     detail: "Release \"trivy-operator\" does not exist. Installing it now.\nNAME:\
-      \ trivy-operator\nLAST DEPLOYED: Thu Jun 11 10:41:43 2026\nNAMESPACE: default\n\
+      \ trivy-operator\nLAST DEPLOYED: Fri Jun 12 05:49:25 2026\nNAMESPACE: default\n\
       STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
       NOTES:\nYou have installed Trivy Operator in the default namespace.\nIt is configured\
       \ to discover Kubernetes workloads and resources in\nall namespace(s).\n\nInspect\
@@ -96,58 +144,107 @@ spec:
       \ -o wide\n\nInspect created ConfigAuditReports by:\n\n    kubectl get configauditreports\
       \ --all-namespaces -o wide\n\nInspect the work log of trivy-operator by:\n\n\
       \    kubectl logs -n default deployment/trivy-operator"
-  - name: failure
-    result: blocked
-    detail: 'manifest apply failed: resource mapping not found for name: "k8s-cis-1.23"
-      namespace: "" from "/tmp/helm-expt-kind-parity-hx-trivyo-1b6ad-4wz1-trivy-operator/out/manifests/clustercompliancereport-k8s-cis-1-23.yaml":
-      no matches for kind "ClusterComplianceReport" in version "aquasecurity.github.io/v1alpha1"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
 
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "k8s-nsa-1.0" namespace: "" from "/tmp/helm-expt-kind-parity-hx-trivyo-1b6ad-4wz1-trivy-operator/out/manifests/clustercompliancereport-k8s-nsa-1-0.yaml":
-      no matches for kind "ClusterComplianceReport" in version "aquasecurity.github.io/v1alpha1"
-
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "k8s-pss-baseline-0.1" namespace: "" from
-      "/tmp/helm-expt-kind-parity-hx-trivyo-1b6ad-4wz1-trivy-operator/out/manifests/clustercompliancereport-k8s-pss-baseline-0-1.yaml":
-      no matches for kind "ClusterComplianceReport" in version "aquasecurity.github.io/v1alpha1"
-
-      ensure CRDs are installed first
-
-      resource mappin'
+      deployment.apps/trivy-operator   1/1   1     1     2m36s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
   targetFacts:
     regularHelm:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: clustercompliancereports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterconfigauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterinfraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterrbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clustersbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clustervulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: configauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: exposedsecretreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: infraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: rbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: sbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: vulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
       stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: clustercompliancereports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: clusterconfigauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: clusterinfraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: clusterrbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: clustersbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: clustervulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: configauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: exposedsecretreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: infraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: rbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: sbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: vulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: cubInstallerApply
       stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:
       result: pass
       operation: none
-  failure:
-    message: 'manifest apply failed: resource mapping not found for name: "k8s-cis-1.23"
-      namespace: "" from "/tmp/helm-expt-kind-parity-hx-trivyo-1b6ad-4wz1-trivy-operator/out/manifests/clustercompliancereport-k8s-cis-1-23.yaml":
-      no matches for kind "ClusterComplianceReport" in version "aquasecurity.github.io/v1alpha1"
-
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "k8s-nsa-1.0" namespace: "" from "/tmp/helm-expt-kind-parity-hx-trivyo-1b6ad-4wz1-trivy-operator/out/manifests/clustercompliancereport-k8s-nsa-1-0.yaml":
-      no matches for kind "ClusterComplianceReport" in version "aquasecurity.github.io/v1alpha1"
-
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "k8s-pss-baseline-0.1" namespace: "" from
-      "/tmp/helm-expt-kind-parity-hx-trivyo-1b6ad-4wz1-trivy-operator/out/manifests/clustercompliancereport-k8s-pss-baseline-0-1.yaml":
-      no matches for kind "ClusterComplianceReport" in version "aquasecurity.github.io/v1alpha1"
-
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "'
+    cubInstallerApply:
+      result: pass
+      operation: none

@@ -16,3 +16,77 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "clustercompliancereports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "clusterconfigauditreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "clusterinfraassessmentreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "clusterrbacassessmentreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "clustersbomreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "clustervulnerabilityreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "configauditreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "exposedsecretreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "infraassessmentreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "rbacassessmentreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "sbomreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+      -
+        name: "vulnerabilityreports.aquasecurity.github.io"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        purpose: "Trivy Operator CRD managed outside this no-crds base"
+        suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
