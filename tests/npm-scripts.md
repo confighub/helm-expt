@@ -60,6 +60,17 @@ Run the strict live parity lane serially. Its cleanup step owns kind clusters
 for that lane, so concurrent parity runs can remove another in-flight run's
 cluster and produce misleading failures.
 
+Some live rows need an explicit target profile. The profile is a property of the
+test cluster, not a hidden chart change.
+
+| Profile | Use | Example |
+| --- | --- | --- |
+| `kind-ingress-nginx` | Install a target ingress controller so Ingress objects receive status on kind. | `npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx` |
+| `kind-loadbalancer` | Run `cloud-provider-kind` so `Service.type=LoadBalancer` receives a local external address on kind. | `npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer` |
+
+`kind-loadbalancer` is guarded and refuses to run while another kind cluster is
+present, because `cloud-provider-kind` observes kind clusters host-wide.
+
 ## Chart Refresh Cadence
 
 The catalog should keep the currently supported chart version and any candidate
