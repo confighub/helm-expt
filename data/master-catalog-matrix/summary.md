@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 190 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 499 / 7 / 38 / 763 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 500 / 7 / 38 / 762 |
 | Variants with the complete core lane set | 22 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -217,7 +217,7 @@ them for width.
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `percona/psmdb-operator@1.22.0` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `percona/pxc-operator@1.19.1` | default | next80 | `lookup;crds;cluster-rbac` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `percona/pxc-operator@1.19.1` | default | next80 | `lookup;crds;cluster-rbac` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 |  | no-crds | next80 | `lookup;crds;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `projectcalico/tigera-operator@v3.32.0` | default | next80 | `lookup;hooks;cluster-rbac` | 1 observed ✅ | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `prometheus-community/alertmanager@1.37.0` | default | next80 | `tpl;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |

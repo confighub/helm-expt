@@ -1119,7 +1119,7 @@ need catalog promotion review before support is claimed.
 | opencost/opencost@2.5.21 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/opencost/opencost/2.5.21/CATALOG.md) |
 | percona/pg-operator@3.0.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/percona/pg-operator/3.0.0/CATALOG.md) |
 | percona/psmdb-operator@1.22.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/percona/psmdb-operator/1.22.0/CATALOG.md) |
-| percona/pxc-operator@1.19.1 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/percona/pxc-operator/1.19.1/CATALOG.md) |
+| percona/pxc-operator@1.19.1 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/percona/pxc-operator/1.19.1/CATALOG.md) |
 | projectcalico/tigera-operator@v3.32.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md) |
 | prometheus-community/alertmanager@1.37.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md) |
 | prometheus-community/kube-prometheus-stack@86.1.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/86.1.0/CATALOG.md) |
