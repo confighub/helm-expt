@@ -44,6 +44,21 @@ the small teaching example; kube-prometheus-stack is the deliberately hard one
 (CRDs, webhooks, RBAC, generated facts) kept in the catalog to show the model
 under real complexity.
 
+## Which top-100 charts are closest next?
+
+The current fast-track promotion candidates are
+`elastic/logstash@8.5.1` and `prometheus-community/alertmanager@1.37.0`.
+Both have render proof, two-cluster kind parity, clean scan/gate state, and
+selected live Helm-vs-ConfigHub parity evidence.
+
+They are still not catalog-supported. The remaining user-relevant decision is
+operational: open the generated storage/rollback review, choose the target
+boundary for backup, restore, retention, rollback, and storage-class fit, then
+record a target-scoped support decision.
+
+Use the generated fast-track page for the current list:
+[Top-100 Promotion Fast Track](../../data/top100-promotion-wave/fast-track.md).
+
 ## Which ones need cluster prerequisites?
 
 Charts whose gap is something only you can supply: an existing Secret the

@@ -13,4 +13,4 @@ claim runtime support.
 
 ## Shared Review Rule
 
-The selected base can move forward only after the storage and rollback policy and a target-scoped support decision exist for that exact base.
+The selected base can move forward only after the storage/rollback boundary is accepted or narrowed for the target and a target-scoped support decision exists for that exact base.

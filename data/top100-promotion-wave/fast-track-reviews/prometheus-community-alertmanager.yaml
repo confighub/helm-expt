@@ -27,9 +27,9 @@ spec:
     storageRollbackReview: "data/top100-promotion-wave/fast-track-reviews/storage-rollback/prometheus-community-alertmanager.yaml"
   decisionsNeeded:
     -
-      decision: "storage-and-rollback-policy"
+      decision: "storage-and-rollback-support-boundary"
       required: true
-      reason: "The chart has stateful/storage behavior. Render parity does not prove backup, restore, rollback, storage-class fit, or data-retention behavior."
+      reason: "The generated storage review records the rendered shape. A target owner still has to accept or narrow backup, restore, rollback, storage-class fit, and data-retention behavior."
     -
       decision: "extension-slot-policy"
       required: true
@@ -45,7 +45,7 @@ spec:
   missingProofLanes:
     []
   nextActions:
-    - "write storage and rollback policy"
+    - "review and accept/narrow storage/rollback boundary for selected target"
     - "record target-scoped support decision"
   boundaries:
     - "This packet is not a catalog status change."

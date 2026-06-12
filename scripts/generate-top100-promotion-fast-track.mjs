@@ -128,8 +128,9 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
   ].filter(Boolean);
   const liveParityReceipt = receiptPathFromNotes(base.evidence_notes, "runs/live-helm-confighub-compare/");
   const twoClusterParityReceipt = receiptPathFromNotes(base.evidence_notes, "runs/live-kind-parity/");
+  const storageReviewPath = `data/top100-promotion-wave/fast-track-reviews/storage-rollback/${slug(row.chart)}.yaml`;
   const remaining = [
-    "write storage and rollback policy",
+    "review and accept/narrow storage/rollback boundary for selected target",
     ...missingLanes.map((lane) => `complete ${lane}`),
     "record target-scoped support decision",
   ];
@@ -143,10 +144,12 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
     lifecycle_class: "ordinary-stateful-workload",
     two_cluster_kind_parity: base.two_cluster_kind_parity,
     missing_live_lanes: missingLanes.join(";"),
+    storage_review_state: "review-input-ready",
+    storage_review_path: storageReviewPath,
     remaining_required_work: remaining.join(";"),
     first_action: missingLanes.length
-      ? "write storage/rollback policy, then complete the missing proof lanes listed for the recommended base"
-      : "write storage/rollback policy, then record a target-scoped support decision",
+      ? "open the storage/rollback review, choose the target boundary, then complete the missing proof lanes listed for the recommended base"
+      : "open the storage/rollback review, choose the target boundary, then record a target-scoped support decision",
     not_a_claim: "not catalog-supported until support decision and selected live lanes exist",
     catalog_path: chartUse?.catalog_path || `${row.recipe_path}/CATALOG.md`,
     two_cluster_parity_receipt: twoClusterParityReceipt,
@@ -160,8 +163,8 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
 function summary(rows) {
   const rowsWithMissingProof = rows.filter((row) => splitList(row.missing_live_lanes).length > 0).length;
   const nextProof = rowsWithMissingProof
-    ? "missing proof lanes plus storage and rollback policy"
-    : "storage and rollback policy plus target-scoped support decisions";
+    ? "missing proof lanes plus target storage/rollback acceptance"
+    : "target storage/rollback acceptance plus target-scoped support decisions";
   const fourthStep = rowsWithMissingProof
     ? "Run only the missing proof lanes listed for the selected base."
     : "Confirm no missing proof lanes remain for the selected base.";
@@ -192,7 +195,7 @@ ${rows.map((row) => `| \`${row.chart_ref}\` | \`${row.recommended_base}\` | clea
 
 1. Open the per-chart catalog page.
 2. Confirm the recommended base is the user-facing base to promote.
-3. Write the storage and rollback policy.
+3. Open the storage/rollback review and choose the target boundary.
 4. ${fourthStep}
 5. Record a target-scoped support decision.
 6. Only then consider catalog status changes.
@@ -222,8 +225,8 @@ ${rows.map((row) => `| \`${row.chart_ref}\` | \`${row.recommended_base}\` | clea
 function reviewIndex(rows) {
   const rowsWithMissingProof = rows.filter((row) => splitList(row.missing_live_lanes).length > 0).length;
   const reviewRule = rowsWithMissingProof
-    ? "The selected base can move forward only after the storage and rollback policy, the proof lanes listed in its packet, and a target-scoped support decision all exist for that exact base."
-    : "The selected base can move forward only after the storage and rollback policy and a target-scoped support decision exist for that exact base.";
+    ? "The selected base can move forward only after the storage/rollback boundary is accepted or narrowed for the target, the proof lanes listed in its packet exist, and a target-scoped support decision exists for that exact base."
+    : "The selected base can move forward only after the storage/rollback boundary is accepted or narrowed for the target and a target-scoped support decision exists for that exact base.";
   return `# Fast-Track Promotion Review Packets
 
 These generated packets bind the low-residue promotion candidates to the
@@ -285,9 +288,9 @@ function reviewPackets(rows, storageByChart) {
         },
         decisionsNeeded: [
           {
-            decision: "storage-and-rollback-policy",
+            decision: "storage-and-rollback-support-boundary",
             required: true,
-            reason: "The chart has stateful/storage behavior. Render parity does not prove backup, restore, rollback, storage-class fit, or data-retention behavior.",
+            reason: "The generated storage review records the rendered shape. A target owner still has to accept or narrow backup, restore, rollback, storage-class fit, and data-retention behavior.",
           },
           {
             decision: "extension-slot-policy",
@@ -510,6 +513,8 @@ function rowsToCsv(rows) {
     "lifecycle_class",
     "two_cluster_kind_parity",
     "missing_live_lanes",
+    "storage_review_state",
+    "storage_review_path",
     "remaining_required_work",
     "first_action",
     "not_a_claim",

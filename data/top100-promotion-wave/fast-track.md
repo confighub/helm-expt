@@ -12,21 +12,21 @@ promotion work is narrow enough to be reviewed quickly.
 
 ~~~text
 fast-track rows: 2
-required next proof: storage and rollback policy plus target-scoped support decisions
+required next proof: target storage/rollback acceptance plus target-scoped support decisions
 ~~~
 
 ## Rows
 
 | Chart | Recommended base | Why this row is first | Remaining required work |
 | --- | --- | --- | --- |
-| `elastic/logstash@8.5.1` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | write storage and rollback policy<br>record target-scoped support decision |
-| `prometheus-community/alertmanager@1.37.0` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | write storage and rollback policy<br>record target-scoped support decision |
+| `elastic/logstash@8.5.1` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | review and accept/narrow storage/rollback boundary for selected target<br>record target-scoped support decision |
+| `prometheus-community/alertmanager@1.37.0` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | review and accept/narrow storage/rollback boundary for selected target<br>record target-scoped support decision |
 
 ## How To Use This
 
 1. Open the per-chart catalog page.
 2. Confirm the recommended base is the user-facing base to promote.
-3. Write the storage and rollback policy.
+3. Open the storage/rollback review and choose the target boundary.
 4. Confirm no missing proof lanes remain for the selected base.
 5. Record a target-scoped support decision.
 6. Only then consider catalog status changes.
