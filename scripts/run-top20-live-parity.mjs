@@ -490,6 +490,13 @@ function classifyWatch(spec, target) {
   if (text.includes("containercreating")) return "target-runtime: pod ContainerCreating (parity passed)";
   const gitops = spec.legs?.configHubOciArgo ?? {};
   if (gitops.sync === "OutOfSync" && gitops.health === "Healthy") {
+    const outOfSyncResources = (gitops.argoStatus?.resources ?? [])
+      .filter((resource) => resource.status === "OutOfSync")
+      .map((resource) => resource.kind || resource.name)
+      .filter(Boolean);
+    if (outOfSyncResources.length) {
+      return `gitops-runtime: ${[...new Set(outOfSyncResources)].join("+")} OutOfSync health Healthy (parity passed)`;
+    }
     return "gitops-runtime: Argo sync OutOfSync health Healthy (parity passed)";
   }
   if (gitops.sync === "Synced" && gitops.health && gitops.health !== "Healthy") {

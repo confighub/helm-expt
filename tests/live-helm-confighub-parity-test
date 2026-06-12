@@ -647,6 +647,44 @@ def kubectl_must(args: list[str], kubeconfig: Path, context: str, step: str, tim
     return out
 
 
+def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
+    rc, out, err = kubectl(
+        ["get", "application", app, "-n", "argocd", "-o", "json"],
+        kubeconfig,
+        context,
+        timeout=60,
+    )
+    if rc != 0:
+        return {"result": "unavailable", "error": (err or out)[:1000]}
+    try:
+        payload = json.loads(out)
+    except json.JSONDecodeError as exc:
+        return {"result": "unparseable", "error": str(exc)}
+    status = payload.get("status") or {}
+    resources = []
+    for item in status.get("resources") or []:
+        resources.append({
+            "group": item.get("group", ""),
+            "kind": item.get("kind", ""),
+            "namespace": item.get("namespace", ""),
+            "name": item.get("name", ""),
+            "status": item.get("status", ""),
+            "health": (item.get("health") or {}).get("status", ""),
+            "hook": item.get("hook", False),
+        })
+    return {
+        "result": "recorded",
+        "sync": status.get("sync") or {},
+        "health": status.get("health") or {},
+        "operationState": {
+            "phase": (status.get("operationState") or {}).get("phase", ""),
+            "message": (status.get("operationState") or {}).get("message", ""),
+        },
+        "conditions": status.get("conditions") or [],
+        "resources": resources,
+    }
+
+
 def ensure_tls_material(run_root: Path) -> tuple[str, str]:
     cert = run_root / "target-facts-tls.crt"
     key = run_root / "target-facts-tls.key"
@@ -1854,6 +1892,7 @@ def main() -> int:
         mark_stage("configHub-oci-readiness")
         oci_runtime = wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 180))
         oci_result = "pass" if oci_operations["result"] == "pass" and sync == "Synced" and health == "Healthy" and oci_runtime["result"] == "pass" else "watch"
+        argo_status = argo_application_status(kubeconfig, context, child_app)
         leg("configHubOciArgo",
             result=oci_result,
             workloadSpace=wspace,
@@ -1868,6 +1907,7 @@ def main() -> int:
             sync=sync or "unknown",
             health=health or "unknown",
             separatedSecrets=staged_secrets,
+            argoStatus=argo_status,
             runtime=oci_runtime,
         )
         check_item("confighub-oci-argo-live", oci_result, f"sync={sync or '?'} health={health or '?'} after {waited}s")

@@ -395,7 +395,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
-| prometheus-community/alertmanager@1.37.0 | ha | watch | gitops-runtime: Argo sync OutOfSync health Healthy (parity passed) |
+| prometheus-community/alertmanager@1.37.0 | ha | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) |
 
 
 There are no current two-cluster kind parity non-pass receipts.
