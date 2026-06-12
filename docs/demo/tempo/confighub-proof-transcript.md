@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/tempo-local-persistent
 cub installer package packages/grafana/tempo/1.24.4 -o .tmp/confighub-proof/tempo-archives/tempo-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/tempo-local-persistent --space helm-tempo-confighub-proof --component Tempo --layer App --environment Demo --owner ConfigHubHelm --variant local-persistent --unit-label Component=Tempo --unit-label HelmChart=grafana-tempo --unit-label HelmChartVersion=1.24.4 --unit-label Variant=local-persistent --unit-label Proof=tempo-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/tempo-local-persistent
-cub variant create staging helm-tempo-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-tempo-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m
 cub unit list --space helm-tempo-confighub-proof --where "Labels.Proof = 'tempo-confighub-proof'"
 cub function vet vet-format --space helm-tempo-confighub-proof --where "Labels.Proof = 'tempo-confighub-proof'"
 cub unit apply --space helm-tempo-confighub-proof --where "Labels.Proof = 'tempo-confighub-proof'" --dry-run
