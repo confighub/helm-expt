@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "prometheus-blackbox-exporter-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
+    name: "prometheus-community-prometheus-blackbox-exporter"
+    chart: "prometheus-community/prometheus-blackbox-exporter"
+    chartVersion: "11.10.0"
+    bases:
+      - "default"
+      - "cluster-metrics-readonly"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default --work-dir .tmp/confighub-proof/prometheus-blackbox-exporter-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 5
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/prometheus-blackbox-exporter-default"
+    result: "pass"
+    manifestCount: 5
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 -o .tmp/confighub-proof/prometheus-blackbox-exporter-default-archives/prometheus-blackbox-exporter-a.tgz"
+    sha256: "c79ccb65a4813be3c4eecc663fd8d9b1dce4567f220ce9a13f32dfcdc42e1620"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/prometheus-blackbox-exporter-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/prometheus-blackbox-exporter-default --space helm-prometheus-blackbox-exporter-default-confighub-proof --component PrometheusBlackboxExporter --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=PrometheusBlackboxExporter --unit-label HelmChart=prometheus-community-prometheus-blackbox-exporter --unit-label HelmChartVersion=11.10.0 --unit-label Variant=default --unit-label Proof=prometheus-blackbox-exporter-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-prometheus-blackbox-exporter-default-confighub-proof"
+    unitCount: 6
+    kubernetesUnitCount: 5
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/prometheus-blackbox-exporter-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/prometheus-blackbox-exporter-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-prometheus-blackbox-exporter-default-confighub-proof (post-render):\n      Deployment/prometheus-blackbox-exporter [blackbox-exporter] quay.io/prometheus/blackbox-exporter:v0.28.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-prometheus-blackbox-exporter-default-confighub-proof --environment Staging --region local --space-name-pattern template:PrometheusBlackboxExporter-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-prometheus-blackbox-exporter-default-confighub-proof"
+    downstreamSpace: "PrometheusBlackboxExporter-default-staging"
+    clonedUnitCount: 6
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-prometheus-blackbox-exporter"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-prometheus-blackbox-exporter-default-confighub-proof"
+      - "PrometheusBlackboxExporter-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

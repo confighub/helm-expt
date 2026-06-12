@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "alertmanager-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-alertmanager-ha-confighub-proof"
+    selector: "Labels.Proof = 'alertmanager-ha-confighub-proof'"
+  subject:
+    chart: "prometheus-community/alertmanager"
+    chartVersion: "1.37.0"
+    packagePath: "packages/prometheus-community/alertmanager/1.37.0"
+    variant: "ha"
+  changeset:
+    slug: "alertmanager-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Alertmanager safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "alertmanager-ha-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve statefulset-default-alertmanager --space helm-alertmanager-ha-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "statefulset-default-alertmanager"
+    output: "Unit statefulset-default-alertmanager (fe05a094-f55f-403c-8957-82ec7939efb8) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-alertmanager-ha-confighub-proof --where \"Labels.Proof = 'alertmanager-ha-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req xzkILsrQqzWlhamixoJcvKVLHrUMxFIi: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-alertmanager-ha-confighub-proof --where \"Labels.Proof = 'alertmanager-ha-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

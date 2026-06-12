@@ -32,7 +32,7 @@ top500,proof-grade rows,71,500,partial,data/top500-catalog-analysis/review.csv,R
 top500,rows with no current recipe proof,409,500,gap,data/top500-catalog-analysis/review.csv,Source reconnaissance rows with no current recipe/package proof yet.
 top500,version-drift review rows,21,500,partial,data/top500-catalog-analysis/review.csv,Current recipe exists but the retained source-scan version differs.
 proof lanes,render parity rows,191,191,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
-proof lanes,in-ConfigHub proof rows,147,191,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
+proof lanes,in-ConfigHub proof rows,151,191,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
 proof lanes,local live rows,135,191,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
 proof lanes,explicit lifecycle observation rows,10,10,good,data/outcome-coverage/base-outcomes.csv,"Rows where CRD, webhook, controller-owned field, or post-apply API readiness was proven through an explicit lifecycle receipt rather than a plain bulk apply."
 proof lanes,local live non-pass rows classified,56,56,good,data/local-live-triage/triage.csv,"Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."
