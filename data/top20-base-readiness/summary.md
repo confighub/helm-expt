@@ -15,8 +15,8 @@ or runtime review.
 
 ~~~text
 base variants: 42
-start-here: 22
-try-with-proof: 13
+start-here: 23
+try-with-proof: 12
 runtime-watch: 7
 runtime-review-needed: 0
 operating-policy-needed: 0
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-ready-to-collect: 4
+ready-to-collect: 3
 model-or-stage-first: 0
 review-target-first: 0
 inspect-diff-first: 0
@@ -77,7 +77,7 @@ rerun-now-after-cleanup: 0
 | `grafana/grafana@10.5.15` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `grafana/loki@7.0.0` | simple-scalable-minio | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub oci argo live, live helm vs confighub dual compare | - |
+| `grafana/loki@7.0.0` | simple-scalable-minio | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/tempo@1.24.4` | local-persistent | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/tempo@1.24.4` | s3-query-observability | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |

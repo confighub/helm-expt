@@ -11,7 +11,7 @@ target-scoped support decision for the chart/base/target you intend to use.
 ## Summary
 
 ~~~text
-start-here bases: 22
+start-here bases: 23
 top-20 base variants: 42
 target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
@@ -33,6 +33,7 @@ target-scoped draft decisions: 0
 | `external-secrets/external-secrets@2.5.0` | default | `cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets` | check production decision for external-secrets/external-secrets |
 | `grafana/grafana@10.5.15` | generated-passwords | `cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana` | check production decision for grafana/grafana |
 | `grafana/loki@7.0.0` | single-binary-filesystem | `cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki` | check production decision for grafana/loki |
+| `grafana/loki@7.0.0` | simple-scalable-minio | `cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki` | check production decision for grafana/loki |
 | `grafana/tempo@1.24.4` | local-persistent | `cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo` | check production decision for grafana/tempo |
 | `hashicorp/consul@2.0.0` | default-control-plane | `cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul` | check production decision for hashicorp/consul |
 | `hashicorp/vault@0.32.0` | dev-mode | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault` | check production decision for hashicorp/vault |

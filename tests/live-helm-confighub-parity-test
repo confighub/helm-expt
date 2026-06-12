@@ -408,6 +408,24 @@ def render_docs_to_yaml(docs: list[dict]) -> str:
     return "\n---\n".join(json.dumps(doc, indent=2) for doc in docs) + "\n"
 
 
+def namespace_secret_for_destination(secret_path: Path, destination_namespace: str, out_dir: Path) -> Path:
+    docs = yaml_docs(secret_path.read_text())
+    changed = False
+    for doc in docs:
+        if doc.get("kind") != "Secret":
+            continue
+        metadata = doc.setdefault("metadata", {})
+        if not metadata.get("namespace"):
+            metadata["namespace"] = destination_namespace
+            changed = True
+    if not changed:
+        return secret_path
+    out_dir.mkdir(parents=True, exist_ok=True)
+    staged_path = out_dir / secret_path.name
+    write_text(staged_path, render_docs_to_yaml(docs))
+    return staged_path
+
+
 def docs_matching(text: str, kind: str) -> list[dict]:
     return [doc for doc in yaml_docs(text) if doc.get("kind") == kind]
 
@@ -1080,7 +1098,12 @@ def main() -> int:
         staged_secrets = []
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):
-                kubectl_must(["apply", "-f", str(secret_path)], kubeconfig, context, f"oci secret apply {secret_path.name}", timeout=120)
+                oci_secret_path = namespace_secret_for_destination(
+                    secret_path,
+                    oci_namespace,
+                    run_root / "oci-staged-secrets",
+                )
+                kubectl_must(["apply", "-f", str(oci_secret_path)], kubeconfig, context, f"oci secret apply {secret_path.name}", timeout=120)
                 staged_secrets.append(secret_path.name)
 
         rc, upload_out, upload_err = sh([
