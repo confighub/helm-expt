@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "istio-gateway-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-istio-gateway-confighub-proof"
+    selector: "Labels.Proof = 'istio-gateway-confighub-proof'"
+  subject:
+    chart: "istio/gateway"
+    chartVersion: "1.30.0"
+    packagePath: "packages/istio/gateway/1.30.0"
+    variant: "controller-default-reviewed"
+    configHubUnitCount: 7
+  unitRevisionBindings:
+    -
+      slug: "deployment-default-gateway"
+      headRevisionNum: 2
+      dataHash: "c90cd985bc9bd1c321bbe18149df0922c4506008ca8fd28c47bc4a2cd3d9fea0"
+    -
+      slug: "horizontalpodautoscaler-default-gateway"
+      headRevisionNum: 2
+      dataHash: "f35ddca93576e14d93116c0fac38bc8ab1af268e1dde3e37a40db546f0665a60"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-gateway"
+      headRevisionNum: 2
+      dataHash: "60eda4fb1bd1b8cf001ab0080d32ad71dddffb70237db9307a81119c7cc347be"
+    -
+      slug: "role-default-gateway"
+      headRevisionNum: 2
+      dataHash: "cb87cb8c50b9434a158561af5b5ecde76e467c87a316f15f5b3a561b01135a96"
+    -
+      slug: "serviceaccount-default-gateway"
+      headRevisionNum: 1
+      dataHash: "f2897dddace05ae544fcb07b1da13e4f73e3e25d83f9457f0f8b7818ea306124"
+    -
+      slug: "service-default-gateway"
+      headRevisionNum: 2
+      dataHash: "c43e0eee74480848cbb4271aed71b1a6defb61270279968d246229bfe5f0ece5"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

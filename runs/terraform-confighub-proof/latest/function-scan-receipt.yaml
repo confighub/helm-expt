@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "terraform-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-terraform-confighub-proof"
+    selector: "Labels.Proof = 'terraform-confighub-proof'"
+  subject:
+    chart: "hashicorp/terraform"
+    chartVersion: "1.1.2"
+    packagePath: "packages/hashicorp/terraform/1.1.2"
+    variant: "no-crds"
+    configHubUnitCount: 5
+  unitRevisionBindings:
+    -
+      slug: "deployment-default-terraform-terraform-sync-workspace"
+      headRevisionNum: 2
+      dataHash: "583e9e0b064ff5fe0c8952874e4f715ac6c158f3a9eb5b0e679b1aa5c2facfb1"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-terraform-terraform-sync-workspace"
+      headRevisionNum: 2
+      dataHash: "90165a0d76ce7fb316d18550b2050628817350e236d7e03e3d501e6ae7670559"
+    -
+      slug: "role-terraform-terraform-sync-workspace"
+      headRevisionNum: 2
+      dataHash: "d5e7a1663c8896051dd189c2151047832f429a1d9957b5bb10f279e95322bfb0"
+    -
+      slug: "serviceaccount-terraform-terraform-sync-workspace"
+      headRevisionNum: 1
+      dataHash: "3a9dbf8c62ad3975c115e0bb6830ab25491b8f33bc6868ba96b813bad65d8865"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 5
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 5
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 5
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

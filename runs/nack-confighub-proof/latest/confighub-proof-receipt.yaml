@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "nack-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/nats/nack/0.34.0"
+    name: "nats-nack"
+    chart: "nats/nack"
+    chartVersion: "0.34.0"
+    bases:
+      - "default"
+      - "no-crds"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/nats/nack/0.34.0 --base default --work-dir .tmp/confighub-proof/nack-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 11
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/nack-default"
+    result: "pass"
+    manifestCount: 11
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/nats/nack/0.34.0 -o .tmp/confighub-proof/nack-archives/nack-a.tgz"
+    sha256: "25239640536d4bce099cfa7600aca615d2b5df946f31979b2c3babe9dbe0f83f"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/nack-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/nack-default --space helm-nack-confighub-proof --component NACK --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=NACK --unit-label HelmChart=nats-nack --unit-label HelmChartVersion=0.34.0 --unit-label Variant=default --unit-label Proof=nack-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-nack-confighub-proof"
+    unitCount: 12
+    kubernetesUnitCount: 11
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/nack-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/nack-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-nack-confighub-proof (post-render):\n      Deployment/nack [jsc] natsio/jetstream-controller:0.23.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-nack-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-nack-confighub-proof"
+    downstreamSpace: "NACK-staging"
+    clonedUnitCount: 12
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-nack"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-nack-confighub-proof"
+      - "NACK-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

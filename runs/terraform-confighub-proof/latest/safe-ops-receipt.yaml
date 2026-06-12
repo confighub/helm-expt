@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "terraform-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-terraform-confighub-proof"
+    selector: "Labels.Proof = 'terraform-confighub-proof'"
+  subject:
+    chart: "hashicorp/terraform"
+    chartVersion: "1.1.2"
+    packagePath: "packages/hashicorp/terraform/1.1.2"
+    variant: "no-crds"
+  changeset:
+    slug: "terraform-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Terraform safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "terraform-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-terraform-terraform-sync-workspace --space helm-terraform-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-terraform-terraform-sync-workspace"
+    output: "Unit deployment-default-terraform-terraform-sync-workspace (bbc293d9-897c-4033-9701-a677d42b32bb) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-terraform-confighub-proof --where \"Labels.Proof = 'terraform-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req nmoFuuigIcZlYkUvngjyTaDBESuxvCSw: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-terraform-confighub-proof --where \"Labels.Proof = 'terraform-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

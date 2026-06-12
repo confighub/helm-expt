@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "nack-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-nack-confighub-proof"
+    selector: "Labels.Proof = 'nack-confighub-proof'"
+  subject:
+    chart: "nats/nack"
+    chartVersion: "0.34.0"
+    packagePath: "packages/nats/nack/0.34.0"
+    variant: "default"
+    configHubUnitCount: 11
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-jetstream-controller-cluster-role-binding"
+      headRevisionNum: 2
+      dataHash: "2bfe86a025925c46ea7c96ae964b1db48648fb0b05eb3d5e7cd412c638596f19"
+    -
+      slug: "clusterrole-jetstream-controller-cluster-role"
+      headRevisionNum: 2
+      dataHash: "249b6630a5166bb305dc0f66d3e132c3ceab3f38ac5ee640ed980520ca24cfc1"
+    -
+      slug: "customresourcedefinition-accounts-jetstream-nats-io"
+      headRevisionNum: 2
+      dataHash: "aac2c2bc8b5a2b9c20341fc3701b4dff2d795ef8cfb824d62953412f9fdf9b95"
+    -
+      slug: "customresourcedefinition-consumers-jetstream-nats-io"
+      headRevisionNum: 2
+      dataHash: "bf3da87e25445b232e90980dc54b965ec9f2c93c614e5747a360505f2402ddc5"
+    -
+      slug: "customresourcedefinition-keyvalues-jetstream-nats-io"
+      headRevisionNum: 2
+      dataHash: "2a01c92b8f4dc82264a410d2bd810e44df26d3371cf14d5d371c935b28413192"
+    -
+      slug: "customresourcedefinition-objectstores-jetstream-nats-io"
+      headRevisionNum: 2
+      dataHash: "a9722b3393efa0bca252c1a3e3a176a70b88ac8ac5447ec0133c8de083155263"
+    -
+      slug: "customresourcedefinition-streams-jetstream-nats-io"
+      headRevisionNum: 2
+      dataHash: "2c5aa87d838506d13714c7251fcbf21431d2d96d9c334988ebc53ccb575b9f28"
+    -
+      slug: "customresourcedefinition-streamtemplates-jetstream-nats-io"
+      headRevisionNum: 2
+      dataHash: "72819653329e1c3c3f109f7cbdf39476f99eee66d58b26c78b859a8725fd568d"
+    -
+      slug: "deployment-default-nack"
+      headRevisionNum: 2
+      dataHash: "b942969122d8fdd0560b3d2e9b07de01f611d0788681c80c3850290d8813018c"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-jetstream-controller"
+      headRevisionNum: 1
+      dataHash: "d9c0a13e97964fb13dedf6498b935b2e4c59dda7dc5e0deb32e5bf1f38aeeaa1"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

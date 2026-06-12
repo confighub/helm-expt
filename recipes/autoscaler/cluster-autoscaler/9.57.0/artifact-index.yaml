@@ -54,7 +54,7 @@ spec:
     strongestEvidence: "local-kubernetes-live"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "0/2"
+      inConfigHub: "1/2"
       localLive: "2/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
