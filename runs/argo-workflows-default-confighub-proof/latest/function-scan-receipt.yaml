@@ -1,0 +1,127 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "argo-workflows-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-argo-workflows-default-confighub-proof"
+    selector: "Labels.Proof = 'argo-workflows-default-confighub-proof'"
+  subject:
+    chart: "argo-cd/argo-workflows"
+    chartVersion: "1.0.14"
+    packagePath: "packages/argo-cd/argo-workflows/1.0.14"
+    variant: "default"
+    configHubUnitCount: 20
+  unitRevisionBindings:
+    -
+      slug: "deployment-default-argo-workflows-server"
+      headRevisionNum: 2
+      dataHash: "db3c848a9c34eb834ebf99a872f099330d0589e8ede1c03ea6fdd2f3f9e7b29d"
+    -
+      slug: "configmap-default-argo-workflows-workflow-controller-configmap"
+      headRevisionNum: 1
+      dataHash: "d0047ea1a864e443958ab6b11440dd5caa0ae66e36c17f8cee507347362a8e8a"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "role-default-argo-workflows-workflow"
+      headRevisionNum: 2
+      dataHash: "3a08d322305a97c668ab0234cf1af44a73a3310eeda80bedc459745bf7b059e0"
+    -
+      slug: "clusterrole-argo-workflows-admin"
+      headRevisionNum: 2
+      dataHash: "0691ef8db7ef8770fbde1ab22e1820dde975f9a8b41f7ca03836a181c0ee481e"
+    -
+      slug: "clusterrole-argo-workflows-server"
+      headRevisionNum: 2
+      dataHash: "492bb72f57faca7e10a883bd36d25e33d2561b5018969cea5332e8945f6af278"
+    -
+      slug: "clusterrole-argo-workflows-edit"
+      headRevisionNum: 2
+      dataHash: "8e50337c263b451151178c0479d3fa6c25f57784d604a22c19060d0ade191cb9"
+    -
+      slug: "clusterrole-argo-workflows-view"
+      headRevisionNum: 2
+      dataHash: "a44b90fc93c9c7cdf994e75d5b85f86d7311a67b314f1fc81b927c4fa100a0b6"
+    -
+      slug: "clusterrole-argo-workflows-workflow-controller"
+      headRevisionNum: 2
+      dataHash: "2de13cbf43872823c9393bc88a1e8df1bf35a95da9f792524ccdef354344435e"
+    -
+      slug: "clusterrole-argo-workflows-workflow-controller-cluster-template"
+      headRevisionNum: 2
+      dataHash: "04f40c94e1ef205d76c891e048e2fa4f05c5d5e9799f7196ca27f3c5ae6731d3"
+    -
+      slug: "deployment-default-argo-workflows-workflow-controller"
+      headRevisionNum: 2
+      dataHash: "b86e3be09e6b50dd0fb315cef1b44ffb0283b02c14f3bf8df6c80f7071032340"
+    -
+      slug: "service-default-argo-workflows-server"
+      headRevisionNum: 2
+      dataHash: "973675304cba69694570ccafa3581cfc63bcd9b2977404de61326d05074b9d35"
+    -
+      slug: "clusterrole-argo-workflows-server-cluster-template"
+      headRevisionNum: 2
+      dataHash: "b089d1ad71fd23a6ae82323d217876a1934abb37c808c8d4270dacb656d51ca6"
+    -
+      slug: "clusterrolebinding-argo-workflows-server"
+      headRevisionNum: 2
+      dataHash: "222a4137d2886e8d87b25c956c8cc3f28a876ea39585da01930bcc0ee38c146e"
+    -
+      slug: "clusterrolebinding-argo-workflows-server-cluster-template"
+      headRevisionNum: 2
+      dataHash: "726d01f183e386c21d2e3ac2508f0f8a26364badeede08b74bc30f20ec71a98e"
+    -
+      slug: "clusterrolebinding-argo-workflows-workflow-controller"
+      headRevisionNum: 2
+      dataHash: "78b3564bf8d5e6ba4128ad30aa37c49e687c97cf2e24adbfce7afac88dab4fd2"
+    -
+      slug: "clusterrolebinding-argo-workflows-workflow-controller-cluster-template"
+      headRevisionNum: 2
+      dataHash: "a8c15672070f0801a53508b293f161870d310ef51b204ce663cd1c48ef6c27af"
+    -
+      slug: "rolebinding-default-argo-workflows-workflow"
+      headRevisionNum: 2
+      dataHash: "28178070c8caaac17a9427295fad2d9af2cd4bfdae2046d34e2c9235e3ccda35"
+    -
+      slug: "serviceaccount-default-argo-workflows-server"
+      headRevisionNum: 1
+      dataHash: "78d909998055b2e9a7532cf6d9c912e51030ba923ff29efb92ce52b5a63c1b94"
+    -
+      slug: "serviceaccount-default-argo-workflows-workflow-controller"
+      headRevisionNum: 1
+      dataHash: "518ffef54e0a1df5f7b5323c4cd755c6d2c00fddeb834a735ae04c9b1f628328"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 20
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 20
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 20
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

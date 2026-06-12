@@ -1,0 +1,119 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "strimzi-kafka-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-strimzi-kafka-operator-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'strimzi-kafka-operator-no-crds-confighub-proof'"
+  subject:
+    chart: "strimzi/strimzi-kafka-operator"
+    chartVersion: "1.0.0"
+    packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0"
+    variant: "no-crds"
+    configHubUnitCount: 18
+  unitRevisionBindings:
+    -
+      slug: "rolebinding-default-strimzi-cluster-operator-watched"
+      headRevisionNum: 2
+      dataHash: "24c898d2678990aed13d47007156b348ddf27979bc5e80b6a7eb5f76bac8e21f"
+    -
+      slug: "clusterrole-strimzi-cluster-operator-global"
+      headRevisionNum: 2
+      dataHash: "23369ad59531fc7e68e0e60bba7e986dd4e0be26dd5154693f975a01d63204ea"
+    -
+      slug: "clusterrole-strimzi-cluster-operator-leader-election"
+      headRevisionNum: 2
+      dataHash: "aca7b4b61913970847e6fd72eeba387581655fe1e1fd5fb3ddf97c7b93b1bb79"
+    -
+      slug: "serviceaccount-default-strimzi-cluster-operator"
+      headRevisionNum: 1
+      dataHash: "aaac41af3a458167c7c1608c1d273a4e86c282a367f0bb25ebfeadf2397daf7e"
+    -
+      slug: "clusterrole-strimzi-cluster-operator-namespaced"
+      headRevisionNum: 2
+      dataHash: "7a6d31f6214027cd65b3bab1935b6fa4574c4ef07639c43c2f30792465d4e2f9"
+    -
+      slug: "clusterrole-strimzi-entity-operator"
+      headRevisionNum: 2
+      dataHash: "f2c8b47d59706711ccd3f48ce65e92a2fdf2fc9a70b2e634916bcca5d48e4db3"
+    -
+      slug: "clusterrole-strimzi-kafka-broker"
+      headRevisionNum: 2
+      dataHash: "c7e19fb112b4b3c444817e76f853389e62e612de3853e33dd85e2ad189d52e73"
+    -
+      slug: "clusterrole-strimzi-cluster-operator-watched"
+      headRevisionNum: 2
+      dataHash: "23364bab319910b4b27031cb4353be7573c6c78a16d50f88e55ab7017076749f"
+    -
+      slug: "clusterrole-strimzi-kafka-client"
+      headRevisionNum: 2
+      dataHash: "3f28e0252d9229ecfeb245900374b1afedc6f6acbbca12dddd72b625dca0ff3f"
+    -
+      slug: "clusterrolebinding-strimzi-cluster-operator"
+      headRevisionNum: 2
+      dataHash: "de8f86c08561ad8754e4f6893ebc728a171fd239f15b39d3ae4dfc53efc6e1f3"
+    -
+      slug: "clusterrolebinding-strimzi-cluster-operator-kafka-broker-delegation"
+      headRevisionNum: 2
+      dataHash: "7fff4350d40a88a27d825c92b994dd94426d147f743c37a1edd8191c79a2b884"
+    -
+      slug: "configmap-default-strimzi-cluster-operator"
+      headRevisionNum: 1
+      dataHash: "ef877f7f31572c2f8010a2918f53f51acf9c7da5103c58057f9cc8d75977349c"
+    -
+      slug: "clusterrolebinding-strimzi-cluster-operator-kafka-client-delegation"
+      headRevisionNum: 2
+      dataHash: "921031e6b966d2375f9feac729e69bd3bb0d44acdb01f469adb29b054d710d77"
+    -
+      slug: "deployment-default-strimzi-cluster-operator"
+      headRevisionNum: 2
+      dataHash: "a4a58fe6deeec84cdd038476a616c3a9c17d92119a710c762a870cf0b4f36cca"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-strimzi-cluster-operator"
+      headRevisionNum: 2
+      dataHash: "411bfc4774ca644add53bbb9613067f238273e1429d43d5bb9a0629ba2ee9470"
+    -
+      slug: "rolebinding-default-strimzi-cluster-operator-entity-operator-delegation"
+      headRevisionNum: 2
+      dataHash: "d6a6260a0cb7e931a4dbd5ab54844a48e234760083fc98161f26e956e1562803"
+    -
+      slug: "rolebinding-default-strimzi-cluster-operator-leader-election"
+      headRevisionNum: 2
+      dataHash: "e069d5116269f77636a5b67edb99db8fafd8aed5984ff11b93cba60cd8627644"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 18
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 18
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 18
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

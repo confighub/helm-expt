@@ -1,0 +1,127 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "aws-ebs-csi-driver-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-aws-ebs-csi-driver-default-confighub-proof"
+    selector: "Labels.Proof = 'aws-ebs-csi-driver-default-confighub-proof'"
+  subject:
+    chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    chartVersion: "2.60.1"
+    packagePath: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+    variant: "default"
+    configHubUnitCount: 20
+  unitRevisionBindings:
+    -
+      slug: "deployment-default-ebs-csi-controller"
+      headRevisionNum: 2
+      dataHash: "2fa1ec48b70fee59c6e9e892abef3f388a9a86523242ab954f37b9a243cce7d1"
+    -
+      slug: "poddisruptionbudget-default-ebs-csi-controller"
+      headRevisionNum: 1
+      dataHash: "8d2fabbfcd3ad1822cf8575457a3c5169e318a8b1ab2fdfda359389ae3a87abc"
+    -
+      slug: "role-default-ebs-csi-leases-role"
+      headRevisionNum: 2
+      dataHash: "15822c01bf4f2d1385ddc8dc1070d04120d14ee95b77de6bdf9274cc7ae410a2"
+    -
+      slug: "csidriver-ebs-csi-aws-com"
+      headRevisionNum: 1
+      dataHash: "021861e8e8e28d97de564f22b764f5c8106043b785ec418051a6d08a7a84ef16"
+    -
+      slug: "daemonset-default-ebs-csi-node-windows"
+      headRevisionNum: 2
+      dataHash: "8ff069679a00f8f32062fcf784a41245cfa1cb086a3a7b1bee92981361606d4e"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-ebs-csi-leases-rolebinding"
+      headRevisionNum: 2
+      dataHash: "13be42aac248a17bfd15ce02b7b4a7f57cd8edc39994dde2fdcf3e236e3bd8be"
+    -
+      slug: "serviceaccount-default-ebs-csi-controller-sa"
+      headRevisionNum: 1
+      dataHash: "4543dc308193df6830b712a47cb991bda230e29df3c4916263218e3e08a236df"
+    -
+      slug: "serviceaccount-default-ebs-csi-node-sa"
+      headRevisionNum: 1
+      dataHash: "2a74080d2a3210fbc769ca52333a1a2c3b49d9a8ec74a905c2066b7aab66c74b"
+    -
+      slug: "clusterrole-ebs-csi-node-role"
+      headRevisionNum: 2
+      dataHash: "ad7f45744771b20fe1d18e857cbff7f9454bf41e12ebc2418e5248e9efe91219"
+    -
+      slug: "clusterrole-ebs-external-provisioner-role"
+      headRevisionNum: 2
+      dataHash: "bbc492f2e1a86555f3e7d8b732e59f2e91642c58b99c7471c08e66487963ea59"
+    -
+      slug: "clusterrole-ebs-external-attacher-role"
+      headRevisionNum: 2
+      dataHash: "860e28dbfda09940c8ccd1c823a1520db2acfa866b83da7882774c61560791f8"
+    -
+      slug: "clusterrole-ebs-external-snapshotter-role"
+      headRevisionNum: 2
+      dataHash: "02ccbf341bf48fe6c1f68d5a315f381bda80429a76cc5021398230e0d6f2a61b"
+    -
+      slug: "clusterrole-ebs-external-resizer-role"
+      headRevisionNum: 2
+      dataHash: "9f40b446a8b31d672661bca31057f255deb01b30e29e2e58548cf7dc2991a642"
+    -
+      slug: "clusterrolebinding-ebs-csi-attacher-binding"
+      headRevisionNum: 2
+      dataHash: "bd3852fa9570ffc04f9b890b88d52a996a1de01445e328cf40a65804fa7ef1b2"
+    -
+      slug: "clusterrolebinding-ebs-csi-node-getter-binding"
+      headRevisionNum: 2
+      dataHash: "55b072d3abbac4b3296ef36a9098d76bd37e20aaf0b8a7da53913bbd5a610b0e"
+    -
+      slug: "clusterrolebinding-ebs-csi-provisioner-binding"
+      headRevisionNum: 2
+      dataHash: "eef1df1dcae69a1a6a280f4648e229051dbf6c5a987776cd3c6bfb4a4b00f552"
+    -
+      slug: "clusterrolebinding-ebs-csi-resizer-binding"
+      headRevisionNum: 2
+      dataHash: "00091a6f0d6c816a21aa7211dd14831930264f651862b09c7ad3ebdae5944b2c"
+    -
+      slug: "clusterrolebinding-ebs-csi-snapshotter-binding"
+      headRevisionNum: 2
+      dataHash: "6e15adbe6e4a3797e40e3a83b46d6d6625b80df4b8be18ee61bfc2491cac28cf"
+    -
+      slug: "daemonset-default-ebs-csi-node"
+      headRevisionNum: 2
+      dataHash: "d7871d660177ec12628a38608b02b387aa65a151a07e8d77e9fd60bb325bc6c1"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 20
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 20
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 20
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

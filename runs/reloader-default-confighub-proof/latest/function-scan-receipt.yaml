@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "reloader-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-reloader-default-confighub-proof"
+    selector: "Labels.Proof = 'reloader-default-confighub-proof'"
+  subject:
+    chart: "stakater/reloader"
+    chartVersion: "2.2.12"
+    packagePath: "packages/stakater/reloader/2.2.12"
+    variant: "default"
+    configHubUnitCount: 7
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-reloader-reloader-role-binding"
+      headRevisionNum: 2
+      dataHash: "5a08ee2f4a46d82e3ce95285507e12e09034a0459db5f3e9c0d57dac6d42cc82"
+    -
+      slug: "clusterrole-reloader-reloader-role"
+      headRevisionNum: 2
+      dataHash: "4af2a2e31dc6b91d85b1b059072e7d6e1930588c132b7b019b6f5d3246f6c3c5"
+    -
+      slug: "deployment-default-reloader-reloader"
+      headRevisionNum: 2
+      dataHash: "3c12a6dbe6bd3951cb63d43aa075c4755e95432c7590db12b5e34a1c73427e38"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-reloader-reloader-metadata-role-binding"
+      headRevisionNum: 2
+      dataHash: "e78903c721d9d1edc4b9d0f8df2c99b37b2c4384cb10c5dae4192fa165f3817b"
+    -
+      slug: "role-default-reloader-reloader-metadata-role"
+      headRevisionNum: 2
+      dataHash: "d899dc82bee06314ce2df5e56a3b0068daaf76cf4708c5e913ee2f514d7b0ba9"
+    -
+      slug: "serviceaccount-default-reloader-reloader"
+      headRevisionNum: 1
+      dataHash: "f87238996afe970bb71555b49d4ed8a0956e7c0b78ffbafa9f691d55fa3e6ceb"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

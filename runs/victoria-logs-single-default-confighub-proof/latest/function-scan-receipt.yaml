@@ -1,0 +1,59 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "victoria-logs-single-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-victoria-logs-single-default-confighub-proof"
+    selector: "Labels.Proof = 'victoria-logs-single-default-confighub-proof'"
+  subject:
+    chart: "vm/victoria-logs-single"
+    chartVersion: "0.12.5"
+    packagePath: "packages/vm/victoria-logs-single/0.12.5"
+    variant: "default"
+    configHubUnitCount: 3
+  unitRevisionBindings:
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "service-default-victoria-logs-single-server"
+      headRevisionNum: 2
+      dataHash: "c7ce99d591327aab23531936d2c68d272b030c0b5916b5b26b778abb0884b994"
+    -
+      slug: "statefulset-default-victoria-logs-single-server"
+      headRevisionNum: 2
+      dataHash: "57b493557ccb9238a6cef2c6e8f1b3cbe5162d153e4e194d2288b8c745ee3bf5"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 3
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 3
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 3
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

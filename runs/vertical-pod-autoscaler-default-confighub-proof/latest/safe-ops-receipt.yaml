@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "vertical-pod-autoscaler-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-vertical-pod-autoscaler-default-confighub-proof"
+    selector: "Labels.Proof = 'vertical-pod-autoscaler-default-confighub-proof'"
+  subject:
+    chart: "autoscaler/vertical-pod-autoscaler"
+    chartVersion: "0.9.0"
+    packagePath: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
+    variant: "default"
+  changeset:
+    slug: "vertical-pod-autoscaler-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Vertical Pod Autoscaler safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "vertical-pod-autoscaler-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-vertical-pod-autoscaler-recommender --space helm-vertical-pod-autoscaler-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-vertical-pod-autoscaler-recommender"
+    output: "Unit deployment-default-vertical-pod-autoscaler-recommender (828a1adf-7bd9-4800-b543-fa4fed83674f) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-vertical-pod-autoscaler-default-confighub-proof --where \"Labels.Proof = 'vertical-pod-autoscaler-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req XLcEjLjHCQbMVhtFHqfTEDKJsmvxLNUn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-vertical-pod-autoscaler-default-confighub-proof --where \"Labels.Proof = 'vertical-pod-autoscaler-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

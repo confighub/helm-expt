@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "fluent-bit-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-fluent-bit-default-confighub-proof"
+    selector: "Labels.Proof = 'fluent-bit-default-confighub-proof'"
+  subject:
+    chart: "fluent/fluent-bit"
+    chartVersion: "0.57.6"
+    packagePath: "packages/fluent/fluent-bit/0.57.6"
+    variant: "default"
+    configHubUnitCount: 7
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-fluent-bit"
+      headRevisionNum: 2
+      dataHash: "c78425252487e8c1be9fb5508fa71c6ac024699334786861273466b1b6e95188"
+    -
+      slug: "clusterrole-fluent-bit"
+      headRevisionNum: 2
+      dataHash: "54e6ca5287dd94739cb4cb6ea25f97efee9b50bc5f750441e3bf72e212d7e343"
+    -
+      slug: "configmap-default-fluent-bit"
+      headRevisionNum: 1
+      dataHash: "16a1c6ba207ebd91057ecd2f77b3002c826037d945ab64be0db8d9ef2c351187"
+    -
+      slug: "daemonset-default-fluent-bit"
+      headRevisionNum: 2
+      dataHash: "c6b55db1c9ee605f2c6bcbec92e712247c1561db0202d9471f75bfe605f05069"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-fluent-bit"
+      headRevisionNum: 1
+      dataHash: "b2f6e629de7561e90dd7971039172332a09ac5d91317998d3673fad4e3b73f25"
+    -
+      slug: "service-default-fluent-bit"
+      headRevisionNum: 2
+      dataHash: "afc350799b241bfebe8eb0027fa984ed006b330bebc32c37b0af50ede88d89bd"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

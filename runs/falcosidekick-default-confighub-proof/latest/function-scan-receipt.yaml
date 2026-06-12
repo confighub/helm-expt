@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "falcosidekick-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-falcosidekick-default-confighub-proof"
+    selector: "Labels.Proof = 'falcosidekick-default-confighub-proof'"
+  subject:
+    chart: "falcosecurity/falcosidekick"
+    chartVersion: "0.13.1"
+    packagePath: "packages/falcosecurity/falcosidekick/0.13.1"
+    variant: "default"
+    configHubUnitCount: 6
+  unitRevisionBindings:
+    -
+      slug: "deployment-default-falcosidekick"
+      headRevisionNum: 2
+      dataHash: "d65178692cc0f63989c2d18563637a479b47357e028462caee7ede1068f1727e"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-falcosidekick"
+      headRevisionNum: 2
+      dataHash: "8c7dae69ff90926224d9901a300093d89a5f3a56ed9bbf5fb1c6939905cbdf88"
+    -
+      slug: "role-default-falcosidekick"
+      headRevisionNum: 2
+      dataHash: "a9c92c08fdfff55b0ea6d4cf541c0d191657bab0437e2efe5dd8b385228fa034"
+    -
+      slug: "serviceaccount-default-falcosidekick"
+      headRevisionNum: 1
+      dataHash: "52c45f9301cb3f28669be8fe1a2d18d4eeb01c0b2e1b7c599a70f89dece3a289"
+    -
+      slug: "service-default-falcosidekick"
+      headRevisionNum: 2
+      dataHash: "5e3df9cb218c739c84e00759facb90eb498903b7f3136fa8716e65f253798547"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

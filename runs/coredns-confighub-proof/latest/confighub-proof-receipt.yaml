@@ -1,0 +1,82 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "coredns-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/coredns/coredns/1.45.2"
+    name: "coredns-coredns"
+    chart: "coredns/coredns"
+    chartVersion: "1.45.2"
+    bases:
+      - "default"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/coredns/coredns/1.45.2 --base default --work-dir .tmp/confighub-proof/coredns-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 6
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/coredns-default"
+    result: "pass"
+    manifestCount: 6
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/coredns/coredns/1.45.2 -o .tmp/confighub-proof/coredns-archives/coredns-a.tgz"
+    sha256: "795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/coredns-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/coredns-default --space helm-coredns-confighub-proof --component Coredns --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Coredns --unit-label HelmChart=coredns-coredns --unit-label HelmChartVersion=1.45.2 --unit-label Variant=default --unit-label Proof=coredns-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-coredns-confighub-proof"
+    unitCount: 7
+    kubernetesUnitCount: 6
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/coredns-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/coredns-default"
+    result: "pass"
+    summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-coredns-confighub-proof:\n  ~ deployment-default-coredns\n      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/coredns-default/out/manifests/deployment-default-coredns.yaml:\n      Resource: apps/v1/Deployment default/coredns\n        - [Delete] spec.template.spec.containers.?name=coredns;@0.ports.?containerPort=53;@0  (#2)\n          containerPort: 53\n          name: udp-53\n          protocol: UDP\n        ~ [Update] spec.template.spec.containers.?name=coredns;@0.ports.?containerPort=53;@0.name  (#2)"
+  serverSideVariant:
+    command: "cub variant create staging helm-coredns-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-coredns-confighub-proof"
+    downstreamSpace: "Coredns-staging"
+    clonedUnitCount: 7
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-coredns"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-coredns-confighub-proof"
+      - "Coredns-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

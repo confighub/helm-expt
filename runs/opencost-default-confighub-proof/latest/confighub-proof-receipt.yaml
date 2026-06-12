@@ -1,0 +1,82 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "opencost-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/opencost/opencost/2.5.21"
+    name: "opencost-opencost"
+    chart: "opencost/opencost"
+    chartVersion: "2.5.21"
+    bases:
+      - "default"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/opencost/opencost/2.5.21 --base default --work-dir .tmp/confighub-proof/opencost-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/opencost-default"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/opencost/opencost/2.5.21 -o .tmp/confighub-proof/opencost-default-archives/opencost-a.tgz"
+    sha256: "1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/opencost-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/opencost-default --space helm-opencost-default-confighub-proof --component Opencost --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Opencost --unit-label HelmChart=opencost-opencost --unit-label HelmChartVersion=2.5.21 --unit-label Variant=default --unit-label Proof=opencost-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-opencost-default-confighub-proof"
+    unitCount: 8
+    kubernetesUnitCount: 7
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/opencost-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/opencost-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-opencost-default-confighub-proof (post-render):\n      Deployment/opencost [opencost] ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\n      Deployment/opencost [opencost-ui] ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc"
+  serverSideVariant:
+    command: "cub variant create staging helm-opencost-default-confighub-proof --environment Staging --region local --space-name-pattern template:Opencost-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-opencost-default-confighub-proof"
+    downstreamSpace: "Opencost-default-staging"
+    clonedUnitCount: 8
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-opencost"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-opencost-default-confighub-proof"
+      - "Opencost-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

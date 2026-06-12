@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "haproxy-ingress-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-haproxy-ingress-default-confighub-proof"
+    selector: "Labels.Proof = 'haproxy-ingress-default-confighub-proof'"
+  subject:
+    chart: "haproxytech/kubernetes-ingress"
+    chartVersion: "1.52.0"
+    packagePath: "packages/haproxytech/kubernetes-ingress/1.52.0"
+    variant: "default"
+    configHubUnitCount: 8
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-kubernetes-ingress"
+      headRevisionNum: 2
+      dataHash: "a557e6ae56a6bb3ed5000c15943047304209d5c62376f31fd8fb70aef5d51343"
+    -
+      slug: "clusterrole-kubernetes-ingress"
+      headRevisionNum: 2
+      dataHash: "26660ae4a2eb4e0485cb7fa594b94d2b31643511273ab2416ed274f95810aa40"
+    -
+      slug: "configmap-default-kubernetes-ingress"
+      headRevisionNum: 1
+      dataHash: "296a27ab467b72f7607749d7add72ccc83ee4106bc85b6fde1f731c2c0cb5019"
+    -
+      slug: "deployment-default-kubernetes-ingress"
+      headRevisionNum: 2
+      dataHash: "49a67e5a998062d4a0ad947b5d63da84b0f13bce50ef72da01cf7e47ac8161f4"
+    -
+      slug: "ingressclass-haproxy"
+      headRevisionNum: 1
+      dataHash: "5dd7155d6619808748072e7b92f9d1b1592b26fdca83bc1610cdf2d8f0d9019c"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-kubernetes-ingress"
+      headRevisionNum: 1
+      dataHash: "868f1d2395259d68467fc8b14058bc26d0fe9458e251b73671f796723d0358b7"
+    -
+      slug: "service-default-kubernetes-ingress"
+      headRevisionNum: 2
+      dataHash: "2228bcfe0921d333eff313e9a913fa6ce3beac3ee0e2cbcb8d94bfa390051063"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

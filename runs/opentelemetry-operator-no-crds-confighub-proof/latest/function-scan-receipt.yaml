@@ -1,0 +1,103 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "opentelemetry-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-opentelemetry-operator-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'opentelemetry-operator-no-crds-confighub-proof'"
+  subject:
+    chart: "open-telemetry/opentelemetry-operator"
+    chartVersion: "0.114.0"
+    packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0"
+    variant: "no-crds"
+    configHubUnitCount: 14
+  unitRevisionBindings:
+    -
+      slug: "service-default-opentelemetry-operator-webhook"
+      headRevisionNum: 2
+      dataHash: "bb269d948d7b3c02f3bf443942fac7dfd2d76861f4d2835ed21b716e733eed5c"
+    -
+      slug: "serviceaccount-default-opentelemetry-operator"
+      headRevisionNum: 1
+      dataHash: "2f61857fc403ba40b8c4ae4aa5bf17362dd4c07b4640fcf0eee40fbe0432aff7"
+    -
+      slug: "validatingwebhookconfiguration-opentelemetry-operator-validation"
+      headRevisionNum: 2
+      dataHash: "f3ffa4a905ffb679dd320b292f37374dd9b167423e0312264f64f58cbd7c1c6c"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "clusterrole-opentelemetry-operator-manager"
+      headRevisionNum: 2
+      dataHash: "8f434998f7956fc344a85a9784694db007ce07a0b8095ac3cb2ba9be0c9b6f40"
+    -
+      slug: "clusterrole-opentelemetry-operator-metrics"
+      headRevisionNum: 2
+      dataHash: "381840ed878c9990174db9174de93778f8d05e8ca76eaaa4988d7da413d565ba"
+    -
+      slug: "service-default-opentelemetry-operator"
+      headRevisionNum: 2
+      dataHash: "b5a4d96b2946433d780446a7ae034d19579f4540c831bc3102b3f31b8d80a728"
+    -
+      slug: "certificate-default-opentelemetry-operator-serving-cert"
+      headRevisionNum: 2
+      dataHash: "8a1eb5771a34ddf2a59668da42c19cd9c685e8ce9563ed329c8248cb46e9fd49"
+    -
+      slug: "clusterrolebinding-opentelemetry-operator-manager"
+      headRevisionNum: 2
+      dataHash: "7a8e7fad8282b3f0334528024f70ca00aae4bc7df0c87fb724beed5567c12144"
+    -
+      slug: "deployment-default-opentelemetry-operator"
+      headRevisionNum: 2
+      dataHash: "a55365a65d6153135c8240cff72cbeb1d258322e20e439b3e0d67b0b41f81086"
+    -
+      slug: "issuer-default-opentelemetry-operator-selfsigned-issuer"
+      headRevisionNum: 1
+      dataHash: "8842231a2ec4fd87a562242861f5adf62d6f25fd0b1bf9de3c1610da93175492"
+    -
+      slug: "mutatingwebhookconfiguration-opentelemetry-operator-mutation"
+      headRevisionNum: 2
+      dataHash: "a8c695edef9f2ce342d580c0c82fe9d41b7d84b361185230cd65f769a7f0141c"
+    -
+      slug: "role-default-opentelemetry-operator-leader-election"
+      headRevisionNum: 2
+      dataHash: "b4a2d0708ad03cde0bb00322f8786341991cf07358909fa2f1e8ccd8ffbd6700"
+    -
+      slug: "rolebinding-default-opentelemetry-operator-leader-election"
+      headRevisionNum: 2
+      dataHash: "7a8f6572af71fa2a448644bd0b7915a27d6c255ca828223850dd245838c72889"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 14
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 14
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 14
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

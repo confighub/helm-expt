@@ -1,0 +1,85 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "crossplane-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/crossplane-stable/crossplane/2.3.1"
+    name: "crossplane-stable-crossplane"
+    chart: "crossplane-stable/crossplane"
+    chartVersion: "2.3.1"
+    bases:
+      - "default"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir .tmp/confighub-proof/crossplane-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 21
+    separatedSecretCount: 3
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/crossplane-default"
+    result: "pass"
+    manifestCount: 21
+    separatedSecretCount: 3
+  deterministicPackage:
+    command: "cub installer package packages/crossplane-stable/crossplane/2.3.1 -o .tmp/confighub-proof/crossplane-default-archives/crossplane-a.tgz"
+    sha256: "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/crossplane-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/crossplane-default --space helm-crossplane-default-confighub-proof --component Crossplane --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Crossplane --unit-label HelmChart=crossplane-stable-crossplane --unit-label HelmChartVersion=2.3.1 --unit-label Variant=default --unit-label Proof=crossplane-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-crossplane-default-confighub-proof"
+    unitCount: 22
+    kubernetesUnitCount: 21
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret default/crossplane-root-ca"
+      - "v1/Secret default/crossplane-tls-client"
+      - "v1/Secret default/crossplane-tls-server"
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/crossplane-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/crossplane-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-crossplane-default-confighub-proof (post-render):\n  init  Deployment/crossplane [crossplane-init] xpkg.crossplane.io/crossplane/crossplane:v2.3.1\n      Deployment/crossplane [crossplane] xpkg.crossplane.io/crossplane/crossplane:v2.3.1\n  init  Deployment/crossplane-rbac-manager [crossplane-init] xpkg.crossplane.io/crossplane/crossplane:v2.3.1\n      Deployment/crossplane-rbac-manager [crossplane] xpkg.crossplane.io/crossplane/crossplane:v2.3.1"
+  serverSideVariant:
+    command: "cub variant create staging helm-crossplane-default-confighub-proof --environment Staging --region local --space-name-pattern template:Crossplane-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-crossplane-default-confighub-proof"
+    downstreamSpace: "Crossplane-default-staging"
+    clonedUnitCount: 22
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-crossplane-rbac-manager"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-crossplane-default-confighub-proof"
+      - "Crossplane-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

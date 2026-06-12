@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "dex-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-dex-default-confighub-proof"
+    selector: "Labels.Proof = 'dex-default-confighub-proof'"
+  subject:
+    chart: "dex/dex"
+    chartVersion: "0.24.0"
+    packagePath: "packages/dex/dex/0.24.0"
+    variant: "default"
+  changeset:
+    slug: "dex-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "dex safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "dex-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-dex --space helm-dex-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-dex"
+    output: "Unit deployment-default-dex (19fd553e-06ae-4059-9161-fed91c823574) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-dex-default-confighub-proof --where \"Labels.Proof = 'dex-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req woniVVRKETGtyzlGvTQjrpXWjLcWHqaV: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-dex-default-confighub-proof --where \"Labels.Proof = 'dex-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

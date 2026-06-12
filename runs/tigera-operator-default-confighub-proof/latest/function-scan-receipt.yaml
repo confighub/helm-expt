@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "tigera-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-tigera-operator-default-confighub-proof"
+    selector: "Labels.Proof = 'tigera-operator-default-confighub-proof'"
+  subject:
+    chart: "projectcalico/tigera-operator"
+    chartVersion: "v3.32.0"
+    packagePath: "packages/projectcalico/tigera-operator/v3.32.0"
+    variant: "default"
+    configHubUnitCount: 11
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-tigera-operator"
+      headRevisionNum: 2
+      dataHash: "097ae9944be0f812a416dd978da33f0e7add22ef400bd2794a82a883664d733d"
+    -
+      slug: "clusterrole-tigera-operator-secrets"
+      headRevisionNum: 2
+      dataHash: "844e72db8dc917547a0935099f45d9ba7e71369ab4912ad6d541c95f14618a1e"
+    -
+      slug: "clusterrolebinding-tigera-operator"
+      headRevisionNum: 2
+      dataHash: "eaaee74bf919f2ba7cde356570834468960dc04209e51ad0d0d68f8d5ec29b00"
+    -
+      slug: "deployment-default-tigera-operator"
+      headRevisionNum: 2
+      dataHash: "b99f61287be914256cd887c85eee31860bf0045b54f38f1851316d203f4fcb43"
+    -
+      slug: "rolebinding-default-tigera-operator-secrets"
+      headRevisionNum: 2
+      dataHash: "633550a363369bb03543dc31d08a4eabe2aa2f97e4d7073ea99ddeb8a2f6ca48"
+    -
+      slug: "apiserver-default"
+      headRevisionNum: 1
+      dataHash: "b77b52908dc08746fc064ec0b3c3bfb84ec2685a17e5a3a8f726da48ca001808"
+    -
+      slug: "goldmane-default"
+      headRevisionNum: 1
+      dataHash: "146e2928d88976b02a680854bb804460ff490b74e10c02bb74ee3e21c7e83880"
+    -
+      slug: "installation-default"
+      headRevisionNum: 1
+      dataHash: "e35ee8720944443a11e3ab964ae2b9ca5362f2e282f5921ed84f4ce7f40c616e"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-tigera-operator"
+      headRevisionNum: 1
+      dataHash: "d69050218e963203063988b6102e36183d73fb50ae79740992738da202210027"
+    -
+      slug: "whisker-default"
+      headRevisionNum: 1
+      dataHash: "89d4f1bfd46a5e6af819bfb65b5dafdc585f43e934fedd0e47c07d9ba9ae0f4b"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

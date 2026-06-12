@@ -1,0 +1,583 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "rook-ceph-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-rook-ceph-default-confighub-proof"
+    selector: "Labels.Proof = 'rook-ceph-default-confighub-proof'"
+  subject:
+    chart: "rook-release/rook-ceph"
+    chartVersion: "v1.19.5"
+    packagePath: "packages/rook-release/rook-ceph/v1.19.5"
+    variant: "default"
+    configHubUnitCount: 134
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-ceph-csi-cephconnection-viewer-role"
+      headRevisionNum: 2
+      dataHash: "53439af539fb52d88f4bc976304c619d3cf1c706632c42df4c2ceeba3821f38a"
+    -
+      slug: "serviceaccount-default-rook-ceph-cmd-reporter"
+      headRevisionNum: 1
+      dataHash: "d88d55756ab67464e44be94f98b36e82f1ee32eb3797846d89c03e96dce7c7aa"
+    -
+      slug: "serviceaccount-default-rook-ceph-osd"
+      headRevisionNum: 1
+      dataHash: "aa3a4e4a72c8b8d9fe8a176f1e9323312c6fddcb54a8d711aecc195104b63783"
+    -
+      slug: "serviceaccount-default-rook-csi-cephfs-provisioner-sa"
+      headRevisionNum: 1
+      dataHash: "bc21428557a0073a81809d9b06ba1d64254071aced928981a4021ae5ebe4bfca"
+    -
+      slug: "clusterrole-ceph-csi-cephfs-nodeplugin-cr"
+      headRevisionNum: 2
+      dataHash: "546e7a3172cad28657e675761fd5bf68e7feedddcc4ecd0ee643b042be89a865"
+    -
+      slug: "serviceaccount-default-rook-csi-rbd-provisioner-sa"
+      headRevisionNum: 1
+      dataHash: "f0af54095a3c1fb4d4edf1455f5f4c5bee8fe7ddbe61530ede2f4c293c4a6700"
+    -
+      slug: "clusterrole-ceph-csi-clientprofilemapping-viewer-role"
+      headRevisionNum: 2
+      dataHash: "16ed7efc01a8fdd14491528098a8198e81afc49139fa33b7e957b4018fc6ef65"
+    -
+      slug: "clusterrole-ceph-csi-clientprofilemapping-editor-role"
+      headRevisionNum: 2
+      dataHash: "bdba1d3618514e8149bdb53b2652f1751e4e0eb481df376b2ac9534b605d1248"
+    -
+      slug: "clusterrole-ceph-csi-driver-viewer-role"
+      headRevisionNum: 2
+      dataHash: "1a493a6421597a73d96ffb3468313c4f6abfc9f3315089d9fa6beb24232e118e"
+    -
+      slug: "clusterrole-ceph-csi-clientprofiles-editor-role"
+      headRevisionNum: 2
+      dataHash: "2fd4e9cfeeb69a53dd1291c524f5a1f29561ecbc150964bb8716af8460e9cde1"
+    -
+      slug: "clusterrole-ceph-csi-driver-editor-role"
+      headRevisionNum: 2
+      dataHash: "f73fd9ecada1cc61a842f74ea601858416bb92a6789228958d55c763956484fc"
+    -
+      slug: "customresourcedefinition-objectbuckets-objectbucket-io"
+      headRevisionNum: 2
+      dataHash: "0b9a38c10a8b5ab114034cc2d6097b620da3ea3e5745a7e69695d7876ec9d803"
+    -
+      slug: "clusterrole-ceph-csi-manager-role"
+      headRevisionNum: 2
+      dataHash: "4aeb79249bf0db75a347b0343bf908c4dc473401d2cc1f046d5458611a0494c7"
+    -
+      slug: "clusterrole-ceph-csi-metrics-auth-role"
+      headRevisionNum: 2
+      dataHash: "e3d985037c0341d5df94efef37d74be486e1fbbf96bfedbba728239a9ea6d583"
+    -
+      slug: "clusterrole-ceph-csi-metrics-reader"
+      headRevisionNum: 2
+      dataHash: "4936a406aa3f7ea01e40b273e3a0c30168e0c49826de000dc7b2ac14988f3a65"
+    -
+      slug: "role-default-ceph-csi-cephfs-ctrlplugin-r"
+      headRevisionNum: 2
+      dataHash: "830251eb9f9ec424fa49efdfdd807d1270f6617d5013204f993b3467619e2ab3"
+    -
+      slug: "role-default-ceph-csi-leader-election-role"
+      headRevisionNum: 2
+      dataHash: "0980cd5338856df4c3d4015782a1b0cdc5375d2b69fc6c6219ab03621549969d"
+    -
+      slug: "clusterrole-ceph-csi-nfs-ctrlplugin-cr"
+      headRevisionNum: 2
+      dataHash: "832f7fff800c63f48b79b98b3df3b51d09948f522aebddcfeb25f9fc92dd9ebf"
+    -
+      slug: "clusterrole-ceph-csi-nfs-nodeplugin-cr"
+      headRevisionNum: 2
+      dataHash: "0fb96659e8503c56afa3e35d7b794504a35d59a4c22ea77e8ec1cc7d576c925c"
+    -
+      slug: "clusterrole-ceph-csi-nvmeof-ctrlplugin-cr"
+      headRevisionNum: 2
+      dataHash: "39992c3b9f3a39039635570a174703ffcf7c3a880d81762692452ce5bf87dedd"
+    -
+      slug: "clusterrole-ceph-csi-nvmeof-nodeplugin-cr"
+      headRevisionNum: 2
+      dataHash: "6692ee29b0df291e1da88455e2efc39b45de8b2bb2ba0059773e6e05b8bb6354"
+    -
+      slug: "role-default-rook-ceph-purge-osd"
+      headRevisionNum: 2
+      dataHash: "89f1811548ad1e645f7a05fd9fd29b7b4c97cd276fe965a3152561e1264049db"
+    -
+      slug: "clusterrole-ceph-csi-operatorconfig-viewer-role"
+      headRevisionNum: 2
+      dataHash: "eef114cbc11d5514d6f20e203e746f3f9f0605e1f8188d7339c3b8e27a30cbed"
+    -
+      slug: "clusterrole-ceph-csi-operatorconfig-editor-role"
+      headRevisionNum: 2
+      dataHash: "c0b33e97cbc66a01c872aa488f219d9834b41c7a94897251a986d933a219b6d6"
+    -
+      slug: "clusterrole-ceph-csi-rbd-nodeplugin-cr"
+      headRevisionNum: 2
+      dataHash: "f1c0e9b8000f43b1d12ab5e5b3319f310ddfc9d9fd82cce6f33a7ba7c330b24b"
+    -
+      slug: "role-default-ceph-csi-nvmeof-ctrlplugin-r"
+      headRevisionNum: 2
+      dataHash: "fe9d55df49d9da383a03ff6cfe9c4cb6d2f4cf34b892bdf6ee7d26d487a5aaf2"
+    -
+      slug: "clusterrole-objectstorage-provisioner-role"
+      headRevisionNum: 2
+      dataHash: "254fe8526f0a10d4cef9248670c0a044db2e5fb1cf3ad5026300ae809698095c"
+    -
+      slug: "role-default-ceph-csi-nvmeof-nodeplugin-r"
+      headRevisionNum: 2
+      dataHash: "90b40748d32fa7d96900a814bf8a661c602a26807545e9e0fd07b58a5214ebba"
+    -
+      slug: "clusterrole-cephfs-external-provisioner-runner"
+      headRevisionNum: 2
+      dataHash: "3b067f3c6c918e224fca2f5ea2f76b9e6e657db3a757e25a95cb98c8fb9bd3a4"
+    -
+      slug: "role-default-ceph-csi-rbd-ctrlplugin-r"
+      headRevisionNum: 2
+      dataHash: "a79c77ec7a32a912b8bf553b200606bca6da7c3afaf7f2e49636e7220d832d26"
+    -
+      slug: "role-default-ceph-csi-rbd-nodeplugin-r"
+      headRevisionNum: 2
+      dataHash: "e77500825a998f5c3e9940b19d01105e10b8550d02bb6012a2eeae63268ef6ec"
+    -
+      slug: "role-default-rbd-external-provisioner-cfg"
+      headRevisionNum: 2
+      dataHash: "6059eafd32f23ad09a1f76006b406751df016b8b00d18766c9aa63d270e7d17e"
+    -
+      slug: "role-default-rook-ceph-cmd-reporter"
+      headRevisionNum: 2
+      dataHash: "08f065ff2e5faa69fecadff4a2596b12b732481b5046ce72e2982200f7aa744c"
+    -
+      slug: "clusterrole-ceph-csi-rbd-ctrlplugin-cr"
+      headRevisionNum: 2
+      dataHash: "75976202732db2bdb8c1e9212c8c609d6590afecf493a36084b1a5e883bb2482"
+    -
+      slug: "clusterrole-cephfs-csi-nodeplugin"
+      headRevisionNum: 2
+      dataHash: "e88139aeacdc826881f271857581e929330468d09b773c906b4e5d3c93a87936"
+    -
+      slug: "clusterrole-rbd-csi-nodeplugin"
+      headRevisionNum: 2
+      dataHash: "721d62c9601aeb5bea6a2136581a6069e9c5185ef29c2cb6f13effdbbdb9dab1"
+    -
+      slug: "role-default-rook-ceph-osd"
+      headRevisionNum: 2
+      dataHash: "0f58dab8120a23fc33449bd333748041b5d280d1a099866216bc6cb051df52f4"
+    -
+      slug: "clusterrolebinding-objectstorage-provisioner-role-binding"
+      headRevisionNum: 2
+      dataHash: "e63afe851f311c8abe5471fccbdd7a7ce522e059f798396e94b82f3a54af40cc"
+    -
+      slug: "role-default-rook-ceph-system"
+      headRevisionNum: 2
+      dataHash: "c168a136ec68478f88f5132869bca7f2be1f3ecc71a1f03c0f41b7c3f4de09a6"
+    -
+      slug: "clusterrole-rbd-external-provisioner-runner"
+      headRevisionNum: 2
+      dataHash: "11f1e49cb270c8c0a0219487cf4af87c6c83bda560a69b6b9663a9afc66373ef"
+    -
+      slug: "clusterrole-rook-ceph-cluster-mgmt"
+      headRevisionNum: 2
+      dataHash: "69a8605c0966f417d4a077d9872e366c3f220911250eb73ecc89e8c15d124606"
+    -
+      slug: "configmap-default-rook-ceph-operator-config"
+      headRevisionNum: 1
+      dataHash: "3d7514878523bb3b563b200797a49c008fd2a462757a619f157e1c0a210cd641"
+    -
+      slug: "customresourcedefinition-cephblockpoolradosnamespaces-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "e1421586963f7273ce45a3ec9bd0ad406b0372eec9675bb24b5724a8c7ce3a8e"
+    -
+      slug: "customresourcedefinition-cephblockpools-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "22aab18f24b1ecbb27c8316e1ee3fda139dd66a436f7df38533e958981a1c087"
+    -
+      slug: "customresourcedefinition-cephbucketnotifications-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "b67f8689712e32139fcbf6bc3c2f70f933634a57f73f418e25690c9b19749922"
+    -
+      slug: "clusterrole-rook-ceph-mgr-cluster"
+      headRevisionNum: 2
+      dataHash: "7d9038c2ce622956004e2d1224a08dbb9e20c0269d6c4d9c6737e2b53d1e1fcd"
+    -
+      slug: "customresourcedefinition-cephbuckettopics-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "114e0e3acc85b4a05770ca5049d9bef63129221141ffd8bd125a6c727af895ad"
+    -
+      slug: "customresourcedefinition-cephclients-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "e7ccfb2672c72a9c290ef4eb8d5b77f5b3ee913bafaee14e0d0d95c9d8fcecea"
+    -
+      slug: "clusterrole-rook-ceph-osd"
+      headRevisionNum: 2
+      dataHash: "9af029157f9d49421f4410aa9ef70421e652dbadb19db89f0fd08151fc3a94b6"
+    -
+      slug: "customresourcedefinition-cephclusters-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "fa038f49d096a7ff5c77de504b5ac7af85e2d53f3b19c09ccffbffebe9407965"
+    -
+      slug: "clusterrole-rook-ceph-mgr-system"
+      headRevisionNum: 2
+      dataHash: "f8ed7a15abe23380e747c9b1af77a618a50d29e34efd06024748bd06786133c8"
+    -
+      slug: "customresourcedefinition-cephconnections-csi-ceph-io"
+      headRevisionNum: 2
+      dataHash: "1bdfbe8f9bfcf97d0dd555ca2385c71b7a3142e3ec4652bec5d8eadc18d51fbd"
+    -
+      slug: "clusterrole-rook-ceph-global"
+      headRevisionNum: 2
+      dataHash: "d88573130512a3de40bf0d4c6e4966b91160947ace7ed1eb54f36ff8a298f6b4"
+    -
+      slug: "clusterrole-rook-ceph-object-bucket"
+      headRevisionNum: 2
+      dataHash: "ad3dae5fc17f71c31164ad984119c135663962c4eb5fc335f6cd646da6ce1e4c"
+    -
+      slug: "customresourcedefinition-cephfilesystems-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "1e7ff9c6ae1b1e1ac505ce38be26ea4733a4e00f37541540582691dc25cbfa72"
+    -
+      slug: "customresourcedefinition-cephfilesystemsubvolumegroups-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "4dc0be78003b6bfd5c2d3cc9f449e7d358ea2557d21449113c9313dbcc2e1ae6"
+    -
+      slug: "customresourcedefinition-cephnfses-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "2eb5d2cd2e6752f12e7d0dd017573ab81e758c6456d5d1453ba5831c3409d62a"
+    -
+      slug: "customresourcedefinition-cephnvmeofgateways-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "69926ed058bd1e53075e6cba9eecee757d7f90f5335eb7823fe08b765319f4b0"
+    -
+      slug: "rolebinding-default-ceph-csi-cephfs-nodeplugin-rb"
+      headRevisionNum: 2
+      dataHash: "95c79aced542a5f5f440003e612c5b399c67c379dce87667e3489404e68e20c2"
+    -
+      slug: "customresourcedefinition-cephobjectrealms-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "3bcc11243bcb0a7bfd79ec796af8f9b55ac560a5c3262e979ca1dc6f2e8031ca"
+    -
+      slug: "clusterrole-rook-ceph-system"
+      headRevisionNum: 2
+      dataHash: "7c90c88ded8ee41d6657539da4c18e7be17bce6caf909c2017e0bb4ab74c51ce"
+    -
+      slug: "customresourcedefinition-cephobjectstores-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "c269f8c4dc5daf7409e371696d1fa99ef53e68fd2ec0344d59a2c438ccfe7d27"
+    -
+      slug: "customresourcedefinition-cephobjectstoreusers-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "50908ea662b09b522d8d6d860826956d448dbdceecddf1eb763a82d6bb4105c3"
+    -
+      slug: "customresourcedefinition-cephobjectzonegroups-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "87ac0f0a308c1a42f1dca89c4a44e566461012a001cf2b9ce53831f9de59aad7"
+    -
+      slug: "customresourcedefinition-cephrbdmirrors-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "b53dc4ea8e8dbc342ee15130618f2f986965fddff03c7431bdaf1510b204c0f8"
+    -
+      slug: "customresourcedefinition-cephobjectzones-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "34891b7d64e3aaeab3709cc0d2906211ee402779eb34b45d720680f52f1b12cf"
+    -
+      slug: "customresourcedefinition-clientprofilemappings-csi-ceph-io"
+      headRevisionNum: 2
+      dataHash: "3ab2022e37dea8896a8880806174edbd4bdc004236f1e10ac6c3cdf789a7d23d"
+    -
+      slug: "customresourcedefinition-clientprofiles-csi-ceph-io"
+      headRevisionNum: 2
+      dataHash: "09ece41783d50a7d5a637e8858a762bcef5b99881eec7abb3f3274120dc82e45"
+    -
+      slug: "customresourcedefinition-drivers-csi-ceph-io"
+      headRevisionNum: 2
+      dataHash: "13b0d9dca37397d49a87a70b626351f71ef439a1724651030fb8929ab8b51c03"
+    -
+      slug: "clusterrolebinding-ceph-csi-cephfs-nodeplugin-crb"
+      headRevisionNum: 2
+      dataHash: "7a15e5fb36f2dcb1eafa4221177d1e4b8669f9a11864f41c7038190cd6bb6b9f"
+    -
+      slug: "customresourcedefinition-objectbucketclaims-objectbucket-io"
+      headRevisionNum: 2
+      dataHash: "8225d4fdbdfa82827af1042a9977328d1e360d1deac79eec78970a54d7ac922f"
+    -
+      slug: "rolebinding-default-rook-ceph-cluster-mgmt"
+      headRevisionNum: 2
+      dataHash: "adff02cd128c678a21893769d428b8ade8827e9b85638b7334a57c5627dc8d19"
+    -
+      slug: "customresourcedefinition-operatorconfigs-csi-ceph-io"
+      headRevisionNum: 2
+      dataHash: "0e2cdca41937f00e78c3f2d7934285f0f855454c4c65e941bbacf085e3cd70cf"
+    -
+      slug: "deployment-default-ceph-csi-controller-manager"
+      headRevisionNum: 2
+      dataHash: "3a1d5d0386317f3d24680584bc253b629faa04ad29ae8e7e4a25f470fee48edb"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "role-default-ceph-csi-cephfs-nodeplugin-r"
+      headRevisionNum: 2
+      dataHash: "d788d88165a44bfa26faba37bba47f564469f3f9d4481749989384c6af6c6dc6"
+    -
+      slug: "role-default-cephfs-external-provisioner-cfg"
+      headRevisionNum: 2
+      dataHash: "213dacd3e90373038cead7d847db9dd4d7b366623ea0c76b7cec82cfa934cff0"
+    -
+      slug: "rolebinding-default-cephfs-csi-provisioner-role-cfg"
+      headRevisionNum: 2
+      dataHash: "ce697468b744c58275707ce328c133f62de1f1c0fa8daa3b279152c36a7b5132"
+    -
+      slug: "clusterrolebinding-cephfs-csi-nodeplugin-role"
+      headRevisionNum: 2
+      dataHash: "e0c098e3081af1121a52dbbc483d2b572719f56f483cfbede8b91520fcccaad4"
+    -
+      slug: "rolebinding-default-rook-ceph-osd"
+      headRevisionNum: 2
+      dataHash: "d6061ec0539e1af198acb79e1e261256ce4d00b341532b34baa3d5ed03f443c8"
+    -
+      slug: "clusterrolebinding-rbd-csi-nodeplugin"
+      headRevisionNum: 2
+      dataHash: "1aed630086e743e486c941961abc4c8f899dcb344a7a66a8cf22311a9da49077"
+    -
+      slug: "serviceaccount-default-ceph-csi-controller-manager"
+      headRevisionNum: 1
+      dataHash: "c183da3f51f04857bf3e11cda4978aa821f9cd40c8f5f47aa16eda56a6d48f12"
+    -
+      slug: "serviceaccount-default-ceph-csi-nfs-nodeplugin-sa"
+      headRevisionNum: 1
+      dataHash: "d9e23c7eff7f954fbb18c6c49edd8ee8034b4f39a191b717ce97e31a0f51776a"
+    -
+      slug: "serviceaccount-default-ceph-csi-nvmeof-ctrlplugin-sa"
+      headRevisionNum: 1
+      dataHash: "725dacbed122f262f4992ecdc8acc276eb615b45213542c0f485f1418106af0e"
+    -
+      slug: "serviceaccount-default-ceph-csi-rbd-nodeplugin-sa"
+      headRevisionNum: 1
+      dataHash: "cd46c9dd65b1caeddddfae352155942344a0132ded5ee0326fa712c9d61a20e8"
+    -
+      slug: "clusterrolebinding-rook-ceph-mgr-cluster"
+      headRevisionNum: 2
+      dataHash: "2cb0e9ceb27ce8e8c68c222e2b87241b8b14fd84145c408a7ca4fa37c5b83d21"
+    -
+      slug: "serviceaccount-default-objectstorage-provisioner"
+      headRevisionNum: 1
+      dataHash: "55d75be2750a21d4df489018c472af15fde3b9db8c69e4d442400d11c7b98053"
+    -
+      slug: "serviceaccount-default-rook-ceph-default"
+      headRevisionNum: 1
+      dataHash: "c191362f075e08d7f1d7439ab676e564552cd305caf323cb4c1308faf3885aa6"
+    -
+      slug: "serviceaccount-default-rook-ceph-mgr"
+      headRevisionNum: 1
+      dataHash: "fc24e586a12d2163f8a677bc8b9b0d479037101ff2bd5b7ef79866197ff5a3a4"
+    -
+      slug: "serviceaccount-default-rook-ceph-nvmeof"
+      headRevisionNum: 1
+      dataHash: "9ce40943f4b6b2cd673efa9b3afbca0f4589b8a217541f509188bb7278560e45"
+    -
+      slug: "serviceaccount-default-rook-ceph-purge-osd"
+      headRevisionNum: 1
+      dataHash: "63d8779d1eef03d20625611836cc791974617792c13bb415762ab396ed24c1b2"
+    -
+      slug: "serviceaccount-default-rook-ceph-rgw"
+      headRevisionNum: 1
+      dataHash: "7aa2907ac1c94d3c60ca694b80ab41aa4bf71e4e7fa824584c7cc6b0146226a2"
+    -
+      slug: "serviceaccount-default-rook-ceph-system"
+      headRevisionNum: 1
+      dataHash: "19196d0c04cebc500bd7ec2e237358934de6bf215a57e59389a1f32e55c163bd"
+    -
+      slug: "serviceaccount-default-rook-csi-cephfs-plugin-sa"
+      headRevisionNum: 1
+      dataHash: "13350fbc2ba98d9827903d4bc217c9c1da5dd76809611e96d72a8397026b6d31"
+    -
+      slug: "deployment-default-rook-ceph-operator"
+      headRevisionNum: 2
+      dataHash: "b849995e6845945f627ccfb2a7a754789e1ceb82625b2766c35faf20216998e5"
+    -
+      slug: "serviceaccount-default-rook-csi-rbd-plugin-sa"
+      headRevisionNum: 1
+      dataHash: "a26377b5183ee980672b348afbf3ed291077a32b00e523d67b6d8a819368edff"
+    -
+      slug: "clusterrolebinding-rook-ceph-system"
+      headRevisionNum: 2
+      dataHash: "4751b33f4b8b1f535da72a38b72dcb422188966b313de0de17b957cad26cf401"
+    -
+      slug: "customresourcedefinition-cephcosidrivers-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "69b8d9c120b116fbc47b100b48b7c41bfbc5f3846236ef7805a6b775f5bd72e3"
+    -
+      slug: "customresourcedefinition-cephfilesystemmirrors-ceph-rook-io"
+      headRevisionNum: 2
+      dataHash: "58b4a609ff59543d28851a89741c7a805c03b34701a765eba73f409480e7eade"
+    -
+      slug: "clusterrole-ceph-csi-cephfs-ctrlplugin-cr"
+      headRevisionNum: 2
+      dataHash: "ca380ecab4a680acb8759030db541d47c9a8a874fcd75a6d272a90575234bf61"
+    -
+      slug: "clusterrole-ceph-csi-cephconnections-editor-role"
+      headRevisionNum: 2
+      dataHash: "b9013a1910ae591b1c2a8af187323d850e78d72acb74c4190ec88545319a22fb"
+    -
+      slug: "clusterrole-ceph-csi-clientprofile-viewer-role"
+      headRevisionNum: 2
+      dataHash: "f195e0438b52856bad28fc2cc4f61586871ea87e7bf6fe10d35c038ba8ef1c9b"
+    -
+      slug: "rolebinding-default-ceph-csi-leader-election-rolebinding"
+      headRevisionNum: 2
+      dataHash: "d39687d77e22c506e251daee2aeaf352996984ae8a430ce0acab9af02929fe4d"
+    -
+      slug: "rolebinding-default-ceph-csi-nvmeof-nodeplugin-rb"
+      headRevisionNum: 2
+      dataHash: "24f999e724446824b27c330629210b34c31f0693b0ad74742694b4630ea30643"
+    -
+      slug: "rolebinding-default-ceph-csi-rbd-ctrlplugin-rb"
+      headRevisionNum: 2
+      dataHash: "f225852fe59dad4bc6502dd5f63cd895bbda9c37bb118b2b2445a0e166a6698f"
+    -
+      slug: "rolebinding-default-ceph-csi-rbd-nodeplugin-rb"
+      headRevisionNum: 2
+      dataHash: "8e423cf2c58abd257a1971c904e90b73a238109347934873e2fdc89197428665"
+    -
+      slug: "rolebinding-default-rook-ceph-cmd-reporter"
+      headRevisionNum: 2
+      dataHash: "7ca1809d4bb6b8482416407bac5ff931bd839ac7f4c9c90e03b361e32fededdb"
+    -
+      slug: "rolebinding-default-rook-ceph-mgr"
+      headRevisionNum: 2
+      dataHash: "ade27e5b6a1184a91316cf8f58735e9dc86c4217b763a026108d27110e498565"
+    -
+      slug: "rolebinding-default-rook-ceph-purge-osd"
+      headRevisionNum: 2
+      dataHash: "a8aaf2c5f9dab94ce17eb0d0ebac268590f2366336a0121b0e2dbd0cd8680b38"
+    -
+      slug: "rolebinding-default-rook-ceph-mgr-system"
+      headRevisionNum: 2
+      dataHash: "ffda5fab7bdb934def52159f583fda1c4046fa14d1af7fc423d0a57b6c748d2b"
+    -
+      slug: "rolebinding-default-rook-ceph-system"
+      headRevisionNum: 2
+      dataHash: "35efa320eb45d331d2c168287bf6b59b76543af6d983ee51159ccbc5a8d5271d"
+    -
+      slug: "clusterrolebinding-ceph-csi-cephfs-ctrlplugin-crb"
+      headRevisionNum: 2
+      dataHash: "5d56af2957f99da3764b54a92bd3d3d5a08624305904b217fbdae3d6c4382d03"
+    -
+      slug: "clusterrolebinding-ceph-csi-manager-rolebinding"
+      headRevisionNum: 2
+      dataHash: "afdd0a5f5772bc1018da1a3cb8113cf18679ad22841104d1e5a898cf799a4276"
+    -
+      slug: "clusterrolebinding-ceph-csi-metrics-auth-rolebinding"
+      headRevisionNum: 2
+      dataHash: "021e35cf6284da872d2070e051831446c9f4df76b120be1025227c7e210d06fb"
+    -
+      slug: "clusterrolebinding-ceph-csi-nfs-ctrlplugin-crb"
+      headRevisionNum: 2
+      dataHash: "785e4a53db825bb1e0860a39a8934e03f62e132d46060f2e280a621e9611f815"
+    -
+      slug: "clusterrolebinding-ceph-csi-nfs-nodeplugin-crb"
+      headRevisionNum: 2
+      dataHash: "5008d70f8337c64729108a6debd56a1fc67b2796e3e78fe534c23dd285d7c198"
+    -
+      slug: "clusterrolebinding-ceph-csi-nvmeof-ctrlplugin-crb"
+      headRevisionNum: 2
+      dataHash: "89a710b30b7b3dfbb486a47ea7519c45cd1971cdb4c992117d7073a0d99103ff"
+    -
+      slug: "clusterrolebinding-ceph-csi-nvmeof-nodeplugin-crb"
+      headRevisionNum: 2
+      dataHash: "7741d7b26338f097739af4259e8451b177e16e2dff4249edcf564c4f8734d34a"
+    -
+      slug: "clusterrolebinding-ceph-csi-rbd-ctrlplugin-crb"
+      headRevisionNum: 2
+      dataHash: "b081f20b8298f8beeacfd6c0d9a30c4d7a189f2f5bd226745386e470aa60e7cc"
+    -
+      slug: "clusterrolebinding-ceph-csi-rbd-nodeplugin-crb"
+      headRevisionNum: 2
+      dataHash: "2d1c7e55d587a011b9d608eb7b35a2c07e1420dec821557a2693aeaba2bbfdc2"
+    -
+      slug: "clusterrolebinding-cephfs-csi-provisioner-role"
+      headRevisionNum: 2
+      dataHash: "b1211063292909c8e65359100f75dc5f3f705de97cd3d0483e5bc5561b76bd24"
+    -
+      slug: "clusterrolebinding-rbd-csi-provisioner-role"
+      headRevisionNum: 2
+      dataHash: "dcb8e998ec5182badbb4a01877498b3d63c060a64956315efeeb140e08859550"
+    -
+      slug: "clusterrolebinding-rook-ceph-global"
+      headRevisionNum: 2
+      dataHash: "fab6a81ed1d314352f98b5f5fc00b748b1d90b1ec66019d98a59dcafca3c07d7"
+    -
+      slug: "clusterrolebinding-rook-ceph-object-bucket"
+      headRevisionNum: 2
+      dataHash: "4b8f7df3a74799f60b25795b5ed6ffebf2518ebae103505a403f5c536fe6929e"
+    -
+      slug: "clusterrolebinding-rook-ceph-osd"
+      headRevisionNum: 2
+      dataHash: "9c76d55809f834008c1800bc139941885694a13c0edc4ac68dae65883fe14bb9"
+    -
+      slug: "role-default-rook-ceph-mgr"
+      headRevisionNum: 2
+      dataHash: "c94c7d747d7f2c02933323851928675f735770b8add182dcca988e9dfc1ca533"
+    -
+      slug: "rolebinding-default-ceph-csi-cephfs-ctrlplugin-rb"
+      headRevisionNum: 2
+      dataHash: "1eba67ceb272af58e5245cc701e507ce2f368e162b28dc9beefd2eaedb6b3ebc"
+    -
+      slug: "rolebinding-default-ceph-csi-nvmeof-ctrlplugin-rb"
+      headRevisionNum: 2
+      dataHash: "ddfa4324676da993b2c9a5d78a95256aa44a7b7ebc83235b4aa9388863e093c8"
+    -
+      slug: "rolebinding-default-rbd-csi-provisioner-role-cfg"
+      headRevisionNum: 2
+      dataHash: "a7a0c67a110030f6e6d43484e1a74cf118af7d5e281c809cf5a5b7860cf485c7"
+    -
+      slug: "serviceaccount-default-ceph-csi-cephfs-ctrlplugin-sa"
+      headRevisionNum: 1
+      dataHash: "29d07f4c301dc9af188909153a899ff2d63d7027c812f50bbb16da17e7f446f6"
+    -
+      slug: "serviceaccount-default-ceph-csi-cephfs-nodeplugin-sa"
+      headRevisionNum: 1
+      dataHash: "0cbdc1efe3ccb7a8c3e432b8f1ff2319129b74b8e1f7d9e37dc6b7a5f65431f2"
+    -
+      slug: "serviceaccount-default-ceph-csi-nfs-ctrlplugin-sa"
+      headRevisionNum: 1
+      dataHash: "2b3cd3397dae849b045e6bd9935b6d827e610d1cca7e37f6d9261fae3e612f42"
+    -
+      slug: "serviceaccount-default-ceph-csi-nvmeof-nodeplugin-sa"
+      headRevisionNum: 1
+      dataHash: "e46b6341a4248859896c89eefc953a6bb682a7539797e56262486fd4ceb828b5"
+    -
+      slug: "serviceaccount-default-ceph-csi-rbd-ctrlplugin-sa"
+      headRevisionNum: 1
+      dataHash: "711e72a4003c4d01183467da262e8d14cc7fd55920943ff16aca956e73f6750d"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 134
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 134
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 134
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
