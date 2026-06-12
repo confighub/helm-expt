@@ -1029,7 +1029,7 @@
       "reason": "target-fit: LoadBalancer Service has no external IP on kind (parity passed)",
       "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml",
       "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml",
-      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --continue-on-fail"
+      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --target-profile kind-loadbalancer --continue-on-fail"
     },
     {
       "chart": "ingress-nginx/ingress-nginx@4.15.1",
@@ -1039,7 +1039,7 @@
       "reason": "gitops-runtime: Argo health Progressing (parity passed)",
       "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml",
-      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base default --continue-on-fail"
+      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer --continue-on-fail"
     }
   ],
   "catalogEntries": [
@@ -12356,7 +12356,7 @@
       "next_step_type": "target-fit-review",
       "rerun_readiness": "model-or-stage-first",
       "diagnosis": "Semantic parity and workload readiness passed, but the proof target lacks a required platform behavior such as LoadBalancer external IP assignment.",
-      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --continue-on-fail",
+      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base admission-disabled --target-profile kind-loadbalancer --continue-on-fail",
       "followup": "Use a target with the required platform behavior, or create a separate base that matches the proof target.",
       "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml",
       "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml",
@@ -12374,7 +12374,7 @@
       "next_step_type": "gitops-runtime-review",
       "rerun_readiness": "review-target-first",
       "diagnosis": "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.",
-      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base default --continue-on-fail",
+      "rerun_command": "npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer --continue-on-fail",
       "followup": "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.",
       "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml",

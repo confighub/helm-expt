@@ -104,7 +104,7 @@ function allLiveComparisonReceiptRows() {
 }
 
 function rerunCommandForConfigHubOci(row) {
-  return `npm run live-parity:top20 -- --chart ${liveTargetSlug(row.chart)} --base ${row.variant}${repoUrlFlag(row)} --continue-on-fail`;
+  return `npm run live-parity:top20 -- --chart ${liveTargetSlug(row.chart)} --base ${row.variant}${repoUrlFlag(row)}${targetProfileFlag(row)} --continue-on-fail`;
 }
 
 function liveTargetSlug(chart) {
@@ -153,6 +153,16 @@ function repoUrlFlag(row) {
 
 function repoUrlOverrideFor(row) {
   if (row.chart?.startsWith("bitnami/")) return bitnamiOciRepository;
+  return "";
+}
+
+function targetProfileFlag(row) {
+  if (
+    row.chart === "ingress-nginx/ingress-nginx" &&
+    ["default", "admission-disabled"].includes(row.variant ?? row.base)
+  ) {
+    return " --target-profile kind-loadbalancer";
+  }
   return "";
 }
 
