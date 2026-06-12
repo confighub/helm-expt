@@ -16,8 +16,8 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 23
-try-with-proof: 11
-runtime-watch: 8
+try-with-proof: 10
+runtime-watch: 9
 runtime-review-needed: 0
 operating-policy-needed: 0
 target-fit-needed: 0
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-ready-to-collect: 2
+ready-to-collect: 1
 model-or-stage-first: 0
 review-target-first: 0
 inspect-diff-first: 0
@@ -91,7 +91,7 @@ rerun-now-after-cleanup: 0
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `jetstack/cert-manager@v1.20.2` | default | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `longhorn/longhorn@1.11.2` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `longhorn/longhorn@1.11.2` | ui-ingress | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `longhorn/longhorn@1.11.2` | ui-ingress | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `metrics-server/metrics-server@3.13.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
