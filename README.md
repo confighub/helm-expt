@@ -323,7 +323,7 @@ chart/base row has every lane complete.
 0/20 top-20 charts remain draft support decisions.
 100 charts have recipe/package proof artifacts.
 190 chart/base rows have Helm-template versus cub installer render parity.
-59/190 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
+60/190 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
 The selected top-20 live Helm-vs-ConfigHub comparison lane has 20 pass,
 0 watch, and 0 blocked receipts.
 The top-20 base-variant two-cluster kind parity lane has 42 committed

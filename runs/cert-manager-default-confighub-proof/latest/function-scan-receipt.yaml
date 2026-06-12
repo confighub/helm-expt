@@ -1,0 +1,219 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cert-manager-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cert-manager-default-confighub-proof"
+    selector: "Labels.Proof = 'cert-manager-default-confighub-proof'"
+  subject:
+    chart: "jetstack/cert-manager"
+    chartVersion: "v1.20.2"
+    packagePath: "packages/jetstack/cert-manager/v1.20.2"
+    variant: "default"
+    configHubUnitCount: 43
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-cert-manager-cluster-view"
+      headRevisionNum: 2
+      dataHash: "604fefb820a3b1626a24f483677851d6e029cca75db0e30bf503329197378b94"
+    -
+      slug: "clusterrole-cert-manager-controller-certificates"
+      headRevisionNum: 2
+      dataHash: "640d944da9254072313deccab390800d5a00e0520e93cd7e15deab2b64e11bb9"
+    -
+      slug: "clusterrole-cert-manager-controller-ingress-shim"
+      headRevisionNum: 2
+      dataHash: "f8ede63f8b7574084a1701da8b0b5363baa7d9bd375e55450341c3f19c6c8061"
+    -
+      slug: "clusterrole-cert-manager-controller-issuers"
+      headRevisionNum: 2
+      dataHash: "fec2caff5a83a12b96ecf75ae22c4be689f884f096b1c2b0217d98337cc4c75c"
+    -
+      slug: "clusterrole-cert-manager-controller-orders"
+      headRevisionNum: 2
+      dataHash: "cbf30e790196267854cd7a1eb2e516ae332a7173eb3ccd019f7c1ca0f5f0a37f"
+    -
+      slug: "clusterrole-cert-manager-webhooksubjectaccessreviews"
+      headRevisionNum: 2
+      dataHash: "197cc9bb76cf046644ec3b8bc9b85a21903123ae843aafa96237e11cc3dc1157"
+    -
+      slug: "clusterrolebinding-cert-manager-controller-challenges"
+      headRevisionNum: 2
+      dataHash: "de9d30097955b2f595d12d282d966eecd3708f34a9666536447007ec0f2d41ce"
+    -
+      slug: "deployment-cert-manager-cert-manager"
+      headRevisionNum: 2
+      dataHash: "1af45a1af62ed23fdccfc2df550fa6042bf94498b701121e965c44e11d090a84"
+    -
+      slug: "mutatingwebhookconfiguration-cert-manager-webhook"
+      headRevisionNum: 2
+      dataHash: "51207007ec1ba69c14bc2c16d55a5a2ae9a20a4615c9d2ea9073150b84f15e5e"
+    -
+      slug: "namespace-cert-manager"
+      headRevisionNum: 1
+      dataHash: "01d103b70c0c8c3e1b4d13f62b82c3761a5a535817153b5ea2aec2dbcb30b07b"
+    -
+      slug: "role-cert-manager-cert-manager-tokenrequest"
+      headRevisionNum: 2
+      dataHash: "a8ca52d45d888b95b8187ee21b97ef9755d71bc982e04466ccc988109d5ec140"
+    -
+      slug: "role-kube-system-cert-manager-cainjectorleaderelection"
+      headRevisionNum: 2
+      dataHash: "109a79898e5954934819b435ce410068c85a677586952228af43123322c756d2"
+    -
+      slug: "role-kube-system-cert-managerleaderelection"
+      headRevisionNum: 2
+      dataHash: "c405c6eee4a48830b28638a9eb0fff2b764785aab6ef4c64e4920a07c8e24741"
+    -
+      slug: "rolebinding-kube-system-cert-managerleaderelection"
+      headRevisionNum: 2
+      dataHash: "8ef630ad373a19395fcf27df442c5da8ea60a217a0f9ce698156acd76dce332e"
+    -
+      slug: "service-cert-manager-cert-manager"
+      headRevisionNum: 2
+      dataHash: "762680bcf1523e18c5ae2fbe9c65aef7790f6939ea022ebfad2b6393ec086575"
+    -
+      slug: "serviceaccount-cert-manager-cert-manager-cainjector"
+      headRevisionNum: 1
+      dataHash: "304dba1ed0e7ddf6dd0554bd39a0fcc606981b9af19bc2a457750357422e3d04"
+    -
+      slug: "serviceaccount-cert-manager-cert-manager-webhook"
+      headRevisionNum: 1
+      dataHash: "36f60c8375e44855450bbe89dc111eb9213e9e088d6604bf48ebef32e92651fb"
+    -
+      slug: "serviceaccount-cert-manager-cert-manager"
+      headRevisionNum: 1
+      dataHash: "93ecd558b0b8aa8074322d2b18d45a5fb72fe133a943879c596a06e65c293d8d"
+    -
+      slug: "validatingwebhookconfiguration-cert-manager-webhook"
+      headRevisionNum: 2
+      dataHash: "19190003476a50574db72bd39af26b6da16b61f75146d17c14b4c74b6269c01a"
+    -
+      slug: "clusterrole-cert-manager-cainjector"
+      headRevisionNum: 2
+      dataHash: "85f3f5836f4e28fd3b5e4836d39e3e29c52f3bfdbf723f8440619a6865842dd3"
+    -
+      slug: "clusterrole-cert-manager-controller-approvecert-manager-io"
+      headRevisionNum: 2
+      dataHash: "6869da8ab884db75d6ee9852b1549f5a644255be35d2305ea446f8d1da827d93"
+    -
+      slug: "clusterrole-cert-manager-controller-certificatesigningrequests"
+      headRevisionNum: 2
+      dataHash: "eb81c1c1b0ec97dc522006a50a62f238253abe37acb16dc276843905c54a3128"
+    -
+      slug: "clusterrole-cert-manager-controller-challenges"
+      headRevisionNum: 2
+      dataHash: "785aaa33a10f5b767b0642c146598211e3be27231f1ebb7c01b00a1f5b8eed06"
+    -
+      slug: "clusterrole-cert-manager-controller-clusterissuers"
+      headRevisionNum: 2
+      dataHash: "6c5a0d40f93f4512953b1bdcdccb984fd8e9b568c2ed35964bf1be378ce1391b"
+    -
+      slug: "clusterrole-cert-manager-edit"
+      headRevisionNum: 2
+      dataHash: "9b5969f125fc3ac85d3b0e68d32f81ae4486d28adec1e2bf7342d04e71492454"
+    -
+      slug: "clusterrole-cert-manager-view"
+      headRevisionNum: 2
+      dataHash: "c7cb3c054d57774418b966742b6c0f2a78eaae2574f88785fa069cb174b88c50"
+    -
+      slug: "clusterrolebinding-cert-manager-cainjector"
+      headRevisionNum: 2
+      dataHash: "706770cc45b685bdc80d6d1ff3fd0b3a40baaefda774f0d953a096e982e99d08"
+    -
+      slug: "clusterrolebinding-cert-manager-controller-certificates"
+      headRevisionNum: 2
+      dataHash: "dd723c24fa0471b4ee8a4f75d7b0995f4d2642a0d97e84c045cb6421530bb5b3"
+    -
+      slug: "clusterrolebinding-cert-manager-controller-issuers"
+      headRevisionNum: 2
+      dataHash: "15ba571240a53a863adf8c341ed5d6575983103130a12dac0994c25abb31569c"
+    -
+      slug: "clusterrolebinding-cert-manager-controller-orders"
+      headRevisionNum: 2
+      dataHash: "97be28feb39b37f2c4cd60464afd07d8e2372a59c52e930d18a78a032d7385d5"
+    -
+      slug: "clusterrolebinding-cert-manager-webhooksubjectaccessreviews"
+      headRevisionNum: 2
+      dataHash: "39553ac360309ccb8ec1e04cc64ed0acc679f9e02e8582507f1dba271ed8b3cb"
+    -
+      slug: "deployment-cert-manager-cert-manager-webhook"
+      headRevisionNum: 2
+      dataHash: "c4ca2ac526be25a090d8fee1de3ae034226d1e1a6059050983aa584194e5b2a2"
+    -
+      slug: "role-cert-manager-cert-manager-webhookdynamic-serving"
+      headRevisionNum: 2
+      dataHash: "ab1aef91205ad5d9d9d5dd6c001ad8f602bccb8a5bad9ae69b26236bcac0e7fe"
+    -
+      slug: "rolebinding-cert-manager-cert-manager-webhookdynamic-serving"
+      headRevisionNum: 2
+      dataHash: "188c1e7d9072b378f4879054f376ac37c60037c6fc30c645838685f360143c82"
+    -
+      slug: "clusterrolebinding-cert-manager-controller-approvecert-manager-io"
+      headRevisionNum: 2
+      dataHash: "8783a7718d82cc52259330d3a5de483b2914558614688b7a4298eeb4c76da414"
+    -
+      slug: "clusterrolebinding-cert-manager-controller-certificatesigningrequests"
+      headRevisionNum: 2
+      dataHash: "d1536629cffa50210b1fb7f45f37b0d00f05f78b0b7bd6c90411a4e82fe31b1e"
+    -
+      slug: "clusterrolebinding-cert-manager-controller-clusterissuers"
+      headRevisionNum: 2
+      dataHash: "8f103e2421b7b82d61993c32a74a1641f8390d76a9ffe5d01c397c0b2039257d"
+    -
+      slug: "clusterrolebinding-cert-manager-controller-ingress-shim"
+      headRevisionNum: 2
+      dataHash: "099f8d02dec88a61dc748d78ec86cd072f37ff849cdd0a46b0367cd5397b8671"
+    -
+      slug: "deployment-cert-manager-cert-manager-cainjector"
+      headRevisionNum: 2
+      dataHash: "2109bb586a4cc4427abeec684e7564468666814b06dcd0201f96bf440e779b88"
+    -
+      slug: "rolebinding-cert-manager-cert-manager-tokenrequest"
+      headRevisionNum: 2
+      dataHash: "a3690350e3023693a30f506a88dcb456232c865b830e6d0584c0a12eefa187a6"
+    -
+      slug: "rolebinding-kube-system-cert-manager-cainjectorleaderelection"
+      headRevisionNum: 2
+      dataHash: "243c368f79cfdd8727975b5409af1bb2416a1ad87f95ffc4f69ec68b9789d46b"
+    -
+      slug: "service-cert-manager-cert-manager-cainjector"
+      headRevisionNum: 2
+      dataHash: "9f9c791bb838e4b44fb774bf79a682dc162d9686a6f9cd915da62e6e745dccaf"
+    -
+      slug: "service-cert-manager-cert-manager-webhook"
+      headRevisionNum: 2
+      dataHash: "35333c0d10b2aa746ed838e6ee8c5c053c0fa199bbb3252df4e5fc214dfc1d1c"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 43
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 43
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 43
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
