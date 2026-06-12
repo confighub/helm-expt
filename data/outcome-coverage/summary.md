@@ -14,12 +14,12 @@ complete core lane rows:             30/190
 render parity rows:                  190/190
 in-ConfigHub proof rows:             85/190
 local live rows:                     134/190
-GitOps/OCI live pass rows:           35/190
-GitOps/OCI non-pass receipts:        6
-live Helm-vs-ConfigHub pass rows:    35/190
-live Helm-vs-ConfigHub non-pass receipts: 3
+GitOps/OCI live pass rows:           36/190
+GitOps/OCI non-pass receipts:        5
+live Helm-vs-ConfigHub pass rows:    36/190
+live Helm-vs-ConfigHub non-pass receipts: 2
 lifecycle observation rows:          10/10
-selected live parity receipts:       35 pass, 3 watch, 0 blocked
+selected live parity receipts:       36 pass, 2 watch, 0 blocked
 two-cluster kind parity receipts:    70 pass, 0 watch, 0 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
@@ -73,7 +73,7 @@ related lifecycle observations:      10/10
 | `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 2/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| `hashicorp/vault@0.32.0` | dev-mode;default;ha-raft-ui | yes | 1/3 | 2/3 | 0/3 | 1/3 | 1/3 | 3/3 | - |
+| `hashicorp/vault@0.32.0` | dev-mode;default;ha-raft-ui | yes | 1/3 | 2/3 | 0/3 | 2/3 | 2/3 | 3/3 | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 1/3 | 3/3 | 1/3 | 1/3 | 1/3 | 3/3 | - |
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | no | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |

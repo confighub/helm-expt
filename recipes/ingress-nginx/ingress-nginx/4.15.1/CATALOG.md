@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/ingress-nginx/ingress-nginx/4.15.1/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/ingress-nginx/ingress-nginx/4.15.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/ingress-nginx/ingress-nginx/4.15.1/value-model.yaml](value-model.yaml) |
+| Target topology | [recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml](target-topology.yaml) |
 | Lifecycle policy | [recipes/ingress-nginx/ingress-nginx/4.15.1/lifecycle-policy.yaml](lifecycle-policy.yaml) |
 | Weirdness and mitigations | [recipes/ingress-nginx/ingress-nginx/4.15.1/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/ingress-nginx/ingress-nginx/4.15.1/catalog-status.yaml](catalog-status.yaml) |

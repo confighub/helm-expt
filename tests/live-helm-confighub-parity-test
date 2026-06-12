@@ -975,13 +975,141 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
     }
 
 
-def operating_policy_watch(chart: str, base: str) -> bool:
-    return chart == "hashicorp/vault" and base == "default"
+def wait_for_pod_running(kubeconfig: Path, context: str, namespace: str, pod: str, timeout_seconds: int = 300) -> dict:
+    deadline = time.monotonic() + timeout_seconds
+    last = {"phase": "", "detail": ""}
+    while time.monotonic() < deadline:
+        rc, out, err = kubectl(
+            ["-n", namespace, "get", "pod", pod, "-o", "json"],
+            kubeconfig,
+            context,
+            timeout=60,
+        )
+        if rc == 0:
+            try:
+                payload = json.loads(out)
+            except json.JSONDecodeError:
+                payload = {}
+            phase = (((payload.get("status") or {}).get("phase")) or "")
+            last = {"phase": phase, "detail": phase}
+            if phase == "Running":
+                return {"result": "pass", "phase": phase}
+        else:
+            last = {"phase": "", "detail": err or out}
+        time.sleep(5)
+    return {"result": "blocked", **last}
+
+
+def redacted_vault_status(raw: str) -> dict:
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError:
+        return {"rawSHA256": sha256_text(raw), "parse": "failed"}
+    allowed = {}
+    for key in ("initialized", "sealed", "standby", "version", "storage_type", "cluster_name", "cluster_id"):
+        if key in payload:
+            allowed[key] = payload[key]
+    allowed["rawSHA256"] = sha256_text(raw)
+    return allowed
+
+
+def run_vault_default_operating_policy(kubeconfig: Path, context: str, namespace: str) -> dict:
+    pod = "vault-0"
+    pod_ready = wait_for_pod_running(kubeconfig, context, namespace, pod, timeout_seconds=300)
+    if pod_ready.get("result") != "pass":
+        return {"result": "blocked", "operation": "vault-init-unseal", "pod": pod, "podReady": pod_ready}
+
+    base_exec = ["-n", namespace, "exec", pod, "--", "sh", "-ec"]
+    status_cmd = "VAULT_ADDR=http://127.0.0.1:8200 vault status -format=json || true"
+    _status_rc, status_before, _status_err = kubectl([*base_exec, status_cmd], kubeconfig, context, timeout=120)
+
+    init_cmd = "VAULT_ADDR=http://127.0.0.1:8200 vault operator init -key-shares=1 -key-threshold=1 -format=json"
+    init_rc, init_out, init_err = kubectl([*base_exec, init_cmd], kubeconfig, context, timeout=120)
+    if init_rc != 0:
+        return {
+            "result": "blocked",
+            "operation": "vault-init-unseal",
+            "pod": pod,
+            "statusBefore": redacted_vault_status(status_before),
+            "initResult": "blocked",
+            "detail": (init_err or init_out)[:1000],
+        }
+
+    try:
+        init_payload = json.loads(init_out)
+    except json.JSONDecodeError:
+        return {
+            "result": "blocked",
+            "operation": "vault-init-unseal",
+            "pod": pod,
+            "statusBefore": redacted_vault_status(status_before),
+            "initResult": "blocked",
+            "detail": "vault operator init did not return JSON",
+        }
+    unseal_keys = init_payload.get("unseal_keys_b64") or []
+    if not unseal_keys:
+        return {
+            "result": "blocked",
+            "operation": "vault-init-unseal",
+            "pod": pod,
+            "statusBefore": redacted_vault_status(status_before),
+            "initResult": "blocked",
+            "detail": "vault operator init returned no unseal key",
+        }
+
+    unseal_cmd = f"VAULT_ADDR=http://127.0.0.1:8200 vault operator unseal {unseal_keys[0]}"
+    unseal_rc, unseal_out, unseal_err = kubectl([*base_exec, unseal_cmd], kubeconfig, context, timeout=120)
+    if unseal_rc != 0:
+        return {
+            "result": "blocked",
+            "operation": "vault-init-unseal",
+            "pod": pod,
+            "statusBefore": redacted_vault_status(status_before),
+            "initResult": "pass",
+            "unsealResult": "blocked",
+            "detail": (unseal_err or unseal_out)[:1000],
+        }
+
+    status_rc, status_after, status_err = kubectl([*base_exec, status_cmd], kubeconfig, context, timeout=120)
+    status = redacted_vault_status(status_after)
+    passed = status_rc == 0 and status.get("initialized") is True and status.get("sealed") is False
+    return {
+        "result": "pass" if passed else "blocked",
+        "operation": "vault-init-unseal",
+        "pod": pod,
+        "statusBefore": redacted_vault_status(status_before),
+        "initResult": "pass",
+        "unsealResult": "pass",
+        "statusAfter": status,
+        "custody": "unseal key and root token were held in process memory only and not written to the receipt",
+        "detail": "" if passed else (status_err or status_after)[:1000],
+    }
+
+
+def post_apply_operations(chart: str, base: str, kubeconfig: Path, context: str, namespace: str) -> dict:
+    if chart == "hashicorp/vault" and base == "default":
+        return run_vault_default_operating_policy(kubeconfig, context, namespace)
+    return {"result": "pass", "operation": "none"}
+
+
+def needs_post_apply_operations(chart: str, base: str) -> bool:
+    return post_apply_operation_name(chart, base) != "none"
+
+
+def post_apply_operation_name(chart: str, base: str) -> str:
+    if chart == "hashicorp/vault" and base == "default":
+        return "vault-init-unseal"
+    return "none"
+
+
+def operation_namespace(runtime_namespaces: list[str], fallback: str) -> str:
+    for namespace in runtime_namespaces:
+        if not protected_namespace(namespace):
+            return namespace
+    return fallback
 
 
 def readiness_timeout(chart: str, base: str, default_seconds: int) -> int:
-    if operating_policy_watch(chart, base):
-        return min(default_seconds, 60)
     return default_seconds
 
 
@@ -1206,6 +1334,10 @@ def main() -> int:
         if get_rc == 0:
             helm_live_manifest = get_out + "\n"
             write_text(run_root / "regular-helm-live-manifest.yaml", helm_live_manifest)
+        helm_operations = post_apply_operations(args.chart, args.base, kubeconfig, context, helm_namespace)
+        receipt["spec"].setdefault("operatingPolicy", {})["regularHelm"] = helm_operations
+        if helm_operations.get("operation") != "none":
+            check_item("regular-helm-operating-policy", helm_operations["result"], helm_operations.get("operation", "none"))
         helm_runtime = wait_ready(kubeconfig, context, helm_namespace, timeout_seconds=180)
         if get_rc != 0:
             helm_result = "blocked"
@@ -1213,6 +1345,8 @@ def main() -> int:
             helm_result = "watch"
         elif rc != 0:
             helm_result = "blocked"
+        elif helm_operations["result"] != "pass":
+            helm_result = "watch"
         elif helm_runtime["result"] == "pass":
             helm_result = "pass"
         else:
@@ -1298,20 +1432,20 @@ def main() -> int:
             if rest:
                 kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(manifests_dir)], kubeconfig, context, "manifest apply", timeout=300)
         mark_stage("configHub-direct-readiness")
+        apply_operation_namespace = operation_namespace(apply_runtime_namespaces, apply_namespace)
+        apply_operations = post_apply_operations(args.chart, args.base, kubeconfig, context, apply_operation_namespace)
+        apply_operations["namespace"] = apply_operation_namespace
+        receipt["spec"].setdefault("operatingPolicy", {})["configHubKubectlApply"] = apply_operations
+        if apply_operations.get("operation") != "none":
+            check_item("confighub-kubectl-apply-operating-policy", apply_operations["result"], apply_operations.get("operation", "none"))
         apply_runtime = wait_ready_many(kubeconfig, context, apply_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 300))
-        apply_result = "pass" if apply_runtime["result"] == "pass" else "watch"
+        apply_result = "pass" if apply_operations["result"] == "pass" and apply_runtime["result"] == "pass" else "watch"
         apply_cleanup_candidates = [
             namespace for namespace in sorted(set(apply_manifest_namespaces + apply_runtime_namespaces))
             if not protected_namespace(namespace)
         ]
-        apply_cleanup_namespaces = [
-            namespace for namespace in apply_cleanup_candidates
-            if namespace == apply_namespace or namespace.endswith("-apply")
-        ]
-        apply_retained_namespaces = [
-            namespace for namespace in apply_cleanup_candidates
-            if namespace not in apply_cleanup_namespaces
-        ]
+        apply_cleanup_namespaces = apply_cleanup_candidates
+        apply_retained_namespaces = []
         leg("configHubKubectlApply",
             result=apply_result,
             renderCommand=" ".join(setup_cmd),
@@ -1459,6 +1593,7 @@ def main() -> int:
         sync = health = revision = ""
         max_argo_wait = readiness_timeout(args.chart, args.base, 420)
         waited = 0
+        needs_oci_operations = needs_post_apply_operations(args.chart, args.base)
         while waited < max_argo_wait:
             rc, status, _ = kubectl([
                 "get", "application", child_app, "-n", "argocd",
@@ -1466,13 +1601,35 @@ def main() -> int:
             ], kubeconfig, context, timeout=30)
             if "|" in status:
                 sync, health, revision = (status.split("|") + ["", "", ""])[:3]
-                if sync == "Synced" and health == "Healthy":
+                if sync == "Synced" and (health == "Healthy" or needs_oci_operations):
                     break
             time.sleep(10)
             waited += 10
+        oci_operation_namespace = operation_namespace(oci_runtime_namespaces, oci_namespace)
+        oci_operations = post_apply_operations(args.chart, args.base, kubeconfig, context, oci_operation_namespace)
+        oci_operations["namespace"] = oci_operation_namespace
+        receipt["spec"].setdefault("operatingPolicy", {})["configHubOciArgo"] = oci_operations
+        if oci_operations.get("operation") != "none":
+            check_item("confighub-oci-argo-operating-policy", oci_operations["result"], oci_operations.get("operation", "none"))
+        if oci_operations["result"] == "pass" and needs_oci_operations:
+            kubectl([
+                "annotate", "application", child_app, "-n", "argocd",
+                "argocd.argoproj.io/refresh=hard", "--overwrite",
+            ], kubeconfig, context, timeout=30)
+            while waited < max_argo_wait:
+                rc, status, _ = kubectl([
+                    "get", "application", child_app, "-n", "argocd",
+                    "-o", "jsonpath={.status.sync.status}|{.status.health.status}|{.status.sync.revision}",
+                ], kubeconfig, context, timeout=30)
+                if "|" in status:
+                    sync, health, revision = (status.split("|") + ["", "", ""])[:3]
+                    if sync == "Synced" and health == "Healthy":
+                        break
+                time.sleep(10)
+                waited += 10
         mark_stage("configHub-oci-readiness")
         oci_runtime = wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 180))
-        oci_result = "pass" if sync == "Synced" and health == "Healthy" and oci_runtime["result"] == "pass" else "watch"
+        oci_result = "pass" if oci_operations["result"] == "pass" and sync == "Synced" and health == "Healthy" and oci_runtime["result"] == "pass" else "watch"
         leg("configHubOciArgo",
             result=oci_result,
             workloadSpace=wspace,

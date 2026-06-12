@@ -324,7 +324,12 @@ function vaultOperatingPolicy() {
         },
         default: {
           variant: "default",
-          status: "operating-policy-required",
+          status: "operating-policy-live-proved-local-kind",
+          evidence: {
+            receipt: "runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml",
+            scope: "regular Helm, cub installer direct apply, and ConfigHub OCI/Argo on the local kind proof rig",
+            result: "Vault initialized and unsealed in each delivery leg; unseal key and root token were held in process memory only and not written to the receipt",
+          },
           requiredOperations: [
             {
               operation: "vault operator init",

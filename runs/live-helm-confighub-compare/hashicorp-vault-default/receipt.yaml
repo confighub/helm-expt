@@ -6,16 +6,24 @@ spec:
   chart: hashicorp/vault
   version: 0.32.0
   base: default
-  result: watch
-  observedAt: '2026-06-09T11:46:23Z'
+  result: pass
+  observedAt: '2026-06-12T17:43:56Z'
   package:
     path: packages/hashicorp/vault/0.32.0
   recipe:
     path: recipes/hashicorp/vault/0.32.0
   variantRevision: recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
   run:
-    rig: helm-expt-parity-vault-mq6kqmwh-2hh
-    kubeContext: kind-helm-expt-parity-vault-mq6kqmwh-2hh
+    rig: helm-expt-parity-vault-mqb7u0e1-1ad7
+    kubeContext: kind-helm-expt-parity-vault-mqb7u0e1-1ad7
     namespace: vault
     legNamespaces:
       regularHelm: vault-helm
@@ -23,22 +31,22 @@ spec:
       configHubOciArgo: vault-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-vault-mq6kqmwh-2hh --force
+      command: cub lk down --name helm-expt-parity-vault-mqb7u0e1-1ad7 --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-vault-mq6kqmwh-2hh"...
+      detail: 'Deleting kind cluster "helm-expt-parity-vault-mqb7u0e1-1ad7"...
 
-        Deleting cluster "helm-expt-parity-vault-mq6kqmwh-2hh" ...
+        Deleting cluster "helm-expt-parity-vault-mqb7u0e1-1ad7" ...
 
-        Deleted nodes: ["helm-expt-parity-vault-mq6kqmwh-2hh-control-plane"]
+        Deleted nodes: ["helm-expt-parity-vault-mqb7u0e1-1ad7-control-plane"]
 
-        Deleting Space "helm-expt-parity-vault-mq6kqmwh-2hh-cluster" (recursive: cascades
-        to Unit, Target, Worker)...
+        Deleting Space "helm-expt-parity-vault-mqb7u0e1-1ad7-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
 
 
         Done.'
   legs:
     regularHelm:
-      result: watch
+      result: pass
       command: helm upgrade --install vault vault --repo https://helm.releases.hashicorp.com
         --version 0.32.0 --namespace vault-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-default/regular-helm-values.yaml
         --wait --timeout 8m
@@ -48,84 +56,82 @@ spec:
       liveHelmManifestObjectCount: 12
       namespace: vault-helm
       runtime:
-        result: watch
-        workloads: 'deployment.apps/vault-agent-injector   1/1   1     1     3m22s
+        result: pass
+        workloads: 'deployment.apps/vault-agent-injector   1/1   1     1     56s
 
-          statefulset.apps/vault   0/1   3m22s'
-        pods: 'vault-0                                 0/1   Running   0     3m21s
+          statefulset.apps/vault   1/1   56s'
+        pods: 'vault-0                                 1/1   Running   0     56s
 
-          vault-agent-injector-56474b787f-jmv5k   1/1   Running   0     3m22s'
-        notReady:
-        - pod: vault-0
-          ready: 0/1
-          status: Running
+          vault-agent-injector-56474b787f-q2zr2   1/1   Running   0     56s'
+        notReady: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
-      result: watch
+      result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
-        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mq6kqmwh-2hh-vault
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mqb7u0e1-1ad7-vault
         --non-interactive --namespace vault-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
-      manifestSHA256: 71b55953b5f188c8f6652a9d1ccb2754c98ae8072778f446bf6d7c00ac860a40
+      manifestSHA256: 2c30e8f2843556be2cbc1f2c431b336f447ceae9829687c49846cbb669c0b16c
       objectCount: 13
       namespace: vault-apply
       manifestNamespaces:
+      - vault
       - vault-apply
       runtimeNamespaces: &id001
-      - vault-apply
+      - vault
       runtime:
-        result: watch
+        result: pass
         namespaces: *id001
-        workloads: '# vault-apply
+        workloads: '# vault
 
-          deployment.apps/vault-agent-injector   1/1   1     1     50s
+          deployment.apps/vault-agent-injector   1/1   1     1     20s
 
-          statefulset.apps/vault   0/1   50s'
-        pods: '# vault-apply
+          statefulset.apps/vault   1/1   20s'
+        pods: '# vault
 
-          vault-0                                 0/1   Running   0     49s
+          vault-0                                1/1   Running   0     20s
 
-          vault-agent-injector-55b5b5868b-njswf   1/1   Running   0     50s'
-        notReady:
-        - namespace: vault-apply
-          pod: vault-0
-          ready: 0/1
-          status: Running
+          vault-agent-injector-8c76487db-jlzpc   1/1   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - vault
+        - vault-apply
+        retainedNamespaces: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-vault-mq6kqmwh-2hh-vault
+      result: pass
+      workloadSpace: helm-expt-parity-vault-mqb7u0e1-1ad7-vault
       controller: Argo CD OCI
       app: vault-parity
-      manifestSHA256: e221f8dade89ef803343a402f7a81dfc4474e590aeed0baf22f7633890540486
+      manifestSHA256: 4f1f61eebeef8bfaabd0d578c610021db7d7945e02a0e31e4943357b3670635e
       objectCount: 13
       namespace: vault-oci
       manifestNamespaces:
+      - vault
       - vault-oci
       runtimeNamespaces: &id002
-      - vault-oci
-      ociRevision: sha256:503a9cb0e778769b3f58c9e717fc9f23dd0f1bc0f47c467589d082605c6b3959
+      - vault
+      ociRevision: sha256:98f8ae719044c9034d26158f6bb61967845283aba700bf2469368409d5516601
       sync: Synced
-      health: Progressing
+      health: Healthy
       separatedSecrets: []
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
-        workloads: '# vault-oci
+        workloads: '# vault
 
-          deployment.apps/vault-agent-injector   1/1   1     1     98s
+          deployment.apps/vault-agent-injector   1/1   1     1     17s
 
-          statefulset.apps/vault   0/1   98s'
-        pods: '# vault-oci
+          statefulset.apps/vault   1/1   17s'
+        pods: '# vault
 
-          vault-0                                 0/1   Running   0     97s
+          vault-0                                1/1   Running   0     17s
 
-          vault-agent-injector-7995d5cfb6-pvc8g   1/1   Running   0     98s'
-        notReady:
-        - namespace: vault-oci
-          pod: vault-0
-          ready: 0/1
-          status: Running
+          vault-agent-injector-8c76487db-nchhh   1/1   Running   0     17s'
+        notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||vault
@@ -149,7 +155,8 @@ spec:
       extraInConfigHub:
       - v1|Namespace||vault
       semanticDiffs: []
-      semanticNormalizations: *id003
+      semanticNormalizations:
+      - prune-null-fields
       comparisonSHA256: c45badac8df5197f317ecd414eba9355285db2a4467ac1c6a8b1ea78c7b38504
   checks:
   - name: live-lane-lock
@@ -157,9 +164,9 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-vault-mq6kqmwh-2hh\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-vault-mq6kqmwh-2hh.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-vault-mq6kqmwh-2hh\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-vault-mqb7u0e1-1ad7\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-vault-mqb7u0e1-1ad7.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-vault-mqb7u0e1-1ad7\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
       \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
@@ -167,19 +174,22 @@ spec:
       \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
       \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-vault-mq6kqmwh-2hh\"\nYou can\
-      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-vault-mq6kqmwh-2hh\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-vault-mq6kqmwh-2hh.kubeconfig\n\
+      \nSet kubectl context to \"kind-helm-expt-parity-vault-mqb7u0e1-1ad7\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-vault-mqb7u0e1-1ad7\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-vault-mqb7u0e1-1ad7.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
-      \ {}\nstatus: {"
+      \ {}\nsta"
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: vault-init-unseal
   - name: regular-helm-live
-    result: watch
+    result: pass
     detail: "Release \"vault\" does not exist. Installing it now.\nNAME: vault\nLAST\
-      \ DEPLOYED: Tue Jun  9 12:47:20 2026\nNAMESPACE: vault-helm\nSTATUS: deployed\n\
+      \ DEPLOYED: Fri Jun 12 18:44:55 2026\nNAMESPACE: vault-helm\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nNOTES:\nThank you for installing\
       \ HashiCorp Vault!\n\nNow that you have deployed Vault, you should look over\
       \ the docs on using\nVault with Kubernetes available here:\n\nhttps://developer.hashicorp.com/vault/docs\n\
@@ -188,22 +198,28 @@ spec:
   - name: target-facts-confighub-apply
     result: pass
     detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-operating-policy
+    result: pass
+    detail: vault-init-unseal
   - name: confighub-kubectl-apply-live
-    result: watch
-    detail: '# vault-apply
+    result: pass
+    detail: '# vault
 
-      deployment.apps/vault-agent-injector   1/1   1     1     50s
+      deployment.apps/vault-agent-injector   1/1   1     1     20s
 
-      statefulset.apps/vault   0/1   50s'
+      statefulset.apps/vault   1/1   20s'
   - name: target-facts-confighub-oci
     result: pass
     detail: secrets=0 crds=0
+  - name: confighub-oci-argo-operating-policy
+    result: pass
+    detail: vault-init-unseal
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=Synced health=Progressing after 60s
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
   - name: semantic-object-parity
     result: pass
-    detail: missing=0 extra=['v1|Namespace||vault'] diffs=0
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
   targetFacts:
     regularHelm:
       result: pass
@@ -217,3 +233,75 @@ spec:
       result: pass
       stagedSecrets: []
       stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: vault-init-unseal
+      pod: vault-0
+      statusBefore:
+        initialized: false
+        sealed: true
+        version: 1.21.2
+        storage_type: file
+        rawSHA256: c9f146ea5b610e1721965505ba7e2a1437c62552ddcc80e3902b591e4a499286
+      initResult: pass
+      unsealResult: pass
+      statusAfter:
+        initialized: true
+        sealed: false
+        version: 1.21.2
+        storage_type: file
+        cluster_name: vault-cluster-af5e53a5
+        cluster_id: 5f0ad1da-9d7b-1180-83d3-9c7b2bd97016
+        rawSHA256: bdef588d2e0a2e0613befe776b729e1c72e773d4b16aaba8ba3585c9d151b291
+      custody: unseal key and root token were held in process memory only and not
+        written to the receipt
+      detail: ''
+    configHubKubectlApply:
+      result: pass
+      operation: vault-init-unseal
+      pod: vault-0
+      statusBefore:
+        initialized: false
+        sealed: true
+        version: 1.21.2
+        storage_type: file
+        rawSHA256: c9f146ea5b610e1721965505ba7e2a1437c62552ddcc80e3902b591e4a499286
+      initResult: pass
+      unsealResult: pass
+      statusAfter:
+        initialized: true
+        sealed: false
+        version: 1.21.2
+        storage_type: file
+        cluster_name: vault-cluster-e944f9e6
+        cluster_id: 0b378b81-fdda-7329-7d1e-c9297ad831c1
+        rawSHA256: fb80c2f45695b544fac8b77baae164b7ddb5c00f42cd4c46f24e11ab02215378
+      custody: unseal key and root token were held in process memory only and not
+        written to the receipt
+      detail: ''
+      namespace: vault
+    configHubOciArgo:
+      result: pass
+      operation: vault-init-unseal
+      pod: vault-0
+      statusBefore:
+        initialized: false
+        sealed: true
+        version: 1.21.2
+        storage_type: file
+        rawSHA256: c9f146ea5b610e1721965505ba7e2a1437c62552ddcc80e3902b591e4a499286
+      initResult: pass
+      unsealResult: pass
+      statusAfter:
+        initialized: true
+        sealed: false
+        version: 1.21.2
+        storage_type: file
+        cluster_name: vault-cluster-d605a946
+        cluster_id: 13df9249-fde9-24b7-5c9d-0d1ff96e7edc
+        rawSHA256: d929e52ba538055fd57046a4f1ef59abcdc61233bb33343640bea5905c1adb49
+      custody: unseal key and root token were held in process memory only and not
+        written to the receipt
+      detail: ''
+      namespace: vault
