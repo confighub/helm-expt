@@ -8,7 +8,7 @@ and [its summary](../../data/top100-user-readiness/summary.md) are derived.
 
 The report is a **Helm-user-language projection of curated repo data**. It
 invents no new judgments: every bucket and field is a deterministic mapping
-from three committed sources. If a bucket looks wrong, the fix belongs in the
+from committed sources. If a bucket looks wrong, the fix belongs in the
 source data, not in this projection.
 
 ```sh
@@ -23,6 +23,7 @@ npm run top100:user-readiness:verify   # check committed outputs
 | [`data/top100-readiness/readiness.csv`](../../data/top100-readiness/readiness.csv) | The curated tier/workability buckets, proof lanes, hard gaps, source feature tokens, and next actions. |
 | [`data/chart-facts/chart-facts.csv`](../../data/chart-facts/chart-facts.csv) | Per-chart quirk facts for all 100 charts: hooks, CRDs, generated and existing Secrets, webhooks, extension slots, required values, install-vs-upgrade divergence. |
 | [`data/top20-base-readiness/base-readiness.csv`](../../data/top20-base-readiness/base-readiness.csv) | The reviewed recommended first base for catalog-supported charts. |
+| [`data/outcome-coverage/base-outcomes.csv`](../../data/outcome-coverage/base-outcomes.csv) | Per-base evidence used to choose the strongest visible base when a chart does not yet have a reviewed catalog recommendation. |
 
 ## Bucket Rules
 
@@ -56,7 +57,7 @@ plain Helm; the bucket says this catalog will not yet vouch for it.
 | Column | Derivation |
 | --- | --- |
 | `current_proof` | `user_status` plus the populated lane fractions (render parity, local live, live parity). |
-| `recommended_first_base` | The reviewed `recommended_first` base for catalog-supported charts. For everything else, the first listed variant marked `(unreviewed first guess)` — an honest hint, not a recommendation. |
+| `recommended_first_base` | The reviewed `recommended_first` base for catalog-supported charts. For everything else, the base with the strongest committed evidence, marked `(unreviewed first guess)` — an honest hint, not a catalog recommendation. |
 | `quirks` | Union of chart-facts flags (hooks, crds, generated-secrets, existing-secret, webhooks, extension-slots, install-vs-upgrade-divergence, required-values) and `source_features` tokens (lookup, capabilities, tpl, rbac, storage, generated-facts). |
 | `user_must_provide` | Assembled from the prerequisite-shaped flags: existing Secret detail, storage decision, CRD ownership choice, webhook readiness, target facts, mandatory inputs — plus the bucket-level caveat for not-ready and needs-variant rows. |
 | `confighub_absorbs` | Assembled from the quirk flags: exact rendered objects with parity and receipts always; separated generated Secrets, CRD bases, hook classification and routing, reviewed extension slots, captured install-vs-upgrade divergence, lookups lifted to target facts — where flagged. |
@@ -76,8 +77,9 @@ plain Helm; the bucket says this catalog will not yet vouch for it.
 - The prerequisite-vs-review split inside the 27 review-queued charts is a
   keyword rule over the named gap text. A misclassified row means the gap text
   should be made more explicit in the source data.
-- Buckets change only when the curated sources change; this report adds no
-  fresh evidence of its own.
+- Buckets and first-base hints change only when the curated sources or
+  per-base outcome evidence change; this report adds no fresh evidence of its
+  own.
 
 ## Related
 

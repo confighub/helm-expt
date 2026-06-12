@@ -20,6 +20,7 @@ const SOURCES = {
   top100: "data/top100-readiness/readiness.csv",
   chartFacts: "data/chart-facts/chart-facts.csv",
   baseReadiness: "data/top20-base-readiness/base-readiness.csv",
+  baseOutcomes: "data/outcome-coverage/base-outcomes.csv",
 };
 
 const OUTPUTS = {
@@ -184,9 +185,35 @@ function proofStatus(row) {
   return `${row.user_status}${lanes.length ? ` (${lanes.join(", ")})` : ""}`;
 }
 
+function evidenceScore(row) {
+  let score = 0;
+  if (row.complete_core_lane_set === "yes") score += 100;
+  if (row.live_helm_vs_confighub_parity === "pass") score += 50;
+  if (row.gitops_oci_live === "pass") score += 40;
+  if (row.two_cluster_kind_parity === "pass") score += 35;
+  if (row.in_confighub === "pass") score += 25;
+  if (row.local_live === "pass") score += 20;
+  if (row.render_parity === "pass") score += 5;
+  if ((row.base ?? "") === "default") score += 1;
+  return score;
+}
+
+function strongestEvidenceBase() {
+  const strongest = new Map();
+  for (const row of readCsv(SOURCES.baseOutcomes)) {
+    const candidate = { base: row.base, score: evidenceScore(row) };
+    const current = strongest.get(row.chart);
+    if (!current || candidate.score > current.score) {
+      strongest.set(row.chart, candidate);
+    }
+  }
+  return new Map([...strongest].map(([chartVersion, value]) => [chartVersion, value.base]));
+}
+
 function buildReport() {
   const top100 = readCsv(SOURCES.top100);
   const facts = new Map(readCsv(SOURCES.chartFacts).map((row) => [row.chart, row]));
+  const evidenceBase = strongestEvidenceBase();
   const recommendedBase = new Map();
   for (const row of readCsv(SOURCES.baseReadiness)) {
     if (row.recommended_first === "yes") recommendedBase.set(splitChartVersion(row.chart).chart, row.base);
@@ -197,7 +224,7 @@ function buildReport() {
     const chartFacts = facts.get(chart);
     const tokens = quirkTokens(chartFacts, row.source_features);
     const bucket = classify(row, chartFacts);
-    const firstBase = recommendedBase.get(chart) ?? (row.variants ? row.variants.split(";")[0] : "");
+    const firstBase = recommendedBase.get(chart) ?? evidenceBase.get(row.chart) ?? (row.variants ? row.variants.split(";")[0] : "");
     return {
       rank: row.proof_surface_rank,
       chart,
