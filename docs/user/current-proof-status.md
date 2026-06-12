@@ -271,11 +271,13 @@ different outcome.
 Current aggregate status:
 
 ```text
-helm_template_vs_installer_setup:        179 pass, 0 missing
-confighub_upload_variant_scan_safe_ops:   20 pass, 159 missing
-local_kind_kubectl_apply:                 23 pass, 156 missing
-confighub_oci_argo_live:                  22 pass, 2 watch, 4 blocked, 151 missing
-live_helm_vs_confighub_dual_compare:      20 pass, 2 watch, 0 blocked, 157 missing
+chart/base rows:                          190
+helm_template_vs_installer_setup:         190 pass, 0 missing
+confighub_upload_variant_scan_safe_ops:    85 pass, 105 missing
+local_kind_kubectl_apply:                 134 pass, 56 non-pass receipts, 0 missing
+confighub_oci_argo_live:                   36 pass, 5 non-pass receipts, 149 missing
+live_helm_vs_confighub_dual_compare:       36 pass, 2 watch, 0 blocked, 152 missing
+two_cluster_kind_parity:                   70 pass, 0 watch, 0 blocked
 ```
 
 Those counts come from the generated lane matrix:
@@ -287,42 +289,32 @@ fixture condition that still needs a decision or rerun.
 
 GitOps/OCI live proof has started:
 
-- the first runtime/GitOps wave has 10 committed receipts;
-- 5 first-wave receipts pass;
-- 5 first-wave receipts are non-pass target-fit receipts;
+- the first runtime/GitOps wave has 11 committed receipts;
+- 8 first-wave receipts pass;
+- 3 first-wave receipts are non-pass target-fit receipts;
 - exact chart/base/controller status is in the generated runtime summary:
   [Runtime/GitOps Wave](../../data/runtime-gitops/summary.md).
 
-Live Helm-vs-ConfigHub parity has started:
+Live Helm-vs-ConfigHub parity is selected-row evidence:
 
-- The selected top-20 live comparison lane has committed receipts for all 20
-  rows.
-- 20 rows pass, no rows are watch, and no rows are blocked.
-- Across the full 179-row lane matrix, 2 older watch rows remain as backlog
-  evidence for non-selected bases. They have semantic object parity, but need
-  target, runtime, storage, controller-health, initialization, or
-  operating-policy review before they should be promoted.
+- The selected live comparison lane has 38 committed receipts.
+- 36 rows pass, 2 rows are watch, and no rows are blocked.
+- Across the full 190-row lane matrix, 152 rows remain missing backlog for this
+  lane. That is planned work, not failed work.
+- The two active watch rows are ingress-nginx target-shape rows. They have
+  semantic object parity, but need LoadBalancer target behavior or a
+  target-specific support decision before they should be promoted.
 - The comparison checks regular Helm against ConfigHub delivery and records the
   expected installer-added Namespace object and any semantic object diffs.
 - Exact chart/base status is in the generated summary:
   [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md).
 
-Strict two-cluster Helm-vs-installer parity now has committed receipts for all
-42 maintained top-20 base variants:
+Strict two-cluster Helm-vs-installer parity now has 70 committed receipts:
 
-- 41 rows pass;
+- 70 rows pass;
 - 0 rows are watch;
-- 1 row is blocked by a Helm post-install hook route that has separate
-  lifecycle observation evidence;
-- 42 rows have semantic object parity;
-- 0 rows currently report a semantic parity defect.
-
-The broader two-cluster kind parity corpus now has 50 committed receipts:
-
-- 49 rows pass;
-- 0 rows are watch;
-- 1 row is blocked by the same lifecycle-routed cert-manager default row;
-- 50 rows have semantic object parity;
+- 0 rows are blocked;
+- 70 rows have semantic object parity;
 - 0 rows currently report a semantic parity defect.
 
 Use the generated rerun plan for the next command and expected remediation:
@@ -331,12 +323,9 @@ Use the generated rerun plan for the next command and expected remediation:
 For the shortest active queue, use:
 [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv).
 
-The current rerun queue has no active non-pass rows and no semantic parity
-defects. The remaining strict non-pass row is cert-manager `default`; it is
-lifecycle-routed, with the hook-like behavior tracked in the separate lifecycle
-observation lane. In the generated two-cluster summary, that row is explicit:
-`result=blocked`, `semantic_parity=pass`, and
-`related_lifecycle_evidence=pass`.
+The current rerun queue has 2 active watch rows and no semantic parity defects.
+Both are ingress-nginx rows where object parity passed and the target needs
+LoadBalancer behavior or a target-specific support decision.
 
 Production support decisions are now explicit for the top-20 catalog:
 
