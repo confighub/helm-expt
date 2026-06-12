@@ -10,8 +10,8 @@ claim runtime support.
 | --- | --- | --- | --- | --- | --- |
 | `elastic/logstash@8.5.1` | [elastic-logstash.yaml](./elastic-logstash.yaml) | [storage-rollback/elastic-logstash.yaml](./storage-rollback/elastic-logstash.yaml) | `default` | review-input-only |  |
 | `prometheus-community/alertmanager@1.37.0` | [prometheus-community-alertmanager.yaml](./prometheus-community-alertmanager.yaml) | [storage-rollback/prometheus-community-alertmanager.yaml](./storage-rollback/prometheus-community-alertmanager.yaml) | `default` | review-input-only |  |
-| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | [prometheus-community-prometheus-blackbox-exporter.yaml](./prometheus-community-prometheus-blackbox-exporter.yaml) | [storage-rollback/prometheus-community-prometheus-blackbox-exporter.yaml](./storage-rollback/prometheus-community-prometheus-blackbox-exporter.yaml) | `cluster-metrics-readonly` | review-input-only | GitOps/OCI live observation<br>live Helm-vs-ConfigHub parity |
+| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | [prometheus-community-prometheus-blackbox-exporter.yaml](./prometheus-community-prometheus-blackbox-exporter.yaml) | [storage-rollback/prometheus-community-prometheus-blackbox-exporter.yaml](./storage-rollback/prometheus-community-prometheus-blackbox-exporter.yaml) | `cluster-metrics-readonly` | review-input-only |  |
 
 ## Shared Review Rule
 
-The selected base can move forward only after the storage/rollback boundary is accepted or narrowed for the target, the proof lanes listed in its packet exist, and a target-scoped support decision exists for that exact base.
+The selected base can move forward only after the storage/rollback boundary is accepted or narrowed for the target and a target-scoped support decision exists for that exact base.

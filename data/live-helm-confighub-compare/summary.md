@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 41
+pass: 42
 watch: 0
 blocked: 0
 not-started: 0
@@ -61,3 +61,4 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
 |  | `nats/nats@2.14.0` | default | pass | - | runs/live-helm-confighub-compare/nats-nats-default/receipt.yaml |
 |  | `prometheus-community/alertmanager@1.37.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/receipt.yaml |
+|  | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | cluster-metrics-readonly | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml |
