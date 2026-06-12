@@ -60,7 +60,7 @@ Which detailed CSV should I open next?
 | proof lanes | two-cluster semantic parity pass rows | 70/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 23/190 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 22/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
-| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 5/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
+| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 6/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
@@ -327,7 +327,7 @@ spreadsheet.
 | bitnami/rabbitmq@16.0.14 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/redis@25.5.3 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | - |
 | external-secrets/external-secrets@2.5.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| grafana/grafana@10.5.15 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
+| grafana/grafana@10.5.15 | generated-passwords (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
 | grafana/loki@7.0.0 | single-binary-filesystem (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
 | grafana/tempo@1.24.4 | local-persistent (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | hashicorp/consul@2.0.0 | default-control-plane (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
@@ -354,8 +354,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 80 | 0 | 110 | 190 |
 | local live | 134 | 56 | 0 | 190 |
-| GitOps/OCI live | 28 | 8 | 154 | 190 |
-| live Helm-vs-ConfigHub parity | 27 | 5 | 158 | 190 |
+| GitOps/OCI live | 28 | 9 | 153 | 190 |
+| live Helm-vs-ConfigHub parity | 27 | 6 | 157 | 190 |
 | two-cluster kind parity | 70 | 0 | 0 | 70 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
