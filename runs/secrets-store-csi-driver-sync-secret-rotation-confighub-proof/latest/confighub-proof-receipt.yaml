@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "secrets-store-csi-driver-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+    name: "secrets-store-csi-driver"
+    chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+    chartVersion: "1.6.0"
+    bases:
+      - "default"
+      - "sync-secret-rotation"
+    selectedBase: "sync-secret-rotation"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base sync-secret-rotation --work-dir .tmp/confighub-proof/secrets-store-csi-driver-sync-secret-rotation --non-interactive --namespace kube-system"
+    result: "pass"
+    manifestCount: 13
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/secrets-store-csi-driver-sync-secret-rotation"
+    result: "pass"
+    manifestCount: 13
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 -o .tmp/confighub-proof/secrets-store-csi-driver-sync-secret-rotation-archives/secrets-store-csi-driver-a.tgz"
+    sha256: "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/secrets-store-csi-driver-sync-secret-rotation"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/secrets-store-csi-driver-sync-secret-rotation --space helm-secrets-store-csi-driver-sync-secret-rotation-confighub-proof --component SecretsStoreCSIDriver --layer App --environment Demo --owner ConfigHubHelm --variant sync-secret-rotation --unit-label Component=SecretsStoreCSIDriver --unit-label HelmChart=secrets-store-csi-driver-secrets-store-csi-driver --unit-label HelmChartVersion=1.6.0 --unit-label Variant=sync-secret-rotation --unit-label Proof=secrets-store-csi-driver-sync-secret-rotation-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-secrets-store-csi-driver-sync-secret-rotation-confighub-proof"
+    unitCount: 14
+    kubernetesUnitCount: 13
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/secrets-store-csi-driver-sync-secret-rotation"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/secrets-store-csi-driver-sync-secret-rotation"
+    result: "pass"
+    summary: "No changes.\nImages in helm-secrets-store-csi-driver-sync-secret-rotation-confighub-proof (post-render):\n      DaemonSet/secrets-store-csi-driver [liveness-probe] registry.k8s.io/sig-storage/livenessprobe:v2.18.0\n      DaemonSet/secrets-store-csi-driver [node-driver-registrar] registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0\n      DaemonSet/secrets-store-csi-driver [secrets-store] registry.k8s.io/csi-secrets-store/driver:v1.6.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-secrets-store-csi-driver-sync-secret-rotation-confighub-proof --environment Staging --region local --space-name-pattern template:SecretsStoreCSIDriver-sync-secret-rotation-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-secrets-store-csi-driver-sync-secret-rotation-confighub-proof"
+    downstreamSpace: "SecretsStoreCSIDriver-sync-secret-rotation-staging"
+    clonedUnitCount: 14
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "daemonset-kube-system-secrets-store-csi-driver"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-secrets-store-csi-driver-sync-secret-rotation-confighub-proof"
+      - "SecretsStoreCSIDriver-sync-secret-rotation-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."
