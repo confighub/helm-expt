@@ -1135,7 +1135,7 @@ need catalog promotion review before support is claimed.
 | runix/pgadmin4@1.62.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/runix/pgadmin4/1.62.0/CATALOG.md) |
 | sealed-secrets/sealed-secrets@2.18.6 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.md) |
 | stakater/reloader@2.2.12 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/stakater/reloader/2.2.12/CATALOG.md) |
-| strimzi/strimzi-kafka-operator@1.0.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md) |
+| strimzi/strimzi-kafka-operator@1.0.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md) |
 | traefik/traefik@40.2.0 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/traefik/traefik/40.2.0/CATALOG.md) |
 | velero/velero@12.0.1 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/velero/velero/12.0.1/CATALOG.md) |
 | vm/victoria-logs-single@0.12.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/vm/victoria-logs-single/0.12.5/CATALOG.md) |
