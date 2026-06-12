@@ -8,9 +8,9 @@ evidence or product decision would move a partial row toward covered.
 
 ~~~text
 partial rows: 80
-promotion-review: 27
-user-shaped-variant: 46
-limitation-decision: 7
+promotion-review: 37
+user-shaped-variant: 35
+limitation-decision: 8
 supported-refresh: 0
 ~~~
 
@@ -18,9 +18,9 @@ supported-refresh: 0
 
 | Queue | Rows | First step | Done when |
 | --- | ---: | --- | --- |
-| `limitation-decision` | 7 | decide whether to support, disclose, defer, or block: named limitation | the limitation has a recorded support, disclosure, deferral, or blocker decision |
-| `promotion-review` | 27 | run catalog promotion review, choose one supported base, then add selected live evidence | scan/disposition evidence exists and at least one selected base has live witness or routed deferral |
-| `user-shaped-variant` | 46 | design one realistic base variant a Helm user would actually choose | a realistic named base variant exists and the chart moves to promotion or limitation review |
+| `limitation-decision` | 8 | decide whether to support, disclose, defer, or block: named limitation | the limitation has a recorded support, disclosure, deferral, or blocker decision |
+| `promotion-review` | 37 | run catalog promotion review, choose one supported base, then add selected live evidence | scan/disposition evidence exists and at least one selected base has live witness or routed deferral |
+| `user-shaped-variant` | 35 | design one realistic base variant a Helm user would actually choose | a realistic named base variant exists and the chart moves to promotion or limitation review |
 | `supported-refresh` | 0 | refresh target-scoped production support evidence | fresh target-scoped receipts support the current claim |
 | `review` | 0 | review row and choose the next evidence lane | the row has a concrete next action and evidence path |
 
@@ -28,6 +28,7 @@ supported-refresh: 0
 
 | Priority | Queue | Chart | Coverage | Missing | First step |
 | ---: | --- | --- | ---: | --- | --- |
+| 1 | `limitation-decision` | `prometheus-community/prometheus-adapter@5.3.0` | 75% | f;g | decide whether to support, disclose, defer, or block: - |
 | 1 | `limitation-decision` | `bitnami/contour@21.1.4` | 88% | f | decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle) |
 | 1 | `limitation-decision` | `bitnami/elasticsearch@22.1.6` | 88% | f | decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle) |
 | 1 | `limitation-decision` | `bitnami/spark@10.0.3` | 88% | f | decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle) |
@@ -35,19 +36,18 @@ supported-refresh: 0
 | 1 | `limitation-decision` | `grafana/pyroscope@2.0.2` | 88% | f | decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle) |
 | 1 | `limitation-decision` | `kyverno/kyverno@3.8.1` | 88% | f | decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle) |
 | 1 | `limitation-decision` | `traefik/traefik@40.2.0` | 88% | f | decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle) |
+| 2 | `promotion-review` | `aqua/trivy-operator@0.32.1` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
+| 2 | `promotion-review` | `argo-cd/argo-events@2.4.21` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
+| 2 | `promotion-review` | `argo-cd/argo-rollouts@2.40.9` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
+| 2 | `promotion-review` | `autoscaler/vertical-pod-autoscaler@0.9.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `cloudnative-pg/cloudnative-pg@0.28.2` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `elastic/eck-operator@3.4.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `elastic/logstash@8.5.1` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `external-dns/external-dns@1.21.1` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
+| 2 | `promotion-review` | `gatekeeper/gatekeeper@3.22.2` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `grafana/alloy@1.8.2` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 2 | `promotion-review` | `kedacore/keda@2.19.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `nats/nats@2.14.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 2 | `promotion-review` | `prometheus-community/alertmanager@1.37.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 3 | `promotion-review` | `aqua/trivy-operator@0.32.1` | 75% | f;g | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 3 | `promotion-review` | `argo-cd/argo-events@2.4.21` | 75% | f;g | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 3 | `promotion-review` | `argo-cd/argo-rollouts@2.40.9` | 75% | f;g | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 3 | `promotion-review` | `autoscaler/vertical-pod-autoscaler@0.9.0` | 75% | f;g | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 3 | `promotion-review` | `bitnami/opensearch@2.0.10` | 75% | f;g | run catalog promotion review, choose one supported base, then add selected live evidence |
+| 2 | `promotion-review` | `open-telemetry/opentelemetry-operator@0.114.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 
 ## Files
 

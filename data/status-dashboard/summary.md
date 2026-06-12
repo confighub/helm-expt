@@ -27,18 +27,18 @@ Which detailed CSV should I open next?
 | chart use | limitation decision needed answers | 7/100 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | top100 | covered by top100 contract | 20/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | partial by top100 contract | 80/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
-| top100 | average top100 coverage | 83/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
-| top100 | top100 promotion-review queue | 27/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
-| top100 | first strict top100 promotion wave | 8/27 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
+| top100 | average top100 coverage | 88/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
+| top100 | top100 promotion-review queue | 37/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
+| top100 | first strict top100 promotion wave | 8/37 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
 | top100 | fast-track top100 promotion candidates | 2/8 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
 | top100 | fast-track promotion review packets | 2/2 | partial | [data/top100-promotion-wave/fast-track-reviews/review-packets.csv](../../data/top100-promotion-wave/fast-track-reviews/review-packets.csv) |
 | top100 | fast-track storage rollback reviews | 2/2 | partial | [data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv](../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv) |
-| top100 | top100 user-shaped variant queue | 46/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
-| top100 | useful-base proposal rows | 46/46 | partial | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
+| top100 | top100 user-shaped variant queue | 35/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
+| top100 | useful-base proposal rows | 46/35 | partial | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
 | top100 | useful-base realized rows | 10/46 | partial | [data/useful-base-realization-wave/wave.csv](../../data/useful-base-realization-wave/wave.csv) |
 | top100 | useful-base proposal families | 7/7 | partial | [data/useful-base-design-queue/families.csv](../../data/useful-base-design-queue/families.csv) |
 | top100 | useful-base proposals not yet built | 35/46 | gap | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
-| top100 | top100 limitation-decision queue | 7/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
+| top100 | top100 limitation-decision queue | 8/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | top20 upstream update candidates | 7/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | update candidates with proof-complete root paths | 7/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
@@ -54,13 +54,13 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 134/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 56/56 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 29/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 29/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 33/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 33/190 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 70/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 29/190 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | top20 start-here base variants | 28/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
-| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 9/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
+| proof lanes | complete core lane rows | 30/190 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | top20 start-here base variants | 29/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
+| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 5/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
@@ -70,12 +70,12 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/102 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/102 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 20/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 33/38 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 6/6 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 2/6 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 4/6 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | live parity rerun rows needing decisions | 5/5 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 2/5 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 3/5 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/38 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -130,10 +130,10 @@ evidence work before it becomes production-supported for a target scope.
 | Queue | Charts | Next action |
 | --- | ---: | --- |
 | Use public catalog now | 20 | Open CATALOG.md and top20 base readiness; choose a base with the lane you need. |
-| Promote proof-grade charts | 27 | Run catalog promotion review, select realistic bases, and add selected live lanes. |
+| Promote proof-grade charts | 37 | Run catalog promotion review, select realistic bases, and add selected live lanes. |
 | Fast-track low-residue promotion rows | 2 | Write storage/rollback policy, complete missing live and ConfigHub lanes, then record target-scoped support decisions. |
 | Design useful base variants | 46 | Build the proposed recipe/package bases, then rerun render parity and promotion review before treating them as catalog offers. |
-| Resolve limitation decisions | 7 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
+| Resolve limitation decisions | 8 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
 
 ### Hard Proof Gap Work
 
@@ -186,7 +186,7 @@ considered.
 | Queue | Rows | Next action |
 | --- | ---: | --- |
 | model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 4 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 3 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ### Active Proof Queue
 
@@ -200,7 +200,6 @@ needs a support artifact or a direct receipt review before rerun.
 | hashicorp/vault@0.32.0 | default | watch | operating-policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
 | ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | target-fit-review | [recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/target-topology.yaml) |
 | ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime-review | [recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/gitops-runtime-review.yaml) |
-| metrics-server/metrics-server@3.13.0 | external-tls-ca | watch | gitops-runtime-review | [recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml](../../recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml) |
 | prometheus-community/prometheus@29.8.0 | default | watch | gitops-runtime-review | [recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml](../../recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml) |
 
 ### Local Live Non-Pass Triage
@@ -325,26 +324,26 @@ spreadsheet.
 
 | Chart | Recommended base | Base readiness | Strongest evidence | Render | ConfigHub | Local live | GitOps live | Live parity | Hard gap |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| argo-cd/argo-cd@9.5.15 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| argo-cd/argo-cd@9.5.15 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/mongodb@19.0.7 | generated-passwords (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
-| bitnami/mysql@14.0.3 | generated-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/nginx@24.0.2 | http-clusterip (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
-| bitnami/postgresql@18.6.7 | generated-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/rabbitmq@16.0.14 | generated-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/redis@25.5.3 | default (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | - |
+| bitnami/mysql@14.0.3 | generated-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/nginx@24.0.2 | http-clusterip (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
+| bitnami/postgresql@18.6.7 | generated-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/rabbitmq@16.0.14 | generated-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/redis@25.5.3 | default (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | external-secrets/external-secrets@2.5.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| grafana/grafana@10.5.15 | generated-passwords (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
-| grafana/loki@7.0.0 | single-binary-filesystem (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
-| grafana/tempo@1.24.4 | local-persistent (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
+| grafana/grafana@10.5.15 | existing-secret-ingress (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
+| grafana/loki@7.0.0 | single-binary-filesystem (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
+| grafana/tempo@1.24.4 | local-persistent (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 1/2 | 1/2 | 1/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | hashicorp/consul@2.0.0 | default-control-plane (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | hashicorp/vault@0.32.0 | dev-mode (start-here) | start-here:1; try-with-proof:1; runtime-watch:1 | live-helm-vs-confighub-parity | 3/3 | 1/3 | 2/3 | 1/3 | 1/3 | - |
 | ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip (start-here) | start-here:1; runtime-watch:2 | live-helm-vs-confighub-parity | 3/3 | 1/3 | 3/3 | 1/3 | 1/3 | - |
-| jetstack/cert-manager@v1.20.2 | crds-enabled (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
-| longhorn/longhorn@1.11.2 | default (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
-| metrics-server/metrics-server@3.13.0 | default (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
+| jetstack/cert-manager@v1.20.2 | crds-enabled (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
+| longhorn/longhorn@1.11.2 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 2/2 | - |
+| metrics-server/metrics-server@3.13.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | prometheus-community/prometheus@29.8.0 | server-only-ephemeral (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
+| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 
 The table is deliberately lane-specific. A chart can be useful today without
 every lane passing for every base variant. The exact per-base rows are in
@@ -360,8 +359,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 85 | 0 | 105 | 190 |
 | local live | 134 | 56 | 0 | 190 |
-| GitOps/OCI live | 29 | 12 | 149 | 190 |
-| live Helm-vs-ConfigHub parity | 29 | 9 | 152 | 190 |
+| GitOps/OCI live | 33 | 8 | 149 | 190 |
+| live Helm-vs-ConfigHub parity | 33 | 5 | 152 | 190 |
 | two-cluster kind parity | 70 | 0 | 0 | 70 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -371,7 +370,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/20
+ConfigHub/OCI live comparison: 0/38
 two-cluster kind parity:       0/70
 ~~~
 
@@ -389,18 +388,26 @@ useful.
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
 | model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 4 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 3 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
-| gitops-runtime-review | 4 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
+| gitops-runtime-review | 3 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.
 
-There are no current live parity non-pass receipts.
+Current ConfigHub/OCI live parity non-pass receipts:
+
+| Chart | Variant | Result | Reason |
+| --- | --- | --- | --- |
+| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | target-fit: LoadBalancer Service has no external IP on kind (parity passed) |
+| ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |
+| hashicorp/vault@0.32.0 | default | watch | operate-policy: Vault init/unseal readiness (parity passed) |
+| prometheus-community/prometheus@29.8.0 | default | watch | gitops-runtime: Argo sync OutOfSync health Healthy (parity passed) |
+| bitnami/mongodb@19.0.7 | existing-secret-replicaset | watch | gitops-runtime: Argo sync OutOfSync health Healthy (parity passed) |
 
 
 There are no current two-cluster kind parity non-pass receipts.

@@ -1,6 +1,6 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
@@ -11,6 +11,7 @@ const selectedFromRank = numberOption("--from-rank");
 const selectedToRank = numberOption("--to-rank");
 const repoUrlOverride = optionValue("--repo-url");
 const targetProfile = optionValue("--target-profile");
+const gitopsCanonicalizationProfile = optionValue("--gitops-canonicalization-profile");
 const continueOnFail = process.argv.includes("--continue-on-fail");
 const keep = process.argv.includes("--keep");
 
@@ -49,6 +50,7 @@ if (mode === "--run") {
 } else {
   console.log(`Usage:
   node scripts/run-top20-live-parity.mjs --run --chart metrics-server
+  node scripts/run-top20-live-parity.mjs --run --chart metrics-server --base external-tls-ca --gitops-canonicalization-profile k8s-zero-defaults
   node scripts/run-top20-live-parity.mjs --run --chart nginx --base existing-tls-ingress
   node scripts/run-top20-live-parity.mjs --run --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx
   node scripts/run-top20-live-parity.mjs --run --chart nginx --repo-url oci://registry-1.docker.io/bitnamicharts
@@ -80,6 +82,7 @@ function runTarget(target) {
     "--out", out,
   ];
   if (targetProfile) command.push("--target-profile", targetProfile);
+  if (gitopsCanonicalizationProfile) command.push("--gitops-canonicalization-profile", gitopsCanonicalizationProfile);
   if (keep) command.push("--keep");
   const result = spawnSync(command[0], command.slice(1), {
     cwd: repoRoot,
@@ -135,6 +138,7 @@ function verifySummary() {
 }
 
 function buildSummary() {
+  const expectedReceiptPaths = new Set(targets.map((target) => receiptPath(target)));
   const rows = targets.map((target) => {
     const path = join(repoRoot, receiptPath(target));
     const receipt = existsSync(path) ? readYaml(path) : null;
@@ -147,7 +151,7 @@ function buildSummary() {
       reason: classifyReason(receipt, target),
       receipt: existsSync(path) ? receiptPath(target) : "",
     };
-  });
+  }).concat(discoveredReceiptRows(expectedReceiptPaths));
   const pass = rows.filter((row) => row.result === "pass").length;
   const watch = rows.filter((row) => row.result === "watch").length;
   const blocked = rows.filter((row) => row.result === "blocked").length;
@@ -166,7 +170,8 @@ function buildSummary() {
   const md = `# Live Helm-vs-ConfigHub Parity
 
 This report tracks the strict live comparison lane for the selected top-20
-chart/base rows. Each completed row has a receipt under
+chart/base rows and any additional committed base-variant receipts. Each
+completed row has a receipt under
 \`runs/live-helm-confighub-compare/\`.
 
 \`\`\`text
@@ -187,6 +192,45 @@ ${blockedBreakdown}
 ${rows.map((row) => `| ${row.rank} | \`${row.chart}@${row.version}\` | ${row.variant} | ${row.result} | ${row.reason || "-"} | ${row.receipt || "-"} |`).join("\n")}
 `;
   return { root, rows, csv, md };
+}
+
+function discoveredReceiptRows(expectedReceiptPaths) {
+  const root = join(repoRoot, "runs", "live-helm-confighub-compare");
+  if (!existsSync(root)) return [];
+  const rows = [];
+  for (const entry of readdirSync(root, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const relative = `runs/live-helm-confighub-compare/${entry.name}/receipt.yaml`;
+    if (expectedReceiptPaths.has(relative)) continue;
+    const path = join(repoRoot, relative);
+    if (!existsSync(path)) continue;
+    const receipt = readYaml(path);
+    if (receipt.kind !== "LiveHelmConfigHubParityReceipt") continue;
+    const spec = receipt.spec ?? {};
+    if (!spec.chart || !spec.version || !spec.base) continue;
+    const canonical = targets.find((target) => target.chart === spec.chart);
+    const target = {
+      ...(canonical ?? {}),
+      rank: canonical?.rank ?? "",
+      chart: spec.chart,
+      version: spec.version,
+      variant: spec.base,
+    };
+    rows.push({
+      rank: target.rank,
+      chart: spec.chart,
+      version: spec.version,
+      variant: spec.base,
+      result: spec.result ?? "not-started",
+      reason: classifyReason(receipt, target),
+      receipt: relative,
+    });
+  }
+  return rows.sort((left, right) => {
+    const leftRank = Number(left.rank || 9999);
+    const rightRank = Number(right.rank || 9999);
+    return leftRank - rightRank || left.chart.localeCompare(right.chart) || left.variant.localeCompare(right.variant);
+  });
 }
 
 function resolveTarget(target) {
@@ -317,6 +361,9 @@ function classifyWatch(spec, target) {
   }
   if (text.includes("containercreating")) return "target-runtime: pod ContainerCreating (parity passed)";
   const gitops = spec.legs?.configHubOciArgo ?? {};
+  if (gitops.sync === "OutOfSync" && gitops.health === "Healthy") {
+    return "gitops-runtime: Argo sync OutOfSync health Healthy (parity passed)";
+  }
   if (gitops.sync === "Synced" && gitops.health && gitops.health !== "Healthy") {
     return `gitops-runtime: Argo health ${gitops.health} (parity passed)`;
   }
