@@ -104,8 +104,8 @@ Which detailed CSV should I open next?
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | source-reviewed hook rows not yet maintained | 8/11 | gap | [data/hook-lifecycle-review/top100-source-hook-route-review.csv](../../data/hook-lifecycle-review/top100-source-hook-route-review.csv) |
 | hooks | source hook rows with candidate route plans | 8/11 | partial | [data/hook-coverage/top100-hook-coverage.csv](../../data/hook-coverage/top100-hook-coverage.csv) |
-| hooks | hook-like candidate rows outside source inventory | 1/9 | partial | [data/hook-route-candidates/candidates.csv](../../data/hook-route-candidates/candidates.csv) |
-| hooks | hook candidate route work orders | 66/66 | partial | [data/hook-route-candidates/work-orders.csv](../../data/hook-route-candidates/work-orders.csv) |
+| hooks | hook-like candidate rows outside source inventory | 2/10 | partial | [data/hook-route-candidates/candidates.csv](../../data/hook-route-candidates/candidates.csv) |
+| hooks | hook candidate route work orders | 72/72 | partial | [data/hook-route-candidates/work-orders.csv](../../data/hook-route-candidates/work-orders.csv) |
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook lifecycle observations present | 5/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook partial lifecycle observations present | 0/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
@@ -238,8 +238,8 @@ full table with receipts and per-row next actions.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| Hook candidate route plans | 9 | Use these as reviewed inputs; do not treat them as maintained receipts or runtime proof. |
-| Hook candidate work orders | 66 | Assign base rendering, dependency closure, target preflight, GitOps mapping, receipt, and observation tasks from the generated work-order list. |
+| Hook candidate route plans | 10 | Use these as reviewed inputs; do not treat them as maintained receipts or runtime proof. |
+| Hook candidate work orders | 72 | Assign base rendering, dependency closure, target preflight, GitOps mapping, receipt, and observation tasks from the generated work-order list. |
 | Hook candidates not yet maintained | 8 | Promote each candidate into a maintained lifecycle receipt, runtime observation path, or explicit blocker before support claims. |
 | Hook route selected, observation pending | 0 | Run the selected lifecycle path and commit execution or observation receipts. |
 | Hook install lifecycle observed, remaining phase pending | 0 | Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt. |
