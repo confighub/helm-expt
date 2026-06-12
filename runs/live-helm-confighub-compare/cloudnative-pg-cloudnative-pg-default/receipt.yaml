@@ -1,0 +1,458 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: cloudnative-pg-cloudnative-pg-0.28.2-default-live-parity-20260605
+spec:
+  chart: cloudnative-pg/cloudnative-pg
+  version: 0.28.2
+  base: default
+  result: pass
+  observedAt: '2026-06-12T23:31:42Z'
+  package:
+    path: packages/cloudnative-pg/cloudnative-pg/0.28.2
+  recipe:
+    path: recipes/cloudnative-pg/cloudnative-pg/0.28.2
+  variantRevision: recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-cloudnativepg-default-1781307102
+    kubeContext: kind-helm-expt-parity-cloudnativepg-default-1781307102
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-cloudnativepg-default-1781307102
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-cloudnativepg-default-1781307102"...
+
+        Deleting cluster "helm-expt-parity-cloudnativepg-default-1781307102" ...
+
+        Deleted nodes: ["helm-expt-parity-cloudnativepg-default-1781307102-control-plane"]
+
+        Deleting Space "helm-expt-parity-cloudnativepg-default-1781307102-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install cloudnative-pg cloudnative-pg --repo https://cloudnative-pg.github.io/charts
+        --version 0.28.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: 67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46
+      objectCount: 21
+      liveHelmManifestSHA256: 765f8c2ed2e4b9fe503536bdbccef9fa4eba371021bd0d40bf13a92feda57d6f
+      liveHelmManifestObjectCount: 21
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/cloudnative-pg   1/1   1     1     11s
+        pods: cloudnative-pg-5fdcd44c9c-9mpd8   1/1   Running   0     11s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-cloudnativepg-default-1781307102-cloudnative-pg-cloudnative-pg
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 0de662af56146a31ad42a174c2606e79956df4dd704491dee703bd5f34ea2543
+      objectCount: 22
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/cloudnative-pg   1/1   1     1     11s'
+        pods: '# default
+
+          cloudnative-pg-d8f4779dd-n6zk6   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 16
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "cloudnative-pg-edit" deleted
+
+            clusterrole.rbac.authorization.k8s.io "cloudnative-pg-view" deleted
+
+            clusterrole.rbac.authorization.k8s.io "cloudnative-pg" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "cloudnative-pg" deleted
+
+            customresourcedefinition.apiextensions.k8s.io "backups.postgresql.cnpg.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "clusterimagecatalogs.postgresql.cnpg.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "clusters.postgresql.cnpg.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "databases.postgresql.cnpg.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "failoverquorums.postgresql.cnpg.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "imagecatalogs.postgresql.cnpg.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "poolers.postgresql.cnpg.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "publications.postgresql.cnpg.io"
+            deleted
+
+            customresourcedefinition.apiexte'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 5
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'configmap "cnpg-controller-manager-config" deleted from default
+            namespace
+
+            configmap "cnpg-default-monitoring" deleted from default namespace
+
+            deployment.apps "cloudnative-pg" deleted from default namespace
+
+            service "cnpg-webhook-service" deleted from default namespace
+
+            serviceaccount "cloudnative-pg" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-cloudnativepg-default-1781307102-cloudnative-pg-cloudnative-pg
+      controller: Argo CD OCI
+      app: cloudnative-pg-cloudnative-pg-parity
+      manifestSHA256: 900be779c91ed4b29d163ad8905b1a99969f1c68bace57608a6d5e6e12d7d904
+      objectCount: 22
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:47f4b1de7a3a92dde8f81f67957a62efb30f1a4d9935d6f16a9a900b0f536dc8
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-cloudnativepg-default-1781307102-cloudnative-pg-cloudnative-pg
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-default-1781307102-cluster/oci
+              targetRevision: latest
+          revision: sha256:47f4b1de7a3a92dde8f81f67957a62efb30f1a4d9935d6f16a9a900b0f536dc8
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-12T23:35:36Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: cnpg-controller-manager-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: cnpg-default-monitoring
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: cnpg-webhook-service
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: cloudnative-pg
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: cnpg-mutating-webhook-configuration
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: cnpg-validating-webhook-configuration
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: backups.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: clusterimagecatalogs.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: clusters.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: databases.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: failoverquorums.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: imagecatalogs.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: poolers.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: publications.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: scheduledbackups.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: subscriptions.postgresql.cnpg.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: cloudnative-pg
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cloudnative-pg
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cloudnative-pg-edit
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cloudnative-pg-view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cloudnative-pg
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/cloudnative-pg   1/1   1     1     16s'
+        pods: '# default
+
+          cloudnative-pg-d8f4779dd-gfh6b   1/1   Running   0     16s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 21
+      configHubObjectCount: 22
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 21
+      configHubObjectCount: 22
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-cloudnativepg-default-1781307102\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-default-1781307102.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-cloudnativepg-default-1781307102\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-cloudnativepg-default-1781307102\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-cloudnativepg-default-1781307102\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-default-1781307102.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"a"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"cloudnative-pg\" does not exist. Installing it now.\nNAME:\
+      \ cloudnative-pg\nLAST DEPLOYED: Sat Jun 13 00:33:10 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nCloudNativePG operator should be installed in namespace \"default-helm\"\
+      .\nYou can now create a PostgreSQL cluster with 3 nodes as follows:\n\ncat <<EOF\
+      \ | kubectl apply -f -\n# Example of PostgreSQL cluster\napiVersion: postgresql.cnpg.io/v1\n\
+      kind: Cluster\nmetadata:\n  name: cluster-example\n  \nspec:\n  instances: 3\n\
+      \  storage:\n    size: 1Gi\nEOF\n\nkubectl get -A cluster"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/cloudnative-pg   1/1   1     1     11s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=16
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=5 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
