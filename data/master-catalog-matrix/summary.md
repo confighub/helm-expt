@@ -36,7 +36,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 191 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 647 / 0 / 59 / 509 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 647 / 2 / 59 / 507 / 122 |
 | Variants with the complete core lane set | 43 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -257,7 +257,7 @@ when you want the user/product view with those columns visible.
 |  | no-crds | next80 | `lookup;crds;cluster-rbac` | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `projectcalico/tigera-operator@v3.32.0` | default | next80 | `lookup;hooks;cluster-rbac` | 1 observed ✅ | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `prometheus-community/alertmanager@1.37.0` | default | next80 | `tpl;stateful-storage` | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | live-parity | ⬜ |
-|  | ha | next80 | `tpl;stateful-storage` | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | ha | next80 | `tpl;stateful-storage` | — | ✅ | ✅ | ✅ | — | ⚠️ | ⚠️ | ⬜ | local-live | ⬜ |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | no-crds | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | default | — | — | 2 observed ✅ (from @85.3.0) | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |

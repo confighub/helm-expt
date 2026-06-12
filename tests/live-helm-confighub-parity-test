@@ -181,8 +181,14 @@ def load_yaml(path: Path) -> dict:
 
 def raw_values_file(source: Path, destination: Path) -> Path:
     data = load_yaml(source)
-    if data.get("kind") == "EffectiveValues" and isinstance(data.get("spec", {}).get("values"), dict):
-        write_yaml(destination, data["spec"]["values"])
+    if data.get("kind") == "EffectiveValues":
+        values = data.get("spec", {}).get("values")
+        if not isinstance(values, dict):
+            raise RuntimeError(
+                f"{source} is an EffectiveValues wrapper but has no spec.values map; "
+                "live parity requires raw Helm values that can be replayed with helm"
+            )
+        write_yaml(destination, values)
         return destination
     shutil.copyfile(source, destination)
     return destination
@@ -1906,21 +1912,28 @@ def main() -> int:
     finally:
         stop_target_profile_processes()
         if not args.keep:
-            mark_stage("cleanup")
-            for cmd in [
-                ["cub", "space", "delete", wspace, "--recursive-force"],
-                ["cub", "unit", "delete", "--space", cluster_space, f"{child_app}-app"],
-            ]:
-                rc, _, _ = sh(cmd, timeout=180)
-                cleanup_ok = cleanup_ok and rc == 0
-            down_ok, down_detail = teardown_rig(rig)
-            cleanup_ok = cleanup_ok and down_ok
-            receipt["spec"]["run"]["clusterLifecycle"] = "cleaned-up" if down_ok else "cleanup-failed"
-            receipt["spec"]["run"]["cleanup"] = {
-                "command": f"cub lk down --name {rig} --force",
-                "result": "pass" if cleanup_ok else "blocked",
-                "detail": down_detail,
-            }
+            if receipt["spec"]["run"]["clusterLifecycle"] == "not-created":
+                receipt["spec"]["run"]["cleanup"] = {
+                    "command": "not needed",
+                    "result": "pass",
+                    "detail": "blocked before local cluster or ConfigHub spaces were created",
+                }
+            else:
+                mark_stage("cleanup")
+                for cmd in [
+                    ["cub", "space", "delete", wspace, "--recursive-force"],
+                    ["cub", "unit", "delete", "--space", cluster_space, f"{child_app}-app"],
+                ]:
+                    rc, _, _ = sh(cmd, timeout=180)
+                    cleanup_ok = cleanup_ok and rc == 0
+                down_ok, down_detail = teardown_rig(rig)
+                cleanup_ok = cleanup_ok and down_ok
+                receipt["spec"]["run"]["clusterLifecycle"] = "cleaned-up" if down_ok else "cleanup-failed"
+                receipt["spec"]["run"]["cleanup"] = {
+                    "command": f"cub lk down --name {rig} --force",
+                    "result": "pass" if cleanup_ok else "blocked",
+                    "detail": down_detail,
+                }
         else:
             receipt["spec"]["run"]["clusterLifecycle"] = "retained"
             receipt["spec"]["run"]["cleanup"] = {"result": "retained"}
