@@ -1,0 +1,69 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RuntimeGitOpsReceipt"
+metadata:
+  name: "ingress-nginx-internal-clusterip-argo-oci-codex-ingress-internal-063211"
+spec:
+  chart: "ingress-nginx/ingress-nginx"
+  version: "4.15.1"
+  base: "internal-clusterip"
+  packagePath: "packages/ingress-nginx/ingress-nginx/4.15.1"
+  recipePath: "recipes/ingress-nginx/ingress-nginx/4.15.1"
+  controller: "Argo CD OCI"
+  observedAt: "2026-06-12T05:34:57Z"
+  result: "pass"
+  run:
+    rig: "codex-ingress-internal-063211"
+    clusterSpace: "codex-ingress-internal-063211-cluster"
+    workloadSpace: "codex-ingress-internal-063211-ingress-nginx-internal"
+    target: "codex-ingress-internal-063211-cluster/oci"
+    namespace: "ingress-nginx"
+    kubeContext: "kind-codex-ingress-internal-063211"
+    kubeconfig: "/Users/alexis/.confighub/lk/codex-ingress-internal-063211.kubeconfig"
+    keptForInspection: false
+  commands:
+    setupRig: "CONFIGHUB_AGENT=1 cub lk up --name codex-ingress-internal-063211"
+    workload: "CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/ingress-nginx/ingress-nginx/4.15.1 --slug ingress-nginx-internal --namespace ingress-nginx --rig codex-ingress-internal-063211 --base internal-clusterip --helm-expt /Users/alexis/code/helm-expt --wait 420 --json"
+    teardown: "CONFIGHUB_AGENT=1 cub lk down --name codex-ingress-internal-063211"
+  oci:
+    repoURL: "oci://oci.hub.confighub.com:443/target/codex-ingress-internal-063211-cluster/oci"
+    path: "./codex-ingress-internal-063211-ingress-nginx-internal"
+    targetRevision: "latest"
+    revision: "sha256:98f22ccc5eae3ee38910c6e65d65c82f894c8a46ec63fab6cca58bcf27d186fc"
+  notes:
+    harnessStatus: "PASS"
+    finding: "Argo CD pulled and reconciled the ConfigHub OCI artifact for the supported internal-clusterip base. The rendered Service is ClusterIP, so the run avoids the LoadBalancer target-fit watch seen on the admission-disabled proof-target row."
+    gitopsPulledConfigHubOCI: true
+    targetFit: "kind-compatible internal ClusterIP exposure"
+  checks:
+    -
+      name: "render"
+      result: "pass"
+      detail: "namespaces in render: ['ingress-nginx']"
+    -
+      name: "confighub-upload"
+      result: "pass"
+      detail: "units uploaded to codex-ingress-internal-063211-ingress-nginx-internal"
+    -
+      name: "argo-sync"
+      result: "pass"
+      detail: "app ingress-nginx-internal: sync=Synced health=Healthy after 50s"
+    -
+      name: "runtime"
+      result: "pass"
+      detail: "deployment.apps/ingress-nginx-controller   1/1   1     1     39s"
+    -
+      name: "teardown"
+      result: "pass"
+      detail: "cub lk down --name codex-ingress-internal-063211 deleted the named kind cluster and recursive ConfigHub cluster space"
+  runtime:
+    namespace: "ingress-nginx"
+    deployment:
+      name: "ingress-nginx-controller"
+      ready: "1/1"
+      updated: 1
+      available: 1
+    service:
+      name: "ingress-nginx-controller"
+      expectedType: "ClusterIP"
+  confighub:
+    workloadSpace: "codex-ingress-internal-063211-ingress-nginx-internal"

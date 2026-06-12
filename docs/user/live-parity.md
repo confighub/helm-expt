@@ -20,8 +20,8 @@ top-20 bases plus a small next80 expansion set.
 | Lane | Current result | What it means |
 | --- | --- | --- |
 | Selected live Helm-vs-ConfigHub comparison | 20 pass, 0 watch, 0 blocked | The selected top-20 rows compare regular Helm against ConfigHub delivery paths. |
-| Two-cluster kind parity for all top-20 bases | 41 command-level pass, 1 lifecycle-routed block, 42 semantic parity pass, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
-| Broader two-cluster kind parity corpus | 49 command-level pass, 1 lifecycle-routed block, 50 semantic parity pass, 0 semantic parity defects | The same two-cluster method has started moving into next80 proof-grade charts. |
+| Two-cluster kind parity for all top-20 bases | 42 pass, 0 watch, 0 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
+| Broader two-cluster kind parity corpus | 70 pass, 0 watch, 0 blocked, 0 semantic parity defects | The same two-cluster method has moved into selected next80 proof-grade charts. |
 
 Use the generated reports for exact rows:
 
@@ -31,12 +31,9 @@ Use the generated reports for exact rows:
 - [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv)
 
 The current rerun queue has no active non-pass rows and no semantic parity
-defects. The remaining strict two-cluster non-pass row is lifecycle-routed:
-cert-manager `default` keeps its Helm post-install hook behavior in a separate
-observation lane rather than treating the hook as rendered desired state.
-In the generated two-cluster summary, that row is explicit:
-`result=blocked`, `semantic_parity=pass`, and
-`related_lifecycle_evidence=pass`.
+defects. Rows with target prerequisites or lifecycle behavior should still cite
+the matching target-fact, lifecycle, or runtime receipt rather than treating
+render parity as a production claim.
 
 ## How To Read Results
 
