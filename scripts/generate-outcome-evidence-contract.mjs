@@ -260,7 +260,8 @@ npm run outcomes:contract:verify
 }
 
 function formatMetric(row) {
-  return `${row.metric} ${row.value}/${row.total} ${row.status}`;
+  const value = row.total ? `${row.value}/${row.total}` : row.value;
+  return `${row.metric} ${value} ${row.status}`;
 }
 
 function parseCsvFile(path) {

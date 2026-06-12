@@ -276,10 +276,10 @@
       "section": "top100",
       "metric": "useful-base proposal rows",
       "value": "46",
-      "total": "35",
+      "total": "",
       "status": "partial",
       "source": "data/useful-base-design-queue/queue.csv",
-      "note": "Proposed base shapes for default-shaped proof-grade charts. These are not supported bases until rendered and proved."
+      "note": "Proposed base shapes for default-shaped proof-grade charts. Multiple proposed bases can exist for one chart; compare with the top100 user-shaped variant queue for chart-level scope. These are not supported bases until rendered and proved."
     },
     {
       "section": "top100",
