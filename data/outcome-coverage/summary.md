@@ -10,9 +10,9 @@ the status per chart, base variant, derived variant, and Helm feature.
 charts with model support:           108/110
 variant-rich charts:                 74/110
 chart/base rows:                     190
-complete core lane rows:             27/190
+complete core lane rows:             28/190
 render parity rows:                  190/190
-in-ConfigHub proof rows:             83/190
+in-ConfigHub proof rows:             84/190
 local live rows:                     134/190
 GitOps/OCI live pass rows:           29/190
 GitOps/OCI non-pass receipts:        12
@@ -63,7 +63,7 @@ related lifecycle observations:      10/10
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 2/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |
-| `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |

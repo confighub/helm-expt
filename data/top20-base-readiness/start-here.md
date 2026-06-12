@@ -11,7 +11,7 @@ target-scoped support decision for the chart/base/target you intend to use.
 ## Summary
 
 ~~~text
-start-here bases: 26
+start-here bases: 27
 top-20 base variants: 42
 target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
@@ -26,6 +26,7 @@ target-scoped draft decisions: 0
 | `argo-cd/argo-cd@9.5.15` | default | `cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd` | check production decision for argo-cd/argo-cd |
 | `bitnami/mongodb@19.0.7` | generated-passwords | `cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb` | check production decision for bitnami/mongodb |
 | `bitnami/mysql@14.0.3` | generated-passwords | `cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql` | check production decision for bitnami/mysql |
+| `bitnami/mysql@14.0.3` | existing-secret | `cub installer setup --pull packages/bitnami/mysql/14.0.3 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql` | check production decision for bitnami/mysql |
 | `bitnami/nginx@24.0.2` | http-clusterip | `cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx` | check production decision for bitnami/nginx |
 | `bitnami/postgresql@18.6.7` | generated-passwords | `cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql` | check production decision for bitnami/postgresql |
 | `bitnami/postgresql@18.6.7` | existing-secret | `cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql` | check production decision for bitnami/postgresql |

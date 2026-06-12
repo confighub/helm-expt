@@ -15,8 +15,8 @@ or runtime review.
 
 ~~~text
 base variants: 42
-start-here: 26
-try-with-proof: 7
+start-here: 27
+try-with-proof: 6
 runtime-watch: 9
 runtime-review-needed: 0
 operating-policy-needed: 0
@@ -63,7 +63,7 @@ rerun-now-after-cleanup: 0
 | `bitnami/mongodb@19.0.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `bitnami/mysql@14.0.3` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/mysql@14.0.3` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops | - |
+| `bitnami/mysql@14.0.3` | existing-secret | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/nginx@24.0.2` | http-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/nginx@24.0.2` | existing-tls-ingress | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `bitnami/postgresql@18.6.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |

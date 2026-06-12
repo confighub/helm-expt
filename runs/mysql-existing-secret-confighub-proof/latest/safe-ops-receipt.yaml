@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "mysql-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-mysql-existing-secret-confighub-proof"
+    selector: "Labels.Proof = 'mysql-existing-secret-confighub-proof'"
+  subject:
+    chart: "bitnami/mysql"
+    chartVersion: "14.0.3"
+    packagePath: "packages/bitnami/mysql/14.0.3"
+    variant: "existing-secret"
+  changeset:
+    slug: "mysql-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "MySQL safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "mysql-existing-secret-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve statefulset-mysql-mysql --space helm-mysql-existing-secret-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "statefulset-mysql-mysql"
+    output: "Unit statefulset-mysql-mysql (09616609-fb6e-46e9-ac21-0a6e2e9147a2) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-mysql-existing-secret-confighub-proof --where \"Labels.Proof = 'mysql-existing-secret-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req OxgRvAkEzQHDhfpQPhjRKeMqyyDcJUTM: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-mysql-existing-secret-confighub-proof --where \"Labels.Proof = 'mysql-existing-secret-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
