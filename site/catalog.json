@@ -13467,7 +13467,7 @@
       "confighub_proof": "pass",
       "two_cluster_kind_parity": "pass",
       "strict_live_configHub_argo": "pass",
-      "runtime_gitops_wave": "not-selected",
+      "runtime_gitops_wave": "pass",
       "production_status": "supported-for-declared-target-scope",
       "next_hard_work": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example.",
       "lesson": "Use this base when this release owns the CRDs as part of the install.",
@@ -13489,7 +13489,7 @@
       "confighub_proof": "pass",
       "two_cluster_kind_parity": "pass",
       "strict_live_configHub_argo": "pass",
-      "runtime_gitops_wave": "blocked",
+      "runtime_gitops_wave": "pass",
       "production_status": "support-evidence-present",
       "next_hard_work": "decide whether the recorded staged-CRD and admission-Secret target scope should become a supported no-crds scope",
       "lesson": "Use this base only when CRDs and separated secrets are supplied by the target environment.",
@@ -13511,10 +13511,10 @@
       "confighub_proof": "n/a",
       "two_cluster_kind_parity": "n/a",
       "strict_live_configHub_argo": "n/a",
-      "runtime_gitops_wave": "blocked",
+      "runtime_gitops_wave": "pass",
       "production_status": "n/a",
       "next_hard_work": "use the delta to decide which base belongs on a target before promotion",
-      "lesson": "The older blocked GitOps receipt remains useful: it proves the no-crds variant needs CRDs installed before the workload syncs.",
+      "lesson": "The current GitOps receipt passes with staged target facts; the preserved older blocker proves the no-crds variant needs CRDs installed before workload sync.",
       "evidence": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml"
     }
   ]

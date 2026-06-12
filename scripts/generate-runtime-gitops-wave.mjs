@@ -29,7 +29,7 @@ const firstWave = [
   { chart: "ingress-nginx/ingress-nginx", base: "internal-clusterip", controller: "Argo CD OCI" },
   { chart: "argo-cd/argo-cd", base: "no-crds", controller: "Argo CD OCI" },
   { chart: "prometheus-community/kube-prometheus-stack", base: "default", controller: "Argo CD OCI" },
-  { chart: "prometheus-community/kube-prometheus-stack", base: "no-crds", controller: "Flux OCI" },
+  { chart: "prometheus-community/kube-prometheus-stack", base: "no-crds", controller: "Argo CD OCI" },
   { chart: "hashicorp/consul", base: "secure-mesh-existing-secrets", controller: "Flux OCI" },
 ];
 

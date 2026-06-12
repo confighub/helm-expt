@@ -11,11 +11,11 @@ observed back with a receipt.
 top-100 runtime rows:             100
 top-100 rows with local evidence: 20
 first-wave chart/base pairs:      11
-Argo CD OCI lanes:                6
-Flux OCI lanes:                   5
+Argo CD OCI lanes:                7
+Flux OCI lanes:                   4
 first-wave receipts present:      11
-first-wave pass receipts:         7
-first-wave non-pass receipts:     4
+first-wave pass receipts:         8
+first-wave non-pass receipts:     3
 ```
 
 Non-pass receipts are still useful evidence. `watch` means the controller

@@ -64,8 +64,11 @@ These are not complete product claims yet:
 
 ## Sceptic-Proofing Status
 
-The sceptic work is useful, but it is not complete. It is there to turn
-reasonable attacks into fixtures, receipts, or explicit refusals:
+The sceptic work is useful, but it is not complete. The claims register,
+blast-radius scoreboard, torture suite, and environment matrix exist today;
+cluster-matrix, external reproduction, time-travel re-verification, and the
+upgrade gauntlet remain open. The purpose is to turn reasonable attacks into
+fixtures, receipts, or explicit refusals:
 
 | Attack question | Current evidence | Limit |
 | --- | --- | --- |

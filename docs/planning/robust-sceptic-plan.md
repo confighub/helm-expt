@@ -1,12 +1,20 @@
 # helm-expt: the robust sceptic plan
 
-Planning doc. Status: draft for discussion. Companion to the serverless design doc and the verify-commercial doc.
+Planning doc. Status: active adversarial test plan. Companion to the
+serverless design doc and the verify-commercial doc.
 
 ## 1. Purpose and posture
 
 Assume helm-expt gets the audience it wants. Then it gets the audience that comes with it: Helm maintainers defending their project, security people probing the trust claims, practitioners with a quirky chart that breaks the model, and the standard internet pattern of finding the one overclaim and using it to dismiss the rest.
 
-The posture that wins: turn every attack into a fixture. A sceptic with a breaking chart is free adversarial QA, and the correct response to "your model breaks on X" is a public receipt that either passes X or refuses X with a named reason. The repo's existing discipline (every claim narrow, every exception visible, every strict BLOCK routed to a watchlist row or a named rule) is the right foundation. This doc is the threat model on top of it: who attacks what, what already defends, what tests are missing, and where we are honestly still weak.
+The posture that wins is to turn every attack into a fixture. A sceptic with a
+breaking chart is useful adversarial QA, and the correct response to "your
+model breaks on X" is a public receipt that either passes X or refuses X with a
+named reason. The repo's existing discipline (every claim narrow, every
+exception visible, every strict BLOCK routed to a watchlist row or a named
+rule) is the right foundation. This doc is the threat model on top of it: who
+attacks what, what already defends, what tests are missing, and where we are
+honestly still weak.
 
 ## 2. What already defends
 
@@ -21,7 +29,24 @@ Inventory of existing defenses, so the plan builds rather than duplicates:
 - Zero-dependency clone-and-verify design and signed receipts: the proofs are re-runnable without trusting us.
 - Per-chart residue lists, support tiers, and the maintenance SLA separating presence, proof, and recommendation.
 
-This is more than most projects have. The gaps are specific, and section 4 names them as tests.
+This is more than most projects have. The gaps are specific, and section 4
+names them as tests. T1 through T4 now have committed machinery; they are still
+coverage-growing work, not finished proof of the full product. T5 through T8
+remain open proof work.
+
+## 2a. Product Frontiers
+
+The sceptic work should keep these product boundaries visible. Passing render
+parity or a live row does not close these frontiers by itself.
+
+| Frontier | Current status |
+| --- | --- |
+| Field-complete provenance | Some value-to-object and blast-radius evidence exists, but not every rendered field in every chart has provenance. |
+| Full change authority | ConfigHub can record and gate operations, but the repo does not yet prove a complete per-field authority model for every agent or user. |
+| Reverse live-to-desired flow | Live observations are recorded. Authorized live fixes flowing back into desired state are future product work. |
+| Universal hook execution | Hooks are inventoried, routed, observed, refused, or marked per-target. This is not a claim that every Helm hook in the top-100 runs automatically. |
+| Fleet-wide bounded propagation | Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built. |
+| Signatures as trust | Digests and signatures help with integrity and transport. They only create trust when the signer, authority, and verification context are known. |
 
 ## 3. The attack taxonomy
 
@@ -33,7 +58,10 @@ Grouped by which claim is attacked. Each entry: the attack, the current defense,
 - **Non-determinism.** Charts using random generation, generated certs, or timestamps render differently every time, "so your parity proof is meaningless." Defense: this is a solved classification, not a hole: the scan flags determinism per chart (redis is recorded `deterministic: false`), and generated-fact binding captures the generated values once. Status: HELD for classified charts, PARTIAL for the long tail not yet scanned on this axis.
 - **`lookup` and live-cluster reads.** Some templates read the cluster at render time, so a factory render cannot match. Defense: classified as a control point; such charts need facts or refusal. Status: PARTIAL. The honest answer is that lookup charts get a narrower claim, and that narrowing must be visible on the chart page.
 - **Capability branching.** Render differs by cluster version and available APIs, "your pre-render is wrong for my cluster." Defense: capability profiles are a named control point with a linked P0 gate. Status: PARTIAL. One profile per package is recorded; the combinatorial envelope (which profiles a package is valid for) is not yet declared per package.
-- **Environment skew.** OS, arch, timezone, locale affecting renders. Status: WEAK. Untested. Cheap to test, embarrassing to be caught by.
+- **Environment skew.** OS, arch, timezone, locale affecting renders. Defense:
+  the environment matrix records timezone, locale, and flag-profile cells for
+  the measured corpus. Status: PARTIAL. Other operating systems,
+  architectures, Helm versions, and CI runners remain open columns.
 
 ### B. Attacks on the values-space claim ("you proved points, not the space")
 
@@ -49,7 +77,13 @@ Grouped by which claim is attacked. Each entry: the attack, the current defense,
 
 ### D. Attacks on the provenance and edges claim (the newest, least-tested layer)
 
-- **Wrong blast radius.** The sharpest technical attack available: change one value, and the predicted set of affected objects misses something or includes phantoms. A single public demonstration of a wrong prediction damages the whole edges story. Defense today: edge recovery and inheritance graphs exist in the tree, but their accuracy is unmeasured. Status: WEAK. This is test T2 and the top priority.
+- **Wrong blast radius.** The sharpest technical attack available: change one
+  value, and the predicted set of affected objects misses something or includes
+  phantoms. A single public demonstration of a wrong prediction damages the
+  whole edges story. Defense today: the blast-radius scoreboard measures a
+  small committed case set and publishes both passes and known misses. Status:
+  PARTIAL. Whole-release identity paths currently expose under-prediction and
+  need better source-map scope before the claim grows.
 - **Incomplete source maps.** Aliases, import-values, library charts, post-render fills: value paths the source map does not cover yield "you cannot explain this field." Defense: scanner axes were extended; coverage per axis is in quirk-coverage. Status: PARTIAL.
 
 ### E. Attacks on freshness and coverage
@@ -104,12 +138,16 @@ Stated plainly so nobody inside the project is surprised by an outsider saying i
 1. Lifecycle proof (hooks, weights, delete policies) is the least mature link; today it is classification and refusal more than proof.
 2. CRD upgrade is a per-chart decision, not a mechanism.
 3. The values space is point-covered by construction; the proof travels (local render-verify) but the catalog claim is and will remain per-variant.
-4. Blast-radius prediction accuracy is unmeasured (T2 fixes the not-knowing, not necessarily the number).
+4. Blast-radius prediction accuracy is measured on a small case set. The
+   current known miss is whole-release identity propagation, where source maps
+   under-predict labels, selectors, checksums, DNS names, and immutable
+   identity paths.
 5. Reach and live-freshness links are partial; the chain of proof must be claimed only as far as it holds.
 6. Authority capture does not exist; nothing should imply it does.
 7. The refresh SLA is unproven at top-100 scale, and the staleness attack is only answered by an SLA actually met.
 8. Signing infrastructure (key ceremony, transparency log) is not in place; commercial security claims wait on it.
-9. All verification to date is single-party.
+9. Most verification to date is still internal to this project. External
+   reproduction remains a separate proof step.
 10. Catalog economics: the abandonment question has a commercial answer or no answer.
 
 ## 6. Response playbook

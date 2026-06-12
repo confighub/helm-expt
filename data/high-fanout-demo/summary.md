@@ -17,12 +17,12 @@ crds.enabled=false
 ~~~
 
 That removes 10 CRD objects from the rendered set. It does not
-remove the Prometheus custom resources that use those CRDs. The existing
-older GitOps/OCI receipt records `blocked`
-because Flux pulled the ConfigHub OCI artifact, then blocked before apply when
-the target cluster did not have the required CRDs. A newer strict
-ConfigHub OCI/Argo receipt passes when the compatible CRDs and admission Secret
-are staged as target facts.
+remove the Prometheus custom resources that use those CRDs. The current
+GitOps/OCI receipt records `pass`
+because Argo pulled the ConfigHub OCI artifact after the compatible CRDs and
+admission Secret were staged as target facts. The preserved older Flux receipt
+records a useful blocker: the same base cannot become live-ready on a target
+where those prerequisites are absent.
 
 ## Chain Of Proof Status
 
@@ -31,7 +31,7 @@ are staged as target facts.
 | Render parity | `pass` | `pass` | Helm-equivalence receipts under `recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/*/r001/receipts/`. |
 | ConfigHub proof | chart-level `pass` | chart-level `pass` | `runs/kube-prometheus-stack-confighub-proof/latest/`. |
 | Two-cluster kind parity | `pass` | `pass` | `runs/live-kind-parity/prometheus-community-kube-prometheus-stack-*/receipt.yaml`. |
-| ConfigHub OCI/GitOps | strict live `pass` | strict live `pass` with staged target facts; older runtime wave `blocked` without them | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml`, `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml`, and `data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml`. |
+| ConfigHub OCI/GitOps | strict live `pass` | current runtime wave `pass` with staged target facts; older Flux blocker preserved separately | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml`, `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml`, `data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml`, and `data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/flux-blocked-2026-06-05.yaml`. |
 | Production support | `supported-for-declared-target-scope` | `support-evidence-present` | `data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml`, `data/production-support-decisions/prometheus-community-kube-prometheus-stack/fresh-target-evidence-no-crds-2026-06-11.yaml`, and `data/production-disposition/top20.csv`. |
 
 This is the chain-of-proof lesson. The `no-crds` base is not semantically
@@ -135,7 +135,8 @@ the same operational contract.
 | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml` | Strict live proof for regular Helm, ConfigHub apply, and ConfigHub OCI/Argo on the default base. |
 | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml` | Strict live proof for regular Helm, ConfigHub apply, and ConfigHub OCI/Argo on the no-crds base with target facts staged. |
 | `runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml` | Two-cluster kind parity proof for the no-crds base with target facts staged. |
-| `data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml` | GitOps/OCI receipt for the no-crds prerequisite failure. |
+| `data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml` | Current GitOps/OCI receipt for the no-crds base with CRDs and admission Secret staged. |
+| `data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/flux-blocked-2026-06-05.yaml` | Historical GitOps/OCI receipt for the no-crds prerequisite failure when CRDs and admission Secret were absent. |
 | `docs/user/chain-of-proof.md` | User-facing guide to which proof boundary each receipt supports. |
 
 Regenerate:

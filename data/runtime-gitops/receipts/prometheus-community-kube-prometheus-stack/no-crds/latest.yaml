@@ -1,82 +1,75 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: RuntimeGitOpsReceipt
 metadata:
-  name: kube-prometheus-stack-no-crds-flux-oci-helm-expt-oci-0605
+  name: prometheus-community-kube-prometheus-stack-no-crds-argo-oci-helm-expt-parity-kpsnocrds-codex-0611
 spec:
   chart: prometheus-community/kube-prometheus-stack
   version: 85.3.3
   base: no-crds
   packagePath: packages/prometheus-community/kube-prometheus-stack/85.3.3
   recipePath: recipes/prometheus-community/kube-prometheus-stack/85.3.3
-  controller: Flux OCI
-  observedAt: "2026-06-05T10:49:25Z"
-  result: blocked
+  controller: Argo CD OCI
+  observedAt: "2026-06-11T19:39:09Z"
+  result: pass
   run:
-    rig: helm-expt-oci-0605
-    clusterSpace: helm-expt-oci-0605-cluster
-    workloadSpace: helm-expt-oci-0605-kube-prometheus-stack-flux
-    target: helm-expt-oci-0605-cluster/oci
+    rig: helm-expt-parity-kpsnocrds-codex-0611
+    clusterSpace: helm-expt-parity-kpsnocrds-codex-0611-cluster
+    workloadSpace: helm-expt-parity-kpsnocrds-codex-0611-kube-prometheus-stack
+    target: helm-expt-parity-kpsnocrds-codex-0611-cluster/oci
     namespace: monitoring
-    kubeContext: kind-helm-expt-oci-0605
-    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
-    keptForInspection: true
+    kubeContext: kind-helm-expt-parity-kpsnocrds-codex-0611
+    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kpsnocrds-codex-0611.kubeconfig
+    keptForInspection: false
+    cleanupPolicy: cub-lk rig and ConfigHub cluster space removed after evidence capture
   oci:
-    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
-    path: ./helm-expt-oci-0605-kube-prometheus-stack-flux
-    revision: sha256:ca3114731bde626fc078765e4b1f8cb12858b6f31e9af8c083175662bbe2eecd
-    fluxArtifactDigest: sha256:305fe44cf9210e9abba9be9d9e237a47f742bc4cea1c6e00144cfa233f3ec72c
-  notes:
-    finding: "Flux pulled the ConfigHub OCI artifact, but reconciliation failed because the no-crds base rendered Prometheus Operator custom resources without installing their CRDs."
-    separatedSecrets: "cub installer rendered 2 Secret files under out/secrets and did not upload them to ConfigHub."
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kpsnocrds-codex-0611-cluster/oci
+    path: ./helm-expt-parity-kpsnocrds-codex-0611-kube-prometheus-stack
+    revision: sha256:b7eba3d6962655de9899515219fd882c9a366722a4fb5b477ea4f381f9a5eaf2
+  targetFacts:
+    stagedSecrets:
+      - namespace: monitoring
+        name: kube-prometheus-stack-admission
+        keys:
+          - cert
+          - key
+    stagedCRDs:
+      - alertmanagerconfigs.monitoring.coreos.com
+      - alertmanagers.monitoring.coreos.com
+      - podmonitors.monitoring.coreos.com
+      - probes.monitoring.coreos.com
+      - prometheusagents.monitoring.coreos.com
+      - prometheuses.monitoring.coreos.com
+      - prometheusrules.monitoring.coreos.com
+      - scrapeconfigs.monitoring.coreos.com
+      - servicemonitors.monitoring.coreos.com
+      - thanosrulers.monitoring.coreos.com
   checks:
     - name: render
       result: pass
-      detail: "rendered 113 manifests and 2 separated Secrets for namespace monitoring"
+      detail: Rendered no-crds base produced 115 ConfigHub OCI objects including the Namespace support object.
+    - name: target-facts
+      result: pass
+      detail: Staged 10 Prometheus Operator CRDs and monitoring/kube-prometheus-stack-admission cert/key before Argo reconciliation.
     - name: confighub-upload
       result: pass
-      detail: units uploaded to helm-expt-oci-0605-kube-prometheus-stack-flux
-    - name: flux-source
+      detail: Units uploaded to helm-expt-parity-kpsnocrds-codex-0611-kube-prometheus-stack.
+    - name: argo-sync
       result: pass
-      detail: "OCIRepository helm-expt-oci-0605-kube-prometheus-stack-flux ready at latest@sha256:ca3114731bde626fc078765e4b1f8cb12858b6f31e9af8c083175662bbe2eecd"
-    - name: flux-kustomization
-      result: blocked
-      detail: "Alertmanager/monitoring/kube-prometheus-stack-alertmanager dry-run failed: no matches for kind Alertmanager in version monitoring.coreos.com/v1"
-    - name: crd-prerequisite
-      result: blocked
-      detail: "no monitoring.coreos.com CRDs were present in the target cluster"
-    - name: separated-secret-prerequisite
-      result: blocked
-      detail: "out/secrets contains alertmanager-kube-prometheus-stack-alertmanager and kube-prometheus-stack-grafana Secrets that were not delivered through the workload OCI path"
-  gitops:
-    flux:
-      namespace: flux-system
-      source:
-        kind: OCIRepository
-        name: helm-expt-oci-0605-kube-prometheus-stack-flux
-        ready: true
-        revision: latest@sha256:ca3114731bde626fc078765e4b1f8cb12858b6f31e9af8c083175662bbe2eecd
-      kustomization:
-        name: kube-prometheus-stack-flux
-        ready: false
-        reason: ReconciliationFailed
-        message: "Alertmanager/monitoring/kube-prometheus-stack-alertmanager dry-run failed: no matches for kind Alertmanager in version monitoring.coreos.com/v1"
-  runtime:
-    namespace: monitoring
-    applied: false
-    blockedBeforeApply: true
-    missing:
-      crds:
-        - monitoring.coreos.com/v1 Alertmanager
-        - monitoring.coreos.com/v1 Prometheus
-        - monitoring.coreos.com/v1 PrometheusRule
-        - monitoring.coreos.com/v1 ServiceMonitor
-      secrets:
-        - monitoring/alertmanager-kube-prometheus-stack-alertmanager
-        - monitoring/kube-prometheus-stack-grafana
-  confighub:
-    workloadSpace: helm-expt-oci-0605-kube-prometheus-stack-flux
-    unitCount: 114
-    unitStatusCounts:
-      Ready: 113
-      NotLive: 1
-    installerRecordStatus: NotLive
+      detail: Argo application kube-prometheus-stack-parity reached Synced and Healthy at revision sha256:b7eba3d6962655de9899515219fd882c9a366722a4fb5b477ea4f381f9a5eaf2.
+    - name: runtime-workloads
+      result: pass
+      detail: Grafana, kube-state-metrics, operator, node-exporter, alertmanager, and prometheus workloads were Ready in monitoring.
+    - name: semantic-object-parity
+      result: pass
+      detail: Regular Helm and ConfigHub OCI/Argo object sets matched semantically, with only the recorded Namespace support object extra in ConfigHub.
+  previousReceipt:
+    path: data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/flux-blocked-2026-06-05.yaml
+    result: blocked
+    note: Earlier Flux run blocked because the no-crds target prerequisites were not staged.
+  source:
+    liveReceiptPath: runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml
+    productionSupportEvidence: data/production-support-decisions/prometheus-community-kube-prometheus-stack/fresh-target-evidence-no-crds-2026-06-11.yaml
+  notClaimed:
+    - universal production support outside the declared cub-lk vanilla kind target
+    - no-crds success without compatible Prometheus Operator CRDs already present or staged
+    - no-crds success without the monitoring/kube-prometheus-stack-admission Secret cert/key already present or staged
