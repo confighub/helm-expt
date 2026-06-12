@@ -52,6 +52,7 @@ function buildReport() {
 function readme(rows) {
   const quickRoutes = [
     ["I want the compact catalog data routing index.", "data/catalog-index/summary.md"],
+    ["I want the broad chart/version/base status in one browser sheet.", "data/master-catalog-matrix/matrix.html; data/master-catalog-matrix/summary.md; data/master-catalog-matrix/matrix.csv"],
     ["I want the current headline status.", "data/status-dashboard/summary.md"],
     ["I want to know if I can use a specific chart.", "data/chart-use-guide/summary.md; data/chart-use-guide/chart-use-guide.csv"],
     ["I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions.", "data/chart-evidence-router/summary.md; data/chart-evidence-router/router.csv"],
@@ -82,6 +83,9 @@ function readme(rows) {
   ];
   const primary = [
     ["data/catalog-index/summary.md", "Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence."],
+    ["data/master-catalog-matrix/matrix.html", "Human/product browser view: one row per chart/version/base with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action."],
+    ["data/master-catalog-matrix/matrix.csv", "Machine/spreadsheet form of the master catalog matrix. Same row set as matrix.html, without relying on color."],
+    ["data/master-catalog-matrix/summary.md", "Compact GitHub orientation for the master catalog matrix."],
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity."],
     ["data/chart-use-guide/summary.md", "Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first."],
     ["data/chart-evidence-router/summary.md", "Per-chart evidence router: chart-use answer, first base, catalog path, proof lanes, variant revisions, receipts, hooks, quirks, production decisions, and next action."],
@@ -337,6 +341,9 @@ function audienceFor(path) {
 
 function roleFor(path) {
   if (path === "data/csv-index.csv") return "machine-readable index of every CSV under data";
+  if (path === "data/master-catalog-matrix/matrix.html") return "human/product browser view: one row per chart/version/base with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action";
+  if (path === "data/master-catalog-matrix/matrix.csv") return "machine/spreadsheet form of the master catalog matrix; same row set as matrix.html without color";
+  if (path === "data/master-catalog-matrix/summary.md") return "compact GitHub orientation for the master catalog matrix";
   if (path.startsWith("data/master-catalog-matrix/")) return "front-door master view: one row per catalog variant with lanes, hooks, quirks, decisions";
   if (path.startsWith("data/environment-matrix/")) return "recorded environment-determinism cells (TZ/locale/flag profiles)";
   if (path.startsWith("data/torture-suite/")) return "synthetic breaker fixtures: every chart lands in a named pass/refusal/route, never silence";

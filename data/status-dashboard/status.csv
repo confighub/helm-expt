@@ -51,7 +51,7 @@ graph bridge,recovered graph edge rows,102,102,good,data/edge-recovery/edges.csv
 graph bridge,target-fact graph edges,59,102,partial,data/edge-recovery/edges.csv,"Edges from a variant to required target facts such as pre-existing Secrets, CRDs, or hook-produced material."
 graph bridge,generated-fact graph edges,1,102,partial,data/edge-recovery/edges.csv,Edges from generated facts to the rendered fields they affect where field reachability is available.
 graph bridge,rows with field reachability,4,102,partial,data/edge-recovery/edges.csv,"Rows that connect an input, generated fact, or variant change to rendered output fields."
-live evidence,runtime/GitOps wave rows,10,10,partial,data/runtime-gitops/wave1.csv,Selected Argo/Flux OCI wave rows; this is not the whole corpus.
+live evidence,runtime/GitOps wave rows,11,11,partial,data/runtime-gitops/wave1.csv,Selected Argo/Flux OCI wave rows; this is not the whole corpus.
 live evidence,selected live Helm-vs-ConfigHub parity receipts,20,20,good,data/live-helm-confighub-compare/summary.csv,Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row.
 live evidence,two-cluster kind parity receipts,70,70,partial,data/live-kind-parity/summary.csv,"Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
 live evidence,live parity rerun rows needing decisions,0,0,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."

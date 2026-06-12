@@ -17,7 +17,7 @@
 //   watch                 -> amber: passing with a recorded caution
 //   no (blocked/failed)   -> red
 //   todo (not yet run)    -> grey box: absence of evidence, not a failure
-//   n/a                   -> dash: the attribute does not apply
+//   n/a                   -> neutral blue-grey: the attribute does not apply
 //
 //   node scripts/generate-master-catalog-matrix.mjs --generate
 //   node scripts/generate-master-catalog-matrix.mjs --verify
@@ -25,10 +25,12 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "master-catalog-matrix");
+const GITHUB_TREE_ROOT = "https://github.com/confighub/helm-expt/tree/main";
+const GITHUB_BLOB_ROOT = "https://github.com/confighub/helm-expt/blob/main";
 const outputs = {
   summary: join(outputRoot, "summary.md"),
   matrix: join(outputRoot, "matrix.csv"),
@@ -130,6 +132,17 @@ function buildReport() {
       const chartName = chartAtVersion.slice(0, at);
       const version = chartAtVersion.slice(at + 1);
       const variant = outcome.base;
+      const recipePath = outcome.recipe_path;
+      const recipeCatalogPath = `${recipePath}/CATALOG.md`;
+      const variantPath = `${recipePath}/variants/${variant}/variant.yaml`;
+      const packageBasePath = `packages/${chartName}/${version}/bases/${variant}`;
+      const variantRevisionPath = `${recipePath}/revisions/${variant}/r001/variant-revision.yaml`;
+      const sourceLockPath = `${recipePath}/source-lock.yaml`;
+      check(existsSync(join(repoRoot, sourceLockPath)), `missing source lock for ${chartAtVersion}`);
+      const sourceLock = readYaml(join(repoRoot, sourceLockPath));
+      const sourceSpec = sourceLock.spec ?? {};
+      const sourceRepositoryURL = sourceSpec.repositoryURL ?? "";
+      const sourceContentURL = sourceSpec.contentURL ?? "";
       const ready = readiness.get(chartAtVersion);
       // Hook evidence joins by exact chart@version when available; otherwise
       // it falls back to the chart family's disposition row and SAYS SO via
@@ -168,7 +181,17 @@ function buildReport() {
         outcome_level: outcome.outcome_level ?? "",
         production_decision: decision ? (decision.decision === "supported" ? "yes" : decision.decision === "rejected" ? "no" : decision.decision) : "todo",
         production_target_scope: decision?.target_scope ?? "",
-        recipe_path: outcome.recipe_path,
+        recipe_path: recipePath,
+        recipe_catalog_path: recipeCatalogPath,
+        variant_path: variantPath,
+        package_base_path: packageBasePath,
+        variant_revision_path: variantRevisionPath,
+        source_lock_path: sourceLockPath,
+        source_repository_url: sourceRepositoryURL,
+        source_content_url: sourceContentURL,
+        github_recipe_url: `${GITHUB_TREE_ROOT}/${recipePath}`,
+        github_catalog_url: `${GITHUB_BLOB_ROOT}/${recipeCatalogPath}`,
+        github_package_base_url: `${GITHUB_TREE_ROOT}/${packageBasePath}`,
       };
       return row;
     })
@@ -198,8 +221,9 @@ function buildReport() {
 function normalizeLane(value) {
   if (value === "pass") return "yes";
   if (value === "watch") return "watch";
-  if (value === "blocked") return "no";
+  if (value === "blocked" || value === "fail") return "no";
   if (value === "missing") return "todo";
+  if (value === "not-applicable" || value === "n/a") return "n/a";
   return value ?? "";
 }
 
@@ -219,6 +243,7 @@ function summary(rows, charts, unmatchedReadiness) {
     watch: laneCells.filter((value) => value === "watch").length,
     no: laneCells.filter((value) => value === "no").length,
     todo: laneCells.filter((value) => value === "todo").length,
+    na: laneCells.filter((value) => value === "n/a").length,
   };
   const complete = rows.filter((row) => row.core_lanes_complete === "yes").length;
   const supported = rows.filter((row) => row.production_decision === "yes").length;
@@ -267,7 +292,7 @@ literal red/green/grey colored cells.
 | ⚠️ | watch — passing with a recorded caution |
 | ❌ | no / blocked |
 | ⬜ | not yet run — absence of evidence, not a failure |
-| — | not applicable |
+| — | not applicable — this lane does not apply to this base |
 
 Lane columns: **R** render parity (helm template vs installer setup) ·
 **C** ConfigHub upload + scan + safe ops · **L** local kind apply ·
@@ -284,7 +309,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | ${charts} |
 | Variant rows | ${rows.length} |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ | ${counts.yes} / ${counts.watch} / ${counts.no} / ${counts.todo} |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | ${counts.yes} / ${counts.watch} / ${counts.no} / ${counts.todo} / ${counts.na} |
 | Variants with the complete core lane set | ${complete} |
 | Variants with a SUPPORTED production decision | ${supported} |
 | Recorded production decisions (supported / superseded / rejected) | ${supported} / ${superseded} / ${rejected} |
@@ -304,9 +329,10 @@ duplicates of this one.
 | --- | --- | --- |
 ${provenance}
 
-The CSV additionally carries adoption bucket, hard gap, strongest evidence,
-next action, and production target scope as columns; the table below omits
-them for width.
+The CSV and HTML carry adoption bucket, hard gap, strongest evidence, next
+action, and production target scope. The Markdown table below stays compact
+for GitHub readability; open [matrix.html](matrix.html) when you want the
+user/product view with those columns visible.
 
 ## Matrix
 
@@ -330,6 +356,7 @@ function htmlReport(rows, charts, unmatchedReadiness) {
     watch: laneCells.filter((value) => value === "watch").length,
     no: laneCells.filter((value) => value === "no").length,
     todo: laneCells.filter((value) => value === "todo").length,
+    na: laneCells.filter((value) => value === "n/a").length,
   };
   const supported = rows.filter((row) => row.production_decision === "yes").length;
   const superseded = rows.filter((row) => row.production_decision === "superseded").length;
@@ -357,7 +384,16 @@ function htmlReport(rows, charts, unmatchedReadiness) {
               ? `<td class="s na" title="no source hooks">0</td>`
               : statusCell(row.hook_live_status, `${row.hook_count} hook(s), disposition: ${row.hook_disposition}${row.hook_evidence_version ? ` — evidence from @${row.hook_evidence_version} (chart-family, not this version)` : ""}`, row.hook_count);
       const nextAction = row.next_action ? `<td class="note" title="${escapeHtml(row.next_action)}">${escapeHtml(row.next_action.length > 70 ? `${row.next_action.slice(0, 67)}...` : row.next_action)}</td>` : `<td class="note"></td>`;
-      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note" title="${escapeHtml(row.quirk_features)}${row.hard_gap ? ` | hard gap: ${escapeHtml(row.hard_gap)}` : ""}">${escapeHtml(row.quirk_features)}</td>${hooks}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}<td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}${nextAction}</tr>`;
+      const hardGap = row.hard_gap || "not applicable";
+      const scope = row.production_target_scope || "not applicable";
+      const links = [
+        ["source", row.source_repository_url || row.source_content_url],
+        ["catalog", row.recipe_catalog_path],
+        ["variant", row.variant_path],
+        ["package", row.package_base_path],
+        ["revision", row.variant_revision_path],
+      ].map(([label, path]) => linkFor(label, path, row)).join(" · ");
+      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td class="links">${links}<br><a href="${escapeHtml(row.github_recipe_url)}">GitHub folder</a></td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note route" title="${escapeHtml(row.adoption_bucket)}">${escapeHtml(useShort(row.adoption_bucket))}</td><td class="note evidence" title="${escapeHtml(row.strongest_evidence)}">${escapeHtml(evidenceShort(row.strongest_evidence))}</td>${statusCell(row.core_lanes_complete, row.core_lanes_complete === "yes" ? "complete core lane set" : "one or more core lanes still missing")}<td class="note" title="${escapeHtml(row.quirk_features)}">${escapeHtml(row.quirk_features || "–")}</td>${hooks}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}<td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}<td class="note scope" title="${escapeHtml(scope)}">${escapeHtml(row.production_target_scope ? compactText(row.production_target_scope, 54) : "–")}</td><td class="note gap" title="${escapeHtml(hardGap)}">${escapeHtml(row.hard_gap ? compactText(row.hard_gap, 58) : "–")}</td>${nextAction}</tr>`;
     })
     .join("\n");
 
@@ -378,20 +414,27 @@ tr.grp td{border-top:2px solid #80868b}
 td.chart{font-weight:600;white-space:nowrap}
 td.s{text-align:center;font-weight:700;width:28px}
 td.note{max-width:330px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5f6368}
+td.links{font-size:12px;white-space:nowrap;line-height:1.35}
+a{color:#1558d6;text-decoration:none}
+a:hover{text-decoration:underline}
+td.route{max-width:120px;color:#202124}
+td.evidence{max-width:130px;color:#202124}
+td.scope{max-width:190px}
+td.gap{max-width:220px;color:#7a4f00}
 .y{background:#1e8e3e;color:#fff}
 .w{background:#f9ab00;color:#202124}
 .n{background:#d93025;color:#fff}
 .t{background:#e8eaed;color:#5f6368}
-.na{background:#fff;color:#9aa0a6}
+.na{background:#edf4ff;color:#476282}
 </style>
 </head>
 <body>
 <h1>Master Catalog Matrix</h1>
-<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
+<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
 <p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– n/a</span></p>
-<p class="sub">Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · G OCI+Argo live · P live dual parity · K two-cluster kind parity. Hover cells for detail (hooks, quirks, production target scope, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
+<p class="sub">This is the user/product front door: Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where production support is bounded, and Gap names the main product or chart gap. The Links column jumps to the chart catalog, variant definition, package base, variant revision, and GitHub folder. Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · G OCI+Argo live · P live dual parity · K two-cluster kind parity. Hover cells for detail (hooks, quirks, production target scope, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
 <table>
-<thead><tr><th>Chart</th><th>Variant</th><th>Tier</th><th>Quirks</th><th>Hooks</th><th>R</th><th>C</th><th>L</th><th>G</th><th>P</th><th>K</th><th>Outcome</th><th>Prod</th><th>Next action</th></tr></thead>
+<thead><tr><th>Chart</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>R</th><th>C</th><th>L</th><th>G</th><th>P</th><th>K</th><th>Outcome</th><th>Prod</th><th>Scope</th><th>Gap</th><th>Next action</th></tr></thead>
 <tbody>
 ${bodyRows}
 </tbody>
@@ -409,6 +452,40 @@ function tierShort(tier) {
   if (tier === "top20-catalog-supported") return "top20";
   if (tier === "next80-proof-grade") return "next80";
   return tier || "—";
+}
+
+function useShort(bucket) {
+  if (bucket === "try-from-public-catalog") return "try";
+  if (bucket === "promote-after-review") return "review";
+  if (bucket === "needs-useful-variant") return "needs variant";
+  if (bucket === "limitation-decision-first") return "limit first";
+  return "—";
+}
+
+function evidenceShort(evidence) {
+  if (evidence === "live-helm-vs-confighub-parity") return "live parity";
+  if (evidence === "two-cluster-kind-parity") return "kind parity";
+  if (evidence === "local-kubernetes-live") return "local live";
+  if (evidence === "in-confighub-proof") return "ConfigHub";
+  if (evidence === "render-parity") return "render";
+  return evidence || "—";
+}
+
+function compactText(text, limit) {
+  const value = String(text);
+  return value.length > limit ? `${value.slice(0, limit - 3)}...` : value;
+}
+
+function linkFor(label, path, row) {
+  if (!path) return escapeHtml(label);
+  if (/^https?:\/\//.test(path)) {
+    const title = row.source_content_url && row.source_content_url !== path ? ` title="${escapeHtml(row.source_content_url)}"` : "";
+    return `<a href="${escapeHtml(path)}"${title}>${escapeHtml(label)}</a>`;
+  }
+  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(path)) {
+    return `<span title="${escapeHtml(path)}">${escapeHtml(label)}</span>`;
+  }
+  return `<a href="../../${escapeHtml(path)}">${escapeHtml(label)}</a>`;
 }
 
 function readCsv(rel) {

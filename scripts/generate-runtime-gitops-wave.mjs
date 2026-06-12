@@ -28,6 +28,7 @@ const firstWave = [
   { chart: "external-secrets/external-secrets", base: "no-crds", controller: "Argo CD OCI" },
   { chart: "ingress-nginx/ingress-nginx", base: "internal-clusterip", controller: "Argo CD OCI" },
   { chart: "argo-cd/argo-cd", base: "no-crds", controller: "Argo CD OCI" },
+  { chart: "prometheus-community/kube-prometheus-stack", base: "default", controller: "Argo CD OCI" },
   { chart: "prometheus-community/kube-prometheus-stack", base: "no-crds", controller: "Flux OCI" },
   { chart: "hashicorp/consul", base: "secure-mesh-existing-secrets", controller: "Flux OCI" },
 ];
@@ -108,7 +109,7 @@ function buildReport() {
     };
   });
 
-  check(waveRows.length === 10, `expected 10 runtime/GitOps first-wave rows; found ${waveRows.length}`);
+  check(waveRows.length === 11, `expected 11 runtime/GitOps first-wave rows; found ${waveRows.length}`);
 
   const outputs = {
     wave1: csv(waveRows),

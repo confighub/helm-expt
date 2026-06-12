@@ -15,6 +15,8 @@ from __future__ import annotations
 import argparse, json, re, subprocess, sys, time
 from pathlib import Path
 
+import yaml
+
 
 def sh(cmd: list[str] | str, timeout: int = 120) -> tuple[int, str, str]:
     shell = isinstance(cmd, str)
@@ -46,6 +48,147 @@ def default_base(pkg: Path) -> str | None:
         return None
     m = re.search(r"^\s*-\s*([\w.-]+)\s*\(default\)", o, re.M)
     return m.group(1) if m else None
+
+
+def read_yaml(path: Path) -> dict:
+    with path.open() as fh:
+        return yaml.safe_load(fh) or {}
+
+
+def write_yaml(path: Path, doc: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(yaml.safe_dump(doc, sort_keys=False))
+
+
+def kubectl(args: list[str], kubeconfig: str, context: str, timeout: int = 120) -> tuple[int, str, str]:
+    return sh(["kubectl", "--kubeconfig", kubeconfig, "--context", context, *args], timeout=timeout)
+
+
+def cert_needs_refresh(cert: Path, key: Path) -> bool:
+    if not cert.exists() or not key.exists():
+        return True
+    rc, _out, _err = sh(["openssl", "x509", "-checkend", "3600", "-noout", "-in", str(cert)], timeout=30)
+    return rc != 0
+
+
+def ensure_tls_material(run_root: Path) -> tuple[str, str]:
+    run_root.mkdir(parents=True, exist_ok=True)
+    cert = run_root / "target-facts-tls.crt"
+    key = run_root / "target-facts-tls.key"
+    if cert_needs_refresh(cert, key):
+        cert.unlink(missing_ok=True)
+        key.unlink(missing_ok=True)
+        rc, out, err = sh([
+            "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
+            "-keyout", str(key), "-out", str(cert), "-subj", "/CN=helm-expt.local",
+            "-days", "1",
+        ], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"target fact TLS material generation failed: {(err or out)[:1000]}")
+    return cert.read_text(), key.read_text()
+
+
+def target_fact_applies(item: dict, lane: str) -> bool:
+    lanes = item.get("deliveryLanes") or item.get("stageFor") or []
+    return not lanes or lane in lanes
+
+
+def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+    if key in ("cert", "tls.crt", "ca.crt", "ca") and ("admission" in secret_name or "webhook" in secret_name):
+        return ensure_tls_material(run_root)[0]
+    if key in ("key", "tls.key") and ("admission" in secret_name or "webhook" in secret_name):
+        return ensure_tls_material(run_root)[1]
+    if key in ("tls.crt", "ca.crt"):
+        return ensure_tls_material(run_root)[0]
+    if key == "tls.key":
+        return ensure_tls_material(run_root)[1]
+    if key == "admin-user":
+        return "admin"
+    if key == "token":
+        return "helm-expt-token"
+    if "cookie" in key:
+        return "helm-expt-cookie"
+    return "helm-expt-password"
+
+
+def variant_doc_for(helm_expt: Path, pkg: Path, base: str) -> dict:
+    try:
+        rel = pkg.relative_to(helm_expt / "packages")
+    except ValueError:
+        return {}
+    path = helm_expt / "recipes" / rel / "variants" / base / "variant.yaml"
+    return read_yaml(path) if path.exists() else {}
+
+
+def ensure_namespace(namespace: str, kubeconfig: str, context: str) -> tuple[int, str, str]:
+    rc, _out, _err = kubectl(["get", "namespace", namespace], kubeconfig, context, timeout=30)
+    if rc == 0:
+        return 0, "", ""
+    return kubectl(["create", "namespace", namespace], kubeconfig, context, timeout=60)
+
+
+def stage_prerequisites(helm_expt: Path, pkg: Path, base: str, workdir: str, kubeconfig: str, context: str, namespace: str) -> dict:
+    variant = variant_doc_for(helm_expt, pkg, base)
+    target_facts = (variant.get("spec") or {}).get("targetFacts") or {}
+    required_secrets = [
+        secret for secret in target_facts.get("requiredSecrets") or []
+        if target_fact_applies(secret, "configHubOciArgo")
+    ]
+    secrets_dir = Path(workdir) / "out" / "secrets"
+    separated_secret_files = sorted(secrets_dir.glob("*.yaml")) if secrets_dir.exists() else []
+    namespaces = {namespace}
+    for secret in required_secrets:
+        namespaces.add(secret.get("namespace") or namespace)
+    for path in separated_secret_files:
+        doc = read_yaml(path)
+        metadata = doc.get("metadata") or {}
+        namespaces.add(metadata.get("namespace") or namespace)
+
+    for ns_name in sorted(namespaces):
+        rc, out, err = ensure_namespace(ns_name, kubeconfig, context)
+        if rc != 0:
+            return {"result": "block", "detail": f"namespace {ns_name} could not be created: {(err or out)[:200]}"}
+
+    if separated_secret_files:
+        rc, out, err = kubectl(["apply", "-f", str(secrets_dir)], kubeconfig, context, timeout=120)
+        if rc != 0:
+            return {"result": "block", "detail": f"separated Secrets could not be staged: {(err or out)[:300]}"}
+
+    secret_docs = []
+    run_root = Path(workdir) / ".target-facts"
+    for secret in required_secrets:
+        name = secret.get("name")
+        keys = secret.get("keys") or []
+        ns_name = secret.get("namespace") or namespace
+        if not name or not keys:
+            return {"result": "block", "detail": f"invalid required Secret target fact: {secret}"}
+        string_data = {key: target_fact_value(name, key, run_root) for key in keys}
+        secret_docs.append({
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {"name": name, "namespace": ns_name},
+            "type": "Opaque",
+            "stringData": string_data,
+        })
+    if secret_docs:
+        path = run_root / "configHubOciArgo-target-facts.yaml"
+        write_yaml(path, {"apiVersion": "v1", "kind": "List", "items": secret_docs})
+        rc, out, err = kubectl(["apply", "-f", str(path)], kubeconfig, context, timeout=120)
+        if rc != 0:
+            return {"result": "block", "detail": f"target fact Secrets could not be staged: {(err or out)[:300]}"}
+
+    return {
+        "result": "pass",
+        "separatedSecrets": [path.name for path in separated_secret_files],
+        "targetSecrets": [
+            {
+                "namespace": secret.get("namespace") or namespace,
+                "name": secret.get("name"),
+                "keys": sorted(secret.get("keys") or []),
+            }
+            for secret in required_secrets
+        ],
+    }
 
 
 def main() -> int:
@@ -119,14 +262,30 @@ def main() -> int:
             m = re.match(r"\s*namespace:\s*\"?([\w.-]+)\"?", line)
             if m:
                 nslist.add(m.group(1))
-    receipt["proof_rows"].append({"layer": "render", "result": "PASS" if len(nslist) <= 1 else "BLOCK",
+    unexpected_namespaces = sorted(n for n in nslist if n != ns and n not in ("kube-system", "kube-public", "kube-node-lease"))
+    receipt["proof_rows"].append({"layer": "render", "result": "PASS" if not unexpected_namespaces else "BLOCK",
                                   "detail": f"namespaces in render: {sorted(nslist) or ['(none)']}"})
-    if len(nslist) > 1:
-        return fail(f"F1 incoherent render: multiple namespaces {sorted(nslist)} (expected just {ns})")
+    if unexpected_namespaces:
+        return fail(f"F1 incoherent render: unexpected namespaces {unexpected_namespaces} (expected {ns}; protected cluster namespaces are allowed)")
+
+    try:
+        prerequisites = stage_prerequisites(he, pkg, base, workdir, kubeconfig, kctx, ns)
+    except Exception as exc:
+        prerequisites = {"result": "block", "detail": str(exc)}
+    receipt["targetFacts"] = prerequisites
+    if prerequisites.get("result") != "pass":
+        receipt["proof_rows"].append({"layer": "target-facts", "result": "BLOCK", "detail": prerequisites.get("detail", "target fact staging failed")})
+        return fail(prerequisites.get("detail", "target fact staging failed"))
+    receipt["proof_rows"].append({
+        "layer": "target-facts",
+        "result": "PASS",
+        "detail": f"staged {len(prerequisites.get('separatedSecrets', []))} separated Secret(s) and {len(prerequisites.get('targetSecrets', []))} target Secret(s)",
+    })
 
     # 2. upload
+    upload_timeout = max(420, args.wait)
     rc, o, e = sh(["cub", "installer", "upload", "--work-dir", workdir,
-                   "--space", wspace, "--target", target], timeout=420)
+                   "--space", wspace, "--target", target], timeout=upload_timeout)
     if not step("upload", rc, o + e):
         return fail(f"installer upload failed: {(e or o)[:160]}")
     receipt["proof_rows"].append({"layer": "confighub", "result": "PASS", "detail": f"units uploaded to {wspace}"})

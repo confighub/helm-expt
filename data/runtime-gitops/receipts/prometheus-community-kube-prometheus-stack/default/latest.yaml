@@ -1,0 +1,73 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-default-argo-oci-codex-kps-default-071834
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: 85.3.3
+  base: default
+  packagePath: packages/prometheus-community/kube-prometheus-stack/85.3.3
+  recipePath: recipes/prometheus-community/kube-prometheus-stack/85.3.3
+  controller: Argo CD OCI
+  observedAt: "2026-06-12T06:35:38Z"
+  result: pass
+  run:
+    rig: codex-kps-default-071834
+    clusterSpace: codex-kps-default-071834-cluster
+    workloadSpace: codex-kps-default-071834-kube-prometheus-stack-default
+    target: codex-kps-default-071834-cluster/oci
+    namespace: monitoring
+    kubeContext: kind-codex-kps-default-071834
+    kubeconfig: /Users/alexis/.confighub/lk/codex-kps-default-071834.kubeconfig
+    keptForInspection: false
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/codex-kps-default-071834-cluster/oci
+    path: ./codex-kps-default-071834-kube-prometheus-stack-default
+    revision: sha256:eba87609bacf5e5b18f62ae77f3c55014020296a871de4a1885c7d51e40129dd
+  targetFacts:
+    separatedSecrets:
+      - secret-monitoring-alertmanager-kube-prometheus-stack-alertmanager.yaml
+      - secret-monitoring-kube-prometheus-stack-grafana.yaml
+    targetSecrets:
+      - namespace: monitoring
+        name: kube-prometheus-stack-admission
+        keys:
+          - cert
+          - key
+  checks:
+    - name: render
+      result: pass
+      detail: "Rendered namespace set was monitoring plus protected kube-system objects."
+    - name: target-facts
+      result: pass
+      detail: "Staged 2 separated Secret(s) and 1 target Secret before Argo reconciliation."
+    - name: confighub-upload
+      result: pass
+      detail: "124 Units uploaded to codex-kps-default-071834-kube-prometheus-stack-default."
+    - name: confighub-apply-units
+      result: pass
+      detail: "Workload Units were applied to the declared ConfigHub OCI target."
+    - name: argo-sync
+      result: pass
+      detail: "Argo application kube-prometheus-stack-default reached Synced and Healthy after 120s."
+    - name: runtime-workloads
+      result: pass
+      detail: "Grafana, kube-state-metrics, operator, node-exporter, alertmanager, and prometheus workloads were Ready in monitoring."
+  notClaimed:
+    - "universal production support outside the declared cub-lk vanilla kind target"
+    - "CRD upgrade safety beyond the committed CRD upgrade delta and live rehearsal evidence"
+    - "security disposition of all kube-prometheus-stack scan findings"
+  confighub:
+    workloadSpace: codex-kps-default-071834-kube-prometheus-stack-default
+    unitCount: 124
+    kubernetesUnitCount: 123
+    installerRecordUnitCount: 1
+  runtime:
+    namespace: monitoring
+    workloads:
+      - deployment.apps/kube-prometheus-stack-grafana
+      - deployment.apps/kube-prometheus-stack-kube-state-metrics
+      - deployment.apps/kube-prometheus-stack-operator
+      - daemonset.apps/kube-prometheus-stack-prometheus-node-exporter
+      - statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager
+      - statefulset.apps/prometheus-kube-prometheus-stack-prometheus
