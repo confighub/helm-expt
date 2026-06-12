@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetScopeSupportDecisionDraft"
+metadata:
+  name: "elastic-logstash-default-target-scope-draft"
+spec:
+  chart: "elastic/logstash"
+  version: "8.5.1"
+  selectedBase: "default"
+  decisionState: "draft"
+  catalogSupportClaimAllowed: false
+  proposedScope:
+    targetClass: "vanilla Kubernetes target with OCI-capable GitOps controller"
+    deliveryPath: "ConfigHub OCI/Argo live parity path used by the committed receipt"
+    namespacePolicy: "namespace selected by installer target context"
+    targetFacts: "no additional target facts identified by the fast-track generator; confirm during target review"
+    evidenceFreshness: "not decided"
+  supportingEvidence:
+    catalog: "recipes/elastic/logstash/8.5.1/CATALOG.md"
+    recipe: "recipes/elastic/logstash/8.5.1"
+    package: "packages/elastic/logstash/8.5.1"
+    twoClusterKindParityReceipt: "runs/live-kind-parity/elastic-logstash-default/receipt.yaml"
+    liveHelmConfigHubParityReceipt: "runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml#configHubOciArgo"
+    storageRollbackReview: "data/top100-promotion-wave/fast-track-reviews/storage-rollback/elastic-logstash.yaml"
+    promotionReviewPacket: "data/top100-promotion-wave/fast-track-reviews/elastic-logstash.yaml"
+    helmPainReport: "recipes/elastic/logstash/8.5.1/helm-pain-report.yaml"
+    scanReceipt: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml"
+    installGate: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/install-gate.yaml"
+  remainingDecisions:
+    - "accept or narrow the storage/rollback review for the selected target"
+    - "name the target class, namespace policy, and delivery controller version"
+    - "choose the evidence freshness window for support"
+    - "confirm the extension-slot policy for this base"
+    - "approve or refuse target-scoped catalog support"
+  excludedFromThisDraft:
+    - "other bases and HA modes"
+    - "private overlays or customer values that change the rendered object set"
+    - "populated extension slots unless a reviewed base records the resulting object set"
+    - "non-vanilla cluster distributions unless separately observed"
+    - "backup, restore, retention, and rollback procedures not accepted by the target owner"
+  boundaries:
+    - "This draft is not a support decision."
+    - "It is a checklist for deciding whether the selected base can become target-supported."
+    - "If the target choice changes rendered Kubernetes objects, create a reviewed base and new receipts."

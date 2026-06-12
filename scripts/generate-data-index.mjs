@@ -70,7 +70,7 @@ function readme(rows) {
     ["I want the source-scan quirk work queue.", "data/quirk-work-queue/summary.md; data/quirk-work-queue/top100-queue.csv"],
     ["I want the hardest top-100 proof gaps to assign next.", "data/hard-proof-gaps/summary.md; data/hard-proof-gaps/shortlist.csv"],
     ["I want remote dependency closure status.", "data/remote-dependency-closure/summary.md; data/remote-dependency-closure/top100.csv"],
-    ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv; data/top100-promotion-wave/fast-track.md; data/top100-promotion-wave/fast-track-reviews/README.md; data/top100-promotion-wave/fast-track-reviews/storage-rollback/README.md; data/top100-promotion-wave/work-orders.md"],
+    ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv; data/top100-promotion-wave/fast-track.md; data/top100-promotion-wave/fast-track-reviews/README.md; data/top100-promotion-wave/fast-track-reviews/storage-rollback/README.md; data/top100-promotion-wave/fast-track-reviews/target-scope/README.md; data/top100-promotion-wave/work-orders.md"],
     ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/latest-top20-refresh/action-queue/summary.md; data/latest-top20-refresh/replacement-decisions/summary.md"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
@@ -147,6 +147,7 @@ function readme(rows) {
     ["data/top100-promotion-wave/fast-track.md", "Low-residue top-100 promotion candidates whose remaining work is narrow enough to review quickly."],
     ["data/top100-promotion-wave/fast-track-reviews/README.md", "Review packets for the low-residue top-100 promotion candidates."],
     ["data/top100-promotion-wave/fast-track-reviews/storage-rollback/README.md", "Storage and rollback review inputs for each fast-track candidate."],
+    ["data/top100-promotion-wave/fast-track-reviews/target-scope/README.md", "Draft target-scope support decisions for each fast-track candidate."],
     ["data/top100-promotion-wave/work-orders.md", "Assignable chart-by-chart review tasks for the first top-100 promotion wave."],
     ["data/top100-promotion-wave/work-orders.csv", "Spreadsheet work orders for the first top-100 promotion wave: variant selection, scan/gate, lifecycle, live evidence, and support decision tasks."],
     ["data/refresh-survival/summary.md", "Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement."],
@@ -378,6 +379,7 @@ function roleFor(path) {
   if (path === "data/top100-promotion-wave/fast-track.csv") return "one row per low-residue top-100 promotion candidate with clean scan/gate state";
   if (path === "data/top100-promotion-wave/fast-track-reviews/review-packets.csv") return "one row per fast-track promotion review packet";
   if (path === "data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv") return "one row per fast-track candidate storage and rollback review";
+  if (path === "data/top100-promotion-wave/fast-track-reviews/target-scope/target-scope-decisions.csv") return "one row per fast-track candidate target-scope decision draft";
   if (path === "data/top100-promotion-wave/work-orders.csv") return "one row per promotion-review task for the first strict top-100 wave";
   if (path === "data/refresh-survival/refreshes.csv") return "one row per top-20 latest-version refresh: current proof, latest upstream version, retained candidate state, and promotion route";
   if (path === "data/latest-top20-refresh/action-queue/queue.csv") return "one row per top-20 upstream update row: action, priority, first step, command, evidence, and done-when rule";

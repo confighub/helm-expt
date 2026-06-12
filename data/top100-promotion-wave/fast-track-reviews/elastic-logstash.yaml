@@ -25,6 +25,7 @@ spec:
     scanReceipt: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml"
     installGate: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/install-gate.yaml"
     storageRollbackReview: "data/top100-promotion-wave/fast-track-reviews/storage-rollback/elastic-logstash.yaml"
+    targetScopeDecisionDraft: "data/top100-promotion-wave/fast-track-reviews/target-scope/elastic-logstash.yaml"
   decisionsNeeded:
     -
       decision: "storage-and-rollback-support-boundary"

@@ -36,7 +36,7 @@ smallest generated surface that answers it.
 | I want the source-scan quirk work queue. | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md)<br>[quirk-work-queue/top100-queue.csv](./quirk-work-queue/top100-queue.csv) |
 | I want the hardest top-100 proof gaps to assign next. | [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md)<br>[hard-proof-gaps/shortlist.csv](./hard-proof-gaps/shortlist.csv) |
 | I want remote dependency closure status. | [remote-dependency-closure/summary.md](./remote-dependency-closure/summary.md)<br>[remote-dependency-closure/top100.csv](./remote-dependency-closure/top100.csv) |
-| I want the first strict top-100 promotion wave. | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md)<br>[top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv)<br>[top100-promotion-wave/fast-track.md](./top100-promotion-wave/fast-track.md)<br>[top100-promotion-wave/fast-track-reviews/README.md](./top100-promotion-wave/fast-track-reviews/README.md)<br>[top100-promotion-wave/fast-track-reviews/storage-rollback/README.md](./top100-promotion-wave/fast-track-reviews/storage-rollback/README.md)<br>[top100-promotion-wave/work-orders.md](./top100-promotion-wave/work-orders.md) |
+| I want the first strict top-100 promotion wave. | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md)<br>[top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv)<br>[top100-promotion-wave/fast-track.md](./top100-promotion-wave/fast-track.md)<br>[top100-promotion-wave/fast-track-reviews/README.md](./top100-promotion-wave/fast-track-reviews/README.md)<br>[top100-promotion-wave/fast-track-reviews/storage-rollback/README.md](./top100-promotion-wave/fast-track-reviews/storage-rollback/README.md)<br>[top100-promotion-wave/fast-track-reviews/target-scope/README.md](./top100-promotion-wave/fast-track-reviews/target-scope/README.md)<br>[top100-promotion-wave/work-orders.md](./top100-promotion-wave/work-orders.md) |
 | I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md)<br>[latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
@@ -116,6 +116,7 @@ smallest generated surface that answers it.
 | [top100-promotion-wave/fast-track.md](./top100-promotion-wave/fast-track.md) | Low-residue top-100 promotion candidates whose remaining work is narrow enough to review quickly. |
 | [top100-promotion-wave/fast-track-reviews/README.md](./top100-promotion-wave/fast-track-reviews/README.md) | Review packets for the low-residue top-100 promotion candidates. |
 | [top100-promotion-wave/fast-track-reviews/storage-rollback/README.md](./top100-promotion-wave/fast-track-reviews/storage-rollback/README.md) | Storage and rollback review inputs for each fast-track candidate. |
+| [top100-promotion-wave/fast-track-reviews/target-scope/README.md](./top100-promotion-wave/fast-track-reviews/target-scope/README.md) | Draft target-scope support decisions for each fast-track candidate. |
 | [top100-promotion-wave/work-orders.md](./top100-promotion-wave/work-orders.md) | Assignable chart-by-chart review tasks for the first top-100 promotion wave. |
 | [top100-promotion-wave/work-orders.csv](./top100-promotion-wave/work-orders.csv) | Spreadsheet work orders for the first top-100 promotion wave: variant selection, scan/gate, lifecycle, live evidence, and support decision tasks. |
 | [refresh-survival/summary.md](./refresh-survival/summary.md) | Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement. |
@@ -283,7 +284,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 125 CSV files. Each row records the path, audience,
+It includes 126 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

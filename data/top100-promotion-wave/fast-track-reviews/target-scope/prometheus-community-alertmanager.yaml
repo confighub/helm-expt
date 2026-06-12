@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetScopeSupportDecisionDraft"
+metadata:
+  name: "prometheus-community-alertmanager-default-target-scope-draft"
+spec:
+  chart: "prometheus-community/alertmanager"
+  version: "1.37.0"
+  selectedBase: "default"
+  decisionState: "draft"
+  catalogSupportClaimAllowed: false
+  proposedScope:
+    targetClass: "vanilla Kubernetes target with OCI-capable GitOps controller"
+    deliveryPath: "ConfigHub OCI/Argo live parity path used by the committed receipt"
+    namespacePolicy: "rendered namespace default must match the target assignment"
+    targetFacts: "no additional target facts identified by the fast-track generator; confirm during target review"
+    evidenceFreshness: "not decided"
+  supportingEvidence:
+    catalog: "recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md"
+    recipe: "recipes/prometheus-community/alertmanager/1.37.0"
+    package: "packages/prometheus-community/alertmanager/1.37.0"
+    twoClusterKindParityReceipt: "runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml"
+    liveHelmConfigHubParityReceipt: "runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/receipt.yaml#configHubOciArgo"
+    storageRollbackReview: "data/top100-promotion-wave/fast-track-reviews/storage-rollback/prometheus-community-alertmanager.yaml"
+    promotionReviewPacket: "data/top100-promotion-wave/fast-track-reviews/prometheus-community-alertmanager.yaml"
+    helmPainReport: "recipes/prometheus-community/alertmanager/1.37.0/helm-pain-report.yaml"
+    scanReceipt: "recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/receipts/scan-receipt.yaml"
+    installGate: "recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/receipts/install-gate.yaml"
+  remainingDecisions:
+    - "accept or narrow the storage/rollback review for the selected target"
+    - "name the target class, namespace policy, and delivery controller version"
+    - "choose the evidence freshness window for support"
+    - "confirm the extension-slot policy for this base"
+    - "approve or refuse target-scoped catalog support"
+  excludedFromThisDraft:
+    - "other bases and HA modes"
+    - "private overlays or customer values that change the rendered object set"
+    - "populated extension slots unless a reviewed base records the resulting object set"
+    - "non-vanilla cluster distributions unless separately observed"
+    - "backup, restore, retention, and rollback procedures not accepted by the target owner"
+  boundaries:
+    - "This draft is not a support decision."
+    - "It is a checklist for deciding whether the selected base can become target-supported."
+    - "If the target choice changes rendered Kubernetes objects, create a reviewed base and new receipts."

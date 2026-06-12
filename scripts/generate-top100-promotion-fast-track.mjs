@@ -22,6 +22,9 @@ const reviewCsvPath = join(reviewDir, "review-packets.csv");
 const storageReviewDir = join(reviewDir, "storage-rollback");
 const storageReviewIndexPath = join(storageReviewDir, "README.md");
 const storageReviewCsvPath = join(storageReviewDir, "storage-reviews.csv");
+const targetScopeDir = join(reviewDir, "target-scope");
+const targetScopeIndexPath = join(targetScopeDir, "README.md");
+const targetScopeCsvPath = join(targetScopeDir, "target-scope-decisions.csv");
 
 if (mode === "--generate") {
   const report = buildReport();
@@ -33,12 +36,17 @@ if (mode === "--generate") {
   write(storageReviewIndexPath, report.storageReviewIndex);
   write(storageReviewCsvPath, report.storageReviewCsv);
   for (const review of report.storageReviews) write(join(storageReviewDir, review.fileName), review.yaml);
+  write(targetScopeIndexPath, report.targetScopeIndex);
+  write(targetScopeCsvPath, report.targetScopeCsv);
+  for (const decision of report.targetScopeDecisions) write(join(targetScopeDir, decision.fileName), decision.yaml);
   console.log(`wrote ${relativeRepo(csvPath)}`);
   console.log(`wrote ${relativeRepo(summaryPath)}`);
   console.log(`wrote ${relativeRepo(reviewIndexPath)}`);
   console.log(`wrote ${relativeRepo(reviewCsvPath)}`);
   console.log(`wrote ${relativeRepo(storageReviewIndexPath)}`);
   console.log(`wrote ${relativeRepo(storageReviewCsvPath)}`);
+  console.log(`wrote ${relativeRepo(targetScopeIndexPath)}`);
+  console.log(`wrote ${relativeRepo(targetScopeCsvPath)}`);
 } else if (mode === "--verify") {
   const report = buildReport();
   check(existsSync(csvPath), "missing top100 fast-track CSV; run npm run top100:promotion-fast-track");
@@ -47,12 +55,16 @@ if (mode === "--generate") {
   check(existsSync(reviewCsvPath), "missing top100 fast-track review packet CSV; run npm run top100:promotion-fast-track");
   check(existsSync(storageReviewIndexPath), "missing top100 fast-track storage review index; run npm run top100:promotion-fast-track");
   check(existsSync(storageReviewCsvPath), "missing top100 fast-track storage review CSV; run npm run top100:promotion-fast-track");
+  check(existsSync(targetScopeIndexPath), "missing top100 fast-track target-scope index; run npm run top100:promotion-fast-track");
+  check(existsSync(targetScopeCsvPath), "missing top100 fast-track target-scope CSV; run npm run top100:promotion-fast-track");
   check(readFileSync(csvPath, "utf8") === report.csv, "top100 fast-track CSV is stale");
   check(readFileSync(summaryPath, "utf8") === report.summary, "top100 fast-track summary is stale");
   check(readFileSync(reviewIndexPath, "utf8") === report.reviewIndex, "top100 fast-track review index is stale");
   check(readFileSync(reviewCsvPath, "utf8") === report.reviewCsv, "top100 fast-track review packet CSV is stale");
   check(readFileSync(storageReviewIndexPath, "utf8") === report.storageReviewIndex, "top100 fast-track storage review index is stale");
   check(readFileSync(storageReviewCsvPath, "utf8") === report.storageReviewCsv, "top100 fast-track storage review CSV is stale");
+  check(readFileSync(targetScopeIndexPath, "utf8") === report.targetScopeIndex, "top100 fast-track target-scope index is stale");
+  check(readFileSync(targetScopeCsvPath, "utf8") === report.targetScopeCsv, "top100 fast-track target-scope CSV is stale");
   for (const packet of report.reviewPackets) {
     const path = join(reviewDir, packet.fileName);
     check(existsSync(path), `missing top100 fast-track review packet ${relativeRepo(path)}`);
@@ -62,6 +74,11 @@ if (mode === "--generate") {
     const path = join(storageReviewDir, review.fileName);
     check(existsSync(path), `missing top100 fast-track storage review ${relativeRepo(path)}`);
     check(readFileSync(path, "utf8") === review.yaml, `top100 fast-track storage review ${review.fileName} is stale`);
+  }
+  for (const decision of report.targetScopeDecisions) {
+    const path = join(targetScopeDir, decision.fileName);
+    check(existsSync(path), `missing top100 fast-track target-scope decision ${relativeRepo(path)}`);
+    check(readFileSync(path, "utf8") === decision.yaml, `top100 fast-track target-scope decision ${decision.fileName} is stale`);
   }
   console.log(`verified top100 promotion fast-track for ${report.rows.length} chart(s)`);
 } else {
@@ -88,6 +105,7 @@ function buildReport() {
   check(rows.every((row) => row.two_cluster_kind_parity === "pass"), "fast-track rows must have two-cluster kind parity");
   const storage = storageReviews(rows);
   const storageByChart = new Map(storage.map((review) => [review.chart_ref, review]));
+  const targetScope = targetScopeDecisions(rows, storageByChart);
   const packets = reviewPackets(rows, storageByChart);
 
   return {
@@ -100,6 +118,9 @@ function buildReport() {
     storageReviews: storage,
     storageReviewIndex: storageReviewIndex(storage),
     storageReviewCsv: storageReviewsToCsv(storage),
+    targetScopeDecisions: targetScope,
+    targetScopeIndex: targetScopeIndex(targetScope),
+    targetScopeCsv: targetScopeDecisionsToCsv(targetScope),
   };
 }
 
@@ -131,6 +152,7 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
   const liveParityReceipt = receiptPathFromNotes(base.evidence_notes, "runs/live-helm-confighub-compare/");
   const twoClusterParityReceipt = receiptPathFromNotes(base.evidence_notes, "runs/live-kind-parity/");
   const storageReviewPath = `data/top100-promotion-wave/fast-track-reviews/storage-rollback/${slug(row.chart)}.yaml`;
+  const targetScopeDecisionPath = `data/top100-promotion-wave/fast-track-reviews/target-scope/${slug(row.chart)}.yaml`;
   const remaining = [
     "review and accept/narrow storage/rollback boundary for selected target",
     ...missingLanes.map((lane) => `complete ${lane}`),
@@ -148,6 +170,8 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
     missing_live_lanes: missingLanes.join(";"),
     storage_review_state: "review-input-ready",
     storage_review_path: storageReviewPath,
+    target_scope_decision_state: "draft",
+    target_scope_decision_path: targetScopeDecisionPath,
     remaining_required_work: remaining.join(";"),
     first_action: missingLanes.length
       ? "open the storage/rollback review, choose the target boundary, then complete the missing proof lanes listed for the recommended base"
@@ -219,6 +243,7 @@ ${rows.map((row) => `| \`${row.chart_ref}\` | \`${row.recommended_base}\` | clea
 | [fast-track-reviews/README.md](./fast-track-reviews/README.md) | Review packet index for the fast-track candidates. |
 | [fast-track-reviews/review-packets.csv](./fast-track-reviews/review-packets.csv) | Spreadsheet form of the review packet status. |
 | [fast-track-reviews/storage-rollback/README.md](./fast-track-reviews/storage-rollback/README.md) | Storage and rollback review inputs for each fast-track candidate. |
+| [fast-track-reviews/target-scope/README.md](./fast-track-reviews/target-scope/README.md) | Draft target-scope support decision inputs for each fast-track candidate. |
 | [wave.csv](./wave.csv) | Full first promotion wave. |
 | [work-orders.md](./work-orders.md) | Full work-order list for the first promotion wave. |
 `;
@@ -237,12 +262,13 @@ evidence and decisions needed before catalog support can be considered.
 They are review inputs. They do not promote a chart, accept production risk, or
 claim runtime support.
 
-| Chart | Packet | Storage review | Selected base | Decision state | Missing proof lanes |
-| --- | --- | --- | --- | --- | --- |
+| Chart | Packet | Storage review | Target-scope draft | Selected base | Decision state | Missing proof lanes |
+| --- | --- | --- | --- | --- | --- | --- |
 ${rows.map((row) => {
   const fileName = `${slug(row.chart)}.yaml`;
   const storageFileName = `storage-rollback/${fileName}`;
-  return `| \`${row.chart_ref}\` | [${fileName}](./${fileName}) | [${storageFileName}](./${storageFileName}) | \`${row.recommended_base}\` | review-input-only | ${escapePipes(formatList(row.missing_live_lanes))} |`;
+  const targetScopeFileName = `target-scope/${fileName}`;
+  return `| \`${row.chart_ref}\` | [${fileName}](./${fileName}) | [${storageFileName}](./${storageFileName}) | [${targetScopeFileName}](./${targetScopeFileName}) | \`${row.recommended_base}\` | review-input-only | ${escapePipes(formatList(row.missing_live_lanes))} |`;
 }).join("\n")}
 
 ## Shared Review Rule
@@ -287,6 +313,7 @@ function reviewPackets(rows, storageByChart) {
           scanReceipt: `${row.recipe_path}/revisions/${row.recommended_base}/r001/receipts/scan-receipt.yaml`,
           installGate: `${row.recipe_path}/revisions/${row.recommended_base}/r001/receipts/install-gate.yaml`,
           storageRollbackReview: `data/top100-promotion-wave/fast-track-reviews/storage-rollback/${storageReview.fileName}`,
+          targetScopeDecisionDraft: `data/top100-promotion-wave/fast-track-reviews/target-scope/${storageReview.fileName}`,
         },
         decisionsNeeded: [
           {
@@ -330,17 +357,165 @@ function reviewPackets(rows, storageByChart) {
 }
 
 function reviewPacketsToCsv(packets) {
-  const headers = ["chart", "version", "chart_ref", "packet", "storage_review", "decision_state", "support_claim_allowed"];
+  const headers = ["chart", "version", "chart_ref", "packet", "storage_review", "target_scope_decision", "decision_state", "support_claim_allowed"];
   const rows = packets.map((packet) => ({
     chart: packet.chart,
     version: packet.version,
     chart_ref: packet.chart_ref,
     packet: `data/top100-promotion-wave/fast-track-reviews/${packet.fileName}`,
     storage_review: `data/top100-promotion-wave/fast-track-reviews/storage-rollback/${packet.fileName}`,
+    target_scope_decision: `data/top100-promotion-wave/fast-track-reviews/target-scope/${packet.fileName}`,
     decision_state: "review-input-only",
     support_claim_allowed: "false",
   }));
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function targetScopeIndex(decisions) {
+  return `# Fast-Track Target-Scope Decision Drafts
+
+These generated files turn the remaining product decision into a concrete
+review input: what exact target shape could this selected base support, and
+what evidence bounds that claim?
+
+They are drafts. They do not make any chart production-supported.
+
+| Chart | Draft | Selected base | Proposed scope | Decision state |
+| --- | --- | --- | --- | --- |
+${decisions.map((decision) => `| \`${decision.chart_ref}\` | [${decision.fileName}](./${decision.fileName}) | \`${decision.base}\` | ${escapePipes(decision.proposed_scope_summary)} | ${decision.decision_state} |`).join("\n")}
+
+## Shared Rule
+
+A green render, scan, or live parity result is not a catalog-support decision.
+Support is scoped to a chart version, base, target class, delivery path,
+namespace policy, storage boundary, extension-slot policy, and evidence
+freshness window.
+`;
+}
+
+function targetScopeDecisionsToCsv(decisions) {
+  const headers = [
+    "chart",
+    "version",
+    "chart_ref",
+    "base",
+    "decision",
+    "decision_state",
+    "support_claim_allowed",
+    "target_class",
+    "delivery_path",
+    "namespace_policy",
+    "storage_review",
+    "evidence_freshness",
+    "remaining_decisions",
+  ];
+  const rows = decisions.map((decision) => ({
+    chart: decision.chart,
+    version: decision.version,
+    chart_ref: decision.chart_ref,
+    base: decision.base,
+    decision: `data/top100-promotion-wave/fast-track-reviews/target-scope/${decision.fileName}`,
+    decision_state: decision.decision_state,
+    support_claim_allowed: "false",
+    target_class: decision.target_class,
+    delivery_path: decision.delivery_path,
+    namespace_policy: decision.namespace_policy,
+    storage_review: decision.storage_review,
+    evidence_freshness: decision.evidence_freshness,
+    remaining_decisions: decision.remaining_decisions.join(";"),
+  }));
+  return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function targetScopeDecisions(rows, storageByChart) {
+  return rows.map((row) => {
+    const storageReview = storageByChart.get(row.chart_ref);
+    check(storageReview, `missing storage review for ${row.chart_ref}`);
+    const namespacePolicy = namespacePolicyFor(row);
+    const targetClass = "vanilla Kubernetes target with OCI-capable GitOps controller";
+    const deliveryPath = "ConfigHub OCI/Argo live parity path used by the committed receipt";
+    const remainingDecisions = [
+      "accept or narrow the storage/rollback review for the selected target",
+      "name the target class, namespace policy, and delivery controller version",
+      "choose the evidence freshness window for support",
+      "confirm the extension-slot policy for this base",
+      "approve or refuse target-scoped catalog support",
+    ];
+    const decision = {
+      apiVersion: "helm-expt.confighub.com/v1alpha1",
+      kind: "TargetScopeSupportDecisionDraft",
+      metadata: {
+        name: `${slug(row.chart)}-${row.recommended_base}-target-scope-draft`,
+      },
+      spec: {
+        chart: row.chart,
+        version: row.version,
+        selectedBase: row.recommended_base,
+        decisionState: "draft",
+        catalogSupportClaimAllowed: false,
+        proposedScope: {
+          targetClass,
+          deliveryPath,
+          namespacePolicy,
+          targetFacts: "no additional target facts identified by the fast-track generator; confirm during target review",
+          evidenceFreshness: "not decided",
+        },
+        supportingEvidence: {
+          catalog: row.catalog_path,
+          recipe: row.recipe_path,
+          package: row.package_path,
+          twoClusterKindParityReceipt: row.two_cluster_parity_receipt,
+          liveHelmConfigHubParityReceipt: row.live_parity_receipt,
+          storageRollbackReview: `data/top100-promotion-wave/fast-track-reviews/storage-rollback/${storageReview.fileName}`,
+          promotionReviewPacket: `data/top100-promotion-wave/fast-track-reviews/${storageReview.fileName}`,
+          helmPainReport: `${row.recipe_path}/helm-pain-report.yaml`,
+          scanReceipt: `${row.recipe_path}/revisions/${row.recommended_base}/r001/receipts/scan-receipt.yaml`,
+          installGate: `${row.recipe_path}/revisions/${row.recommended_base}/r001/receipts/install-gate.yaml`,
+        },
+        remainingDecisions,
+        excludedFromThisDraft: [
+          "other bases and HA modes",
+          "private overlays or customer values that change the rendered object set",
+          "populated extension slots unless a reviewed base records the resulting object set",
+          "non-vanilla cluster distributions unless separately observed",
+          "backup, restore, retention, and rollback procedures not accepted by the target owner",
+        ],
+        boundaries: [
+          "This draft is not a support decision.",
+          "It is a checklist for deciding whether the selected base can become target-supported.",
+          "If the target choice changes rendered Kubernetes objects, create a reviewed base and new receipts.",
+        ],
+      },
+    };
+    return {
+      chart: row.chart,
+      version: row.version,
+      chart_ref: row.chart_ref,
+      base: row.recommended_base,
+      fileName: `${slug(row.chart)}.yaml`,
+      yaml: `${toYaml(decision)}\n`,
+      decision_state: "draft",
+      target_class: targetClass,
+      delivery_path: deliveryPath,
+      namespace_policy: namespacePolicy,
+      storage_review: `data/top100-promotion-wave/fast-track-reviews/storage-rollback/${storageReview.fileName}`,
+      evidence_freshness: "not decided",
+      remaining_decisions: remainingDecisions,
+      proposed_scope_summary: `${targetClass}; ${deliveryPath}; ${namespacePolicy}`,
+    };
+  });
+}
+
+function namespacePolicyFor(row) {
+  const renderedPath = join(repoRoot, row.recipe_path, "revisions", row.recommended_base, "r001", "rendered", "release-objects.yaml");
+  const docs = parseDocs(readFileSync(renderedPath, "utf8"));
+  const namespaces = [...new Set(docs
+    .map((doc) => doc.metadata?.namespace)
+    .filter(Boolean))]
+    .sort();
+  if (namespaces.length === 0) return "namespace selected by installer target context";
+  if (namespaces.length === 1) return `rendered namespace ${namespaces[0]} must match the target assignment`;
+  return `multiple rendered namespaces (${namespaces.join(", ")}) must be accepted by the target owner`;
 }
 
 function storageReviewIndex(reviews) {
@@ -517,6 +692,8 @@ function rowsToCsv(rows) {
     "missing_live_lanes",
     "storage_review_state",
     "storage_review_path",
+    "target_scope_decision_state",
+    "target_scope_decision_path",
     "remaining_required_work",
     "first_action",
     "not_a_claim",

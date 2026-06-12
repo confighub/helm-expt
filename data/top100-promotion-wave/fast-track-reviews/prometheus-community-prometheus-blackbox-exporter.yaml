@@ -25,6 +25,7 @@ spec:
     scanReceipt: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/receipts/scan-receipt.yaml"
     installGate: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/receipts/install-gate.yaml"
     storageRollbackReview: "data/top100-promotion-wave/fast-track-reviews/storage-rollback/prometheus-community-prometheus-blackbox-exporter.yaml"
+    targetScopeDecisionDraft: "data/top100-promotion-wave/fast-track-reviews/target-scope/prometheus-community-prometheus-blackbox-exporter.yaml"
   decisionsNeeded:
     -
       decision: "storage-and-rollback-support-boundary"
