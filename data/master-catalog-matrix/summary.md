@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 190 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 512 / 6 / 59 / 753 / 0 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 512 / 8 / 59 / 751 / 0 |
 | Variants with the complete core lane set | 23 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -129,7 +129,7 @@ user/product view with those columns visible.
 |  | generated-passwords | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `bitnami/mysql@14.0.3` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 |  | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-| `bitnami/nginx@24.0.2` | existing-tls-ingress | top20 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+| `bitnami/nginx@24.0.2` | existing-tls-ingress | top20 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ✅ | ⚠️ | ⚠️ | ✅ | two-cluster-kind-parity | ⬜ |
 |  | http-clusterip | top20 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 | `bitnami/nginx@24.0.4` | existing-tls-ingress | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | http-clusterip | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |

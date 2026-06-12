@@ -60,7 +60,7 @@ Which detailed CSV should I open next?
 | proof lanes | two-cluster semantic parity pass rows | 70/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 23/190 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 22/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
-| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 3/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
+| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 4/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
@@ -322,7 +322,7 @@ spreadsheet.
 | argo-cd/argo-cd@9.5.15 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/mongodb@19.0.7 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
 | bitnami/mysql@14.0.3 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/nginx@24.0.2 | http-clusterip (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
+| bitnami/nginx@24.0.2 | http-clusterip (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
 | bitnami/postgresql@18.6.7 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/rabbitmq@16.0.14 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/redis@25.5.3 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | - |
@@ -354,8 +354,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 60 | 0 | 130 | 190 |
 | local live | 134 | 56 | 0 | 190 |
-| GitOps/OCI live | 25 | 6 | 159 | 190 |
-| live Helm-vs-ConfigHub parity | 23 | 3 | 164 | 190 |
+| GitOps/OCI live | 25 | 7 | 158 | 190 |
+| live Helm-vs-ConfigHub parity | 23 | 4 | 163 | 190 |
 | two-cluster kind parity | 70 | 0 | 0 | 70 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
