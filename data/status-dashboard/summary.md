@@ -204,7 +204,7 @@ needs a support artifact or a direct receipt review before rerun.
 | ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime-review | - |
 | longhorn/longhorn@1.11.2 | ui-ingress | watch | gitops-runtime-review | - |
 | metrics-server/metrics-server@3.13.0 | external-tls-ca | watch | gitops-runtime-review | [recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml](../../recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml) |
-| prometheus-community/prometheus@29.8.0 | default | watch | gitops-runtime-review | - |
+| prometheus-community/prometheus@29.8.0 | default | watch | gitops-runtime-review | [recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml](../../recipes/prometheus-community/prometheus/29.8.0/gitops-runtime-review.yaml) |
 
 ### Local Live Non-Pass Triage
 
