@@ -11,6 +11,16 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "prometheus-community/prometheus-node-exporter cluster-metrics-readonly useful base rendered with Prometheus monitor values"
       name: "cluster-metrics-readonly"
       path: "bases/cluster-metrics-readonly"
-      description: "prometheus-community/prometheus-node-exporter cluster-metrics-readonly useful base rendered with Prometheus monitor values"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD servicemonitors.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check existing Secret requirements."

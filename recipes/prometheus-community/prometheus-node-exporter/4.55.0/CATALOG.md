@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
 | Strongest evidence | local-kubernetes-live |
-| Proof lanes | render parity 2/2; ConfigHub 0/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
+| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 2/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | required-values;extension-slots |
 | Hard gap | - |
 | Next action | run catalog promotion review |
@@ -58,7 +58,7 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/default](../../../../packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/default) | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 3 | 4 | 3/3 | pass | warn | warn | none |
-| cluster-metrics-readonly | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml](variants/cluster-metrics-readonly/variant.yaml) | [packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly](../../../../packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly) | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml](revisions/cluster-metrics-readonly/r001/variant-revision.yaml) | 4 | 5 | 4/4 | pass | warn | warn | none |
+| cluster-metrics-readonly | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml](variants/cluster-metrics-readonly/variant.yaml) | [packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly](../../../../packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly) | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml](revisions/cluster-metrics-readonly/r001/variant-revision.yaml) | 4 | 5 | 4/4 | pass | warn | warn | required CRD servicemonitors.monitoring.coreos.com |
 
 ## Package Bases
 

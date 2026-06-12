@@ -10,10 +10,10 @@ metadata:
 spec:
   variant: "../../../variants/cluster-metrics-readonly/variant.yaml"
   revision: "r001"
-  digest: "935f7241802683ceb048f35d354f00662f722fcde4e5fc74fa7b2a9bfac4057f"
+  digest: "8d0a34ec191af63663ea2ff2609f86a917340b0fdf7d4a5640a9fab7a1f6809f"
   digestInputs:
     recipeSHA256: "4361520ea49a7c369a988a77139d1b3ab86b82c6bafeb28e57e2a28652aa2edc"
-    variantSHA256: "adc07bdc69e7d3e6674b7250b5cdc5e5d79de45e4d37a7d6681b9d668598d230"
+    variantSHA256: "4b15df264ed481c23f685b66a045f9b52e13d6b5490b97652477f36c7dde74d2"
     effectiveValuesSHA256: "b81b8b366b37304576b5a3085ee4a8438b652e1b8fc4f40d90b2dbccc5f2cf6d"
     rendererSHA256: "9b6872662c8c6700de403a3eed17d1c3883cd491012f7bdc22d5631bd59e456a"
     renderedObjectSetSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
