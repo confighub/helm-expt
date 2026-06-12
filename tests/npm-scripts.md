@@ -68,6 +68,12 @@ test cluster, not a hidden chart change.
 | `kind-ingress-nginx` | Install a target ingress controller so Ingress objects receive status on kind. | `npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx` |
 | `kind-loadbalancer` | Run `cloud-provider-kind` so `Service.type=LoadBalancer` receives a local external address on kind. | `npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer` |
 
+Run `--preflight` first when using a guarded profile:
+
+```sh
+npm run live-parity:top20 -- --preflight --chart ingress-nginx --base default --target-profile kind-loadbalancer
+```
+
 `kind-loadbalancer` is guarded and refuses to run while another kind cluster is
 present, because `cloud-provider-kind` observes kind clusters host-wide.
 

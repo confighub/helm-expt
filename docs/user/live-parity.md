@@ -92,6 +92,12 @@ of the test cluster, not a change to the chart.
 | `kind-ingress-nginx` | A chart renders an Ingress that should be reconciled on kind. This installs a target ingress controller and proves Ingress status behavior. | `npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx` |
 | `kind-loadbalancer` | A chart renders a `Service.type=LoadBalancer` and the test should prove the cloud-shaped Service path on kind. This uses `cloud-provider-kind`. | `npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer` |
 
+Use `--preflight` before starting a guarded target-profile run:
+
+```sh
+npm run live-parity:top20 -- --preflight --chart ingress-nginx --base default --target-profile kind-loadbalancer
+```
+
 `kind-loadbalancer` is deliberately guarded. `cloud-provider-kind` observes kind
 clusters host-wide, so the harness refuses to start it while another kind
 cluster is running. Wait for other live lanes to finish first, then run the
