@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "metrics-server-external-tls-ca-argocd-apiservice-sync"
+  chart: "metrics-server/metrics-server"
+  version: "3.13.0"
+spec:
+  base: "external-tls-ca"
+  controller: "Argo CD"
+  targetShape: "cub-lk/kind proof rig with ConfigHub OCI source and staged metrics-server TLS target facts"
+  receipt: "runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/receipt.yaml"
+  observedResult: "watch"
+  passed:
+    - "regular Helm live leg reached the expected runtime state"
+    - "ConfigHub direct-apply leg reached the expected runtime state"
+    - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
+    - "target facts for kube-system/metrics-server-tls were staged and validated"
+    - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
+    - "APIService v1beta1.metrics.k8s.io was Available=True"
+  gitOpsCondition:
+    sync: "OutOfSync"
+    health: "Healthy"
+    unsyncedResource:
+      apiVersion: "apiregistration.k8s.io/v1"
+      kind: "APIService"
+      name: "v1beta1.metrics.k8s.io"
+  diagnosis:
+    summary: "The live and desired APIService matched after ordinary server metadata was removed, except that desired included spec.insecureSkipTLSVerify=false and the live Kubernetes API omitted that zero-value field."
+    desiredField:
+      path: "spec.insecureSkipTLSVerify"
+      value: false
+    liveField:
+      path: "spec.insecureSkipTLSVerify"
+      value: "absent"
+    interpretation: "This is a GitOps/runtime normalization issue to validate, not evidence that the metrics-server recipe or target facts changed Kubernetes semantics."
+  nextActions:
+    - "Confirm whether Argo CD is comparing the explicit false field against the API server's omitted zero value for APIService."
+    - "If confirmed, add a narrow Argo diff-normalization rule or controller-side ignore rule for APIService spec.insecureSkipTLSVerify=false."
+    - "Rerun metrics-server/external-tls-ca through the strict live parity lane after the normalization rule is in place."
+  notClaimed:
+    - "The GitOps row is not a pass until Argo reports Synced or the approved ignore/normalization rule is part of the proof target."
+    - "This review does not generalize to every APIService chart without a matching live receipt."

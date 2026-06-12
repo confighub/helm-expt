@@ -1097,7 +1097,7 @@
       "current_result": "watch",
       "next_step_type": "gitops-runtime-review",
       "reason": "gitops-runtime: Argo sync OutOfSync health Healthy (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/receipt.yaml",
       "rerun_command": "npm run live-parity:top20 -- --chart metrics-server --base external-tls-ca --continue-on-fail"
     },
@@ -12554,7 +12554,7 @@
       "diagnosis": "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.",
       "rerun_command": "npm run live-parity:top20 -- --chart metrics-server --base external-tls-ca --continue-on-fail",
       "followup": "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.",
-      "support_artifact": "",
+      "support_artifact": "recipes/metrics-server/metrics-server/3.13.0/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""
