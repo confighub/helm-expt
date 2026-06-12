@@ -10,6 +10,11 @@ because a generator produced it.
 `helm-expt` is the Helm-facing proof of that model. It does not prove the full
 future product by itself.
 
+Read it as the working import slice: Helm remains the source generator, but
+the rendered objects are captured once, checked against Helm, held as
+ConfigHub data, routed into base and derived variants, and then delivered or
+observed where the current evidence exists.
+
 ## What The Model Expects
 
 A Helm or GitOps user reading about Generative GitOps should expect these
@@ -56,6 +61,22 @@ These are not complete product claims yet:
 | Universal hook execution | Hooks are inventoried, routed, observed, refused, or marked per-target. This is not a claim that every Helm hook in the top-100 runs automatically. |
 | Fleet-wide bounded propagation | Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built. |
 | Signatures as trust | Digests and signatures help with integrity and transport. They only create trust when the signer, authority, and verification context are known. |
+
+## Sceptic-Proofing Status
+
+The sceptic work is useful, but it is not complete. It is there to turn
+reasonable attacks into fixtures, receipts, or explicit refusals:
+
+| Attack question | Current evidence | Limit |
+| --- | --- | --- |
+| Did a value-source map predict the real blast radius? | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) | Measured cases are still a small slice of the catalog, and whole-release identity paths currently expose known misses. |
+| Does rendering change across timezone, locale, or flag profiles? | [Environment-Determinism Matrix](../../data/environment-matrix/summary.md) | The current matrix covers one platform, one Helm version, and four chart versions. |
+| What happens when a chart is designed to break the model? | [Synthetic Torture Suite](../../data/torture-suite/summary.md) | The fixture suite is intentionally small and should grow as new failure modes are found. |
+| Which public claims are backed, partial, planned, or refused? | [Claims Register](../../data/claims-register/summary.md) | Partial claims stay partial until coverage expands or the product boundary changes. |
+
+This is the right posture for the project: a chart or option that breaks the
+model should become a public test case with a named result, not a hidden
+exception.
 
 ## Where To Check The Current State
 

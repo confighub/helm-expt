@@ -23,6 +23,11 @@ objects durable, comparable, promotable, and auditable.
 For how this fits the broader generated-config and AI/GitOps thesis, see
 [Generative GitOps Fit](./generative-gitops-fit.md).
 
+That broader thesis is larger than this repo. `helm-expt` is the working Helm
+import path into it: render public charts once, prove the captured object set,
+hold it as ConfigHub data, expose base and derived variants, and then deliver
+or observe selected rows through live lanes.
+
 ## Why This Helps
 
 First, it makes changes safer. When a person or AI agent changes chart inputs,
@@ -82,7 +87,7 @@ The current catalog proves a lot, but not everything:
 
 - 20 top-chart entries have public catalog bases;
 - 100 charts have recipe/package proof artifacts;
-- 179 chart/base rows have render parity against regular Helm;
+- 190 chart/base rows have render parity against regular Helm;
 - local, GitOps, parity, lifecycle, and production support lanes are tracked
   separately.
 
