@@ -126,6 +126,8 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
     base.gitops_oci_live === "pass" ? "" : "GitOps/OCI live observation",
     base.live_helm_vs_confighub_parity === "pass" ? "" : "live Helm-vs-ConfigHub parity",
   ].filter(Boolean);
+  const liveParityReceipt = receiptPathFromNotes(base.evidence_notes, "runs/live-helm-confighub-compare/");
+  const twoClusterParityReceipt = receiptPathFromNotes(base.evidence_notes, "runs/live-kind-parity/");
   const remaining = [
     "write storage and rollback policy",
     ...missingLanes.map((lane) => `complete ${lane}`),
@@ -147,7 +149,9 @@ function fastTrackRow(row, baseByKey, chartUseByRef) {
       : "write storage/rollback policy, then record a target-scoped support decision",
     not_a_claim: "not catalog-supported until support decision and selected live lanes exist",
     catalog_path: chartUse?.catalog_path || `${row.recipe_path}/CATALOG.md`,
-    parity_receipt: receiptPathFromNotes(base.evidence_notes, "runs/live-kind-parity/"),
+    two_cluster_parity_receipt: twoClusterParityReceipt,
+    live_parity_receipt: liveParityReceipt,
+    parity_receipt: twoClusterParityReceipt,
     recipe_path: row.recipe_path,
     package_path: row.package_path,
   };
@@ -265,11 +269,14 @@ function reviewPackets(rows, storageByChart) {
           "two-cluster kind parity passes for the selected base",
           "scan/gate state is clean for the selected base",
           "current feature model has no CRD or webhook lifecycle class for this row",
-          "remaining work is a bounded operating review plus live evidence",
+          splitList(row.missing_live_lanes).length
+            ? "remaining work is a bounded operating review plus live evidence"
+            : "selected live evidence is present; remaining work is the bounded operating review",
         ],
         currentEvidence: {
           catalog: row.catalog_path,
-          parityReceipt: row.parity_receipt,
+          twoClusterKindParityReceipt: row.two_cluster_parity_receipt,
+          liveHelmConfigHubParityReceipt: row.live_parity_receipt,
           helmPainReport: `${row.recipe_path}/helm-pain-report.yaml`,
           controlPoints: `${row.recipe_path}/control-points.yaml`,
           scanReceipt: `${row.recipe_path}/revisions/${row.recommended_base}/r001/receipts/scan-receipt.yaml`,
@@ -412,7 +419,7 @@ function storageReviews(rows) {
       "backup and restore procedure",
       "data retention and deletion policy",
       "rollback runbook for the selected base",
-      "live ConfigHub and GitOps/OCI evidence",
+      ...(splitList(row.missing_live_lanes).length ? ["live ConfigHub and GitOps/OCI evidence"] : []),
       "target-scoped support decision",
     ];
     const review = {
@@ -438,7 +445,8 @@ function storageReviews(rows) {
           objectInventory: `${row.recipe_path}/revisions/${row.recommended_base}/r001/rendered/object-inventory.yaml`,
           helmPainReport: `${row.recipe_path}/helm-pain-report.yaml`,
           installGate: `${row.recipe_path}/revisions/${row.recommended_base}/r001/receipts/install-gate.yaml`,
-          parityReceipt: row.parity_receipt,
+          twoClusterKindParityReceipt: row.two_cluster_parity_receipt,
+          liveHelmConfigHubParityReceipt: row.live_parity_receipt,
           promotionReviewPacket: `data/top100-promotion-wave/fast-track-reviews/${slug(row.chart)}.yaml`,
         },
         decisionsStillNeeded,
@@ -506,7 +514,8 @@ function rowsToCsv(rows) {
     "first_action",
     "not_a_claim",
     "catalog_path",
-    "parity_receipt",
+    "two_cluster_parity_receipt",
+    "live_parity_receipt",
     "recipe_path",
     "package_path",
   ];

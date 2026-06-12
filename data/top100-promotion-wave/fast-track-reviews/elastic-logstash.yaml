@@ -15,10 +15,11 @@ spec:
     - "two-cluster kind parity passes for the selected base"
     - "scan/gate state is clean for the selected base"
     - "current feature model has no CRD or webhook lifecycle class for this row"
-    - "remaining work is a bounded operating review plus live evidence"
+    - "selected live evidence is present; remaining work is the bounded operating review"
   currentEvidence:
     catalog: "recipes/elastic/logstash/8.5.1/CATALOG.md"
-    parityReceipt: "runs/live-kind-parity/elastic-logstash-default/receipt.yaml"
+    twoClusterKindParityReceipt: "runs/live-kind-parity/elastic-logstash-default/receipt.yaml"
+    liveHelmConfigHubParityReceipt: "runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml#configHubOciArgo"
     helmPainReport: "recipes/elastic/logstash/8.5.1/helm-pain-report.yaml"
     controlPoints: "recipes/elastic/logstash/8.5.1/control-points.yaml"
     scanReceipt: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml"
