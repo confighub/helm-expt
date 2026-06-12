@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "mongodb-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-mongodb-existing-secret-replicaset-confighub-proof"
+    selector: "Labels.Proof = 'mongodb-existing-secret-replicaset-confighub-proof'"
+  subject:
+    chart: "bitnami/mongodb"
+    chartVersion: "19.0.7"
+    packagePath: "packages/bitnami/mongodb/19.0.7"
+    variant: "existing-secret-replicaset"
+    configHubUnitCount: 11
+  unitRevisionBindings:
+    -
+      slug: "configmap-mongodb-mongodb-common-scripts"
+      headRevisionNum: 1
+      dataHash: "a5ea8dba853990c2fa38037a78aa2921fb1e8cbfe0b64974c287594ae56a7508"
+    -
+      slug: "configmap-mongodb-mongodb-scripts"
+      headRevisionNum: 1
+      dataHash: "3ee6c2b612b5ca94ae83b257c55b21882602f4553483cb4be73d19c690bcf1f7"
+    -
+      slug: "namespace-mongodb"
+      headRevisionNum: 1
+      dataHash: "c751a44455ca0060ed8f90690a55d232c3dde2253ce3d755b5aa678ccfebfd90"
+    -
+      slug: "networkpolicy-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "1e6e9a28816e20e223ae381902ebf487c34a82170674c3a0346eb23bfa080677"
+    -
+      slug: "poddisruptionbudget-mongodb-mongodb"
+      headRevisionNum: 1
+      dataHash: "92d4aaceea7ac44216330f9f1ef1125a9a944c749d1fb8bc3f83a4abb91028eb"
+    -
+      slug: "poddisruptionbudget-mongodb-mongodb-arbiter"
+      headRevisionNum: 1
+      dataHash: "eb770b7dd62ad3022ad2a9887ed06b6a81559d9db27ffa4a4be0c83fc945aaa5"
+    -
+      slug: "serviceaccount-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "9dc4876b7d1a6c87e115299eb9f098c0739adc3a67459121d9fb4cfe36d24dc5"
+    -
+      slug: "service-mongodb-mongodb-arbiter-headless"
+      headRevisionNum: 2
+      dataHash: "dcaa8b53e22a384c151ca18cc53b3ac02f9814b3d4c3f579958e154be97a6c36"
+    -
+      slug: "service-mongodb-mongodb-headless"
+      headRevisionNum: 2
+      dataHash: "e3057ed5071c635e5de62260db1e7da5110c0829437494f154afc3043814b871"
+    -
+      slug: "statefulset-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "2c5bce1608e825411a13b2948f20fe9c7c4c374a1dd7a0f96c5d9a1a39949e58"
+    -
+      slug: "statefulset-mongodb-mongodb-arbiter"
+      headRevisionNum: 2
+      dataHash: "a10cafc2689576eb62994535c3ef622ad3aad41a55ee485b41389df656a77b8b"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

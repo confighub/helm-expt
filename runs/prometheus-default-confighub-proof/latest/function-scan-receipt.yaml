@@ -1,0 +1,143 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "prometheus-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-prometheus-default-confighub-proof"
+    selector: "Labels.Proof = 'prometheus-default-confighub-proof'"
+  subject:
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.8.0"
+    packagePath: "packages/prometheus-community/prometheus/29.8.0"
+    variant: "default"
+    configHubUnitCount: 24
+  unitRevisionBindings:
+    -
+      slug: "namespace-monitoring"
+      headRevisionNum: 1
+      dataHash: "8d1ab1f117e5da9a9a48cf3e7d437fbdf4f856188e15ec51287cb4fa0b0f3962"
+    -
+      slug: "statefulset-monitoring-prometheus-alertmanager"
+      headRevisionNum: 2
+      dataHash: "1c69f6ea6530b3787deb3a9784679704337a3f9713f565345e5181735d5c9c4d"
+    -
+      slug: "clusterrole-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "7b2f57f8f0913df0adbe094e2bffd46b8a64c787536f54bc191490c2b711e17c"
+    -
+      slug: "service-monitoring-prometheus-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "705fede806d08aeda2fb510863f815f3754d54505d959ea2728deafab4f52dc1"
+    -
+      slug: "service-monitoring-prometheus-alertmanager-headless"
+      headRevisionNum: 2
+      dataHash: "3a22c2974f4c64c398dfbd3a8106de9ae44215f7133088fff5a525f7b8f09dcc"
+    -
+      slug: "service-monitoring-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "0bac27d1b15f23b07d3f76aa2465298f3e134adc8939d891257e134b630750c3"
+    -
+      slug: "clusterrolebinding-prometheus-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "6dc9244ed882e35f72e2e2caad072b897cd4e36e905782531104cb40cd4adfc9"
+    -
+      slug: "deployment-monitoring-prometheus-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "9dbe212a5a3f45d53fce666d579b0c9e4fbe89892ac55e55aabbbb47e0c9c844"
+    -
+      slug: "deployment-monitoring-prometheus-prometheus-pushgateway"
+      headRevisionNum: 2
+      dataHash: "e6c48bed7a77f6821a1667326d3267789cb513f88830c3b8e091e2de43d843c1"
+    -
+      slug: "deployment-monitoring-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "ed462a12d1f08d425c3fd4c7008e497b35bfae2ec0da2d644890003fdb45604f"
+    -
+      slug: "persistentvolumeclaim-monitoring-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "165717f0e28b6cafb20e24113b6793e817b809f3c8ac536fc6c984a2f05e6c55"
+    -
+      slug: "service-monitoring-prometheus-alertmanager"
+      headRevisionNum: 2
+      dataHash: "aa43ee45b895dc2cc19df2175f0470b974e24e02bf505b93c3c8ee28400c0013"
+    -
+      slug: "service-monitoring-prometheus-prometheus-node-exporter"
+      headRevisionNum: 2
+      dataHash: "75e3e0aeb1eaa63f0c33ae040ca2484520b1854d8787d888d2a9f72ad76bdf03"
+    -
+      slug: "service-monitoring-prometheus-prometheus-pushgateway"
+      headRevisionNum: 2
+      dataHash: "92110dee33c7f12d37792f98c5564db536012b4b29e0eae88f127436152ab99e"
+    -
+      slug: "serviceaccount-monitoring-prometheus-alertmanager"
+      headRevisionNum: 1
+      dataHash: "f3fc46f226e565b7551c1cadf1a1b75e74a03cbea3df62467add2a70def90355"
+    -
+      slug: "serviceaccount-monitoring-prometheus-kube-state-metrics"
+      headRevisionNum: 1
+      dataHash: "11b13e31d6e1a4a59d8ee0543857c4ef328eb467ff8820123acb9cc01347229a"
+    -
+      slug: "serviceaccount-monitoring-prometheus-prometheus-node-exporter"
+      headRevisionNum: 1
+      dataHash: "aac1cad1cbb9157ec9224150372189c50da9a2d49274ec92c5c42213db5edb64"
+    -
+      slug: "serviceaccount-monitoring-prometheus-prometheus-pushgateway"
+      headRevisionNum: 1
+      dataHash: "1387de1fa71960a6a6b99762e97f8d8f0f500819dbb9c14c65a894c972ef3031"
+    -
+      slug: "serviceaccount-monitoring-prometheus-server"
+      headRevisionNum: 1
+      dataHash: "8b7a38fb3da2c2a0c6eb615a7cf68a66451b9fbb13047258ae436585f8ce653f"
+    -
+      slug: "clusterrole-prometheus-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "da9bdb79232115826618fee12c716aebe7e4f6f26a939627edd973023bda9bf5"
+    -
+      slug: "clusterrolebinding-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "edd21e6c4b4fa66964694806be7b235c9341fbf3decb683384c779fcfcb38469"
+    -
+      slug: "configmap-monitoring-prometheus-alertmanager"
+      headRevisionNum: 1
+      dataHash: "8edfd041e6c7dd768e7f58acab9bba5ce3ccc05e14bea963b576753bae16f38b"
+    -
+      slug: "configmap-monitoring-prometheus-server"
+      headRevisionNum: 1
+      dataHash: "dc0e1d7f9c346f65f9e5a151bac6d1640493f97d4559b679f4306498611ac57b"
+    -
+      slug: "daemonset-monitoring-prometheus-prometheus-node-exporter"
+      headRevisionNum: 2
+      dataHash: "5259a182a467d6f8510856b58f64507a0f6c4fb35c47ba995ffd4d25c16ef29d"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 24
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 24
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 24
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

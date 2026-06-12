@@ -419,7 +419,7 @@
     {
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
-      "value": "144",
+      "value": "147",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -491,7 +491,7 @@
     {
       "section": "proof lanes",
       "metric": "complete core lane rows",
-      "value": "33",
+      "value": "36",
       "total": "191",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",

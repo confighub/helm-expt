@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "mongodb-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-mongodb-existing-secret-replicaset-confighub-proof"
+    selector: "Labels.Proof = 'mongodb-existing-secret-replicaset-confighub-proof'"
+  subject:
+    chart: "bitnami/mongodb"
+    chartVersion: "19.0.7"
+    packagePath: "packages/bitnami/mongodb/19.0.7"
+    variant: "existing-secret-replicaset"
+  changeset:
+    slug: "mongodb-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "MongoDB safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "mongodb-existing-secret-replicaset-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve statefulset-mongodb-mongodb --space helm-mongodb-existing-secret-replicaset-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "statefulset-mongodb-mongodb"
+    output: "Unit statefulset-mongodb-mongodb (f918210b-9c14-4b84-a7f3-c22226b0873c) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-mongodb-existing-secret-replicaset-confighub-proof --where \"Labels.Proof = 'mongodb-existing-secret-replicaset-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req LeVIrAWywRFwhxqjpdnRUNAqrxtHoUbZ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-mongodb-existing-secret-replicaset-confighub-proof --where \"Labels.Proof = 'mongodb-existing-secret-replicaset-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
