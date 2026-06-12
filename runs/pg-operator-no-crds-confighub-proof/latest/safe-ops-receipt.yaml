@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "pg-operator-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-pg-operator-no-crds-confighub-proof"
+    selector: "Labels.Proof = 'pg-operator-no-crds-confighub-proof'"
+  subject:
+    chart: "percona/pg-operator"
+    chartVersion: "3.0.0"
+    packagePath: "packages/percona/pg-operator/3.0.0"
+    variant: "no-crds"
+  changeset:
+    slug: "pg-operator-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Percona PG Operator safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "pg-operator-no-crds-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-pg-operator --space helm-pg-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-pg-operator"
+    output: "Unit deployment-default-pg-operator (34a01794-cd5c-410b-83b1-22eb5851bdba) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-pg-operator-no-crds-confighub-proof --where \"Labels.Proof = 'pg-operator-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req wlJAOrEcQbScduvivMCYjXfybvYUmNEl: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-pg-operator-no-crds-confighub-proof --where \"Labels.Proof = 'pg-operator-no-crds-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

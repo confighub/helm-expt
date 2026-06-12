@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "minio-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-minio-operator-default-confighub-proof"
+    selector: "Labels.Proof = 'minio-operator-default-confighub-proof'"
+  subject:
+    chart: "minio-operator/operator"
+    chartVersion: "7.1.1"
+    packagePath: "packages/minio-operator/operator/7.1.1"
+    variant: "default"
+    configHubUnitCount: 9
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-minio-operator-binding"
+      headRevisionNum: 2
+      dataHash: "3d63b7fe2693daff4c189a64f6f041fdd33f49e9f9eb8c140929ef2d05e4bc70"
+    -
+      slug: "clusterrole-minio-operator-role"
+      headRevisionNum: 2
+      dataHash: "be5a2d5cdff1ee58c357f8c4b2057dcf2b3ccafb46f74f628d8e6444de522e34"
+    -
+      slug: "customresourcedefinition-policybindings-sts-min-io"
+      headRevisionNum: 2
+      dataHash: "4762d5946c5fd492d0a7c79336c4ed483f3025cb4bc4d40397c305b62fb6260e"
+    -
+      slug: "customresourcedefinition-tenants-minio-min-io"
+      headRevisionNum: 2
+      dataHash: "4df94adb1a679e3c6497d435fd6cdff20aed9d21e5b54adeda175834ac1c0667"
+    -
+      slug: "deployment-default-minio-operator"
+      headRevisionNum: 2
+      dataHash: "5b1f3f23d38008fcb7a09ac818918123aeaed51307f6acf4309b3ce3dfa1ea2f"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-minio-operator"
+      headRevisionNum: 1
+      dataHash: "b1d701e6116023503d6a9f1593db46d37ed848586bb6e559ed78a59496bea7bd"
+    -
+      slug: "service-default-operator"
+      headRevisionNum: 2
+      dataHash: "dc6bfe1474e11009eef389d198c4759c72cb43625b750e1aa2053176ba18ee5c"
+    -
+      slug: "service-default-sts"
+      headRevisionNum: 2
+      dataHash: "cf13222d9cc3f36d03ad4d06f9a70307411cf1b404b2418f70f47fe42901e8b4"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

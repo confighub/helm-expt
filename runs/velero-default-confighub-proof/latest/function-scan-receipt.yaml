@@ -1,0 +1,139 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "velero-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-velero-default-confighub-proof"
+    selector: "Labels.Proof = 'velero-default-confighub-proof'"
+  subject:
+    chart: "velero/velero"
+    chartVersion: "12.0.1"
+    packagePath: "packages/velero/velero/12.0.1"
+    variant: "default"
+    configHubUnitCount: 23
+  unitRevisionBindings:
+    -
+      slug: "role-default-velero-server"
+      headRevisionNum: 2
+      dataHash: "9cd1c6e6b325a84d8011734618158b7533e3ebd9a39dca18498e7f63fde59fb1"
+    -
+      slug: "customresourcedefinition-backupstoragelocations-velero-io"
+      headRevisionNum: 2
+      dataHash: "2965fa5543690b71fb1d26d1d6a45bee3f5bccb5c9ea99013295ee46e53cd95e"
+    -
+      slug: "customresourcedefinition-datadownloads-velero-io"
+      headRevisionNum: 2
+      dataHash: "309d3b75f250c82cf18f37b18e23e5ea6a946b39cf0c823aebbc40e47bc831b8"
+    -
+      slug: "customresourcedefinition-podvolumebackups-velero-io"
+      headRevisionNum: 2
+      dataHash: "180347f59743cda22f7aae50ed9840eaf121722e5cfc758a51f1a2aefa97763b"
+    -
+      slug: "customresourcedefinition-restores-velero-io"
+      headRevisionNum: 2
+      dataHash: "9d51c1b595601702adc48944459517630580ca755fc7fa8f3e7c01a2b0e0f650"
+    -
+      slug: "customresourcedefinition-serverstatusrequests-velero-io"
+      headRevisionNum: 2
+      dataHash: "6a4150f46e3b1cbc6fda065dc4ca3f9b0dbc2db37ce3c09b2e9319c9b822be06"
+    -
+      slug: "customresourcedefinition-volumesnapshotlocations-velero-io"
+      headRevisionNum: 2
+      dataHash: "f4863fa6233131fcf54c8bf8e9637b6230215e8c397408896ea7cafd03d7a2a7"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "volumesnapshotlocation-default-default"
+      headRevisionNum: 1
+      dataHash: "184a32cd4bf1cdf8eb3536b27e8b300b61fd1ed05a286fe26322dbf17ea2f44f"
+    -
+      slug: "rolebinding-default-velero-server"
+      headRevisionNum: 2
+      dataHash: "9b738fcfd8e12f049a5675ecd989dca7a7bb1138cda4eee9ed9f01605d5cb566"
+    -
+      slug: "service-default-velero"
+      headRevisionNum: 2
+      dataHash: "d5c97753a40aa7124ac9d53a8c1e4d076d5da21536ae1fed5ed868335bb296fe"
+    -
+      slug: "serviceaccount-default-velero-server"
+      headRevisionNum: 1
+      dataHash: "bd5249a25692bd5d902f388c29ab6ea613d4af05692b77a010c732d0628c37a3"
+    -
+      slug: "customresourcedefinition-backuprepositories-velero-io"
+      headRevisionNum: 2
+      dataHash: "ddae28873cfc0c91847ce3f8d9252f75ebed6ed73a58478903de08822dbe03b8"
+    -
+      slug: "customresourcedefinition-backups-velero-io"
+      headRevisionNum: 2
+      dataHash: "981cde131ef16e86580a98ad7865ef669fb797d41171506745452ad6fafa6e9d"
+    -
+      slug: "customresourcedefinition-podvolumerestores-velero-io"
+      headRevisionNum: 2
+      dataHash: "ea40c5ad88b9601e4c67f23da778231135ee5ba66f76e82dd617231126895563"
+    -
+      slug: "customresourcedefinition-deletebackuprequests-velero-io"
+      headRevisionNum: 2
+      dataHash: "3f4726608b3dab7f62bfcb4a43ea64718dc7c6fc89eae3ed4e5ece5db79b03c5"
+    -
+      slug: "customresourcedefinition-datauploads-velero-io"
+      headRevisionNum: 2
+      dataHash: "15bd6e947c51dd28815491bb0220469125b67a76b9ea133e02d6d98eccfa64f7"
+    -
+      slug: "customresourcedefinition-downloadrequests-velero-io"
+      headRevisionNum: 2
+      dataHash: "599e50fc5bc457053a1bae9bf67bdbdc7d2cc7842bf041a46d846f1e8751549f"
+    -
+      slug: "customresourcedefinition-schedules-velero-io"
+      headRevisionNum: 2
+      dataHash: "aad7e92d00aa076ecde983dd34bda166598c462a8409a02d1753f55cb8142e5f"
+    -
+      slug: "backupstoragelocation-default-default"
+      headRevisionNum: 1
+      dataHash: "232df4ff3811cbbc23d1c409b68668d7529a6ca9170f1d4ceeb65f0c3fac47e0"
+    -
+      slug: "clusterrolebinding-velero-server"
+      headRevisionNum: 2
+      dataHash: "f8e5887f721597b57ee3af7913fac441e31ab34603ab8f9cbbd68f980816eac6"
+    -
+      slug: "configmap-default-velero-repo-maintenance"
+      headRevisionNum: 1
+      dataHash: "51c9086e5070d6905b5d8aaeffbaf387c4931257fe2275f0a3474f132c6c4587"
+    -
+      slug: "deployment-default-velero"
+      headRevisionNum: 2
+      dataHash: "b12e813a41130e5719d93c2404f40aadd29417f3eabde19c7586dc6e56c15d62"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 23
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 23
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 23
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

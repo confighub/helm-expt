@@ -1,0 +1,87 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "goldilocks-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-goldilocks-default-confighub-proof"
+    selector: "Labels.Proof = 'goldilocks-default-confighub-proof'"
+  subject:
+    chart: "fairwinds-stable/goldilocks"
+    chartVersion: "10.3.0"
+    packagePath: "packages/fairwinds-stable/goldilocks/10.3.0"
+    variant: "default"
+    configHubUnitCount: 10
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-goldilocks-controller"
+      headRevisionNum: 2
+      dataHash: "749b71ec9a97005b913dd2e91718df09deb66466dc63db08d596fe999e54b47c"
+    -
+      slug: "service-default-goldilocks-dashboard"
+      headRevisionNum: 2
+      dataHash: "687cf3bdfe263951ad0bf14fe4286a2d7dd92a69a16ea1ba87717d9eb833df93"
+    -
+      slug: "deployment-default-goldilocks-dashboard"
+      headRevisionNum: 2
+      dataHash: "ebd50e70eef5f21085754166502120e9b93542367f25d7e7a286644509a9bd60"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "deployment-default-goldilocks-controller"
+      headRevisionNum: 2
+      dataHash: "0566500739dbc12f200fb1e3d7f24fb51c56b4d03362f0fd466b91dc777a9802"
+    -
+      slug: "serviceaccount-default-goldilocks-controller"
+      headRevisionNum: 1
+      dataHash: "b74b8fd7fa93bda8acde38a2718fe2a8916a7f7f01ba5e7f251cf36fcc01c356"
+    -
+      slug: "serviceaccount-default-goldilocks-dashboard"
+      headRevisionNum: 1
+      dataHash: "adef7b180d2dd3cc450329d0d598dfbcf3fa5696544684ca388446359ee1d304"
+    -
+      slug: "clusterrole-goldilocks-dashboard"
+      headRevisionNum: 2
+      dataHash: "e60bd8eceb4064ad8f4e243503d3394ee8d5b490ec3f1bb704151c9e4d120900"
+    -
+      slug: "clusterrolebinding-goldilocks-controller"
+      headRevisionNum: 2
+      dataHash: "83ed2e2245e26f104eac730ac8a5c414ee374a87f524aa2f74150865a7947829"
+    -
+      slug: "clusterrolebinding-goldilocks-dashboard"
+      headRevisionNum: 2
+      dataHash: "3468458a0e784f53e48cac00980cdb45151d49960d769e79b99ea20ffb8beea3"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 10
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 10
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 10
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

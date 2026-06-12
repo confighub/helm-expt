@@ -1,0 +1,82 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "fluent-bit-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/fluent/fluent-bit/0.57.6"
+    name: "fluent-fluent-bit"
+    chart: "fluent/fluent-bit"
+    chartVersion: "0.57.6"
+    bases:
+      - "default"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/fluent/fluent-bit/0.57.6 --base default --work-dir .tmp/confighub-proof/fluent-bit-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/fluent-bit-default"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/fluent/fluent-bit/0.57.6 -o .tmp/confighub-proof/fluent-bit-default-archives/fluent-bit-a.tgz"
+    sha256: "927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/fluent-bit-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/fluent-bit-default --space helm-fluent-bit-default-confighub-proof --component FluentBit --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=FluentBit --unit-label HelmChart=fluent-fluent-bit --unit-label HelmChartVersion=0.57.6 --unit-label Variant=default --unit-label Proof=fluent-bit-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-fluent-bit-default-confighub-proof"
+    unitCount: 8
+    kubernetesUnitCount: 7
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/fluent-bit-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/fluent-bit-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-fluent-bit-default-confighub-proof (post-render):\n      DaemonSet/fluent-bit [fluent-bit] cr.fluentbit.io/fluent/fluent-bit:5.0.6"
+  serverSideVariant:
+    command: "cub variant create staging helm-fluent-bit-default-confighub-proof --environment Staging --region local --space-name-pattern template:FluentBit-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-fluent-bit-default-confighub-proof"
+    downstreamSpace: "FluentBit-default-staging"
+    clonedUnitCount: 8
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "daemonset-default-fluent-bit"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-fluent-bit-default-confighub-proof"
+      - "FluentBit-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

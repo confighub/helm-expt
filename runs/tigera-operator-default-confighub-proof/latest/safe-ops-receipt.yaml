@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "tigera-operator-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-tigera-operator-default-confighub-proof"
+    selector: "Labels.Proof = 'tigera-operator-default-confighub-proof'"
+  subject:
+    chart: "projectcalico/tigera-operator"
+    chartVersion: "v3.32.0"
+    packagePath: "packages/projectcalico/tigera-operator/v3.32.0"
+    variant: "default"
+  changeset:
+    slug: "tigera-operator-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "tigera-operator safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "tigera-operator-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-tigera-operator --space helm-tigera-operator-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-tigera-operator"
+    output: "Unit deployment-default-tigera-operator (54eab1fd-2156-457b-9bd3-027a79e294c1) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-tigera-operator-default-confighub-proof --where \"Labels.Proof = 'tigera-operator-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req DZYWkKwKKVTQxODQCaMqziVtmknwmkty: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-tigera-operator-default-confighub-proof --where \"Labels.Proof = 'tigera-operator-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

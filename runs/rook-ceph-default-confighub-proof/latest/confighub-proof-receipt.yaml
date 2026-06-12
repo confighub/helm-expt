@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "rook-ceph-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/rook-release/rook-ceph/v1.19.5"
+    name: "rook-release-rook-ceph"
+    chart: "rook-release/rook-ceph"
+    chartVersion: "v1.19.5"
+    bases:
+      - "default"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/rook-release/rook-ceph/v1.19.5 --base default --work-dir .tmp/confighub-proof/rook-ceph-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 134
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/rook-ceph-default"
+    result: "pass"
+    manifestCount: 134
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/rook-release/rook-ceph/v1.19.5 -o .tmp/confighub-proof/rook-ceph-default-archives/rook-ceph-a.tgz"
+    sha256: "21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/rook-ceph-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/rook-ceph-default --space helm-rook-ceph-default-confighub-proof --component RookCeph --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=RookCeph --unit-label HelmChart=rook-release-rook-ceph --unit-label HelmChartVersion=v1.19.5 --unit-label Variant=default --unit-label Proof=rook-ceph-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-rook-ceph-default-confighub-proof"
+    unitCount: 135
+    kubernetesUnitCount: 134
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/rook-ceph-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/rook-ceph-default"
+    result: "timeout"
+    summary: ""
+  serverSideVariant:
+    command: "cub variant create staging helm-rook-ceph-default-confighub-proof --environment Staging --region local --space-name-pattern template:RookCeph-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-rook-ceph-default-confighub-proof"
+    downstreamSpace: "RookCeph-default-staging"
+    clonedUnitCount: 135
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-ceph-csi-controller-manager"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-rook-ceph-default-confighub-proof"
+      - "RookCeph-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "post-upload cub installer plan timed out for this base-specific proof run; upload, variant, scan, and safe-ops were still checked."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

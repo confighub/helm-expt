@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "cluster-autoscaler-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/autoscaler/cluster-autoscaler/9.57.0"
+    name: "autoscaler-cluster-autoscaler"
+    chart: "autoscaler/cluster-autoscaler"
+    chartVersion: "9.57.0"
+    bases:
+      - "default"
+      - "controller-default-reviewed"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/autoscaler/cluster-autoscaler/9.57.0 --base default --work-dir .tmp/confighub-proof/cluster-autoscaler-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 8
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/cluster-autoscaler-default"
+    result: "pass"
+    manifestCount: 8
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/autoscaler/cluster-autoscaler/9.57.0 -o .tmp/confighub-proof/cluster-autoscaler-default-archives/cluster-autoscaler-a.tgz"
+    sha256: "351121a8d10b6a6fa0ba0a81b1d5345038f25968c117c5ae4dc9c4e1a7474b8d"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/cluster-autoscaler-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/cluster-autoscaler-default --space helm-cluster-autoscaler-default-confighub-proof --component ClusterAutoscaler --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ClusterAutoscaler --unit-label HelmChart=autoscaler-cluster-autoscaler --unit-label HelmChartVersion=9.57.0 --unit-label Variant=default --unit-label Proof=cluster-autoscaler-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-cluster-autoscaler-default-confighub-proof"
+    unitCount: 9
+    kubernetesUnitCount: 8
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/cluster-autoscaler-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/cluster-autoscaler-default"
+    result: "pass"
+    summary: "No changes."
+  serverSideVariant:
+    command: "cub variant create staging helm-cluster-autoscaler-default-confighub-proof --environment Staging --region local --space-name-pattern template:ClusterAutoscaler-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-cluster-autoscaler-default-confighub-proof"
+    downstreamSpace: "ClusterAutoscaler-default-staging"
+    clonedUnitCount: 9
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "service-default-cluster-autoscaler-aws-cluster-autoscaler"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-cluster-autoscaler-default-confighub-proof"
+      - "ClusterAutoscaler-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

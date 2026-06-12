@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "consul-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-consul-secure-mesh-existing-secrets-confighub-proof"
+    selector: "Labels.Proof = 'consul-secure-mesh-existing-secrets-confighub-proof'"
+  subject:
+    chart: "hashicorp/consul"
+    chartVersion: "2.0.0"
+    packagePath: "packages/hashicorp/consul/2.0.0"
+    variant: "secure-mesh-existing-secrets"
+  changeset:
+    slug: "consul-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Consul safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "consul-secure-mesh-existing-secrets-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve statefulset-consul-consul-consul-server --space helm-consul-secure-mesh-existing-secrets-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "statefulset-consul-consul-consul-server"
+    output: "Unit statefulset-consul-consul-consul-server (fb938e48-64fa-4212-9404-04fe0e3bce58) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-consul-secure-mesh-existing-secrets-confighub-proof --where \"Labels.Proof = 'consul-secure-mesh-existing-secrets-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req SJGRZEnSHiXgzYFKNCUIJsgApkjdsdOw: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-consul-secure-mesh-existing-secrets-confighub-proof --where \"Labels.Proof = 'consul-secure-mesh-existing-secrets-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

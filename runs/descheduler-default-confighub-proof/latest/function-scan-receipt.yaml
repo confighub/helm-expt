@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "descheduler-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-descheduler-default-confighub-proof"
+    selector: "Labels.Proof = 'descheduler-default-confighub-proof'"
+  subject:
+    chart: "descheduler/descheduler"
+    chartVersion: "0.36.0"
+    packagePath: "packages/descheduler/descheduler/0.36.0"
+    variant: "default"
+    configHubUnitCount: 6
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-descheduler"
+      headRevisionNum: 2
+      dataHash: "7f3a9fc8c502d976e57204aec841343b8adfd16521ae7dee3de02d1845314491"
+    -
+      slug: "clusterrole-descheduler"
+      headRevisionNum: 2
+      dataHash: "192537339a64ca3087f5291cb9efd7d6cffc94690dd7f122388bb64fdc26b027"
+    -
+      slug: "configmap-default-descheduler"
+      headRevisionNum: 1
+      dataHash: "6f68edc223765f301f4d8ec392d271232ee051ecc6385377eca1d7600a698f45"
+    -
+      slug: "cronjob-default-descheduler"
+      headRevisionNum: 2
+      dataHash: "cde0fef7f32f82c2e9bcb12137b52255ddf380680fcaded64864af3d5369c07a"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-descheduler"
+      headRevisionNum: 1
+      dataHash: "693bfc7c3481d66f1cc60fbe6273cb7bb3bc74f09e46b57a21d91b449579d36c"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

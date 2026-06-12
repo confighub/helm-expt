@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "coredns-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-coredns-confighub-proof"
+    selector: "Labels.Proof = 'coredns-confighub-proof'"
+  subject:
+    chart: "coredns/coredns"
+    chartVersion: "1.45.2"
+    packagePath: "packages/coredns/coredns/1.45.2"
+    variant: "default"
+    configHubUnitCount: 6
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-coredns"
+      headRevisionNum: 2
+      dataHash: "782479b4d33f4dffff69bde9bb9b817aa8f298365f5b705b9cefa870cd79b2e0"
+    -
+      slug: "clusterrole-coredns"
+      headRevisionNum: 2
+      dataHash: "24e29579cff2562edf519a11e7da4fdeed0d8c4d9191b804f91758e84e64f16c"
+    -
+      slug: "configmap-default-coredns"
+      headRevisionNum: 1
+      dataHash: "0d08390128d7dac9d29e3b4100ec45a0e8ce2bf36542a06d8808e93ebadce1f6"
+    -
+      slug: "deployment-default-coredns"
+      headRevisionNum: 2
+      dataHash: "ccc373201646dc76a9920bd297156d65cbbe1f1fa9fb16b07fdf61587a9a3bb3"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "service-default-coredns"
+      headRevisionNum: 2
+      dataHash: "665685c9e617cc2ca3cf6c162d27cd2f0b31eed7644dc903164b7146e3648e10"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

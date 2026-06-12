@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "opencost-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-opencost-default-confighub-proof"
+    selector: "Labels.Proof = 'opencost-default-confighub-proof'"
+  subject:
+    chart: "opencost/opencost"
+    chartVersion: "2.5.21"
+    packagePath: "packages/opencost/opencost/2.5.21"
+    variant: "default"
+    configHubUnitCount: 7
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-opencost"
+      headRevisionNum: 2
+      dataHash: "3e0f254754e95b1c19e346a91b5bf40e0905efa7a901a6016c1dd684e3eafedf"
+    -
+      slug: "clusterrole-opencost"
+      headRevisionNum: 2
+      dataHash: "4ecca97928655b85bd7332a97f7482586dc980c3c07a91ea154fe7313e924fe7"
+    -
+      slug: "configmap-default-opencost-ui-nginx-config"
+      headRevisionNum: 1
+      dataHash: "8298520b3a9b1ec0a0b7821e25974d7afa0868b5b2a611d438e4bb0d123b25bc"
+    -
+      slug: "deployment-default-opencost"
+      headRevisionNum: 2
+      dataHash: "d51ed316790bfeec72f689aff74c2166e5397c033d1fd57b17741ea7f93ec86f"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-opencost"
+      headRevisionNum: 1
+      dataHash: "9155b84b6371589ba988e22b771fa8f3a6ced4fc8aa1e6f5a0efecbf816fbd28"
+    -
+      slug: "service-default-opencost"
+      headRevisionNum: 2
+      dataHash: "2b8affc8f95469857db397dafb2d28e3a48c1ec4b1f34af61d05ceb6869307ce"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

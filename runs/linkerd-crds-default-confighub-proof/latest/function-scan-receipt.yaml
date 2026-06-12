@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "linkerd-crds-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-linkerd-crds-default-confighub-proof"
+    selector: "Labels.Proof = 'linkerd-crds-default-confighub-proof'"
+  subject:
+    chart: "linkerd/linkerd-crds"
+    chartVersion: "1.8.0"
+    packagePath: "packages/linkerd/linkerd-crds/1.8.0"
+    variant: "default"
+    configHubUnitCount: 9
+  unitRevisionBindings:
+    -
+      slug: "customresourcedefinition-authorizationpolicies-policy-linkerd-io"
+      headRevisionNum: 2
+      dataHash: "dac9fbf4a383c2242e6021c805d969bdaade3d2fdd89520487176cec22062bff"
+    -
+      slug: "customresourcedefinition-httproutes-gateway-networking-k8s-io"
+      headRevisionNum: 2
+      dataHash: "1418aed04dabdab3c1ad3317f026432c1b03fe377d03ae6c29a5991dfab0edf1"
+    -
+      slug: "customresourcedefinition-httproutes-policy-linkerd-io"
+      headRevisionNum: 2
+      dataHash: "577627fd499481c984b04986181ba0f7cf1e894bad170e19163966789cf6a422"
+    -
+      slug: "customresourcedefinition-meshtlsauthentications-policy-linkerd-io"
+      headRevisionNum: 2
+      dataHash: "0c794b581f746775f0db0d3eb7a3dac2873977dd0c7dd10233afc2ee80f6b76e"
+    -
+      slug: "customresourcedefinition-serverauthorizations-policy-linkerd-io"
+      headRevisionNum: 2
+      dataHash: "951eac22aee9bec1a1b12a9eb5e5676049ff2c057c3eaf8e788d56dd663b38bd"
+    -
+      slug: "customresourcedefinition-servers-policy-linkerd-io"
+      headRevisionNum: 2
+      dataHash: "48a27bdd5010443c0d3911bacb43ae790b76ba7126e7b25fc1a62d449b46e94c"
+    -
+      slug: "customresourcedefinition-serviceprofiles-linkerd-io"
+      headRevisionNum: 2
+      dataHash: "cd04b66bcacab0b009b1a82dc8ad740e7146dd5637d74096eeb7f9ee0a14d4d7"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "customresourcedefinition-networkauthentications-policy-linkerd-io"
+      headRevisionNum: 2
+      dataHash: "5ca4da0b042eed5560781b0f602b10abef0995f6cf5e048942291c3cb04bbf83"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

@@ -1,0 +1,82 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "jaeger-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/jaegertracing/jaeger/4.8.0"
+    name: "jaegertracing-jaeger"
+    chart: "jaegertracing/jaeger"
+    chartVersion: "4.8.0"
+    bases:
+      - "default"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/jaegertracing/jaeger/4.8.0 --base default --work-dir .tmp/confighub-proof/jaeger-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 4
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/jaeger-default"
+    result: "pass"
+    manifestCount: 4
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/jaegertracing/jaeger/4.8.0 -o .tmp/confighub-proof/jaeger-default-archives/jaeger-a.tgz"
+    sha256: "da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/jaeger-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/jaeger-default --space helm-jaeger-default-confighub-proof --component Jaeger --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Jaeger --unit-label HelmChart=jaegertracing-jaeger --unit-label HelmChartVersion=4.8.0 --unit-label Variant=default --unit-label Proof=jaeger-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-jaeger-default-confighub-proof"
+    unitCount: 5
+    kubernetesUnitCount: 4
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/jaeger-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/jaeger-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-jaeger-default-confighub-proof (post-render):\n      Deployment/jaeger [jaeger] jaegertracing/jaeger:2.18.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-jaeger-default-confighub-proof --environment Staging --region local --space-name-pattern template:Jaeger-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-jaeger-default-confighub-proof"
+    downstreamSpace: "Jaeger-default-staging"
+    clonedUnitCount: 5
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-jaeger"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-jaeger-default-confighub-proof"
+      - "Jaeger-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."
