@@ -16,8 +16,8 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 22
-try-with-proof: 14
-runtime-watch: 6
+try-with-proof: 13
+runtime-watch: 7
 runtime-review-needed: 0
 operating-policy-needed: 0
 target-fit-needed: 0
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-ready-to-collect: 5
+ready-to-collect: 4
 model-or-stage-first: 0
 review-target-first: 0
 inspect-diff-first: 0
@@ -87,7 +87,7 @@ rerun-now-after-cleanup: 0
 | `hashicorp/vault@0.32.0` | ha-raft-ui | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | no | try-with-proof | ready-to-collect | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare | - |
+| `ingress-nginx/ingress-nginx@4.15.1` | default | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `jetstack/cert-manager@v1.20.2` | default | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `longhorn/longhorn@1.11.2` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
