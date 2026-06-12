@@ -3,41 +3,105 @@ kind: "ObservationReceipt"
 metadata:
   name: "argo-cd-argo-workflows-1.0.14-default-local-kind"
 spec:
-  blockedReasons:
-    - "deployment/argo-workflows-workflow-controller: not-ready (argo-workflows-server-68dc849dd4-m58vc[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-4cqjw[Error ready=false restarts=5;])"
-    - "deployment/argo-workflows-server: not-ready (argo-workflows-server-68dc849dd4-m58vc[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-4cqjw[CrashLoopBackOff ready=false restarts=5;])"
-  checks:
-    -
-      name: "rendered-objects-applied"
-      object: "19 object(s) from recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml"
-      result: "pass"
-    -
-      name: "workload-converged"
-      object: "Deployment|default|argo-workflows-workflow-controller"
-      reason: "not-ready: argo-workflows-server-68dc849dd4-m58vc[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-4cqjw[Error ready=false restarts=5;]"
-      result: "fail"
-    -
-      name: "workload-converged"
-      object: "Deployment|default|argo-workflows-server"
-      reason: "not-ready: argo-workflows-server-68dc849dd4-m58vc[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-4cqjw[CrashLoopBackOff ready=false restarts=5;]"
-      result: "fail"
-  clusterStatus: "existing"
-  freshnessTTL: "1h"
-  kubectlObjects:
-    path: "observed-objects.yaml"
-    sha256: "5a80a641c4007a08ded2d26e923a1d9464abb1346a0478aa20ac6de38e619a50"
-  observedAt: "2026-06-11T09:57:17.834Z"
+  variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
   observer:
-    method: "kubectl-kind"
     name: "next80-local-live"
     version: "0.1.0"
-  renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
-  result: "fail"
+    method: "kubectl-kind"
   target:
-    context: "kind-claude-helm-expt-next80"
     kind: "kind"
     name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
     namespace: "default"
+  observedAt: "2026-06-12T16:58:31.407Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
   variant: "default"
-  variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "clusterworkflowtemplates.argoproj.io"
+      -
+        name: "cronworkflows.argoproj.io"
+      -
+        name: "workflowartifactgctasks.argoproj.io"
+      -
+        name: "workfloweventbindings.argoproj.io"
+      -
+        name: "workflows.argoproj.io"
+      -
+        name: "workflowtaskresults.argoproj.io"
+      -
+        name: "workflowtasksets.argoproj.io"
+      -
+        name: "workflowtemplates.argoproj.io"
   workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "7fa0b8789c903ca2ca3a72db94d10273873d17fc52a8e4f2703272a6adf7b85c"
+  checks:
+    -
+      name: "target-fact-crd-present"
+      result: "blocked"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterworkflowtemplates.argoproj.io"
+      reason: "required CRD clusterworkflowtemplates.argoproj.io was not present before apply"
+    -
+      name: "target-fact-crd-present"
+      result: "blocked"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||cronworkflows.argoproj.io"
+      reason: "required CRD cronworkflows.argoproj.io was not present before apply"
+    -
+      name: "target-fact-crd-present"
+      result: "blocked"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||workflowartifactgctasks.argoproj.io"
+      reason: "required CRD workflowartifactgctasks.argoproj.io was not present before apply"
+    -
+      name: "target-fact-crd-present"
+      result: "blocked"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||workfloweventbindings.argoproj.io"
+      reason: "required CRD workfloweventbindings.argoproj.io was not present before apply"
+    -
+      name: "target-fact-crd-present"
+      result: "blocked"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||workflows.argoproj.io"
+      reason: "required CRD workflows.argoproj.io was not present before apply"
+    -
+      name: "target-fact-crd-present"
+      result: "blocked"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||workflowtaskresults.argoproj.io"
+      reason: "required CRD workflowtaskresults.argoproj.io was not present before apply"
+    -
+      name: "target-fact-crd-present"
+      result: "blocked"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||workflowtasksets.argoproj.io"
+      reason: "required CRD workflowtasksets.argoproj.io was not present before apply"
+    -
+      name: "target-fact-crd-present"
+      result: "blocked"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||workflowtemplates.argoproj.io"
+      reason: "required CRD workflowtemplates.argoproj.io was not present before apply"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "19 object(s) from recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|argo-workflows-workflow-controller"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|argo-workflows-server"
+      reason: "prerequisite-blocked (missing target facts: clusterworkflowtemplates.argoproj.io, cronworkflows.argoproj.io, workflowartifactgctasks.argoproj.io, workfloweventbindings.argoproj.io, ...): argo-workflows-server-68dc849dd4-zl5hv[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-whtdg[Error ready=false restarts=4;]"
+  blockedReasons:
+    - "target fact: required CRD clusterworkflowtemplates.argoproj.io missing"
+    - "target fact: required CRD cronworkflows.argoproj.io missing"
+    - "target fact: required CRD workflowartifactgctasks.argoproj.io missing"
+    - "target fact: required CRD workfloweventbindings.argoproj.io missing"
+    - "target fact: required CRD workflows.argoproj.io missing"
+    - "target fact: required CRD workflowtaskresults.argoproj.io missing"
+    - "target fact: required CRD workflowtasksets.argoproj.io missing"
+    - "target fact: required CRD workflowtemplates.argoproj.io missing"
+    - "deployment/argo-workflows-server: prerequisite-blocked (missing target facts: clusterworkflowtemplates.argoproj.io, cronworkflows.argoproj.io, workflowartifactgctasks.argoproj.io, workfloweventbindings.argoproj.io, ...) (argo-workflows-server-68dc849dd4-zl5hv[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-whtdg[Error ready=false restarts=4;])"

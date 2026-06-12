@@ -4,16 +4,17 @@ metadata:
   name: "argo-cd-argo-workflows-1-0-14"
 spec:
   chart:
-    name: "argo-workflows"
     repository: "argo-cd"
+    name: "argo-workflows"
     version: "1.0.14"
   deterministicBundle:
+    command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1.0.14.tgz"
+    sha256: "cf7b33277b8dfb393aa044d47746b1621a4d1cae6752970972046cd67cb60ef2"
     byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1-0-14.tgz"
-    sha256: "09d0f78603a8dea4a5933c094aa9ab1e45b37199fd9a435b6704fdd5341f88b6"
   package:
-    name: "argo-cd-argo-workflows"
     path: "packages/argo-cd/argo-workflows/1.0.14"
+    name: "argo-cd-argo-workflows"
+    version: "1.0.14"
     sourceFiles:
       -
         path: "README.md"
@@ -36,10 +37,17 @@ spec:
         sha256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
         bytes: 20123
       -
+        path: "bases/minimal-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/minimal-crds/upstream.yaml"
+        sha256: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+        bytes: 872491
+      -
         path: "installer.yaml"
-        sha256: "6047374fbfa81996ec90abdcd5937affc5bcd59f9d6ae7688079ded495b1449b"
-        bytes: 579
-    version: "1.0.14"
+        sha256: "5ae8b62d6fb076b7c8641a6c8dcf932da58f4807ca40d06824ba8220b013e9c1"
+        bytes: 754
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -61,3 +69,13 @@ spec:
       semanticObjectMatches: "19/19"
       separatedSecretCount: 0
       variant: "controller-default-reviewed"
+    -
+      variant: "minimal-crds"
+      base: "minimal-crds"
+      command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base minimal-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 27
+      cubInstallObjectCountIncludingSupport: 28
+      semanticObjectMatches: "27/27"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

@@ -11,7 +11,11 @@ spec:
       name: "default"
       path: "bases/default"
     -
-      name: "controller-default-reviewed"
-      path: "bases/controller-default-reviewed"
       default: false
       description: "argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path"
+      name: "controller-default-reviewed"
+      path: "bases/controller-default-reviewed"
+    -
+      name: "minimal-crds"
+      path: "bases/minimal-crds"
+      description: "argo-cd/argo-workflows minimal-crds variant rendered from argo-cd/argo-workflows@1.0.14"

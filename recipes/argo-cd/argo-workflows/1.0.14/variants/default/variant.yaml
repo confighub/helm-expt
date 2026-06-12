@@ -17,3 +17,13 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      - name: "clusterworkflowtemplates.argoproj.io"
+      - name: "cronworkflows.argoproj.io"
+      - name: "workflowartifactgctasks.argoproj.io"
+      - name: "workfloweventbindings.argoproj.io"
+      - name: "workflows.argoproj.io"
+      - name: "workflowtaskresults.argoproj.io"
+      - name: "workflowtasksets.argoproj.io"
+      - name: "workflowtemplates.argoproj.io"
