@@ -11,7 +11,7 @@ target-scoped support decision for the chart/base/target you intend to use.
 ## Summary
 
 ~~~text
-start-here bases: 29
+start-here bases: 32
 top-20 base variants: 42
 target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
@@ -41,12 +41,15 @@ target-scoped draft decisions: 0
 | `grafana/loki@7.0.0` | simple-scalable-minio | `cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki` | check production decision for grafana/loki |
 | `grafana/tempo@1.24.4` | local-persistent | `cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo` | check production decision for grafana/tempo |
 | `hashicorp/consul@2.0.0` | default-control-plane | `cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul` | check production decision for hashicorp/consul |
+| `hashicorp/vault@0.32.0` | default | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault` | check production decision for hashicorp/vault |
 | `hashicorp/vault@0.32.0` | dev-mode | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault` | check production decision for hashicorp/vault |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | `cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx` | check production decision for ingress-nginx/ingress-nginx |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | `cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager` | check production decision for jetstack/cert-manager |
 | `jetstack/cert-manager@v1.20.2` | default | `cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager` | check production decision for jetstack/cert-manager |
 | `longhorn/longhorn@1.11.2` | default | `cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system` | check production decision for longhorn/longhorn |
+| `longhorn/longhorn@1.11.2` | ui-ingress | `cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system` | check production decision for longhorn/longhorn |
 | `metrics-server/metrics-server@3.13.0` | default | `cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system` | check production decision for metrics-server/metrics-server |
+| `metrics-server/metrics-server@3.13.0` | external-tls-ca | `cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system` | check production decision for metrics-server/metrics-server |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | `cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring` | check production decision for prometheus-community/kube-prometheus-stack |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | `cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring` | check production decision for prometheus-community/kube-prometheus-stack |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | `cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring` | check production decision for prometheus-community/prometheus |
