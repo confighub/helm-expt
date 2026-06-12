@@ -1,0 +1,168 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: percona-pg-operator-3.0.0-default-kind-parity-20260606
+spec:
+  chart: percona/pg-operator
+  version: 3.0.0
+  base: default
+  result: pass
+  observedAt: '2026-06-12T02:05:49Z'
+  package:
+    path: packages/percona/pg-operator/3.0.0
+  recipe:
+    path: recipes/percona/pg-operator/3.0.0
+  variantRevision: recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-pgoper-166f7-bl2q-helm
+    installerCluster: hx-pgoper-166f7-bl2q-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-pgoper-166f7-bl2q-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-pgoper-166f7-bl2q-helm" ...
+
+          Deleted nodes: ["hx-pgoper-166f7-bl2q-helm-control-plane"]'
+      - cluster: hx-pgoper-166f7-bl2q-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-pgoper-166f7-bl2q-installer" ...
+
+          Deleted nodes: ["hx-pgoper-166f7-bl2q-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install pg-operator pg-operator --repo https://percona.github.io/percona-helm-charts/
+        --version 3.0.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-pg-operator-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff
+      objectCount: 12
+      liveHelmManifestSHA256: b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2
+      liveHelmManifestObjectCount: 4
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/pg-operator   1/1   1     1     14s'
+        pods: '# default
+
+          pg-operator-79576c68cb-rz5xm   1/1   Running   0     14s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pg-operator/3.0.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-pgoper-166f7-bl2q-pg-operator
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 8003b95b30bf467487126e54e9210df1998171e0034b29fac1795e69e83ef85e
+      objectCount: 13
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/pg-operator   1/1   1     1     21s'
+        pods: '# default
+
+          pg-operator-79576c68cb-rvrd6   1/1   Running   0     21s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 12
+      installerObjectCount: 13
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"pg-operator\" does not exist. Installing it now.\nNAME: pg-operator\n\
+      LAST DEPLOYED: Fri Jun 12 03:06:41 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Percona\
+      \ Operator for PostgreSQL is deployed. \n  See if the operator Pod is running:\n\
+      \n    kubectl get pods -l app.kubernetes.io/name=pg-operator --namespace default\n\
+      \n  Check the operator logs if the Pod is not starting:\n\n    export POD=$(kubectl\
+      \ get pods -l app.kubernetes.io/name=pg-operator --namespace default --output\
+      \ name)\n    kubectl logs $POD --namespace=default\n\n2. Deploy the database\
+      \ cluster from pg-db chart:\n\n    helm install my-db percona/pg-db --namespace=default\n\
+      \nRead more in our documentation: https://docs.percona.com/percona-operator-for-postgresql/2.0/"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/pg-operator   1/1   1     1     21s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
