@@ -529,6 +529,7 @@ def target_fact_crd_docs(variant: dict, recipe_path: Path, lane: str) -> tuple[l
 
 
 def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str, lane: str) -> dict:
+    variant_namespace = (variant.get("spec") or {}).get("namespace")
     required_secrets = [
         secret
         for secret in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or [])
@@ -541,7 +542,10 @@ def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, conte
     namespaces = set()
     staged_secrets = []
     for secret in required_secrets:
-        namespace = secret.get("namespace") or fallback_namespace
+        source_namespace = secret.get("namespace")
+        namespace = source_namespace or fallback_namespace
+        if source_namespace and variant_namespace and source_namespace == variant_namespace:
+            namespace = fallback_namespace
         name = secret.get("name")
         keys = secret.get("keys") or []
         if not name or not keys:
@@ -556,7 +560,10 @@ def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, conte
             "type": secret_type,
             "stringData": string_data,
         })
-        staged_secrets.append({"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane})
+        staged = {"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane}
+        if source_namespace and source_namespace != namespace:
+            staged["sourceNamespace"] = source_namespace
+        staged_secrets.append(staged)
     if crd_docs:
         crd_path = run_root / f"target-facts-{label}-crds.yaml"
         write_yaml(crd_path, {"apiVersion": "v1", "kind": "List", "items": crd_docs})
