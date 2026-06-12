@@ -74,6 +74,12 @@ parity harness calls those capabilities target profiles.
 | `kind-ingress-nginx` | Proves Ingress behavior on kind by installing the target ingress controller. | `npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx` |
 | `kind-loadbalancer` | Proves `Service.type=LoadBalancer` behavior on kind by running `cloud-provider-kind`. | `npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer` |
 
+Before starting a guarded target-profile run, use preflight:
+
+```bash
+npm run live-parity:top20 -- --preflight --chart ingress-nginx --base default --target-profile kind-loadbalancer
+```
+
 `kind-loadbalancer` needs the `cloud-provider-kind` binary on `PATH`. It is
 guarded because the provider observes kind clusters host-wide. The harness
 refuses to start the profile if another kind cluster is present. Wait for other

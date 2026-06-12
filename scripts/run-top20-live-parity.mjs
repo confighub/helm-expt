@@ -6,6 +6,7 @@ import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-comm
 
 const mode = process.argv[2] ?? "--help";
 const wantsHelp = process.argv.includes("--help") || process.argv.includes("-h");
+const wantsPreflight = process.argv.includes("--preflight");
 const selectedSlug = optionValue("--chart");
 const selectedBase = optionValue("--base");
 const selectedFromRank = numberOption("--from-rank");
@@ -41,6 +42,8 @@ const targets = [
 
 if (wantsHelp) {
   printUsage();
+} else if (wantsPreflight) {
+  preflightSelectedTargets();
 } else if (mode === "--run") {
   const selected = selectedTargets();
   for (const target of selected) runTarget(target);
@@ -61,11 +64,86 @@ function printUsage() {
   node scripts/run-top20-live-parity.mjs --run --chart nginx --base existing-tls-ingress
   node scripts/run-top20-live-parity.mjs --run --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx
   node scripts/run-top20-live-parity.mjs --run --chart ingress-nginx --base default --target-profile kind-loadbalancer
+  node scripts/run-top20-live-parity.mjs --preflight --chart ingress-nginx --base default --target-profile kind-loadbalancer
   node scripts/run-top20-live-parity.mjs --run --chart nginx --repo-url oci://registry-1.docker.io/bitnamicharts
   node scripts/run-top20-live-parity.mjs --run --from-rank 2 --to-rank 5 --continue-on-fail
   node scripts/run-top20-live-parity.mjs --run --all --continue-on-fail
   node scripts/run-top20-live-parity.mjs --summary
   node scripts/run-top20-live-parity.mjs --verify`);
+}
+
+function preflightSelectedTargets() {
+  const selected = selectedTargets();
+  for (const target of selected) {
+    const resolved = resolveTarget(target);
+    const checks = [
+      toolCheck("python3"),
+      toolCheck("cub"),
+      toolCheck("kind"),
+      toolCheck("docker"),
+      targetProfileCheck(targetProfile),
+    ];
+    const failed = checks.filter((item) => item.result !== "pass");
+    console.log(`${failed.length ? "FAIL" : "PASS"} live-parity preflight ${target.chart}@${target.version} ${target.variant}`);
+    console.log(`package: ${resolved.packagePath}`);
+    console.log(`recipe: ${target.recipe}`);
+    console.log(`values: ${resolved.valuesPath}`);
+    console.log(`target profile: ${targetProfile ?? "none"}`);
+    for (const item of checks) console.log(`- ${item.result}: ${item.name}${item.detail ? ` — ${item.detail}` : ""}`);
+    if (failed.length) process.exitCode = 1;
+  }
+}
+
+function toolCheck(binary) {
+  const path = spawnSync("sh", ["-lc", `command -v ${shellQuote(binary)}`], { encoding: "utf8", stdio: "pipe" });
+  if (path.status !== 0) {
+    return { name: `${binary} on PATH`, result: "blocked", detail: path.stderr.trim() || "not found" };
+  }
+  const version = spawnSync(binary, versionArgs(binary), { encoding: "utf8", stdio: "pipe" });
+  return {
+    name: `${binary} on PATH`,
+    result: "pass",
+    detail: firstLine(version.stdout || version.stderr) || path.stdout.trim(),
+  };
+}
+
+function targetProfileCheck(profile) {
+  if (!profile || profile === "none") return { name: "target profile", result: "pass", detail: "none" };
+  if (profile === "kind-ingress-nginx") return { name: "target profile kind-ingress-nginx", result: "pass", detail: "installs target ingress controller inside the test rig" };
+  if (profile === "kind-loadbalancer") {
+    const provider = toolCheck("cloud-provider-kind");
+    if (provider.result !== "pass") return { ...provider, name: "target profile kind-loadbalancer" };
+    const clusters = currentKindClusters();
+    if (clusters.length > 0) {
+      return {
+        name: "target profile kind-loadbalancer host isolation",
+        result: "blocked",
+        detail: `cloud-provider-kind observes kind clusters host-wide; wait for these cluster(s) to finish: ${clusters.join(", ")}`,
+      };
+    }
+    return { name: "target profile kind-loadbalancer host isolation", result: "pass", detail: "no existing kind clusters" };
+  }
+  return { name: `target profile ${profile}`, result: "blocked", detail: "unknown target profile" };
+}
+
+function currentKindClusters() {
+  const result = spawnSync("kind", ["get", "clusters"], { encoding: "utf8", stdio: "pipe" });
+  if (result.status !== 0) return [];
+  return result.stdout.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+}
+
+function firstLine(text) {
+  return String(text ?? "").split(/\r?\n/).map((line) => line.trim()).find(Boolean) ?? "";
+}
+
+function shellQuote(value) {
+  return `'${String(value).replaceAll("'", "'\\''")}'`;
+}
+
+function versionArgs(binary) {
+  if (binary === "cub") return ["version"];
+  if (binary === "cloud-provider-kind") return ["--help"];
+  return ["--version"];
 }
 
 function runTarget(target) {
