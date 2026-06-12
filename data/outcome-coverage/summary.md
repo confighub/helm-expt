@@ -10,9 +10,9 @@ the status per chart, base variant, derived variant, and Helm feature.
 charts with model support:           108/110
 variant-rich charts:                 74/110
 chart/base rows:                     190
-complete core lane rows:             24/190
+complete core lane rows:             25/190
 render parity rows:                  190/190
-in-ConfigHub proof rows:             80/190
+in-ConfigHub proof rows:             81/190
 local live rows:                     134/190
 GitOps/OCI live pass rows:           29/190
 GitOps/OCI non-pass receipts:        12
@@ -67,7 +67,7 @@ related lifecycle observations:      10/10
 | `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
+| `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `external-secrets/external-secrets@2.5.0` | default;no-crds | no | 1/2 | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 2/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
