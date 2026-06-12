@@ -1,0 +1,168 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: percona-psmdb-operator-1.22.0-default-kind-parity-20260606
+spec:
+  chart: percona/psmdb-operator
+  version: 1.22.0
+  base: default
+  result: pass
+  observedAt: '2026-06-12T01:50:48Z'
+  package:
+    path: packages/percona/psmdb-operator/1.22.0
+  recipe:
+    path: recipes/percona/psmdb-operator/1.22.0
+  variantRevision: recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-psmdbo-95707-s9sc-helm
+    installerCluster: hx-psmdbo-95707-s9sc-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-psmdbo-95707-s9sc-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-psmdbo-95707-s9sc-helm" ...
+
+          Deleted nodes: ["hx-psmdbo-95707-s9sc-helm-control-plane"]'
+      - cluster: hx-psmdbo-95707-s9sc-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-psmdbo-95707-s9sc-installer" ...
+
+          Deleted nodes: ["hx-psmdbo-95707-s9sc-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install psmdb-operator psmdb-operator --repo https://percona.github.io/percona-helm-charts/
+        --version 1.22.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-psmdb-operator-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936
+      objectCount: 7
+      liveHelmManifestSHA256: 583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb
+      liveHelmManifestObjectCount: 4
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/psmdb-operator   1/1   1     1     13s'
+        pods: '# default
+
+          psmdb-operator-5f59944ccb-l2tw7   1/1   Running   0     13s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/psmdb-operator/1.22.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-psmdbo-95707-s9sc-psmdb-operator
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: d30747823ebc3f5ff628b2c9e1bbcd534093a33fc584593cf96b6d6e1fab9d46
+      objectCount: 8
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/psmdb-operator   1/1   1     1     20s'
+        pods: '# default
+
+          psmdb-operator-5f59944ccb-lvrtx   1/1   Running   0     20s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 7
+      installerObjectCount: 8
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"psmdb-operator\" does not exist. Installing it now.\nNAME:\
+      \ psmdb-operator\nLAST DEPLOYED: Fri Jun 12 02:51:42 2026\nNAMESPACE: default\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\n1. Percona Operator for MongoDB is deployed.\n  See if the operator\
+      \ Pod is running:\n\n    kubectl get pods -l app.kubernetes.io/name=psmdb-operator\
+      \ --namespace default\n\n  Check the operator logs if the Pod is not starting:\n\
+      \n    export POD=$(kubectl get pods -l app.kubernetes.io/name=psmdb-operator\
+      \ --namespace default --output name)\n    kubectl logs $POD --namespace=default\n\
+      \n2. Deploy the database cluster from psmdb-db chart:\n\n    helm install my-db\
+      \ percona/psmdb-db --namespace=default\n\nRead more in our documentation: https://docs.percona.com/percona-operator-for-mongodb/"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/psmdb-operator   1/1   1     1     20s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
