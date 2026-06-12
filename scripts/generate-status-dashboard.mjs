@@ -335,8 +335,8 @@ ${liveParityWorkQueues}
 ### Active Proof Queue
 
 These are the current live parity rows where another run is not the first useful
-step. Each row points at the support artifact that explains the prerequisite,
-lifecycle route, target fit, or operating policy.
+step. When a support artifact exists, it is linked here; otherwise the row still
+needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
@@ -1249,8 +1249,12 @@ function activeProofQueueRows(rows) {
 
 function activeProofQueueMarkdown(rows) {
   return rows
-    .map((row) => `| ${row.chart} | ${row.base} | ${row.current_result} | ${row.next_step_type} | [${row.support_artifact}](../../${row.support_artifact}) |`)
+    .map((row) => `| ${row.chart} | ${row.base} | ${row.current_result} | ${row.next_step_type} | ${supportArtifactLink(row.support_artifact)} |`)
     .join("\n") || "| none | - | - | - | - |";
+}
+
+function supportArtifactLink(path) {
+  return path ? `[${path}](../../${path})` : "-";
 }
 
 function nextWorkQueuesToCsv(rows) {

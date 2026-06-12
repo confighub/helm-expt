@@ -72,9 +72,9 @@ Which detailed CSV should I open next?
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 20/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 9/9 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 2/9 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 7/9 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -185,17 +185,26 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| none | 0 | No current queue rows. |
+| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 7 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ### Active Proof Queue
 
 These are the current live parity rows where another run is not the first useful
-step. Each row points at the support artifact that explains the prerequisite,
-lifecycle route, target fit, or operating policy.
+step. When a support artifact exists, it is linked here; otherwise the row still
+needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
-| none | - | - | - | - |
+| bitnami/mongodb@19.0.7 | existing-secret-replicaset | watch | runtime-review | - |
+| bitnami/nginx@24.0.2 | existing-tls-ingress | watch | gitops-runtime-review | - |
+| grafana/grafana@10.5.15 | existing-secret-ingress | watch | gitops-runtime-review | - |
+| hashicorp/vault@0.32.0 | default | watch | operating-policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
+| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | target-fit-review | - |
+| ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime-review | - |
+| longhorn/longhorn@1.11.2 | ui-ingress | watch | gitops-runtime-review | - |
+| metrics-server/metrics-server@3.13.0 | external-tls-ca | watch | runtime-review | - |
+| prometheus-community/prometheus@29.8.0 | default | watch | runtime-review | - |
 
 ### Local Live Non-Pass Triage
 
@@ -382,11 +391,15 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-
+| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 7 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-
+| operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
+| target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
+| gitops-runtime-review | 4 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
+| runtime-review | 3 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.

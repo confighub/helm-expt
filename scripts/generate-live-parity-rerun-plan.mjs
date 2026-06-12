@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "live-parity-rerun-plan");
@@ -54,9 +54,18 @@ function buildPlan() {
 
 function configHubOciRows() {
   const path = join(repoRoot, "data", "live-helm-confighub-compare", "summary.csv");
-  if (!existsSync(path)) return [];
-  return parseCsv(readFileSync(path, "utf8"))
-    .filter((row) => ["blocked", "watch"].includes(row.result))
+  const rowsByReceipt = new Map();
+  if (existsSync(path)) {
+    for (const row of parseCsv(readFileSync(path, "utf8"))) {
+      if (["blocked", "watch"].includes(row.result)) rowsByReceipt.set(row.receipt, row);
+    }
+  }
+  for (const row of allLiveComparisonReceiptRows()) {
+    if (["blocked", "watch"].includes(row.result) && !rowsByReceipt.has(row.receipt)) {
+      rowsByReceipt.set(row.receipt, row);
+    }
+  }
+  return [...rowsByReceipt.values()]
     .map((row) => ({
       priority: priorityForConfigHubOci(row),
       lane: "configHub-oci-live-comparison",
@@ -66,10 +75,43 @@ function configHubOciRows() {
       current_result: row.result,
       reason: row.reason || "watch: inspect receipt",
       diagnosis: diagnosisForConfigHubOci(row),
-      rerun_command: `npm run live-parity:top20 -- --from-rank ${row.rank} --to-rank ${row.rank}${repoUrlFlag(row)} --continue-on-fail`,
+      rerun_command: rerunCommandForConfigHubOci(row),
       followup: followupForConfigHubOci(row),
       receipt: row.receipt,
     }));
+}
+
+function allLiveComparisonReceiptRows() {
+  const root = join(repoRoot, "runs", "live-helm-confighub-compare");
+  if (!existsSync(root)) return [];
+  return readdirSync(root, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => {
+      const receiptPath = join(root, entry.name, "receipt.yaml");
+      if (!existsSync(receiptPath)) return null;
+      const receipt = readYaml(receiptPath);
+      const spec = receipt.spec ?? {};
+      return {
+        chart: spec.chart ?? "",
+        version: spec.version ?? "",
+        variant: spec.base ?? "",
+        result: spec.result ?? "",
+        reason: classifyLiveComparisonReason(spec),
+        receipt: relativeRepo(receiptPath),
+      };
+    })
+    .filter(Boolean);
+}
+
+function rerunCommandForConfigHubOci(row) {
+  if (row.rank) {
+    return `npm run live-parity:top20 -- --from-rank ${row.rank} --to-rank ${row.rank}${repoUrlFlag(row)} --continue-on-fail`;
+  }
+  return `npm run live-parity:top20 -- --chart ${liveTargetSlug(row.chart)} --base ${row.variant}${repoUrlFlag(row)} --continue-on-fail`;
+}
+
+function liveTargetSlug(chart) {
+  return String(chart ?? "").split("/").at(-1);
 }
 
 function twoClusterRows() {
@@ -115,6 +157,56 @@ function repoUrlFlag(row) {
 function repoUrlOverrideFor(row) {
   if (row.chart?.startsWith("bitnami/")) return bitnamiOciRepository;
   return "";
+}
+
+function classifyLiveComparisonReason(spec) {
+  if (!["blocked", "watch"].includes(spec.result)) return "";
+  const semantic = spec.semanticComparison ?? {};
+  const semanticDiff = Object.values(semantic).some(
+    (value) =>
+      value &&
+      typeof value === "object" &&
+      (((value.semanticDiffs ?? []).length > 0) || ((value.missingFromConfigHub ?? []).length > 0)),
+  );
+  if (semanticDiff) return "parity: live semantic diff";
+
+  if (spec.result === "watch") return classifyLiveComparisonWatch(spec);
+
+  const message = String(spec.failure?.message ?? "").toLowerCase();
+  if (message.includes("kind create cluster")) return "infra: kind create failed";
+  if (message.includes("argocd-server")) return "infra: rig bootstrap (argocd) not ready";
+  if (message.includes("timeout after")) return "infra: provisioning timeout";
+  if (message.includes("etcdserver") || message.includes("request timed out")) return "infra: etcd/apiserver overload";
+  const semanticPassed = Object.values(semantic).some(
+    (value) => value && typeof value === "object" && value.result === "pass",
+  );
+  const regularHelm = spec.legs?.regularHelm ?? {};
+  if (regularHelm.result === "blocked") {
+    const regularMessage = String(`${regularHelm.stderr ?? ""}\n${regularHelm.getManifestError ?? ""}`).toLowerCase();
+    if (regularMessage.includes("customresourcedefinition") && regularMessage.includes("cannot be imported")) {
+      return "fixture: pre-existing CRDs owned by test controller";
+    }
+    return semanticPassed ? "helm-runtime: upstream not ready (parity passed)" : "helm-runtime: upstream leg blocked";
+  }
+  return "uncategorized";
+}
+
+function classifyLiveComparisonWatch(spec) {
+  const text = JSON.stringify(spec).toLowerCase();
+  if (spec.chart === "hashicorp/vault") return "operate-policy: Vault init/unseal readiness (parity passed)";
+  if (spec.chart === "ingress-nginx/ingress-nginx" && spec.base === "admission-disabled") {
+    return "target-fit: LoadBalancer Service has no external IP on kind (parity passed)";
+  }
+  if (spec.chart === "grafana/tempo" && text.includes("pending")) return "target-runtime: PVC/storage pending (parity passed)";
+  if (text.includes("createcontainerconfigerror") || text.includes("crashloopbackoff")) {
+    return "target-runtime: pod config/runtime errors (parity passed)";
+  }
+  if (text.includes("containercreating")) return "target-runtime: pod ContainerCreating (parity passed)";
+  const gitops = spec.legs?.configHubOciArgo ?? {};
+  if (gitops.sync === "Synced" && gitops.health && gitops.health !== "Healthy") {
+    return `gitops-runtime: Argo health ${gitops.health} (parity passed)`;
+  }
+  return "watch: inspect receipt";
 }
 
 function priorityForConfigHubOci(row) {
