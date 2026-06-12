@@ -196,15 +196,15 @@ needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
-| bitnami/mongodb@19.0.7 | existing-secret-replicaset | watch | runtime-review | - |
+| bitnami/mongodb@19.0.7 | existing-secret-replicaset | watch | gitops-runtime-review | - |
 | bitnami/nginx@24.0.2 | existing-tls-ingress | watch | gitops-runtime-review | - |
 | grafana/grafana@10.5.15 | existing-secret-ingress | watch | gitops-runtime-review | - |
 | hashicorp/vault@0.32.0 | default | watch | operating-policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
 | ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | target-fit-review | - |
 | ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime-review | - |
 | longhorn/longhorn@1.11.2 | ui-ingress | watch | gitops-runtime-review | - |
-| metrics-server/metrics-server@3.13.0 | external-tls-ca | watch | runtime-review | - |
-| prometheus-community/prometheus@29.8.0 | default | watch | runtime-review | - |
+| metrics-server/metrics-server@3.13.0 | external-tls-ca | watch | gitops-runtime-review | - |
+| prometheus-community/prometheus@29.8.0 | default | watch | gitops-runtime-review | - |
 
 ### Local Live Non-Pass Triage
 
@@ -398,8 +398,7 @@ useful.
 | --- | ---: | --- |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
-| gitops-runtime-review | 4 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
-| runtime-review | 3 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| gitops-runtime-review | 7 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.

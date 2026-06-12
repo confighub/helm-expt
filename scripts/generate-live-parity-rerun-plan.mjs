@@ -203,6 +203,9 @@ function classifyLiveComparisonWatch(spec) {
   }
   if (text.includes("containercreating")) return "target-runtime: pod ContainerCreating (parity passed)";
   const gitops = spec.legs?.configHubOciArgo ?? {};
+  if (gitops.sync && gitops.sync !== "Synced") {
+    return `gitops-runtime: Argo sync ${gitops.sync} health ${gitops.health || "unknown"} (parity passed)`;
+  }
   if (gitops.sync === "Synced" && gitops.health && gitops.health !== "Healthy") {
     return `gitops-runtime: Argo health ${gitops.health} (parity passed)`;
   }
@@ -236,6 +239,9 @@ function diagnosisForConfigHubOci(row) {
   if (row.reason?.startsWith("target-fit:")) {
     return "Semantic parity and workload readiness passed, but the proof target lacks a required platform behavior such as LoadBalancer external IP assignment.";
   }
+  if (row.reason?.startsWith("gitops-runtime:")) {
+    return "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.";
+  }
   if (row.result === "watch") {
     return "Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior.";
   }
@@ -246,6 +252,7 @@ function followupForConfigHubOci(row) {
   if (row.reason?.startsWith("infra:")) return "If it still blocks, fix rig provisioning before judging chart parity.";
   if (row.reason?.startsWith("helm-runtime:")) return "If object comparison remains clean, record this as upstream runtime readiness rather than a ConfigHub parity defect.";
   if (row.reason?.startsWith("target-fit:")) return "Use a target with the required platform behavior, or create a separate base that matches the proof target.";
+  if (row.reason?.startsWith("gitops-runtime:")) return "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.";
   if (row.result === "watch") return "Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation.";
   return "Open a dedicated parity issue only if the semantic object comparison fails.";
 }
