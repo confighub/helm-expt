@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "grafana-existing-secret-ingress-argocd-ingress-health"
+  chart: "grafana/grafana"
+  version: "10.5.15"
+spec:
+  base: "existing-secret-ingress"
+  controller: "Argo CD"
+  targetShape: "cub-lk/kind proof rig without an ingress controller assigning addresses for ingressClassName=nginx"
+  receipt: "runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/receipt.yaml"
+  observedResult: "watch"
+  passed:
+    - "regular Helm live leg reached the expected runtime state"
+    - "ConfigHub direct-apply leg reached the expected runtime state"
+    - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
+    - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
+    - "Argo CD reported the application Synced"
+    - "Deployment grafana became ready"
+    - "target fact Secret grafana/grafana-admin was staged with admin-user and admin-password"
+  gitOpsCondition:
+    sync: "Synced"
+    health: "Progressing"
+    healthResource:
+      apiVersion: "networking.k8s.io/v1"
+      kind: "Ingress"
+      namespace: "grafana-oci"
+      name: "grafana"
+  diagnosis:
+    summary: "The Ingress object synced and the Grafana workload was ready, but the proof target did not provide an ingress controller that assigns an address for ingressClassName=nginx."
+    observedIngress:
+      ingressClassName: "nginx"
+      host: "grafana.example.test"
+      statusLoadBalancer: {}
+    interpretation: "This is a target topology limitation for the existing-secret-ingress base, not evidence that the recipe or existing-secret target fact changed Helm semantics."
+  nextActions:
+    - "Rerun this base on a target with an ingress controller for class nginx and address assignment."
+    - "Alternatively, use the generated-passwords base as the simple local proof path when ingress and existing admin Secret are not part of the target."
+    - "Keep the row as watch until Argo reports Healthy for the Ingress target shape or the supported scope explicitly excludes ingress address readiness."
+  notClaimed:
+    - "This row does not prove external ingress reachability on a real load balancer."
+    - "This row does not prove authentication policy beyond staging the expected admin Secret target fact."
+    - "This row does not generalize to every ingress-enabled chart without a matching target-topology receipt."

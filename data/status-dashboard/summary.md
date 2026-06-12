@@ -198,7 +198,7 @@ needs a support artifact or a direct receipt review before rerun.
 | --- | --- | --- | --- | --- |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | watch | gitops-runtime-review | [recipes/bitnami/mongodb/19.0.7/gitops-runtime-review.yaml](../../recipes/bitnami/mongodb/19.0.7/gitops-runtime-review.yaml) |
 | bitnami/nginx@24.0.2 | existing-tls-ingress | watch | gitops-runtime-review | [recipes/bitnami/nginx/24.0.2/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/24.0.2/gitops-runtime-review.yaml) |
-| grafana/grafana@10.5.15 | existing-secret-ingress | watch | gitops-runtime-review | - |
+| grafana/grafana@10.5.15 | existing-secret-ingress | watch | gitops-runtime-review | [recipes/grafana/grafana/10.5.15/gitops-runtime-review.yaml](../../recipes/grafana/grafana/10.5.15/gitops-runtime-review.yaml) |
 | hashicorp/vault@0.32.0 | default | watch | operating-policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
 | ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | target-fit-review | - |
 | ingress-nginx/ingress-nginx@4.15.1 | default | watch | gitops-runtime-review | - |
