@@ -40,6 +40,7 @@ from a different chart version's disposition row.
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
+| Variants currently in the active proof queue | 2 |
 
 Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@9.5.17`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/prometheus@29.9.0`.
 
@@ -53,6 +54,7 @@ questions before deciding what to do next:
 | Can I try this now, promote it, or does it need more design? | Use / adoption bucket |
 | What is the strongest evidence currently available? | Evidence, R/C/L/G/P/K, Core |
 | What prevents a stronger claim? | Prod, Scope, Gap, Next action |
+| Which non-pass live row should be rerun or reviewed now? | Active proof |
 
 The HTML view carries these user/product columns directly:
 [matrix.html](matrix.html). The CSV carries the same fields for filtering:
@@ -68,6 +70,7 @@ otherwise.
 | Design a more useful base | 35 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/apache@11.4.29/default` |
 | Decide a limitation first | 17 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/contour@21.1.4/default`, `bitnami/contour@21.1.4/no-crds`, `bitnami/elasticsearch@22.1.6/default` |
 | Complete the core proof lane | 160 | Rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
+| Active proof queue | 2 | Rows with a current non-pass live parity result and an exact rerun or review action. | `ingress-nginx/ingress-nginx@4.15.1/default`, `ingress-nginx/ingress-nginx@4.15.1/admission-disabled` |
 | Record or finish production scope | 170 | Rows without a target-scoped supported, superseded, or rejected production decision. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
 | Investigate hard gaps | 43 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
 
@@ -87,11 +90,12 @@ duplicates of this one.
 | [hook-disposition/top100-hook-dispositions.csv](../hook-disposition/top100-hook-dispositions.csv) | source-top100 hook count, disposition, live status | hook_phases, selected_route detail, evidence_status text, next_action, evidence paths, rank |
 | [hook-lifecycle/maintained-hook-queue.csv](../hook-lifecycle/maintained-hook-queue.csv) | maintained hook lifecycle fallback rows when a chart has an observed route outside the source-top100 disposition table | hook examples, route details, required receipt path, next action |
 | [production-support-decisions/decisions.csv](../production-support-decisions/decisions.csv) | decision, target scope | delivery_path, image/scan/lifecycle/target-fact/live-evidence sub-decisions, evidence_count, remaining_final_requirements, next_action |
+| [live-parity-rerun-plan/rerun-plan.csv](../live-parity-rerun-plan/rerun-plan.csv) | active non-pass live parity rows: next step, rerun readiness, reason, support artifact, rerun command | priority, lane, current result, receipt path; follow the source when diagnosing the run itself |
 
 The CSV and HTML carry adoption bucket, hard gap, strongest evidence, next
-action, and production target scope. The Markdown table below stays compact
-for GitHub readability; open [matrix.html](matrix.html) when you want the
-user/product view with those columns visible.
+action, production target scope, and active proof queue details. The Markdown
+table below stays compact for GitHub readability; open [matrix.html](matrix.html)
+when you want the user/product view with those columns visible.
 
 ## Matrix
 
