@@ -1,0 +1,242 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-mongodb-19.0.7-existing-secret-replicaset-live-parity-20260605
+spec:
+  chart: bitnami/mongodb
+  version: 19.0.7
+  base: existing-secret-replicaset
+  result: watch
+  observedAt: '2026-06-12T10:01:40Z'
+  package:
+    path: packages/bitnami/mongodb/19.0.7
+  recipe:
+    path: recipes/bitnami/mongodb/19.0.7
+  variantRevision: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-mongodb-mqarbjkx-1q5h
+    kubeContext: kind-helm-expt-parity-mongodb-mqarbjkx-1q5h
+    namespace: mongodb
+    legNamespaces:
+      regularHelm: mongodb-helm
+      configHubKubectlApply: mongodb-apply
+      configHubOciArgo: mongodb-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-mongodb-mqarbjkx-1q5h --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-mongodb-mqarbjkx-1q5h"...
+
+        Deleting cluster "helm-expt-parity-mongodb-mqarbjkx-1q5h" ...
+
+        Deleted nodes: ["helm-expt-parity-mongodb-mqarbjkx-1q5h-control-plane"]
+
+        Deleting Space "helm-expt-parity-mongodb-mqarbjkx-1q5h-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
+        --version 19.0.7 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231
+      objectCount: 10
+      liveHelmManifestSHA256: ebbfbdd876e452bb6cd47a3282712239bf6c872426e658ac82140557f6b62115
+      liveHelmManifestObjectCount: 10
+      namespace: mongodb-helm
+      runtime:
+        result: pass
+        workloads: 'statefulset.apps/mongodb           2/2   65s
+
+          statefulset.apps/mongodb-arbiter   1/1   65s'
+        pods: 'mongodb-0           1/1   Running   0     65s
+
+          mongodb-1           1/1   Running   0     17s
+
+          mongodb-arbiter-0   1/1   Running   0     65s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.7
+        --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqarbjkx-1q5h-mongodb
+        --non-interactive --namespace mongodb-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 92dabccd1002b02f8721e76ccf185efe676ab090eea45c2feeecabe3290eec02
+      objectCount: 11
+      namespace: mongodb-apply
+      manifestNamespaces:
+      - mongodb-apply
+      runtimeNamespaces: &id001
+      - mongodb-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# mongodb-apply
+
+          statefulset.apps/mongodb           2/2   61s
+
+          statefulset.apps/mongodb-arbiter   1/1   61s'
+        pods: '# mongodb-apply
+
+          mongodb-0           1/1   Running   0     61s
+
+          mongodb-1           1/1   Running   0     43s
+
+          mongodb-arbiter-0   1/1   Running   0     61s'
+        notReady: []
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-mongodb-mqarbjkx-1q5h-mongodb
+      controller: Argo CD OCI
+      app: mongodb-parity
+      manifestSHA256: 4f3fbf063e18a71b374936ab0076973f4c2d7c54b35238b40d5f3e6024949f96
+      objectCount: 11
+      namespace: mongodb-oci
+      manifestNamespaces:
+      - mongodb-oci
+      runtimeNamespaces: &id002
+      - mongodb-oci
+      ociRevision: sha256:12f376c197ce2f935d924d8bff1322c36542fb4fb7478ce126cf5cc6146ae059
+      sync: OutOfSync
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# mongodb-oci
+
+          statefulset.apps/mongodb           2/2   6m50s
+
+          statefulset.apps/mongodb-arbiter   1/1   6m50s'
+        pods: '# mongodb-oci
+
+          mongodb-0           1/1   Running   0     6m51s
+
+          mongodb-1           1/1   Running   0     6m35s
+
+          mongodb-arbiter-0   1/1   Running   0     6m51s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||mongodb
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||mongodb
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 2591245b77ed39e866bd1a3753767f8f1edb0bd3eac14ad79101ce6133d129e5
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||mongodb
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 2591245b77ed39e866bd1a3753767f8f1edb0bd3eac14ad79101ce6133d129e5
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-mongodb-mqarbjkx-1q5h\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqarbjkx-1q5h.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-mongodb-mqarbjkx-1q5h\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-mongodb-mqarbjkx-1q5h\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mongodb-mqarbjkx-1q5h\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqarbjkx-1q5h.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace "
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=1 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"mongodb\" does not exist. Installing it now.\nNAME: mongodb\n\
+      LAST DEPLOYED: Fri Jun 12 11:02:46 2026\nNAMESPACE: mongodb-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: mongodb\nCHART VERSION: 19.0.7\nAPP VERSION: 8.3.2\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nMongoDB&reg;\
+      \ can be accessed on the following DNS name(s) and ports from within your cluster:\n\
+      \n    mongodb-0.mongodb-headless.mongodb-helm.svc.cluster.local:27017\n    mongodb-1.mongodb-headless.mongodb-helm.svc.cluster.local:27017\n\
+      \nTo get the root password run:\n\n    export MONGODB_ROOT_PASSWORD=$(kubectl\
+      \ get secret --namespace mongodb-helm mongodb-auth -o jsonpath=\"{.data.mongodb-"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=1 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# mongodb-apply
+
+      statefulset.apps/mongodb           2/2   61s
+
+      statefulset.apps/mongodb-arbiter   1/1   61s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=1 crds=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=OutOfSync health=Healthy after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||mongodb'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: mongodb-helm
+        name: mongodb-auth
+        keys:
+        - mongodb-replica-set-key
+        - mongodb-root-password
+        lane: regularHelm
+        sourceNamespace: mongodb
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: mongodb-apply
+        name: mongodb-auth
+        keys:
+        - mongodb-replica-set-key
+        - mongodb-root-password
+        lane: configHubKubectlApply
+        sourceNamespace: mongodb
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: mongodb-oci
+        name: mongodb-auth
+        keys:
+        - mongodb-replica-set-key
+        - mongodb-root-password
+        lane: configHubOciArgo
+        sourceNamespace: mongodb
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/target-facts-confighub-oci.yaml
