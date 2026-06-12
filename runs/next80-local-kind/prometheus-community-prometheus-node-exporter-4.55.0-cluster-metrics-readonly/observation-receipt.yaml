@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4.55.0-cluster-metrics-readonly-local-kind"
+spec:
+  variantRevision: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-node-exporter-targetfacts"
+    context: "kind-claude-helm-expt-node-exporter-targetfacts"
+    namespace: "default"
+  observedAt: "2026-06-12T00:59:32.377Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "cluster-metrics-readonly"
+  targetFacts:
+    requiredCRDs:
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "servicemonitors.monitoring.coreos.com"
+        purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "497f13e5e68d92fefe8c2aadaa2af8bd548a4fbcb4b07c517789af0559b06e83"
+  checks:
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||servicemonitors.monitoring.coreos.com"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "4 object(s) from recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "DaemonSet|default|prometheus-node-exporter"

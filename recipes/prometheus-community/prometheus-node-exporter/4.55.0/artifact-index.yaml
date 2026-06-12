@@ -54,8 +54,8 @@ spec:
     strongestEvidence: "local-kubernetes-live"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "0/2"
-      localLive: "1/2"
+      inConfigHub: "1/2"
+      localLive: "2/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
     featureSummary: "required-values;extension-slots"
@@ -65,7 +65,7 @@ spec:
     path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
     installer: "packages/prometheus-community/prometheus-node-exporter/4.55.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "67d2b7945f56228bdf7759d820aae518d43beee32492171bcbf47ab7174c3833"
+    deterministicBundleSHA256: "87f803baa591654674f0851b9b10bfaf95e08e7ced9b0d695922373e3beade74"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -153,8 +153,18 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
+            sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
+      targetFactSummary: "required CRD servicemonitors.monitoring.coreos.com"
       packageBase:
         name: "cluster-metrics-readonly"
         path: "packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly"
@@ -173,7 +183,7 @@ spec:
           name: "cluster-metrics-readonly-r001"
           revision: "r001"
           variantRevision: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
-          digest: "935f7241802683ceb048f35d354f00662f722fcde4e5fc74fa7b2a9bfac4057f"
+          digest: "8d0a34ec191af63663ea2ff2609f86a917340b0fdf7d4a5640a9fab7a1f6809f"
           renderedObjectSetSHA256: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
           renderedObjects: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"

@@ -18,6 +18,18 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
+        purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
   usefulBase:
     realizationStrategy: "values-profile-rerender"
     userJob: "Expose node-exporter metrics with an explicit Prometheus Operator ServiceMonitor."

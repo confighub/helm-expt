@@ -37,6 +37,7 @@ check(chartPath, "usage: node scripts/run-next80-local-live.mjs --chart <repo>/<
 const recipeRoot = join(repoRoot, "recipes", chartPath);
 check(existsSync(join(recipeRoot, "recipe.yaml")), `no recipe at recipes/${chartPath}`);
 const variant = readYaml(join(recipeRoot, "variants", variantName, "variant.yaml"));
+const targetFacts = variant.spec?.targetFacts ?? {};
 const revisionRel = `recipes/${chartPath}/revisions/${variantName}/r001/variant-revision.yaml`;
 check(existsSync(join(repoRoot, revisionRel)), `no committed revision at ${revisionRel}`);
 const renderedPath = join(repoRoot, "recipes", chartPath, "revisions", variantName, "r001", "rendered", "release-objects.yaml");
@@ -79,6 +80,26 @@ try {
       run("kubectl", ["--context", context, "create", "namespace", ns]);
       createdNamespaces.push(ns);
       checks.push({ name: "namespace-created", result: "pass", object: `v1|Namespace||${ns}` });
+    }
+  }
+
+  for (const crd of targetFacts.requiredCRDs ?? []) {
+    const name = typeof crd === "string" ? crd : crd.name;
+    if (!name) continue;
+    if (tryRun("kubectl", ["--context", context, "get", "crd", name])) {
+      checks.push({
+        name: "target-fact-crd-present",
+        result: "pass",
+        object: `apiextensions.k8s.io/v1|CustomResourceDefinition||${name}`,
+      });
+    } else {
+      checks.push({
+        name: "target-fact-crd-present",
+        result: "blocked",
+        object: `apiextensions.k8s.io/v1|CustomResourceDefinition||${name}`,
+        reason: `required CRD ${name} was not present before apply`,
+      });
+      blockedReasons.push(`target fact: required CRD ${name} missing`);
     }
   }
 
@@ -211,6 +232,7 @@ writeYaml(receiptPath, {
     result,
     clusterStatus: createdCluster ? "created-by-test" : "existing",
     variant: variantName,
+    targetFacts,
     workloads: workloads.length,
     ...(observedPayload.trim()
       ? { kubectlObjects: { path: "observed-objects.yaml", sha256: sha256(observedPayload) } }
