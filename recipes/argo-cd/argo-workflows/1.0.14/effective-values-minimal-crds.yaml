@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14-minimal-crds"
+  labels:
+    confighub.io/chart: "argo-cd/argo-workflows"
+    confighub.io/version: "1.0.14"
+    confighub.io/variant: "minimal-crds"
+spec:
+  profile: "minimal-crds"
+  renderDelta: "crds.full=false"
+  mergedValuesCaptured: false

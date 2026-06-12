@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "minimal-crds-r001"
+  labels:
+    confighub.io/chart: "argo-cd/argo-workflows"
+    confighub.io/version: "1.0.14"
+    confighub.io/variant: "minimal-crds"
+spec:
+  variant: "../../../variants/minimal-crds/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
