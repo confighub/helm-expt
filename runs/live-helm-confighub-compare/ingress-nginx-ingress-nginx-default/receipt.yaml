@@ -1,0 +1,219 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: ingress-nginx-ingress-nginx-4.15.1-default-live-parity-20260605
+spec:
+  chart: ingress-nginx/ingress-nginx
+  version: 4.15.1
+  base: default
+  result: watch
+  observedAt: '2026-06-12T10:27:35Z'
+  package:
+    path: packages/ingress-nginx/ingress-nginx/4.15.1
+  recipe:
+    path: recipes/ingress-nginx/ingress-nginx/4.15.1
+  variantRevision: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-ingressnginx-mqas8v9n-j99
+    kubeContext: kind-helm-expt-parity-ingressnginx-mqas8v9n-j99
+    namespace: ingress-nginx
+    legNamespaces:
+      regularHelm: ingress-nginx-helm
+      configHubKubectlApply: ingress-nginx-apply
+      configHubOciArgo: ingress-nginx-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-ingressnginx-mqas8v9n-j99 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-ingressnginx-mqas8v9n-j99"...
+
+        Deleting cluster "helm-expt-parity-ingressnginx-mqas8v9n-j99" ...
+
+        Deleted nodes: ["helm-expt-parity-ingressnginx-mqas8v9n-j99-control-plane"]
+
+        Deleting Space "helm-expt-parity-ingressnginx-mqas8v9n-j99-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx
+        --version 4.15.1 --namespace ingress-nginx-helm --create-namespace --values
+        /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d
+      objectCount: 11
+      liveHelmManifestSHA256: 714f580609fc9914c78b4c1e1ed05ef3ffa11352a1957d5fd3efe07e87da5928
+      liveHelmManifestObjectCount: 11
+      namespace: ingress-nginx-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/ingress-nginx-controller   1/1   1     1     31s
+        pods: ingress-nginx-controller-6c7cd85885-gkj54   1/1   Running   0     31s
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/ingress-nginx/ingress-nginx/4.15.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-ingressnginx-mqas8v9n-j99-ingress-nginx
+        --non-interactive --namespace ingress-nginx-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: de24b6a9af1c30052860345bcfccaab724462c284000ba2eaa83558de75ce06a
+      objectCount: 12
+      namespace: ingress-nginx-apply
+      manifestNamespaces:
+      - ingress-nginx-apply
+      runtimeNamespaces: &id001
+      - ingress-nginx-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# ingress-nginx-apply
+
+          deployment.apps/ingress-nginx-controller   1/1   1     1     20s'
+        pods: '# ingress-nginx-apply
+
+          ingress-nginx-controller-6c7cd85885-dscht   1/1   Running   0     20s'
+        notReady: []
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-ingressnginx-mqas8v9n-j99-ingress-nginx
+      controller: Argo CD OCI
+      app: ingress-nginx-parity
+      manifestSHA256: 81eb612850d42827f01f0f50b828853db56415540b918a3f29c1872a144bfdfb
+      objectCount: 12
+      namespace: ingress-nginx-oci
+      manifestNamespaces:
+      - ingress-nginx-oci
+      runtimeNamespaces: &id002
+      - ingress-nginx-oci
+      ociRevision: sha256:b10bccf33d95c8b5a77c0a72e0a36ec33f5c66a177b0f9cecfa4dc6ca7e8a3b5
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# ingress-nginx-oci
+
+          deployment.apps/ingress-nginx-controller   1/1   1     1     6m48s'
+        pods: '# ingress-nginx-oci
+
+          ingress-nginx-controller-6c7cd85885-rth86   1/1   Running   0     6m48s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||ingress-nginx
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||ingress-nginx
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: e0c4f6f5ea71e088ad4e2ce1a7fea8a2d6ab45315ad77c95d5923903fdae547c
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||ingress-nginx
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: e0c4f6f5ea71e088ad4e2ce1a7fea8a2d6ab45315ad77c95d5923903fdae547c
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-ingressnginx-mqas8v9n-j99\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-ingressnginx-mqas8v9n-j99.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-ingressnginx-mqas8v9n-j99\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-ingressnginx-mqas8v9n-j99\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-ingressnginx-mqas8v9n-j99\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-ingressnginx-mqas8v9n-j99.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nm"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"ingress-nginx\" does not exist. Installing it now.\nNAME: ingress-nginx\n\
+      LAST DEPLOYED: Fri Jun 12 11:29:02 2026\nNAMESPACE: ingress-nginx-helm\nSTATUS:\
+      \ deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n\
+      The ingress-nginx controller has been installed.\nIt may take a few minutes\
+      \ for the load balancer IP to be available.\nYou can watch the status by running\
+      \ 'kubectl get service --namespace ingress-nginx-helm ingress-nginx-controller\
+      \ --output wide --watch'\n\nAn example Ingress that makes use of the controller:\n\
+      \  apiVersion: networking.k8s.io/v1\n  kind: Ingress\n  metadata:\n    name:\
+      \ example\n    namespace: foo\n  spec:\n    ingressClassName: nginx\n    rules:\n\
+      \      - host: www.example.com\n        http:\n          paths:\n          \
+      \  - pathType: Prefix\n              backend:\n                service:\n  \
+      \                name: exampleService\n                  port:\n           \
+      \         number: 80\n              path: /\n    # This section is only required\
+      \ if TLS is to be enable"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=1 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# ingress-nginx-apply
+
+      deployment.apps/ingress-nginx-controller   1/1   1     1     20s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=1 crds=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||ingress-nginx'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: ingress-nginx-apply
+        name: ingress-nginx-admission
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubKubectlApply
+        sourceNamespace: ingress-nginx
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: ingress-nginx-oci
+        name: ingress-nginx-admission
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubOciArgo
+        sourceNamespace: ingress-nginx
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/target-facts-confighub-oci.yaml
