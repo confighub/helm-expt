@@ -39,6 +39,7 @@ const SOURCES = {
   outcomes: "data/outcome-coverage/base-outcomes.csv",
   readiness: "data/top100-readiness/readiness.csv",
   hooks: "data/hook-disposition/top100-hook-dispositions.csv",
+  maintainedHooks: "data/hook-lifecycle/maintained-hook-queue.csv",
   decisions: "data/production-support-decisions/decisions.csv",
 };
 
@@ -69,8 +70,13 @@ const COLUMN_PROVENANCE = [
   },
   {
     source: "hook-disposition/top100-hook-dispositions.csv",
-    carried: "hook count, disposition, live status",
+    carried: "source-top100 hook count, disposition, live status",
     dropped: "hook_phases, selected_route detail, evidence_status text, next_action, evidence paths, rank",
+  },
+  {
+    source: "hook-lifecycle/maintained-hook-queue.csv",
+    carried: "maintained hook lifecycle fallback rows when a chart has an observed route outside the source-top100 disposition table",
+    dropped: "hook examples, route details, required receipt path, next action",
   },
   {
     source: "production-support-decisions/decisions.csv",
@@ -103,8 +109,17 @@ function buildReport() {
   const outcomes = readCsv(SOURCES.outcomes);
   const readiness = indexBy(readCsv(SOURCES.readiness), (row) => row.chart);
   const hookRows = readCsv(SOURCES.hooks);
+  const maintainedHookRows = readCsv(SOURCES.maintainedHooks).map((row) => ({
+    chart: row.chart,
+    version: row.version,
+    source_hook_count: row.hook_count,
+    disposition: row.receipt_status === "observed" ? "observed" : row.lifecycle_disposition || "routed",
+    live_status: row.receipt_status,
+  }));
   const hooksExact = indexBy(hookRows, (row) => `${row.chart}@${row.version}`);
   const hooksByChart = indexBy(hookRows, (row) => row.chart);
+  const maintainedHooksExact = indexBy(maintainedHookRows, (row) => `${row.chart}@${row.version}`);
+  const maintainedHooksByChart = indexBy(maintainedHookRows, (row) => row.chart);
   const decisions = indexBy(readCsv(SOURCES.decisions), (row) => `${row.chart}|${row.version}|${row.supported_base}`);
 
   const rows = outcomes
@@ -122,8 +137,11 @@ function buildReport() {
       // for this exact version.
       const hookExact = hooksExact.get(chartAtVersion);
       const hookFamily = hooksByChart.get(chartName);
-      const hook = hookExact ?? hookFamily;
-      const hookEvidenceVersion = hookExact || !hook ? "" : hook.version;
+      const maintainedHookExact = maintainedHooksExact.get(chartAtVersion);
+      const maintainedHookFamily = maintainedHooksByChart.get(chartName);
+      const hook = hookExact ?? maintainedHookExact ?? hookFamily ?? maintainedHookFamily;
+      const exactHook = hookExact ?? maintainedHookExact;
+      const hookEvidenceVersion = exactHook || !hook ? "" : hook.version;
       const decision = decisions.get(`${chartName}|${version}|${variant}`);
       const hookCount = hook ? Number(hook.source_hook_count) : null;
       // A chart whose source scan flags hooks but that has no disposition row
