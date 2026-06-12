@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 46
+pass: 47
 watch: 1
 blocked: 0
 not-started: 0
@@ -67,3 +67,4 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `prometheus-community/alertmanager@1.37.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/receipt.yaml |
 |  | `prometheus-community/alertmanager@1.37.0` | ha | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | runs/live-helm-confighub-compare/prometheus-community-alertmanager-ha/receipt.yaml |
 |  | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | cluster-metrics-readonly | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml |
+|  | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | - | runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-default/receipt.yaml |
