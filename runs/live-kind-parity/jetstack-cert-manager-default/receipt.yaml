@@ -6,8 +6,8 @@ spec:
   chart: jetstack/cert-manager
   version: v1.20.2
   base: default
-  result: blocked
-  observedAt: '2026-06-06T12:08:45Z'
+  result: pass
+  observedAt: '2026-06-12T05:06:32Z'
   package:
     path: packages/jetstack/cert-manager/v1.20.2
   recipe:
@@ -15,27 +15,30 @@ spec:
   variantRevision: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-certma-06bd4-7uhe-helm
-    installerCluster: hx-certma-06bd4-7uhe-installer
+    helmCluster: hx-certma-06bd4-rze3-helm
+    installerCluster: hx-certma-06bd4-rze3-installer
     namespace: cert-manager
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-certma-06bd4-7uhe-helm
+      - cluster: hx-certma-06bd4-rze3-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-certma-06bd4-7uhe-helm" ...
+        detail: 'Deleting cluster "hx-certma-06bd4-rze3-helm" ...
 
-          Deleted nodes: ["hx-certma-06bd4-7uhe-helm-control-plane"]'
-      - cluster: hx-certma-06bd4-7uhe-installer
+          Deleted nodes: ["hx-certma-06bd4-rze3-helm-control-plane"]'
+      - cluster: hx-certma-06bd4-rze3-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-certma-06bd4-7uhe-installer" ...
+        detail: 'Deleting cluster "hx-certma-06bd4-rze3-installer" ...
 
-          Deleted nodes: ["hx-certma-06bd4-7uhe-installer-control-plane"]'
+          Deleted nodes: ["hx-certma-06bd4-rze3-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
   legs:
     regularHelm:
-      result: blocked
+      result: pass
       command: helm upgrade --install cert-manager cert-manager --repo https://charts.jetstack.io
         --version v1.20.2 --namespace cert-manager --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/regular-helm-values.yaml
         --wait --timeout 8m
@@ -51,26 +54,29 @@ spec:
         namespaces: *id001
         workloads: '# cert-manager
 
-          deployment.apps/cert-manager              1/1   1     1     6m11s
+          deployment.apps/cert-manager              1/1   1     1     22s
 
-          deployment.apps/cert-manager-cainjector   1/1   1     1     6m11s
+          deployment.apps/cert-manager-cainjector   1/1   1     1     22s
 
-          deployment.apps/cert-manager-webhook      1/1   1     1     6m11s'
+          deployment.apps/cert-manager-webhook      1/1   1     1     22s'
         pods: '# cert-manager
 
-          cert-manager-5957746d66-v9k4q              1/1   Running   0             6m11s
+          cert-manager-5957746d66-72ntn              1/1   Running   0     22s
 
-          cert-manager-cainjector-567c6b47ff-8mlnd   1/1   Running   1 (63s ago)   6m11s
+          cert-manager-cainjector-567c6b47ff-mcbdq   1/1   Running   0     22s
 
-          cert-manager-webhook-7cc5c588cb-tk67j      1/1   Running   0             6m11s'
+          cert-manager-webhook-7cc5c588cb-nccxl      1/1   Running   0     22s'
         notReady: []
-      stderr: 'Error: failed post-install: resource Job/cert-manager/cert-manager-startupapicheck
-        not ready. status: Failed, message: Job Failed. failed: 1/1'
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
       getManifestError: ''
     cubInstallerApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
-        --base default --work-dir /tmp/helm-expt-kind-parity-hx-certma-06bd4-7uhe-cert-manager
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-certma-06bd4-rze3-cert-manager
         --non-interactive --namespace cert-manager
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -89,20 +95,26 @@ spec:
 
           deployment.apps/cert-manager              1/1   1     1     20s
 
-          deployment.apps/cert-manager-cainjector   1/1   1     1     21s
+          deployment.apps/cert-manager-cainjector   1/1   1     1     20s
 
           deployment.apps/cert-manager-webhook      1/1   1     1     20s'
         pods: '# cert-manager
 
-          cert-manager-5957746d66-722rg              1/1   Running   0     20s
+          cert-manager-5957746d66-ts9qm              1/1   Running   0     20s
 
-          cert-manager-cainjector-567c6b47ff-4ft6n   1/1   Running   0     20s
+          cert-manager-cainjector-567c6b47ff-7494n   1/1   Running   0     20s
 
-          cert-manager-webhook-7cc5c588cb-c9mdc      1/1   Running   0     20s'
+          cert-manager-webhook-7cc5c588cb-rtsnc      1/1   Running   0     20s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||cert-manager
+    semanticNormalizations: &id003
+    - prune-null-fields
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 42
@@ -111,7 +123,8 @@ spec:
       extraInInstaller:
       - v1|Namespace||cert-manager
       semanticDiffs: []
-      comparisonSHA256: c9c63ab13aaa52bb2e0a8493bdcd5f19a4ad64f691147895aa0a2a1f793cf741
+      semanticNormalizations: *id003
+      comparisonSHA256: 37831710445a1df373761e5caf869bba232fae85a5a9d583e4e37bdfbc1e76f7
   checks:
   - name: kind-create-helm
     result: pass
@@ -121,21 +134,77 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: staged=0
+    detail: secrets=0 crds=6
   - name: target-facts-installer
     result: pass
-    detail: staged=0
+    detail: secrets=0 crds=6
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
   - name: regular-helm-live
-    result: blocked
-    detail: 'Error: failed post-install: resource Job/cert-manager/cert-manager-startupapicheck
-      not ready. status: Failed, message: Job Failed. failed: 1/1'
+    result: pass
+    detail: 'Release "cert-manager" does not exist. Installing it now.
+
+      NAME: cert-manager
+
+      LAST DEPLOYED: Fri Jun 12 06:07:28 2026
+
+      NAMESPACE: cert-manager
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      cert-manager v1.20.2 has been deployed successfully!
+
+
+      In order to begin issuing certificates, you will need to set up a ClusterIssuer
+
+      or Issuer resource (for example, by creating a ''letsencrypt-staging'' issuer).
+
+
+      More information on the different types of issuers and how to configure them
+
+      can be found in our documentation:
+
+
+      https://cert-manager.io/docs/configuration/
+
+
+      For information on how to configure cert-manager to automatically provision
+
+      Certificates for Ingress resources, take a look at the `ingress-shim`
+
+      documentation:
+
+
+      https://cert-manager.io/docs/usage/ingress/
+
+
+      For information on how to configure cert-manager to automatically provision
+
+      Certificates for Gateway API resources, take a look at the `gateway resource`
+
+      documentation:
+
+
+      https://cert-manager.io/docs'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
   - name: cub-installer-apply-live
     result: pass
     detail: '# cert-manager
 
       deployment.apps/cert-manager              1/1   1     1     20s
 
-      deployment.apps/cert-manager-cainjector   1/1   1     1     21s
+      deployment.apps/cert-manager-cainjector   1/1   1     1     20s
 
       deployment.apps/cert-manager-webhook      1/1   1     1     20s'
   - name: semantic-object-parity
@@ -145,6 +214,56 @@ spec:
     regularHelm:
       result: pass
       stagedSecrets: []
+      stagedCRDs:
+      - name: challenges.acme.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: regularHelm
+      - name: orders.acme.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: regularHelm
+      - name: certificaterequests.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: regularHelm
+      - name: certificates.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: regularHelm
+      - name: clusterissuers.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: regularHelm
+      - name: issuers.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: regularHelm
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
+      stagedCRDs:
+      - name: challenges.acme.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: cubInstallerApply
+      - name: orders.acme.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: cubInstallerApply
+      - name: certificaterequests.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: cubInstallerApply
+      - name: certificates.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: cubInstallerApply
+      - name: clusterissuers.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: cubInstallerApply
+      - name: issuers.cert-manager.io
+        sourceVariant: crds-enabled
+        lane: cubInstallerApply
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
