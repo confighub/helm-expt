@@ -854,10 +854,12 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
         if rc_cron == 0 and crons.strip():
             rc_jobs, jobs, _jobs_err = kubectl(["-n", namespace, "get", "jobs", "--no-headers"], kubeconfig, context, timeout=60)
             job_lines = [line.split() for line in jobs.splitlines() if line.split()] if rc_jobs == 0 else []
-            completed = [fields[0] for fields in job_lines if len(fields) > 2 and fields[2].startswith("Complete")]
+            completed = [fields[0] for fields in job_lines if len(fields) > 1 and fields[1].startswith("Complete")]
+            completed += [fields[0] for fields in job_lines if len(fields) > 2 and fields[2].startswith("Complete")]
             # kubectl >=1.31 prints STATUS in column 2; older prints COMPLETIONS "n/m".
             completed += [fields[0] for fields in job_lines if len(fields) > 1 and "/" in fields[1] and fields[1].split("/")[0] == fields[1].split("/")[1] and fields[1].split("/")[0] != "0"]
-            failed = [fields[0] for fields in job_lines if len(fields) > 2 and fields[2].startswith("Failed")]
+            failed = [fields[0] for fields in job_lines if len(fields) > 1 and fields[1].startswith("Failed")]
+            failed += [fields[0] for fields in job_lines if len(fields) > 2 and fields[2].startswith("Failed")]
             failed += [item["pod"] for item in not_ready if item.get("status", "").startswith(("Error", "CrashLoop"))]
             if failed:
                 cron_result = "blocked"
