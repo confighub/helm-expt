@@ -434,6 +434,7 @@ function html(catalog) {
         <span class="go"><a href="../data/claims-register/summary.md">Claims → evidence register →</a></span>
       </div>
     </div>
+    <p><a href="https://artifacthub.io/" rel="noopener">Artifact Hub</a> answers what exists and who published it. <a href="https://helm.sh/" rel="noopener">Helm</a> installs it. This catalog adds the layer neither claims to provide: per-chart, per-variant <strong>proof</strong> — rendered, uploaded, applied, observed, compared, with a receipt for each step.</p>
     <h2>The chain of proof</h2>
     <div class="chain">
       <a href="../docs/user/verify-it-yourself.md">Helm-equivalent render, byte-compared</a>
@@ -1226,6 +1227,7 @@ function chartPageHtml(catalog, entry) {
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../offering.html">Offering &amp; tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>${escapeHtml(entry.chart)}</h1>
+    <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
     <pre>${escapeHtml(entry.start_command || `cub installer setup --pull ${entry.package_path} --base ${entry.start_variant} --work-dir <tmp> --non-interactive`)}</pre>
   </header>

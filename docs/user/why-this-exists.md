@@ -259,3 +259,18 @@ a final bridgeless import design
 The next product move should be to make the Creator-style story first-class:
 human intent first, formal contract underneath, current CLI primitives as the
 execution substrate.
+
+## Where this sits in the Helm ecosystem
+
+[Artifact Hub](https://artifacthub.io/) and [Helm](https://helm.sh/) solve
+discovery and tooling, and this project builds on both: every catalog chart
+comes from a public upstream repository you can find on Artifact Hub, and
+every render is plain Helm output. What neither upstream claims to provide
+is a proof layer. Artifact Hub's "verified publisher" badge verifies who
+controls a repository — by design, not whether a chart renders, installs,
+or runs; Helm's own front door makes no verification or provenance claims
+at all. That open seat is the one this catalog takes: per-chart,
+per-variant receipts for rendering, upload, live application, observation,
+and parity — re-runnable by anyone, with refusals published alongside
+passes. Discovery tells you what exists; the proof layer tells you what is
+demonstrated, and exactly how far each demonstration goes.
