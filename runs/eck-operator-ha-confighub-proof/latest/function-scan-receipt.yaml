@@ -1,0 +1,135 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "eck-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-eck-operator-ha-confighub-proof"
+    selector: "Labels.Proof = 'eck-operator-ha-confighub-proof'"
+  subject:
+    chart: "elastic/eck-operator"
+    chartVersion: "3.4.0"
+    packagePath: "packages/elastic/eck-operator/3.4.0"
+    variant: "ha"
+    configHubUnitCount: 22
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-elastic-operator"
+      headRevisionNum: 2
+      dataHash: "23c33bb201ba9dc5aa042c3e00fe09d2e3cc9ddbfaece2b5619529496d41b8e2"
+    -
+      slug: "clusterrole-elastic-operator"
+      headRevisionNum: 2
+      dataHash: "6ebc307cf6abf0009a21f86a6f5f96e521342e67cfcc26b1b77a73adfcd63122"
+    -
+      slug: "clusterrole-elastic-operator-edit"
+      headRevisionNum: 2
+      dataHash: "01e114885511fbdbcecc7d80de2508c3a526c90a8e886845b4c54909edfa9074"
+    -
+      slug: "clusterrole-elastic-operator-view"
+      headRevisionNum: 2
+      dataHash: "033b201b5fddb12ebcb3ac29d60a3e152932626bd3d3ceb2dbceaff3a04f7b10"
+    -
+      slug: "configmap-default-elastic-operator"
+      headRevisionNum: 1
+      dataHash: "a5b83280b1e7d8a4176ffb9cdfc28766fcf50c393a06cb0fd5b5c7c4d7a2af1f"
+    -
+      slug: "customresourcedefinition-agents-agent-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "d940bfb8c6afc2c63a0f3e440f3a01008bba56c3c69e7a68cff6dc5423f91d24"
+    -
+      slug: "customresourcedefinition-apmservers-apm-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "0446e38db4ce4512f0c6cfca2cff407423727e4dee3b5da82287d848b65aafeb"
+    -
+      slug: "customresourcedefinition-autoopsagentpolicies-autoops-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "3684cd05753f5aad2feabf1fb34d70a4a280efa1c2442ce029a0185e254ef943"
+    -
+      slug: "customresourcedefinition-beats-beat-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "c163df2e7e6f4bfb2e805eabe145dcfb54820a9ba8159aa4175142e753eb5a49"
+    -
+      slug: "customresourcedefinition-elasticmapsservers-maps-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "d351e0cb1eaf33d4a32e9efdfad18245f9836dc506668e82c119a5715c80926f"
+    -
+      slug: "customresourcedefinition-elasticsearchautoscalers-autoscaling-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "d831c8bef3698409072674ce6d76d9d328aeec41f4a97b74247c3eab1d975113"
+    -
+      slug: "customresourcedefinition-elasticsearches-elasticsearch-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "70c8f015677b19f3317d08724d74cbf994940cb13d435bc954464bd07568337a"
+    -
+      slug: "customresourcedefinition-enterprisesearches-enterprisesearch-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "90273d81dff3886d7c7aa05f968e4c9d2d75418288306eae72cfeb32e7cd627c"
+    -
+      slug: "customresourcedefinition-kibanas-kibana-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "21e99b13a41e58d7ce99390e4983be4d0a5f741f71acd2ed399701b848a2b0a3"
+    -
+      slug: "customresourcedefinition-logstashes-logstash-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "731ed73cd72b710a4678ff65fe417abe1c4221697c17664be543aa3e9dcb085c"
+    -
+      slug: "customresourcedefinition-packageregistries-packageregistry-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "f473df023a57960184347c8c71958b6611b946801bacb35d24c9e6d5501d46c3"
+    -
+      slug: "customresourcedefinition-stackconfigpolicies-stackconfigpolicy-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "e0832e82079d6aa13fb92bed33f958a3d88af1a07232418d52ef03d1c9ff2901"
+    -
+      slug: "namespace-elastic-system"
+      headRevisionNum: 1
+      dataHash: "a36dc6216be106e430d279c9acd9309fb4566f95fb9c65e484232774d249b14b"
+    -
+      slug: "serviceaccount-default-elastic-operator"
+      headRevisionNum: 1
+      dataHash: "faf44a0d634747031d37b37fa09cadc70dc90683908dca0596f20794168ac117"
+    -
+      slug: "service-default-elastic-operator-webhook"
+      headRevisionNum: 2
+      dataHash: "0bf7b217a85766e0e6facbeb7373cd8815929f1a2d8c29fa6d371d7456e187cd"
+    -
+      slug: "statefulset-default-elastic-operator"
+      headRevisionNum: 2
+      dataHash: "76a3021790ad8beb7ae586fd79cc1bab78a33a377c60683231100a821c5bc052"
+    -
+      slug: "validatingwebhookconfiguration-elastic-operator-default-k8s-elastic-co"
+      headRevisionNum: 2
+      dataHash: "dae4b728a72bfa84a45275fd873e44d86f300711a0df61396b81c7773d53cd3e"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 22
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 22
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 22
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

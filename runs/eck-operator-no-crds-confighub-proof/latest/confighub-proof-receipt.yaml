@@ -1,0 +1,85 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "eck-operator-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/elastic/eck-operator/3.4.0"
+    name: "elastic-eck-operator"
+    chart: "elastic/eck-operator"
+    chartVersion: "3.4.0"
+    bases:
+      - "default"
+      - "ha"
+      - "no-crds"
+    selectedBase: "no-crds"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/elastic/eck-operator/3.4.0 --base no-crds --work-dir .tmp/confighub-proof/eck-operator-no-crds --non-interactive --namespace elastic-system"
+    result: "pass"
+    manifestCount: 10
+    separatedSecretCount: 1
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/eck-operator-no-crds"
+    result: "pass"
+    manifestCount: 10
+    separatedSecretCount: 1
+  deterministicPackage:
+    command: "cub installer package packages/elastic/eck-operator/3.4.0 -o .tmp/confighub-proof/eck-operator-no-crds-archives/eck-operator-a.tgz"
+    sha256: "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/eck-operator-no-crds"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/eck-operator-no-crds --space helm-eck-operator-no-crds-confighub-proof --component ECKOperator --layer App --environment Demo --owner ConfigHubHelm --variant no-crds --unit-label Component=ECKOperator --unit-label HelmChart=elastic-eck-operator --unit-label HelmChartVersion=3.4.0 --unit-label Variant=no-crds --unit-label Proof=eck-operator-no-crds-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-eck-operator-no-crds-confighub-proof"
+    unitCount: 11
+    kubernetesUnitCount: 10
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret default/elastic-operator-webhook-cert"
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/eck-operator-no-crds"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/eck-operator-no-crds"
+    result: "pass"
+    summary: "No changes.\nImages in helm-eck-operator-no-crds-confighub-proof (post-render):\n      StatefulSet/elastic-operator [manager] docker.elastic.co/eck/eck-operator:3.4.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-eck-operator-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:ECKOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-eck-operator-no-crds-confighub-proof"
+    downstreamSpace: "ECKOperator-no-crds-staging"
+    clonedUnitCount: 11
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-default-elastic-operator"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-eck-operator-no-crds-confighub-proof"
+      - "ECKOperator-no-crds-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

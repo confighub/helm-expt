@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 191 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 629 / 4 / 59 / 645 / 0 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 633 / 4 / 59 / 641 / 0 |
 | Variants with the complete core lane set | 36 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -113,7 +113,7 @@ when you want the user/product view with those columns visible.
 |  | no-crds | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 | `argo-cd/argo-workflows@1.0.14` | default | next80 | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
-|  | minimal-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | minimal-crds | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
@@ -166,12 +166,12 @@ when you want the user/product view with those columns visible.
 | `descheduler/descheduler@0.36.0` | default | next80 | `tpl;cluster-rbac` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 | `dex/dex@0.24.0` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `elastic/eck-operator@3.4.0` | default | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
-|  | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | no-crds | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `elastic/filebeat@8.5.1` | default | next80 | `tpl;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | node-or-cluster-collector | next80 | `tpl;cluster-rbac` | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `elastic/kibana@8.5.1` | default | next80 | `tpl` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `elastic/logstash@8.5.1` | default | next80 | `tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+| `elastic/logstash@8.5.1` | default | next80 | `tpl;capabilities;stateful-storage` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 |  | ha | next80 | `tpl;capabilities;stateful-storage` | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `elastic/metricbeat@8.5.1` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `external-dns/external-dns@1.21.1` | default | next80 | `tpl;crds;cluster-rbac` | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
