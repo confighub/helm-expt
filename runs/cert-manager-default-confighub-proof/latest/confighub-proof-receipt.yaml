@@ -1,0 +1,158 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "cert-manager-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/jetstack/cert-manager/v1.20.2"
+    name: "jetstack-cert-manager"
+    chart: "jetstack/cert-manager"
+    chartVersion: "v1.20.2"
+    bases:
+      - "default"
+      - "crds-enabled"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "default"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "CRD challenges.acme.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD orders.acme.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD certificaterequests.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD certificates.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterissuers.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD issuers.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+  render:
+    command: "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir .tmp/confighub-proof/cert-manager-default --non-interactive --namespace cert-manager"
+    result: "pass"
+    manifestCount: 43
+    separatedSecretCount: 0
+    facts:
+      targetFactChecks:
+        base: "default"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          -
+            name: "challenges.acme.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "orders.acme.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "certificaterequests.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "clusterissuers.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+        requiredSecrets:
+          []
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/cert-manager-default"
+    result: "pass"
+    manifestCount: 43
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/jetstack/cert-manager/v1.20.2 -o .tmp/confighub-proof/cert-manager-default-archives/cert-manager-a.tgz"
+    sha256: "84f9e1aacfc398c5f402f03d217d3913d02721b4f6506537f352a0f6de79c782"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/cert-manager-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/cert-manager-default --space helm-cert-manager-default-confighub-proof --component CertManager --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=CertManager --unit-label HelmChart=jetstack-cert-manager --unit-label HelmChartVersion=v1.20.2 --unit-label Variant=default --unit-label Proof=cert-manager-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-cert-manager-default-confighub-proof"
+    unitCount: 44
+    kubernetesUnitCount: 43
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/cert-manager-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/cert-manager-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-cert-manager-default-confighub-proof (post-render):\n      Deployment/cert-manager [cert-manager-controller] quay.io/jetstack/cert-manager-controller:v1.20.2\n      Deployment/cert-manager-cainjector [cert-manager-cainjector] quay.io/jetstack/cert-manager-cainjector:v1.20.2\n      Deployment/cert-manager-webhook [cert-manager-webhook] quay.io/jetstack/cert-manager-webhook:v1.20.2"
+  serverSideVariant:
+    command: "cub variant create staging helm-cert-manager-default-confighub-proof --environment Staging --region local --space-name-pattern template:CertManager-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-cert-manager-default-confighub-proof"
+    downstreamSpace: "CertManager-default-staging"
+    clonedUnitCount: 44
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-cert-manager-cert-manager"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-cert-manager-default-confighub-proof"
+      - "CertManager-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

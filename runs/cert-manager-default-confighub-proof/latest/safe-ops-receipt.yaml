@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "cert-manager-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cert-manager-default-confighub-proof"
+    selector: "Labels.Proof = 'cert-manager-default-confighub-proof'"
+  subject:
+    chart: "jetstack/cert-manager"
+    chartVersion: "v1.20.2"
+    packagePath: "packages/jetstack/cert-manager/v1.20.2"
+    variant: "default"
+  changeset:
+    slug: "cert-manager-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "cert-manager safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "cert-manager-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-cert-manager-cert-manager --space helm-cert-manager-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-cert-manager-cert-manager"
+    output: "Unit deployment-cert-manager-cert-manager (4e44d245-59c8-4abf-bc33-41c64417d823) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-cert-manager-default-confighub-proof --where \"Labels.Proof = 'cert-manager-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req aAHFqifzgzAqimXoMdwHMFriKLvxqjks: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-cert-manager-default-confighub-proof --where \"Labels.Proof = 'cert-manager-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
