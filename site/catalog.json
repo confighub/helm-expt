@@ -302,7 +302,7 @@
     {
       "section": "top100",
       "metric": "useful-base proposals not yet built",
-      "value": "36",
+      "value": "35",
       "total": "46",
       "status": "gap",
       "source": "data/useful-base-design-queue/queue.csv",
@@ -410,8 +410,8 @@
     {
       "section": "proof lanes",
       "metric": "render parity rows",
-      "value": "189",
-      "total": "189",
+      "value": "190",
+      "total": "190",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Every chart/base row has render parity under recorded inputs."
@@ -419,8 +419,8 @@
     {
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
-      "value": "23",
-      "total": "189",
+      "value": "59",
+      "total": "190",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with upload, scan, or safe-operation proof receipts."
@@ -428,8 +428,8 @@
     {
       "section": "proof lanes",
       "metric": "local live rows",
-      "value": "133",
-      "total": "189",
+      "value": "134",
+      "total": "190",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with committed local Kubernetes observation receipts."
@@ -456,7 +456,7 @@
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
       "value": "24",
-      "total": "189",
+      "total": "190",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "5 rows have non-pass GitOps/OCI receipts."
@@ -465,7 +465,7 @@
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
       "value": "22",
-      "total": "189",
+      "total": "190",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "2 rows have non-pass live parity receipts."
@@ -473,8 +473,8 @@
     {
       "section": "proof lanes",
       "metric": "two-cluster kind parity pass rows",
-      "value": "54",
-      "total": "59",
+      "value": "70",
+      "total": "70",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
@@ -482,8 +482,8 @@
     {
       "section": "proof lanes",
       "metric": "two-cluster semantic parity pass rows",
-      "value": "58",
-      "total": "59",
+      "value": "70",
+      "total": "70",
       "status": "good",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."
@@ -492,7 +492,7 @@
       "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "22",
-      "total": "189",
+      "total": "190",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
@@ -608,8 +608,8 @@
     {
       "section": "live evidence",
       "metric": "two-cluster kind parity receipts",
-      "value": "59",
-      "total": "59",
+      "value": "70",
+      "total": "70",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
@@ -654,7 +654,7 @@
       "section": "live evidence",
       "metric": "two-cluster semantic parity defect receipts",
       "value": "0",
-      "total": "59",
+      "total": "70",
       "status": "good",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."
@@ -4700,22 +4700,22 @@
       "chart": "jetstack/cert-manager@v1.20.2",
       "base": "default",
       "recommended_first": "no",
-      "user_readiness": "lifecycle-observed",
-      "why": "helm-hook: post-install hook failed (parity passed); lifecycle observation passed",
-      "next_action": "use the lifecycle route evidence at runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml; rerun strict parity only if the hook handling decision changes",
+      "user_readiness": "try-with-proof",
+      "why": "render parity and two-cluster live parity pass, but one or more broader lanes are missing",
+      "next_action": "complete the missing lane(s): confighub upload variant scan safe ops, confighub oci argo live, live helm vs confighub dual compare",
       "support_artifact": "",
       "live_rerun_readiness": "",
       "live_rerun_next_step": "",
       "live_rerun_command": "",
       "command": "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager",
-      "target_facts": "none",
+      "target_facts": "required CRD challenges.acme.cert-manager.io; required CRD orders.acme.cert-manager.io; required CRD certificaterequests.cert-manager.io; required CRD certificates.cert-manager.io; required CRD clusterissuers.cert-manager.io; required CRD issuers.cert-manager.io",
       "render_parity": "pass",
       "in_confighub": "missing",
       "local_live": "pass",
       "gitops_oci_live": "missing",
       "live_helm_vs_confighub_parity": "missing",
-      "two_cluster_kind_parity": "blocked",
-      "two_cluster_kind_parity_reason": "helm-hook: post-install hook failed (parity passed)",
+      "two_cluster_kind_parity": "pass",
+      "two_cluster_kind_parity_reason": "",
       "lifecycle_observation": "pass",
       "lifecycle_observation_receipt": "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml",
       "complete_core_lane_set": "no",

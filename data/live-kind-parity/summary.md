@@ -44,10 +44,9 @@ exposed target, runtime, or lifecycle behavior that needs a route, observation,
 or support decision.
 
 The `related_lifecycle_evidence` column links a separate lifecycle receipt
-when one exists. For example, cert-manager's default base can have
-`result=blocked` because Helm's startup API check hook failed in the strict
-two-cluster run, while `semantic_parity=pass` and a separate lifecycle receipt
-records the chart-specific startup API check route.
+when one exists. If a future row is non-pass while `semantic_parity=pass`,
+read it as a target, runtime, or lifecycle route to investigate before making a
+broader support claim.
 
 ## Rows
 
