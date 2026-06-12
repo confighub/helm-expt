@@ -20,7 +20,8 @@ spec:
     requiredCRDs:
       -
         name: "certificates.cert-manager.io"
-        sourceVariant: "cert-manager"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
         purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
         suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
         deliveryLanes:
@@ -30,7 +31,8 @@ spec:
           - "configHubOciArgo"
       -
         name: "issuers.cert-manager.io"
-        sourceVariant: "cert-manager"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
         purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
         suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
         deliveryLanes:

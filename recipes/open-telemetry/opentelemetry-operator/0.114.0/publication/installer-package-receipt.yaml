@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz"
-    sha256: "7912e478b5ea5ad5f7f2c428ed63c9734377ce5361db9d83dde83705d5ab56d2"
+    sha256: "493d0ab58e276db8a0427e7172e468d4b7218b29234a45b64d4979c0a9789ed2"
   package:
     name: "open-telemetry-opentelemetry-operator"
     path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
@@ -37,11 +37,11 @@ spec:
         bytes: 24145
       -
         path: "collector/target-facts.sh"
-        sha256: "d8b3adf454e4f32744c06065853f09759582e6711afc87c2377d5c77b2cce797"
-        bytes: 3531
+        sha256: "b3fc2fd18d19c98227dff675d8884a26387cfda6ee581793c31114f86af9e6ff"
+        bytes: 4103
       -
         path: "installer.yaml"
-        sha256: "a1beff8d7c8079c838de9a4efafe514e2626752f3ba3734b6d55df12232f99c1"
+        sha256: "0b6ed1feb7292c93a222ee269cddfc8ff4b4cc8718576ecfcdf336ce328233bf"
         bytes: 1416
     version: "0.114.0"
   setupChecks:
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 17
       semanticObjectMatches: "17/17"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 13
       semanticObjectMatches: "13/13"
       separatedSecretCount: 0
-      variant: "no-crds"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "no-crds"
