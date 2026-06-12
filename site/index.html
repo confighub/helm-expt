@@ -39,15 +39,15 @@
     }
     .topbar .brand {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: .02em;
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
     }
     .topbar .brand::before { content: "▣ "; color: var(--good); }
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
-    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: -.015em; max-width: 950px; }
-    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: -.01em; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
     h3 { margin: 0 0 8px; font-size: 1rem; }
     p { max-width: 860px; color: var(--muted); }
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
@@ -73,7 +73,7 @@
       transition: border-color .15s ease;
     }
     .door:hover { border-color: var(--accent); }
-    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
     .door h3 { font-size: 1.06rem; margin: 0; }
     .door h3 a { color: var(--ink); text-decoration: none; }
     .door h3 a:hover { color: var(--accent); }
@@ -141,7 +141,7 @@
   <header>
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./offering.html">Offering &amp; tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Helm charts in. Proof-carrying ConfigHub packages out.</h1>
-    <p class="tagline">helm-expt turns the most-used public Helm charts into reviewed <code>cub installer</code> packages with named variants, rendered objects, and a receipt behind every claim. Nothing here asks to be trusted: every green cell links to evidence you can re-run.</p>
+    <p class="tagline">helm-expt turns the most-used public Helm charts into reviewed <code>cub installer</code> packages with named variants, rendered objects, and a receipt behind every claim. Nothing here asks to be trusted: green cells are backed by committed evidence, with links to the chart, package, revision, and source data.</p>
     <div class="doors">
       <div class="door">
         <span class="kicker">Run it</span>
@@ -177,7 +177,7 @@
     </div>
     <h2>Where it goes from free</h2>
     <div class="tiers">
-      <div class="tier"><span class="stage">tier 0</span><h3>Public catalog</h3><p>Top charts, proof-grade recipes and packages, fully verifiable locally.</p><span class="badge now">available</span></div>
+      <div class="tier"><span class="stage">tier 0</span><h3>Public catalog</h3><p>Top charts, proof-grade recipes and packages, with committed receipts that can be checked locally.</p><span class="badge now">available</span></div>
       <div class="tier"><span class="stage">tier 1</span><h3>Verified install</h3><p>Resolve, verify, apply, and record an in-cluster receipt — before any login.</p><span class="badge planned">planned</span></div>
       <div class="tier"><span class="stage">tier 2</span><h3>Catalog subscription</h3><p>Refresh cadence, CVE turnaround, and the attestation pack per variant.</p><span class="badge planned">planned</span></div>
       <div class="tier"><span class="stage">tier 3</span><h3>Private catalog</h3><p>The same render-scan-sign pipeline over your own charts and overlays.</p><span class="badge planned">planned</span></div>
