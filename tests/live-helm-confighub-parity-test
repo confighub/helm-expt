@@ -528,7 +528,17 @@ def target_fact_crd_docs(variant: dict, recipe_path: Path, lane: str) -> tuple[l
     return docs, staged
 
 
-def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str, lane: str) -> dict:
+def stage_target_facts(
+    variant: dict,
+    recipe_path: Path,
+    kubeconfig: Path,
+    context: str,
+    fallback_namespace: str,
+    run_root: Path,
+    label: str,
+    lane: str,
+    rendered_namespaces: list[str] | None = None,
+) -> dict:
     variant_namespace = (variant.get("spec") or {}).get("namespace")
     required_secrets = [
         secret
@@ -543,27 +553,32 @@ def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, conte
     staged_secrets = []
     for secret in required_secrets:
         source_namespace = secret.get("namespace")
-        namespace = source_namespace or fallback_namespace
         if source_namespace and variant_namespace and source_namespace == variant_namespace:
-            namespace = fallback_namespace
+            secret_namespaces = {fallback_namespace}
+            for rendered_namespace in rendered_namespaces or []:
+                if rendered_namespace == source_namespace:
+                    secret_namespaces.add(rendered_namespace)
+        else:
+            secret_namespaces = {source_namespace or fallback_namespace}
         name = secret.get("name")
         keys = secret.get("keys") or []
         if not name or not keys:
             raise RuntimeError(f"invalid required secret target fact: {secret}")
-        namespaces.add(namespace)
-        string_data = {key: target_fact_value(name, key, run_root) for key in keys}
-        secret_type = "kubernetes.io/tls" if set(("tls.crt", "tls.key")).issubset(string_data) and len(set(string_data) - set(("tls.crt", "tls.key", "ca.crt"))) == 0 else "Opaque"
-        secret_docs.append({
-            "apiVersion": "v1",
-            "kind": "Secret",
-            "metadata": {"name": name, "namespace": namespace},
-            "type": secret_type,
-            "stringData": string_data,
-        })
-        staged = {"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane}
-        if source_namespace and source_namespace != namespace:
-            staged["sourceNamespace"] = source_namespace
-        staged_secrets.append(staged)
+        for namespace in sorted(secret_namespaces):
+            namespaces.add(namespace)
+            string_data = {key: target_fact_value(name, key, run_root) for key in keys}
+            secret_type = "kubernetes.io/tls" if set(("tls.crt", "tls.key")).issubset(string_data) and len(set(string_data) - set(("tls.crt", "tls.key", "ca.crt"))) == 0 else "Opaque"
+            secret_docs.append({
+                "apiVersion": "v1",
+                "kind": "Secret",
+                "metadata": {"name": name, "namespace": namespace},
+                "type": secret_type,
+                "stringData": string_data,
+            })
+            staged = {"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane}
+            if source_namespace and source_namespace != namespace:
+                staged["sourceNamespace"] = source_namespace
+            staged_secrets.append(staged)
     if crd_docs:
         crd_path = run_root / f"target-facts-{label}-crds.yaml"
         write_yaml(crd_path, {"apiVersion": "v1", "kind": "List", "items": crd_docs})
@@ -963,7 +978,17 @@ def main() -> int:
         if namespace_docs:
             write_text(ns_yaml, render_docs_to_yaml(namespace_docs))
             kubectl_must(["apply", "-f", str(ns_yaml)], kubeconfig, context, "namespace apply")
-        apply_target_facts = stage_target_facts(variant, recipe_path, kubeconfig, context, apply_namespace, run_root, "confighub-apply", "configHubKubectlApply")
+        apply_target_facts = stage_target_facts(
+            variant,
+            recipe_path,
+            kubeconfig,
+            context,
+            apply_namespace,
+            run_root,
+            "confighub-apply",
+            "configHubKubectlApply",
+            apply_manifest_namespaces,
+        )
         receipt["spec"]["targetFacts"]["configHubKubectlApply"] = apply_target_facts
         check_item("target-facts-confighub-apply", apply_target_facts["result"], f"secrets={len(apply_target_facts.get('stagedSecrets', []))} crds={len(apply_target_facts.get('stagedCRDs', []))}")
         if secrets_dir.exists():
@@ -1037,7 +1062,17 @@ def main() -> int:
         if namespace_docs:
             write_text(ns_oci_yaml, render_docs_to_yaml(namespace_docs))
             kubectl_must(["apply", "-f", str(ns_oci_yaml)], kubeconfig, context, "namespace apply before oci")
-        oci_target_facts = stage_target_facts(variant, recipe_path, kubeconfig, context, oci_namespace, run_root, "confighub-oci", "configHubOciArgo")
+        oci_target_facts = stage_target_facts(
+            variant,
+            recipe_path,
+            kubeconfig,
+            context,
+            oci_namespace,
+            run_root,
+            "confighub-oci",
+            "configHubOciArgo",
+            oci_manifest_namespaces,
+        )
         receipt["spec"]["targetFacts"]["configHubOciArgo"] = oci_target_facts
         check_item("target-facts-confighub-oci", oci_target_facts["result"], f"secrets={len(oci_target_facts.get('stagedSecrets', []))} crds={len(oci_target_facts.get('stagedCRDs', []))}")
         staged_secrets = []

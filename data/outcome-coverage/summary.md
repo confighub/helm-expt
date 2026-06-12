@@ -14,9 +14,9 @@ complete core lane rows:             23/190
 render parity rows:                  190/190
 in-ConfigHub proof rows:             60/190
 local live rows:                     134/190
-GitOps/OCI live pass rows:           26/190
+GitOps/OCI live pass rows:           27/190
 GitOps/OCI non-pass receipts:        7
-live Helm-vs-ConfigHub pass rows:    25/190
+live Helm-vs-ConfigHub pass rows:    26/190
 live Helm-vs-ConfigHub non-pass receipts: 4
 lifecycle observation rows:          10/10
 selected live parity receipts:       20 pass, 0 watch, 0 blocked
@@ -66,7 +66,7 @@ related lifecycle observations:      10/10
 | `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 0/2 | 2/2 | 1/2 | 2/2 | - |
 | `external-secrets/external-secrets@2.5.0` | default;no-crds | no | 1/2 | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |

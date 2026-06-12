@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 190 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 515 / 8 / 59 / 748 / 0 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 517 / 8 / 59 / 746 / 0 |
 | Variants with the complete core lane set | 23 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -144,7 +144,7 @@ user/product view with those columns visible.
 |  | generated-passwords | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `bitnami/postgresql@18.7.0` | existing-secret | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | generated-passwords | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `bitnami/rabbitmq@16.0.14` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+| `bitnami/rabbitmq@16.0.14` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 |  | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 | `bitnami/redis@25.5.3` | default | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | reuse-existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ✅ | ✅ | ⬜ | ✅ | gitops-live | ⬜ |
