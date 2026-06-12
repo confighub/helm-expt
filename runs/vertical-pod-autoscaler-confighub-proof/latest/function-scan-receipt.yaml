@@ -1,0 +1,199 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "vertical-pod-autoscaler-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-vertical-pod-autoscaler-confighub-proof"
+    selector: "Labels.Proof = 'vertical-pod-autoscaler-confighub-proof'"
+  subject:
+    chart: "autoscaler/vertical-pod-autoscaler"
+    chartVersion: "0.9.0"
+    packagePath: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
+    variant: "no-crds"
+    configHubUnitCount: 38
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-updater-in-place-binding"
+      headRevisionNum: 2
+      dataHash: "6e34dd2a9fc254a14c5fd068e737863301d73807c50323d3384e39e92e7ed9e0"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-updater-target-reader-binding"
+      headRevisionNum: 2
+      dataHash: "d60e65c4015ff50f89a400c3e01f47bc58a15644e43063120eedb8781f1141ed"
+    -
+      slug: "poddisruptionbudget-default-vertical-pod-autoscaler-admission-controller"
+      headRevisionNum: 1
+      dataHash: "af343bdd188634bfde24909a89a3d332cc759ef40de24f547564801f58c8dc34"
+    -
+      slug: "rolebinding-default-vertical-pod-autoscaler-updater-leader-locking-binding"
+      headRevisionNum: 2
+      dataHash: "7ef8cea3a6fa153aa9ddbe3482dd23207c1b79aefbd5cd26186513775da3848d"
+    -
+      slug: "serviceaccount-default-vertical-pod-autoscaler-admission-controller"
+      headRevisionNum: 1
+      dataHash: "33a72bbf21cb9d91aaaa40328d33f1119261ede5e85d02feff12cb71e2702c15"
+    -
+      slug: "serviceaccount-default-vertical-pod-autoscaler-recommender"
+      headRevisionNum: 1
+      dataHash: "5f023c195d3fb51e16fb94ac31e1000cb743e300bb8823e4f88f6a38e65d7b89"
+    -
+      slug: "serviceaccount-default-vertical-pod-autoscaler-updater"
+      headRevisionNum: 1
+      dataHash: "e91ad5f3d6616f06907ef9f2a214308bdb977fe811869c24ef448818e3dd4f90"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-recommender-actor"
+      headRevisionNum: 2
+      dataHash: "2ebe968b24f1fc2f3e76d6d526c64cc7702e0ed6bef306f68303c6bdfc542b06"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-recommender-checkpoint-actor"
+      headRevisionNum: 2
+      dataHash: "d46c4b5416e4945177296d12d090045ebdc45a1561f2835159d86c478aadac39"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-recommender-metrics-reader"
+      headRevisionNum: 2
+      dataHash: "26f3fee98705c59fa39f5c23ca151fed9636d3c083815fd84b88d0430fb7a0d3"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-recommender-status-actor"
+      headRevisionNum: 2
+      dataHash: "a768d1b14633a804f87c8c0211e10deed50e058f421ee8d5a4ea70e52c494949"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-updater-actor"
+      headRevisionNum: 2
+      dataHash: "8b355682fefbc160eb50ee3e77828208992ec26027b27bfa42eea185cf781f94"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-updater-evictioner"
+      headRevisionNum: 2
+      dataHash: "95687dad8548ecb0e0266461d62ef3851c6a9e04af64ba486b95236985064611"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-updater-in-place"
+      headRevisionNum: 2
+      dataHash: "fd2049a637d26374c4730e25057852a7523e31dc008deb9f661ef74ce5e8b2a8"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-updater-status-reader"
+      headRevisionNum: 2
+      dataHash: "1a053b70c7ed8a1e433f239d22a0f0f85a383af7c5a704847bbea38ae7a5f353"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-recommender-actor"
+      headRevisionNum: 2
+      dataHash: "2478f4edc9fc10b0a11c745b542763a52a1bedbf67d58c0aba3525b26f0a1965"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-recommender-metrics-reader"
+      headRevisionNum: 2
+      dataHash: "5327a959db04ca5f2a38a20f19f98888ddc9f92939ef0feb4c57665c364b3c4c"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-recommender-status-actor"
+      headRevisionNum: 2
+      dataHash: "8563db2a05e421dbf974b3413dadd820da3911447c565ac78fb8150371b1562f"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-updater-actor-binding"
+      headRevisionNum: 2
+      dataHash: "611c1487610e3e108dd392104e08aaf7856ec78766b014f249b8cfd7385b9839"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-updater-evictioner-binding"
+      headRevisionNum: 2
+      dataHash: "1b85b98c7c3a8c3e3e0518229ef4650132eff43727b6fba3dce481b1dd148915"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-updater-status-reader-binding"
+      headRevisionNum: 2
+      dataHash: "3e22dbb6558279332cfa063414c0f26e2911ef01bdeff35b8cd703793288fa99"
+    -
+      slug: "deployment-default-vertical-pod-autoscaler-updater"
+      headRevisionNum: 2
+      dataHash: "843cfe28b32af93933749c313176b34cef9a975e24f683306c07dcc80c5a4f27"
+    -
+      slug: "poddisruptionbudget-default-vertical-pod-autoscaler-recommender"
+      headRevisionNum: 1
+      dataHash: "9776a737d12b58e4576d4abe28f4394613870b5f718ec80a29bb1a97d93562c8"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "poddisruptionbudget-default-vertical-pod-autoscaler-updater"
+      headRevisionNum: 1
+      dataHash: "b27adacbbdd44bf996e6330c7c31e8b72b59ec24d81260c82ae5c857261b9dc3"
+    -
+      slug: "role-default-vertical-pod-autoscaler-recommender-leader-locking"
+      headRevisionNum: 2
+      dataHash: "cc89743054b0d4e816b10236b98811742699380139de5486e1314a94c1adb34b"
+    -
+      slug: "service-default-vpa-webhook"
+      headRevisionNum: 2
+      dataHash: "1d3bb4f70beecdb12700830f27455fdc1c6ca366357906295fb1ca41efc60c48"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-admission-controller"
+      headRevisionNum: 2
+      dataHash: "d5656de48dda3333c4e2552dda8fd6bf77fb6ea50fb19323d12e7cd010cf74c5"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-recommender-target-reader"
+      headRevisionNum: 2
+      dataHash: "2a59673a6ae56949f9084ded0e5fe88836d570b8af608566de7e67574933f123"
+    -
+      slug: "clusterrole-vertical-pod-autoscaler-updater-target-reader"
+      headRevisionNum: 2
+      dataHash: "a8b924aba89c0a3482def95a181a9d0beb0c31ff0b1026791e2ec7031f5f3e93"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-recommender-target-reader"
+      headRevisionNum: 2
+      dataHash: "50846343c2c73d5f74db7af5ae20688a5d6ed7139371951094d1de98823115c3"
+    -
+      slug: "deployment-default-vertical-pod-autoscaler-admission-controller"
+      headRevisionNum: 2
+      dataHash: "0f3277e29528432f1f3738cf03e16be7db1c970488f625282bcfc678acc2aaad"
+    -
+      slug: "mutatingwebhookconfiguration-vertical-pod-autoscaler-webhook-config"
+      headRevisionNum: 2
+      dataHash: "5a1e4e9e2091cf3af07d28006c66356428ccd0f2badac2876ed7ca25fe0abe4e"
+    -
+      slug: "deployment-default-vertical-pod-autoscaler-recommender"
+      headRevisionNum: 2
+      dataHash: "dec83ce843a33a16f7b199ff2d650e034e9f9c84c32843d6566d6ed98650a6b6"
+    -
+      slug: "role-default-vertical-pod-autoscaler-updater-leader-locking"
+      headRevisionNum: 2
+      dataHash: "cec7119c00838cdbd695fa8098a091ef11454c0b0b6987c5e8c988fcf3182874"
+    -
+      slug: "rolebinding-default-vertical-pod-autoscaler-recommender-leader-locking"
+      headRevisionNum: 2
+      dataHash: "c9442a6e1f27a92f69a842f3e1287cd1e3e340a6843b5d93982f00a7168d1008"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-admission-controller"
+      headRevisionNum: 2
+      dataHash: "44f44ade865ca71bbb2a8b7c10be2c358e20dfec8a970cbc9d2b7ae0e92bc740"
+    -
+      slug: "clusterrolebinding-vertical-pod-autoscaler-recommender-checkpoint-actor"
+      headRevisionNum: 2
+      dataHash: "98a944543fae6daeab6c491955351afc17960592657f185069b5c9d14669dcb7"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 38
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 38
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 38
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

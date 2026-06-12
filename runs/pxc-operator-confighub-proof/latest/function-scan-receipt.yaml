@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "pxc-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-pxc-operator-confighub-proof"
+    selector: "Labels.Proof = 'pxc-operator-confighub-proof'"
+  subject:
+    chart: "percona/pxc-operator"
+    chartVersion: "1.19.1"
+    packagePath: "packages/percona/pxc-operator/1.19.1"
+    variant: "default"
+    configHubUnitCount: 8
+  unitRevisionBindings:
+    -
+      slug: "customresourcedefinition-perconaxtradbclusterbackups-pxc-percona-com"
+      headRevisionNum: 2
+      dataHash: "fbb315d10b9dacdf38082a9f1982bc1644f709967a84ad3a6a52297e88da2fef"
+    -
+      slug: "customresourcedefinition-perconaxtradbclusterrestores-pxc-percona-com"
+      headRevisionNum: 2
+      dataHash: "89fddfef53d7fa7a3e475f0905d7e67ab3c84f4a4cf8a9637a14633dd4b96f57"
+    -
+      slug: "customresourcedefinition-perconaxtradbclusters-pxc-percona-com"
+      headRevisionNum: 2
+      dataHash: "90170b846d933016611c7f721d96521011c1b499cccd35d509997edf25ea5b59"
+    -
+      slug: "deployment-default-pxc-operator"
+      headRevisionNum: 2
+      dataHash: "c582345f3699616c26d000543fc84402a0fd08900305548ed31315f5c39b776b"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-pxc-operator"
+      headRevisionNum: 2
+      dataHash: "037287181680c7ce9f48378adb3b85a5cf2bc528d00da0289dbe08dba11aeae4"
+    -
+      slug: "role-default-pxc-operator"
+      headRevisionNum: 2
+      dataHash: "f3402fe25febf5680bd4c37565c34144031e273c9bfaff1c33ac152a44b62198"
+    -
+      slug: "serviceaccount-default-pxc-operator"
+      headRevisionNum: 1
+      dataHash: "8cdfa23b687f0ee7444a113077fe79e52c96bc377a54d55f7d62cb10441895ef"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

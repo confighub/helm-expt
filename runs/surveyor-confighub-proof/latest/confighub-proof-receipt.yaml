@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "surveyor-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/nats/surveyor/0.20.9"
+    name: "nats-surveyor"
+    chart: "nats/surveyor"
+    chartVersion: "0.20.9"
+    bases:
+      - "default"
+      - "default-reviewed"
+    selectedBase: "default-reviewed"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/nats/surveyor/0.20.9 --base default-reviewed --work-dir .tmp/confighub-proof/surveyor-default-reviewed --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 4
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/surveyor-default-reviewed"
+    result: "pass"
+    manifestCount: 4
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/nats/surveyor/0.20.9 -o .tmp/confighub-proof/surveyor-archives/surveyor-a.tgz"
+    sha256: "477c5a5d1d55e272745e3948373b7577381dd50a19876d0165661cd81618284f"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/surveyor-default-reviewed"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/surveyor-default-reviewed --space helm-surveyor-confighub-proof --component NATSSurveyor --layer App --environment Demo --owner ConfigHubHelm --variant default-reviewed --unit-label Component=NATSSurveyor --unit-label HelmChart=nats-surveyor --unit-label HelmChartVersion=0.20.9 --unit-label Variant=default-reviewed --unit-label Proof=surveyor-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-surveyor-confighub-proof"
+    unitCount: 5
+    kubernetesUnitCount: 4
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/surveyor-default-reviewed"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/surveyor-default-reviewed"
+    result: "pass"
+    summary: "No changes.\nImages in helm-surveyor-confighub-proof (post-render):\n      Deployment/surveyor [surveyor] natsio/nats-surveyor:0.9.9"
+  serverSideVariant:
+    command: "cub variant create staging helm-surveyor-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-surveyor-confighub-proof"
+    downstreamSpace: "NATSSurveyor-staging"
+    clonedUnitCount: 5
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-surveyor"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-surveyor-confighub-proof"
+      - "NATSSurveyor-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

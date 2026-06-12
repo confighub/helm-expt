@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "logstash-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-logstash-confighub-proof"
+    selector: "Labels.Proof = 'logstash-confighub-proof'"
+  subject:
+    chart: "elastic/logstash"
+    chartVersion: "8.5.1"
+    packagePath: "packages/elastic/logstash/8.5.1"
+    variant: "ha"
+  changeset:
+    slug: "logstash-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Logstash safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "logstash-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve statefulset-logstash-logstash --space helm-logstash-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "statefulset-logstash-logstash"
+    output: "Unit statefulset-logstash-logstash (318266a1-2001-40aa-86d2-1afb9382d9dd) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-logstash-confighub-proof --where \"Labels.Proof = 'logstash-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req QtvkGHLNyaIzFyrevXtnWAZVUNNaCUXY: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-logstash-confighub-proof --where \"Labels.Proof = 'logstash-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

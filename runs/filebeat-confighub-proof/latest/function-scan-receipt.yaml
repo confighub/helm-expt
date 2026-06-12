@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "filebeat-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-filebeat-confighub-proof"
+    selector: "Labels.Proof = 'filebeat-confighub-proof'"
+  subject:
+    chart: "elastic/filebeat"
+    chartVersion: "8.5.1"
+    packagePath: "packages/elastic/filebeat/8.5.1"
+    variant: "node-or-cluster-collector"
+    configHubUnitCount: 8
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-filebeat-filebeat-cluster-role-binding"
+      headRevisionNum: 2
+      dataHash: "82027aed5ffeb571f1df1051c6b4e6e3f2f3cc1c43d25aea886d4381c7ff405d"
+    -
+      slug: "clusterrole-filebeat-filebeat-cluster-role"
+      headRevisionNum: 2
+      dataHash: "567b922b0bcf7894da8fddb88707d0cb64a5cfd58763dd2f78cdf4e3a7d45a3f"
+    -
+      slug: "configmap-filebeat-filebeat-daemonset-config"
+      headRevisionNum: 1
+      dataHash: "a418bd71cf30d5128418f0b8c86f6b11ca24dd90b32af7f427d72fa54163be2b"
+    -
+      slug: "daemonset-filebeat-filebeat"
+      headRevisionNum: 2
+      dataHash: "40968a5414dbb2e11326c2f595d68a5423ff0d48439a9fafdfb264ff2b72f2ee"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-filebeat-filebeat-role-binding"
+      headRevisionNum: 2
+      dataHash: "67a0ef93a0b07189a3405b32aaadb7e08bd33248d91c6854ad22e0767561e37a"
+    -
+      slug: "role-filebeat-filebeat-role"
+      headRevisionNum: 2
+      dataHash: "2b098fa25eb95bc1db2e38325d1ffd37f5b96a9d1b647a1918a4102670efd61a"
+    -
+      slug: "serviceaccount-filebeat-filebeat"
+      headRevisionNum: 1
+      dataHash: "c97099ea538716102f133e2c093e3dec36a0e1ac9988db83c83d14a1531cc6b6"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

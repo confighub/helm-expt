@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "victoria-metrics-single-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-victoria-metrics-single-confighub-proof"
+    selector: "Labels.Proof = 'victoria-metrics-single-confighub-proof'"
+  subject:
+    chart: "vm/victoria-metrics-single"
+    chartVersion: "0.39.0"
+    packagePath: "packages/vm/victoria-metrics-single/0.39.0"
+    variant: "default-reviewed"
+    configHubUnitCount: 4
+  unitRevisionBindings:
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-victoria-metrics-single-server"
+      headRevisionNum: 1
+      dataHash: "a205b9feda1f31389e2ee61caf93bbeb75be2714c697bd346f52ad0b7c3c83b4"
+    -
+      slug: "service-default-victoria-metrics-single-server"
+      headRevisionNum: 2
+      dataHash: "85e8489cac528fb7c4807e33cf475ca8c0f1cf7b123129a52e7c4a6e46a5f038"
+    -
+      slug: "statefulset-default-victoria-metrics-single-server"
+      headRevisionNum: 2
+      dataHash: "e1d9d4a11af97796c84d1b75c9a8a2b051ba1e26e5d5c5127baabbce4bc860aa"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 4
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 4
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 4
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

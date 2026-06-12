@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "istio-gateway-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/istio/gateway/1.30.0"
+    name: "istio-gateway"
+    chart: "istio/gateway"
+    chartVersion: "1.30.0"
+    bases:
+      - "default"
+      - "controller-default-reviewed"
+    selectedBase: "controller-default-reviewed"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/istio/gateway/1.30.0 --base controller-default-reviewed --work-dir .tmp/confighub-proof/istio-gateway-controller-default-reviewed --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/istio-gateway-controller-default-reviewed"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/istio/gateway/1.30.0 -o .tmp/confighub-proof/istio-gateway-archives/istio-gateway-a.tgz"
+    sha256: "42db618bfad3b83002abc50d06a2950526e0bf548bca689fc41a8be1a3bd948f"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/istio-gateway-controller-default-reviewed"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/istio-gateway-controller-default-reviewed --space helm-istio-gateway-confighub-proof --component IstioGateway --layer App --environment Demo --owner ConfigHubHelm --variant controller-default-reviewed --unit-label Component=IstioGateway --unit-label HelmChart=istio-gateway --unit-label HelmChartVersion=1.30.0 --unit-label Variant=controller-default-reviewed --unit-label Proof=istio-gateway-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-istio-gateway-confighub-proof"
+    unitCount: 8
+    kubernetesUnitCount: 7
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/istio-gateway-controller-default-reviewed"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/istio-gateway-controller-default-reviewed"
+    result: "pass"
+    summary: "No changes.\nImages in helm-istio-gateway-confighub-proof (post-render):\n      Deployment/gateway [istio-proxy] auto"
+  serverSideVariant:
+    command: "cub variant create staging helm-istio-gateway-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-istio-gateway-confighub-proof"
+    downstreamSpace: "IstioGateway-staging"
+    clonedUnitCount: 8
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-gateway"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-istio-gateway-confighub-proof"
+      - "IstioGateway-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

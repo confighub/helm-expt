@@ -50,10 +50,10 @@ spec:
   proofSummary:
     adoptionBucket: "promote-after-review"
     userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "render-parity"
+    strongestEvidence: "in-confighub-proof"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "0/2"
+      inConfigHub: "1/2"
       localLive: "0/2"
       gitopsLive: "0/2"
       liveParity: "0/2"

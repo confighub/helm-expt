@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "psmdb-operator-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-psmdb-operator-confighub-proof"
+    selector: "Labels.Proof = 'psmdb-operator-confighub-proof'"
+  subject:
+    chart: "percona/psmdb-operator"
+    chartVersion: "1.22.0"
+    packagePath: "packages/percona/psmdb-operator/1.22.0"
+    variant: "default"
+  changeset:
+    slug: "psmdb-operator-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Percona PSMDB Operator safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "psmdb-operator-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-psmdb-operator --space helm-psmdb-operator-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-psmdb-operator"
+    output: "Unit deployment-default-psmdb-operator (673a6b47-608c-4ce7-b6fd-3ee421cbb1ea) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-psmdb-operator-confighub-proof --where \"Labels.Proof = 'psmdb-operator-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req GQvFanClpckajfnGTaKHmSnFZOWzdiFy: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-psmdb-operator-confighub-proof --where \"Labels.Proof = 'psmdb-operator-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
