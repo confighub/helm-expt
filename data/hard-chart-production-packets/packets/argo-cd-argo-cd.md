@@ -33,7 +33,7 @@ Keep the target-scoped evidence fresh before using this supported scope as a pro
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
 | `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | required Secret argocd/argocd-redis keys auth | `cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd` |
-| `no-crds` | try-with-proof | render=pass; confighub=pass; local=blocked; gitops=blocked; live-parity=missing; two-cluster=pass | required Secret argocd/argocd-redis keys auth; required CRD applications.argoproj.io; required CRD applicationsets.argoproj.io; required CRD appprojects.argoproj.io | `cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd` |
+| `no-crds` | runtime-watch | render=pass; confighub=pass; local=blocked; gitops=watch; live-parity=watch; two-cluster=pass | required Secret argocd/argocd-redis keys auth; required CRD applications.argoproj.io; required CRD applicationsets.argoproj.io; required CRD appprojects.argoproj.io | `cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd` |
 
 ## Quirks And Inputs
 

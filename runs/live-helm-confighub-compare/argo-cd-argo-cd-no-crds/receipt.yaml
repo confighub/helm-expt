@@ -1,0 +1,601 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: argo-cd-argo-cd-9.5.15-no-crds-live-parity-20260605
+spec:
+  chart: argo-cd/argo-cd
+  version: 9.5.15
+  base: no-crds
+  result: watch
+  observedAt: '2026-06-13T04:03:37Z'
+  package:
+    path: packages/argo-cd/argo-cd/9.5.15
+  recipe:
+    path: recipes/argo-cd/argo-cd/9.5.15
+  variantRevision: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: k8s-zero-defaults
+    result: pass
+    changes:
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.persistentVolumeClaimRetentionPolicy=Retain/Retain'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.podManagementPolicy=OrderedReady'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.updateStrategy RollingUpdate defaults'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.restartPolicy=Always'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.schedulerName=default-scheduler'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      spec.template.spec.serviceAccount=serviceAccountName'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].terminationMessagePath
+      default'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].terminationMessagePolicy
+      default'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_CONTROLLER_REPLICAS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_NAME].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_RECONCILIATION_TIMEOUT].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_HARD_RECONCILIATION_TIMEOUT].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_RECONCILIATION_JITTER].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_REPO_ERROR_GRACE_PERIOD_SECONDS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_REPO_SERVER].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_REPO_SERVER_TIMEOUT_SECONDS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_STATUS_PROCESSORS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_OPERATION_PROCESSORS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_LOGFORMAT].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_LOGLEVEL].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_LOG_FORMAT_TIMESTAMP].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_METRICS_CACHE_EXPIRATION].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_SELF_HEAL_TIMEOUT_SECONDS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_SELF_HEAL_BACKOFF_TIMEOUT_SECONDS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_SELF_HEAL_BACKOFF_FACTOR].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_SELF_HEAL_BACKOFF_CAP_SECONDS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_SELF_HEAL_BACKOFF_COOLDOWN_SECONDS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_SYNC_WAVE_DELAY].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_SYNC_TIMEOUT].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_REPO_SERVER_PLAINTEXT].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_REPO_SERVER_STRICT_TLS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_PERSIST_RESOURCE_HEALTH].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APP_STATE_CACHE_EXPIRATION].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[REDIS_SERVER].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[REDIS_COMPRESSION].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[REDISDB].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[REDIS_USERNAME].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[REDIS_PASSWORD].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[REDIS_SENTINEL_USERNAME].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[REDIS_SENTINEL_PASSWORD].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_DEFAULT_CACHE_EXPIRATION].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_OTLP_ADDRESS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_OTLP_INSECURE].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_OTLP_HEADERS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_OTLP_ATTRS].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_NAMESPACES].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_CONTROLLER_SHARDING_ALGORITHM].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_KUBECTL_PARALLELISM_LIMIT].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_K8SCLIENT_RETRY_MAX].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_K8SCLIENT_RETRY_BASE_BACKOFF].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_SERVER_SIDE_DIFF].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_IGNORE_NORMALIZER_JQ_TIMEOUT].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_HYDRATOR_ENABLED].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_CLUSTER_CACHE_BATCH_EVENTS_PROCESSING].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_CLUSTER_CACHE_EVENTS_PROCESSING_INTERVAL].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[ARGOCD_APPLICATION_CONTROLLER_COMMIT_SERVER].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].env[KUBECACHEDIR].fieldRef.apiVersion=v1'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.containers[application-controller].readinessProbe.httpGet.scheme=HTTP'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.volumes[argocd-repo-server-tls].secret.defaultMode=420'
+    - 'statefulset-argocd-argo-cd-argocd-application-controller.yaml: StatefulSet/argo-cd-argocd-application-controller:
+      materialized spec.template.spec.volumes[argocd-cmd-params-cm].configMap.defaultMode=420'
+    rationale: Normalize Kubernetes API zero/default fields before publishing the
+      OCI GitOps artifact; semantic parity remains checked against Helm.
+    receipt: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/gitops-canonicalization-k8s-zero-defaults.yaml
+  run:
+    rig: helm-expt-parity-argocd-nc3-0613
+    kubeContext: kind-helm-expt-parity-argocd-nc3-0613
+    namespace: argocd
+    legNamespaces:
+      regularHelm: argocd-helm
+      configHubKubectlApply: argocd-apply
+      configHubOciArgo: argocd-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-argocd-nc3-0613 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-argocd-nc3-0613"...
+
+        Deleting cluster "helm-expt-parity-argocd-nc3-0613" ...
+
+        Deleted nodes: ["helm-expt-parity-argocd-nc3-0613-control-plane"]
+
+        Deleting Space "helm-expt-parity-argocd-nc3-0613-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
+        --version 9.5.15 --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/regular-helm-values.yaml
+        --wait --timeout 10m
+      manifestSHA256: 23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71
+      objectCount: 46
+      liveHelmManifestSHA256: c74db0ae0503ba06e7a2ff2fb06cf71f45f3fe768712ec168d98349dd45ca42d
+      liveHelmManifestObjectCount: 46
+      namespace: argocd-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     14s
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     14s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     14s
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     14s
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     14s
+
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     14s
+
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   14s'
+        pods: 'argo-cd-argocd-application-controller-0                     1/1   Running     0     14s
+
+          argo-cd-argocd-applicationset-controller-7cd66884bc-knqlp   1/1   Running     0     14s
+
+          argo-cd-argocd-dex-server-7678b4bd45-98l7r                  1/1   Running     0     14s
+
+          argo-cd-argocd-notifications-controller-677ffbd8d6-b62m6    1/1   Running     0     14s
+
+          argo-cd-argocd-redis-6d948d65cb-hvc5v                       1/1   Running     0     14s
+
+          argo-cd-argocd-redis-secret-init-vcfd4                      0/1   Completed   0     37s
+
+          argo-cd-argocd-repo-server-6f478b9c74-dcpmk                 1/1   Running     0     14s
+
+          argo-cd-argocd-server-8dbf74f69-bjchf                       1/1   Running     0     14s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.15
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-nc3-0613-argo-cd-argo-cd
+        --non-interactive --namespace argocd-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: cf33e87de4d372413903ad599f824c7886ad3e66f0018a415eb92a44bbb3913c
+      objectCount: 47
+      namespace: argocd-apply
+      manifestNamespaces:
+      - argocd
+      - argocd-apply
+      runtimeNamespaces: &id001
+      - argocd
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# argocd
+
+          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     20s
+
+          deployment.apps/argocd-applicationset-controller           1/1   1     1     2m29s
+
+          deployment.apps/argocd-dex-server                          1/1   1     1     2m29s
+
+          deployment.apps/argocd-notifications-controller            1/1   1     1     2m29s
+
+          deployment.apps/argocd-redis                               1/1   1     1     2m29s
+
+          deployment.apps/argocd-repo-server                         1/1   1     1     2m29s
+
+          deployment.apps/argocd-server                              1/1   1     1     2m29s
+
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   20s
+
+          statefulset.apps/argocd-application-controller           1/1   2m29s'
+        pods: '# argocd
+
+          argo-cd-argocd-application-controller-0                    1/1   Running   0     20s
+
+          argo-cd-argocd-applicationset-controller-d7b84547c-jzt4s   1/1   Running   0     20s
+
+          argo-cd-argocd-dex-server-676f75f567-4nj5c                 1/1   Running   0     20s
+
+          argo-cd-argocd-notifications-controller-c6fb5b58f-79vxh    1/1   Running   0     20s
+
+          argo-cd-argocd-redis-6d948d65cb-kn7ln                      1/1   Running   0     20s
+
+          argo-cd-argocd-repo-server-84d4bc7ddd-567t9                1/1   Running   0     20s
+
+          argo-cd-argocd-server-7b67f47f47-hlzjj                     1/1   Running   0     20s
+
+          argocd-application-controller-0                            1/1   Running   0     2m24s
+
+          argocd-applicationset-controller-b7669f646-br9jk           1/1   Running   0     2m23s
+
+          argocd-dex-server-569b757-wdvkt                            1/1   Running   0     2m23s
+
+          argocd-notifications-controller-58ff87546-rqbt6            1/1   Running   0     2m23s
+
+          argocd-redis-b9496d8bf-cx2h8                               1/1   Running   0     2m23s
+
+          argocd-repo-server-75ffcfc9df-jlbs4                        1/1   Running   0     2m23s
+
+          argocd-server-765cbfdc64-6mm8v                             1/1   Running   0     2m23s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - argocd-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 6
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "argo-cd-argocd-application-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "argo-cd-argocd-notifications-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "argo-cd-argocd-server" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-cd-argocd-application-controller"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-cd-argocd-notifications-controller"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-cd-argocd-server" deleted'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - argocd
+          objectCount: 40
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'configmap "argo-cd-argocd-redis-health-configmap" deleted from
+            argocd namespace
+
+            configmap "argocd-cm" deleted from argocd namespace
+
+            configmap "argocd-cmd-params-cm" deleted from argocd namespace
+
+            configmap "argocd-gpg-keys-cm" deleted from argocd namespace
+
+            configmap "argocd-notifications-cm" deleted from argocd namespace
+
+            configmap "argocd-rbac-cm" deleted from argocd namespace
+
+            configmap "argocd-ssh-known-hosts-cm" deleted from argocd namespace
+
+            configmap "argocd-tls-certs-cm" deleted from argocd namespace
+
+            deployment.apps "argo-cd-argocd-applicationset-controller" deleted from
+            argocd namespace
+
+            deployment.apps "argo-cd-argocd-dex-server" deleted from argocd namespace
+
+            deployment.apps "argo-cd-argocd-notifications-controller" deleted from
+            argocd namespace
+
+            deployment.apps "argo-cd-argocd-redis" deleted from argocd namespace
+
+            deployment.apps "argo-cd-argocd-repo-server" deleted from argocd namespace
+
+            deployment.apps "argo-cd-argocd-server" deleted from argocd namespace
+
+            role.rbac.authorization.k8'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-argocd-nc3-0613-argo-cd-argo-cd
+      controller: Argo CD OCI
+      app: argo-cd-argo-cd-parity
+      manifestSHA256: 01eda7c1780b6c4cf3efa220d894ffaa794c538312df15e4e2a75e354002dccf
+      objectCount: 47
+      namespace: argocd-oci
+      manifestNamespaces:
+      - argocd
+      - argocd-oci
+      runtimeNamespaces: &id002
+      - argocd
+      ociRevision: ''
+      sync: unknown
+      health: unknown
+      separatedSecrets:
+      - secret-argocd-argocd-notifications-secret.yaml
+      - secret-argocd-argocd-secret.yaml
+      argoStatus:
+        result: unavailable
+        error: 'Error from server (NotFound): applications.argoproj.io "argo-cd-argo-cd-parity"
+          not found'
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# argocd
+
+          deployment.apps/argocd-applicationset-controller   1/1   1     1     12m
+
+          deployment.apps/argocd-dex-server                  1/1   1     1     12m
+
+          deployment.apps/argocd-notifications-controller    1/1   1     1     12m
+
+          deployment.apps/argocd-redis                       1/1   1     1     12m
+
+          deployment.apps/argocd-repo-server                 1/1   1     1     12m
+
+          deployment.apps/argocd-server                      1/1   1     1     12m
+
+          statefulset.apps/argocd-application-controller   1/1   12m'
+        pods: '# argocd
+
+          argocd-application-controller-0                    1/1   Running   0     12m
+
+          argocd-applicationset-controller-b7669f646-br9jk   1/1   Running   0     12m
+
+          argocd-dex-server-569b757-wdvkt                    1/1   Running   0     12m
+
+          argocd-notifications-controller-58ff87546-rqbt6    1/1   Running   0     12m
+
+          argocd-redis-b9496d8bf-cx2h8                       1/1   Running   0     12m
+
+          argocd-repo-server-75ffcfc9df-jlbs4                1/1   Running   0     12m
+
+          argocd-server-765cbfdc64-6mm8v                     1/1   Running   0     12m'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||argocd
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 46
+      configHubObjectCount: 47
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||argocd
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: f00cda42b8be29a8ad9c40b227fb0becab7fc0cf1a9d2a5c9f3e8f645acf82c6
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 46
+      configHubObjectCount: 47
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||argocd
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      - k8s-zero-defaults
+      comparisonSHA256: 6dfb660a0f3fff327b60b858b2c20d933b2a90f3a45e4d8ab071dd9239e98683
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-argocd-nc3-0613\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-argocd-nc3-0613.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-argocd-nc3-0613\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-argocd-nc3-0613\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argocd-nc3-0613\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-nc3-0613.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argocd\"...\napiVersion:\
+      \ v1\nkin"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=3
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"argo-cd\" does not exist. Installing it now.\nNAME: argo-cd\n\
+      LAST DEPLOYED: Sat Jun 13 05:05:07 2026\nNAMESPACE: argocd-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nIn order\
+      \ to access the server UI you have the following options:\n\n1. kubectl port-forward\
+      \ service/argo-cd-argocd-server -n argocd-helm 8080:443\n\n    and then open\
+      \ the browser on http://localhost:8080 and accept the certificate\n\n2. enable\
+      \ ingress in the values file `server.ingress.enabled` and either\n      - Add\
+      \ the annotation for ssl passthrough: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough\n\
+      \      - Set the `configs.params.\"server.insecure\"` in the values file and\
+      \ terminate SSL at your ingress: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts\n\
+      \n\nAfter reaching the UI the first time you can login with username: admin\
+      \ and the random password generated during the installation."
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=2 crds=3
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# argocd
+
+      deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-redis                       1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-server                      1/1   1     1     20s
+
+      deployment.apps/argocd-applicationset-controller           1/1   1     1     2m29s
+
+      deployment.apps/argocd-dex-server                          1/1   1     1     2m29s
+
+      deployment.apps/argocd-notifications-controller            1/1   1     1     2m29s
+
+      deployment.apps/argocd-redis                               1/1   1     1     2m29s
+
+      deployment.apps/argocd-repo-server                         1/1   1     1     2m29s
+
+      deployment.apps/argocd-server                              1/1   1     1     2m29s
+
+      statefu'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=6
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=40 namespaces=argocd
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=2 crds=3
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=? health=? after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: applications.argoproj.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: applicationsets.argoproj.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: appprojects.argoproj.io
+        sourceVariant: default
+        lane: regularHelm
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: argocd
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubKubectlApply
+      - namespace: argocd-apply
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubKubectlApply
+        sourceNamespace: argocd
+      stagedCRDs:
+      - name: applications.argoproj.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: applicationsets.argoproj.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: appprojects.argoproj.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: argocd
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubOciArgo
+      - namespace: argocd-oci
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubOciArgo
+        sourceNamespace: argocd
+      stagedCRDs:
+      - name: applications.argoproj.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: applicationsets.argoproj.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: appprojects.argoproj.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: argocd-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: argocd-oci

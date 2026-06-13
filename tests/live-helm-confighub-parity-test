@@ -904,9 +904,37 @@ def stage_target_facts(
     return result
 
 
+def clear_argocd_application_finalizers(namespace: str, kubeconfig: Path, context: str) -> None:
+    rc, out, _ = kubectl(
+        ["-n", namespace, "get", "applications.argoproj.io", "-o", "json"],
+        kubeconfig,
+        context,
+        timeout=60,
+    )
+    if rc != 0:
+        return
+    try:
+        payload = json.loads(out)
+    except json.JSONDecodeError:
+        return
+    for item in payload.get("items") or []:
+        metadata = item.get("metadata") or {}
+        name = metadata.get("name")
+        finalizers = metadata.get("finalizers") or []
+        if not name or "resources-finalizer.argocd.argoproj.io" not in finalizers:
+            continue
+        kubectl(
+            ["-n", namespace, "patch", "application", name, "--type=merge", "-p", '{"metadata":{"finalizers":null}}'],
+            kubeconfig,
+            context,
+            timeout=60,
+        )
+
+
 def delete_namespace_if_safe(namespace: str, kubeconfig: Path, context: str) -> None:
     if namespace in ("default", "kube-system", "kube-public", "kube-node-lease"):
         return
+    clear_argocd_application_finalizers(namespace, kubeconfig, context)
     kubectl(["delete", "namespace", namespace, "--wait=true", "--timeout=180s"], kubeconfig, context, timeout=210)
 
 
@@ -1186,7 +1214,10 @@ def canonicalize_gitops_manifest_dir(manifests_dir: Path, profile: str, run_root
 
 
 def protected_namespace(namespace: str) -> bool:
-    return namespace in ("default", "kube-system", "kube-public", "kube-node-lease")
+    # cub lk installs the Argo controller in argocd. Some charts, including the
+    # argo-cd chart itself, also render workloads there. Clean their objects,
+    # but keep the controller namespace alive for the OCI/Argo leg.
+    return namespace in ("default", "kube-system", "kube-public", "kube-node-lease", "argocd")
 
 
 def leg_namespace(namespace: str, suffix: str) -> str:

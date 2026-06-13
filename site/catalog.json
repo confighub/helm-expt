@@ -468,7 +468,7 @@
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "3 rows have non-pass live parity receipts."
+      "note": "4 rows have non-pass live parity receipts."
     },
     {
       "section": "proof lanes",
@@ -509,7 +509,7 @@
     {
       "section": "proof lanes",
       "metric": "top20 bases needing unresolved prerequisite or runtime review",
-      "value": "0",
+      "value": "1",
       "total": "42",
       "status": "partial",
       "source": "data/top20-base-readiness/base-readiness.csv",
@@ -600,7 +600,7 @@
       "section": "live evidence",
       "metric": "selected live Helm-vs-ConfigHub parity receipts",
       "value": "64",
-      "total": "67",
+      "total": "68",
       "status": "partial",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row."
@@ -645,7 +645,7 @@
       "section": "live evidence",
       "metric": "ConfigHub/OCI semantic parity defect receipts",
       "value": "0",
-      "total": "67",
+      "total": "68",
       "status": "good",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Rows whose committed receipt currently points at a semantic object comparison defect."
@@ -3890,9 +3890,9 @@
       "chart": "argo-cd/argo-cd@9.5.15",
       "base": "no-crds",
       "recommended_first": "no",
-      "user_readiness": "try-with-proof",
-      "why": "render parity and two-cluster live parity pass, but one or more broader lanes are missing",
-      "next_action": "complete the missing lane(s): local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare",
+      "user_readiness": "runtime-watch",
+      "why": "object parity passed, but a live GitOps/controller condition needs review",
+      "next_action": "inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary",
       "support_artifact": "",
       "live_rerun_readiness": "",
       "live_rerun_next_step": "",
@@ -3902,8 +3902,8 @@
       "render_parity": "pass",
       "in_confighub": "pass",
       "local_live": "blocked",
-      "gitops_oci_live": "blocked",
-      "live_helm_vs_confighub_parity": "missing",
+      "gitops_oci_live": "watch",
+      "live_helm_vs_confighub_parity": "watch",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
       "lifecycle_observation": "",

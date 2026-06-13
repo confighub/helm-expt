@@ -36,7 +36,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 191 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 692 / 6 / 55 / 462 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 692 / 8 / 54 / 461 / 122 |
 | Variants with the complete core lane set | 64 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -106,7 +106,7 @@ when you want the user/product view with those columns visible.
 | `aqua/trivy-operator@0.32.1` | default | next80 | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | live-parity | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | live-parity | ⬜ |
 | `argo-cd/argo-cd@9.5.15` | default | top20 | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | no-crds | top20 | — | — | ✅ | ✅ | ❌ | — | ❌ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
+|  | no-crds | top20 | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ✅ | two-cluster-kind-parity | ⬜ |
 | `argo-cd/argo-cd@9.5.17` | default | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `argo-cd/argo-events@2.4.21` | default | next80 | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
