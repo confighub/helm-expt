@@ -14,16 +14,18 @@ what happens after Kubernetes accepts the objects.
 
 ## Current Status
 
-The repo tracks two live parity lanes. The two-cluster lane includes all
-top-20 bases plus a small next80 expansion set. The selected live
-Helm-vs-ConfigHub lane focuses on rows where ConfigHub delivery through OCI/Argo
-also matters.
+The repo tracks two live parity lanes. Use the generated reports below for exact
+counts, rows, and timestamps. This manual page explains how to read them.
 
-| Lane | Current result | What it means |
+The two-cluster lane includes all top-20 bases plus a selected next80 expansion
+set. The selected live Helm-vs-ConfigHub lane focuses on rows where ConfigHub
+delivery through OCI/Argo also matters.
+
+| Lane | Report | What it means |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 83 pass, 0 watch, 1 target-fit blocked | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. The remaining blocked row is Consul secure mesh, where the proof target must provide the declared target shape before this lane can make a pass claim. |
-| Two-cluster kind parity for all top-20 bases | 42 pass, 0 watch, 0 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
-| Broader two-cluster kind parity corpus | 70 pass, 0 watch, 0 blocked, 0 semantic parity defects | The same two-cluster method has moved into selected next80 proof-grade charts. |
+| Selected live Helm-vs-ConfigHub comparison | [summary](../../data/live-helm-confighub-compare/summary.md) | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. |
+| Two-cluster kind parity | [summary](../../data/live-kind-parity/summary.md) | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
+| Active rerun/review queue | [rerun plan](../../data/live-parity-rerun-plan/summary.md) | Current non-pass rows, next action, support artifact, and rerun command. |
 
 Use the generated reports for exact rows:
 
@@ -32,11 +34,17 @@ Use the generated reports for exact rows:
 - [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md)
 - [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv)
 
-The current selected rerun queue has one target-fit row and no semantic parity
-defects. Rows with missing useful Helm values, target
-prerequisites, target-fit requirements, or lifecycle behavior should cite the
-matching value model, target-fact, lifecycle, or runtime receipt rather than
-treating render parity as a production claim.
+Rows with missing useful Helm values, target prerequisites, target-fit
+requirements, or lifecycle behavior should cite the matching value model,
+target-fact, lifecycle, or runtime receipt rather than treating render parity as
+a production claim.
+
+For example, `autoscaler/cluster-autoscaler` has an upstream default that
+renders but does not create a functional controller unless values such as
+`autoDiscovery.clusterName` and `awsRegion` are supplied. That is not a
+ConfigHub-vs-Helm defect. It is a render-input/base-modeling decision: use the
+reviewed `controller-default-reviewed` base, or create another values-profile
+base before rerunning strict parity.
 
 ## How To Read Results
 
@@ -95,6 +103,7 @@ of the test cluster, not a change to the chart.
 | --- | --- | --- |
 | `kind-ingress-nginx` | A chart renders an Ingress that should be reconciled on kind. This installs a target ingress controller and proves Ingress status behavior. | `npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.2 --base existing-tls-ingress --target-profile kind-ingress-nginx` |
 | `kind-loadbalancer` | A chart renders a `Service.type=LoadBalancer` and the test should prove the cloud-shaped Service path on kind. This uses `cloud-provider-kind`. | `npm run live-parity:run -- --recipe recipes/ingress-nginx/ingress-nginx/4.15.1 --base default --target-profile kind-loadbalancer` |
+| `kind-three-node` | A chart requires more than one schedulable Kubernetes node for anti-affinity, quorum, or topology. This is target shape, not a ConfigHub worker requirement. | `npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node` |
 
 Use `--preflight` before starting a guarded target-profile run:
 
