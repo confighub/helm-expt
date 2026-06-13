@@ -406,6 +406,7 @@ making the human flow complicated.
 
 ## What To Read Next
 
+- [Derived-Variant Walkthrough](./derived-variant-walkthrough.md) — a real `cub variant create` read back from its receipt
 - [Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md)
 - [cub Variant Command Surface](./cub-variant-command-surface.md)
 - [Custom Overlays](./custom-overlays.md)
