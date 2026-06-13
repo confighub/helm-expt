@@ -61,7 +61,7 @@ production, or refresh counts by hand in this plan.
 | Which top-20 production-support tasks can be assigned? | [data/production-support-decisions/work-items.csv](../../data/production-support-decisions/work-items.csv) |
 
 Current generated facts, at the time of this plan update
-(`2026-06-13`, after the Argo Rollouts live-parity receipts):
+(`2026-06-13`, after the External DNS default live-parity receipt):
 
 ```text
 108/110 maintained chart rows have model support.
@@ -70,9 +70,9 @@ Current generated facts, at the time of this plan update
 191/191 chart/base rows have render parity.
 155/191 chart/base rows have in-ConfigHub proof.
 138/191 chart/base rows have local live proof.
-72/191 chart/base rows have GitOps/OCI live proof.
-72/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
-71/191 chart/base rows have the complete core lane set.
+73/191 chart/base rows have GitOps/OCI live proof.
+73/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
+72/191 chart/base rows have the complete core lane set.
 70/70 two-cluster kind parity rows pass semantic parity.
 38/42 top-20 base variants are start-here rows.
 17/20 top-20 charts have supported target-scoped production decisions; 2 are superseded source charts; 1 is rejected for the current target scope; 20/20 are production-review-ready.
@@ -185,6 +185,32 @@ used as the first-screen explanation.
 | 5 | Expand field reachability beyond Redis and KPS. | Helm's root problem is forgetful 1-to-many generation. The next gap is mapping more rendered fields back to values, generated facts, target facts, and extension slots. | `data/edge-recovery/edges.csv`, per-chart `inheritance-graph.yaml`, value-source maps, `data/blast-radius-accuracy/`. |
 | 6 | Finish hook and lifecycle observations for maintained hook charts. | Hook inventory is not enough. Users need to know whether lifecycle behavior is skipped, blocked, mapped, or observed. | `data/hook-lifecycle/summary.md`, `data/hook-disposition/summary.md`, `data/lifecycle-boundary/summary.md`, lifecycle execution or observation receipts. |
 | 7 | Keep the public path short. | A new Helm user should understand the offering, pick a base variant, run the command, and know what proof they have without reading the planning corpus. | `README.md`, `CATALOG.md`, `docs/user/try-now.md`, `docs/user/current-proof-status.md`, generated site pages. |
+
+## Immediate Launch Sequence After The Planning Sweep
+
+The next work should close user-visible confidence gaps before adding more
+internal proof surfaces. The current status is strong enough to launch a proof
+site, but not yet strong enough to imply production support across the top-100.
+
+| Order | Work | Concrete next step | Main sources |
+| ---: | --- | --- | --- |
+| 1 | Public website launch path | Make `site/index.html`, `site/proof.html`, `site/tiers.html`, and the chart pages the primary user journey: choose chart, choose base, inspect proof, understand free versus managed next step. | `docs/planning/dedicated-website-plan.md`, `site/README.md`, `data/master-catalog-matrix/matrix.html`. |
+| 2 | Complete-core expansion | Continue serial live Helm-vs-ConfigHub parity runs for the highest-value rows until each new pass updates the master matrix, status dashboard, and promotion wave. | `data/master-catalog-matrix/matrix.html`, `data/outcome-coverage/base-outcomes.csv`, `runs/live-helm-confighub-compare/`. |
+| 3 | Promotion review wave | Turn the 24 strict top-100 promotion packets into human decisions: selected base, scan/gate disposition, lifecycle route, support scope, and production decision. | `data/top100-promotion-wave/summary.md`, `data/top100-promotion-wave/review-packets/`. |
+| 4 | Useful base buildout | For the 35 user-shaped variant rows, create bases only when the change is a real Helm-user install shape. Do not manufacture bases just to make cells green. | `data/top100-coverage/work-queue.md`, `data/useful-base-design-queue/summary.md`, `data/useful-base-realization-wave/summary.md`. |
+| 5 | Hard-chart proof | Keep kube-prometheus-stack as the serious-chart exemplar, and close the obvious lifecycle gaps for cert-manager, External Secrets, Argo Workflows, and at least one stateful chart. | `docs/user/serious-chart-proof.md`, `data/production-readiness-packets/`, issues `#643`, `#248`. |
+| 6 | Hook and lifecycle trust | Treat every hook as routed, observed, refused, or per-target. The public claim is not universal hook execution; the public claim is that lifecycle behavior is no longer hidden. | `data/hook-disposition/summary.md`, `docs/reference/what-hook-support-means.md`, `docs/user/hook-lifecycle-strategy.md`. |
+| 7 | Variant operations | Make the base-versus-derived-versus-delivery decision obvious in tutorials, then prove the ConfigHub side through derived variants, target-bound receipts, promotion examples, and bulk scan/patch. | issues `#143`-`#152`, `docs/user/creating-variants.md`, `docs/user/tutorial-sequence.md`. |
+| 8 | External reproduction | Run the outside-user/Pilot path against the public site and tutorials, then record where a fresh user gets confused or where a CLI command is imagined. | `docs/planning/outside-user-test.md`, `docs/planning/pilot-adversarial-testing.md`, `docs/planning/independent-review-brief.md`. |
+| 9 | Commercial proof boundary | Keep the free path useful for public artifacts; route private overlays, stacks, old-version patch support, fleet operations, approvals, and production evidence into managed tiers. | `docs/user/product-support-tiers.md`, `docs/planning/verified-install-commercial-model.md`, `docs/user/offering.md`. |
+
+When another agent helps, prefer these splits:
+
+| Agent lane | Owns | Avoids |
+| --- | --- | --- |
+| Codex live lane | Serial live parity, ConfigHub/OCI runs, receipt commits, generated status/site refresh after live evidence. | Running multiple live lanes concurrently. |
+| Claude dataset lane | Promotion packet review drafts, useful-base design, hook/quirk audits, matrix consistency, website copy PRs. | Creating kind clusters or editing generated site files while the live lane is regenerating. |
+| Claude product lane | First-user walkthroughs, website information architecture, plain-English tutorial review, persona checks. | Changing proof semantics or broad generators without a focused PR. |
 
 ## Parallel Work Split
 

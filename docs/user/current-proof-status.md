@@ -271,12 +271,12 @@ different outcome.
 Current aggregate status:
 
 ```text
-chart/base rows:                          190
-helm_template_vs_installer_setup:         190 pass, 0 missing
-confighub_upload_variant_scan_safe_ops:    85 pass, 105 missing
-local_kind_kubectl_apply:                 134 pass, 56 non-pass receipts, 0 missing
-confighub_oci_argo_live:                   36 pass, 5 non-pass receipts, 149 missing
-live_helm_vs_confighub_dual_compare:       36 pass, 2 watch, 0 blocked, 152 missing
+chart/base rows:                          191
+helm_template_vs_installer_setup:         191 pass, 0 missing
+confighub_upload_variant_scan_safe_ops:   155 pass, 36 missing
+local_kind_kubectl_apply:                 138 pass
+confighub_oci_argo_live:                   73 pass
+live_helm_vs_confighub_dual_compare:       73 pass, 0 watch, 0 blocked
 two_cluster_kind_parity:                   70 pass, 0 watch, 0 blocked
 ```
 
@@ -297,13 +297,10 @@ GitOps/OCI live proof has started:
 
 Live Helm-vs-ConfigHub parity is selected-row evidence:
 
-- The selected live comparison lane has 38 committed receipts.
-- 36 rows pass, 2 rows are watch, and no rows are blocked.
-- Across the full 190-row lane matrix, 152 rows remain missing backlog for this
-  lane. That is planned work, not failed work.
-- The two active watch rows are ingress-nginx target-shape rows. They have
-  semantic object parity, but need LoadBalancer target behavior or a
-  target-specific support decision before they should be promoted.
+- The selected live comparison lane has 73 committed receipts.
+- 73 rows pass, no rows are watch, and no rows are blocked.
+- Across the full 191-row lane matrix, rows without this receipt remain backlog
+  for this lane. That is planned work, not failed work.
 - The comparison checks regular Helm against ConfigHub delivery and records the
   expected installer-added Namespace object and any semantic object diffs.
 - Exact chart/base status is in the generated summary:

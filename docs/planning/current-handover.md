@@ -120,7 +120,7 @@ render reproducibility: complete for current recipe variants
 ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
-selected live Helm-vs-ConfigHub comparison: 20 top-20 rows pass, 0 watch, 0 blocked
+selected live Helm-vs-ConfigHub comparison: see generated status for current pass, watch, blocked, and missing counts
 broader live parity rerun queue: 0 watch, 0 blocked, 0 semantic parity defects in the active two-cluster queue
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```

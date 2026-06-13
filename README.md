@@ -328,10 +328,10 @@ chart/base row has every lane complete.
 1/20 top-20 charts has a rejected target-scoped proof scope with a concrete production-boundary reason.
 0/20 top-20 charts remain draft support decisions.
 100 charts have recipe/package proof artifacts.
-190 chart/base rows have Helm-template versus cub installer render parity.
-85/190 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
-The selected live Helm-vs-ConfigHub comparison lane has 38 committed receipts:
-36 pass, 2 watch, 0 blocked, and 0 semantic parity defects.
+191 chart/base rows have Helm-template versus cub installer render parity.
+155/191 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
+The selected live Helm-vs-ConfigHub comparison lane has 73 committed receipts:
+73 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
 The top-20 base-variant two-cluster kind parity lane has 42 committed
 receipts: 42 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
 The broader two-cluster kind parity corpus has 70 committed receipts:
@@ -351,6 +351,9 @@ support.
 Top-500 source/catalog analysis exists as catalog-planning data for future
 recipe promotion work.
 ```
+
+Do not hand-copy these counts into another claim. The generated dashboard and
+outcome summaries are the source of truth whenever new receipts land.
 
 The production support decision contract is in
 [data/production-disposition/support-decision-contract.md](./data/production-disposition/support-decision-contract.md).
@@ -386,15 +389,13 @@ ConfigHub OCI
 ```
 
 That lane depends on a live GitOps controller and cluster, so it is documented
-and exercised outside the pure local `npm run verify` corpus. The first
-runtime/GitOps wave currently has 11 committed receipts: 8 pass and 3 non-pass
-target-fit receipts. The strict live Helm-vs-ConfigHub comparison lane has 38
-committed receipts for selected rows: 36 pass, 2 watch, and 0 blocked.
-Across the full 190-row lane matrix, there are still 2 watch rows and 152
-missing backlog rows for this lane. The strict two-cluster kind parity lane has
-receipts for all 42 maintained top-20 base variants and 70 committed receipts
-overall, all passing. It separates semantic parity from target prerequisites,
-runtime readiness, hooks, and storage behavior.
+and exercised outside the pure local `npm run verify` corpus. The strict
+live Helm-vs-ConfigHub comparison lane currently has 73 committed receipts:
+73 pass, 0 watch, and 0 blocked. Across the full 191-row lane matrix, the
+remaining rows are backlog, not semantic parity defects. The strict two-cluster
+kind parity lane has receipts for all 42 maintained top-20 base variants and
+70 committed receipts overall, all passing. It separates semantic parity from
+target prerequisites, runtime readiness, hooks, and storage behavior.
 See the generated summaries for exact chart/base status:
 [Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
 [Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
@@ -889,8 +890,8 @@ The Argo CD / Flux OCI path is verified in a separate live lane because it needs
 a running GitOps controller and cluster. The current generated status is:
 
 ```text
-runtime/GitOps first wave: 8 pass, 3 non-pass target-fit receipts
-selected live Helm-vs-ConfigHub comparison: 36 pass, 2 watch, 0 blocked
+GitOps/OCI live pass rows: 73/191
+selected live Helm-vs-ConfigHub comparison: 73 pass, 0 watch, 0 blocked
 all-base top-20 two-cluster kind parity: 42 pass, 0 watch, 0 blocked, 0 semantic defects
 broader two-cluster kind parity corpus: 70 pass, 0 watch, 0 blocked, 0 semantic defects
 ```
