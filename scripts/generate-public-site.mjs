@@ -11,6 +11,7 @@ const tryPath = join(siteRoot, "try.html");
 const proofPath = join(siteRoot, "proof.html");
 const tiersPath = join(siteRoot, "tiers.html");
 const journeyPath = join(siteRoot, "journey.html");
+const day1OperationsPath = join(siteRoot, "day1-operations.html");
 const chartIndexPath = join(chartPagesRoot, "index.html");
 const catalogJsonPath = join(siteRoot, "catalog.json");
 const readmePath = join(siteRoot, "README.md");
@@ -53,6 +54,7 @@ if (mode === "--generate") {
   write(proofPath, site.proofHtml);
   write(tiersPath, site.tiersHtml);
   write(journeyPath, site.journeyHtml);
+  write(day1OperationsPath, site.day1OperationsHtml);
   write(join(siteRoot, "matrix.html"), site.matrixHtml);
   write(chartIndexPath, site.chartIndexHtml);
   for (const page of site.chartPages) write(page.path, page.html);
@@ -69,6 +71,7 @@ if (mode === "--generate") {
   check(existsSync(proofPath), "site/proof.html is missing; run npm run site:generate");
   check(existsSync(tiersPath), "site/tiers.html is missing; run npm run site:generate");
   check(existsSync(journeyPath), "site/journey.html is missing; run npm run site:generate");
+  check(existsSync(day1OperationsPath), "site/day1-operations.html is missing; run npm run site:generate");
   check(existsSync(chartIndexPath), "site/charts/index.html is missing; run npm run site:generate");
   check(existsSync(catalogJsonPath), "site/catalog.json is missing; run npm run site:generate");
   check(existsSync(readmePath), "site/README.md is missing; run npm run site:generate");
@@ -79,6 +82,7 @@ if (mode === "--generate") {
   check(readFileSync(proofPath, "utf8") === site.proofHtml, "site/proof.html is stale");
   check(readFileSync(tiersPath, "utf8") === site.tiersHtml, "site/tiers.html is stale");
   check(readFileSync(journeyPath, "utf8") === site.journeyHtml, "site/journey.html is stale");
+  check(readFileSync(day1OperationsPath, "utf8") === site.day1OperationsHtml, "site/day1-operations.html is stale");
   check(existsSync(join(siteRoot, "matrix.html")), "site/matrix.html is missing; run npm run site:generate");
   check(readFileSync(join(siteRoot, "matrix.html"), "utf8") === site.matrixHtml, "site/matrix.html is stale (regen master matrix first)");
   check(readFileSync(chartIndexPath, "utf8") === site.chartIndexHtml, "site/charts/index.html is stale");
@@ -275,6 +279,7 @@ function buildSite(generatedAt) {
     proofHtml: proofHtml(catalog),
     tiersHtml: tiersHtml(catalog),
     journeyHtml: journeyHtml(catalog),
+    day1OperationsHtml: day1OperationsHtml(catalog),
     chartIndexHtml: chartIndexHtml(catalog),
     chartPages,
     matrixHtml: readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
@@ -1446,8 +1451,8 @@ function journeyHtml(catalog) {
       title: "ConfigHub Server try-out — the managed desired-state graph",
       action: "cub variant create  ·  scan  ·  OCI + GitOps",
       code: "cub variant create redis-prod-us-east --from redis/default\ncub unit diff redis-prod-us-east\n# publish via OCI; an Argo or Flux controller reconciles it",
-      get: "Day-1 managed value, hands-on: derived variants from a base, object diffs, function scans and safe-ops, changesets, and content-addressed OCI delivery that an Argo or Flux controller pulls and reconciles. The graph — not a pile of YAML — is now the source of truth.",
-      next: "Run it like an estate: approvals, promotions, live observation, upgrades.",
+      get: "Day-1 managed value, hands-on: derived variants from a base, object diffs, function scans and safe-ops, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a custom or private app. There is a lot here — the <a href=\"./day1-operations.html\">day-1 operations page</a> walks each one with its command and its free/paid boundary. The graph — not a pile of YAML — is now the source of truth.",
+      next: "Once day-1 is comfortable, run it like an estate: approvals, live observation, upgrades.",
     },
     {
       n: "4",
@@ -1550,6 +1555,131 @@ ${cards}
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Free stages are usable without payment; paid and planned tiers require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
+</body>
+</html>
+`;
+}
+
+function day1OperationsHtml(catalog) {
+  const ops = [
+    {
+      title: "Create a derived variant",
+      status: "available",
+      boundary: "ConfigHub · free tier",
+      action: "cub variant create <name> <upstream-space>",
+      code: "cub variant create redis-prod-us-east redis-base",
+      get: "A derived ConfigHub variant refines an uploaded base for a target, environment, region, or customer — without running Helm again and without a new installer base. This is the day-1 customization most teams need first.",
+      see: ["creating-variants.md", "cub-variant-command-surface.md"],
+    },
+    {
+      title: "Diff before you ship",
+      status: "available",
+      boundary: "ConfigHub · free tier",
+      action: "review the variant's object diff vs its base",
+      code: null,
+      get: "Every derived variant carries an exact, reviewable object diff against the base it came from — so a reviewer sees precisely which objects and fields a change touches before anything is delivered. This is the opposite of a values file you have to mentally render.",
+      see: ["change-routing-before-oci.md"],
+    },
+    {
+      title: "Scan and gate",
+      status: "available",
+      boundary: "free locally · paid for managed policy",
+      action: "function scans + safe-ops over rendered objects",
+      code: null,
+      get: "Run policy/function scans over the rendered objects (privilege, capabilities, exposure, deprecated APIs) and safe operations, and hold delivery behind a gate until findings are accepted or waived with a named reason. The scan receipts carry the safety-relevant findings; signing proves origin, not safety.",
+      see: ["../data/external-scan-lane/summary.md"],
+    },
+    {
+      title: "Stage and promote across environments",
+      status: "planned",
+      boundary: "ConfigHub Server",
+      action: "promote dev → staging → prod from one base",
+      code: null,
+      get: "Promotion moves a proven variant through environments as a first-class operation, with a clean diff at each hop, rather than copy-pasting values between clusters. The promotion verbs (cub variant promote / release) are described as planned product lanes until the CLI exposes them — the base-variant and derived-variant substrate underneath is real today.",
+      see: ["prometheus-overlay-promotion-example.md"],
+    },
+    {
+      title: "Deliver via OCI + GitOps",
+      status: "available",
+      boundary: "free to run · standard Argo/Flux",
+      action: "publish content-addressed OCI; a controller reconciles",
+      code: null,
+      get: "Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it — pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.",
+      see: ["chain-of-proof.md", "../data/runtime-gitops/summary.md"],
+    },
+    {
+      title: "Adopt an app you already run",
+      status: "available",
+      boundary: "ConfigHub · free tier",
+      action: "cub gitops discover  /  cub gitops import",
+      code: "cub gitops discover\ncub gitops import <app>",
+      get: "Existing Argo, Flux, KRM, rendered-manifest, and live-resource apps enter the model without a rewrite: discover what is running, import it to ConfigHub Units, and from there it gains the same variants, diffs, scans, and observation as a catalog chart.",
+      see: ["adopting-existing-apps.md"],
+    },
+    {
+      title: "Bring a custom or private app",
+      status: "available locally · private catalog is paid",
+      boundary: "free for your own charts · paid for managed private catalog",
+      action: "wrapper charts, platform values, customer overlays, internal charts",
+      code: null,
+      get: "Your own charts — wrapper charts, platform values, customer overlay values, internal-only charts — run through the same render → scan → sign pipeline as the public catalog. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.",
+      see: ["custom-overlays.md", "product-support-tiers.md"],
+    },
+  ];
+  const seeLink = (ref) =>
+    ref.startsWith("../")
+      ? `<a href="${ref}">${escapeHtml(ref.replace(/^\.\.\//, "").replace(/\/summary\.md$/, ""))}</a>`
+      : `<a href="../docs/user/${ref}">${escapeHtml(ref.replace(/\.md$/, ""))}</a>`;
+  const cards = ops
+    .map(
+      (o) => `      <div class="op">
+        <div class="ophead">
+          <h3>${escapeHtml(o.title)}</h3>
+          <span class="badge ${o.status.startsWith("available") ? "now" : "planned"}">${escapeHtml(o.status)}</span>
+        </div>
+        <p class="opmeta"><code>${escapeHtml(o.action)}</code> · <span class="muted">${escapeHtml(o.boundary)}</span></p>
+        ${o.code ? `<pre><code>${escapeHtml(o.code)}</code></pre>` : ""}
+        <p>${o.get}</p>
+        <p class="muted">See: ${o.see.map(seeLink).join(" · ")}</p>
+      </div>`,
+    )
+    .join("\n");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day-1 operations · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}
+    .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
+    .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .ophead h3 { margin: 0; font-size: 1.08rem; }
+    .opmeta { margin: 6px 0 8px; }
+    .op .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); white-space: nowrap; }
+    .op .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .op .badge.planned { color: var(--muted); background: var(--panel); }
+    .muted { color: var(--muted); }
+    @media (max-width: 600px) { .ophead { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <h1>Day-1 operations — the work between a first variant and a running estate.</h1>
+    ${generatedStamp(catalog, "day-1 operations")}
+    <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs — each with its command, what it gives you, and whether it is available today, free, or paid. Available is marked green; planned product lanes are marked grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
+  </header>
+  <main>
+    <section aria-labelledby="ops">
+      <h2 id="ops">The operations</h2>
+${cards}
+    </section>
+    <section aria-labelledby="next">
+      <h2 id="next">Then: day-2 and beyond</h2>
+      <p>When these are routine, the work becomes day-2 and estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of the journey</a>; where it carries production responsibility, the <a href="./tiers.html">paid tiers</a> take over.</p>
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. Available operations run today; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
 </body>
 </html>
 `;
