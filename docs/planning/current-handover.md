@@ -74,8 +74,8 @@ There are two live parity surfaces, and they answer different questions:
 
 | Surface | Current reading | Use it for |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 84 committed receipts: 83 pass, 0 watch, 1 target-fit blocked. | Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows. |
-| Live parity rerun queue | 1 target-fit row, 0 render-input rows, 0 semantic parity defects. | The active non-pass row is Consul secure mesh. It needs a proof target with the declared target shape, or a narrower target-scope decision. |
+| Selected live Helm-vs-ConfigHub comparison | 84 committed receipts: 83 pass, 1 watch, 0 blocked. | Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows. |
+| Live parity rerun queue | 1 GitOps/controller-health row, 0 render-input rows, 0 semantic parity defects. | The active non-pass row is Consul secure mesh. Semantic parity and workload readiness passed; the remaining work is Argo aggregate health review on the three-node target profile. |
 
 The watch and blocked rows are not currently object-set parity defects. They
 surface target prerequisites, hook/lifecycle routes, controller health, storage,
@@ -120,8 +120,8 @@ ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
 selected live Helm-vs-ConfigHub comparison: see generated status for current pass, watch, blocked, and missing counts
-live parity rerun queue: 1 target-fit block, 0 render-input watch rows, 0 semantic parity defects in the selected live Helm-vs-ConfigHub lane
-two-cluster kind parity: 70/70 pass, 0 watch, 0 blocked, 0 semantic parity defects
+live parity rerun queue: 1 GitOps/controller-health watch row, 0 render-input active rows, 0 semantic parity defects in the selected live Helm-vs-ConfigHub lane
+two-cluster kind parity: 73 pass, 1 watch, 0 blocked, 0 semantic parity defects
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
 

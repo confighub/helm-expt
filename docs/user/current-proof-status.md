@@ -283,8 +283,8 @@ helm_template_vs_installer_setup:         191 pass, 0 missing
 confighub_upload_variant_scan_safe_ops:   155 pass, 36 missing
 local_kind_kubectl_apply:                 138 pass
 confighub_oci_argo_live:                   83 pass
-live_helm_vs_confighub_dual_compare:       83 pass, 0 watch, 1 target-fit blocked
-two_cluster_kind_parity:                   70 pass, 0 watch, 0 blocked
+live_helm_vs_confighub_dual_compare:       83 pass, 1 watch, 0 blocked
+two_cluster_kind_parity:                   73 pass, 1 watch, 0 blocked
 ```
 
 Those counts come from the generated lane matrix:
@@ -305,10 +305,10 @@ GitOps/OCI live proof has started:
 Live Helm-vs-ConfigHub parity is selected-row evidence:
 
 - The selected live comparison lane has 84 committed receipts.
-- 83 rows pass and 1 row is blocked by
-  target-fit decisions.
-- The blocked row is Consul secure mesh. It still needs a proof target that
-  provides the declared target shape before this lane can make a pass claim.
+- 83 rows pass and 1 row is watch.
+- The watch row is Consul secure mesh. Semantic parity and workload readiness
+  passed, but the GitOps controller health still needs review on the
+  three-node target profile before this lane can make a full pass claim.
 - Across the full 191-row lane matrix, rows without this receipt remain backlog
   for this lane. That is planned work, not failed work.
 - The comparison checks regular Helm against ConfigHub delivery and records the
@@ -316,12 +316,12 @@ Live Helm-vs-ConfigHub parity is selected-row evidence:
 - Exact chart/base status is in the generated summary:
   [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md).
 
-Strict two-cluster Helm-vs-installer parity now has 70 committed receipts:
+Strict two-cluster Helm-vs-installer parity now has 74 committed receipts:
 
-- 70 rows pass;
-- 0 rows are watch;
+- 73 rows pass;
+- 1 row is watch;
 - 0 rows are blocked;
-- 70 rows have semantic object parity;
+- 74 rows have semantic object parity;
 - 0 rows currently report a semantic parity defect.
 
 Use the generated rerun plan for the next command and expected remediation:
@@ -330,10 +330,12 @@ Use the generated rerun plan for the next command and expected remediation:
 For the shortest active queue, use:
 [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv).
 
-The current rerun queue has 1 active target-fit row and no semantic parity
-defects. The remaining row is Consul secure mesh, where the proof target must
-provide the declared target shape before the live comparison can make a pass
-claim.
+The current rerun queue has 1 active row and no semantic parity defects. The
+remaining row is Consul secure mesh, where semantic parity and workload
+readiness passed but the GitOps controller health still needs review. The raw
+Cluster Autoscaler default is no longer active rerun work because the
+`controller-default-reviewed` useful base models the required Helm values and
+has passing live evidence.
 
 Production support decisions are now explicit for the top-20 catalog:
 

@@ -334,12 +334,12 @@ chart/base row has every lane complete.
 191 chart/base rows have Helm-template versus cub installer render parity.
 155/191 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
 The selected live Helm-vs-ConfigHub comparison lane has 84 committed receipts:
-83 pass, 0 watch, 1 target-fit blocked row, and 0 semantic
+83 pass, 1 watch, 0 blocked rows, and 0 semantic
 parity defects.
 The top-20 base-variant two-cluster kind parity lane has 42 committed
 receipts: 42 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
-The broader two-cluster kind parity corpus has 70 committed receipts:
-70 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
+The broader two-cluster kind parity corpus has 74 committed receipts:
+73 pass, 1 watch, 0 blocked, and 0 semantic parity defects.
 11/100 public top-100 source-scan rows contain Helm hooks.
 5 maintained hook queue rows have hook route receipts.
 5/5 maintained hook queue rows have lifecycle observation receipts.
@@ -396,14 +396,17 @@ ConfigHub OCI
 That lane depends on a live GitOps controller and cluster, so it is documented
 and exercised outside the pure local `npm run verify` corpus. The strict
 live Helm-vs-ConfigHub comparison lane currently has 84 committed receipts:
-83 pass, 0 watch, and 1 target-fit blocked row. The remaining blocked row is
-Consul secure mesh; it needs a proof target that provides the declared target
-shape before the live comparison can make a pass claim. Across the full 191-row
-lane matrix, the remaining rows are backlog, model-input work, or target-fit
-work, not semantic parity defects. The
+83 pass, 1 watch, and 0 blocked rows. The remaining watch row is Consul secure
+mesh; semantic parity and workload readiness passed, but the GitOps controller
+health still needs review on the three-node target profile. Across the full
+191-row lane matrix, the remaining rows are backlog, useful-base work,
+controller-health review, or target-fit work, not semantic parity defects. The
 strict two-cluster kind parity lane has receipts for all 42 maintained top-20 base variants and
-70 committed receipts overall, all passing. It separates semantic parity from
-target prerequisites, runtime readiness, hooks, and storage behavior.
+74 committed receipts overall: 73 pass and 1 watch. The watch row is the raw
+Cluster Autoscaler default; the product route is the
+`controller-default-reviewed` useful base, which models the required Helm values
+and has passing live evidence. The lane separates semantic parity from target
+prerequisites, runtime readiness, hooks, and storage behavior.
 See the generated summaries for exact chart/base status:
 [Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
 [Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
@@ -899,9 +902,9 @@ a running GitOps controller and cluster. The current generated status is:
 
 ```text
 GitOps/OCI live pass rows: 83/191
-selected live Helm-vs-ConfigHub comparison: 83 pass, 0 watch, 1 target-fit blocked
+selected live Helm-vs-ConfigHub comparison: 83 pass, 1 watch, 0 blocked
 all-base top-20 two-cluster kind parity: 42 pass, 0 watch, 0 blocked, 0 semantic defects
-broader two-cluster kind parity corpus: 70 pass, 0 watch, 0 blocked, 0 semantic defects
+broader two-cluster kind parity corpus: 73 pass, 1 watch, 0 blocked, 0 semantic defects
 ```
 
 Use the generated summaries for exact chart/base status:

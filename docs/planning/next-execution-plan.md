@@ -84,7 +84,7 @@ counts remain the generated sources named above.
 The current live parity rerun queue is deliberately small:
 
 ```text
-1 target-fit blocked row
+1 GitOps/controller-health watch row
 0 render-input watch rows
 0 semantic parity defects
 ```
