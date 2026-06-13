@@ -247,7 +247,7 @@ const claims = [
       "docs/planning/robust-sceptic-plan.md",
     ],
     verify: "npm run torture:suite:verify",
-    limit: "Eight fixtures cover seven outcome classes; the suite grows as breakers arrive. A public break-our-model challenge is a separate launch decision and is not claimed.",
+    limit: "Eight fixtures cover seven outcome classes; the suite grows as breakers arrive. Public problem-chart intake is open, but a reported chart is not supported until it becomes a fixture, receipt, named refusal, or routed gap.",
   },
   {
     id: "refused-blanket-verification",

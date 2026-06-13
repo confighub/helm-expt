@@ -34,8 +34,10 @@ Public entry points:
 
 If you have a public Helm chart that breaks this model, or a chart where the
 catalog output does not match the behavior you expect from Helm, send it as a
-test case. The useful response is a public fixture and a receipt: pass, watch,
-blocked, or refused with a named reason.
+test case using the
+[problem chart issue template](https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml).
+The useful response is a public fixture and a receipt: pass, watch, blocked, or
+refused with a named reason.
 
 ## New Here? Start With These Five Stages
 

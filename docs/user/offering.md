@@ -115,7 +115,9 @@ is blocked, and what decision is needed next.
 
 The catalog should improve when it is challenged. If a public Helm chart breaks
 the model, or if the catalog output for a supported chart does not match the
-Helm behavior you expect, send the chart and the values that expose the problem.
+Helm behavior you expect, send the chart and the values that expose the problem
+with the
+[problem chart issue template](https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml).
 
 The expected response is not a vague claim that the chart is supported. The
 expected response is a public fixture and a receipt:

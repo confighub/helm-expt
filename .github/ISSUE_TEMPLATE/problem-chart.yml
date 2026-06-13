@@ -1,0 +1,94 @@
+name: Problem chart report
+description: Send a public Helm chart, values file, or catalog mismatch that should become a fixture, receipt, or named refusal.
+title: "Problem chart: <repo/chart> <version>"
+labels:
+  - chart-analysis
+  - product-proof
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sending a hard chart. Public charts that break the model are useful adversarial input.
+
+        Please do not paste private values, secrets, credentials, private repository URLs, or customer data. If the chart or values are private, describe the shape and use a managed/private support channel instead.
+  - type: input
+    id: chart
+    attributes:
+      label: Chart
+      description: Helm repository/name, Artifact Hub link, or chart URL.
+      placeholder: "bitnami/redis"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Chart version
+      placeholder: "25.5.3"
+    validations:
+      required: true
+  - type: textarea
+    id: values
+    attributes:
+      label: Values and flags
+      description: Public values, flags, capability profile, namespace, release name, and whether hooks/CRDs were included.
+      placeholder: |
+        helm template ...
+        values.yaml:
+          ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Helm behavior
+      description: What regular Helm does, or what you expected it to do.
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed helm-expt / ConfigHub behavior
+      description: What did the catalog, recipe, package, live parity lane, or verifier do instead?
+    validations:
+      required: true
+  - type: dropdown
+    id: failure_type
+    attributes:
+      label: What kind of issue is this?
+      options:
+        - Render differs from Helm
+        - Installer package differs from captured render
+        - Live cluster behavior differs
+        - Hook or lifecycle behavior is missing
+        - CRD/API/capability behavior is wrong
+        - Secret/target prerequisite is unclear
+        - Variant choice is missing or confusing
+        - Documentation or command is wrong
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Commands and links needed to reproduce with public inputs.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Logs, diffs, receipts, or screenshots
+      description: Attach or paste public artifacts only. Redact secrets.
+    validations:
+      required: false
+  - type: checkboxes
+    id: public_only
+    attributes:
+      label: Public-data check
+      options:
+        - label: I have not included secrets, credentials, private repository URLs, private values, or customer data.
+          required: true

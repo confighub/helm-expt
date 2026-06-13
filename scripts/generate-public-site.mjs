@@ -970,6 +970,7 @@ function offeringHtml(catalog) {
       <h2 id="challenge">Send A Problem Chart</h2>
       <p>If a public Helm chart breaks the model, or if the catalog output for a supported chart does not match the Helm behavior you expect, send the chart and the values that expose the problem.</p>
       <p>The expected response is a public fixture and a receipt: pass, watch, blocked, or refused with a named reason. Private charts, private values, production remediation, and fleet rollout work belong in managed ConfigHub workflows.</p>
+      <p><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open the problem chart issue template</a>.</p>
     </section>
 
     <section aria-labelledby="links">
@@ -1246,6 +1247,7 @@ function proofHtml(catalog) {
     <section aria-labelledby="sceptic">
       <h2 id="sceptic">Sceptic Tests</h2>
       <p>A sceptic with a breaking chart is useful QA. The rule is that a breaker becomes a fixture, a named refusal, or a routed gap; it should not disappear into prose.</p>
+      <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to send a public chart, values file, or catalog mismatch.</p>
       ${markdownLikeTable([
         ["Surface", "What it answers", "Open"],
         ...scepticRows.map(([name, body, path]) => [name, body, `<a href="${path}">${path}</a>`]),
