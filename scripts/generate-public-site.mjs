@@ -380,6 +380,14 @@ function html(catalog) {
     ["Upload when state matters", "Use cub installer upload when the reviewed objects should become ConfigHub Units for teams, approvals, or variants.", "Managed"],
     ["Operate after upload", "Use variants, diffs, scans, gates, promotions, GitOps/OCI handoff, observations, upgrades, rollbacks, and receipts.", "Managed or paid"],
   ];
+  const userValueRows = [
+    ["Pick a safe starting point", "Choose a reviewed base variant instead of guessing through a large values file."],
+    ["See the real objects", "Review the rendered Kubernetes objects, object counts, CRDs, RBAC, Secrets model, and extension slots before install."],
+    ["Make prerequisites explicit", "Target facts, lifecycle routes, hook dispositions, and controller-owned fields are named before they surprise the rollout."],
+    ["Operate the same objects", "After upload, ConfigHub Units can be diffed, scanned, approved, promoted, observed, and audited."],
+    ["Keep Helm semantics visible", "The selected live lane currently has zero semantic parity defects across committed Helm-vs-ConfigHub receipts."],
+    ["Know the boundary", "Watch, blocked, refused, and not-yet-run rows stay visible instead of becoming hidden product claims."],
+  ];
   const rerunCounts = countBy(catalog.liveParityRerunPlan, "lane");
   const rerunRows = catalog.activeProofQueue
     .slice(0, 10)
@@ -428,9 +436,9 @@ function html(catalog) {
 <body>
   <header>
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
-    <h1>Helm charts in. Proof-carrying ConfigHub packages out.</h1>
+    <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     ${generatedStamp(catalog, "public catalog dashboard")}
-    <p class="tagline">helm-expt turns the most-used public Helm charts into reviewed <code>cub installer</code> packages with named variants, rendered objects, and a receipt behind every claim. Nothing here asks to be trusted: green cells are backed by committed evidence, with links to the chart, package, revision, and source data.</p>
+    <p class="tagline">helm-expt ports popular public Helm charts to reviewed <code>cub installer</code> packages without changing the supported end-to-end semantics. The result is explicit config: named base variants, rendered objects, target prerequisites, scans, gates, live evidence, and a receipt behind every claim.</p>
     <div class="doors">
       <div class="door">
         <span class="kicker">Run it</span>
@@ -460,6 +468,10 @@ function html(catalog) {
         <p>If a public chart, values file, hook, CRD, or live behavior breaks the model, send it. The response should be a fixture, receipt, named refusal, or routed gap.</p>
         <span class="go"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open the issue template →</a></span>
       </div>
+    </div>
+    <h2>What This Gives A Helm User</h2>
+    <div class="grid">
+      ${userValueRows.map(([title, body]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n      ")}
     </div>
     <p><a href="https://artifacthub.io/" rel="noopener">Artifact Hub</a> answers what exists and who published it. <a href="https://helm.sh/" rel="noopener">Helm</a> renders and installs it. This catalog adds a per-chart, per-variant <strong>proof</strong> chain — rendered, uploaded, applied, observed, compared, with a receipt for each step.</p>
     <h2>The chain of proof</h2>
@@ -1017,6 +1029,12 @@ function tryHtml(catalog) {
     ["ConfigHub account", "Upload rendered objects as Units, create derived variants, and use managed proof workflows."],
     ["Live cluster", "Apply generated manifests or run the live lanes when you want Kubernetes evidence."],
   ];
+  const expectedRows = [
+    ["After setup", "cub installer --help shows the installer commands.", "You can pull and render a public package."],
+    ["After Redis render", "redis:verify-install:render prints PASS and writes a receipt.", "Your local render matches the catalog contract."],
+    ["After ConfigHub upload", "The ConfigHub Space contains labeled Redis Units and the verifier prints PASS.", "The rendered objects became reviewable ConfigHub config."],
+    ["After live evidence", "The matrix or receipt shows pass, watch, blocked, or refused with a reason.", "The claim is bounded to the target and does not rely on a green render alone."],
+  ];
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -1040,6 +1058,10 @@ function tryHtml(catalog) {
     ${markdownLikeTable([
       ["Path", "What it proves"],
       ...quickRows,
+    ])}
+    ${markdownLikeTable([
+      ["Stage", "What to check", "Why it matters"],
+      ...expectedRows,
     ])}
     <p><a href="../docs/user/choose-your-path.md">Open the route picker</a> if you are deciding between direct Helm commands, public catalog packages, and ConfigHub-managed operations.</p>
   </header>

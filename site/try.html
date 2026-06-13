@@ -152,11 +152,21 @@
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Try the catalog in three short paths.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-13T11:31:55.572Z UTC · source: committed helm-expt evidence for this try-now page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-13T11:44:45.234Z UTC · source: committed helm-expt evidence for this try-now page.</p>
     <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
     <div class="card"><table>
         <thead><tr><th>Path</th><th>What it proves</th></tr></thead>
         <tbody><tr><td>Quick render</td><td>Use cub helm template when you only need to inspect one chart render.</td></tr><tr><td>One-shot ConfigHub load</td><td>Use cub helm install when you want one render as ConfigHub Units right away.</td></tr><tr><td>Public catalog package</td><td>Use cub installer when you want a maintained public base with proof.</td></tr><tr><td>ConfigHub account</td><td>Upload rendered objects as Units, create derived variants, and use managed proof workflows.</td></tr><tr><td>Live cluster</td><td>Apply generated manifests or run the live lanes when you want Kubernetes evidence.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <div class="card"><table>
+        <thead><tr><th>Stage</th><th>What to check</th><th>Why it matters</th></tr></thead>
+        <tbody><tr><td>After setup</td><td>cub installer --help shows the installer commands.</td><td>You can pull and render a public package.</td></tr><tr><td>After Redis render</td><td>redis:verify-install:render prints PASS and writes a receipt.</td><td>Your local render matches the catalog contract.</td></tr><tr><td>After ConfigHub upload</td><td>The ConfigHub Space contains labeled Redis Units and the verifier prints PASS.</td><td>The rendered objects became reviewable ConfigHub config.</td></tr><tr><td>After live evidence</td><td>The matrix or receipt shows pass, watch, blocked, or refused with a reason.</td><td>The claim is bounded to the target and does not rely on a green render alone.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

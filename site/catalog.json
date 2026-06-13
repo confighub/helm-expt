@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-13T11:31:55.572Z",
+  "generatedAt": "2026-06-13T11:44:45.234Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
