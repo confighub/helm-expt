@@ -630,6 +630,113 @@ def namespace_secret_for_destination(secret_path: Path, destination_namespace: s
     return staged_path
 
 
+KNOWN_NAMESPACED_KINDS = {
+    "ConfigMap",
+    "CronJob",
+    "DaemonSet",
+    "Deployment",
+    "EndpointSlice",
+    "Endpoints",
+    "HorizontalPodAutoscaler",
+    "Ingress",
+    "Job",
+    "Lease",
+    "NetworkPolicy",
+    "PersistentVolumeClaim",
+    "Pod",
+    "PodDisruptionBudget",
+    "ReplicaSet",
+    "ReplicationController",
+    "Role",
+    "RoleBinding",
+    "Secret",
+    "Service",
+    "ServiceAccount",
+    "StatefulSet",
+}
+
+KNOWN_CLUSTER_SCOPED_KINDS = {
+    "APIService",
+    "ClusterRole",
+    "ClusterRoleBinding",
+    "CustomResourceDefinition",
+    "MutatingWebhookConfiguration",
+    "Namespace",
+    "Node",
+    "PersistentVolume",
+    "PriorityClass",
+    "RuntimeClass",
+    "StorageClass",
+    "ValidatingWebhookConfiguration",
+}
+
+API_RESOURCE_NAMESPACED_CACHE: dict[tuple[str, str], bool | None] = {}
+
+
+def api_group(api_version: str) -> str:
+    if "/" not in api_version:
+        return ""
+    return api_version.split("/", 1)[0]
+
+
+def api_resource_namespaced(doc: dict, kubeconfig: Path, context: str) -> bool | None:
+    api_version = str(doc.get("apiVersion") or "")
+    kind = str(doc.get("kind") or "")
+    if not api_version or not kind:
+        return None
+    key = (api_version, kind)
+    if key in API_RESOURCE_NAMESPACED_CACHE:
+        return API_RESOURCE_NAMESPACED_CACHE[key]
+    rc, out, _ = kubectl(
+        ["api-resources", "--api-group", api_group(api_version), "--no-headers"],
+        kubeconfig,
+        context,
+        timeout=60,
+    )
+    if rc != 0:
+        API_RESOURCE_NAMESPACED_CACHE[key] = None
+        return None
+    for line in out.splitlines():
+        parts = line.split()
+        if len(parts) < 3:
+            continue
+        if parts[-1] == kind and parts[-3] == api_version and parts[-2] in {"true", "false"}:
+            API_RESOURCE_NAMESPACED_CACHE[key] = parts[-2] == "true"
+            return API_RESOURCE_NAMESPACED_CACHE[key]
+    API_RESOURCE_NAMESPACED_CACHE[key] = None
+    return None
+
+
+def should_default_namespace(doc: dict, kubeconfig: Path, context: str) -> bool:
+    kind = doc.get("kind")
+    if not kind or kind in KNOWN_CLUSTER_SCOPED_KINDS:
+        return False
+    if kind in KNOWN_NAMESPACED_KINDS:
+        return True
+    namespaced = api_resource_namespaced(doc, kubeconfig, context)
+    return namespaced is True
+
+
+def namespace_missing_direct_apply_docs(
+    text: str,
+    destination_namespace: str,
+    kubeconfig: Path,
+    context: str,
+) -> tuple[str, list[str]]:
+    docs = yaml_docs(text)
+    changed = []
+    for doc in docs:
+        metadata = doc.setdefault("metadata", {})
+        if not isinstance(metadata, dict) or metadata.get("namespace"):
+            continue
+        if should_default_namespace(doc, kubeconfig, context):
+            metadata["namespace"] = destination_namespace
+            changed.append(object_identity(doc))
+    if not changed:
+        return text, []
+    return render_docs_to_yaml(docs), changed
+
+
 def docs_matching(text: str, kind: str) -> list[dict]:
     return [doc for doc in yaml_docs(text) if doc.get("kind") == kind]
 
@@ -1853,7 +1960,9 @@ def main() -> int:
             raise RuntimeError(f"installer setup failed: {(setup_err or setup_out)[:1000]}")
         manifests_dir = workdir / "out" / "manifests"
         secrets_dir = workdir / "out" / "secrets"
-        cub_manifest = combine_yaml_parts(collect_yaml(manifests_dir), collect_yaml(secrets_dir))
+        cub_manifest_raw = combine_yaml_parts(collect_yaml(manifests_dir), collect_yaml(secrets_dir))
+        cub_manifest = cub_manifest_raw
+        direct_apply_manifest = cub_manifest_raw
         write_text(run_root / "confighub-rendered-manifest.yaml", cub_manifest)
 
         apply_manifest_namespaces = manifest_namespaces(cub_manifest) or [apply_namespace]
@@ -1887,10 +1996,15 @@ def main() -> int:
         check_item("target-facts-confighub-apply", apply_target_facts["result"], f"secrets={len(apply_target_facts.get('stagedSecrets', []))} crds={len(apply_target_facts.get('stagedCRDs', []))}")
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):
-                kubectl_must(["apply", "-f", str(secret_path)], kubeconfig, context, f"secret apply {secret_path.name}", timeout=120)
+                apply_secret_path = namespace_secret_for_destination(
+                    secret_path,
+                    apply_namespace,
+                    run_root / "direct-apply-staged-secrets",
+                )
+                kubectl_must(["apply", "-f", str(apply_secret_path)], kubeconfig, context, f"secret apply {secret_path.name}", timeout=120)
         if manifests_dir.exists():
             mark_stage("configHub-direct-apply")
-            crds = docs_matching(cub_manifest, "CustomResourceDefinition")
+            crds = docs_matching(cub_manifest_raw, "CustomResourceDefinition")
             if crds:
                 crd_path = run_root / "confighub-rendered-crds.yaml"
                 write_text(crd_path, render_docs_to_yaml(crds))
@@ -1899,12 +2013,24 @@ def main() -> int:
                     name = crd.get("metadata", {}).get("name")
                     if name:
                         kubectl(["wait", "--for=condition=Established", f"crd/{name}", "--timeout=180s"], kubeconfig, context, timeout=210)
-            for path in sorted(manifests_dir.glob("*.yaml")):
-                if "namespace-" in path.name:
-                    kubectl(["apply", "-f", str(path)], kubeconfig, context, timeout=120)
-            rest = [path for path in sorted(manifests_dir.glob("*.yaml")) if "namespace-" not in path.name]
-            if rest:
-                kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(manifests_dir)], kubeconfig, context, "manifest apply", timeout=300)
+            direct_apply_manifest, defaulted_namespace_docs = namespace_missing_direct_apply_docs(
+                cub_manifest_raw,
+                apply_namespace,
+                kubeconfig,
+                context,
+            )
+            if defaulted_namespace_docs:
+                write_text(run_root / "direct-apply-target-manifest.yaml", direct_apply_manifest)
+            apply_manifest_namespaces = manifest_namespaces(direct_apply_manifest) or [apply_namespace]
+            apply_runtime_namespaces = workload_namespaces(direct_apply_manifest, apply_namespace)
+            direct_apply_docs = [
+                doc for doc in yaml_docs(direct_apply_manifest)
+                if doc.get("kind") not in {"CustomResourceDefinition", "Namespace"}
+            ]
+            if direct_apply_docs:
+                direct_apply_path = run_root / "direct-apply-manifest.yaml"
+                write_text(direct_apply_path, render_docs_to_yaml(direct_apply_docs))
+                kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(direct_apply_path)], kubeconfig, context, "manifest apply", timeout=300)
         mark_stage("configHub-direct-readiness")
         apply_operation_namespace = operation_namespace(apply_runtime_namespaces, apply_namespace)
         apply_operations = post_apply_operations(args.chart, args.base, kubeconfig, context, apply_operation_namespace)
@@ -1924,7 +2050,7 @@ def main() -> int:
         }
         apply_cleanup_namespaces = apply_cleanup_candidates
         apply_retained_namespaces = []
-        protected_cleanup_candidates = namespaced_cleanup_docs(cub_manifest, apply_protected_cleanup_namespaces)
+        protected_cleanup_candidates = namespaced_cleanup_docs(direct_apply_manifest, apply_protected_cleanup_namespaces)
         preserved_protected_identities = existing_namespaced_doc_identities(
             protected_cleanup_candidates,
             kubeconfig,
@@ -1956,7 +2082,7 @@ def main() -> int:
             },
         )
         check_item("confighub-kubectl-apply-live", apply_result, apply_runtime.get("workloads", ""))
-        cluster_cleanup_docs = cluster_scoped_cleanup_docs(cub_manifest)
+        cluster_cleanup_docs = cluster_scoped_cleanup_docs(direct_apply_manifest)
         if cluster_cleanup_docs:
             cleanup_path = run_root / "cluster-scoped-apply-cleanup.yaml"
             write_text(cleanup_path, render_docs_to_yaml(cluster_cleanup_docs))

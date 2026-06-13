@@ -1,0 +1,361 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: nats-nats-2.14.0-ha-live-parity-20260605
+spec:
+  chart: nats/nats
+  version: 2.14.0
+  base: ha
+  result: pass
+  observedAt: '2026-06-13T11:21:57Z'
+  package:
+    path: packages/nats/nats/2.14.0
+  recipe:
+    path: recipes/nats/nats/2.14.0
+  variantRevision: recipes/nats/nats/2.14.0/revisions/ha/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-nats-mqc9mmf9-24bh
+    kubeContext: kind-helm-expt-parity-nats-mqc9mmf9-24bh
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-nats-mqc9mmf9-24bh --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-nats-mqc9mmf9-24bh"...
+
+        Deleting cluster "helm-expt-parity-nats-mqc9mmf9-24bh" ...
+
+        Deleted nodes: ["helm-expt-parity-nats-mqc9mmf9-24bh-control-plane"]
+
+        Deleting Space "helm-expt-parity-nats-mqc9mmf9-24bh-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install nats nats --repo https://nats-io.github.io/k8s/helm/charts/
+        --version 2.14.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-nats-ha/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 2d8fcfe5bea7f482e322fdba1cf800faedf835a13eef32d042e43ae6254d0a96
+      objectCount: 7
+      liveHelmManifestSHA256: 395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da
+      liveHelmManifestObjectCount: 7
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/nats-box   1/1   1     1     21s
+
+          statefulset.apps/nats   1/1   21s'
+        pods: 'nats-0                     2/2   Running   0     21s
+
+          nats-box-9bdbc696f-6pvxk   1/1   Running   0     21s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/nats/2.14.0
+        --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nats-mqc9mmf9-24bh-nats
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: b6fab6408604f66af0c6febacc6f8850af38e6fab06017e96d17722d7761e012
+      objectCount: 8
+      namespace: default-apply
+      manifestNamespaces:
+      - default-apply
+      runtimeNamespaces: &id001
+      - default-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default-apply
+
+          deployment.apps/nats-box   1/1   1     1     21s
+
+          statefulset.apps/nats   3/3   21s'
+        pods: '# default-apply
+
+          nats-0                     2/2   Running   0     21s
+
+          nats-1                     2/2   Running   0     21s
+
+          nats-2                     2/2   Running   0     21s
+
+          nats-box-9bdbc696f-lqcc2   1/1   Running   0     21s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-nats-mqc9mmf9-24bh-nats
+      controller: Argo CD OCI
+      app: nats-parity
+      manifestSHA256: 7b2913a42ad51bdf91c678447e1ebafe1ba775431b8a5efa7356b0a9f0b7836d
+      objectCount: 8
+      namespace: default-oci
+      manifestNamespaces:
+      - default-oci
+      runtimeNamespaces: &id002
+      - default-oci
+      ociRevision: sha256:096eb7f34209ca8fb3ab17b631c27fc6bcb2259b7291c00e803756e1cdc5b494
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-nats-box-contexts.yaml
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-nats-mqc9mmf9-24bh-nats
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nats-mqc9mmf9-24bh-cluster/oci
+              targetRevision: latest
+          revision: sha256:096eb7f34209ca8fb3ab17b631c27fc6bcb2259b7291c00e803756e1cdc5b494
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T11:30:27Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default-oci
+          name: nats-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default-oci
+          name: nats
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default-oci
+          name: nats-headless
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default-oci
+          name: nats-box
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default-oci
+          name: nats
+          status: Synced
+          health: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default-oci
+          name: nats
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-nats-mqc9mmf9-24bh-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nats-mqc9mmf9-24bh-cluster/oci
+              targetRevision: latest
+          revision: sha256:096eb7f34209ca8fb3ab17b631c27fc6bcb2259b7291c00e803756e1cdc5b494
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T11:23:32Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-nats-mqc9mmf9-24bh-cluster
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: nats-parity
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default-oci
+
+          deployment.apps/nats-box   1/1   1     1     17s
+
+          statefulset.apps/nats   3/3   17s'
+        pods: '# default-oci
+
+          nats-0                     2/2   Running   0     17s
+
+          nats-1                     2/2   Running   0     17s
+
+          nats-2                     2/2   Running   0     17s
+
+          nats-box-9bdbc696f-9fk97   1/1   Running   0     17s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-nats-mqc9mmf9-24bh\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-nats-mqc9mmf9-24bh.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-nats-mqc9mmf9-24bh\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-nats-mqc9mmf9-24bh\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nats-mqc9mmf9-24bh\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nats-mqc9mmf9-24bh.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argocd\"...\napiVer"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "nats" does not exist. Installing it now.
+
+      NAME: nats
+
+      LAST DEPLOYED: Sat Jun 13 12:23:26 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default-apply
+
+      deployment.apps/nats-box   1/1   1     1     21s
+
+      statefulset.apps/nats   3/3   21s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
