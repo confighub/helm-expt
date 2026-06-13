@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 56
+pass: 57
 watch: 3
 blocked: 0
 not-started: 0
@@ -61,6 +61,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `aqua/trivy-operator@0.32.1` | no-crds | pass | - | runs/live-helm-confighub-compare/aqua-trivy-operator-no-crds/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | default | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-default/receipt.yaml |
+|  | `elastic/eck-operator@3.4.0` | no-crds | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-no-crds/receipt.yaml |
 |  | `elastic/logstash@8.5.1` | default | pass | - | runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 |  | `gatekeeper/gatekeeper@3.22.2` | default | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-default/receipt.yaml |

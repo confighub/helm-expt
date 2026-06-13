@@ -10,3 +10,5 @@ spec:
   profile: "no-crds"
   renderDelta: "installCRDs=false"
   mergedValuesCaptured: false
+  values:
+    installCRDs: false

@@ -1,0 +1,346 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: elastic-eck-operator-3.4.0-no-crds-live-parity-20260605
+spec:
+  chart: elastic/eck-operator
+  version: 3.4.0
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-13T01:45:19Z'
+  package:
+    path: packages/elastic/eck-operator/3.4.0
+  recipe:
+    path: recipes/elastic/eck-operator/3.4.0
+  variantRevision: recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-eck-no-crds-1781315119
+    kubeContext: kind-helm-expt-parity-eck-no-crds-1781315119
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-eck-no-crds-1781315119 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-eck-no-crds-1781315119"...
+
+        Deleting cluster "helm-expt-parity-eck-no-crds-1781315119" ...
+
+        Deleted nodes: ["helm-expt-parity-eck-no-crds-1781315119-control-plane"]
+
+        Deleting Space "helm-expt-parity-eck-no-crds-1781315119-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install eck-operator eck-operator --repo https://helm.elastic.co
+        --version 3.4.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-eck-operator-no-crds/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: 6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87
+      objectCount: 10
+      liveHelmManifestSHA256: b26d17a412148e80392e06ab0c5262ba5a1f9757842541957e8b1d24a959ade6
+      liveHelmManifestObjectCount: 10
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: statefulset.apps/elastic-operator   1/1   10s
+        pods: elastic-operator-0   1/1   Running   0     10s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/eck-operator/3.4.0
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-eck-no-crds-1781315119-elastic-eck-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 7792eed81067b56e033e688741c1ba4ea43f897f31bbde974349a594155a828a
+      objectCount: 11
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/elastic-operator   1/1   10s'
+        pods: '# default
+
+          elastic-operator-0   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 5
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "elastic-operator-edit" deleted
+
+            clusterrole.rbac.authorization.k8s.io "elastic-operator-view" deleted
+
+            clusterrole.rbac.authorization.k8s.io "elastic-operator" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "elastic-operator" deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "elastic-operator.default.k8s.elastic.co"
+            deleted'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 5
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'configmap "elastic-operator" deleted from default namespace
+
+            service "elastic-operator-webhook" deleted from default namespace
+
+            serviceaccount "elastic-operator" deleted from default namespace
+
+            statefulset.apps "elastic-operator" deleted from default namespace
+
+            secret "elastic-operator-webhook-cert" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-eck-no-crds-1781315119-elastic-eck-operator
+      controller: Argo CD OCI
+      app: elastic-eck-operator-parity
+      manifestSHA256: ef8d01266afc5e820c91d6aa240be862fa91337b4154b898f824848f412cc9d9
+      objectCount: 11
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:e07e1e59727bc5e9515bb6a9d74a087bca3ce2378aa9ea550d206980c8a54dbd
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-default-elastic-operator-webhook-cert.yaml
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-eck-no-crds-1781315119-elastic-eck-operator
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-eck-no-crds-1781315119-cluster/oci
+              targetRevision: latest
+          revision: sha256:e07e1e59727bc5e9515bb6a9d74a087bca3ce2378aa9ea550d206980c8a54dbd
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T01:48:02Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: elastic-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: elastic-operator-webhook
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: elastic-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: elastic-operator.default.k8s.elastic.co
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: elastic-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: elastic-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: elastic-operator-edit
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: elastic-operator-view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: elastic-operator
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/elastic-operator   1/1   8s'
+        pods: '# default
+
+          elastic-operator-0   1/1   Running   0     8s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-eck-no-crds-1781315119\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-eck-no-crds-1781315119.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-eck-no-crds-1781315119\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-eck-no-crds-1781315119\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-eck-no-crds-1781315119\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-eck-no-crds-1781315119.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreatin"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"eck-operator\" does not exist. Installing it now.\nNAME: eck-operator\n\
+      LAST DEPLOYED: Sat Jun 13 02:46:47 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Inspect\
+      \ the operator logs by running the following command:\n   kubectl logs -n default-helm\
+      \ sts/eck-operator"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/elastic-operator   1/1   10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=5
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=5 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
