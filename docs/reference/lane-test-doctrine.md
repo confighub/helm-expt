@@ -65,6 +65,20 @@ npm run lane-tests:verify
 | `confighub_oci_argo_live` | A receipt from `tests/chart-install-test` or its successor proving ConfigHub Units were published through OCI and reconciled by Argo or Flux. |
 | `live_helm_vs_confighub_dual_compare` | Historical combined lane that installs the chart with Helm and compares it against ConfigHub delivery paths. Keep these receipts as useful evidence. The required 100% live parity lane should use the two-cluster kind harness described in [Two-Cluster Helm Parity Harness](two-cluster-parity-harness.md). |
 
+## Controller Namespace Protection
+
+Single-cluster GitOps lanes use a delivery controller and a chart under test in
+the same cluster. If the chart renders objects into a protected controller
+namespace, cleanup must not delete objects that existed before the chart leg
+began. The harness snapshots those pre-existing objects, preserves them during
+cleanup, and records the preserved identities in the receipt.
+
+This matters for charts such as Argo CD. A live test may need Argo CD to deliver
+the ConfigHub OCI artifact while also testing an Argo CD chart. The harness may
+clean up chart-owned objects between legs, but it must not remove the bootstrap
+controller's ConfigMaps, RBAC, Services, or workloads. Otherwise the test would
+measure harness damage rather than Helm-vs-ConfigHub behavior.
+
 ## Current Reading
 
 The repo already proves the first lane for every current recipe variant. The

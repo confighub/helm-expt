@@ -16,8 +16,8 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 38
-try-with-proof: 3
-runtime-watch: 1
+try-with-proof: 4
+runtime-watch: 0
 runtime-review-needed: 0
 operating-policy-needed: 0
 target-fit-needed: 0
@@ -59,7 +59,7 @@ rerun-now-after-cleanup: 0
 | Chart | Base | First | Readiness | Rerun readiness | Why | Next action | Support artifact |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `argo-cd/argo-cd@9.5.15` | no-crds | no | runtime-watch | - | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
+| `argo-cd/argo-cd@9.5.15` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): local kind kubectl apply | - |
 | `bitnami/mongodb@19.0.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/mysql@14.0.3` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |

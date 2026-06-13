@@ -636,6 +636,27 @@ def namespaced_cleanup_docs(text: str, namespaces: set[str]) -> list[dict]:
     return docs
 
 
+def existing_namespaced_doc_identities(docs: list[dict], kubeconfig: Path, context: str) -> set[str]:
+    identities = set()
+    for doc in docs:
+        meta = doc.get("metadata") or {}
+        kind = doc.get("kind")
+        namespace = meta.get("namespace")
+        name = meta.get("name")
+        if not kind or not namespace or not name:
+            continue
+        rc, _, _ = kubectl(["-n", namespace, "get", str(kind), str(name), "-o", "name"], kubeconfig, context, timeout=30)
+        if rc == 0:
+            identities.add(object_identity(doc))
+    return identities
+
+
+def exclude_cleanup_identities(docs: list[dict], identities: set[str]) -> list[dict]:
+    if not identities:
+        return docs
+    return [doc for doc in docs if object_identity(doc) not in identities]
+
+
 def cluster_scoped_cleanup_docs(text: str) -> list[dict]:
     docs = []
     for doc in yaml_docs(text):
@@ -1803,7 +1824,18 @@ def main() -> int:
         }
         apply_cleanup_namespaces = apply_cleanup_candidates
         apply_retained_namespaces = []
-        apply_protected_cleanup = {"result": "not-needed", "namespaces": sorted(apply_protected_cleanup_namespaces), "objectCount": 0}
+        protected_cleanup_candidates = namespaced_cleanup_docs(cub_manifest, apply_protected_cleanup_namespaces)
+        preserved_protected_identities = existing_namespaced_doc_identities(
+            protected_cleanup_candidates,
+            kubeconfig,
+            context,
+        )
+        apply_protected_cleanup = {
+            "result": "not-needed",
+            "namespaces": sorted(apply_protected_cleanup_namespaces),
+            "objectCount": 0,
+            "preservedPreExistingObjects": sorted(preserved_protected_identities),
+        }
         apply_cluster_cleanup = {"result": "not-needed", "objectCount": 0}
         leg("configHubKubectlApply",
             result=apply_result,
@@ -1848,7 +1880,10 @@ def main() -> int:
             )
             if rc != 0:
                 raise RuntimeError(f"direct-apply cluster-scoped cleanup failed: {(err or out)[:1000]}")
-        protected_cleanup_docs = namespaced_cleanup_docs(cub_manifest, apply_protected_cleanup_namespaces)
+        protected_cleanup_docs = exclude_cleanup_identities(
+            protected_cleanup_candidates,
+            preserved_protected_identities,
+        )
         if protected_cleanup_docs:
             cleanup_path = run_root / "protected-namespace-apply-cleanup.yaml"
             write_text(cleanup_path, render_docs_to_yaml(protected_cleanup_docs))
@@ -1862,6 +1897,7 @@ def main() -> int:
                 "result": "pass" if rc == 0 else "blocked",
                 "namespaces": sorted(apply_protected_cleanup_namespaces),
                 "objectCount": len(protected_cleanup_docs),
+                "preservedPreExistingObjects": sorted(preserved_protected_identities),
                 "manifest": str(cleanup_path.relative_to(run_root)),
                 "detail": (err or out)[:1000],
             }
