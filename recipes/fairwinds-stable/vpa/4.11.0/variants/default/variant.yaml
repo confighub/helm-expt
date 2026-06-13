@@ -17,3 +17,17 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "vpa-tls-secret"
+        keys:
+          - "ca"
+          - "cert"
+          - "key"
+        purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"

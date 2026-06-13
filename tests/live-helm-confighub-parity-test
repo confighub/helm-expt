@@ -724,9 +724,14 @@ def ensure_tls_material(run_root: Path) -> tuple[str, str]:
 
 
 def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
-    if key in ("cert", "tls.crt", "ca.crt") and ("admission" in secret_name or "webhook" in secret_name):
+    secret_looks_like_tls = (
+        "admission" in secret_name
+        or "webhook" in secret_name
+        or "tls" in secret_name
+    )
+    if key in ("ca", "cert", "tls.crt", "ca.crt") and secret_looks_like_tls:
         return ensure_tls_material(run_root)[0]
-    if key in ("key", "tls.key") and ("admission" in secret_name or "webhook" in secret_name):
+    if key in ("key", "tls.key") and secret_looks_like_tls:
         return ensure_tls_material(run_root)[1]
     if key in ("tls.crt", "ca.crt"):
         return ensure_tls_material(run_root)[0]

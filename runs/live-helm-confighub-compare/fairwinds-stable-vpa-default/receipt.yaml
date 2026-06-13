@@ -1,0 +1,567 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: fairwinds-stable-vpa-4.11.0-default-live-parity-20260605
+spec:
+  chart: fairwinds-stable/vpa
+  version: 4.11.0
+  base: default
+  result: pass
+  observedAt: '2026-06-13T02:15:51Z'
+  package:
+    path: packages/fairwinds-stable/vpa/4.11.0
+  recipe:
+    path: recipes/fairwinds-stable/vpa/4.11.0
+  variantRevision: recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-vpa-default-1781316951
+    kubeContext: kind-helm-expt-parity-vpa-default-1781316951
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-vpa-default-1781316951 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-vpa-default-1781316951"...
+
+        Deleting cluster "helm-expt-parity-vpa-default-1781316951" ...
+
+        Deleted nodes: ["helm-expt-parity-vpa-default-1781316951-control-plane"]
+
+        Deleting Space "helm-expt-parity-vpa-default-1781316951-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install vpa vpa --repo https://charts.fairwinds.com/stable
+        --version 4.11.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fairwinds-stable-vpa-default/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: 9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b
+      objectCount: 28
+      liveHelmManifestSHA256: 4c6831733c9072806cd1b592cc155a243b1250da30a36c0caf81525c307139ff
+      liveHelmManifestObjectCount: 26
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/vpa-admission-controller   1/1   1     1     13s
+
+          deployment.apps/vpa-recommender            1/1   1     1     13s
+
+          deployment.apps/vpa-updater                1/1   1     1     13s'
+        pods: 'vpa-admission-controller-5894d5d68b-q6h2m   1/1   Running   0     13s
+
+          vpa-recommender-6f8f7c9979-m4gtb            1/1   Running   0     13s
+
+          vpa-updater-5478968bdf-tcfp8                1/1   Running   0     13s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fairwinds-stable/vpa/4.11.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vpa-default-1781316951-fairwinds-stable-vpa
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 794486e757f6a45d2e65620c5e464b3012478ac10f8c98af5fa5e3a515edcdf7
+      objectCount: 29
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/vpa-admission-controller   1/1   1     1     10s
+
+          deployment.apps/vpa-recommender            1/1   1     1     10s
+
+          deployment.apps/vpa-updater                1/1   1     1     10s'
+        pods: '# default
+
+          vpa-admission-controller-5894d5d68b-wd5sp   1/1   Running   0     10s
+
+          vpa-recommender-6f8f7c9979-gr42t            1/1   Running   0     10s
+
+          vpa-updater-5478968bdf-8r5lg                1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 21
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "vpa-actor" deleted
+
+            clusterrole.rbac.authorization.k8s.io "vpa-admission-controller" deleted
+
+            clusterrole.rbac.authorization.k8s.io "vpa-checkpoint-actor" deleted
+
+            clusterrole.rbac.authorization.k8s.io "vpa-evictioner" deleted
+
+            clusterrole.rbac.authorization.k8s.io "vpa-metrics-reader" deleted
+
+            clusterrole.rbac.authorization.k8s.io "vpa-status-actor" deleted
+
+            clusterrole.rbac.authorization.k8s.io "vpa-status-reader" deleted
+
+            clusterrole.rbac.authorization.k8s.io "vpa-target-reader" deleted
+
+            clusterrole.rbac.authorization.k8s.io "vpa-updater-in-place" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "vpa-actor" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "vpa-admission-controller"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "vpa-checkpoint-actor" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "vpa-evictionter-binding"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "vpa-metrics-reader" deleted
+
+            clusterrolebinding.rbac.author'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 7
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'deployment.apps "vpa-admission-controller" deleted from default
+            namespace
+
+            deployment.apps "vpa-recommender" deleted from default namespace
+
+            deployment.apps "vpa-updater" deleted from default namespace
+
+            service "vpa-webhook" deleted from default namespace
+
+            serviceaccount "vpa-admission-controller" deleted from default namespace
+
+            serviceaccount "vpa-recommender" deleted from default namespace
+
+            serviceaccount "vpa-updater" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-vpa-default-1781316951-fairwinds-stable-vpa
+      controller: Argo CD OCI
+      app: fairwinds-stable-vpa-parity
+      manifestSHA256: e79cc18cc6d1885ab5fad1eee11ec091689aa4aecd1409feb209f7da406e582b
+      objectCount: 29
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:307ba95ae7f46c849ca18724ff41c9c42035b634235d29ee5a002cafe7c826f6
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-vpa-default-1781316951-fairwinds-stable-vpa
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-vpa-default-1781316951-cluster/oci
+              targetRevision: latest
+          revision: sha256:307ba95ae7f46c849ca18724ff41c9c42035b634235d29ee5a002cafe7c826f6
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T02:19:43Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: vpa-webhook
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: vpa-admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: vpa-recommender
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: vpa-updater
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: vpa-webhook-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: verticalpodautoscalers.autoscaling.k8s.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: vpa-admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: vpa-recommender
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: vpa-updater
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vpa-actor
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vpa-admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vpa-checkpoint-actor
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vpa-evictioner
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vpa-metrics-reader
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vpa-status-actor
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vpa-status-reader
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vpa-target-reader
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vpa-updater-in-place
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vpa-actor
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vpa-admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vpa-checkpoint-actor
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vpa-evictionter-binding
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vpa-metrics-reader
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vpa-status-actor
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vpa-status-reader-binding
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vpa-target-reader-binding
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vpa-updater-in-place-binding
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/vpa-admission-controller   1/1   1     1     7s
+
+          deployment.apps/vpa-recommender            1/1   1     1     7s
+
+          deployment.apps/vpa-updater                1/1   1     1     7s'
+        pods: '# default
+
+          vpa-admission-controller-5894d5d68b-rl8tw   1/1   Running   0     7s
+
+          vpa-recommender-6f8f7c9979-4fkvq            1/1   Running   0     7s
+
+          vpa-updater-5478968bdf-t7bbg                1/1   Running   0     7s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 28
+      configHubObjectCount: 29
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 28
+      configHubObjectCount: 29
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-vpa-default-1781316951\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-vpa-default-1781316951.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-vpa-default-1781316951\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-vpa-default-1781316951\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-vpa-default-1781316951\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-vpa-default-1781316951.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreatin"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"vpa\" does not exist. Installing it now.\nNAME: vpa\nLAST DEPLOYED:\
+      \ Sat Jun 13 03:16:51 2026\nNAMESPACE: default-helm\nSTATUS: deployed\nREVISION:\
+      \ 1\nDESCRIPTION: Install complete\nNOTES:\nCongratulations on installing the\
+      \ Vertical Pod Autoscaler!\n\nComponents Installed:\n  - recommender\n  - updater\n\
+      \  - admission-controller\n\nTo verify functionality, you can try running 'helm\
+      \ -n default-helm test vpa'"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=2 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/vpa-admission-controller   1/1   1     1     10s
+
+      deployment.apps/vpa-recommender            1/1   1     1     10s
+
+      deployment.apps/vpa-updater                1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=21
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=7 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=2 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: default
+        name: vpa-tls-secret
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubKubectlApply
+      - namespace: default-apply
+        name: vpa-tls-secret
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubKubectlApply
+        sourceNamespace: default
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fairwinds-stable-vpa-default/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: default
+        name: vpa-tls-secret
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubOciArgo
+      - namespace: default-oci
+        name: vpa-tls-secret
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubOciArgo
+        sourceNamespace: default
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fairwinds-stable-vpa-default/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

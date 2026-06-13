@@ -16,3 +16,36 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+        sourceVariant: "default"
+        purpose: "VPA CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "verticalpodautoscalers.autoscaling.k8s.io"
+        sourceVariant: "default"
+        purpose: "VPA CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "vpa-tls-secret"
+        keys:
+          - "ca"
+          - "cert"
+          - "key"
+        purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
