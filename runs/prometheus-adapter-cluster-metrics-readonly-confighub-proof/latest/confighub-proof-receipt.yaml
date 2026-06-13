@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "prometheus-adapter-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/prometheus-community/prometheus-adapter/5.3.0"
+    name: "prometheus-community-prometheus-adapter"
+    chart: "prometheus-community/prometheus-adapter"
+    chartVersion: "5.3.0"
+    bases:
+      - "default"
+      - "cluster-metrics-readonly"
+    selectedBase: "cluster-metrics-readonly"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/prometheus-community/prometheus-adapter/5.3.0 --base cluster-metrics-readonly --work-dir .tmp/confighub-proof/prometheus-adapter-cluster-metrics-readonly --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 12
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/prometheus-adapter-cluster-metrics-readonly"
+    result: "pass"
+    manifestCount: 12
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/prometheus-community/prometheus-adapter/5.3.0 -o .tmp/confighub-proof/prometheus-adapter-cluster-metrics-readonly-archives/prometheus-adapter-a.tgz"
+    sha256: "7218b4179e6d0c1d7370dbc2e3d434db11a180376c3336a6bf46d95b5a134eaf"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/prometheus-adapter-cluster-metrics-readonly"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/prometheus-adapter-cluster-metrics-readonly --space helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof --component PrometheusAdapter --layer App --environment Demo --owner ConfigHubHelm --variant cluster-metrics-readonly --unit-label Component=PrometheusAdapter --unit-label HelmChart=prometheus-community-prometheus-adapter --unit-label HelmChartVersion=5.3.0 --unit-label Variant=cluster-metrics-readonly --unit-label Proof=prometheus-adapter-cluster-metrics-readonly-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof"
+    unitCount: 13
+    kubernetesUnitCount: 12
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/prometheus-adapter-cluster-metrics-readonly"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/prometheus-adapter-cluster-metrics-readonly"
+    result: "pass"
+    summary: "No changes.\nImages in helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof (post-render):\n      Deployment/prometheus-adapter [prometheus-adapter] registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof --environment Staging --region local --space-name-pattern template:PrometheusAdapter-cluster-metrics-readonly-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof"
+    downstreamSpace: "PrometheusAdapter-cluster-metrics-readonly-staging"
+    clonedUnitCount: 13
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-prometheus-adapter"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof"
+      - "PrometheusAdapter-cluster-metrics-readonly-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."
