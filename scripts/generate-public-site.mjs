@@ -10,6 +10,7 @@ const offeringPath = join(siteRoot, "offering.html");
 const tryPath = join(siteRoot, "try.html");
 const proofPath = join(siteRoot, "proof.html");
 const tiersPath = join(siteRoot, "tiers.html");
+const journeyPath = join(siteRoot, "journey.html");
 const chartIndexPath = join(chartPagesRoot, "index.html");
 const catalogJsonPath = join(siteRoot, "catalog.json");
 const readmePath = join(siteRoot, "README.md");
@@ -51,6 +52,7 @@ if (mode === "--generate") {
   write(tryPath, site.tryHtml);
   write(proofPath, site.proofHtml);
   write(tiersPath, site.tiersHtml);
+  write(journeyPath, site.journeyHtml);
   write(join(siteRoot, "matrix.html"), site.matrixHtml);
   write(chartIndexPath, site.chartIndexHtml);
   for (const page of site.chartPages) write(page.path, page.html);
@@ -66,6 +68,7 @@ if (mode === "--generate") {
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
   check(existsSync(proofPath), "site/proof.html is missing; run npm run site:generate");
   check(existsSync(tiersPath), "site/tiers.html is missing; run npm run site:generate");
+  check(existsSync(journeyPath), "site/journey.html is missing; run npm run site:generate");
   check(existsSync(chartIndexPath), "site/charts/index.html is missing; run npm run site:generate");
   check(existsSync(catalogJsonPath), "site/catalog.json is missing; run npm run site:generate");
   check(existsSync(readmePath), "site/README.md is missing; run npm run site:generate");
@@ -75,6 +78,7 @@ if (mode === "--generate") {
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
   check(readFileSync(proofPath, "utf8") === site.proofHtml, "site/proof.html is stale");
   check(readFileSync(tiersPath, "utf8") === site.tiersHtml, "site/tiers.html is stale");
+  check(readFileSync(journeyPath, "utf8") === site.journeyHtml, "site/journey.html is stale");
   check(existsSync(join(siteRoot, "matrix.html")), "site/matrix.html is missing; run npm run site:generate");
   check(readFileSync(join(siteRoot, "matrix.html"), "utf8") === site.matrixHtml, "site/matrix.html is stale (regen master matrix first)");
   check(readFileSync(chartIndexPath, "utf8") === site.chartIndexHtml, "site/charts/index.html is stale");
@@ -270,6 +274,7 @@ function buildSite(generatedAt) {
     tryHtml: tryHtml(catalog),
     proofHtml: proofHtml(catalog),
     tiersHtml: tiersHtml(catalog),
+    journeyHtml: journeyHtml(catalog),
     chartIndexHtml: chartIndexHtml(catalog),
     chartPages,
     matrixHtml: readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
@@ -435,7 +440,7 @@ function html(catalog) {
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     ${generatedStamp(catalog, "public catalog dashboard")}
     <p class="tagline">helm-expt ports popular public Helm charts to reviewed <code>cub installer</code> packages without changing the supported end-to-end semantics. The result is explicit config: named base variants, rendered objects, target prerequisites, scans, gates, live evidence, and a receipt behind every claim.</p>
@@ -863,7 +868,7 @@ function offeringHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
     ${generatedStamp(catalog, "offering page")}
     <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
@@ -1053,7 +1058,7 @@ function tryHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Try the catalog in three short paths.</h1>
     ${generatedStamp(catalog, "try-now page")}
     <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
@@ -1238,7 +1243,7 @@ function proofHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>Proof, not promises.</h1>
     ${generatedStamp(catalog, "proof page")}
     <p class="tagline">This page explains what the catalog proves, what each lane means, and where the proof stops. It is intentionally narrower than a marketing claim.</p>
@@ -1340,7 +1345,7 @@ function tiersHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>Free to inspect. Managed when it becomes your estate.</h1>
     ${generatedStamp(catalog, "tiers page")}
     <p class="tagline">The free path must be genuinely useful: browse public charts, inspect variants, pull public artifacts where available, and verify proof locally. Paid starts when the service stores private inputs, creates private variants, runs managed workflows, or carries production responsibility.</p>
@@ -1365,6 +1370,7 @@ function tiersHtml(catalog) {
 
     <section aria-labelledby="journey">
       <h2 id="journey">User Journey</h2>
+      <p>This page is the tier and boundary reference. The step-by-step path a user actually walks — inspect, serverless try-out with no account, first sign-up, ConfigHub Server try-out, day-2 operations, and where paid begins — is on the <a href="./journey.html">Journey page</a>, with the exact command at each stage.</p>
       ${markdownLikeTable([
         ["Stage", "What happens"],
         ...workRows,
@@ -1398,6 +1404,157 @@ function tiersHtml(catalog) {
 `;
 }
 
+function journeyHtml(catalog) {
+  const startCommand = `cub installer setup --pull packages/bitnami/redis/25.5.3 \\
+  --base default --work-dir .tmp/redis \\
+  --non-interactive --namespace redis`;
+  const stages = [
+    {
+      n: "0",
+      badge: "free · no account",
+      badgeClass: "now",
+      title: "Inspect — see the objects before any cluster",
+      action: "cub helm template <chart>",
+      code: null,
+      get: "The exact Kubernetes objects a chart produces, plus this catalog's per-variant proof boundary on the <a href=\"./matrix.html\">status matrix</a> and <a href=\"./charts/index.html\">chart pages</a>. No install, no login.",
+      next: "Pick a chart you actually run, then take the serverless try-out below.",
+    },
+    {
+      n: "1",
+      badge: "free · no account",
+      badgeClass: "now",
+      title: "Serverless try-out — verified install on your own machine",
+      action: "cub installer setup --pull <package> --base <base>",
+      code: startCommand,
+      get: "<code>cub installer</code> pulls the reviewed package, renders it locally, and verifies it against the committed receipts. You apply the rendered manifests with plain <code>kubectl</code>/kustomize, and an in-cluster receipt records what actually landed. The whole proof machinery travels to your laptop — nothing is uploaded, no account exists yet.",
+      next: "When one machine and one render stop being enough — a teammate, an overlay, a policy, durable shared state — sign up.",
+    },
+    {
+      n: "2",
+      badge: "free tier · first sign-up",
+      badgeClass: "now",
+      title: "First sign-up — your rendered chart becomes ConfigHub Units",
+      action: "cub helm install  /  cub installer import",
+      code: "cub auth login\ncub installer import helm --package packages/bitnami/redis/25.5.3 --base default",
+      get: "An account turns the rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share — plus your first derived variant. This is the wedge from a local render to a managed graph; the free tier covers the first hands-on use.",
+      next: "Try the managed graph itself: derived variants, scans, and pull-based delivery.",
+    },
+    {
+      n: "3",
+      badge: "ConfigHub Server · try-out",
+      badgeClass: "now",
+      title: "ConfigHub Server try-out — the managed desired-state graph",
+      action: "cub variant create  ·  scan  ·  OCI + GitOps",
+      code: "cub variant create redis-prod-us-east --from redis/default\ncub unit diff redis-prod-us-east\n# publish via OCI; an Argo or Flux controller reconciles it",
+      get: "Day-1 managed value, hands-on: derived variants from a base, object diffs, function scans and safe-ops, changesets, and content-addressed OCI delivery that an Argo or Flux controller pulls and reconciles. The graph — not a pile of YAML — is now the source of truth.",
+      next: "Run it like an estate: approvals, promotions, live observation, upgrades.",
+    },
+    {
+      n: "4",
+      badge: "ConfigHub Server · day-2",
+      badgeClass: "now",
+      title: "Next steps with ConfigHub — day-2 operations",
+      action: "promote · gate · observe · upgrade · roll back",
+      code: null,
+      get: "Approvals and policy gates before apply; promotion across environments, regions, and customers from one base; live observation with receipts (Helm-vs-ConfigHub parity, GitOps health); upgrades and rollbacks; and fleet-wide queries — \"where does this image run, and who changed that field?\" This is where the per-install story becomes an estate story.",
+      next: "Where production responsibility and scale begin, paid features carry the weight.",
+    },
+    {
+      n: "5",
+      badge: "paid · planned where noted",
+      badgeClass: "planned",
+      title: "Paid features — SLA, private catalog, estate scale",
+      action: "subscription · private catalog · Server at scale",
+      code: null,
+      get: "What is bought is the SLA and the queries, not the bits. <strong>Catalog subscription:</strong> guaranteed refresh cadence, CVE-response turnaround, the attestation pack per variant (SBOM, scan receipts, digest inventory, signatures), hardened variants, and old-version support. <strong>Private catalog:</strong> your own charts, wrapper charts, and overlays through the same render-scan-sign pipeline. <strong>ConfigHub Server at estate scale:</strong> fleet inventory, authority on every change, the ledger, gates before apply, continuous observation. Each tier's claim is backed by a receipt the tier below can re-run.",
+      next: "See the full tier shape and boundaries on the Tiers page.",
+    },
+  ];
+  const cards = stages
+    .map(
+      (s) => `      <div class="jstage" id="s${s.n}">
+        <div class="jnum">${s.n}</div>
+        <div class="jbody">
+          <span class="badge ${s.badgeClass}">${escapeHtml(s.badge)}</span>
+          <h3>${escapeHtml(s.title)}</h3>
+          <p class="jaction"><code>${escapeHtml(s.action)}</code></p>
+          ${s.code ? `<pre><code>${escapeHtml(s.code)}</code></pre>` : ""}
+          <p>${s.get}</p>
+          <p class="jnext"><strong>Next →</strong> ${s.next}</p>
+        </div>
+      </div>`,
+    )
+    .join("\n");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User journey · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}
+    .jstage { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+    .jstage:first-of-type { border-top: 0; }
+    .jnum { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 1.4rem; font-weight: 700; color: var(--good); }
+    .jbody h3 { margin: 6px 0 8px; font-size: 1.12rem; }
+    .jaction { margin: 0 0 8px; }
+    .jbody .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); }
+    .jbody .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .jbody .badge.planned { color: var(--muted); background: var(--panel); }
+    .jnext { color: var(--muted); font-size: .92rem; }
+    .ladder { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 6px; margin: 14px 0 4px; }
+    .ladder a { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 8px 10px; font-size: .8rem; color: var(--ink); text-decoration: none; text-align: center; }
+    .ladder a:hover { border-color: var(--accent); }
+    @media (max-width: 760px) { .ladder { grid-template-columns: 1fr 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <h1>From a one-line try-out to a managed estate.</h1>
+    ${generatedStamp(catalog, "user journey")}
+    <p class="tagline">One path, six stages. Each stage names the exact action, what you get, and whether it is free, needs an account, or is paid — so you always know where the proof boundary and the price boundary are. The free stages are genuinely useful on their own; nothing here is a teaser that stops working until you pay.</p>
+    <div class="ladder">
+      <a href="#s0">0 · Inspect</a>
+      <a href="#s1">1 · Serverless try-out</a>
+      <a href="#s2">2 · First sign-up</a>
+      <a href="#s3">3 · Server try-out</a>
+      <a href="#s4">4 · Day-2 ops</a>
+      <a href="#s5">5 · Paid</a>
+    </div>
+  </header>
+  <main>
+    <section aria-labelledby="stages">
+      <h2 id="stages">The path</h2>
+${cards}
+    </section>
+
+    <section aria-labelledby="boundary">
+      <h2 id="boundary">Free, account, paid — the boundary in one table</h2>
+      ${markdownLikeTable([
+        ["Stage", "Boundary", "What it costs you"],
+        ["0 Inspect", "free, no account", "nothing — public pages and cub helm template"],
+        ["1 Serverless try-out", "free, no account", "nothing — runs entirely on your machine"],
+        ["2 First sign-up", "free tier", "a ConfigHub account; no payment for first hands-on use"],
+        ["3 Server try-out", "free tier (limits apply)", "account/rate limits when server compute or stored receipts are used"],
+        ["4 Day-2 operations", "free tier → paid as scope grows", "paid begins with production responsibility, private inputs, or fleet scale"],
+        ["5 Paid features", "paid (planned where noted)", "an SLA subscription, a private catalog, or the Server product"],
+      ])}
+      <p>The exact tier shape and what is deliberately <em>not</em> sold too early are on the <a href="./tiers.html">Tiers page</a>; the commercial model and the serverless plan are linked there. Planned features are described as plans, not shipped behavior — the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
+    </section>
+
+    <section aria-labelledby="start">
+      <h2 id="start">Start now</h2>
+      <p>Stage 1 needs nothing but a cluster you can reach (a local kind cluster is fine) and the <code>cub</code> CLI:</p>
+      <pre><code>${escapeHtml(startCommand)}</code></pre>
+      <p><a href="./try.html">Full try-now walkthrough</a> · <a href="./charts/index.html">browse the catalog</a> · <a href="./matrix.html">check a chart's proof status first</a>.</p>
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. Free stages are usable without payment; paid and planned tiers require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
+</body>
+</html>
+`;
+}
+
 function chartIndexHtml(catalog) {
   const rows = catalog.catalogEntries.map((entry) => [
     `<a href="./${chartPageFileName(entry)}">${entry.chart}</a>`,
@@ -1417,7 +1574,7 @@ function chartIndexHtml(catalog) {
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>Catalog Chart Pages</h1>
     ${generatedStamp(catalog, "chart index")}
     <p class="tagline">One public page per catalog-supported chart: base variants, proof lanes, production boundary, quirks, and artifact links.</p>
@@ -1486,7 +1643,7 @@ function chartPageHtml(catalog, entry) {
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>${escapeHtml(entry.chart)}</h1>
     ${generatedStamp(catalog, "chart status page")}
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
