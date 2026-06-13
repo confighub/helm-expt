@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "cl-spark-10-0-3-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-spark-10-0-3-default-confighub-proof"
+    selector: "Labels.Proof = 'cl-spark-10-0-3-default-confighub-proof'"
+  subject:
+    chart: "bitnami/spark"
+    chartVersion: "10.0.3"
+    packagePath: "packages/bitnami/spark/10.0.3"
+    variant: "default"
+  changeset:
+    slug: "cl-spark-10-0-3-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "spark 10.0.3 safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "cl-spark-10-0-3-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve statefulset-default-spark-master --space helm-cl-spark-10-0-3-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "statefulset-default-spark-master"
+    output: "Unit statefulset-default-spark-master (2f417d17-6aca-4a3d-a486-38f985466b15) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-cl-spark-10-0-3-default-confighub-proof --where \"Labels.Proof = 'cl-spark-10-0-3-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req QmaFysYxYhKzVBlgRrRCRIlCUAwgIqQf: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-cl-spark-10-0-3-default-confighub-proof --where \"Labels.Proof = 'cl-spark-10-0-3-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

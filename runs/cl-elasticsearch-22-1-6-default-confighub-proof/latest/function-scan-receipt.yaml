@@ -1,0 +1,135 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-elasticsearch-22-1-6-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-elasticsearch-22-1-6-default-confighub-proof"
+    selector: "Labels.Proof = 'cl-elasticsearch-22-1-6-default-confighub-proof'"
+  subject:
+    chart: "bitnami/elasticsearch"
+    chartVersion: "22.1.6"
+    packagePath: "packages/bitnami/elasticsearch/22.1.6"
+    variant: "default"
+    configHubUnitCount: 22
+  unitRevisionBindings:
+    -
+      slug: "poddisruptionbudget-default-elasticsearch-coordinating"
+      headRevisionNum: 1
+      dataHash: "183972cc6b2804c493aa60053893628bab5ca460426a0bfaa435ff914c18635e"
+    -
+      slug: "poddisruptionbudget-default-elasticsearch-ingest"
+      headRevisionNum: 1
+      dataHash: "ba2e5fbf71055d56b0d364694b18430894e87ad6ff1a7cd9a40101a5d7b9911b"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "networkpolicy-default-elasticsearch-master"
+      headRevisionNum: 2
+      dataHash: "e77db21d9481c3161b5a1dd288be726833a32ed01869741799bc9da27fc58532"
+    -
+      slug: "poddisruptionbudget-default-elasticsearch-data"
+      headRevisionNum: 1
+      dataHash: "bc9091acbaab7226c173fc77690848e9f64b3aa50109228c99dc487e2cbc6ac9"
+    -
+      slug: "serviceaccount-default-elasticsearch-coordinating"
+      headRevisionNum: 1
+      dataHash: "8119fc5d5bf64ffbe6b936ebdb538e31a1b5c3cd59d761707a598986bb926c87"
+    -
+      slug: "poddisruptionbudget-default-elasticsearch-master"
+      headRevisionNum: 1
+      dataHash: "40a5944155b33181cf1a8a288d86921fd140ea12dbe50b6a650ab722d4689ed0"
+    -
+      slug: "service-default-elasticsearch-coordinating-hl"
+      headRevisionNum: 2
+      dataHash: "72877df888b63b62e651c2960b28b1a425761a6ea2aaff04fecac76a16395c97"
+    -
+      slug: "serviceaccount-default-elasticsearch-master"
+      headRevisionNum: 1
+      dataHash: "88a0cc6b4a6676dd1f59fa8e6751f6ba6159d7adf40e9a4f0501d3037c944113"
+    -
+      slug: "service-default-elasticsearch-ingest-hl"
+      headRevisionNum: 2
+      dataHash: "9016efdba195a1734d44728dc53c77f204a8e519f364202d4fe597d90004eb4c"
+    -
+      slug: "statefulset-default-elasticsearch-data"
+      headRevisionNum: 2
+      dataHash: "f1da9481b7f414bc486f889d93eb4b30fda1445c4d09518dc797f1547354c30e"
+    -
+      slug: "service-default-elasticsearch-master-hl"
+      headRevisionNum: 2
+      dataHash: "796362691c649863b18cdf704f3f54d94243aef6271dc3695b5bfbac50ab1ecf"
+    -
+      slug: "statefulset-default-elasticsearch-master"
+      headRevisionNum: 2
+      dataHash: "084dcc3b337c6da2b59c27b57cf47520773a90031d0051f33ed92e8c491c51f2"
+    -
+      slug: "serviceaccount-default-elasticsearch-data"
+      headRevisionNum: 1
+      dataHash: "9475a6740a6385aa9ae0fc738b60102cedaca18d86876b7d01ad70edd420fb0c"
+    -
+      slug: "serviceaccount-default-elasticsearch-ingest"
+      headRevisionNum: 1
+      dataHash: "2df57ba75a1eb879601bc8b6aa9ddd2164f3e91284bae99d4af009c039ae1948"
+    -
+      slug: "networkpolicy-default-elasticsearch-coordinating"
+      headRevisionNum: 2
+      dataHash: "e4b999ace0caa23529f922b4ce749fefd727d399fcf500baba29c97031b1809b"
+    -
+      slug: "service-default-elasticsearch"
+      headRevisionNum: 2
+      dataHash: "6b8eacf099d11572099b5e3116832c604b974519c2a019eb7ce93915152849d0"
+    -
+      slug: "statefulset-default-elasticsearch-coordinating"
+      headRevisionNum: 2
+      dataHash: "e778f25ee2c51637908afe928f16b6f41569a22f9c5344320a6a5322bd442f2f"
+    -
+      slug: "service-default-elasticsearch-data-hl"
+      headRevisionNum: 2
+      dataHash: "bbe9c92b6a0ed93248f0bfdae51228ec741a4bf50c7f6234200e9ed4294c7aea"
+    -
+      slug: "statefulset-default-elasticsearch-ingest"
+      headRevisionNum: 2
+      dataHash: "e552f80ff30b9ec6483dc1a0cad0fc7a8f7ea0e6f571850f282a20d1f2804df9"
+    -
+      slug: "networkpolicy-default-elasticsearch-data"
+      headRevisionNum: 2
+      dataHash: "09e478e721ec1fc04c72506b16235d27a206e371c7ff0495485491a5e9474d2a"
+    -
+      slug: "networkpolicy-default-elasticsearch-ingest"
+      headRevisionNum: 2
+      dataHash: "18b59e9a021c89847546f65548e1c8711a8317423eef590d04d6881ac4756cf4"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 22
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 22
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 22
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

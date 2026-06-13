@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-prometheus-operator-crds-29-0-0-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof"
+    selector: "Labels.Proof = 'cl-prometheus-operator-crds-29-0-0-default-confighub-proof'"
+  subject:
+    chart: "prometheus-community/prometheus-operator-crds"
+    chartVersion: "29.0.0"
+    packagePath: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
+    variant: "default"
+    configHubUnitCount: 11
+  unitRevisionBindings:
+    -
+      slug: "customresourcedefinition-alertmanagerconfigs-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "24a54ac6c925f0dc28fff29db5613fa6f9f6e6ce4e3f7a37434158c68eb62d75"
+    -
+      slug: "customresourcedefinition-alertmanagers-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "ebd30a76e94768c7e49cdc02073a6c82a959478e56fa3bbb609f4a8bfbf076c0"
+    -
+      slug: "customresourcedefinition-podmonitors-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "6b8ea9b9b98b7a24d67fbffbf372bc2de6af55580f2e09527e68b898c03f66fe"
+    -
+      slug: "customresourcedefinition-probes-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "3aee3ee4f8dca9c9bad3c2cf6648764882f1d8fc9b70f23bc390d30441838567"
+    -
+      slug: "customresourcedefinition-prometheusagents-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "c377da9649bae1ba73a285f81a3d7f04f7ce94ea65bdbe2aa6ce01f811b95e94"
+    -
+      slug: "customresourcedefinition-prometheuses-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "c32f5ff00fb2c79c82133be2607c9e938d3dadaeef03e31df8c031951ab75da8"
+    -
+      slug: "customresourcedefinition-prometheusrules-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "6ea0f083beeb325127d2a53e6783764f4df1158384d1059bf04065f7f474736b"
+    -
+      slug: "customresourcedefinition-scrapeconfigs-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "6deac142b46e4971ada4d53c86c787b942db89706fa2f7f3ea36c13ba7c6ee00"
+    -
+      slug: "customresourcedefinition-servicemonitors-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "868fbe0b9b5fbe7ccd05d6fd2fcbd9b3edb45be2423a2de820081c424d18e110"
+    -
+      slug: "customresourcedefinition-thanosrulers-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "3d9a1d9c8fd247d4fcb86a4bffe04dd260b73ec894af7db76e9ce9885c65b9ff"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

@@ -1,0 +1,87 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-spark-10-0-3-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-spark-10-0-3-ha-confighub-proof"
+    selector: "Labels.Proof = 'cl-spark-10-0-3-ha-confighub-proof'"
+  subject:
+    chart: "bitnami/spark"
+    chartVersion: "10.0.3"
+    packagePath: "packages/bitnami/spark/10.0.3"
+    variant: "ha"
+    configHubUnitCount: 10
+  unitRevisionBindings:
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "networkpolicy-default-spark-master"
+      headRevisionNum: 2
+      dataHash: "91d1f8adc3f4a5ade5e5ac10ab3adb6ca80ff16615e8de9c9b0feff560e06d96"
+    -
+      slug: "networkpolicy-default-spark-worker"
+      headRevisionNum: 2
+      dataHash: "b91997a40ec0eecf02e3f4d1d0ec09ab859b646fa56cc4a8bb118d6b47536277"
+    -
+      slug: "poddisruptionbudget-default-spark-master"
+      headRevisionNum: 1
+      dataHash: "7872930ac3c71985a828c7e7ba0d0619d57c837919155fee6b94efda8c97d93c"
+    -
+      slug: "poddisruptionbudget-default-spark-worker"
+      headRevisionNum: 1
+      dataHash: "b2f37eef5d85cee4f894764638a25ff4006809d9fdb2f2288adc3cc3846b32e5"
+    -
+      slug: "service-default-spark-headless"
+      headRevisionNum: 1
+      dataHash: "b443160f42158bcdf1dcbfe94c9eacdf9a0013584ccb3c5ce126f2ebc38ee118"
+    -
+      slug: "statefulset-default-spark-master"
+      headRevisionNum: 2
+      dataHash: "8f99326200c1a70a38e26b4c07245878236102f054d3bf0497df31690629db80"
+    -
+      slug: "statefulset-default-spark-worker"
+      headRevisionNum: 2
+      dataHash: "49356ea90aa760a04f5071804b1861c09b6fe1283a67cd96c03750c0942b536c"
+    -
+      slug: "service-default-spark-master-svc"
+      headRevisionNum: 2
+      dataHash: "fce05b64442c5309aafca1ce9d7e866f8c336b1423d47d49b7eb0de0a43cbf15"
+    -
+      slug: "serviceaccount-default-spark"
+      headRevisionNum: 1
+      dataHash: "ed84e33b256bd3339f6568fbaf950f6b12ead6819e2199d71734cae060040665"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 10
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 10
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 10
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

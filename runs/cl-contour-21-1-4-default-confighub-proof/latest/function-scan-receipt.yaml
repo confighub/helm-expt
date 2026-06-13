@@ -1,0 +1,131 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-contour-21-1-4-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-contour-21-1-4-default-confighub-proof"
+    selector: "Labels.Proof = 'cl-contour-21-1-4-default-confighub-proof'"
+  subject:
+    chart: "bitnami/contour"
+    chartVersion: "21.1.4"
+    packagePath: "packages/bitnami/contour/21.1.4"
+    variant: "default"
+    configHubUnitCount: 21
+  unitRevisionBindings:
+    -
+      slug: "networkpolicy-default-contour-contour-certgen"
+      headRevisionNum: 2
+      dataHash: "3978173535da7e31ac7ae2be43303d2a47b2674f65d62d9aebb193806aa6d30e"
+    -
+      slug: "service-default-contour"
+      headRevisionNum: 2
+      dataHash: "7f9a86bdd1de4a94ece494025dadb1b9f05c9d71183547547937e36b699d19bb"
+    -
+      slug: "service-default-contour-envoy"
+      headRevisionNum: 2
+      dataHash: "9071a6fd75e5b373a9e4593de40fcc7daef55cec925ffe690594fcf03015afbb"
+    -
+      slug: "serviceaccount-default-contour-contour"
+      headRevisionNum: 1
+      dataHash: "863330589c5a44baa0208d7e7e53d312babe0433aab4bcc7a3da543c823faf0e"
+    -
+      slug: "serviceaccount-default-contour-envoy"
+      headRevisionNum: 1
+      dataHash: "29f43e94851c130b692d17d94b4794d451dc6a5a7dd54680c14957ec62581d2c"
+    -
+      slug: "clusterrole-contour-contour"
+      headRevisionNum: 2
+      dataHash: "7d5cc70a2f1f1f499228c60a9a4613cfd6f911b0e4d46d98d29f56005c0c15f6"
+    -
+      slug: "configmap-default-contour"
+      headRevisionNum: 1
+      dataHash: "1ef0b6bb8708a3700f29af94da962157448a2e65d2fcc28bb0cf01fc85c55f43"
+    -
+      slug: "customresourcedefinition-contourconfigurations-projectcontour-io"
+      headRevisionNum: 2
+      dataHash: "d5360759c5045fe4862b0d8ccee7642b5e70e4547f816eee8b58133a0681fe29"
+    -
+      slug: "customresourcedefinition-contourdeployments-projectcontour-io"
+      headRevisionNum: 2
+      dataHash: "3706ae9bb2798c95820da0250765654f2a1f2fb18089f06d54bffe15d653b0dc"
+    -
+      slug: "customresourcedefinition-extensionservices-projectcontour-io"
+      headRevisionNum: 2
+      dataHash: "28d4abd81c2c98521a6047b995d28e861f45e17a339ab0e58395847d5e10783c"
+    -
+      slug: "customresourcedefinition-httpproxies-projectcontour-io"
+      headRevisionNum: 2
+      dataHash: "beb2b2b2e5fadea7023c4635f16e795935bdcd50ad6cf43a53b2ba70c6aec662"
+    -
+      slug: "customresourcedefinition-tlscertificatedelegations-projectcontour-io"
+      headRevisionNum: 2
+      dataHash: "f0061b7a74aef85eda00716dffd21a2866b1d42ff2fff43c1960359922c2d2ed"
+    -
+      slug: "daemonset-default-contour-envoy"
+      headRevisionNum: 2
+      dataHash: "9a3d9ade77ec5fe35691014e680befb37de0f130c333ca035c6f79eb0538bb77"
+    -
+      slug: "ingressclass-contour"
+      headRevisionNum: 1
+      dataHash: "2e1cada33e8ca88e5844dbddb28bdb46719b751015668348670af2628219b3be"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "networkpolicy-default-contour-envoy"
+      headRevisionNum: 2
+      dataHash: "ef20b4a4dd8ba742e333db08091af4e9014d00aac2e67817f433127a371c4cec"
+    -
+      slug: "role-default-contour-contour"
+      headRevisionNum: 2
+      dataHash: "6f1024395d33041bf5e261a4c51d37194259db6d438264a60148db44085f5fa5"
+    -
+      slug: "clusterrolebinding-contour-contour"
+      headRevisionNum: 2
+      dataHash: "f35fcaad58853cee5410d86ec8d6d0416f15e153609ea02438b2af1f55eb348d"
+    -
+      slug: "rolebinding-default-contour-contour-role"
+      headRevisionNum: 2
+      dataHash: "4daf24499d7dc64a268031499441e491ea65aee74f83679f76666a719514042b"
+    -
+      slug: "deployment-default-contour-contour"
+      headRevisionNum: 2
+      dataHash: "0ba216f811ad57c6100ba0234db6951bc6d299fcd230f2a6960f1819ca16fed7"
+    -
+      slug: "networkpolicy-default-contour-contour"
+      headRevisionNum: 2
+      dataHash: "001118a6ba7badeae17137223c8f7ccf63b5de082ceacbdb784a00db07500437"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 21
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 21
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 21
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

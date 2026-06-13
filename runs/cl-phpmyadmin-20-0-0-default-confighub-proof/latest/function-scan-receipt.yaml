@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-phpmyadmin-20-0-0-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-phpmyadmin-20-0-0-default-confighub-proof"
+    selector: "Labels.Proof = 'cl-phpmyadmin-20-0-0-default-confighub-proof'"
+  subject:
+    chart: "bitnami/phpmyadmin"
+    chartVersion: "20.0.0"
+    packagePath: "packages/bitnami/phpmyadmin/20.0.0"
+    variant: "default"
+    configHubUnitCount: 6
+  unitRevisionBindings:
+    -
+      slug: "deployment-default-phpmyadmin"
+      headRevisionNum: 2
+      dataHash: "e452e03bdf4af85b12a199f71e2b8d887d4184e2b73ec1da0cad928583b6b088"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "networkpolicy-default-phpmyadmin"
+      headRevisionNum: 2
+      dataHash: "122096904afce258ad9ec74a87e966e0ffcb6c5d7cc496dfc54334e5669adba2"
+    -
+      slug: "poddisruptionbudget-default-phpmyadmin"
+      headRevisionNum: 1
+      dataHash: "3fcb701c8a15f0a2a0c8ebc7d3e80bf5f3d23ff3e7cea7cb94a13c4dc87e1c41"
+    -
+      slug: "serviceaccount-default-phpmyadmin"
+      headRevisionNum: 1
+      dataHash: "92c6be8c305d485848a0512f722de5f9d4b27e3896ec53694787d1748bcac4dd"
+    -
+      slug: "service-default-phpmyadmin"
+      headRevisionNum: 2
+      dataHash: "7eed399537691fa2f66ac6ca25d14a5fb1e015dd95540291ad350ab8657fcecf"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

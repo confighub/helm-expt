@@ -1,0 +1,107 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-metricbeat-8-5-1-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-metricbeat-8-5-1-default-confighub-proof"
+    selector: "Labels.Proof = 'cl-metricbeat-8-5-1-default-confighub-proof'"
+  subject:
+    chart: "elastic/metricbeat"
+    chartVersion: "8.5.1"
+    packagePath: "packages/elastic/metricbeat/8.5.1"
+    variant: "default"
+    configHubUnitCount: 15
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-metricbeat-metricbeat-cluster-role-binding"
+      headRevisionNum: 2
+      dataHash: "f776e2837243642fd61c7d0515cdafac986423dbf7dd5d19365528901479eb57"
+    -
+      slug: "rolebinding-metricbeat-metricbeat-role-binding"
+      headRevisionNum: 2
+      dataHash: "cf4da658bbaa108f79fbe7dfbd4bb90029d9c9ff3e2e8f2c2a2b93851f2b3e9a"
+    -
+      slug: "clusterrole-metricbeat-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "41f45a6947340ebaf722d49dd9474af2121bf7c19301eaff53c4473f1a716956"
+    -
+      slug: "clusterrole-metricbeat-metricbeat-cluster-role"
+      headRevisionNum: 2
+      dataHash: "4107c27a36d0d3ac0e3b13457265b9387e791f2fc2d84e68a8da09e2cd7b97eb"
+    -
+      slug: "clusterrolebinding-metricbeat-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "f288018810e4bfc290d20e4744da3c1cadfb85186ca8e63a8c93dcabf7db7760"
+    -
+      slug: "configmap-metricbeat-metricbeat-daemonset-config"
+      headRevisionNum: 1
+      dataHash: "16037c5841a0685bce7f717d668fa95a42e4006eead51f16fed9d213d9d6697e"
+    -
+      slug: "configmap-metricbeat-metricbeat-deployment-config"
+      headRevisionNum: 1
+      dataHash: "2927345336f4fed6ad7e534372b6bf6e9eaa6d624d71c6b116a40b6e110644f2"
+    -
+      slug: "deployment-default-metricbeat-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "a59b7e596abbad08ab8d2750c3d7cd63d42f90d2995e1b548805967c1516a075"
+    -
+      slug: "daemonset-metricbeat-metricbeat"
+      headRevisionNum: 2
+      dataHash: "d9a69146251cd9e97b08b7bf482389533396fa474f5bea46a93b8b5e47309079"
+    -
+      slug: "deployment-metricbeat-metricbeat-metrics"
+      headRevisionNum: 2
+      dataHash: "4d90b289e6abf136b484364ace9813b279c111f51a3c6ed63d748a1960da9c61"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "role-metricbeat-metricbeat-role"
+      headRevisionNum: 2
+      dataHash: "1ea931d90cdd2eb5d2c4702e45f2db55e49d30af3b6806c364c7e3855c2f37f0"
+    -
+      slug: "service-default-metricbeat-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "1240c541e04379bdb2be4923ff1c92cbf8746f8ba0bbac193105448fba1ef724"
+    -
+      slug: "serviceaccount-default-metricbeat-kube-state-metrics"
+      headRevisionNum: 1
+      dataHash: "f57186511013c1b46c10e6a4bd6ffcf086a6df8899d7a662ace870691108b69d"
+    -
+      slug: "serviceaccount-metricbeat-metricbeat"
+      headRevisionNum: 1
+      dataHash: "36c680ed2e42560b9cbd24bfa4b34bec4cfb1942dd1dd7099e631e9603be64cf"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 15
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 15
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 15
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

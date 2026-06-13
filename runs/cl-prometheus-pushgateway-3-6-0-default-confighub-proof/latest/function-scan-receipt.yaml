@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-prometheus-pushgateway-3-6-0-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-prometheus-pushgateway-3-6-0-default-confighub-proof"
+    selector: "Labels.Proof = 'cl-prometheus-pushgateway-3-6-0-default-confighub-proof'"
+  subject:
+    chart: "prometheus-community/prometheus-pushgateway"
+    chartVersion: "3.6.0"
+    packagePath: "packages/prometheus-community/prometheus-pushgateway/3.6.0"
+    variant: "default"
+    configHubUnitCount: 4
+  unitRevisionBindings:
+    -
+      slug: "deployment-default-prometheus-pushgateway"
+      headRevisionNum: 2
+      dataHash: "d3e2f64cad66dff191370a2a25200a858e31c21395b42b378a0e3d63e72b5872"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-prometheus-pushgateway"
+      headRevisionNum: 1
+      dataHash: "09dc6589d956f0a6750e0ea2cbeb60304ccc77820d87c83abccae9d6188ff53d"
+    -
+      slug: "service-default-prometheus-pushgateway"
+      headRevisionNum: 2
+      dataHash: "ceb7bed666fed051e596fd794c724cd34dc012767569a2025791e5164fc09b7e"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 4
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 4
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 4
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

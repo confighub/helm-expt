@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-zookeeper-13-8-7-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-zookeeper-13-8-7-default-confighub-proof"
+    selector: "Labels.Proof = 'cl-zookeeper-13-8-7-default-confighub-proof'"
+  subject:
+    chart: "bitnami/zookeeper"
+    chartVersion: "13.8.7"
+    packagePath: "packages/bitnami/zookeeper/13.8.7"
+    variant: "default"
+    configHubUnitCount: 8
+  unitRevisionBindings:
+    -
+      slug: "configmap-default-zookeeper-scripts"
+      headRevisionNum: 1
+      dataHash: "5f3f3f1a626b7ec91e114bee30c53d39fdc845604cf917f53bf8f9f4960abe15"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "networkpolicy-default-zookeeper"
+      headRevisionNum: 2
+      dataHash: "09a0f8fbf26d5caa0da72ba1445cde5c564a12202a3f60d20b0398b8aadc9388"
+    -
+      slug: "poddisruptionbudget-default-zookeeper"
+      headRevisionNum: 1
+      dataHash: "6017cb40a3dc78a6644210e5217e57998b4cc6d2f1be90ba75ec29c9cd7962fa"
+    -
+      slug: "serviceaccount-default-zookeeper"
+      headRevisionNum: 1
+      dataHash: "65cea3812b11f9bc2d697af1b1939c9d34a7381b0ccbacd030c86e6ffaa6767d"
+    -
+      slug: "service-default-zookeeper"
+      headRevisionNum: 2
+      dataHash: "858b55707c68681dbe4a8dcdeecfb368775c3a43000d95d4fdd14c8943a13b6f"
+    -
+      slug: "service-default-zookeeper-headless"
+      headRevisionNum: 2
+      dataHash: "b55d8fcc321a523e61bc8c8bec0efad16662e9c9bb0ac9449a9509dcb465a7c6"
+    -
+      slug: "statefulset-default-zookeeper"
+      headRevisionNum: 2
+      dataHash: "a5d481e954e882da88e545cf658db7edafb410b96904b5948c228ab3bc0237d6"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

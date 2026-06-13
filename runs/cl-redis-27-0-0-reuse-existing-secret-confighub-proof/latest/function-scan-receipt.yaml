@@ -1,0 +1,103 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-redis-27-0-0-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof"
+    selector: "Labels.Proof = 'cl-redis-27-0-0-reuse-existing-secret-confighub-proof'"
+  subject:
+    chart: "bitnami/redis"
+    chartVersion: "27.0.0"
+    packagePath: "packages/bitnami/redis/27.0.0"
+    variant: "reuse-existing-secret"
+    configHubUnitCount: 14
+  unitRevisionBindings:
+    -
+      slug: "configmap-redis-redis-configuration"
+      headRevisionNum: 1
+      dataHash: "fac1c9d515858d5e17542dcc486224244015c5a295b30e34ad7b75a09461556d"
+    -
+      slug: "configmap-redis-redis-health"
+      headRevisionNum: 1
+      dataHash: "e6b8cb56eba5a10f1647bd9f2bb931fe4c438aa7758bfa987b4d7f86c2be04b9"
+    -
+      slug: "configmap-redis-redis-scripts"
+      headRevisionNum: 1
+      dataHash: "2fabcd01822f2087d8fbc1d7077affaf0079d974230e71fcf21d4b7d4ad56ca7"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "networkpolicy-redis-redis"
+      headRevisionNum: 2
+      dataHash: "61ee7b5d0249ef824ae7879c2d90affced258f75b3da2af784bca2dc49881099"
+    -
+      slug: "poddisruptionbudget-redis-redis-master"
+      headRevisionNum: 1
+      dataHash: "b24b7c8344b9f65397118da248ac311e7cbd5e01044b2a4e48af8ea0516eb95e"
+    -
+      slug: "poddisruptionbudget-redis-redis-replicas"
+      headRevisionNum: 1
+      dataHash: "9de9b785ef473dad0f4147627338b3341b7978c3f8ad8197203749b1bde772e7"
+    -
+      slug: "serviceaccount-redis-redis-master"
+      headRevisionNum: 1
+      dataHash: "7b15337c4a1d741578256168ed11741764b48bcf8a87e39c24c093967295f4fd"
+    -
+      slug: "serviceaccount-redis-redis-replica"
+      headRevisionNum: 1
+      dataHash: "d0683c08eba0c3d47a25baebda615647a67da94c93ccc674da7d00c4810b2575"
+    -
+      slug: "service-redis-redis-headless"
+      headRevisionNum: 2
+      dataHash: "9c0a11b8c8b7b73f26d8a9367c6c44f6138b9be926a88956e9b73d078d8d92bd"
+    -
+      slug: "service-redis-redis-master"
+      headRevisionNum: 2
+      dataHash: "e0feed9b37be38cc0fdd665acadb81006f30e8354c04dee5fa974a6da3d59e93"
+    -
+      slug: "service-redis-redis-replicas"
+      headRevisionNum: 2
+      dataHash: "df23d4645a2e7e1a9aaaed0dda0f73c2773f9a1e72d29b43d91134e246ae9780"
+    -
+      slug: "statefulset-redis-redis-master"
+      headRevisionNum: 2
+      dataHash: "5b7346510f10aa8c63515933075781b98b14f09d597cf76cb5751f46336ca8a4"
+    -
+      slug: "statefulset-redis-redis-replicas"
+      headRevisionNum: 2
+      dataHash: "61b717630639064e57d15b013d36f658ccfe1957b199ec6280e3d6fb88180d3f"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 14
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 14
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 14
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

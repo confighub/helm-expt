@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "cl-nginx-24-0-4-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/bitnami/nginx/24.0.4"
+    name: "bitnami-nginx"
+    chart: "bitnami/nginx"
+    chartVersion: "24.0.4"
+    bases:
+      - "http-clusterip"
+      - "existing-tls-ingress"
+    selectedBase: "existing-tls-ingress"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "existing-tls-ingress"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt"
+            namespace: "nginx"
+            suggestedSource: "kubectl -n nginx create secret generic nginx-backend-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> --from-literal=ca.crt=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "Secret nginx/nginx-ingress-tls keys tls.crt,tls.key"
+            namespace: "nginx"
+            suggestedSource: "kubectl -n nginx create secret generic nginx-ingress-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
+  render:
+    command: "cub installer setup --pull packages/bitnami/nginx/24.0.4 --base existing-tls-ingress --work-dir .tmp/confighub-proof/cl-nginx-24-0-4-existing-tls-ingress --non-interactive --namespace nginx"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+    facts:
+      targetFactChecks:
+        base: "existing-tls-ingress"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          -
+            keys:
+              - "tls.crt"
+              - "tls.key"
+              - "ca.crt"
+            name: "nginx-backend-tls"
+            namespace: "nginx"
+            purpose: "TLS certificate material mounted by the NGINX pod"
+          -
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "nginx-ingress-tls"
+            namespace: "nginx"
+            purpose: "TLS certificate material referenced by the Ingress"
+        requiredTopology: null
+        requiredValues:
+          []
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/cl-nginx-24-0-4-existing-tls-ingress"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/bitnami/nginx/24.0.4 -o .tmp/confighub-proof/cl-nginx-24-0-4-existing-tls-ingress-archives/cl-nginx-24-0-4-a.tgz"
+    sha256: "c282cddd3f61388ba8e1abc51d32b468667577b9093e337e06ec45a5a1d1057c"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/cl-nginx-24-0-4-existing-tls-ingress"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/cl-nginx-24-0-4-existing-tls-ingress --space helm-cl-nginx-24-0-4-existing-tls-ingress-confighub-proof --component Nginx2404 --layer App --environment Demo --owner ConfigHubHelm --variant existing-tls-ingress --unit-label Component=Nginx2404 --unit-label HelmChart=bitnami-nginx --unit-label HelmChartVersion=24.0.4 --unit-label Variant=existing-tls-ingress --unit-label Proof=cl-nginx-24-0-4-existing-tls-ingress-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-cl-nginx-24-0-4-existing-tls-ingress-confighub-proof"
+    unitCount: 8
+    kubernetesUnitCount: 7
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/cl-nginx-24-0-4-existing-tls-ingress"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/cl-nginx-24-0-4-existing-tls-ingress"
+    result: "pass"
+    summary: "No changes.\nImages in helm-cl-nginx-24-0-4-existing-tls-ingress-confighub-proof (post-render):\n  init  Deployment/nginx [preserve-logs-symlinks] registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f\n      Deployment/nginx [nginx] registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+  serverSideVariant:
+    command: "cub variant create staging helm-cl-nginx-24-0-4-existing-tls-ingress-confighub-proof --environment Staging --region local --space-name-pattern template:Nginx2404-existing-tls-ingress-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-cl-nginx-24-0-4-existing-tls-ingress-confighub-proof"
+    downstreamSpace: "Nginx2404-existing-tls-ingress-staging"
+    clonedUnitCount: 8
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-nginx-nginx"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-cl-nginx-24-0-4-existing-tls-ingress-confighub-proof"
+      - "Nginx2404-existing-tls-ingress-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

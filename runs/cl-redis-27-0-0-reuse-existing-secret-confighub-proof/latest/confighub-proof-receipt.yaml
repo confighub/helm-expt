@@ -1,0 +1,108 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "cl-redis-27-0-0-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/bitnami/redis/27.0.0"
+    name: "bitnami-redis"
+    chart: "bitnami/redis"
+    chartVersion: "27.0.0"
+    bases:
+      - "default"
+      - "reuse-existing-secret"
+    selectedBase: "reuse-existing-secret"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "reuse-existing-secret"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret redis/redis-existing-secret key redis-password"
+            namespace: "redis"
+            suggestedSource: "kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=<value>"
+  render:
+    command: "cub installer setup --pull packages/bitnami/redis/27.0.0 --base reuse-existing-secret --work-dir .tmp/confighub-proof/cl-redis-27-0-0-reuse-existing-secret --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 14
+    separatedSecretCount: 0
+    facts:
+      targetFactChecks:
+        base: "reuse-existing-secret"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          -
+            keys:
+              - "redis-password"
+            name: "redis-existing-secret"
+            namespace: "redis"
+            purpose: "Redis authentication password"
+        requiredTopology: null
+        requiredValues:
+          []
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/cl-redis-27-0-0-reuse-existing-secret"
+    result: "pass"
+    manifestCount: 14
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/bitnami/redis/27.0.0 -o .tmp/confighub-proof/cl-redis-27-0-0-reuse-existing-secret-archives/cl-redis-27-0-0-a.tgz"
+    sha256: "136a0476ef396582a164614e184b6f8339b53f625df55f41787aa6a9c40801ac"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/cl-redis-27-0-0-reuse-existing-secret"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/cl-redis-27-0-0-reuse-existing-secret --space helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof --component Redis2700 --layer App --environment Demo --owner ConfigHubHelm --variant reuse-existing-secret --unit-label Component=Redis2700 --unit-label HelmChart=bitnami-redis --unit-label HelmChartVersion=27.0.0 --unit-label Variant=reuse-existing-secret --unit-label Proof=cl-redis-27-0-0-reuse-existing-secret-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof"
+    unitCount: 15
+    kubernetesUnitCount: 14
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/cl-redis-27-0-0-reuse-existing-secret"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/cl-redis-27-0-0-reuse-existing-secret"
+    result: "pass"
+    summary: "No changes.\nImages in helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof (post-render):\n      StatefulSet/redis-master [redis] registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25\n      StatefulSet/redis-replicas [redis] registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"
+  serverSideVariant:
+    command: "cub variant create staging helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof --environment Staging --region local --space-name-pattern template:Redis2700-reuse-existing-secret-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof"
+    downstreamSpace: "Redis2700-reuse-existing-secret-staging"
+    clonedUnitCount: 15
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-redis-redis-master"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof"
+      - "Redis2700-reuse-existing-secret-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."
