@@ -459,7 +459,7 @@
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "4 rows have non-pass GitOps/OCI receipts."
+      "note": "5 rows have non-pass GitOps/OCI receipts."
     },
     {
       "section": "proof lanes",
@@ -468,7 +468,7 @@
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "1 rows have non-pass live parity receipts."
+      "note": "2 rows have non-pass live parity receipts."
     },
     {
       "section": "proof lanes",
@@ -600,7 +600,7 @@
       "section": "live evidence",
       "metric": "selected live Helm-vs-ConfigHub parity receipts",
       "value": "56",
-      "total": "57",
+      "total": "58",
       "status": "partial",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row."
@@ -645,7 +645,7 @@
       "section": "live evidence",
       "metric": "ConfigHub/OCI semantic parity defect receipts",
       "value": "0",
-      "total": "57",
+      "total": "58",
       "status": "good",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Rows whose committed receipt currently points at a semantic object comparison defect."

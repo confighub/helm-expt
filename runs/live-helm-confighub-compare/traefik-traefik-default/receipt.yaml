@@ -1,0 +1,536 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: traefik-traefik-40.2.0-default-live-parity-20260605
+spec:
+  chart: traefik/traefik
+  version: 40.2.0
+  base: default
+  result: watch
+  observedAt: '2026-06-13T01:13:36Z'
+  package:
+    path: packages/traefik/traefik/40.2.0
+  recipe:
+    path: recipes/traefik/traefik/40.2.0
+  variantRevision: recipes/traefik/traefik/40.2.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-traefik-default-1781313216
+    kubeContext: kind-helm-expt-parity-traefik-default-1781313216
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-traefik-default-1781313216 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-traefik-default-1781313216"...
+
+        Deleting cluster "helm-expt-parity-traefik-default-1781313216" ...
+
+        Deleted nodes: ["helm-expt-parity-traefik-default-1781313216-control-plane"]
+
+        Deleting Space "helm-expt-parity-traefik-default-1781313216-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install traefik traefik --repo https://traefik.github.io/charts
+        --version 40.2.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/traefik-traefik-default/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: 84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09
+      objectCount: 31
+      liveHelmManifestSHA256: 51a59c67584e6f30a26b382bfe51fe0ad9e5660222acc718c53e23e64ef70f31
+      liveHelmManifestObjectCount: 6
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/traefik   1/1   1     1     20s
+        pods: traefik-56d8b8c957-brjx7   1/1   Running   0     20s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/traefik/traefik/40.2.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-traefik-default-1781313216-traefik-traefik
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: d8b0152214a507b7e98960b14f173bc8f8fbe6203ba5a6b3e21967527c0c6df6
+      objectCount: 32
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/traefik   1/1   1     1     20s'
+        pods: '# default
+
+          traefik-5f694f77f5-lxhjv   1/1   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 28
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "traefik-default" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "traefik-default" deleted
+
+            customresourcedefinition.apiextensions.k8s.io "accesscontrolpolicies.hub.traefik.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "aiservices.hub.traefik.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "apiauths.hub.traefik.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "apibundles.hub.traefik.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "apicatalogitems.hub.traefik.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "apiplans.hub.traefik.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "apiportalauths.hub.traefik.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "apiportals.hub.traefik.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "apiratelimits.hub.traefik.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "apis.hub.traefik.io" deleted
+
+            customresourcedefinition.apiexte'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 3
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'deployment.apps "traefik" deleted from default namespace
+
+            service "traefik" deleted from default namespace
+
+            serviceaccount "traefik" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-traefik-default-1781313216-traefik-traefik
+      controller: Argo CD OCI
+      app: traefik-traefik-parity
+      manifestSHA256: 0884a9272c91f83f7d2019097b64466d97e6fafee1459cb1eaab597f035c737e
+      objectCount: 32
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:2e43b93f16a288125910f723f9fa16e255fefe6e1c2cefddc0185d9dff33d11e
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-traefik-default-1781313216-traefik-traefik
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-default-1781313216-cluster/oci
+              targetRevision: latest
+          revision: sha256:2e43b93f16a288125910f723f9fa16e255fefe6e1c2cefddc0185d9dff33d11e
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T01:17:55Z'
+          status: Progressing
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: traefik
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: traefik
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: accesscontrolpolicies.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: aiservices.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiauths.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apibundles.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apicatalogitems.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiplans.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiportalauths.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiportals.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiratelimits.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apis.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiversions.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: contentitems.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: ingressroutes.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: ingressroutetcps.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: ingressrouteudps.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: managedapplications.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: managedsubscriptions.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: middlewares.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: middlewaretcps.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: serverstransports.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: serverstransporttcps.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: tlsoptions.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: tlsstores.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: traefikservices.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: uplinks.hub.traefik.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: traefik
+          status: Synced
+          health: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: IngressClass
+          namespace: ''
+          name: traefik
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: traefik-default
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: traefik-default
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/traefik   1/1   1     1     6m49s'
+        pods: '# default
+
+          traefik-5f694f77f5-rx4kf   1/1   Running   0     6m49s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 31
+      configHubObjectCount: 32
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 31
+      configHubObjectCount: 32
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-traefik-default-1781313216\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-traefik-default-1781313216.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-traefik-default-1781313216\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-traefik-default-1781313216\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-traefik-default-1781313216\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-traefik-default-1781313216.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInsta"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "traefik" does not exist. Installing it now.
+
+      NAME: traefik
+
+      LAST DEPLOYED: Sat Jun 13 02:15:06 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      traefik with docker.io/traefik:v3.7.1 has been deployed successfully on default-helm
+      namespace!'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/traefik   1/1   1     1     20s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=28
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=3 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
