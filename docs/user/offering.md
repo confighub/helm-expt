@@ -54,6 +54,11 @@ certificate material being present or staged. The catalog records that contract
 as target facts, lifecycle evidence, and bounded receipts instead of treating a
 green render as a complete install.
 
+For a day-2 example, see
+[Helm Upgrade Crash Example](./helm-upgrade-crash-example.md). It shows how a
+risky chart upgrade becomes staged, reviewed, rehearsed, gated, and observed
+instead of being treated as one opaque production mutation.
+
 ## What Is Free To Try
 
 The public lane is for low-friction use of public chart bases:
@@ -143,4 +148,5 @@ belong in managed ConfigHub workflows.
 - [Choose Your Path](./choose-your-path.md)
 - [What You Get](./what-you-get.md)
 - [Choosing Commands](./choosing-commands.md)
+- [Helm Upgrade Crash Example](./helm-upgrade-crash-example.md)
 - [Current Proof Status](./current-proof-status.md)

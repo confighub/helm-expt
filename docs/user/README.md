@@ -28,35 +28,36 @@ If your first question is "why is this better than `cub helm install` or
 | 6 | [Choosing Commands](./choosing-commands.md) | When to use `cub helm template`, `cub helm install`, `cub installer`, `cub variant create`, and repo verifiers. |
 | 7 | [Outcomes And Tests](./outcomes-and-tests.md) | What the repo promises, which tests prove each promise, and where the CSVs live. |
 | 8 | [Helm Pain Points](./helm-pain-points.md) | Which Helm pains are tracked generally and per chart. |
-| 9 | [Tutorial Sequence](./tutorial-sequence.md) | A short show-and-tell path with commands, checks, and expected results. |
-| 10 | [Current Proof Status](./current-proof-status.md) | What is proven now and which generated summaries are authoritative. |
-| 11 | [What We Refuse To Claim](./what-we-refuse-to-claim.md) | Why watchlist rows and blocked strict witnesses are part of the trust model. |
-| 12 | [Why Synced Is Not Working](./why-synced-is-not-working.md) | Why object presence or GitOps sync can still miss broken runtime state. |
-| 13 | [Target Prerequisites](./target-prerequisites.md) | Why hard charts need explicit CRDs, Secrets, lifecycle checks, and target facts beyond YAML parity. |
-| 14 | [Why This Does Not Collapse](./why-this-does-not-collapse.md) | How hooks, quirks, config volume, and blocked rows stay visible instead of becoming hidden risk. |
-| 15 | [Verify It Yourself](./verify-it-yourself.md) | Commands for checking corpus files, rendered installs, parity receipts, and cub-scout receipts. |
-| 16 | [Production Support Decisions](./production-support-decisions.md) | How a review-ready chart becomes production-supported for one target scope. |
-| 17 | [Chain Of Proof](./chain-of-proof.md) | Which tool proves which boundary: render, ConfigHub desired state, delivery, and live observation. |
-| 18 | [Top-100 Readiness](./top100-readiness.md) | How to read the top-100 corpus: public catalog, promotion candidates, default-only rows, and limitation decisions. |
-| 19 | [Chart Use Guide](../../data/chart-use-guide/summary.md) | One generated answer per top-100 chart: use now, promote, improve the base, or decide a limitation first. |
-| 20 | [Top-100 Status](./top100-status.md) | Plain-English answers: what works today, what needs prerequisites or review, and how it differs from plain Helm. |
-| 21 | [Verification Lanes](./verification-lanes.md) | What each proof lane means and what it does not prove. |
-| 22 | [Live Parity](./live-parity.md) | How to read pass, watch, blocked, and rerun rows in the live Helm-vs-ConfigHub lanes. |
-| 23 | [How The Harness Works](./how-the-harness-works.md) | The project lifecycle and the value of proofs, uploads, variants, and receipts. |
-| 24 | [Creating Variants](./creating-variants.md) | The base variant versus derived ConfigHub variant distinction. |
-| 25 | [cub Variant Command Surface](./cub-variant-command-surface.md) | The current `cub variant create` syntax and what is not a current variant command. |
-| 26 | [Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md) | The routing rule before OCI or GitOps delivery. |
-| 27 | [Adopting Existing Apps](./adopting-existing-apps.md) | How Argo, Flux, KRM, rendered manifests, and existing apps enter the ConfigHub model. |
-| 28 | [Custom Overlay Example](./custom-overlays.md) | A plain ExternalDNS example for wrapper charts, customer values, target facts, and Creator flow. |
-| 29 | [Prometheus Promotion Example](./prometheus-overlay-promotion-example.md) | A concrete promotion example that keeps the Helm install shape stable. |
-| 30 | [Prometheus High-Fanout Example](./prometheus-high-fanout.md) | Why a small Helm base choice can affect many objects and target prerequisites. |
-| 31 | [Serious Chart Proof](./serious-chart-proof.md) | The concise kube-prometheus-stack proof path: what passes, what is scoped, and what remains. |
-| 32 | [Extension Slots](./extension-slots.md) | How raw manifests, tpl snippets, sidecars, config blocks, and add-on slots are routed. |
-| 33 | [NGINX Configuration Files](./nginx-configuration-files.md) | How NGINX `serverBlock`, `streamServerBlock`, `extraDeploy`, and config-file checks fit the variant model. |
-| 34 | [Introduction To The Harness](./introduction-to-the-harness.md) | The deeper recipe-generation workflow and the table for where Helm pieces belong. |
-| 35 | [Product Support Tiers](./product-support-tiers.md) | Which scenarios fit public catalog, managed import, or commercial support. |
-| 36 | [Maintenance SLA](./maintenance-sla.md) | How catalog entries are refreshed, patched, and supported. |
-| 37 | [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md) | Why Helm hooks need explicit lifecycle routes and receipts. |
+| 9 | [Helm Upgrade Crash Example](./helm-upgrade-crash-example.md) | How an opaque Helm upgrade becomes staged, reviewed, rehearsed, gated, and observed. |
+| 10 | [Tutorial Sequence](./tutorial-sequence.md) | A short show-and-tell path with commands, checks, and expected results. |
+| 11 | [Current Proof Status](./current-proof-status.md) | What is proven now and which generated summaries are authoritative. |
+| 12 | [What We Refuse To Claim](./what-we-refuse-to-claim.md) | Why watchlist rows and blocked strict witnesses are part of the trust model. |
+| 13 | [Why Synced Is Not Working](./why-synced-is-not-working.md) | Why object presence or GitOps sync can still miss broken runtime state. |
+| 14 | [Target Prerequisites](./target-prerequisites.md) | Why hard charts need explicit CRDs, Secrets, lifecycle checks, and target facts beyond YAML parity. |
+| 15 | [Why This Does Not Collapse](./why-this-does-not-collapse.md) | How hooks, quirks, config volume, and blocked rows stay visible instead of becoming hidden risk. |
+| 16 | [Verify It Yourself](./verify-it-yourself.md) | Commands for checking corpus files, rendered installs, parity receipts, and cub-scout receipts. |
+| 17 | [Production Support Decisions](./production-support-decisions.md) | How a review-ready chart becomes production-supported for one target scope. |
+| 18 | [Chain Of Proof](./chain-of-proof.md) | Which tool proves which boundary: render, ConfigHub desired state, delivery, and live observation. |
+| 19 | [Top-100 Readiness](./top100-readiness.md) | How to read the top-100 corpus: public catalog, promotion candidates, default-only rows, and limitation decisions. |
+| 20 | [Chart Use Guide](../../data/chart-use-guide/summary.md) | One generated answer per top-100 chart: use now, promote, improve the base, or decide a limitation first. |
+| 21 | [Top-100 Status](./top100-status.md) | Plain-English answers: what works today, what needs prerequisites or review, and how it differs from plain Helm. |
+| 22 | [Verification Lanes](./verification-lanes.md) | What each proof lane means and what it does not prove. |
+| 23 | [Live Parity](./live-parity.md) | How to read pass, watch, blocked, and rerun rows in the live Helm-vs-ConfigHub lanes. |
+| 24 | [How The Harness Works](./how-the-harness-works.md) | The project lifecycle and the value of proofs, uploads, variants, and receipts. |
+| 25 | [Creating Variants](./creating-variants.md) | The base variant versus derived ConfigHub variant distinction. |
+| 26 | [cub Variant Command Surface](./cub-variant-command-surface.md) | The current `cub variant create` syntax and what is not a current variant command. |
+| 27 | [Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md) | The routing rule before OCI or GitOps delivery. |
+| 28 | [Adopting Existing Apps](./adopting-existing-apps.md) | How Argo, Flux, KRM, rendered manifests, and existing apps enter the ConfigHub model. |
+| 29 | [Custom Overlay Example](./custom-overlays.md) | A plain ExternalDNS example for wrapper charts, customer values, target facts, and Creator flow. |
+| 30 | [Prometheus Promotion Example](./prometheus-overlay-promotion-example.md) | A concrete promotion example that keeps the Helm install shape stable. |
+| 31 | [Prometheus High-Fanout Example](./prometheus-high-fanout.md) | Why a small Helm base choice can affect many objects and target prerequisites. |
+| 32 | [Serious Chart Proof](./serious-chart-proof.md) | The concise kube-prometheus-stack proof path: what passes, what is scoped, and what remains. |
+| 33 | [Extension Slots](./extension-slots.md) | How raw manifests, tpl snippets, sidecars, config blocks, and add-on slots are routed. |
+| 34 | [NGINX Configuration Files](./nginx-configuration-files.md) | How NGINX `serverBlock`, `streamServerBlock`, `extraDeploy`, and config-file checks fit the variant model. |
+| 35 | [Introduction To The Harness](./introduction-to-the-harness.md) | The deeper recipe-generation workflow and the table for where Helm pieces belong. |
+| 36 | [Product Support Tiers](./product-support-tiers.md) | Which scenarios fit public catalog, managed import, or commercial support. |
+| 37 | [Maintenance SLA](./maintenance-sla.md) | How catalog entries are refreshed, patched, and supported. |
+| 38 | [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md) | Why Helm hooks need explicit lifecycle routes and receipts. |
 
 Detailed doctrine and historical design material now lives under
 [`docs/reference`](../reference/) so it does not look like the first-run user

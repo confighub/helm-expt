@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-13T13:00:06.586Z",
+  "generatedAt": "2026-06-13T17:49:54.524Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -106,7 +106,7 @@
     "latestCandidatesAwaitingReplacementDecision": 0,
     "latestRefreshP0Rows": 0,
     "top100ChartsWithLiveEvidence": 76,
-    "liveParityRerunRows": 1,
+    "liveParityRerunRows": 2,
     "liveParityRerunSemanticDefects": 0,
     "productionSupportedCharts": 17,
     "productionSupersededCharts": 2,
@@ -276,17 +276,17 @@
     {
       "section": "top100",
       "metric": "useful-base proposal rows",
-      "value": "35",
+      "value": "45",
       "total": "",
       "status": "partial",
       "source": "data/useful-base-design-queue/queue.csv",
-      "note": "Proposed base shapes for default-shaped proof-grade charts. Multiple proposed bases can exist for one chart; compare with the top100 user-shaped variant queue for chart-level scope. These are not supported bases until rendered and proved."
+      "note": "Total useful-base pipeline rows: remaining design proposals plus rows already realized in data/useful-base-realization-wave/wave.csv. Multiple proposed bases can exist for one chart; these are not supported bases until rendered and proved."
     },
     {
       "section": "top100",
       "metric": "useful-base realized rows",
       "value": "10",
-      "total": "35",
+      "total": "45",
       "status": "partial",
       "source": "data/useful-base-realization-wave/wave.csv",
       "note": "Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."
@@ -304,10 +304,10 @@
       "section": "top100",
       "metric": "useful-base proposals not yet built",
       "value": "35",
-      "total": "35",
+      "total": "45",
       "status": "gap",
       "source": "data/useful-base-design-queue/queue.csv",
-      "note": "Rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."
+      "note": "Remaining design-queue rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."
     },
     {
       "section": "top100",
@@ -420,7 +420,7 @@
     {
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
-      "value": "155",
+      "value": "158",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -474,8 +474,8 @@
     {
       "section": "proof lanes",
       "metric": "two-cluster kind parity pass rows",
-      "value": "70",
-      "total": "70",
+      "value": "73",
+      "total": "74",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
@@ -483,8 +483,8 @@
     {
       "section": "proof lanes",
       "metric": "two-cluster semantic parity pass rows",
-      "value": "70",
-      "total": "70",
+      "value": "74",
+      "total": "74",
       "status": "good",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."
@@ -609,8 +609,8 @@
     {
       "section": "live evidence",
       "metric": "two-cluster kind parity receipts",
-      "value": "70",
-      "total": "70",
+      "value": "74",
+      "total": "74",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
@@ -618,8 +618,8 @@
     {
       "section": "live evidence",
       "metric": "live parity rerun rows needing decisions",
-      "value": "1",
-      "total": "1",
+      "value": "2",
+      "total": "2",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."
@@ -628,7 +628,7 @@
       "section": "live evidence",
       "metric": "live parity rows needing model or staging first",
       "value": "1",
-      "total": "1",
+      "total": "2",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."
@@ -636,11 +636,20 @@
     {
       "section": "live evidence",
       "metric": "live parity rows needing target review first",
-      "value": "0",
-      "total": "1",
+      "value": "1",
+      "total": "2",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."
+    },
+    {
+      "section": "live evidence",
+      "metric": "GitOps aggregate health residue rows",
+      "value": "1",
+      "total": "84",
+      "status": "partial",
+      "source": "data/gitops-health-residue/residue.csv",
+      "note": "ConfigHub OCI/GitOps rows where sync/workload evidence can pass while controller aggregate health still needs explanation."
     },
     {
       "section": "live evidence",
@@ -655,7 +664,7 @@
       "section": "live evidence",
       "metric": "two-cluster semantic parity defect receipts",
       "value": "0",
-      "total": "70",
+      "total": "74",
       "status": "good",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."
@@ -859,6 +868,33 @@
       "note": "Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot."
     },
     {
+      "section": "secrets",
+      "metric": "top100 variants with explicit Secret disposition",
+      "value": "171",
+      "total": "171",
+      "status": "good",
+      "source": "data/secret-lifecycle/variant-summary.csv",
+      "note": "Every surveyed top-100 variant has an explicit Secret stance: delivered, staged, observed, needs lane support, or not applicable."
+    },
+    {
+      "section": "secrets",
+      "metric": "Secret rows needing lifecycle lane support",
+      "value": "8",
+      "total": "71",
+      "status": "gap",
+      "source": "data/secret-lifecycle/secrets.csv",
+      "note": "Rendered Kubernetes lifecycle Secrets that need a staging receipt, controller observation, or explicit refusal before stronger live or production claims."
+    },
+    {
+      "section": "secrets",
+      "metric": "target-fact Secret rows",
+      "value": "28",
+      "total": "71",
+      "status": "partial",
+      "source": "data/secret-lifecycle/secrets.csv",
+      "note": "Secrets that must be present or staged in the target before the selected lane applies the rendered objects."
+    },
+    {
       "section": "hooks",
       "metric": "top100 source-scan hook charts",
       "value": "11",
@@ -1025,12 +1061,22 @@
     {
       "chart": "hashicorp/consul@2.0.0",
       "base": "secure-mesh-existing-secrets",
-      "current_result": "blocked",
-      "next_step_type": "target-fit-review",
-      "reason": "target-fit: minimum schedulable nodes not met",
-      "support_artifact": "recipes/hashicorp/consul/2.0.0/target-topology.yaml",
+      "current_result": "watch",
+      "next_step_type": "gitops-runtime-review",
+      "reason": "gitops-runtime: Argo health Progressing (parity passed)",
+      "support_artifact": "recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml",
       "rerun_command": "npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node"
+    },
+    {
+      "chart": "autoscaler/cluster-autoscaler@9.57.0",
+      "base": "default",
+      "current_result": "watch",
+      "next_step_type": "render-input-model",
+      "reason": "render-input: required Helm values missing (parity passed)",
+      "support_artifact": "recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml",
+      "receipt": "runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml",
+      "rerun_command": "npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base default"
     }
   ],
   "catalogEntries": [
@@ -12337,20 +12383,38 @@
   ],
   "liveParityRerunPlan": [
     {
-      "priority": "40",
+      "priority": "30",
       "lane": "configHub-oci-live-comparison",
       "chart": "hashicorp/consul",
       "version": "2.0.0",
       "base": "secure-mesh-existing-secrets",
-      "current_result": "blocked",
-      "reason": "target-fit: minimum schedulable nodes not met",
-      "next_step_type": "target-fit-review",
-      "rerun_readiness": "model-or-stage-first",
-      "diagnosis": "The base declares target-fit requirements: 3 schedulable nodes, persistent storage, ingress controller, gateway policy review. The base renders three Consul server replicas with pod anti-affinity, mesh gateway, ingress gateway, terminating gateway, UI ingress, injector webhook, and ACL init Job",
+      "current_result": "watch",
+      "reason": "gitops-runtime: Argo health Progressing (parity passed)",
+      "next_step_type": "gitops-runtime-review",
+      "rerun_readiness": "review-target-first",
+      "diagnosis": "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.",
       "rerun_command": "npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node",
-      "followup": "Use a target with the required platform behavior, or create a separate base that matches the proof target.",
-      "support_artifact": "recipes/hashicorp/consul/2.0.0/target-topology.yaml",
+      "followup": "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.",
+      "support_artifact": "recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
+    },
+    {
+      "priority": "60",
+      "lane": "two-cluster-kind-parity",
+      "chart": "autoscaler/cluster-autoscaler",
+      "version": "9.57.0",
+      "base": "default",
+      "current_result": "watch",
+      "reason": "render-input: required Helm values missing (parity passed)",
+      "next_step_type": "render-input-model",
+      "rerun_readiness": "model-or-stage-first",
+      "diagnosis": "Object parity passed, but the selected base did not render a functional workload because required Helm values were missing. Choose or create a values-profile base before rerunning.",
+      "rerun_command": "npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base default",
+      "followup": "Use a values-profile rerender base such as the reviewed controller base, or model the missing values in a new base before rerunning strict parity.",
+      "support_artifact": "recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml",
+      "receipt": "runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""
     }
