@@ -274,6 +274,21 @@ Redis demo:
 | [../tests/findings.md](../tests/findings.md) | Current runtime findings and guardrails. |
 | [../tests/adversarial-strategy.md](../tests/adversarial-strategy.md) | Adversarial usage-test methodology. |
 
+### Operating Skills
+
+These docs turn repeated hard-chart work into reusable operating knowledge for
+humans and agents. They are not product proof tables, and they do not create a
+dependency on Pilot or any other external demo runner.
+
+| File | Role |
+| --- | --- |
+| [skills/README.md](./skills/README.md) | Entry point for helm-expt operating skills and common rules. |
+| [skills/live-parity.md](./skills/live-parity.md) | How to run and classify live Helm-vs-ConfigHub parity, GitOps/OCI, kind, and cub-scout evidence. |
+| [skills/large-app-evidence-funnel.md](./skills/large-app-evidence-funnel.md) | How to break a 100+ Unit app into rendered, uploaded, pulled, synced, converged, and controller-health stages. |
+| [skills/target-facts-and-lifecycle.md](./skills/target-facts-and-lifecycle.md) | How to route existing Secrets, CRDs, APIService readiness, topology, storage, and generated runtime state. |
+| [skills/hook-and-secret-lifecycle.md](./skills/hook-and-secret-lifecycle.md) | How to classify Helm hooks and Secret lifecycle rows without claiming execution from render evidence. |
+| [skills/serious-chart-playbooks.md](./skills/serious-chart-playbooks.md) | Start points for kube-prometheus-stack, Consul, cert-manager, External Secrets, Loki, and Argo Workflows. |
+
 ### Planning, Review, And Communications
 
 These files support project planning, review, and public explanation. They are

@@ -30,7 +30,7 @@ function isExpectedMarkdownLocation(file) {
     file === 'CATALOG.md' ||
     file === 'site/README.md' ||
     file === 'docs/README.md' ||
-    /^docs\/(user|planning|reference|corpus)\/[^/]+\.md$/.test(file) ||
+    /^docs\/(user|planning|reference|corpus|skills)\/[^/]+\.md$/.test(file) ||
     /^docs\/planning\/archive\/[^/]+\.md$/.test(file) ||
     /^docs\/demo\/[^/]+\/[^/]+\.md$/.test(file) ||
     /^recipes\/[^/]+\/[^/]+\/[^/]+\/(README|CATALOG|weirdness-and-mitigations)\.md$/.test(file) ||
@@ -88,7 +88,7 @@ for (const file of markdownFiles) {
 
 const docMap = fs.readFileSync(DOC_MAP, 'utf8');
 const topLevelDocs = markdownFiles
-  .filter((file) => /^docs\/(user|planning|reference|corpus)\/[^/]+\.md$/.test(file))
+  .filter((file) => /^docs\/(user|planning|reference|corpus|skills)\/[^/]+\.md$/.test(file))
   .filter((file) => file !== 'docs/README.md');
 
 for (const file of topLevelDocs) {
