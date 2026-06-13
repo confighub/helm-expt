@@ -60,22 +60,26 @@ production, or refresh counts by hand in this plan.
 | Which compact work rows are next? | [data/next-ten-waves/summary.md](../../data/next-ten-waves/summary.md) |
 | Which top-20 production-support tasks can be assigned? | [data/production-support-decisions/work-items.csv](../../data/production-support-decisions/work-items.csv) |
 
-Current generated facts, at the time of this plan update:
+Current generated facts, at the time of this plan update
+(`2026-06-13`, after the Argo Rollouts live-parity receipts):
 
 ```text
 108/110 maintained chart rows have model support.
 20/100 top-100 charts are catalog-supported for the current public catalog scope.
 80/100 top-100 charts are proof-grade non-catalog rows.
-190/190 chart/base rows have render parity.
-60/190 chart/base rows have in-ConfigHub proof.
-134/190 chart/base rows have local live proof.
-25/190 chart/base rows have GitOps/OCI live proof.
-23/190 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
-23/190 chart/base rows have the complete core lane set.
+191/191 chart/base rows have render parity.
+155/191 chart/base rows have in-ConfigHub proof.
+138/191 chart/base rows have local live proof.
+72/191 chart/base rows have GitOps/OCI live proof.
+72/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
+71/191 chart/base rows have the complete core lane set.
 70/70 two-cluster kind parity rows pass semantic parity.
-22/42 top-20 base variants are start-here rows.
+38/42 top-20 base variants are start-here rows.
 17/20 top-20 charts have supported target-scoped production decisions; 2 are superseded source charts; 1 is rejected for the current target scope; 20/20 are production-review-ready.
 ```
+
+These numbers are a snapshot, not a second source of truth. The authoritative
+counts remain the generated sources named above.
 
 ## Current 99% Goal Shape
 
@@ -105,7 +109,7 @@ This matters more than a green dashboard. A correct `watch`, `blocked`,
 `refused`, or `n/a` cell is part of the product because it tells a user where
 the proof stops.
 
-The four working goals are:
+The four working goals are still the right shape for the launch push:
 
 | Goal | Meaning | Evidence |
 | --- | --- | --- |
@@ -144,13 +148,59 @@ I know what is safe today.
 I know what still needs a decision.
 ```
 
+## Current Launch Workstreams
+
+The next work should be organized by user outcome, not by whichever generator is
+nearest to hand.
+
+| Workstream | Owner lane | Done when |
+| --- | --- | --- |
+| Public website | Product/site lane | A first-time Helm user can land on the site, choose a path, inspect a chart, understand free versus managed use, and see live proof without reading planning docs. |
+| Top-100 catalog completion | Dataset/catalog lane | Every top-100 chart has a user route, a recommended first base or a reason it lacks one, hook/quirk disposition, production-scope status, and a next action. |
+| Hard-chart live proof | Live evidence lane | Kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, and at least one stateful Bitnami chart have current live proof for their important base routes and lifecycle boundaries. |
+| Variant and operations story | Product proof lane | A user can see when to use a base variant, when to use a derived ConfigHub variant, and when a change must be handled as a delivery prerequisite or managed overlay. |
+| Sceptic proofing | Adversarial lane | Claims register, blast-radius accuracy, hook dispositions, environment matrix, torture fixtures, refresh survival, and upgrade evidence all name their limits and next tests. |
+
+The website must not present proof machinery as the product. The public flow
+should be:
+
+```text
+choose chart
+choose supported base
+inspect exact objects
+verify the proof
+upload or deliver through ConfigHub
+operate with variants, scans, approvals, observations
+```
+
+Receipts stay underneath that flow. They are linked for trust and audit, not
+used as the first-screen explanation.
+
 | Priority | Work | Why it matters | Evidence to update |
 | --- | --- | --- | --- |
-| 1 | Close top-20 production-support work items. | The catalog is useful only when a user can see which bases are supported for a target scope and what remains before production use. | `data/production-support-decisions/work-items.csv`, per-chart `catalog-status.yaml`, target-scoped receipts. |
-| 2 | Make kube-prometheus-stack the serious-chart proof. | It exercises high object count, CRDs, webhooks, RBAC, generated facts, extension slots, and large blast radius. It is the best answer to "does this survive real Helm complexity?" | `docs/user/prometheus-high-fanout.md`, `data/production-support-decisions/summary.md`, live and lifecycle receipts for the monitoring scope. |
-| 3 | Expand field reachability beyond Redis. | Helm's root problem is forgetful 1-to-many generation. Recovered graph edges now cover the top-20 catalog; the next gap is mapping more rendered fields back to values, generated facts, and target facts. | `data/edge-recovery/edges.csv`, per-chart `inheritance-graph.yaml`, value-source maps. |
-| 4 | Finish hook and lifecycle observations for maintained hook charts. | Hook inventory is not enough. Users need to know whether lifecycle behavior is skipped, blocked, mapped, or observed. | `data/hook-lifecycle/summary.md`, `data/lifecycle-boundary/summary.md`, lifecycle execution or observation receipts. |
-| 5 | Keep the public path short. | A new Helm user should understand the offering, pick a base variant, run the command, and know what proof they have without reading the planning corpus. | `README.md`, `CATALOG.md`, `docs/user/try-now.md`, `docs/user/current-proof-status.md`, generated site pages. |
+| 1 | Turn the public site into the launch front door. | The repo has too much internal proof context for a first-time user. The website must carry the simple product story: why, what, how, proof, limits, and upgrade path. | `site/*.html`, `scripts/generate-public-site.mjs`, `docs/planning/dedicated-website-plan.md`, `docs/user/offering.md`. |
+| 2 | Close more complete-core rows in the master matrix. | The main proof gap is no longer render parity. It is live GitOps/OCI and strict Helm-vs-ConfigHub parity across more important rows. | `data/master-catalog-matrix/matrix.html`, `data/outcome-coverage/base-outcomes.csv`, `runs/live-helm-confighub-compare/`. |
+| 3 | Make kube-prometheus-stack the serious-chart proof. | It exercises high object count, CRDs, webhooks, RBAC, generated facts, extension slots, and large blast radius. It is the best answer to "does this survive real Helm complexity?" | `docs/user/prometheus-high-fanout.md`, `data/hard-chart-production-packets/`, live and lifecycle receipts for the monitoring scope. |
+| 4 | Close top-20 production-support work items. | The catalog is useful only when a user can see which bases are supported for a target scope and what remains before production use. | `data/production-support-decisions/work-items.csv`, per-chart `catalog-status.yaml`, target-scoped receipts. |
+| 5 | Expand field reachability beyond Redis and KPS. | Helm's root problem is forgetful 1-to-many generation. The next gap is mapping more rendered fields back to values, generated facts, target facts, and extension slots. | `data/edge-recovery/edges.csv`, per-chart `inheritance-graph.yaml`, value-source maps, `data/blast-radius-accuracy/`. |
+| 6 | Finish hook and lifecycle observations for maintained hook charts. | Hook inventory is not enough. Users need to know whether lifecycle behavior is skipped, blocked, mapped, or observed. | `data/hook-lifecycle/summary.md`, `data/hook-disposition/summary.md`, `data/lifecycle-boundary/summary.md`, lifecycle execution or observation receipts. |
+| 7 | Keep the public path short. | A new Helm user should understand the offering, pick a base variant, run the command, and know what proof they have without reading the planning corpus. | `README.md`, `CATALOG.md`, `docs/user/try-now.md`, `docs/user/current-proof-status.md`, generated site pages. |
+
+## Parallel Work Split
+
+Use separate branches or worktrees. Do not run live lanes concurrently.
+
+| Lane | Good for Codex | Good for Claude |
+| --- | --- | --- |
+| Live evidence | Serial live parity, ConfigHub/OCI runs, hard chart runtime diagnosis, committing receipts, refreshing generated surfaces. | Static analysis of failed receipts, route proposals, issue comments, small verifier improvements that do not create clusters. |
+| Dataset/catalog | Merging generated evidence after live runs, resolving model defects found by live proof. | Top-100 useful-base design, hook/quirk table audits, field-reachability maps, CSV consistency work. |
+| Website/product | Final review and merge, because it touches generated site files and public messaging. | Drafting page sections, copy tests, persona walkthroughs, outside-user review scripts, site information architecture. |
+| Sceptic proof | Live upgrade or lifecycle tests where a cluster is required. | Torture fixtures, blast-radius cases, claims-register gaps, environment matrix expansion, issue triage. |
+
+Claude should avoid the live parity runner unless explicitly assigned the live
+lane for a window. When Claude works on site or dataset changes, it should open
+PRs and state which generated files it touched so the live lane can regenerate
+after merge if needed.
 
 The 99% product target is the persistent ConfigHub graph. helm-expt should feed
 that graph by producing chart, variant, provenance, quirk, and receipt data that
