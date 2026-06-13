@@ -454,6 +454,12 @@ function html(catalog) {
         <p>The narrow-claims register: what is proven, what is partial, what we will not say. Every public statement maps to a verifier you can run.</p>
         <span class="go"><a href="../data/claims-register/summary.md">Claims → evidence register →</a></span>
       </div>
+      <div class="door">
+        <span class="kicker">Challenge it</span>
+        <h3><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Send a problem chart</a></h3>
+        <p>If a public chart, values file, hook, CRD, or live behavior breaks the model, send it. The response should be a fixture, receipt, named refusal, or routed gap.</p>
+        <span class="go"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open the issue template →</a></span>
+      </div>
     </div>
     <p><a href="https://artifacthub.io/" rel="noopener">Artifact Hub</a> answers what exists and who published it. <a href="https://helm.sh/" rel="noopener">Helm</a> renders and installs it. This catalog adds a per-chart, per-variant <strong>proof</strong> chain — rendered, uploaded, applied, observed, compared, with a receipt for each step.</p>
     <h2>The chain of proof</h2>
@@ -1884,7 +1890,7 @@ function siteCss() {
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
-    .doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
