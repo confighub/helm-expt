@@ -1,0 +1,364 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: percona-psmdb-operator-1.22.0-default-live-parity-20260605
+spec:
+  chart: percona/psmdb-operator
+  version: 1.22.0
+  base: default
+  result: pass
+  observedAt: '2026-06-13T08:48:25Z'
+  package:
+    path: packages/percona/psmdb-operator/1.22.0
+  recipe:
+    path: recipes/percona/psmdb-operator/1.22.0
+  variantRevision: recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-psmdboperator-mqc456we-1w2u
+    kubeContext: kind-helm-expt-parity-psmdboperator-mqc456we-1w2u
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-psmdboperator-mqc456we-1w2u --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-psmdboperator-mqc456we-1w2u"...
+
+        Deleting cluster "helm-expt-parity-psmdboperator-mqc456we-1w2u" ...
+
+        Deleted nodes: ["helm-expt-parity-psmdboperator-mqc456we-1w2u-control-plane"]
+
+        Deleting Space "helm-expt-parity-psmdboperator-mqc456we-1w2u-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install psmdb-operator psmdb-operator --repo https://percona.github.io/percona-helm-charts/
+        --version 1.22.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-psmdb-operator-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936
+      objectCount: 7
+      liveHelmManifestSHA256: 19d6b86fb1958d9eac9085a435f16a3ae4ecefa98d90344c10c1ffe289830873
+      liveHelmManifestObjectCount: 4
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/psmdb-operator   1/1   1     1     18s
+        pods: psmdb-operator-5456d9f659-qtp89   1/1   Running   0     18s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/psmdb-operator/1.22.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-psmdboperator-mqc456we-1w2u-psmdb-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 1234e351f393f889577177c0fa2cda3134be26f2d80b3c4ba84e0f1c6d4b386a
+      objectCount: 8
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/psmdb-operator   1/1   1     1     10s'
+        pods: '# default
+
+          psmdb-operator-5f59944ccb-pjg4w   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'customresourcedefinition.apiextensions.k8s.io "perconaservermongodbbackups.psmdb.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "perconaservermongodbrestores.psmdb.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "perconaservermongodbs.psmdb.percona.com"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|psmdb-operator
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|service-account-psmdb-operator
+          - rbac.authorization.k8s.io/v1|Role|default|psmdb-operator
+          - v1|ServiceAccount|default|psmdb-operator
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-psmdboperator-mqc456we-1w2u-psmdb-operator
+      controller: Argo CD OCI
+      app: psmdb-operator-parity
+      manifestSHA256: 7ac1936b19368f1d22d4b417e30613c984d86b8cb7a021f6b3d025f91802ff71
+      objectCount: 8
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:934b648f2ea6c223e3199a61d7fdb79d1ab0018d3952ffa28f081662becbe71a
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-psmdboperator-mqc456we-1w2u-psmdb-operator
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-psmdboperator-mqc456we-1w2u-cluster/oci
+              targetRevision: latest
+          revision: sha256:934b648f2ea6c223e3199a61d7fdb79d1ab0018d3952ffa28f081662becbe71a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T08:51:20Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: psmdb-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconaservermongodbbackups.psmdb.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconaservermongodbrestores.psmdb.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconaservermongodbs.psmdb.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: psmdb-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: psmdb-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: service-account-psmdb-operator
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-psmdboperator-mqc456we-1w2u-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-psmdboperator-mqc456we-1w2u-cluster/oci
+              targetRevision: latest
+          revision: sha256:934b648f2ea6c223e3199a61d7fdb79d1ab0018d3952ffa28f081662becbe71a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T08:49:29Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-psmdboperator-mqc456we-1w2u-cluster
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: psmdb-operator-parity
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/psmdb-operator   1/1   1     1     98s'
+        pods: '# default
+
+          psmdb-operator-5f59944ccb-pjg4w   1/1   Running   0     98s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-psmdboperator-mqc456we-1w2u\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-psmdboperator-mqc456we-1w2u.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-psmdboperator-mqc456we-1w2u\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-psmdboperator-mqc456we-1w2u\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-psmdboperator-mqc456we-1w2u\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-psmdboperator-mqc456we-1w2u.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"psmdb-operator\" does not exist. Installing it now.\nNAME:\
+      \ psmdb-operator\nLAST DEPLOYED: Sat Jun 13 09:49:26 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\n1. Percona Operator for MongoDB is deployed.\n  See if the operator\
+      \ Pod is running:\n\n    kubectl get pods -l app.kubernetes.io/name=psmdb-operator\
+      \ --namespace default-helm\n\n  Check the operator logs if the Pod is not starting:\n\
+      \n    export POD=$(kubectl get pods -l app.kubernetes.io/name=psmdb-operator\
+      \ --namespace default-helm --output name)\n    kubectl logs $POD --namespace=default-helm\n\
+      \n2. Deploy the database cluster from psmdb-db chart:\n\n    helm install my-db\
+      \ percona/psmdb-db --namespace=default-helm\n\nRead more in our documentation:\
+      \ https://docs.percona.com/percona-operator-for-mongodb/"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/psmdb-operator   1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

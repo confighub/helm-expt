@@ -61,7 +61,8 @@ production, or refresh counts by hand in this plan.
 | Which top-20 production-support tasks can be assigned? | [data/production-support-decisions/work-items.csv](../../data/production-support-decisions/work-items.csv) |
 
 Current generated facts, at the time of this plan update
-(`2026-06-13`, after the External DNS default and no-crds live-parity receipts):
+(`2026-06-13`, after the Argo Events no-crds and Percona PSMDB Operator
+default live-parity receipts):
 
 ```text
 108/110 maintained chart rows have model support.
@@ -70,9 +71,9 @@ Current generated facts, at the time of this plan update
 191/191 chart/base rows have render parity.
 155/191 chart/base rows have in-ConfigHub proof.
 138/191 chart/base rows have local live proof.
-75/191 chart/base rows have GitOps/OCI live proof.
-75/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
-74/191 chart/base rows have the complete core lane set.
+76/191 chart/base rows have GitOps/OCI live proof.
+76/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
+75/191 chart/base rows have the complete core lane set.
 70/70 two-cluster kind parity rows pass semantic parity.
 38/42 top-20 base variants are start-here rows.
 17/20 top-20 charts have supported target-scoped production decisions; 2 are superseded source charts; 1 is rejected for the current target scope; 20/20 are production-review-ready.
