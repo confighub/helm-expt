@@ -275,8 +275,8 @@ chart/base rows:                          191
 helm_template_vs_installer_setup:         191 pass, 0 missing
 confighub_upload_variant_scan_safe_ops:   155 pass, 36 missing
 local_kind_kubectl_apply:                 138 pass
-confighub_oci_argo_live:                   81 pass
-live_helm_vs_confighub_dual_compare:       81 pass, 1 render-input watch, 2 target-fit blocked
+confighub_oci_argo_live:                   83 pass
+live_helm_vs_confighub_dual_compare:       83 pass, 0 watch, 1 target-fit blocked
 two_cluster_kind_parity:                   70 pass, 0 watch, 0 blocked
 ```
 
@@ -298,12 +298,10 @@ GitOps/OCI live proof has started:
 Live Helm-vs-ConfigHub parity is selected-row evidence:
 
 - The selected live comparison lane has 84 committed receipts.
-- 81 rows pass, 1 row is a render-input watch, and 2 rows are blocked by
+- 83 rows pass and 1 row is blocked by
   target-fit decisions.
-- The watch row is cluster-autoscaler, where parity passes but a useful
-  controller base still needs real autoscaling values.
-- The blocked rows are Consul secure mesh and Logstash HA on a one-node proof
-  target; those bases require at least three schedulable nodes.
+- The blocked row is Consul secure mesh. It still needs a proof target that
+  provides the declared target shape before this lane can make a pass claim.
 - Across the full 191-row lane matrix, rows without this receipt remain backlog
   for this lane. That is planned work, not failed work.
 - The comparison checks regular Helm against ConfigHub delivery and records the
@@ -325,12 +323,10 @@ Use the generated rerun plan for the next command and expected remediation:
 For the shortest active queue, use:
 [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv).
 
-The current rerun queue has 1 render-input row, 2 active target-fit rows, and
-no semantic parity defects. The render-input row is cluster-autoscaler, where a
-useful controller base needs real autoscaling values. The target-fit rows are
-the Consul secure-mesh and Logstash HA bases, where the proof target must
-provide at least three schedulable nodes before the live comparison can make a
-pass claim.
+The current rerun queue has 1 active target-fit row and no semantic parity
+defects. The remaining row is Consul secure mesh, where the proof target must
+provide the declared target shape before the live comparison can make a pass
+claim.
 
 Production support decisions are now explicit for the top-20 catalog:
 

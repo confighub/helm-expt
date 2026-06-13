@@ -70,8 +70,8 @@ Current generated facts, at the time of this plan update
 191/191 chart/base rows have render parity.
 155/191 chart/base rows have in-ConfigHub proof.
 138/191 chart/base rows have local live proof.
-82/191 chart/base rows have GitOps/OCI live proof.
-82/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
+83/191 chart/base rows have GitOps/OCI live proof.
+83/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
 81/191 chart/base rows have the complete core lane set.
 70/70 two-cluster kind parity rows pass semantic parity.
 38/42 top-20 base variants are start-here rows.
@@ -84,7 +84,7 @@ counts remain the generated sources named above.
 The current live parity rerun queue is deliberately small:
 
 ```text
-2 target-fit blocked rows
+1 target-fit blocked row
 0 render-input watch rows
 0 semantic parity defects
 ```
@@ -238,7 +238,7 @@ These are the blockers that matter more than adding easy green cells:
 
 | Blocker | Why it matters | Current route |
 | --- | --- | --- |
-| Logstash HA and Consul secure-mesh target-fit rows | They are the only current selected live parity non-pass rows; both need a target with at least three schedulable nodes or an honest target-scope decision. | `data/live-parity-rerun-plan/summary.md`, `target-topology.yaml` in each recipe. |
+| Consul secure-mesh target-fit row | It is the only current selected live parity non-pass row. It needs a target with the declared target shape or an honest target-scope decision. | `data/live-parity-rerun-plan/summary.md`, `recipes/hashicorp/consul/2.0.0/target-topology.yaml`. |
 | Argo Workflows CRD hook/default split | It is a real example of "hooks are the install"; the default omits CRDs unless the hook route or a minimal-CRDs base is used. | issue `#643`, hook/lifecycle and useful-base lanes. |
 | ConfigHub bulk unit-create failures | Several next80 rows are blocked by server-side `unit create` or bulk-create failures rather than chart semantics. | issue `#645`; keep rows partial until the server issue is resolved. |
 | Mutable image tags | OCI artifact integrity does not fully bind runtime if rendered image tags float. | issue `#99`, image digest workdown. |

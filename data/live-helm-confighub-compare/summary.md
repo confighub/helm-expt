@@ -6,16 +6,16 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 82
+pass: 83
 watch: 0
-blocked: 2
+blocked: 1
 not-started: 0
 ```
 
 Blocked rows broken down by cause (see `blocked-triage.md`):
 
 ```text
-target-fit: minimum schedulable nodes not met: 2
+target-fit: minimum schedulable nodes not met: 1
 ```
 
 | Rank | Chart | Base | Result | Reason | Receipt |
@@ -75,7 +75,7 @@ target-fit: minimum schedulable nodes not met: 2
 |  | `elastic/eck-operator@3.4.0` | ha | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-ha/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | no-crds | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-no-crds/receipt.yaml |
 |  | `elastic/logstash@8.5.1` | default | pass | - | runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml |
-|  | `elastic/logstash@8.5.1` | ha | blocked | target-fit: minimum schedulable nodes not met | runs/live-helm-confighub-compare/elastic-logstash-ha/receipt.yaml |
+|  | `elastic/logstash@8.5.1` | ha | pass | - | runs/live-helm-confighub-compare/elastic-logstash-ha/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | default | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-default/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | no-crds | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-no-crds/receipt.yaml |

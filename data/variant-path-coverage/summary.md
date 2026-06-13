@@ -8,7 +8,7 @@ ConfigHub variant, or an upgrade/customization path.
 ## Rows By Path Type
 
 - base-to-base-diff: 2
-- base-variant: 189
+- base-variant: 191
 - derived-confighub-variant: 10
 - upgrade-simulation: 4
 
@@ -23,13 +23,12 @@ ConfigHub variant, or an upgrade/customization path.
 
 ## Rows By Live Status
 
-- blocked: 34
-- fail: 23
+- blocked: 35
+- fail: 18
 - not-attempted: 10
 - not-tested: 4
 - not-tested-by-diff: 2
-- pass: 130
-- watch: 2
+- pass: 138
 
 ## Live Status Meanings
 
@@ -47,12 +46,12 @@ ConfigHub variant, or an upgrade/customization path.
 
 | Chart | Path | Type | Live status | Remaining gap |
 | --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `argo-cd/argo-workflows@1.0.14` | `controller-default-reviewed` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `argo-cd/argo-workflows@1.0.14` | `default` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `autoscaler/vertical-pod-autoscaler@0.9.0` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `autoscaler/vertical-pod-autoscaler@0.9.0` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | `default` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `argo-cd/argo-cd@9.5.15` | `no-crds` | base-variant | blocked | local_kind_kubectl_apply |
+| `argo-cd/argo-workflows@1.0.14` | `controller-default-reviewed` | base-variant | blocked | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `argo-cd/argo-workflows@1.0.14` | `default` | base-variant | blocked | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | `default` | base-variant | blocked | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | `no-crds` | base-variant | blocked | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | `default` | base-variant | fail | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/apache@11.4.29` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/contour@21.1.4` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/contour@21.1.4` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |

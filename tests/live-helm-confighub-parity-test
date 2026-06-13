@@ -142,14 +142,27 @@ def release_live_parity_lock(lock_path: Path | None) -> None:
         shutil.rmtree(lock_path, ignore_errors=True)
 
 
-def teardown_rig(rig: str) -> tuple[bool, str]:
+def cluster_manager_for_profile(profile: str) -> str:
+    return "cluster" if profile == "kind-three-node" else "lk"
+
+
+def cluster_kubeconfig_for_profile(profile: str, rig: str) -> Path:
+    home = Path.home()
+    if profile == "kind-three-node":
+        return home / ".confighub" / "clusters" / f"{rig}.kubeconfig"
+    return home / ".confighub" / "lk" / f"{rig}.kubeconfig"
+
+
+def teardown_rig(rig: str, manager: str = "lk") -> tuple[bool, str]:
     # Authoritative teardown: cub lk down --force, then an unconditional kind/docker
     # fallback so a stuck control-plane container cannot leak. Reports clean only if
     # the cluster is actually gone afterward.
-    rc, out, err = sh(["cub", "lk", "down", "--name", rig, "--force"], timeout=600)
+    rc, out, err = sh(["cub", manager, "down", "--name", rig, "--force"], timeout=600)
     detail = (err or out)[:1000]
     sh(["kind", "delete", "cluster", "--name", rig], timeout=180)
-    sh(["docker", "rm", "-f", f"{rig}-control-plane"], timeout=120)
+    rc_ids, ids, _ = sh(["docker", "ps", "-aq", "--filter", f"name={rig}"], timeout=60)
+    if rc_ids == 0 and ids.strip():
+        sh(["docker", "rm", "-f", *ids.split()], timeout=120)
     rc_check, clusters, _ = sh(["kind", "get", "clusters"], timeout=60)
     gone = rc_check == 0 and rig not in clusters.split()
     return (rc == 0 or gone), detail
@@ -840,6 +853,9 @@ def schedulable_node_count(kubeconfig: Path, context: str) -> int:
         spec = item.get("spec") or {}
         if spec.get("unschedulable") is True:
             continue
+        taints = spec.get("taints") or []
+        if any(taint.get("effect") in ("NoSchedule", "NoExecute") for taint in taints):
+            continue
         count += 1
     return count
 
@@ -1136,6 +1152,23 @@ def delete_namespace_if_safe(namespace: str, kubeconfig: Path, context: str) -> 
 def install_target_profile(profile: str, kubeconfig: Path, context: str, run_root: Path) -> dict:
     if profile in ("", "none"):
         return {"name": "none", "result": "pass", "resources": []}
+    if profile == "kind-three-node":
+        observed_nodes = schedulable_node_count(kubeconfig, context)
+        profile_receipt = {
+            "name": profile,
+            "result": "pass" if observed_nodes >= 3 else "blocked",
+            "resources": [f"node/{index}" for index in range(1, observed_nodes + 1)],
+            "observedSchedulableNodes": observed_nodes,
+            "observedBehavior": "The proof target has at least three schedulable worker nodes for bases with hard pod anti-affinity or quorum topology.",
+        }
+        write_yaml(run_root / f"target-profile-{profile}.yaml", {
+            "apiVersion": "helm-expt.confighub.com/v1alpha1",
+            "kind": "TargetProfileReceipt",
+            "spec": profile_receipt,
+        })
+        if profile_receipt["result"] != "pass":
+            raise RuntimeError(f"target profile {profile} requires at least 3 schedulable nodes; found {observed_nodes}")
+        return profile_receipt
     if profile == "kind-loadbalancer":
         return install_kind_loadbalancer_profile(kubeconfig, context, run_root)
     if profile != "kind-ingress-nginx":
@@ -1741,7 +1774,7 @@ def main() -> int:
     parser.add_argument("--rig", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--wait", default="8m")
-    parser.add_argument("--target-profile", default="none", choices=["none", "kind-ingress-nginx", "kind-loadbalancer"])
+    parser.add_argument("--target-profile", default="none", choices=["none", "kind-ingress-nginx", "kind-loadbalancer", "kind-three-node"])
     parser.add_argument("--gitops-canonicalization-profile", default="none", choices=["none", "k8s-zero-defaults"])
     parser.add_argument(
         "--lock-timeout-seconds",
@@ -1763,7 +1796,8 @@ def main() -> int:
     run_root = out_path.parent
     rig = args.rig
     context = f"kind-{rig}"
-    kubeconfig = Path.home() / ".confighub" / "lk" / f"{rig}.kubeconfig"
+    cluster_manager = cluster_manager_for_profile(args.target_profile)
+    kubeconfig = cluster_kubeconfig_for_profile(args.target_profile, rig)
     cluster_space = f"{rig}-cluster"
     target = f"{cluster_space}/oci"
     workdir = Path("/tmp") / f"helm-expt-live-parity-{rig}-{args.slug}"
@@ -1844,21 +1878,24 @@ def main() -> int:
         write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
         helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
 
-        mark_stage("cub-lk-up")
+        mark_stage("cluster-up")
         prune_parity_leaks()
         rc, out, err = 1, "", ""
+        cub_lk_up = ["cub", cluster_manager, "up", "--name", rig, "--no-ports"]
+        if args.target_profile == "kind-three-node":
+            cub_lk_up.extend(["--worker-nodes", "3"])
         for attempt in range(1, 3):
-            rc, out, err = sh(["cub", "lk", "up", "--name", rig, "--no-ports"], timeout=900)
+            rc, out, err = sh(cub_lk_up, timeout=900)
             if rc == 0:
                 break
             # Transient kind create / bootstrap failure: tear the partial rig down
             # and retry once on a pruned host before giving up.
-            teardown_rig(rig)
+            teardown_rig(rig, cluster_manager)
             prune_parity_leaks()
         if rc != 0:
-            raise RuntimeError(f"cub lk up failed after retries: {(err or out)[:1000]}")
+            raise RuntimeError(f"cub {cluster_manager} up failed after retries: {(err or out)[:1000]}")
         receipt["spec"]["run"]["clusterLifecycle"] = "created"
-        check_item("cub-lk-up", "pass", out or "cub lk up passed")
+        check_item("cluster-up", "pass", out or f"cub {cluster_manager} up passed")
 
         mark_stage("target-profile")
         target_profile = install_target_profile(args.target_profile, kubeconfig, context, run_root)
@@ -2392,11 +2429,11 @@ def main() -> int:
                 for cmd in cleanup_commands:
                     rc, _, _ = sh(cmd, timeout=180)
                     cleanup_ok = cleanup_ok and rc == 0
-                down_ok, down_detail = teardown_rig(rig)
+                down_ok, down_detail = teardown_rig(rig, cluster_manager)
                 cleanup_ok = cleanup_ok and down_ok
                 receipt["spec"]["run"]["clusterLifecycle"] = "cleaned-up" if down_ok else "cleanup-failed"
                 receipt["spec"]["run"]["cleanup"] = {
-                    "command": f"cub lk down --name {rig} --force",
+                    "command": f"cub {cluster_manager} down --name {rig} --force",
                     "result": "pass" if cleanup_ok else "blocked",
                     "detail": down_detail,
                 }

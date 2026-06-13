@@ -104,11 +104,7 @@ function allLiveComparisonReceiptRows() {
 }
 
 function rerunCommandForConfigHubOci(row) {
-  return `npm run live-parity:top20 -- --chart ${liveTargetSlug(row.chart)} --base ${row.variant}${repoUrlFlag(row)}${targetProfileFlag(row)} --continue-on-fail`;
-}
-
-function liveTargetSlug(chart) {
-  return String(chart ?? "").split("/").at(-1);
+  return `npm run live-parity:run -- --recipe recipes/${row.chart}/${row.version} --base ${row.variant}${repoUrlFlag(row)}${targetProfileFlag(row)}`;
 }
 
 function twoClusterRows() {
@@ -157,6 +153,7 @@ function repoUrlOverrideFor(row) {
 }
 
 function targetProfileFlag(row) {
+  if (minimumSchedulableNodes(row) >= 3) return " --target-profile kind-three-node";
   if (
     row.chart === "ingress-nginx/ingress-nginx" &&
     ["default", "admission-disabled"].includes(row.variant ?? row.base)
@@ -164,6 +161,26 @@ function targetProfileFlag(row) {
     return " --target-profile kind-loadbalancer";
   }
   return "";
+}
+
+function minimumSchedulableNodes(row) {
+  const topologyPath = join(repoRoot, "recipes", row.chart ?? "", row.version ?? "", "target-topology.yaml");
+  if (!existsSync(topologyPath)) return 0;
+  const topology = readYaml(topologyPath);
+  const baseKey = variantKeyForTopology(row.variant ?? row.base);
+  const bases = topology.spec?.bases ?? {};
+  const direct = bases[baseKey]?.targetFit?.minimumSchedulableNodes;
+  if (direct) return Number(direct);
+  for (const value of Object.values(bases)) {
+    if (value?.variant === (row.variant ?? row.base) && value?.targetFit?.minimumSchedulableNodes) {
+      return Number(value.targetFit.minimumSchedulableNodes);
+    }
+  }
+  return 0;
+}
+
+function variantKeyForTopology(value) {
+  return String(value ?? "").replaceAll(/-([a-z])/g, (_match, letter) => letter.toUpperCase());
 }
 
 function classifyLiveComparisonReason(spec) {
@@ -256,7 +273,7 @@ function diagnosisForConfigHubOci(row) {
     return "Semantic parity already passed; rerun with right-sized Helm readiness waits or classify as watch if upstream Helm stays pending.";
   }
   if (row.reason?.startsWith("target-fit:")) {
-    return "Semantic parity and workload readiness passed, but the proof target lacks a required platform behavior such as LoadBalancer external IP assignment.";
+    return targetTopologyDiagnosis(row) ?? "Semantic parity passed, but the proof target lacks a platform behavior required by this base.";
   }
   if (row.reason?.startsWith("render-input:")) {
     return "Semantic object parity passed, but the selected base did not render a functional workload because required Helm values were not modeled.";
@@ -268,6 +285,31 @@ function diagnosisForConfigHubOci(row) {
     return "Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior.";
   }
   return "Inspect receipt before rerun.";
+}
+
+function targetTopologyDiagnosis(row) {
+  const topologyPath = join(repoRoot, "recipes", row.chart ?? "", row.version ?? "", "target-topology.yaml");
+  if (!existsSync(topologyPath)) return "";
+  const topology = readYaml(topologyPath);
+  const baseKey = variantKeyForTopology(row.variant ?? row.base);
+  const base = topology.spec?.bases?.[baseKey] ?? Object.values(topology.spec?.bases ?? {})
+    .find((value) => value?.variant === (row.variant ?? row.base));
+  const fit = base?.targetFit;
+  if (!fit) return "";
+  const requirements = [];
+  if (fit.minimumSchedulableNodes) requirements.push(`${fit.minimumSchedulableNodes} schedulable nodes`);
+  if (fit.requiresPersistentStorage) requirements.push("persistent storage");
+  if (fit.requiresIngressController) requirements.push("ingress controller");
+  if (fit.requiresGatewayPolicyReview) requirements.push("gateway policy review");
+  const prefix = requirements.length > 0
+    ? `The base declares target-fit requirements: ${requirements.join(", ")}.`
+    : "The base declares target-fit requirements.";
+  return fit.reason ? `${prefix} ${capitalizeSentence(fit.reason)}` : prefix;
+}
+
+function capitalizeSentence(value) {
+  const text = String(value ?? "");
+  return text ? `${text[0].toUpperCase()}${text.slice(1)}` : "";
 }
 
 function followupForConfigHubOci(row) {

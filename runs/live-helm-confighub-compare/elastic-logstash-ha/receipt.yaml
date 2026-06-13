@@ -6,22 +6,30 @@ spec:
   chart: elastic/logstash
   version: 8.5.1
   base: ha
-  result: blocked
-  observedAt: '2026-06-13T09:31:27Z'
+  result: pass
+  observedAt: '2026-06-13T12:35:49Z'
   package:
     path: packages/elastic/logstash/8.5.1
   recipe:
     path: recipes/elastic/logstash/8.5.1
   variantRevision: recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml
   targetProfile:
-    name: none
+    name: kind-three-node
     result: pass
-    resources: []
+    resources:
+    - node/1
+    - node/2
+    - node/3
+    observedSchedulableNodes: 3
+    observedBehavior: The proof target has at least three schedulable worker nodes
+      for bases with hard pod anti-affinity or quorum topology.
   gitOpsCanonicalizationProfile:
     name: none
+    result: pass
+    changes: []
   run:
-    rig: helm-expt-parity-logstash-mqc5ojbd-1wze
-    kubeContext: kind-helm-expt-parity-logstash-mqc5ojbd-1wze
+    rig: helm-expt-parity-logstash-mqcc9mdq-g5o
+    kubeContext: kind-helm-expt-parity-logstash-mqcc9mdq-g5o
     namespace: default
     legNamespaces:
       regularHelm: default-helm
@@ -29,48 +37,308 @@ spec:
       configHubOciArgo: default-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-logstash-mqc5ojbd-1wze --force
+      command: cub cluster down --name helm-expt-parity-logstash-mqcc9mdq-g5o --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-logstash-mqc5ojbd-1wze"...
+      detail: 'Deleting kind cluster "helm-expt-parity-logstash-mqcc9mdq-g5o"...
 
-        Deleting cluster "helm-expt-parity-logstash-mqc5ojbd-1wze" ...
+        Deleting cluster "helm-expt-parity-logstash-mqcc9mdq-g5o" ...
 
-        Deleted nodes: ["helm-expt-parity-logstash-mqc5ojbd-1wze-control-plane"]
+        Deleted nodes: ["helm-expt-parity-logstash-mqcc9mdq-g5o-worker3" "helm-expt-parity-logstash-mqcc9mdq-g5o-control-plane"
+        "helm-expt-parity-logstash-mqcc9mdq-g5o-worker2" "helm-expt-parity-logstash-mqcc9mdq-g5o-worker"]
 
-        Deleting Space "helm-expt-parity-logstash-mqc5ojbd-1wze-cluster" (recursive:
+        Deleting Space "helm-expt-parity-logstash-mqcc9mdq-g5o-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
         Done.'
-  legs: {}
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install logstash logstash --repo https://helm.elastic.co
+        --version 8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-logstash-ha/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70
+      objectCount: 3
+      liveHelmManifestSHA256: 1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd
+      liveHelmManifestObjectCount: 3
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: statefulset.apps/logstash-logstash   1/1   2m10s
+        pods: logstash-logstash-0   1/1   Running   0     2m10s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/logstash/8.5.1
+        --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-logstash-mqcc9mdq-g5o-logstash
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 01e5629be611888632cac792d0b661c1da16ea40fc5fc023998e0de655210d2c
+      objectCount: 4
+      namespace: default-apply
+      manifestNamespaces:
+      - default-apply
+      runtimeNamespaces: &id001
+      - default-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default-apply
+
+          statefulset.apps/logstash-logstash   3/3   3m13s'
+        pods: '# default-apply
+
+          logstash-logstash-0   1/1   Running   0     3m13s
+
+          logstash-logstash-1   1/1   Running   0     3m13s
+
+          logstash-logstash-2   1/1   Running   0     3m13s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-logstash-mqcc9mdq-g5o-logstash
+      controller: Argo CD OCI
+      app: logstash-parity
+      manifestSHA256: 38a5dd0238134c1e9017b137e7b304bc614758c445881db20cff09b82d42fea5
+      objectCount: 4
+      namespace: default-oci
+      manifestNamespaces:
+      - default-oci
+      runtimeNamespaces: &id002
+      - default-oci
+      ociRevision: sha256:dd8554099134cdf0a444a300e5e27401885ec008b75018897eba0c0a812245fd
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-logstash-mqcc9mdq-g5o-logstash
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-logstash-mqcc9mdq-g5o-cluster/oci
+              targetRevision: latest
+          revision: sha256:dd8554099134cdf0a444a300e5e27401885ec008b75018897eba0c0a812245fd
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T12:50:39Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default-oci
+          name: logstash-logstash-headless
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default-oci
+          name: logstash-logstash
+          status: Synced
+          health: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default-oci
+          name: logstash-logstash-pdb
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-logstash-mqcc9mdq-g5o-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-logstash-mqcc9mdq-g5o-cluster/oci
+              targetRevision: latest
+          revision: sha256:dd8554099134cdf0a444a300e5e27401885ec008b75018897eba0c0a812245fd
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T12:36:57Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-logstash-mqcc9mdq-g5o-cluster
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: logstash-parity
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default-oci
+
+          statefulset.apps/logstash-logstash   3/3   86s'
+        pods: '# default-oci
+
+          logstash-logstash-0   1/1   Running   0     86s
+
+          logstash-logstash-1   1/1   Running   0     86s
+
+          logstash-logstash-2   1/1   Running   0     86s'
+        notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||default
     semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 3
+      configHubObjectCount: 4
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 3
+      configHubObjectCount: 4
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
   checks:
   - name: live-lane-lock
     result: pass
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-logstash-mqc5ojbd-1wze\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-logstash-mqc5ojbd-1wze.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-logstash-mqc5ojbd-1wze\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-logstash-mqcc9mdq-g5o\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-logstash-mqcc9mdq-g5o.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-logstash-mqcc9mdq-g5o\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
-      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
-      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
-      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
-      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
-      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
-      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-logstash-mqc5ojbd-1wze\"\n\
-      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-logstash-mqc5ojbd-1wze\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-logstash-mqc5ojbd-1wze.kubeconfig\n\
-      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
-      \ \U0001F642\nInstalling Argo CD...\nCreatin"
-  - name: failure
-    result: blocked
-    detail: target topology requires at least 3 schedulable node(s); found 1 for regularHelm
-  failure:
-    message: target topology requires at least 3 schedulable node(s); found 1 for
-      regularHelm
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6 \U0001F4E6\
+      \ \U0001F4E6 \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \U0001F4E6\
+      \ \U0001F4E6 \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC  ...\n \u2713\
+      \ Writing configuration \U0001F4DC\n \u2022 Starting control-plane \U0001F579\
+      \uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022 Installing\
+      \ CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022 Installing\
+      \ StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\n\
+      \ \u2022 Joining worker nodes \U0001F69C  ...\n \u2713 Joining worker nodes\
+      \ \U0001F69C\nSet kubectl context to \"kind-helm-expt-parity-logstash-mqcc9mdq-g5o\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-logstash-mqcc9mdq-g5o\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-logstash-mqcc9mdq-g5o.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://"
+  - name: target-profile
+    result: pass
+    detail: 'kind-three-node: The proof target has at least three schedulable worker
+      nodes for bases with hard pod anti-affinity or quorum topology.'
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"logstash\" does not exist. Installing it now.\nNAME: logstash\n\
+      LAST DEPLOYED: Sat Jun 13 13:36:54 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Watch\
+      \ all cluster members come up.\n  $ kubectl get pods --namespace=default-helm\
+      \ -l app=logstash-logstash -w"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default-apply
+
+      statefulset.apps/logstash-logstash   3/3   3m13s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 100s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        observedSchedulableNodes: 3
+        lane: regularHelm
+        result: pass
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        observedSchedulableNodes: 3
+        lane: configHubKubectlApply
+        result: pass
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        observedSchedulableNodes: 3
+        lane: configHubOciArgo
+        result: pass
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

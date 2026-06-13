@@ -21,7 +21,7 @@ also matters.
 
 | Lane | Current result | What it means |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 81 pass, 1 render-input watch, 2 target-fit blocked | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. The watch row is cluster-autoscaler, where parity passes but the controller base needs real autoscaling values. The blocked rows are Consul secure mesh and Logstash HA on a one-node proof target; those bases require at least three schedulable nodes. |
+| Selected live Helm-vs-ConfigHub comparison | 83 pass, 0 watch, 1 target-fit blocked | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. The remaining blocked row is Consul secure mesh, where the proof target must provide the declared target shape before this lane can make a pass claim. |
 | Two-cluster kind parity for all top-20 bases | 42 pass, 0 watch, 0 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
 | Broader two-cluster kind parity corpus | 70 pass, 0 watch, 0 blocked, 0 semantic parity defects | The same two-cluster method has moved into selected next80 proof-grade charts. |
 
@@ -32,8 +32,8 @@ Use the generated reports for exact rows:
 - [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md)
 - [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv)
 
-The current selected rerun queue has one render-input row, two target-fit rows,
-and no semantic parity defects. Rows with missing useful Helm values, target
+The current selected rerun queue has one target-fit row and no semantic parity
+defects. Rows with missing useful Helm values, target
 prerequisites, target-fit requirements, or lifecycle behavior should cite the
 matching value model, target-fact, lifecycle, or runtime receipt rather than
 treating render parity as a production claim.

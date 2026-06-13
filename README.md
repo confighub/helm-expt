@@ -333,7 +333,7 @@ chart/base row has every lane complete.
 191 chart/base rows have Helm-template versus cub installer render parity.
 155/191 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
 The selected live Helm-vs-ConfigHub comparison lane has 84 committed receipts:
-81 pass, 1 render-input watch, 2 target-fit blocked rows, and 0 semantic
+83 pass, 0 watch, 1 target-fit blocked row, and 0 semantic
 parity defects.
 The top-20 base-variant two-cluster kind parity lane has 42 committed
 receipts: 42 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
@@ -395,12 +395,11 @@ ConfigHub OCI
 That lane depends on a live GitOps controller and cluster, so it is documented
 and exercised outside the pure local `npm run verify` corpus. The strict
 live Helm-vs-ConfigHub comparison lane currently has 84 committed receipts:
-81 pass, 1 render-input watch, and 2 target-fit blocked rows. The watch row is
-cluster-autoscaler, where object parity passes but a useful controller base
-still needs real autoscaling values. The blocked rows are Consul secure mesh
-and Logstash HA on a one-node proof target; those bases require at least three
-schedulable nodes. Across the full 191-row lane matrix, the remaining rows are
-backlog, model-input work, or target-fit work, not semantic parity defects. The
+83 pass, 0 watch, and 1 target-fit blocked row. The remaining blocked row is
+Consul secure mesh; it needs a proof target that provides the declared target
+shape before the live comparison can make a pass claim. Across the full 191-row
+lane matrix, the remaining rows are backlog, model-input work, or target-fit
+work, not semantic parity defects. The
 strict two-cluster kind parity lane has receipts for all 42 maintained top-20 base variants and
 70 committed receipts overall, all passing. It separates semantic parity from
 target prerequisites, runtime readiness, hooks, and storage behavior.
@@ -898,8 +897,8 @@ The Argo CD / Flux OCI path is verified in a separate live lane because it needs
 a running GitOps controller and cluster. The current generated status is:
 
 ```text
-GitOps/OCI live pass rows: 82/191
-selected live Helm-vs-ConfigHub comparison: 81 pass, 1 render-input watch, 2 target-fit blocked
+GitOps/OCI live pass rows: 83/191
+selected live Helm-vs-ConfigHub comparison: 83 pass, 0 watch, 1 target-fit blocked
 all-base top-20 two-cluster kind parity: 42 pass, 0 watch, 0 blocked, 0 semantic defects
 broader two-cluster kind parity corpus: 70 pass, 0 watch, 0 blocked, 0 semantic defects
 ```
