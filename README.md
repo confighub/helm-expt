@@ -332,8 +332,8 @@ chart/base row has every lane complete.
 100 charts have recipe/package proof artifacts.
 191 chart/base rows have Helm-template versus cub installer render parity.
 155/191 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
-The selected live Helm-vs-ConfigHub comparison lane has 74 committed receipts:
-74 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
+The selected live Helm-vs-ConfigHub comparison lane has 75 committed receipts:
+75 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
 The top-20 base-variant two-cluster kind parity lane has 42 committed
 receipts: 42 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
 The broader two-cluster kind parity corpus has 70 committed receipts:
@@ -392,8 +392,8 @@ ConfigHub OCI
 
 That lane depends on a live GitOps controller and cluster, so it is documented
 and exercised outside the pure local `npm run verify` corpus. The strict
-live Helm-vs-ConfigHub comparison lane currently has 74 committed receipts:
-74 pass, 0 watch, and 0 blocked. Across the full 191-row lane matrix, the
+live Helm-vs-ConfigHub comparison lane currently has 75 committed receipts:
+75 pass, 0 watch, and 0 blocked. Across the full 191-row lane matrix, the
 remaining rows are backlog, not semantic parity defects. The strict two-cluster
 kind parity lane has receipts for all 42 maintained top-20 base variants and
 70 committed receipts overall, all passing. It separates semantic parity from
@@ -892,8 +892,8 @@ The Argo CD / Flux OCI path is verified in a separate live lane because it needs
 a running GitOps controller and cluster. The current generated status is:
 
 ```text
-GitOps/OCI live pass rows: 74/191
-selected live Helm-vs-ConfigHub comparison: 74 pass, 0 watch, 0 blocked
+GitOps/OCI live pass rows: 75/191
+selected live Helm-vs-ConfigHub comparison: 75 pass, 0 watch, 0 blocked
 all-base top-20 two-cluster kind parity: 42 pass, 0 watch, 0 blocked, 0 semantic defects
 broader two-cluster kind parity corpus: 70 pass, 0 watch, 0 blocked, 0 semantic defects
 ```

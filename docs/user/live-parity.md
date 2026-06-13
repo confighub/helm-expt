@@ -21,7 +21,7 @@ also matters.
 
 | Lane | Current result | What it means |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 74 pass, 0 watch, 0 blocked | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. |
+| Selected live Helm-vs-ConfigHub comparison | 75 pass, 0 watch, 0 blocked | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. |
 | Two-cluster kind parity for all top-20 bases | 42 pass, 0 watch, 0 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
 | Broader two-cluster kind parity corpus | 70 pass, 0 watch, 0 blocked, 0 semantic parity defects | The same two-cluster method has moved into selected next80 proof-grade charts. |
 

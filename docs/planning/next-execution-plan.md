@@ -70,9 +70,9 @@ Current generated facts, at the time of this plan update
 191/191 chart/base rows have render parity.
 155/191 chart/base rows have in-ConfigHub proof.
 138/191 chart/base rows have local live proof.
-74/191 chart/base rows have GitOps/OCI live proof.
-74/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
-73/191 chart/base rows have the complete core lane set.
+75/191 chart/base rows have GitOps/OCI live proof.
+75/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
+74/191 chart/base rows have the complete core lane set.
 70/70 two-cluster kind parity rows pass semantic parity.
 38/42 top-20 base variants are start-here rows.
 17/20 top-20 charts have supported target-scoped production decisions; 2 are superseded source charts; 1 is rejected for the current target scope; 20/20 are production-review-ready.
