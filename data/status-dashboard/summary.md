@@ -50,14 +50,14 @@ Which detailed CSV should I open next?
 | top500 | rows with no current recipe proof | 409/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 191/191 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | in-ConfigHub proof rows | 155/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 158/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live rows | 138/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 53/53 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
 | proof lanes | GitOps/OCI live pass rows | 83/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 83/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | two-cluster kind parity pass rows | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | two-cluster semantic parity pass rows | 70/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster kind parity pass rows | 73/74 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster semantic parity pass rows | 74/74 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 81/191 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 38/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 0/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
@@ -71,12 +71,12 @@ Which detailed CSV should I open next?
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 83/84 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster kind parity receipts | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 1/1 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 0/1 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 1/1 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | two-cluster kind parity receipts | 74/74 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | live parity rerun rows needing decisions | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 0/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/84 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster semantic parity defect receipts | 0/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | two-cluster semantic parity defect receipts | 0/74 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -185,7 +185,7 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 2 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ### Active Proof Queue
 
@@ -196,6 +196,7 @@ needs a support artifact or a direct receipt review before rerun.
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime-review | - |
+| autoscaler/cluster-autoscaler@9.57.0 | default | watch | runtime-review | - |
 
 ### Local Live Non-Pass Triage
 
@@ -352,11 +353,11 @@ first.
 
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| in-ConfigHub | 155 | 0 | 36 | 191 |
+| in-ConfigHub | 158 | 0 | 33 | 191 |
 | local live | 138 | 53 | 0 | 191 |
 | GitOps/OCI live | 83 | 1 | 107 | 191 |
 | live Helm-vs-ConfigHub parity | 83 | 1 | 107 | 191 |
-| two-cluster kind parity | 70 | 0 | 0 | 70 |
+| two-cluster kind parity | 73 | 1 | 0 | 74 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
@@ -366,7 +367,7 @@ Current semantic parity defect receipts:
 
 ~~~text
 ConfigHub/OCI live comparison: 0/84
-two-cluster kind parity:       0/70
+two-cluster kind parity:       0/74
 ~~~
 
 The two-cluster kind parity lane is the cleanest live comparison for chart/base
@@ -382,11 +383,12 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 2 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
 | gitops-runtime-review | 1 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
+| runtime-review | 1 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.
@@ -398,7 +400,11 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) |
 
 
-There are no current two-cluster kind parity non-pass receipts.
+Current two-cluster kind parity non-pass receipts:
+
+| Chart | Base | Result | Reason |
+| --- | --- | --- | --- |
+| autoscaler/cluster-autoscaler@9.57.0 | default | watch | watch: object parity passed; readiness needs review |
 
 
 ## Production Disposition Boundary

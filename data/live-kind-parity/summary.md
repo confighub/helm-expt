@@ -11,12 +11,12 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 70
-watch: 0
+pass: 73
+watch: 1
 blocked: 0
-semantic parity pass: 70
+semantic parity pass: 74
 semantic parity defects: 0
-non-pass rows where semantic parity passed: 0
+non-pass rows where semantic parity passed: 1
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -32,7 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| - | 0 |
+| watch: object parity passed; readiness needs review | 1 |
 
 ## How To Read Non-Pass Rows
 
@@ -54,12 +54,15 @@ broader support claim.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `aqua/trivy-operator@0.32.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/aqua-trivy-operator-default/receipt.yaml |
 | `aqua/trivy-operator@0.32.1` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/aqua-trivy-operator-no-crds/receipt.yaml |
-| `argo-cd/argo-cd@9.5.15` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml |
 | `argo-cd/argo-cd@9.5.15` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml |
+| `argo-cd/argo-cd@9.5.17` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml |
 | `argo-cd/argo-events@2.4.21` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-events-default/receipt.yaml |
 | `argo-cd/argo-events@2.4.21` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-events-no-crds/receipt.yaml |
 | `argo-cd/argo-rollouts@2.40.9` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-default/receipt.yaml |
 | `argo-cd/argo-rollouts@2.40.9` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/receipt.yaml |
+| `argo-cd/argo-workflows@1.0.14` | minimal-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml |
+| `argo-cd/argocd-image-updater@1.2.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argocd-image-updater-default/receipt.yaml |
+| `autoscaler/cluster-autoscaler@9.57.0` | default | watch | pass | watch: object parity passed; readiness needs review |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
@@ -75,6 +78,7 @@ broader support claim.
 | `bitnami/redis@25.5.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-default/receipt.yaml |
 | `bitnami/redis@25.5.3` | reuse-existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
+| `coredns/coredns@1.45.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/coredns-coredns-default/receipt.yaml |
 | `descheduler/descheduler@0.36.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/descheduler-descheduler-default/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml |
 | `elastic/logstash@8.5.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |

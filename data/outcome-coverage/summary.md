@@ -12,7 +12,7 @@ variant-rich charts:                 74/110
 chart/base rows:                     191
 complete core lane rows:             81/191
 render parity rows:                  191/191
-in-ConfigHub proof rows:             155/191
+in-ConfigHub proof rows:             158/191
 local live rows:                     138/191
 GitOps/OCI live pass rows:           83/191
 GitOps/OCI non-pass receipts:        1
@@ -20,7 +20,7 @@ live Helm-vs-ConfigHub pass rows:    83/191
 live Helm-vs-ConfigHub non-pass receipts: 1
 lifecycle observation rows:          10/10
 selected live parity receipts:       83 pass, 1 watch, 0 blocked
-two-cluster kind parity receipts:    70 pass, 0 watch, 0 blocked
+two-cluster kind parity receipts:    73 pass, 1 watch, 0 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
@@ -61,7 +61,7 @@ related lifecycle observations:      10/10
 
 | Chart | Variants | Model | In-ConfigHub | Local live | Lifecycle | GitOps live | Live parity | Two-cluster parity | Hard gap |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 2/2 | 1/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 2/2 | 1/2 | 0/2 | 2/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |

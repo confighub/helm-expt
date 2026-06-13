@@ -16,7 +16,7 @@ argo-cd/argo-cd@9.5.15,default,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-cd@9.5.15,default,local_live,L,pass,pass,no,,,
 argo-cd/argo-cd@9.5.15,default,gitops_oci_live,G,pass,pass,no,,,
 argo-cd/argo-cd@9.5.15,default,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-argo-cd/argo-cd@9.5.15,default,two_cluster_kind_parity,K,pass,pass,no,,,
+argo-cd/argo-cd@9.5.15,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 argo-cd/argo-cd@9.5.15,no-crds,render_parity,R,pass,pass,no,,,
 argo-cd/argo-cd@9.5.15,no-crds,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-cd@9.5.15,no-crds,local_live,L,blocked,blocked,no,,,
@@ -28,7 +28,7 @@ argo-cd/argo-cd@9.5.17,default,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,default,local_live,L,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 argo-cd/argo-cd@9.5.17,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
-argo-cd/argo-cd@9.5.17,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+argo-cd/argo-cd@9.5.17,default,two_cluster_kind_parity,K,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,no-crds,render_parity,R,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,no-crds,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,no-crds,local_live,L,pass,pass,no,,,
@@ -76,13 +76,13 @@ argo-cd/argo-workflows@1.0.14,minimal-crds,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-workflows@1.0.14,minimal-crds,local_live,L,pass,pass,no,,,
 argo-cd/argo-workflows@1.0.14,minimal-crds,gitops_oci_live,G,pass,pass,no,,,
 argo-cd/argo-workflows@1.0.14,minimal-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-argo-cd/argo-workflows@1.0.14,minimal-crds,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+argo-cd/argo-workflows@1.0.14,minimal-crds,two_cluster_kind_parity,K,pass,pass,no,,,
 argo-cd/argocd-image-updater@1.2.2,default,render_parity,R,pass,pass,no,,,
 argo-cd/argocd-image-updater@1.2.2,default,in_confighub,C,pass,pass,no,,,
 argo-cd/argocd-image-updater@1.2.2,default,local_live,L,pass,pass,no,,,
 argo-cd/argocd-image-updater@1.2.2,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 argo-cd/argocd-image-updater@1.2.2,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
-argo-cd/argocd-image-updater@1.2.2,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+argo-cd/argocd-image-updater@1.2.2,default,two_cluster_kind_parity,K,pass,pass,no,,,
 autoscaler/cluster-autoscaler@9.57.0,controller-default-reviewed,render_parity,R,pass,pass,no,,,
 autoscaler/cluster-autoscaler@9.57.0,controller-default-reviewed,in_confighub,C,pass,pass,no,,,
 autoscaler/cluster-autoscaler@9.57.0,controller-default-reviewed,local_live,L,pass,pass,no,,,
@@ -94,7 +94,7 @@ autoscaler/cluster-autoscaler@9.57.0,default,in_confighub,C,pass,pass,no,,,
 autoscaler/cluster-autoscaler@9.57.0,default,local_live,L,pass,pass,no,,,
 autoscaler/cluster-autoscaler@9.57.0,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 autoscaler/cluster-autoscaler@9.57.0,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
-autoscaler/cluster-autoscaler@9.57.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+autoscaler/cluster-autoscaler@9.57.0,default,two_cluster_kind_parity,K,watch,watch,no,,,
 autoscaler/vertical-pod-autoscaler@0.9.0,default,render_parity,R,pass,pass,no,,,
 autoscaler/vertical-pod-autoscaler@0.9.0,default,in_confighub,C,pass,pass,no,,,
 autoscaler/vertical-pod-autoscaler@0.9.0,default,local_live,L,blocked,blocked,no,,,
@@ -234,7 +234,7 @@ bitnami/nginx@25.0.0,http-clusterip,gitops_oci_live,G,missing,todo,yes,single-cl
 bitnami/nginx@25.0.0,http-clusterip,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/nginx@25.0.0,http-clusterip,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/opensearch@2.0.10,default,render_parity,R,pass,pass,no,,,
-bitnami/opensearch@2.0.10,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/opensearch@2.0.10 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/opensearch@2.0.10,default,in_confighub,C,pass,pass,no,,,
 bitnami/opensearch@2.0.10,default,local_live,L,fail,fail,no,,,
 bitnami/opensearch@2.0.10,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/opensearch@2.0.10,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
@@ -364,7 +364,7 @@ coredns/coredns@1.45.2,default,in_confighub,C,pass,pass,no,,,
 coredns/coredns@1.45.2,default,local_live,L,pass,pass,no,,,
 coredns/coredns@1.45.2,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 coredns/coredns@1.45.2,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
-coredns/coredns@1.45.2,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+coredns/coredns@1.45.2,default,two_cluster_kind_parity,K,pass,pass,no,,,
 crossplane-stable/crossplane@2.3.1,default,render_parity,R,pass,pass,no,,,
 crossplane-stable/crossplane@2.3.1,default,in_confighub,C,pass,pass,no,,,
 crossplane-stable/crossplane@2.3.1,default,local_live,L,pass,pass,no,,,
@@ -402,7 +402,7 @@ elastic/eck-operator@3.4.0,no-crds,gitops_oci_live,G,pass,pass,no,,,
 elastic/eck-operator@3.4.0,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 elastic/eck-operator@3.4.0,no-crds,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 elastic/filebeat@8.5.1,default,render_parity,R,pass,pass,no,,,
-elastic/filebeat@8.5.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for elastic/filebeat@8.5.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+elastic/filebeat@8.5.1,default,in_confighub,C,pass,pass,no,,,
 elastic/filebeat@8.5.1,default,local_live,L,blocked,blocked,no,,,
 elastic/filebeat@8.5.1,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 elastic/filebeat@8.5.1,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
@@ -966,7 +966,7 @@ prometheus-community/kube-state-metrics@7.4.0,default,gitops_oci_live,G,missing,
 prometheus-community/kube-state-metrics@7.4.0,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 prometheus-community/kube-state-metrics@7.4.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 prometheus-community/prometheus-adapter@5.3.0,cluster-metrics-readonly,render_parity,R,pass,pass,no,,,
-prometheus-community/prometheus-adapter@5.3.0,cluster-metrics-readonly,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-adapter@5.3.0 cluster-metrics-readonly (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/prometheus-adapter@5.3.0,cluster-metrics-readonly,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus-adapter@5.3.0,cluster-metrics-readonly,local_live,L,blocked,blocked,no,,,
 prometheus-community/prometheus-adapter@5.3.0,cluster-metrics-readonly,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (recorded blocker),resolve the local-live prerequisite first; the live lanes inherit it,either
 prometheus-community/prometheus-adapter@5.3.0,cluster-metrics-readonly,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (recorded blocker),resolve the local-live prerequisite first; the live lanes inherit it,either
