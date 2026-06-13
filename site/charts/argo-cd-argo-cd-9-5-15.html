@@ -146,18 +146,18 @@
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>argo-cd/argo-cd</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-13T19:15:45.508Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-13T19:34:48.090Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=argo-cd&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for argo-cd/argo-cd@9.5.15.</p>
-    <pre>cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace argocd</pre>
+    <pre>cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir &lt;tmp&gt; --non-interactive --namespace argocd</pre>
   </header>
   <main>
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
       <div class="grid">
-        <div class="metric"><strong>default</strong><span>Recommended first base</span></div>
+        <div class="metric"><strong>no-crds</strong><span>Recommended first base</span></div>
         <div class="metric"><strong>2</strong><span>Supported base variants</span></div>
-        <div class="metric"><strong>start-here</strong><span>Start-base status</span></div>
+        <div class="metric"><strong>try-with-proof</strong><span>Start-base status</span></div>
         <div class="metric"><strong>production-review-ready</strong><span>Production disposition</span></div>
       </div>
       <p>Use the public catalog entry, then check the exact base and lane before making a production claim.</p>
@@ -178,7 +178,7 @@
       <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
-        <tbody><tr><td>Render parity</td><td>pass: 2/2</td></tr><tr><td>ConfigHub proof</td><td>pass: 2/2</td></tr><tr><td>Local live</td><td>blocked: 1/2; pass: 1/2</td></tr><tr><td>GitOps/OCI live</td><td>pass: 2/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>pass: 2/2</td></tr><tr><td>Two-cluster kind</td><td>pass: 2/2</td></tr></tbody>
+        <tbody><tr><td>Render parity</td><td>pass: 2/2</td></tr><tr><td>ConfigHub proof</td><td>pass: 2/2</td></tr><tr><td>Local live</td><td>blocked: 1/2; pass: 1/2</td></tr><tr><td>GitOps/OCI live</td><td>pass: 2/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>pass: 2/2</td></tr><tr><td>Two-cluster kind</td><td>missing: 1/2; pass: 1/2</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -188,7 +188,7 @@
       </style>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
-        <tbody><tr><td>default</td><td>start-here</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td></tr><tr><td>no-crds</td><td>try-with-proof</td><td>pass</td><td>pass</td><td>blocked</td><td>pass</td><td>pass</td><td>pass</td></tr></tbody>
+        <tbody><tr><td>default</td><td>render-only</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>missing</td></tr><tr><td>no-crds</td><td>try-with-proof</td><td>pass</td><td>pass</td><td>blocked</td><td>pass</td><td>pass</td><td>pass</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

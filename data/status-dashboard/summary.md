@@ -50,7 +50,7 @@ Which detailed CSV should I open next?
 | top500 | rows with no current recipe proof | 409/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 192/192 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | in-ConfigHub proof rows | 158/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 190/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live rows | 139/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 53/53 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
@@ -59,8 +59,8 @@ Which detailed CSV should I open next?
 | proof lanes | two-cluster kind parity pass rows | 73/74 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 74/74 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 81/192 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | top20 start-here base variants | 38/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
-| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 0/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
+| proof lanes | top20 start-here base variants | 37/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
+| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 1/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
@@ -281,8 +281,7 @@ top-100 chart and the next command or file to open.
 | --- | ---: |
 | live-helm-vs-confighub-parity | 49 |
 | local-kubernetes-live | 24 |
-| in-confighub-proof | 15 |
-| render-parity | 8 |
+| in-confighub-proof | 23 |
 | two-cluster-kind-parity | 4 |
 
 The top100 is model-supported, but not uniformly live-proven. Use
@@ -324,7 +323,7 @@ spreadsheet.
 
 | Chart | Recommended base | Base readiness | Strongest evidence | Render | ConfigHub | Local live | GitOps live | Live parity | Hard gap |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| argo-cd/argo-cd@9.5.15 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 1/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| argo-cd/argo-cd@9.5.15 | no-crds (try-with-proof) | try-with-proof:1; render-only:1 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 1/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/mongodb@19.0.7 | generated-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | bitnami/mysql@14.0.3 | generated-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/nginx@24.0.2 | http-clusterip (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
@@ -335,7 +334,7 @@ spreadsheet.
 | grafana/grafana@10.5.15 | existing-secret-ingress (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | grafana/loki@7.0.0 | single-binary-filesystem (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | grafana/tempo@1.24.4 | local-persistent (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 1/2 | 1/2 | 1/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
-| hashicorp/consul@2.0.0 | default-control-plane (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| hashicorp/consul@2.0.0 | default-control-plane (start-here) | start-here:1; runtime-watch:1 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | hashicorp/vault@0.32.0 | default (start-here) | start-here:2; try-with-proof:1 | live-helm-vs-confighub-parity | 3/3 | 3/3 | 2/3 | 2/3 | 2/3 | - |
 | ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip (start-here) | start-here:3 | live-helm-vs-confighub-parity | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | - |
 | jetstack/cert-manager@v1.20.2 | crds-enabled (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
@@ -357,7 +356,7 @@ first.
 
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| in-ConfigHub | 158 | 0 | 34 | 192 |
+| in-ConfigHub | 190 | 0 | 2 | 192 |
 | local live | 139 | 53 | 0 | 192 |
 | GitOps/OCI live | 83 | 1 | 108 | 192 |
 | live Helm-vs-ConfigHub parity | 83 | 1 | 108 | 192 |

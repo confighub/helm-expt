@@ -11,7 +11,7 @@ target-scoped support decision for the chart/base/target you intend to use.
 ## Summary
 
 ~~~text
-start-here bases: 38
+start-here bases: 37
 top-20 base variants: 42
 target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
@@ -23,7 +23,6 @@ target-scoped draft decisions: 0
 
 | Chart | Base | Command | Before production |
 | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | default | `cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd` | check production decision for argo-cd/argo-cd |
 | `bitnami/mongodb@19.0.7` | generated-passwords | `cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb` | check production decision for bitnami/mongodb |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | `cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb` | check production decision for bitnami/mongodb |
 | `bitnami/mysql@14.0.3` | generated-passwords | `cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql` | check production decision for bitnami/mysql |
