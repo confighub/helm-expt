@@ -7,13 +7,13 @@ npm run site:generate
 npm run site:verify
 ```
 
-Open `site/offering.html` directly in a browser for the public offering page.
+Open `site/index.html` first for the public launch front door.
 Open `site/try.html` for the short try-now page.
 Open `site/proof.html` for the proof lanes, sceptic tests, and refusal boundary.
 Open `site/tiers.html` for the free, authenticated, managed, and enterprise tier shape.
+Open `site/offering.html` for the longer public offering page.
 Open `docs/user/choose-your-path.md` for the direct render, one-shot upload,
 public catalog, and ConfigHub operations route picker.
-Open `site/index.html` for the static catalog and status dashboard.
 Open `site/charts/index.html` for the generated per-chart catalog pages.
 Open `docs/user/production-support-decisions.md` for the plain-English
 boundary between production-review-ready and production-supported.

@@ -473,7 +473,7 @@ function html(catalog) {
       <div class="tier"><span class="stage">tier 3</span><h3>Private catalog</h3><p>The same render-scan-sign pipeline over your own charts and overlays.</p><span class="badge planned">planned</span></div>
       <div class="tier"><span class="stage">tier 4</span><h3>ConfigHub Server</h3><p>Fleet inventory, variants, promotions, gates, and live operations at estate scale.</p><span class="badge planned">planned</span></div>
     </div>
-    <p>Tier boundaries and what each one proves are spelled out on the <a href="./offering.html">offering page</a>; planned tiers are plans, not shipped behavior — the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
+    <p>Tier boundaries and what each one proves are spelled out on the <a href="./tiers.html">tiers page</a>; planned tiers are plans, not shipped behavior — the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
   </header>
   <main>
     <section aria-labelledby="first-time">
@@ -1964,13 +1964,13 @@ npm run site:generate
 npm run site:verify
 \`\`\`
 
-Open \`site/offering.html\` directly in a browser for the public offering page.
+Open \`site/index.html\` first for the public launch front door.
 Open \`site/try.html\` for the short try-now page.
 Open \`site/proof.html\` for the proof lanes, sceptic tests, and refusal boundary.
 Open \`site/tiers.html\` for the free, authenticated, managed, and enterprise tier shape.
+Open \`site/offering.html\` for the longer public offering page.
 Open \`docs/user/choose-your-path.md\` for the direct render, one-shot upload,
 public catalog, and ConfigHub operations route picker.
-Open \`site/index.html\` for the static catalog and status dashboard.
 Open \`site/charts/index.html\` for the generated per-chart catalog pages.
 Open \`docs/user/production-support-decisions.md\` for the plain-English
 boundary between production-review-ready and production-supported.
