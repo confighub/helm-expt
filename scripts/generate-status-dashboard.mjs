@@ -80,6 +80,7 @@ function buildReport() {
   const liveRows = readCsv("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = readCsv("data/live-kind-parity/summary.csv");
   const liveParityRerunRows = readCsv("data/live-parity-rerun-plan/rerun-plan.csv");
+  const gitOpsHealthResidueRows = readCsv("data/gitops-health-residue/residue.csv");
   const runtimeRows = readCsv("data/runtime-gitops/wave1.csv");
   const productionRows = readCsv("data/production-disposition/top20.csv");
   const productionSupportDecisionRows = readCsv("data/production-support-decisions/decisions.csv");
@@ -158,6 +159,7 @@ function buildReport() {
   rows.push(metric("live evidence", "live parity rerun rows needing decisions", liveParityRerunRows.length, liveParityRerunRows.length, "partial", "data/live-parity-rerun-plan/rerun-plan.csv", "Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."));
   rows.push(metric("live evidence", "live parity rows needing model or staging first", count(liveParityRerunRows, "rerun_readiness", "model-or-stage-first"), liveParityRerunRows.length, "partial", "data/live-parity-rerun-plan/rerun-plan.csv", "Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."));
   rows.push(metric("live evidence", "live parity rows needing target review first", count(liveParityRerunRows, "rerun_readiness", "review-target-first"), liveParityRerunRows.length, "partial", "data/live-parity-rerun-plan/rerun-plan.csv", "Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."));
+  rows.push(metric("live evidence", "GitOps aggregate health residue rows", gitOpsHealthResidueRows.length, liveRows.length, gitOpsHealthResidueRows.length === 0 ? "good" : "partial", "data/gitops-health-residue/residue.csv", "ConfigHub OCI/GitOps rows where sync/workload evidence can pass while controller aggregate health still needs explanation."));
   rows.push(metric("live evidence", "ConfigHub/OCI semantic parity defect receipts", semanticDefectCount(liveRows), liveRows.length, "good", "data/live-helm-confighub-compare/summary.csv", "Rows whose committed receipt currently points at a semantic object comparison defect."));
   rows.push(metric("live evidence", "two-cluster semantic parity defect receipts", semanticDefectCount(kindParityRows), kindParityRows.length, "good", "data/live-kind-parity/summary.csv", "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."));
 
