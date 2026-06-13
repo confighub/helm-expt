@@ -74,8 +74,8 @@ There are two live parity surfaces, and they answer different questions:
 
 | Surface | Current reading | Use it for |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 81 committed receipts: 79 pass, 0 watch, 2 target-fit blocked. | Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows. |
-| Live parity rerun queue | 2 target-fit rows, 0 watch, 0 semantic parity defects. | The active non-pass rows are Consul secure mesh and Logstash HA on a one-node proof target; those bases require at least three schedulable nodes. |
+| Selected live Helm-vs-ConfigHub comparison | 84 committed receipts: 81 pass, 1 render-input watch, 2 target-fit blocked. | Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows. |
+| Live parity rerun queue | 1 render-input row, 2 target-fit rows, 0 semantic parity defects. | The active non-pass rows are cluster-autoscaler, Consul secure mesh, and Logstash HA. Cluster-autoscaler needs real autoscaling values modeled; Consul secure mesh and Logstash HA need a proof target with at least three schedulable nodes. |
 
 The watch and blocked rows are not currently object-set parity defects. They
 surface target prerequisites, hook/lifecycle routes, controller health, storage,
@@ -120,7 +120,7 @@ ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
 selected live Helm-vs-ConfigHub comparison: see generated status for current pass, watch, blocked, and missing counts
-live parity rerun queue: 2 target-fit blocks, 0 watch, 0 semantic parity defects in the selected live Helm-vs-ConfigHub lane
+live parity rerun queue: 1 render-input watch, 2 target-fit blocks, 0 semantic parity defects in the selected live Helm-vs-ConfigHub lane
 two-cluster kind parity: 70/70 pass, 0 watch, 0 blocked, 0 semantic parity defects
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```

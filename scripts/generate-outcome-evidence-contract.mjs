@@ -40,7 +40,7 @@ const contract = [
     id: "prove-helm-equivalence",
     question: "Can I prove the ConfigHub/installer path did not secretly change Helm output?",
     claimId: "render-parity",
-    statusMetrics: ["render parity rows", "two-cluster semantic parity pass rows", "selected live Helm-vs-ConfigHub parity receipts"],
+    statusMetrics: ["render parity rows", "two-cluster semantic parity pass rows", "ConfigHub/OCI semantic parity defect receipts"],
     evidence: ["data/live-kind-parity/summary.md", "data/live-helm-confighub-compare/summary.md", "data/outcome-coverage/base-outcomes.csv"],
     verify: "npm run kind-parity:verify; npm run live-parity:verify; npm run outcomes:verify",
     scope: "selected chart/version/base rows with committed receipts",
