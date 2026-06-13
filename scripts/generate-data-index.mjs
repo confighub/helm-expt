@@ -458,6 +458,7 @@ function familyRole(family) {
     "nginx-config-checks": "NGINX supported-base config extension checks",
     "lifecycle-boundary": "hook queue and hook-like lifecycle observation boundary",
     "webhook-cert-lifecycle": "webhook serving certificate lifecycle evidence and proof boundaries",
+    "secret-lifecycle": "front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state",
     "hook-coverage": "top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans",
     "apiservice-coverage": "top-100 APIService coverage joined across source scan, modeled recipe rows, parity evidence, and runtime observations",
     "high-fanout-demo": "Prometheus base-variant fanout and prerequisite example",

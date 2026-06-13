@@ -260,6 +260,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `remote-dependency-closure` | [remote-dependency-closure/summary.md](./remote-dependency-closure/summary.md) | remote dependency closure map for top-100 charts |
 | `runtime-gitops` | [runtime-gitops/summary.md](./runtime-gitops/summary.md) | Argo/Flux OCI live proof wave |
 | `scan-disposition-workdown` | [scan-disposition-workdown/summary.md](./scan-disposition-workdown/summary.md) | scan warning routes to fixes, hardened bases, or explicit dispositions |
+| `secret-lifecycle` | [secret-lifecycle/summary.md](./secret-lifecycle/summary.md) | front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state |
 | `serious-chart-reviews` | - | supporting generated evidence |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
 | `top100-catalog-analysis` | [top100-catalog-analysis/summary.md](./top100-catalog-analysis/summary.md) | top-100 proof and promotion surface |
@@ -285,7 +286,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 128 CSV files. Each row records the path, audience,
+It includes 130 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

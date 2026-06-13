@@ -75,6 +75,8 @@ function buildReport() {
   const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const edgeRows = readCsv("data/edge-recovery/edges.csv");
+  const secretLifecycleRows = readCsv("data/secret-lifecycle/secrets.csv");
+  const secretLifecycleVariantRows = readCsv("data/secret-lifecycle/variant-summary.csv");
   const liveRows = readCsv("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = readCsv("data/live-kind-parity/summary.csv");
   const liveParityRerunRows = readCsv("data/live-parity-rerun-plan/rerun-plan.csv");
@@ -184,6 +186,10 @@ function buildReport() {
   rows.push(metric("extension slots", "top20 charts with extension slots", extensionRows.filter((row) => row.catalog_scope === "top20-catalog").length, 20, "partial", "data/extension-slots/extension-slots.csv", "Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."));
   rows.push(metric("extension slots", "top100 charts with extension slots", extensionRows.length, 100, "partial", "data/extension-slots/extension-slots.csv", "Top-100 chart facts where NGINX-like extension slots are surfaced."));
   rows.push(metric("extension slots", "top500 source rows using tpl", Number(quirkRows.find((row) => row.axis === "tpl-extension-slots")?.source_top500_count ?? 0), top500Rows.length, "partial", "data/quirk-coverage/coverage.csv", "Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot."));
+
+  rows.push(metric("secrets", "top100 variants with explicit Secret disposition", secretLifecycleVariantRows.length, secretLifecycleVariantRows.length, "good", "data/secret-lifecycle/variant-summary.csv", "Every surveyed top-100 variant has an explicit Secret stance: delivered, staged, observed, needs lane support, or not applicable."));
+  rows.push(metric("secrets", "Secret rows needing lifecycle lane support", count(secretLifecycleRows, "disposition", "needs-lane-support"), secretLifecycleRows.length, "gap", "data/secret-lifecycle/secrets.csv", "Rendered Kubernetes lifecycle Secrets that need a staging receipt, controller observation, or explicit refusal before stronger live or production claims."));
+  rows.push(metric("secrets", "target-fact Secret rows", count(secretLifecycleRows, "source", "target-fact"), secretLifecycleRows.length, "partial", "data/secret-lifecycle/secrets.csv", "Secrets that must be present or staged in the target before the selected lane applies the rendered objects."));
 
   const hookQueueRows = lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue");
   const uncoveredHookCoverageRows = hookCoverageRows.filter((row) => row.coverage_status === "uncovered-source-hook");
@@ -620,7 +626,8 @@ lifecycle observation.
 | How much of the retained top500 source scan maps to current proof? | [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv) |
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
-| Which hooks, APIService, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which hooks, APIService, CRDs, generated facts, Secrets, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which Secrets are delivered, staged, observed, or still need lifecycle support? | [secret-lifecycle/summary.md](../secret-lifecycle/summary.md) |
 | Which APIService charts have object, workload, parity, or aggregation evidence? | [apiservice-coverage/summary.md](../apiservice-coverage/summary.md) |
 | Which APIService proof row should move next? | [apiservice-coverage/work-orders.md](../apiservice-coverage/work-orders.md) |
 | Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |

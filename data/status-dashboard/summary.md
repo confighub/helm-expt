@@ -99,6 +99,9 @@ Which detailed CSV should I open next?
 | extension slots | top20 charts with extension slots | 13/20 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| secrets | top100 variants with explicit Secret disposition | 171/171 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
+| secrets | Secret rows needing lifecycle lane support | 8/71 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
+| secrets | target-fact Secret rows | 28/71 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
 | hooks | top100 source-scan hook charts | 11/100 | partial | [data/hook-lifecycle/source-top100-hooks.csv](../../data/hook-lifecycle/source-top100-hooks.csv) |
 | hooks | top100 source hook rows still uncovered | 0/11 | good | [data/hook-coverage/top100-hook-coverage.csv](../../data/hook-coverage/top100-hook-coverage.csv) |
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
@@ -567,7 +570,8 @@ lifecycle observation.
 | How much of the retained top500 source scan maps to current proof? | [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv) |
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
-| Which hooks, APIService, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which hooks, APIService, CRDs, generated facts, Secrets, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which Secrets are delivered, staged, observed, or still need lifecycle support? | [secret-lifecycle/summary.md](../secret-lifecycle/summary.md) |
 | Which APIService charts have object, workload, parity, or aggregation evidence? | [apiservice-coverage/summary.md](../apiservice-coverage/summary.md) |
 | Which APIService proof row should move next? | [apiservice-coverage/work-orders.md](../apiservice-coverage/work-orders.md) |
 | Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |

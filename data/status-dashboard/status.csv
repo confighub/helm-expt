@@ -81,6 +81,9 @@ remote dependencies,active P0 dependency closure work rows,21,49,gap,data/remote
 extension slots,top20 charts with extension slots,13,20,partial,data/extension-slots/extension-slots.csv,"Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."
 extension slots,top100 charts with extension slots,82,100,partial,data/extension-slots/extension-slots.csv,Top-100 chart facts where NGINX-like extension slots are surfaced.
 extension slots,top500 source rows using tpl,362,500,partial,data/quirk-coverage/coverage.csv,Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot.
+secrets,top100 variants with explicit Secret disposition,171,171,good,data/secret-lifecycle/variant-summary.csv,"Every surveyed top-100 variant has an explicit Secret stance: delivered, staged, observed, needs lane support, or not applicable."
+secrets,Secret rows needing lifecycle lane support,8,71,gap,data/secret-lifecycle/secrets.csv,"Rendered Kubernetes lifecycle Secrets that need a staging receipt, controller observation, or explicit refusal before stronger live or production claims."
+secrets,target-fact Secret rows,28,71,partial,data/secret-lifecycle/secrets.csv,Secrets that must be present or staged in the target before the selected lane applies the rendered objects.
 hooks,top100 source-scan hook charts,11,100,partial,data/hook-lifecycle/source-top100-hooks.csv,Public top-100 source scan rows where the retained source scan found Helm hooks.
 hooks,top100 source hook rows still uncovered,0,11,good,data/hook-coverage/top100-hook-coverage.csv,Source top-100 hook rows with no maintained lifecycle row and no candidate route plan.
 hooks,maintained hook queue rows,5,11,partial,data/hook-lifecycle/maintained-hook-queue.csv,Hook-bearing maintained recipe/package rows with required lifecycle receipt paths; this is not the full top-100 hook inventory.

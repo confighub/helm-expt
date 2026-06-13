@@ -181,6 +181,7 @@ ConfigHub primitives.
 | [helm-import-contract.md](./reference/helm-import-contract.md) | Contract for graduating from direct `cub helm install` rendering into maintained `cub installer` recipes. |
 | [capability-profile-catalog.md](./reference/capability-profile-catalog.md) | Named Kubernetes capability profiles used during render. |
 | [generated-fact-receipts.md](./reference/generated-fact-receipts.md) | Generated secrets, certs, random values, and time-value receipt specification. |
+| [secret-lifecycle.md](./reference/secret-lifecycle.md) | How rendered Secrets, target Secret facts, and Kubernetes lifecycle Secret state are classified and checked. |
 | [observation-freshness-slo.md](./reference/observation-freshness-slo.md) | Freshness states for live observations in a workerless ConfigHub model. |
 | [upgrade-rollback-receipts.md](./reference/upgrade-rollback-receipts.md) | Upgrade and rollback receipt shape. |
 | [hook-lifecycle-strategy.md](./user/hook-lifecycle-strategy.md) | How Helm hooks are inventoried, classified, translated, or blocked. |
