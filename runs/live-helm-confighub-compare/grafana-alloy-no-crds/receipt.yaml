@@ -1,0 +1,358 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: grafana-alloy-1.8.2-no-crds-live-parity-20260605
+spec:
+  chart: grafana/alloy
+  version: 1.8.2
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-13T10:45:42Z'
+  package:
+    path: packages/grafana/alloy/1.8.2
+  recipe:
+    path: recipes/grafana/alloy/1.8.2
+  variantRevision: recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-alloy-mqc8c06u-171i
+    kubeContext: kind-helm-expt-parity-alloy-mqc8c06u-171i
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-alloy-mqc8c06u-171i --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-alloy-mqc8c06u-171i"...
+
+        Deleting cluster "helm-expt-parity-alloy-mqc8c06u-171i" ...
+
+        Deleted nodes: ["helm-expt-parity-alloy-mqc8c06u-171i-control-plane"]
+
+        Deleting Space "helm-expt-parity-alloy-mqc8c06u-171i-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install alloy alloy --repo https://grafana.github.io/helm-charts
+        --version 1.8.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-alloy-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22
+      objectCount: 6
+      liveHelmManifestSHA256: 3448ff787a19287222adfca0c154d791ca768e85d65c496c352556a6e4dd27a8
+      liveHelmManifestObjectCount: 6
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: daemonset.apps/alloy   1     1     1     1     1     <none>   45s
+        pods: alloy-p2j4r   2/2   Running   0     45s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/alloy/1.8.2
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-alloy-mqc8c06u-171i-alloy
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: b6d112a189e95227a778c704eb08b795ac92cba99e1cd2b9c10fd03257dc1b91
+      objectCount: 7
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          daemonset.apps/alloy   1     1     1     1     0     <none>   20s'
+        pods: '# default
+
+          alloy-rb85n   2/2   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "alloy" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "alloy" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|DaemonSet|default|alloy
+          - v1|ConfigMap|default|alloy
+          - v1|ServiceAccount|default|alloy
+          - v1|Service|default|alloy
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-alloy-mqc8c06u-171i-alloy
+      controller: Argo CD OCI
+      app: alloy-parity
+      manifestSHA256: ac3faff2d98624d18990b1099e12809ba8cc793623b1294b3560690666786ae1
+      objectCount: 7
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:71eac34f34227ebb2f6957671071ccf1e25bea5a345e17ca7742f9b2eb8b17f0
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-alloy-mqc8c06u-171i-alloy
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-alloy-mqc8c06u-171i-cluster/oci
+              targetRevision: latest
+          revision: sha256:71eac34f34227ebb2f6957671071ccf1e25bea5a345e17ca7742f9b2eb8b17f0
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T10:49:14Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: alloy
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: alloy
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: alloy
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default
+          name: alloy
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: alloy
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: alloy
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-alloy-mqc8c06u-171i-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-alloy-mqc8c06u-171i-cluster/oci
+              targetRevision: latest
+          revision: sha256:71eac34f34227ebb2f6957671071ccf1e25bea5a345e17ca7742f9b2eb8b17f0
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T10:47:20Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: alloy-parity
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-alloy-mqc8c06u-171i-cluster
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          daemonset.apps/alloy   1     1     1     1     1     <none>   80s'
+        pods: '# default
+
+          alloy-rb85n   2/2   Running   0     80s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-alloy-mqc8c06u-171i\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-alloy-mqc8c06u-171i.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-alloy-mqc8c06u-171i\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-alloy-mqc8c06u-171i\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-alloy-mqc8c06u-171i\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-alloy-mqc8c06u-171i.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argoc"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "alloy" does not exist. Installing it now.
+
+      NAME: alloy
+
+      LAST DEPLOYED: Sat Jun 13 11:47:10 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Welcome to Grafana Alloy!'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      daemonset.apps/alloy   1     1     1     1     0     <none>   20s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
