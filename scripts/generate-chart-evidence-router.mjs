@@ -19,6 +19,7 @@ const SOURCES = {
   quirks: "data/quirk-work-queue/top100-queue.csv",
   runtimeGitops: "data/runtime-gitops/receipt-index.csv",
   liveCompare: "data/live-helm-confighub-compare/summary.csv",
+  gitopsHealthResidue: "data/gitops-health-residue/residue.csv",
   productionDecisions: "data/production-support-decisions/decisions.csv",
   top500: "data/top500-catalog-analysis/review.csv",
 };
@@ -60,6 +61,7 @@ function buildReport() {
   const quirks = mapBy(readCsv(SOURCES.quirks), "chart");
   const runtimeGitops = groupBy(loadRuntimeGitopsRows(), (row) => chartKey(row.chart, row.version));
   const liveCompare = groupBy(readCsv(SOURCES.liveCompare), (row) => chartKey(row.chart, row.version));
+  const gitopsHealthResidue = groupBy(readCsv(SOURCES.gitopsHealthResidue), (row) => chartKey(row.chart, row.version));
   const productionDecisions = groupBy(readCsv(SOURCES.productionDecisions), (row) => chartKey(row.chart, row.version));
   const top500 = top500Index(readCsv(SOURCES.top500));
 
@@ -73,6 +75,7 @@ function buildReport() {
       const quirkRow = quirks.get(row.chart);
       const gitopsRows = runtimeGitops.get(key) ?? [];
       const liveRows = liveCompare.get(key) ?? [];
+      const residueRows = gitopsHealthResidue.get(key) ?? [];
       const decisionRows = productionDecisions.get(key) ?? [];
       const top500Row = top500.get(key) ?? top500.get(row.chart);
       const firstBase = cleanBase(row.recommended_first_base || chartUseRow?.recommended_base_or_variant || "");
@@ -99,6 +102,8 @@ function buildReport() {
         quirk_evidence: joinPaths([quirkRow?.candidate_route_artifact, quirkRow?.source_evidence]),
         runtime_gitops_results: runtimeGitopsSummary(gitopsRows),
         runtime_gitops_receipts: joinPaths(gitopsRows.map((item) => item.required_receipt)),
+        gitops_health_residue: gitopsHealthResidueSummary(residueRows),
+        gitops_health_residue_evidence: joinPaths(residueRows.flatMap((item) => [item.receipt, "data/gitops-health-residue/summary.md"])),
         live_compare_receipts: joinPaths(liveRows.map((item) => item.receipt)),
         production_decisions: productionDecisionSummary(decisionRows),
         production_decision_paths: joinPaths(decisionRows.map((item) => item.path)),
@@ -133,6 +138,8 @@ function buildReport() {
     "quirk_evidence",
     "runtime_gitops_results",
     "runtime_gitops_receipts",
+    "gitops_health_residue",
+    "gitops_health_residue_evidence",
     "live_compare_receipts",
     "production_decisions",
     "production_decision_paths",
@@ -163,7 +170,7 @@ define chart status. For status, use the linked source rows:
 | What works, what needs prerequisites, what needs operator review, and what is blocked? | [../top100-user-readiness/readiness.csv](../top100-user-readiness/readiness.csv) |
 | Which chart/base proof lanes have receipts? | [../outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which hooks or source quirks are routed? | [../hook-coverage/top100-hook-coverage.csv](../hook-coverage/top100-hook-coverage.csv), [../quirk-work-queue/top100-queue.csv](../quirk-work-queue/top100-queue.csv) |
-| Which production decisions or live receipts exist? | [../production-support-decisions/decisions.csv](../production-support-decisions/decisions.csv), [../runtime-gitops/receipt-index.csv](../runtime-gitops/receipt-index.csv), [../live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
+| Which production decisions or live receipts exist? | [../production-support-decisions/decisions.csv](../production-support-decisions/decisions.csv), [../runtime-gitops/receipt-index.csv](../runtime-gitops/receipt-index.csv), [../live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv), [../gitops-health-residue/summary.md](../gitops-health-residue/summary.md) |
 
 Use [router.csv](./router.csv) when you know the chart name and need the
 catalog path, base rows, variant revisions, receipts, hook route, quirk route,
@@ -221,6 +228,8 @@ function decisionReceiptCell(row) {
     row.production_decision_paths ? pathLinks(row.production_decision_paths, "decision") : "",
     row.runtime_gitops_results ? `GitOps ${code(row.runtime_gitops_results)}` : "",
     row.runtime_gitops_receipts ? pathLinks(row.runtime_gitops_receipts, "GitOps receipts") : "",
+    row.gitops_health_residue ? `GitOps health ${code(row.gitops_health_residue)}` : "",
+    row.gitops_health_residue_evidence ? pathLinks(row.gitops_health_residue_evidence, "health residue") : "",
     row.live_compare_receipts ? pathLinks(row.live_compare_receipts, "live compare") : "",
   ].filter(Boolean);
   return parts.join("<br>") || "-";
@@ -259,6 +268,13 @@ function runtimeGitopsSummary(rows) {
         .filter(Boolean)
         .join(":"),
     )
+    .join(";");
+}
+
+function gitopsHealthResidueSummary(rows) {
+  return rows
+    .map((row) => [row.base, row.classification].filter(Boolean).join(":"))
+    .sort()
     .join(";");
 }
 
