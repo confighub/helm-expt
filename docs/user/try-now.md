@@ -2,6 +2,10 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
+> Want to see a real run before you start? [first-run-walkthrough.md](./first-run-walkthrough.md)
+> captures this flow end-to-end on a throwaway cluster — the actual commands,
+> output, and one honest rough edge.
+
 This page gives a short path through the catalog. Use Redis for the simple
 happy path. Use kube-prometheus-stack when you want to inspect a serious Helm
 chart with CRDs, webhooks, RBAC, generated facts, dependencies, extension

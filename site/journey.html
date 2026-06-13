@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User journey · ConfigHub Helm Catalog</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0 auto; padding: 12px 20px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .topbar .brand::before { content: "▣ "; color: var(--good); }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .topbar { flex-wrap: wrap; }
+      .navlinks { margin-left: 0; }
+    }
+
+    .jstage { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+    .jstage:first-of-type { border-top: 0; }
+    .jnum { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 1.4rem; font-weight: 700; color: var(--good); }
+    .jbody h3 { margin: 6px 0 8px; font-size: 1.12rem; }
+    .jaction { margin: 0 0 8px; }
+    .jbody .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); }
+    .jbody .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .jbody .badge.planned { color: var(--muted); background: var(--panel); }
+    .jnext { color: var(--muted); font-size: .92rem; }
+    .ladder { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 6px; margin: 14px 0 4px; }
+    .ladder a { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 8px 10px; font-size: .8rem; color: var(--ink); text-decoration: none; text-align: center; }
+    .ladder a:hover { border-color: var(--accent); }
+    @media (max-width: 760px) { .ladder { grid-template-columns: 1fr 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <h1>From a one-line try-out to a managed estate.</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-13T20:11:50.790Z UTC · source: committed helm-expt evidence for this user journey.</p>
+    <p class="tagline">One path, six stages. Each stage names the exact action, what you get, and whether it is free, needs an account, or is paid — so you always know where the proof boundary and the price boundary are. The free stages are genuinely useful on their own; nothing here is a teaser that stops working until you pay.</p>
+    <div class="ladder">
+      <a href="#s0">0 · Inspect</a>
+      <a href="#s1">1 · Serverless try-out</a>
+      <a href="#s2">2 · First sign-up</a>
+      <a href="#s3">3 · Server try-out</a>
+      <a href="#s4">4 · Day-2 ops</a>
+      <a href="#s5">5 · Paid</a>
+    </div>
+  </header>
+  <main>
+    <section aria-labelledby="stages">
+      <h2 id="stages">The path</h2>
+      <div class="jstage" id="s0">
+        <div class="jnum">0</div>
+        <div class="jbody">
+          <span class="badge now">free · no account</span>
+          <h3>Inspect — see the objects before any cluster</h3>
+          <p class="jaction"><code>cub helm template &lt;chart&gt;</code></p>
+          
+          <p>The exact Kubernetes objects a chart produces, plus this catalog's per-variant proof boundary on the <a href="./matrix.html">status matrix</a> and <a href="./charts/index.html">chart pages</a>. No install, no login.</p>
+          <p class="jnext"><strong>Next →</strong> Pick a chart you actually run, then take the serverless try-out below.</p>
+        </div>
+      </div>
+      <div class="jstage" id="s1">
+        <div class="jnum">1</div>
+        <div class="jbody">
+          <span class="badge now">free · no account</span>
+          <h3>Serverless try-out — verified install on your own machine</h3>
+          <p class="jaction"><code>cub installer setup --pull &lt;package&gt; --base &lt;base&gt;</code></p>
+          <pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 \
+  --base default --work-dir .tmp/redis \
+  --non-interactive --namespace redis</code></pre>
+          <p><code>cub installer</code> pulls the reviewed package, renders it locally, and verifies it against the committed receipts. You apply the rendered manifests with plain <code>kubectl</code>/kustomize, and an in-cluster receipt records what actually landed. The whole proof machinery travels to your laptop — nothing is uploaded, no account exists yet.</p>
+          <p class="jnext"><strong>Next →</strong> When one machine and one render stop being enough — a teammate, an overlay, a policy, durable shared state — sign up.</p>
+        </div>
+      </div>
+      <div class="jstage" id="s2">
+        <div class="jnum">2</div>
+        <div class="jbody">
+          <span class="badge now">free tier · first sign-up</span>
+          <h3>First sign-up — your rendered chart becomes ConfigHub Units</h3>
+          <p class="jaction"><code>cub helm install  /  cub installer import</code></p>
+          <pre><code>cub auth login
+cub installer import helm --package packages/bitnami/redis/25.5.3 --base default</code></pre>
+          <p>An account turns the rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share — plus your first derived variant. This is the wedge from a local render to a managed graph; the free tier covers the first hands-on use.</p>
+          <p class="jnext"><strong>Next →</strong> Try the managed graph itself: derived variants, scans, and pull-based delivery.</p>
+        </div>
+      </div>
+      <div class="jstage" id="s3">
+        <div class="jnum">3</div>
+        <div class="jbody">
+          <span class="badge now">ConfigHub Server · try-out</span>
+          <h3>ConfigHub Server try-out — the managed desired-state graph</h3>
+          <p class="jaction"><code>cub variant create  ·  scan  ·  OCI + GitOps</code></p>
+          <pre><code>cub variant create redis-prod-us-east --from redis/default
+cub unit diff redis-prod-us-east
+# publish via OCI; an Argo or Flux controller reconciles it</code></pre>
+          <p>Day-1 managed value, hands-on: derived variants from a base, object diffs, function scans and safe-ops, changesets, and content-addressed OCI delivery that an Argo or Flux controller pulls and reconciles. The graph — not a pile of YAML — is now the source of truth.</p>
+          <p class="jnext"><strong>Next →</strong> Run it like an estate: approvals, promotions, live observation, upgrades.</p>
+        </div>
+      </div>
+      <div class="jstage" id="s4">
+        <div class="jnum">4</div>
+        <div class="jbody">
+          <span class="badge now">ConfigHub Server · day-2</span>
+          <h3>Next steps with ConfigHub — day-2 operations</h3>
+          <p class="jaction"><code>promote · gate · observe · upgrade · roll back</code></p>
+          
+          <p>Approvals and policy gates before apply; promotion across environments, regions, and customers from one base; live observation with receipts (Helm-vs-ConfigHub parity, GitOps health); upgrades and rollbacks; and fleet-wide queries — "where does this image run, and who changed that field?" This is where the per-install story becomes an estate story.</p>
+          <p class="jnext"><strong>Next →</strong> Where production responsibility and scale begin, paid features carry the weight.</p>
+        </div>
+      </div>
+      <div class="jstage" id="s5">
+        <div class="jnum">5</div>
+        <div class="jbody">
+          <span class="badge planned">paid · planned where noted</span>
+          <h3>Paid features — SLA, private catalog, estate scale</h3>
+          <p class="jaction"><code>subscription · private catalog · Server at scale</code></p>
+          
+          <p>What is bought is the SLA and the queries, not the bits. <strong>Catalog subscription:</strong> guaranteed refresh cadence, CVE-response turnaround, the attestation pack per variant (SBOM, scan receipts, digest inventory, signatures), hardened variants, and old-version support. <strong>Private catalog:</strong> your own charts, wrapper charts, and overlays through the same render-scan-sign pipeline. <strong>ConfigHub Server at estate scale:</strong> fleet inventory, authority on every change, the ledger, gates before apply, continuous observation. Each tier's claim is backed by a receipt the tier below can re-run.</p>
+          <p class="jnext"><strong>Next →</strong> See the full tier shape and boundaries on the Tiers page.</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="boundary">
+      <h2 id="boundary">Free, account, paid — the boundary in one table</h2>
+      <div class="card"><table>
+        <thead><tr><th>Stage</th><th>Boundary</th><th>What it costs you</th></tr></thead>
+        <tbody><tr><td>0 Inspect</td><td>free, no account</td><td>nothing — public pages and cub helm template</td></tr><tr><td>1 Serverless try-out</td><td>free, no account</td><td>nothing — runs entirely on your machine</td></tr><tr><td>2 First sign-up</td><td>free tier</td><td>a ConfigHub account; no payment for first hands-on use</td></tr><tr><td>3 Server try-out</td><td>free tier (limits apply)</td><td>account/rate limits when server compute or stored receipts are used</td></tr><tr><td>4 Day-2 operations</td><td>free tier → paid as scope grows</td><td>paid begins with production responsibility, private inputs, or fleet scale</td></tr><tr><td>5 Paid features</td><td>paid (planned where noted)</td><td>an SLA subscription, a private catalog, or the Server product</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>The exact tier shape and what is deliberately <em>not</em> sold too early are on the <a href="./tiers.html">Tiers page</a>; the commercial model and the serverless plan are linked there. Planned features are described as plans, not shipped behavior — the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
+    </section>
+
+    <section aria-labelledby="start">
+      <h2 id="start">Start now</h2>
+      <p>Stage 1 needs nothing but a cluster you can reach (a local kind cluster is fine) and the <code>cub</code> CLI:</p>
+      <pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 \
+  --base default --work-dir .tmp/redis \
+  --non-interactive --namespace redis</code></pre>
+      <p><a href="./try.html">Full try-now walkthrough</a> · <a href="./charts/index.html">browse the catalog</a> · <a href="./matrix.html">check a chart's proof status first</a>.</p>
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. Free stages are usable without payment; paid and planned tiers require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
+</body>
+</html>
