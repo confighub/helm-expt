@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 68
+pass: 69
 watch: 0
 blocked: 0
 not-started: 0
@@ -61,6 +61,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 18 | `bitnami/nginx@24.0.2` | existing-tls-ingress | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml |
 |  | `aqua/trivy-operator@0.32.1` | default | pass | - | runs/live-helm-confighub-compare/aqua-trivy-operator-default/receipt.yaml |
 |  | `aqua/trivy-operator@0.32.1` | no-crds | pass | - | runs/live-helm-confighub-compare/aqua-trivy-operator-no-crds/receipt.yaml |
+|  | `argo-cd/argo-workflows@1.0.14` | minimal-crds | pass | - | runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | default | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | ha | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-ha/receipt.yaml |
