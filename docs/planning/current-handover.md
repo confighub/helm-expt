@@ -74,8 +74,8 @@ There are two live parity surfaces, and they answer different questions:
 
 | Surface | Current reading | Use it for |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 84 committed receipts: 81 pass, 1 render-input watch, 2 target-fit blocked. | Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows. |
-| Live parity rerun queue | 1 render-input row, 2 target-fit rows, 0 semantic parity defects. | The active non-pass rows are cluster-autoscaler, Consul secure mesh, and Logstash HA. Cluster-autoscaler needs real autoscaling values modeled; Consul secure mesh and Logstash HA need a proof target with at least three schedulable nodes. |
+| Selected live Helm-vs-ConfigHub comparison | 84 committed receipts: 82 pass, 0 watch, 2 target-fit blocked. | Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows. |
+| Live parity rerun queue | 2 target-fit rows, 0 render-input rows, 0 semantic parity defects. | The active non-pass rows are Consul secure mesh and Logstash HA. Both need a proof target with at least three schedulable nodes, or a narrower target-scope decision. |
 
 The watch and blocked rows are not currently object-set parity defects. They
 surface target prerequisites, hook/lifecycle routes, controller health, storage,
@@ -120,7 +120,7 @@ ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
 selected live Helm-vs-ConfigHub comparison: see generated status for current pass, watch, blocked, and missing counts
-live parity rerun queue: 1 render-input watch, 2 target-fit blocks, 0 semantic parity defects in the selected live Helm-vs-ConfigHub lane
+live parity rerun queue: 2 target-fit blocks, 0 render-input watch rows, 0 semantic parity defects in the selected live Helm-vs-ConfigHub lane
 two-cluster kind parity: 70/70 pass, 0 watch, 0 blocked, 0 semantic parity defects
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
@@ -150,6 +150,24 @@ The latest generated queues for the next proof stages are:
 | Refresh survival and upgrade seed | [data/refresh-survival/summary.md](../../data/refresh-survival/summary.md) |
 
 These files are generated and verified. Do not edit them by hand.
+
+2026-06-13 update: Cluster Autoscaler `controller-default-reviewed` no longer
+belongs in the live rerun queue. It was converted from a misleading
+alias-of-default render into a values-profile rerender with
+`autoDiscovery.clusterName=kind` and `awsRegion=us-east-1`, then rerun through
+regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo. The committed
+receipt is:
+
+```text
+runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml
+```
+
+The useful-base realization wave now distinguishes alias bases from
+values-profile rerenders:
+
+```text
+data/useful-base-realization-wave/summary.md
+```
 
 The compact product entry point is:
 

@@ -70,9 +70,9 @@ Current generated facts, at the time of this plan update
 191/191 chart/base rows have render parity.
 155/191 chart/base rows have in-ConfigHub proof.
 138/191 chart/base rows have local live proof.
-81/191 chart/base rows have GitOps/OCI live proof.
-81/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
-80/191 chart/base rows have the complete core lane set.
+82/191 chart/base rows have GitOps/OCI live proof.
+82/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
+81/191 chart/base rows have the complete core lane set.
 70/70 two-cluster kind parity rows pass semantic parity.
 38/42 top-20 base variants are start-here rows.
 17/20 top-20 charts have supported target-scoped production decisions; 2 are superseded source charts; 1 is rejected for the current target scope; 20/20 are production-review-ready.
@@ -80,6 +80,20 @@ Current generated facts, at the time of this plan update
 
 These numbers are a snapshot, not a second source of truth. The authoritative
 counts remain the generated sources named above.
+
+The current live parity rerun queue is deliberately small:
+
+```text
+2 target-fit blocked rows
+0 render-input watch rows
+0 semantic parity defects
+```
+
+The former Cluster Autoscaler render-input watch row is closed. The
+`controller-default-reviewed` base is now a real values-profile rerender with
+`autoDiscovery.clusterName` and `awsRegion` pinned, and it has current live
+Helm-vs-ConfigHub parity across regular Helm, ConfigHub direct apply, and
+ConfigHub OCI/Argo.
 
 ## Current 99% Goal Shape
 
@@ -192,6 +206,20 @@ The next work should close user-visible confidence gaps before adding more
 internal proof surfaces. The current status is strong enough to launch a proof
 site, but not yet strong enough to imply production support across the top-100.
 
+The launch push should prioritize the work a skeptical Helm user will feel:
+
+```text
+Can I understand the product in five minutes?
+Can I try a chart without signing up?
+Can I see which variants are useful?
+Can I see what is production-supported versus only proven?
+Can I see hard Helm behavior handled honestly?
+Can I bring a problem chart and get a receipt, route, or refusal?
+```
+
+Do not optimize the launch around more proof machinery on the first screen.
+The website should expose proof as trust, not as the product path.
+
 | Order | Work | Concrete next step | Main sources |
 | ---: | --- | --- | --- |
 | 1 | Public website launch path | Make `site/index.html`, `site/proof.html`, `site/tiers.html`, and the chart pages the primary user journey: choose chart, choose base, inspect proof, understand free versus managed next step. | `docs/planning/dedicated-website-plan.md`, `site/README.md`, `data/master-catalog-matrix/matrix.html`. |
@@ -203,6 +231,23 @@ site, but not yet strong enough to imply production support across the top-100.
 | 7 | Variant operations | Make the base-versus-derived-versus-delivery decision obvious in tutorials, then prove the ConfigHub side through derived variants, target-bound receipts, promotion examples, and bulk scan/patch. | issues `#143`-`#152`, `docs/user/creating-variants.md`, `docs/user/tutorial-sequence.md`. |
 | 8 | External reproduction | Run the outside-user/Pilot path against the public site and tutorials, then record where a fresh user gets confused or where a CLI command is imagined. | `docs/planning/outside-user-test.md`, `docs/planning/pilot-adversarial-testing.md`, `docs/planning/independent-review-brief.md`. |
 | 9 | Commercial proof boundary | Keep the free path useful for public artifacts; route private overlays, stacks, old-version patch support, fleet operations, approvals, and production evidence into managed tiers. | `docs/user/product-support-tiers.md`, `docs/planning/verified-install-commercial-model.md`, `docs/user/offering.md`. |
+
+## Current Hard Blockers For 95%+
+
+These are the blockers that matter more than adding easy green cells:
+
+| Blocker | Why it matters | Current route |
+| --- | --- | --- |
+| Logstash HA and Consul secure-mesh target-fit rows | They are the only current selected live parity non-pass rows; both need a target with at least three schedulable nodes or an honest target-scope decision. | `data/live-parity-rerun-plan/summary.md`, `target-topology.yaml` in each recipe. |
+| Argo Workflows CRD hook/default split | It is a real example of "hooks are the install"; the default omits CRDs unless the hook route or a minimal-CRDs base is used. | issue `#643`, hook/lifecycle and useful-base lanes. |
+| ConfigHub bulk unit-create failures | Several next80 rows are blocked by server-side `unit create` or bulk-create failures rather than chart semantics. | issue `#645`; keep rows partial until the server issue is resolved. |
+| Mutable image tags | OCI artifact integrity does not fully bind runtime if rendered image tags float. | issue `#99`, image digest workdown. |
+| Namespace transformer limits | Complex charts can retain embedded namespace references if users choose non-canonical namespaces. | issue `#96`; prefer render-time namespace or a refusal/warning for affected bases. |
+| Public website polish | The evidence exists, but the first-time user flow still needs product clarity, chart pages, problem-chart intake, and free-versus-managed routing. | `docs/planning/dedicated-website-plan.md`, generated `site/`. |
+
+If Claude or another agent helps, give them one of these blockers with a narrow
+PR boundary. The live lane remains serial; non-live dataset and website work can
+run in isolated worktrees.
 
 When another agent helps, prefer these splits:
 
