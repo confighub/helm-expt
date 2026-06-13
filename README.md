@@ -898,7 +898,7 @@ The Argo CD / Flux OCI path is verified in a separate live lane because it needs
 a running GitOps controller and cluster. The current generated status is:
 
 ```text
-GitOps/OCI live pass rows: 81/191
+GitOps/OCI live pass rows: 82/191
 selected live Helm-vs-ConfigHub comparison: 81 pass, 1 render-input watch, 2 target-fit blocked
 all-base top-20 two-cluster kind parity: 42 pass, 0 watch, 0 blocked, 0 semantic defects
 broader two-cluster kind parity corpus: 70 pass, 0 watch, 0 blocked, 0 semantic defects
