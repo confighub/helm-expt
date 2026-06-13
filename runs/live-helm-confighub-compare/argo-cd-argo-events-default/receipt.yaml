@@ -1,0 +1,388 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: argo-cd-argo-events-2.4.21-default-live-parity-20260605
+spec:
+  chart: argo-cd/argo-events
+  version: 2.4.21
+  base: default
+  result: pass
+  observedAt: '2026-06-13T06:58:21Z'
+  package:
+    path: packages/argo-cd/argo-events/2.4.21
+  recipe:
+    path: recipes/argo-cd/argo-events/2.4.21
+  variantRevision: recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-argoev-1781333901
+    kubeContext: kind-helm-expt-parity-argoev-1781333901
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-argoev-1781333901 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-argoev-1781333901"...
+
+        Deleting cluster "helm-expt-parity-argoev-1781333901" ...
+
+        Deleted nodes: ["helm-expt-parity-argoev-1781333901-control-plane"]
+
+        Deleting Space "helm-expt-parity-argoev-1781333901-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argo-events argo-events --repo https://argoproj.github.io/argo-helm
+        --version 2.4.21 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-events-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b
+      objectCount: 9
+      liveHelmManifestSHA256: af2566c6fbae6af5334f2f032fa8d0745ff41879bb42e1046cdf2922e6f31ae4
+      liveHelmManifestObjectCount: 9
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/argo-events-controller-manager   1/1   1     1     36s
+        pods: argo-events-controller-manager-6b94db5665-dsmlb   1/1   Running   0     36s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-events/2.4.21
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoev-1781333901-argo-events
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 79fbb8af0eac41cfea252ce6a003476a5f48f7fe94fe321e14a74ffd558893d6
+      objectCount: 10
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/argo-events-controller-manager   1/1   1     1     21s'
+        pods: '# default
+
+          argo-events-controller-manager-6b4c999c9c-k96nv   1/1   Running   0     21s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 5
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "argo-events-controller-manager"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-events-controller-manager"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "eventbus.argoproj.io" deleted
+
+            customresourcedefinition.apiextensions.k8s.io "eventsources.argoproj.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "sensors.argoproj.io" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|argo-events-controller-manager
+          - v1|ConfigMap|default|argo-events-controller-manager
+          - v1|ServiceAccount|default|argo-events-controller-manager
+          - v1|ServiceAccount|default|argo-events-events-webhook
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-argoev-1781333901-argo-events
+      controller: Argo CD OCI
+      app: argo-events-parity
+      manifestSHA256: 3a78984e70647116ffbefbe17513dc980905113e7cad2d824f15871a7c20e55d
+      objectCount: 10
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:bf7d236deee2df48f00001d1311140241ffc7229184a52e43d458c3517e54315
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-argoev-1781333901-argo-events
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoev-1781333901-cluster/oci
+              targetRevision: latest
+          revision: sha256:bf7d236deee2df48f00001d1311140241ffc7229184a52e43d458c3517e54315
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T07:01:30Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: argo-events-controller-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: argo-events-controller-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: argo-events-events-webhook
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: eventbus.argoproj.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: eventsources.argoproj.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: sensors.argoproj.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: argo-events-controller-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: argo-events-controller-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: argo-events-controller-manager
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-argoev-1781333901-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoev-1781333901-cluster/oci
+              targetRevision: latest
+          revision: sha256:bf7d236deee2df48f00001d1311140241ffc7229184a52e43d458c3517e54315
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T06:59:29Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: argo-events-parity
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-argoev-1781333901-cluster
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/argo-events-controller-manager   1/1   1     1     95s'
+        pods: '# default
+
+          argo-events-controller-manager-6b4c999c9c-k96nv   1/1   Running   1 (64s
+          ago)   95s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-argoev-1781333901\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-argoev-1781333901.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-argoev-1781333901\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-argoev-1781333901\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argoev-1781333901\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argoev-1781333901.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n\
+      spec: {}\nstatus: {"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "argo-events" does not exist. Installing it now.
+
+      NAME: argo-events
+
+      LAST DEPLOYED: Sat Jun 13 07:59:21 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/argo-events-controller-manager   1/1   1     1     21s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=5
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
