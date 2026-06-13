@@ -20,7 +20,7 @@
 //     [--timeout-seconds 240] per-chart convergence budget
 
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, parseDocs, readYaml, relativeRepo, repoRoot, sha256, toYaml, writeYaml } from "./lib/proof-common.mjs";
@@ -68,6 +68,7 @@ let blockedReasons = [];
 const missingPrereqs = [];
 let observedPayload = "";
 const createdNamespaces = [];
+let stagedTargetFactCRDs = [];
 // Some charts render objects into namespaces other than the variant's (for
 // example keda places objects in kube-system). Apply namespace-faithfully:
 // docs with an explicit namespace keep it; docs without get the variant
@@ -83,6 +84,8 @@ try {
       checks.push({ name: "namespace-created", result: "pass", object: `v1|Namespace||${ns}` });
     }
   }
+
+  stagedTargetFactCRDs = stageRequiredCRDs();
 
   for (const crd of targetFacts.requiredCRDs ?? []) {
     const name = typeof crd === "string" ? crd : crd.name;
@@ -246,6 +249,16 @@ writeYaml(receiptPath, {
     clusterStatus: createdCluster ? "created-by-test" : "existing",
     variant: variantName,
     targetFacts,
+    ...(stagedTargetFactCRDs.length
+      ? {
+          stagedTargetFacts: {
+            crds: stagedTargetFactCRDs.map((doc) => ({
+              name: doc.metadata.name,
+              sourceVariant: sourceVariantForCRD(doc.metadata.name),
+            })),
+          },
+        }
+      : {}),
     workloads: workloads.length,
     ...(observedPayload.trim()
       ? { kubectlObjects: { path: "observed-objects.yaml", sha256: sha256(observedPayload) } }
@@ -275,6 +288,64 @@ function tryApply(objects, nsArgs, errors) {
     const raw = `${error.stderr ?? ""}${error.message ?? ""}`.replaceAll("\n", " ").trim();
     errors.push(raw.slice(0, 200) || "apply failed");
   }
+}
+
+function stageRequiredCRDs() {
+  const required = targetFacts.requiredCRDs ?? [];
+  if (!required.length) return [];
+  const staged = [];
+  const errors = [];
+  const missing = [];
+  const bySource = new Map();
+  for (const entry of required) {
+    const name = typeof entry === "string" ? entry : entry.name;
+    const sourceVariant = typeof entry === "string" ? "default" : (entry.sourceVariant ?? "default");
+    if (!name) continue;
+    if (!bySource.has(sourceVariant)) bySource.set(sourceVariant, []);
+    bySource.get(sourceVariant).push(name);
+  }
+  for (const [sourceVariant, names] of bySource.entries()) {
+    const sourceRender = join(repoRoot, "recipes", chartPath, "revisions", sourceVariant, "r001", "rendered", "release-objects.yaml");
+    if (!existsSync(sourceRender)) {
+      missing.push(`source variant ${sourceVariant} render missing`);
+      continue;
+    }
+    const sourceDocs = parseDocs(readFileSync(sourceRender, "utf8"));
+    const crdDocs = sourceDocs.filter((doc) => doc?.kind === "CustomResourceDefinition" && names.includes(doc.metadata?.name));
+    const found = new Set(crdDocs.map((doc) => doc.metadata.name));
+    for (const name of names) {
+      if (!found.has(name)) missing.push(`${name} from ${sourceVariant}`);
+    }
+    staged.push(...crdDocs);
+  }
+  if (staged.length) {
+    writeFileSync(join(runDir, "target-facts-crds.yaml"), staged.map((doc) => toYaml(doc)).join("---\n"));
+    tryApply(staged, ["--server-side", "--force-conflicts"], errors);
+  }
+  if (errors.length || missing.length) {
+    checks.push({
+      name: "target-fact-crds-staged",
+      result: "blocked",
+      object: `${required.length} required CRD target fact(s)`,
+      reason: [...missing, ...errors].join(" | ").slice(0, 300),
+    });
+    blockedReasons.push(`target fact CRDs: ${[...missing, ...errors].join(" | ").slice(0, 200)}`);
+    return staged;
+  }
+  checks.push({
+    name: "target-fact-crds-staged",
+    result: "pass",
+    object: `${staged.length} required CRD target fact(s)`,
+  });
+  return staged;
+}
+
+function sourceVariantForCRD(name) {
+  for (const entry of targetFacts.requiredCRDs ?? []) {
+    const entryName = typeof entry === "string" ? entry : entry.name;
+    if (entryName === name) return typeof entry === "string" ? "default" : (entry.sourceVariant ?? "default");
+  }
+  return "default";
 }
 
 function deleteDocs(objects, nsArgs) {

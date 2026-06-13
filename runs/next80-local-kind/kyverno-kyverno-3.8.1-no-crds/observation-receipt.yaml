@@ -11,45 +11,396 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-kyverno-no-crds-1781319238"
+    context: "kind-claude-helm-expt-kyverno-no-crds-1781319238"
     namespace: "default"
-  observedAt: "2026-06-11T15:10:53.282Z"
+  observedAt: "2026-06-13T02:55:09.422Z"
   freshnessTTL: "1h"
-  result: "fail"
-  clusterStatus: "existing"
+  result: "pass"
+  clusterStatus: "created-by-test"
   variant: "no-crds"
+  targetFacts:
+    requiredCRDs:
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "cleanuppolicies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "clustercleanuppolicies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "clusterpolicies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "globalcontextentries.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "policyexceptions.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "updaterequests.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "clusterephemeralreports.reports.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "ephemeralreports.reports.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "clusterpolicyreports.wgpolicyk8s.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "policyreports.wgpolicyk8s.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "deletingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "generatingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "imagevalidatingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "mutatingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "namespaceddeletingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "namespacedgeneratingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "namespacedmutatingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "namespacedvalidatingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "policyexceptions.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "validatingpolicies.policies.kyverno.io"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        sourceVariant: "default"
+  stagedTargetFacts:
+    crds:
+      -
+        name: "cleanuppolicies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "clustercleanuppolicies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "clusterpolicies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "globalcontextentries.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "policyexceptions.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "updaterequests.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "clusterephemeralreports.reports.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "ephemeralreports.reports.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "clusterpolicyreports.wgpolicyk8s.io"
+        sourceVariant: "default"
+      -
+        name: "policyreports.wgpolicyk8s.io"
+        sourceVariant: "default"
+      -
+        name: "deletingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "generatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "imagevalidatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "mutatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "namespaceddeletingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "namespacedgeneratingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "namespacedmutatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "namespacedvalidatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "policyexceptions.policies.kyverno.io"
+        sourceVariant: "default"
+      -
+        name: "validatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
   workloads: 4
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "6e3d254ca2900c9116d413293c757bb61269c4347f4bbdb16e583819780f51a7"
+    sha256: "6b05acc3c4c0077f84551936ab81319e940e20368909fda5fe2ab26df7856c4d"
   checks:
+    -
+      name: "target-fact-crds-staged"
+      result: "pass"
+      object: "22 required CRD target fact(s)"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||cleanuppolicies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clustercleanuppolicies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterpolicies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||globalcontextentries.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||policyexceptions.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||updaterequests.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterephemeralreports.reports.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||ephemeralreports.reports.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterpolicyreports.wgpolicyk8s.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||policyreports.wgpolicyk8s.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||deletingpolicies.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||generatingpolicies.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||imagevalidatingpolicies.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||mutatingpolicies.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||namespaceddeletingpolicies.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||namespacedgeneratingpolicies.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||namespacedimagevalidatingpolicies.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||namespacedmutatingpolicies.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||namespacedvalidatingpolicies.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||policyexceptions.policies.kyverno.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||validatingpolicies.policies.kyverno.io"
     -
       name: "rendered-objects-applied"
       result: "pass"
       object: "47 object(s) from recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|default|kyverno-admission-controller"
-      reason: "not-ready: kyverno-admission-controller-798db6b999-9z657[CrashLoopBackOff ready=false restarts=5;] kyverno-background-controller-57f7cb7c48-zp7j4[Error ready=false restarts=5;] kyverno-cleanup-controller-5f46cd89f7-rvhk5[CrashLoopBackOff ready=false restarts=5;] kyverno-reports-controller-dfdd969cd-fbxvp[Error"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|default|kyverno-background-controller"
-      reason: "not-ready: kyverno-admission-controller-798db6b999-9z657[CrashLoopBackOff ready=false restarts=5;] kyverno-background-controller-57f7cb7c48-zp7j4[Error ready=false restarts=5;] kyverno-cleanup-controller-5f46cd89f7-rvhk5[CrashLoopBackOff ready=false restarts=5;] kyverno-reports-controller-dfdd969cd-fbxvp[Error"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|default|kyverno-cleanup-controller"
-      reason: "not-ready: kyverno-admission-controller-798db6b999-9z657[CrashLoopBackOff ready=false restarts=5;] kyverno-background-controller-57f7cb7c48-zp7j4[Error ready=false restarts=5;] kyverno-cleanup-controller-5f46cd89f7-rvhk5[CrashLoopBackOff ready=false restarts=5;] kyverno-reports-controller-dfdd969cd-fbxvp[Error"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|default|kyverno-reports-controller"
-      reason: "not-ready: kyverno-admission-controller-798db6b999-9z657[CrashLoopBackOff ready=false restarts=5;] kyverno-background-controller-57f7cb7c48-zp7j4[Error ready=false restarts=5;] kyverno-cleanup-controller-5f46cd89f7-rvhk5[CrashLoopBackOff ready=false restarts=5;] kyverno-reports-controller-dfdd969cd-fbxvp[Error"
-  blockedReasons:
-    - "deployment/kyverno-admission-controller: not-ready (kyverno-admission-controller-798db6b999-9z657[CrashLoopBackOff ready=false restarts=5;] kyverno-background-controller-57f7cb7c48-zp7j4[Error ready=false restart)"
-    - "deployment/kyverno-background-controller: not-ready (kyverno-admission-controller-798db6b999-9z657[CrashLoopBackOff ready=false restarts=5;] kyverno-background-controller-57f7cb7c48-zp7j4[Error ready=false restart)"
-    - "deployment/kyverno-cleanup-controller: not-ready (kyverno-admission-controller-798db6b999-9z657[CrashLoopBackOff ready=false restarts=5;] kyverno-background-controller-57f7cb7c48-zp7j4[Error ready=false restart)"
-    - "deployment/kyverno-reports-controller: not-ready (kyverno-admission-controller-798db6b999-9z657[CrashLoopBackOff ready=false restarts=5;] kyverno-background-controller-57f7cb7c48-zp7j4[Error ready=false restart)"

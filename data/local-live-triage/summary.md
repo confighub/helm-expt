@@ -8,11 +8,11 @@ clear without turning every non-pass row into a product defect.
 ## Snapshot
 
 ~~~text
-chart/base rows:          189
-local live observed rows: 189
-local live pass rows:     133
-local live non-pass rows: 56
-classified non-pass rows: 56
+chart/base rows:          191
+local live observed rows: 191
+local live pass rows:     136
+local live non-pass rows: 55
+classified non-pass rows: 55
 needs manual inspection:  0
 ~~~
 
@@ -20,7 +20,7 @@ needs manual inspection:  0
 
 | Route class | Rows | Meaning | Next action |
 | --- | ---: | --- | --- |
-| `runtime-readiness` | 25 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
+| `runtime-readiness` | 24 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | `target-prerequisite` | 9 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | `webhook-cert-lifecycle` | 8 | A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready. | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | `image-dependency` | 6 | The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity. | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
@@ -47,8 +47,8 @@ needs manual inspection:  0
 | `istio/gateway@1.30.0` | controller-default-reviewed | blocked | `image-dependency` | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. | [receipt](../../runs/next80-local-kind/istio-gateway-1.30.0-controller-default-reviewed/observation-receipt.yaml) |
 | `istio/gateway@1.30.0` | default | blocked | `image-dependency` | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. | [receipt](../../runs/next80-local-kind/istio-gateway-1.30.0-default/observation-receipt.yaml) |
 | `projectcalico/tigera-operator@v3.32.0` | default | blocked | `lifecycle-ordering` | Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt. | [receipt](../../runs/next80-local-kind/projectcalico-tigera-operator-v3.32.0-default/observation-receipt.yaml) |
-| `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-controller-default-reviewed/observation-receipt.yaml) |
-| `argo-cd/argo-workflows@1.0.14` | default | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-default/observation-receipt.yaml) |
+| `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | blocked | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-controller-default-reviewed/observation-receipt.yaml) |
+| `argo-cd/argo-workflows@1.0.14` | default | blocked | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-default/observation-receipt.yaml) |
 | `bitnami/contour@21.1.4` | no-crds | blocked | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/bitnami-contour-21.1.4-no-crds/observation-receipt.yaml) |
 | `bitnami/elasticsearch@22.1.6` | default | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/bitnami-elasticsearch-22.1.6-default/observation-receipt.yaml) |
 | `bitnami/elasticsearch@22.1.6` | ha | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/bitnami-elasticsearch-22.1.6-ha/observation-receipt.yaml) |

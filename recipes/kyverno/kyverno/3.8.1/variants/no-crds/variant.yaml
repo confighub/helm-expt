@@ -16,3 +16,119 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "cleanuppolicies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: &crdDeliveryLanes
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "clustercleanuppolicies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "clusterpolicies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "globalcontextentries.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "policyexceptions.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "updaterequests.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "clusterephemeralreports.reports.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "ephemeralreports.reports.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "clusterpolicyreports.wgpolicyk8s.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "policyreports.wgpolicyk8s.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "deletingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "generatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "imagevalidatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "mutatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "namespaceddeletingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "namespacedgeneratingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "namespacedmutatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "namespacedvalidatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "policyexceptions.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes
+      -
+        name: "validatingpolicies.policies.kyverno.io"
+        sourceVariant: "default"
+        purpose: "Kyverno CRD managed outside this no-crds base"
+        deliveryLanes: *crdDeliveryLanes

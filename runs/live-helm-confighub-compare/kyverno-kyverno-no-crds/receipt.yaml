@@ -1,0 +1,907 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: kyverno-kyverno-3.8.1-no-crds-live-parity-20260605
+spec:
+  chart: kyverno/kyverno
+  version: 3.8.1
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-13T02:42:11Z'
+  package:
+    path: packages/kyverno/kyverno/3.8.1
+  recipe:
+    path: recipes/kyverno/kyverno/3.8.1
+  variantRevision: recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kyverno-no-crds-1781318531
+    kubeContext: kind-helm-expt-parity-kyverno-no-crds-1781318531
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-kyverno-no-crds-1781318531 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-kyverno-no-crds-1781318531"...
+
+        Deleting cluster "helm-expt-parity-kyverno-no-crds-1781318531" ...
+
+        Deleted nodes: ["helm-expt-parity-kyverno-no-crds-1781318531-control-plane"]
+
+        Deleting Space "helm-expt-parity-kyverno-no-crds-1781318531-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kyverno kyverno --repo https://kyverno.github.io/kyverno/
+        --version 3.8.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kyverno-kyverno-no-crds/regular-helm-values.yaml
+        --wait --timeout 900s
+      manifestSHA256: 3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227
+      objectCount: 47
+      liveHelmManifestSHA256: 206757c36eba49b1ace6979163730f3441897d95c4bbb97e3605997a8418e172
+      liveHelmManifestObjectCount: 47
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/kyverno-admission-controller    1/1   1     1     42s
+
+          deployment.apps/kyverno-background-controller   1/1   1     1     42s
+
+          deployment.apps/kyverno-cleanup-controller      1/1   1     1     42s
+
+          deployment.apps/kyverno-reports-controller      1/1   1     1     42s'
+        pods: 'kyverno-admission-controller-7f5984f799-m2hcp    1/1   Running   0     42s
+
+          kyverno-background-controller-57f7cb7c48-hkvmt   1/1   Running   0     42s
+
+          kyverno-cleanup-controller-68969cf765-qbwgg      1/1   Running   0     42s
+
+          kyverno-reports-controller-dfdd969cd-62w7s       1/1   Running   0     42s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kyverno/kyverno/3.8.1
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kyverno-no-crds-1781318531-kyverno-kyverno
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 164d5c2fd4916b9dac3dc4aea2a9d326e463c7f7865152138ec8358ec9509701
+      objectCount: 48
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/kyverno-admission-controller    1/1   1     1     11s
+
+          deployment.apps/kyverno-background-controller   1/1   1     1     11s
+
+          deployment.apps/kyverno-cleanup-controller      1/1   1     1     11s
+
+          deployment.apps/kyverno-reports-controller      1/1   1     1     11s'
+        pods: '# default
+
+          kyverno-admission-controller-798db6b999-56jfs    1/1   Running   0     10s
+
+          kyverno-background-controller-57f7cb7c48-8dhg9   1/1   Running   0     10s
+
+          kyverno-cleanup-controller-5f46cd89f7-674kt      1/1   Running   0     10s
+
+          kyverno-reports-controller-dfdd969cd-rj26j       1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 23
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "kyverno:admission-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:admission-controller:core"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:background-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:background-controller:core"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:cleanup-controller" deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:cleanup-controller:core"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:rbac:admin:policies" deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:rbac:admin:policyreports"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:rbac:admin:reports" deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:rbac:admin:updaterequests"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:rbac:view:policies" deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:rbac:view:policyreports"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kyverno:rbac:view'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 24
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'configmap "kyverno-metrics" deleted from default namespace
+
+            configmap "kyverno" deleted from default namespace
+
+            deployment.apps "kyverno-admission-controller" deleted from default namespace
+
+            deployment.apps "kyverno-background-controller" deleted from default namespace
+
+            deployment.apps "kyverno-cleanup-controller" deleted from default namespace
+
+            deployment.apps "kyverno-reports-controller" deleted from default namespace
+
+            role.rbac.authorization.k8s.io "kyverno:admission-controller" deleted
+            from default namespace
+
+            role.rbac.authorization.k8s.io "kyverno:background-controller" deleted
+            from default namespace
+
+            role.rbac.authorization.k8s.io "kyverno:cleanup-controller" deleted from
+            default namespace
+
+            role.rbac.authorization.k8s.io "kyverno:reports-controller" deleted from
+            default namespace
+
+            rolebinding.rbac.authorization.k8s.io "kyverno:admission-controller" deleted
+            from default namespace
+
+            rolebinding.rbac.authorization.k8s.io "kyverno:background-controller"
+            deleted from default namespace
+
+            rolebinding'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kyverno-no-crds-1781318531-kyverno-kyverno
+      controller: Argo CD OCI
+      app: kyverno-kyverno-parity
+      manifestSHA256: 1bc2cbda380278bfdf363f5829050404ae43bb9802257a437900b90f029a5830
+      objectCount: 48
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:278403d0ccae475b0d4180e44fd78b2862fb7d939feb73cc6f6a1d23071132c1
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kyverno-no-crds-1781318531-kyverno-kyverno
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyverno-no-crds-1781318531-cluster/oci
+              targetRevision: latest
+          revision: sha256:278403d0ccae475b0d4180e44fd78b2862fb7d939feb73cc6f6a1d23071132c1
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T02:50:06Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: kyverno
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: kyverno-metrics
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: kyverno-background-controller-metrics
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: kyverno-cleanup-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: kyverno-cleanup-controller-metrics
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: kyverno-reports-controller-metrics
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: kyverno-svc
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: kyverno-svc-metrics
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: kyverno-admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: kyverno-background-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: kyverno-cleanup-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: kyverno-reports-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: kyverno-admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: kyverno-background-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: kyverno-cleanup-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: kyverno-reports-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:admission-controller:core
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:background-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:background-controller:core
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:cleanup-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:cleanup-controller:core
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:rbac:admin:policies
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:rbac:admin:policyreports
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:rbac:admin:reports
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:rbac:admin:updaterequests
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:rbac:view:policies
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:rbac:view:policyreports
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:rbac:view:reports
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:rbac:view:updaterequests
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:reports-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kyverno:reports-controller:core
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kyverno:admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kyverno:admission-controller:view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kyverno:background-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kyverno:background-controller:view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kyverno:cleanup-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kyverno:reports-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kyverno:reports-controller:view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: kyverno:admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: kyverno:background-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: kyverno:cleanup-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: kyverno:reports-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: kyverno:admission-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: kyverno:background-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: kyverno:cleanup-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: kyverno:reports-controller
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/kyverno-admission-controller    1/1   1     1     27s
+
+          deployment.apps/kyverno-background-controller   1/1   1     1     27s
+
+          deployment.apps/kyverno-cleanup-controller      1/1   1     1     27s
+
+          deployment.apps/kyverno-reports-controller      1/1   1     1     27s'
+        pods: '# default
+
+          kyverno-admission-controller-798db6b999-g9bv7    1/1   Running   0     27s
+
+          kyverno-background-controller-57f7cb7c48-kq8t8   1/1   Running   0     27s
+
+          kyverno-cleanup-controller-5f46cd89f7-7ggv2      1/1   Running   0     27s
+
+          kyverno-reports-controller-dfdd969cd-9wstl       1/1   Running   0     27s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 47
+      configHubObjectCount: 48
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 47
+      configHubObjectCount: 48
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kyverno-no-crds-1781318531\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kyverno-no-crds-1781318531.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kyverno-no-crds-1781318531\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-kyverno-no-crds-1781318531\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kyverno-no-crds-1781318531\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kyverno-no-crds-1781318531.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind:"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=22
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"kyverno\" does not exist. Installing it now.\nNAME: kyverno\n\
+      LAST DEPLOYED: Sat Jun 13 03:44:19 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nNOTES:\nChart version: 3.8.1\nKyverno\
+      \ version: v1.18.1\n\nThank you for installing kyverno! Your release is named\
+      \ kyverno.\n\nThe following components have been installed in your cluster:\n\
+      - Admission controller\n- Reports controller\n- Cleanup controller\n- Background\
+      \ controller\n\n\n\u26A0\uFE0F  WARNING: Setting the admission controller replica\
+      \ count below 2 means Kyverno is not running in high availability mode.\n\n\n\
+      \u26A0\uFE0F  WARNING: PolicyExceptions are disabled by default. To enable them,\
+      \ set '--enablePolicyException' to true.\n\n\U0001F4A1 Note: There is a trade-off\
+      \ when deciding which approach to take regarding Namespace exclusions. Please\
+      \ see the documentation at https://kyverno.io/docs/installation/#security-vs-operability\
+      \ to understand the risks."
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=22
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/kyverno-admission-controller    1/1   1     1     11s
+
+      deployment.apps/kyverno-background-controller   1/1   1     1     11s
+
+      deployment.apps/kyverno-cleanup-controller      1/1   1     1     11s
+
+      deployment.apps/kyverno-reports-controller      1/1   1     1     11s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=23
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=24 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=22
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 40s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clustercleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: globalcontextentries.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: policyexceptions.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: updaterequests.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: ephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterpolicyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: policyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: deletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: generatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: imagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: mutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespaceddeletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespacedgeneratingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespacedimagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespacedmutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespacedvalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: policyexceptions.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: validatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kyverno-kyverno-no-crds/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clustercleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: globalcontextentries.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: policyexceptions.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: updaterequests.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clusterephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: ephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clusterpolicyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: policyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: deletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: generatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: imagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: mutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: namespaceddeletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: namespacedgeneratingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: namespacedimagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: namespacedmutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: namespacedvalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: policyexceptions.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: validatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kyverno-kyverno-no-crds/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clustercleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: globalcontextentries.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: policyexceptions.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: updaterequests.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clusterephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: ephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clusterpolicyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: policyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: deletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: generatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: imagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: mutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: namespaceddeletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: namespacedgeneratingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: namespacedimagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: namespacedmutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: namespacedvalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: policyexceptions.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: validatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kyverno-kyverno-no-crds/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

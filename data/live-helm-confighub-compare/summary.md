@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 61
+pass: 62
 watch: 3
 blocked: 0
 not-started: 0
@@ -73,6 +73,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | no-crds | pass | - | runs/live-helm-confighub-compare/kedacore-keda-no-crds/receipt.yaml |
 |  | `kyverno/kyverno@3.8.1` | default | watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) | runs/live-helm-confighub-compare/kyverno-kyverno-default/receipt.yaml |
+|  | `kyverno/kyverno@3.8.1` | no-crds | pass | - | runs/live-helm-confighub-compare/kyverno-kyverno-no-crds/receipt.yaml |
 |  | `nats/nats@2.14.0` | default | pass | - | runs/live-helm-confighub-compare/nats-nats-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | default | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-default/receipt.yaml |
 |  | `percona/pxc-operator@1.19.1` | default | pass | - | runs/live-helm-confighub-compare/percona-pxc-operator-default/receipt.yaml |
