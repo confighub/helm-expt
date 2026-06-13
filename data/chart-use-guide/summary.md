@@ -65,6 +65,7 @@ before their catalog status changes.
 | --- | --- | --- | --- |
 | `external-dns/external-dns@1.21.1` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `kedacore/keda@2.19.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `prometheus-community/kube-state-metrics@7.4.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `elastic/eck-operator@3.4.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
@@ -73,16 +74,18 @@ before their catalog status changes.
 | `prometheus-community/alertmanager@1.37.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `elastic/logstash@8.5.1` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `fairwinds-stable/vpa@4.11.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `strimzi/strimzi-kafka-operator@1.0.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `gatekeeper/gatekeeper@3.22.2` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `percona/pxc-operator@1.19.1` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `aqua/trivy-operator@0.32.1` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| `argo-cd/argo-events@2.4.21` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| `argo-cd/argo-rollouts@2.40.9` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `argo-cd/argo-events@2.4.21` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `argo-cd/argo-rollouts@2.40.9` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `argo-cd/argo-workflows@1.0.14` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `open-telemetry/opentelemetry-operator@0.114.0` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `percona/pg-operator@3.0.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| `percona/psmdb-operator@1.22.0` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `percona/psmdb-operator@1.22.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `sealed-secrets/sealed-secrets@2.18.6` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 
 Detailed gaps are in [../top100-promotion-wave/summary.md](../top100-promotion-wave/summary.md).
@@ -106,10 +109,10 @@ or a limitation decision before they should be treated as catalog offers.
 | `prometheus-community/kube-state-metrics@7.4.0` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `elastic/eck-operator@3.4.0` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `elastic/kibana@8.5.1` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
-| `descheduler/descheduler@0.36.0` | `not-yet-user-ready` | `two-cluster-kind-parity` | Design at least one useful base variant before catalog promotion. |
+| `descheduler/descheduler@0.36.0` | `not-yet-user-ready` | `live-helm-vs-confighub-parity` | Design at least one useful base variant before catalog promotion. |
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `bitnami/elasticsearch@22.1.6` | `decision-needed-first` | `render-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
-| `stakater/reloader@2.2.12` | `not-yet-public-catalog-proof-ready` | `local-kubernetes-live` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
+| `stakater/reloader@2.2.12` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 
 ## Boundaries
 

@@ -27,12 +27,19 @@ rows with object/workload observation:   2
 rows with two-cluster parity only:       0
 rows still source-detected only:         3
 aggregated API availability receipts:    2
-active proof/import work orders:          4
+capability-profile candidates observed:  1
+active proof/import work orders:          5
 ~~~
 
 Only rows with both an `Available=True` APIService condition and a successful
 aggregated API query receipt claim aggregated API availability. Today that
 evidence exists for Metrics Server and KEDA.
+
+Prometheus Adapter also has a live-tested capability-profile candidate. Adding
+`apiregistration.k8s.io/v1` to the render profile changes the chart's
+APIService from the refused `apiregistration.k8s.io/v1beta1` object to a
+target-supported `apiregistration.k8s.io/v1` object. That candidate is not a
+maintained base yet; it is the next recipe/base task.
 
 ## Coverage Status
 
@@ -62,7 +69,7 @@ counts above.
 | ---: | --- | --- | ---: | --- | --- | --- | --- | --- |
 | 11 | `metrics-server/metrics-server` | 3.13.0 | 2 | `api-aggregation-observed` | yes | - | - | keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart |
 | 53 | `kedacore/keda` | 2.19.0 | 2 | `api-aggregation-observed` | yes | - | - | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts |
-| 118 | `prometheus-community/prometheus-adapter` | 5.3.0 | 2 | `target-api-version-refused` | yes | `api-version-unsupported` | `do-not-promote-for-this-target-profile` | Keep prometheus-community/prometheus-adapter@5.3.0 proof-grade for this target profile. Promote only after an upstream chart version or explicit compatibility base renders a target-supported APIService object and passes the APIService runtime contract. |
+| 118 | `prometheus-community/prometheus-adapter` | 5.3.0 | 2 | `target-api-version-refused` | yes | `api-version-unsupported` | `do-not-promote-for-this-target-profile` | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
 | 130 | `fairwinds-stable/goldilocks` | 10.3.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
 | 148 | `fairwinds-stable/vpa` | 4.11.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
 
@@ -73,6 +80,15 @@ Maintained status counts:
 | `api-aggregation-observed` | 2 |
 | `source-signal-not-rendered-in-maintained-bases` | 2 |
 | `target-api-version-refused` | 1 |
+
+## Capability Profile Candidates
+
+These rows are live-tested routes from a refused current base to a possible
+future maintained base. They are not current catalog support claims.
+
+| Chart | Candidate base | Added API versions | Render result | Live result | Receipt | Next action |
+| --- | --- | --- | --- | --- | --- | --- |
+| `prometheus-community/prometheus-adapter@5.3.0` | `apiservice-v1-capability` | apiregistration.k8s.io/v1 | pass | pass | [receipt](./capability-profile-candidates/prometheus-community-prometheus-adapter-5.3.0-apiservice-v1.yaml) | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
 
 ## Runtime Contract
 
@@ -128,6 +144,9 @@ Current contract rows:
 | `render-path-notes.csv` | Spreadsheet-ready render-path decisions. |
 | `target-compatibility-decisions.md` | Target-scoped compatibility decisions for maintained rows that render unsupported APIService versions. |
 | `target-compatibility-decisions.csv` | Spreadsheet-ready target compatibility decisions. |
+| `capability-profile-candidates.md` | Live-tested capability-profile candidates that can become future maintained bases. |
+| `capability-profile-candidates.csv` | Spreadsheet-ready capability-profile candidate index. |
+| `capability-profile-candidates/*.yaml` | Candidate receipts with render and live rehearsal evidence. |
 | `promotion-reviews/README.md` | APIService promotion-review packets for rows with enough runtime evidence to review catalog scope. |
 | `promotion-reviews/promotion-reviews.csv` | Spreadsheet-ready APIService promotion-review packet index. |
 | `work-orders.md` | Human next-proof queue for APIService charts. |

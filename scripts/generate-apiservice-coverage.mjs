@@ -18,6 +18,7 @@ import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-comm
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "apiservice-coverage");
 const promotionReviewRoot = join(outputRoot, "promotion-reviews");
+const capabilityCandidateRoot = join(outputRoot, "capability-profile-candidates");
 const outputs = {
   csv: join(outputRoot, "top100-apiservice-coverage.csv"),
   maintainedCsv: join(outputRoot, "maintained-apiservice-coverage.csv"),
@@ -25,6 +26,8 @@ const outputs = {
   renderPathMd: join(outputRoot, "render-path-notes.md"),
   targetDecisionCsv: join(outputRoot, "target-compatibility-decisions.csv"),
   targetDecisionMd: join(outputRoot, "target-compatibility-decisions.md"),
+  capabilityCandidateCsv: join(outputRoot, "capability-profile-candidates.csv"),
+  capabilityCandidateMd: join(outputRoot, "capability-profile-candidates.md"),
   promotionReviewCsv: join(promotionReviewRoot, "promotion-reviews.csv"),
   promotionReviewMd: join(promotionReviewRoot, "README.md"),
   summary: join(outputRoot, "summary.md"),
@@ -54,6 +57,7 @@ const knownReceipts = {
   },
   "prometheus-community/prometheus-adapter@5.3.0": {
     configHubProof: "runs/prometheus-adapter-confighub-proof/latest/confighub-proof-receipt.yaml",
+    capabilityCandidate: "data/apiservice-coverage/capability-profile-candidates/prometheus-community-prometheus-adapter-5.3.0-apiservice-v1.yaml",
   },
 };
 
@@ -65,6 +69,8 @@ if (mode === "--generate") {
   write(outputs.renderPathMd, report.outputs.renderPathMd);
   write(outputs.targetDecisionCsv, report.outputs.targetDecisionCsv);
   write(outputs.targetDecisionMd, report.outputs.targetDecisionMd);
+  write(outputs.capabilityCandidateCsv, report.outputs.capabilityCandidateCsv);
+  write(outputs.capabilityCandidateMd, report.outputs.capabilityCandidateMd);
   write(outputs.promotionReviewCsv, report.outputs.promotionReviewCsv);
   write(outputs.promotionReviewMd, report.outputs.promotionReviewMd);
   for (const packet of report.promotionReviewPackets) write(join(repoRoot, packet.path), packet.yaml);
@@ -83,6 +89,9 @@ if (mode === "--generate") {
   check(readFileSync(outputs.renderPathMd, "utf8") === report.outputs.renderPathMd, `${relativeRepo(outputs.renderPathMd)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.targetDecisionCsv, "utf8") === report.outputs.targetDecisionCsv, `${relativeRepo(outputs.targetDecisionCsv)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.targetDecisionMd, "utf8") === report.outputs.targetDecisionMd, `${relativeRepo(outputs.targetDecisionMd)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.capabilityCandidateCsv, "utf8") === report.outputs.capabilityCandidateCsv, `${relativeRepo(outputs.capabilityCandidateCsv)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.capabilityCandidateMd, "utf8") === report.outputs.capabilityCandidateMd, `${relativeRepo(outputs.capabilityCandidateMd)} is stale; run npm run apiservice:coverage`);
+  verifyCapabilityCandidateReceipts(report.capabilityCandidates);
   check(readFileSync(outputs.promotionReviewCsv, "utf8") === report.outputs.promotionReviewCsv, `${relativeRepo(outputs.promotionReviewCsv)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.promotionReviewMd, "utf8") === report.outputs.promotionReviewMd, `${relativeRepo(outputs.promotionReviewMd)} is stale; run npm run apiservice:coverage`);
   const expectedPackets = new Set(report.promotionReviewPackets.map((packet) => packet.path));
@@ -118,17 +127,18 @@ function buildReport() {
   const reviewByChart = new Map(reviewRows.map((row) => [row.chart, row]));
   const quirkByRef = new Map(quirkRows.map((row) => [`${row.chart}@${row.source_version}`, row]));
   const targetDecisions = targetCompatibilityDecisionIndex();
+  const capabilityCandidates = capabilityCandidateIndex();
 
   check(sourceRows.length === 5, `expected 5 source top100 APIService rows; found ${sourceRows.length}`);
 
   const localTriageRows = parseCsvFile("data/local-live-triage/triage.csv");
   const localTriageByRef = new Map(localTriageRows.map((row) => [row.chart, row]));
 
-  const rows = sourceRows.map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef, targetDecisions));
+  const rows = sourceRows.map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef, targetDecisions, capabilityCandidates));
   const sourceRefs = new Set(rows.map((row) => `${row.chart}@${row.source_version}`));
   const maintainedRows = JSON.parse(readFileSync(join(repoRoot, "data/top500-catalog-analysis/source/source-feature-scan.raw.json"), "utf8"))
     .filter((row) => row.scanStatus === "scanned" && Number(row.apiServices ?? 0) > 0)
-    .map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef, targetDecisions))
+    .map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef, targetDecisions, capabilityCandidates))
     .filter((row) => Boolean(row.evidence_recipe_path))
     .sort((left, right) => Number(left.rank) - Number(right.rank));
   const maintainedExtraRows = maintainedRows.filter((row) => !sourceRefs.has(`${row.chart}@${row.source_version}`));
@@ -144,6 +154,8 @@ function buildReport() {
   check(renderPathRows.some((row) => row.chart === "fairwinds-stable/vpa" && row.conditional_dependencies.includes("metrics-server.enabled")), "expected VPA metrics-server render-path note");
   check(targetDecisionRows.length === 1, `expected one APIService target compatibility decision row; found ${targetDecisionRows.length}`);
   check(targetDecisionRows[0]?.chart === "prometheus-community/prometheus-adapter", "expected Prometheus Adapter target compatibility decision row");
+  check(capabilityCandidates.size === 1, `expected one APIService capability-profile candidate; found ${capabilityCandidates.size}`);
+  check(capabilityCandidates.get("prometheus-community/prometheus-adapter@5.3.0")?.live_result === "pass", "expected Prometheus Adapter APIService v1 candidate to have a passing live rehearsal");
   check(aggregationRows.length === 2, `expected exactly two API aggregation availability rows; found ${aggregationRows.length}`);
   for (const row of aggregationRows) {
     check(row.api_condition_observed === "yes", `${row.chart}@${row.source_version} aggregation row missing APIService condition evidence`);
@@ -164,6 +176,7 @@ function buildReport() {
   return {
     rows,
     workOrders,
+    capabilityCandidates: [...capabilityCandidates.values()],
     promotionReviewPackets,
     outputs: {
       csv: toCsv(rows),
@@ -172,20 +185,23 @@ function buildReport() {
       renderPathMd: renderPathMarkdown(renderPathRows),
       targetDecisionCsv: toCsv(targetDecisionRows),
       targetDecisionMd: targetDecisionMarkdown(targetDecisionRows),
+      capabilityCandidateCsv: toCsv([...capabilityCandidates.values()]),
+      capabilityCandidateMd: capabilityCandidateMarkdown([...capabilityCandidates.values()]),
       promotionReviewCsv: toCsv(promotionReviewPackets.map((packet) => packet.row)),
       promotionReviewMd: promotionReviewMarkdown(promotionReviewPackets),
-      summary: summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows),
+      summary: summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows, [...capabilityCandidates.values()]),
       workOrdersCsv: toCsv(workOrders),
       workOrdersMd: workOrdersMarkdown(workOrders),
     },
   };
 }
 
-function rowFor(source, review, quirk, localTriageByRef, targetDecisions) {
+function rowFor(source, review, quirk, localTriageByRef, targetDecisions, capabilityCandidates) {
   const ref = `${source.chart}@${source.version}`;
   const receipts = knownReceipts[ref] ?? {};
   const targetBlock = localTriageByRef.get(ref);
   const targetDecision = targetDecisions.get(ref);
+  const capabilityCandidate = capabilityCandidates.get(ref);
   const renderedApiService = renderedApiServiceEvidence(review?.recipe_path);
   const local = receiptExists(receipts.localObservation) && observationHasPassCheck(receipts.localObservation, "apiservice-");
   const objectSet = receiptExists(receipts.objectSet) && objectSetHasAPIService(receipts.objectSet);
@@ -220,6 +236,7 @@ function rowFor(source, review, quirk, localTriageByRef, targetDecisions) {
     kindParityEvidence,
     apiAggregation,
     targetDecision,
+    capabilityCandidate,
     renderedApiServiceCount: renderedApiService.count,
   });
   return {
@@ -243,7 +260,7 @@ function rowFor(source, review, quirk, localTriageByRef, targetDecisions) {
     aggregated_query_observed: contract.query,
     freshness_observed: contract.freshness,
     contract_gaps: contract.gaps,
-    evidence: evidenceFor({ review, quirk, receipts, kindParity, targetDecision }),
+    evidence: evidenceFor({ review, quirk, receipts, kindParity, targetDecision, capabilityCandidate }),
     evidence_recipe_path: review?.recipe_path ?? "",
     rendered_api_service_evidence: renderedApiService.evidence,
     target_block_route: targetBlock?.route_class ?? "",
@@ -251,12 +268,15 @@ function rowFor(source, review, quirk, localTriageByRef, targetDecisions) {
     target_compatibility_decision: targetDecision?.decision ?? "",
     target_compatibility_status: targetDecision?.status ?? "",
     target_compatibility_receipt: targetDecision?.path ?? "",
-    next_action: nextActionFor({ ref, hasRecipe, coverageStatus, targetDecision }),
+    capability_candidate_status: capabilityCandidate?.status ?? "",
+    capability_candidate_receipt: capabilityCandidate?.path ?? "",
+    capability_candidate_next_action: capabilityCandidate?.next_action ?? "",
+    next_action: nextActionFor({ ref, hasRecipe, coverageStatus, targetDecision, capabilityCandidate }),
     limitation: "APIService object evidence is not the same as Kubernetes API aggregation availability. Close this with an explicit Available=True or aggregated API query receipt.",
   };
 }
 
-function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOpsEvidence, kindParityEvidence, apiAggregation, targetDecision, renderedApiServiceCount }) {
+function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOpsEvidence, kindParityEvidence, apiAggregation, targetDecision, capabilityCandidate, renderedApiServiceCount }) {
   const best = runtimeGitOpsEvidence.contract === "pass" ? runtimeGitOpsEvidence : kindParityEvidence.contract === "pass" ? kindParityEvidence : null;
   if (best) {
     return {
@@ -269,6 +289,7 @@ function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOp
   }
   const gaps = [];
   if (targetDecision) gaps.push(`target compatibility decision: ${targetDecision.status}`);
+  if (capabilityCandidate) gaps.push(`capability-profile candidate: ${capabilityCandidate.status}`);
   if (!hasRecipe) gaps.push("no maintained recipe/import row");
   if (hasRecipe && renderedApiServiceCount === 0) gaps.push("source APIService templates not rendered by maintained bases");
   if (!objectObserved) gaps.push("no rendered APIService object observation");
@@ -295,7 +316,7 @@ function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, 
   return "source-detected-needs-recipe";
 }
 
-function nextActionFor({ ref, hasRecipe, coverageStatus, targetDecision }) {
+function nextActionFor({ ref, hasRecipe, coverageStatus, targetDecision, capabilityCandidate }) {
   if (ref === "metrics-server/metrics-server@3.13.0") {
     return "keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart";
   }
@@ -311,6 +332,9 @@ function nextActionFor({ ref, hasRecipe, coverageStatus, targetDecision }) {
   if (coverageStatus === "target-api-version-blocked") {
     return "choose a supported chart version, compatibility base, or target Kubernetes profile before rerunning live APIService observation";
   }
+  if (coverageStatus === "target-api-version-refused" && capabilityCandidate?.next_action) {
+    return capabilityCandidate.next_action;
+  }
   if (coverageStatus === "target-api-version-refused" && targetDecision?.nextAction) {
     return targetDecision.nextAction;
   }
@@ -323,12 +347,13 @@ function nextActionFor({ ref, hasRecipe, coverageStatus, targetDecision }) {
   return "create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims";
 }
 
-function evidenceFor({ review, quirk, receipts, kindParity, targetDecision }) {
+function evidenceFor({ review, quirk, receipts, kindParity, targetDecision, capabilityCandidate }) {
   return [
     "data/top500-catalog-analysis/source/source-feature-scan.raw.json",
     quirk ? "data/quirk-work-queue/top100-queue.csv" : "",
     review?.recipe_path,
     targetDecision?.path,
+    capabilityCandidate?.path,
     receipts.localObservation,
     receipts.objectSet,
     receipts.workload,
@@ -406,6 +431,61 @@ function targetCompatibilityDecisionIndex() {
     });
   }
   return result;
+}
+
+function capabilityCandidateIndex() {
+  const result = new Map();
+  if (!existsSync(capabilityCandidateRoot)) return result;
+  for (const entry of readdirSync(capabilityCandidateRoot, { withFileTypes: true })) {
+    if (!entry.isFile() || !entry.name.endsWith(".yaml")) continue;
+    const path = join(capabilityCandidateRoot, entry.name);
+    const receipt = readYaml(path);
+    const spec = receipt.spec ?? {};
+    check(receipt.kind === "APIServiceCapabilityProfileCandidate", `${relativeRepo(path)} must be APIServiceCapabilityProfileCandidate`);
+    check(spec.chart && spec.version, `${relativeRepo(path)} is missing spec.chart or spec.version`);
+    check(spec.candidateBase, `${relativeRepo(path)} is missing spec.candidateBase`);
+    check(spec.status === "live-aggregation-observed", `${relativeRepo(path)} must be live-aggregation-observed`);
+    check(spec.renderEvidence?.result === "pass", `${relativeRepo(path)} render evidence must pass`);
+    check(spec.liveRehearsal?.result === "pass", `${relativeRepo(path)} live rehearsal must pass`);
+    check(spec.liveRehearsal?.apiService?.status === "True", `${relativeRepo(path)} must observe APIService Available=True`);
+    check(spec.liveRehearsal?.aggregatedApiQuery?.result === "pass", `${relativeRepo(path)} must observe an aggregated API query`);
+    const addedApiVersions = spec.candidateCapabilityProfile?.apiVersions ?? [];
+    check(addedApiVersions.length > 0, `${relativeRepo(path)} must list candidate API versions`);
+    result.set(`${spec.chart}@${spec.version}`, {
+      chart: spec.chart,
+      version: String(spec.version),
+      candidate_base: spec.candidateBase,
+      status: spec.status,
+      added_api_versions: addedApiVersions.join(";"),
+      baseline_api_version: spec.renderEvidence?.changedObject?.baselineApiVersion ?? "",
+      candidate_api_version: spec.renderEvidence?.changedObject?.candidateApiVersion ?? "",
+      render_result: spec.renderEvidence?.result ?? "",
+      live_result: spec.liveRehearsal?.result ?? "",
+      api_service_available: spec.liveRehearsal?.apiService?.status === "True" ? "yes" : "no",
+      aggregated_query: spec.liveRehearsal?.aggregatedApiQuery?.result ?? "",
+      observed_at: spec.liveRehearsal?.observedAt ?? "",
+      path: relativeRepo(path),
+      next_action: spec.nextAction ?? "",
+    });
+  }
+  return result;
+}
+
+function verifyCapabilityCandidateReceipts(rows) {
+  const expected = new Set(rows.map((row) => row.path));
+  if (existsSync(capabilityCandidateRoot)) {
+    for (const entry of readdirSync(capabilityCandidateRoot, { withFileTypes: true })) {
+      if (entry.isFile() && entry.name.endsWith(".yaml")) {
+        const path = relativeRepo(join(capabilityCandidateRoot, entry.name));
+        check(expected.has(path), `${path} is not generated into APIService capability candidates`);
+      }
+    }
+  }
+  for (const row of rows) {
+    check(receiptExists(row.path), `${row.path} is missing`);
+    check(row.api_service_available === "yes", `${row.path} did not record APIService Available=True`);
+    check(row.aggregated_query === "pass", `${row.path} did not record a passing aggregated API query`);
+  }
 }
 
 function targetDecisionRowsFor(rows) {
@@ -622,6 +702,20 @@ function workOrderFor(row) {
     };
   }
   if (row.coverage_status === "target-api-version-refused") {
+    if (row.capability_candidate_status === "live-aggregation-observed") {
+      return {
+        priority: 2,
+        chart: row.chart,
+        version: row.source_version,
+        current_state: row.coverage_status,
+        work_type: "promote-compatibility-base-candidate",
+        owner_hint: "recipe-base-and-live-lane",
+        first_task: "promote the apiservice-v1 capability-profile candidate into a maintained base, then run the normal proof and live lanes",
+        receipts_to_add: "variant revision; installer package base; ConfigHub proof; local live; live Helm-vs-ConfigHub parity; APIService runtime contract",
+        done_when: "a maintained base renders apiregistration.k8s.io/v1/APIService and has live aggregation evidence through the standard lanes",
+        evidence: row.evidence,
+      };
+    }
     return {
       priority: 9,
       chart: row.chart,
@@ -677,7 +771,7 @@ function workOrderFor(row) {
   };
 }
 
-function summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows) {
+function summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows, capabilityCandidates) {
   const counts = countBy(rows, (row) => row.coverage_status);
   const catalogRows = rows.filter((row) => row.catalog_status === "catalog-supported");
   const sourceOnlyRows = rows.filter((row) => row.coverage_status === "source-detected-needs-recipe");
@@ -715,12 +809,19 @@ rows with object/workload observation:   ${objectWorkloadRows.length}
 rows with two-cluster parity only:       ${rows.filter((row) => row.coverage_status === "two-cluster-parity-only").length}
 rows still source-detected only:         ${sourceOnlyRows.length}
 aggregated API availability receipts:    ${aggregationRows.length}
+capability-profile candidates observed:  ${capabilityCandidates.length}
 active proof/import work orders:          ${activeWorkOrders.length}
 ~~~
 
 Only rows with both an \`Available=True\` APIService condition and a successful
 aggregated API query receipt claim aggregated API availability. Today that
 evidence exists for Metrics Server and KEDA.
+
+Prometheus Adapter also has a live-tested capability-profile candidate. Adding
+\`apiregistration.k8s.io/v1\` to the render profile changes the chart's
+APIService from the refused \`apiregistration.k8s.io/v1beta1\` object to a
+target-supported \`apiregistration.k8s.io/v1\` object. That candidate is not a
+maintained base yet; it is the next recipe/base task.
 
 ## Coverage Status
 
@@ -750,6 +851,15 @@ Maintained status counts:
 | Status | Rows |
 | --- | ---: |
 ${[...maintainedCounts.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([status, count]) => `| \`${status}\` | ${count} |`).join("\n")}
+
+## Capability Profile Candidates
+
+These rows are live-tested routes from a refused current base to a possible
+future maintained base. They are not current catalog support claims.
+
+| Chart | Candidate base | Added API versions | Render result | Live result | Receipt | Next action |
+| --- | --- | --- | --- | --- | --- | --- |
+${capabilityCandidates.map((row) => `| \`${row.chart}@${row.version}\` | \`${row.candidate_base}\` | ${escapePipes(row.added_api_versions)} | ${row.render_result} | ${row.live_result} | [receipt](./${row.path.replace(/^data\/apiservice-coverage\//, "")}) | ${escapePipes(row.next_action)} |`).join("\n")}
 
 ## Runtime Contract
 
@@ -801,6 +911,9 @@ ${rows.map((row) => `| \`${row.chart}@${row.source_version}\` | ${row.aggregatio
 | \`render-path-notes.csv\` | Spreadsheet-ready render-path decisions. |
 | \`target-compatibility-decisions.md\` | Target-scoped compatibility decisions for maintained rows that render unsupported APIService versions. |
 | \`target-compatibility-decisions.csv\` | Spreadsheet-ready target compatibility decisions. |
+| \`capability-profile-candidates.md\` | Live-tested capability-profile candidates that can become future maintained bases. |
+| \`capability-profile-candidates.csv\` | Spreadsheet-ready capability-profile candidate index. |
+| \`capability-profile-candidates/*.yaml\` | Candidate receipts with render and live rehearsal evidence. |
 | \`promotion-reviews/README.md\` | APIService promotion-review packets for rows with enough runtime evidence to review catalog scope. |
 | \`promotion-reviews/promotion-reviews.csv\` | Spreadsheet-ready APIService promotion-review packet index. |
 | \`work-orders.md\` | Human next-proof queue for APIService charts. |
@@ -851,12 +964,13 @@ evidence. Its next question is product scope: whether to promote it to a
 catalog-supported entry for a named target profile, or keep it proof-grade.
 Kubernetes Dashboard, Datadog, and Bitnami Metrics Server need import/catalog
 decisions before a runtime aggregation receipt can close the gap. Prometheus
-Adapter has a maintained recipe and ConfigHub proof, but the tested target does
-not serve the rendered APIService version; the target-compatibility decision
-records that it stays proof-grade for that target profile. Goldilocks and VPA
-have render-path notes: their current maintained bases do not render APIService
-objects, so they do not owe runtime aggregation evidence unless a future base
-enables that path.
+Adapter has a maintained recipe and ConfigHub proof, but the current bases render
+an APIService version the tested target does not serve. The new capability-profile
+candidate proves the likely fix at render time and live runtime; the next task is
+to promote it into a maintained base and run the standard lanes. Goldilocks and
+VPA have render-path notes: their current maintained bases do not render
+APIService objects, so they do not owe runtime aggregation evidence unless a
+future base enables that path.
 
 ## Files
 
@@ -866,6 +980,7 @@ enables that path.
 | \`work-orders.csv\` | Same queue in spreadsheet form. |
 | \`render-path-notes.md\` | Render-path decisions for maintained rows whose APIService source signals are not active in current bases. |
 | \`target-compatibility-decisions.md\` | Target-scoped compatibility decisions for maintained rows that render unsupported APIService versions. |
+| \`capability-profile-candidates.md\` | Live-tested candidate bases for target-compatible APIService rendering. |
 | \`promotion-reviews/README.md\` | APIService promotion-review packets for rows with enough runtime evidence to discuss catalog scope. |
 | \`data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml\` | Existing Metrics Server pattern receipt. |
 | \`data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml\` | KEDA ConfigHub OCI/Argo APIService receipt. |
@@ -947,6 +1062,43 @@ ${rows.map((row) => `| \`${row.chart}\` | ${row.version} | \`${row.status}\` | \
 | Chart | Not claimed |
 | --- | --- |
 ${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${escapePipes(row.claims_not_made)} |`).join("\n")}
+
+Regenerate:
+
+~~~sh
+npm run apiservice:coverage
+npm run apiservice:coverage:verify
+~~~
+`;
+}
+
+function capabilityCandidateMarkdown(rows) {
+  return `# APIService Capability Profile Candidates
+
+Generated. Do not edit by hand.
+
+These rows record live-tested render-profile routes from a refused current base
+to a possible future maintained base. They are not current catalog support
+claims, and they do not silently patch upstream Helm output.
+
+## Current Candidates
+
+| Chart | Candidate base | Added API versions | Baseline API version | Candidate API version | Render result | Live result | APIService Available | Aggregated query | Receipt |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | \`${row.candidate_base}\` | ${escapePipes(row.added_api_versions)} | \`${row.baseline_api_version}\` | \`${row.candidate_api_version}\` | ${row.render_result} | ${row.live_result} | ${row.api_service_available} | ${row.aggregated_query} | [receipt](./${row.path.replace(/^data\/apiservice-coverage\//, "")}) |`).join("\n")}
+
+## Rule
+
+A capability-profile candidate means a render-time target fact was tested and
+observed live. It does not become part of the catalog until a maintained base is
+created and the normal ConfigHub proof, local live, live Helm-vs-ConfigHub
+parity, and APIService runtime contract all pass for that base.
+
+## Next Actions
+
+| Chart | Next action |
+| --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${escapePipes(row.next_action)} |`).join("\n")}
 
 Regenerate:
 

@@ -66,7 +66,7 @@ should drive promotion.
 | --- | --- | --- | --- | --- |
 | `metrics-server/metrics-server@3.13.0` | `api-service-keep-fresh` | APIService aggregation is observed; keep the runtime receipt fresh | `data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml` | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `kedacore/keda@2.19.0` | `api-service-aggregation-promotion` | APIService aggregation is observed; promotion needs a target-scoped decision | `data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml` | run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt |
-| `prometheus-community/prometheus-adapter@5.3.0` | `api-service-target-compatibility` | target compatibility decision records that this chart stays proof-grade for the tested target profile | `data/apiservice-coverage/target-compatibility-decisions/prometheus-community-prometheus-adapter-5.3.0.yaml` | Keep prometheus-community/prometheus-adapter@5.3.0 proof-grade for this target profile. Promote only after an upstream chart version or explicit compatibility base renders a target-supported APIService object and passes the APIService runtime contract. |
+| `prometheus-community/prometheus-adapter@5.3.0` | `api-service-target-compatibility` | target compatibility decision records that this chart stays proof-grade for the tested target profile | `data/apiservice-coverage/target-compatibility-decisions/prometheus-community-prometheus-adapter-5.3.0.yaml` | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
 | `fairwinds-stable/goldilocks@10.3.0` | `api-service-render-path-recorded` | source APIService signal exists, but current maintained bases render no APIService objects | `data/apiservice-coverage/render-path-notes.md` | add at least one user-shaped variant before catalog promotion |
 | `fairwinds-stable/vpa@4.11.0` | `api-service-render-path-recorded` | source APIService signal exists, but current maintained bases render no APIService objects | `data/apiservice-coverage/render-path-notes.md` | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
 
@@ -139,8 +139,8 @@ decision before catalog promotion.
 | Evidence | Count | Meaning |
 | --- | ---: | --- |
 | `in-confighub-proof` | 16 | Rendered objects uploaded to ConfigHub and passed the ConfigHub proof lane. |
-| `live-helm-vs-confighub-parity` | 44 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
-| `local-kubernetes-live` | 28 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
+| `live-helm-vs-confighub-parity` | 49 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
+| `local-kubernetes-live` | 23 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
 | `render-parity` | 8 | Regular Helm and cub installer setup render-equivalent objects. |
 | `two-cluster-kind-parity` | 4 | Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters. |
 

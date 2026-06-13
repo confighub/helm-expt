@@ -1,0 +1,65 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: APIServiceCapabilityProfileCandidate
+metadata:
+  name: prometheus-community-prometheus-adapter-5.3.0-apiservice-v1
+spec:
+  chart: prometheus-community/prometheus-adapter
+  version: 5.3.0
+  candidateBase: apiservice-v1-capability
+  status: live-aggregation-observed
+  currentMaintainedBases:
+    - default
+    - cluster-metrics-readonly
+  currentBaseDecision:
+    status: target-api-version-refused
+    reason: The maintained bases render apiregistration.k8s.io/v1beta1/APIService when the capability profile does not include apiregistration.k8s.io/v1.
+    receipt: data/apiservice-coverage/target-compatibility-decisions/prometheus-community-prometheus-adapter-5.3.0.yaml
+  candidateCapabilityProfile:
+    kubeVersion: 1.30.0
+    apiVersions:
+      - apiregistration.k8s.io/v1
+  renderEvidence:
+    baselineCommand: helm template prometheus-adapter prometheus-community/prometheus-adapter --version 5.3.0 --namespace default --kube-version 1.30.0 --include-crds --skip-tests --no-hooks
+    candidateCommand: helm template prometheus-adapter prometheus-community/prometheus-adapter --version 5.3.0 --namespace default --kube-version 1.30.0 --api-versions apiregistration.k8s.io/v1 --include-crds --skip-tests --no-hooks
+    baselineRenderedSHA256: f9481b3115254adea05956452f4d304808595d51f0eefe7b4834a5be75a42164
+    candidateRenderedSHA256: 02caaa4c2aecefbc1d4d65c230528faee6d181eca28c94163efb8669064b12c1
+    changedObject:
+      kind: APIService
+      name: v1beta1.custom.metrics.k8s.io
+      baselineApiVersion: apiregistration.k8s.io/v1beta1
+      candidateApiVersion: apiregistration.k8s.io/v1
+    result: pass
+  liveRehearsal:
+    observedAt: "2026-06-13T18:39:32Z"
+    target: vanilla kind cluster kindest/node:v1.35.0
+    clusterName: helm-expt-prom-adapter-cap-v1
+    result: pass
+    appliedManifestSHA256: 02caaa4c2aecefbc1d4d65c230528faee6d181eca28c94163efb8669064b12c1
+    workload:
+      namespace: default
+      deployment: prometheus-adapter
+      ready: true
+      evidenceSHA256: ba656dc79e23141eb04e38c8d585e609d28082e3c8b8f29b6c6b5a1d2f902acd
+    apiService:
+      name: v1beta1.custom.metrics.k8s.io
+      apiVersion: apiregistration.k8s.io/v1
+      condition: Available
+      status: "True"
+      reason: Passed
+      message: all checks passed
+      evidenceSHA256: b728fe78205eb528d92050af8af28005d9cb93ae58f8e528db2df1063f34105c
+    aggregatedApiQuery:
+      command: kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1
+      result: pass
+      responseKind: APIResourceList
+      responseGroupVersion: custom.metrics.k8s.io/v1beta1
+      responseSHA256: f68fc28443aced587c99e16f23b1c6aac50703b6401051c0d71969aa8159faa5
+    cleanup:
+      result: pass
+      command: kind delete cluster --name helm-expt-prom-adapter-cap-v1
+  nextAction: Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion.
+  claimsNotMade:
+    - This is not a catalog-supported base yet.
+    - This does not change the current default or cluster-metrics-readonly base claims.
+    - This does not silently patch Helm output.
+    - This does not prove production support for arbitrary custom metrics backends.

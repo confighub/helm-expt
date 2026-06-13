@@ -278,8 +278,8 @@ top-100 chart and the next command or file to open.
 
 | Strongest evidence | Charts |
 | --- | ---: |
-| live-helm-vs-confighub-parity | 44 |
-| local-kubernetes-live | 28 |
+| live-helm-vs-confighub-parity | 49 |
+| local-kubernetes-live | 23 |
 | in-confighub-proof | 16 |
 | render-parity | 8 |
 | two-cluster-kind-parity | 4 |
