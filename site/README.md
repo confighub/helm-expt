@@ -9,6 +9,8 @@ npm run site:verify
 
 Open `site/offering.html` directly in a browser for the public offering page.
 Open `site/try.html` for the short try-now page.
+Open `site/proof.html` for the proof lanes, sceptic tests, and refusal boundary.
+Open `site/tiers.html` for the free, authenticated, managed, and enterprise tier shape.
 Open `docs/user/choose-your-path.md` for the direct render, one-shot upload,
 public catalog, and ConfigHub operations route picker.
 Open `site/index.html` for the static catalog and status dashboard.

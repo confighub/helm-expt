@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proof · ConfigHub Helm Catalog</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0 auto; padding: 12px 20px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .topbar .brand::before { content: "▣ "; color: var(--good); }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .topbar { flex-wrap: wrap; }
+      .navlinks { margin-left: 0; }
+    }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <h1>Proof, not promises.</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-13T07:40:44.930Z UTC · source: committed helm-expt evidence for this proof page.</p>
+    <p class="tagline">This page explains what the catalog proves, what each lane means, and where the proof stops. It is intentionally narrower than a marketing claim.</p>
+    <p>Render parity is the starting point. The stronger claim is staged: exact objects, ConfigHub Units, scans, live apply, GitOps/OCI reconciliation, semantic comparison with Helm, lifecycle routing, and observation receipts.</p>
+  </header>
+  <main>
+    <section aria-labelledby="counters">
+      <h2 id="counters">Current Proof Counters</h2>
+      <div class="grid">
+        <div class="metric"><strong>191/191</strong><span>Render parity · Regular Helm output and cub installer package output match under recorded inputs.</span></div>
+        <div class="metric"><strong>155/191</strong><span>In-ConfigHub proof · Rendered objects have been uploaded, scanned, and exercised as ConfigHub Units.</span></div>
+        <div class="metric"><strong>138/191</strong><span>Local live · The package was applied to a local Kubernetes target and observed.</span></div>
+        <div class="metric"><strong>72/191</strong><span>GitOps/OCI live · ConfigHub-published OCI was pulled and reconciled by Argo in a live run.</span></div>
+        <div class="metric"><strong>72/191</strong><span>Live dual parity · Regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo reached the same semantic object outcome.</span></div>
+        <div class="metric"><strong>70/70</strong><span>Two-cluster kind parity · Regular Helm and cub installer were compared on two vanilla kind clusters.</span></div>
+        <div class="metric"><strong>71/191</strong><span>Complete core lane · Rows with render, ConfigHub, local live, GitOps/OCI, live parity, and two-cluster evidence.</span></div>
+        <div class="metric"><strong>0/72</strong><span>Semantic defects · Committed live parity rows where ConfigHub and Helm disagree semantically.</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="lanes">
+      <h2 id="lanes">What Each Lane Proves</h2>
+      <div class="card"><table>
+        <thead><tr><th>Lane</th><th>Question</th><th>Evidence</th><th>Limit</th></tr></thead>
+        <tbody><tr><td>Render parity</td><td>Does cub installer preserve the Helm object set for this chart/version/base?</td><td>Helm render receipt and installer comparison.</td><td>Per chart, version, base, values, capability profile, and flag profile.</td></tr><tr><td>ConfigHub proof</td><td>Can the rendered objects become Units, scans, safe ops, and receipts?</td><td>ConfigHub proof receipts, function scan receipts, safe-ops receipts.</td><td>Does not prove a GitOps controller or workload health by itself.</td></tr><tr><td>Local live</td><td>Does this package apply and converge on a Kubernetes target?</td><td>Observation receipt, workload checks, PVC/CRD/secret evidence where relevant.</td><td>Usually local kind; target-specific production support still needs scope.</td></tr><tr><td>GitOps/OCI live</td><td>Can ConfigHub-published OCI be reconciled by Argo?</td><td>Argo sync and health in the live parity receipt.</td><td>A green sync is not enough unless runtime checks also pass.</td></tr><tr><td>Live dual parity</td><td>Does regular Helm reach the same live outcome as ConfigHub delivery?</td><td>Strict live Helm-vs-ConfigHub parity receipt.</td><td>Selected rows only; absence is backlog, not a failed chart.</td></tr><tr><td>Two-cluster kind parity</td><td>Does Helm on one vanilla kind cluster match installer output on another?</td><td>Two-cluster parity receipt.</td><td>Narrowest clean parity test; no ConfigHub/OCI proof unless separately recorded.</td></tr><tr><td>Lifecycle observation</td><td>Are hooks, CRDs, webhooks, generated facts, or target prerequisites observed or routed?</td><td>Lifecycle, hook, target-fact, and serious-chart receipts.</td><td>Partial by design; some rows are routed, blocked, per-target, or refused.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Use <a href="../docs/user/verification-lanes.md">Verification Lanes</a> for the command map and <a href="../docs/user/chain-of-proof.md">Chain Of Proof</a> for the boundary between repo evidence, ConfigHub, GitOps, and live observations.</p>
+    </section>
+
+    <section aria-labelledby="serious">
+      <h2 id="serious">Serious Charts Are The Test</h2>
+      <p>The hard cases are where the product has to earn trust: kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, and charts with hooks, CRDs, webhooks, generated secrets, storage, or target facts.</p>
+      <p>For these charts, a green render is not enough. The proof must say which prerequisites are required, which lifecycle route is selected, what the target observed, and whether the production scope is accepted, superseded, rejected, or still under review.</p>
+      <div class="grid">
+        <div class="card"><h3>kube-prometheus-stack</h3><p><a href="../docs/user/prometheus-high-fanout.md">High-fanout guide</a> and <a href="../data/hard-chart-production-packets/summary.md">production packet</a>.</p></div>
+        <div class="card"><h3>cert-manager and ESO</h3><p><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Lifecycle observations</a> for CRDs, webhooks, and controller-populated fields.</p></div>
+        <div class="card"><h3>Argo Workflows</h3><p>Hook-delivered CRDs routed through the <a href="../data/lifecycle-boundary/summary.md">lifecycle boundary</a>.</p></div>
+        <div class="card"><h3>Argo Rollouts</h3><p>Default and no-crds bases now have live Helm-vs-ConfigHub parity receipts.</p></div>
+        <div class="card"><h3>Hooks</h3><p><a href="../data/hook-disposition/summary.md">Top-100 hook dispositions</a> separate observed, routed, per-target, and recipe-needed rows.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="sceptic">
+      <h2 id="sceptic">Sceptic Tests</h2>
+      <p>A sceptic with a breaking chart is useful QA. The rule is that a breaker becomes a fixture, a named refusal, or a routed gap; it should not disappear into prose.</p>
+      <div class="card"><table>
+        <thead><tr><th>Surface</th><th>What it answers</th><th>Open</th></tr></thead>
+        <tbody><tr><td>Claims register</td><td>Every public claim is backed, partial, planned, or refused.</td><td><a href="../data/claims-register/summary.md">../data/claims-register/summary.md</a></td></tr><tr><td>Blast-radius accuracy</td><td>Predicted affected objects are scored against actual rerender diffs, including published failures.</td><td><a href="../data/blast-radius-accuracy/summary.md">../data/blast-radius-accuracy/summary.md</a></td></tr><tr><td>Synthetic torture suite</td><td>Breaker charts land in named pass, refusal, or route outcomes; silent outcomes fail.</td><td><a href="../data/torture-suite/summary.md">../data/torture-suite/summary.md</a></td></tr><tr><td>Environment matrix</td><td>Renders are checked across timezone and locale cells for the measured corpus.</td><td><a href="../data/environment-matrix/summary.md">../data/environment-matrix/summary.md</a></td></tr><tr><td>Hook dispositions</td><td>Hook-bearing top-100 charts have observed, routed, per-target, or recipe-needed dispositions.</td><td><a href="../data/hook-disposition/summary.md">../data/hook-disposition/summary.md</a></td></tr><tr><td>Master matrix</td><td>Every chart/version/base row carries lane status, source links, production scope, and next action.</td><td><a href="./matrix.html">./matrix.html</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="refusals">
+      <h2 id="refusals">What This Does Not Claim</h2>
+      <div class="card"><table>
+        <thead><tr><th>Refusal</th><th>Why it matters</th></tr></thead>
+        <tbody><tr><td>No blanket chart support</td><td>Every claim names chart, version, base, lane, and target profile.</td></tr><tr><td>No whole-values-space proof</td><td>The catalog proves named bases. Custom values must be rendered, checked, and receipted.</td></tr><tr><td>No universal hook execution</td><td>Hooks are inventoried and routed; execution is claimed only with live evidence.</td></tr><tr><td>No production claim from render parity</td><td>Production support requires target-scoped decisions and fresh receipts.</td></tr><tr><td>No signature-as-safety shortcut</td><td>Signatures prove origin/integrity. Scans, policies, and live evidence carry safety claims.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../docs/user/what-we-refuse-to-claim.md">Read the full refusal page</a> or <a href="../data/claims-register/summary.md">open the claims register</a>.</p>
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. A passing verifier means committed evidence is self-consistent; it does not replace fresh live evidence for a new target.</footer>
+</body>
+</html>

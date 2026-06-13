@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>bitnami/mongodb 19.0.7 · ConfigHub Helm Catalog</title>
+  <title>Tiers · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -143,27 +143,31 @@
 </style>
 </head>
 <body>
-  <header>
-    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
-    <h1>bitnami/mongodb</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-13T07:40:44.930Z UTC · source: committed helm-expt evidence for this chart status page.</p>
-    <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=mongodb&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
-    <p class="tagline">Public catalog page for bitnami/mongodb@19.0.7.</p>
-    <pre>cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mongodb</pre>
+  <header class="hero">
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <h1>Free to inspect. Managed when it becomes your estate.</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-13T07:40:44.930Z UTC · source: committed helm-expt evidence for this tiers page.</p>
+    <p class="tagline">The free path must be genuinely useful: browse public charts, inspect variants, pull public artifacts where available, and verify proof locally. Paid starts when the service stores private inputs, creates private variants, runs managed workflows, or carries production responsibility.</p>
   </header>
   <main>
-    <section aria-labelledby="summary">
-      <h2 id="summary">What To Use</h2>
+    <section aria-labelledby="public-value">
+      <h2 id="public-value">Why Use The Free Public Catalog?</h2>
+      <p>Public Helm charts are flexible, but the rendered result is often opaque. The free catalog gives a Helm user the supported base choices, exact objects, proof boundary, and known gaps before they install or promote anything.</p>
       <div class="grid">
-        <div class="metric"><strong>generated-passwords</strong><span>Recommended first base</span></div>
-        <div class="metric"><strong>2</strong><span>Supported base variants</span></div>
-        <div class="metric"><strong>start-here</strong><span>Start-base status</span></div>
-        <div class="metric"><strong>production-review-ready</strong><span>Production disposition</span></div>
+        <div class="metric"><strong>20/20</strong><span>Public catalog charts</span></div>
+        <div class="metric"><strong>20/100</strong><span>Top100 ready-to-try</span></div>
+        <div class="metric"><strong>191/191</strong><span>Render parity rows</span></div>
+        <div class="metric"><strong>72/191</strong><span>Live parity rows</span></div>
+        <div class="metric"><strong>17/20</strong><span>Supported decisions</span></div>
       </div>
-      <p>Use the public catalog entry, then check the exact base and lane before making a production claim.</p>
+      <p>Anonymous or low-friction use is better than browsing Helm charts alone because the catalog answers: which base should I start with, what objects does it create, what pain points are absorbed, what must my target provide, and what proof exists today?</p>
+    </section>
+
+    <section aria-labelledby="tiers">
+      <h2 id="tiers">Tier Shape</h2>
       <div class="card"><table>
-        <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Supported version</td><td>19.0.7</td></tr><tr><td>Latest upstream seen</td><td>19.1.0 (update candidate)</td></tr><tr><td>Supported bases</td><td>generated-passwords;existing-secret-replicaset</td></tr><tr><td>Not yet enabled</td><td>— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)</td></tr><tr><td>Namespace</td><td>mongodb</td></tr></tbody>
+        <thead><tr><th>Tier</th><th>User value</th><th>Boundary</th></tr></thead>
+        <tbody><tr><td>Anonymous public</td><td>Browse catalog, inspect supported variants, open proof, pull/download public artifacts where available.</td><td>Static pages and public artifacts only; no private inputs, no managed compute, rate-limited artifact access.</td></tr><tr><td>Low-friction free</td><td>Run public catalog packages, verify local receipts, optionally create a small public sandbox render.</td><td>Account/rate limits when server resources, signatures, or stored receipts are used.</td></tr><tr><td>Catalog subscription</td><td>Refresh cadence, CVE turnaround, hardened variants, digest inventory, attestation pack, old-version support.</td><td>Paid SLA over public catalog artifacts and variants.</td></tr><tr><td>Private catalog</td><td>Private charts, wrapper charts, platform values, customer overlays, internal stacks, private OCI sources.</td><td>Managed import pipeline; not an anonymous/public-catalog guarantee.</td></tr><tr><td>ConfigHub Server</td><td>Teams, policies, approvals, changesets, variants, promotions, GitOps/OCI, observations, fleet queries, audit.</td><td>SaaS or enterprise/on-prem product surface.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -173,12 +177,11 @@
       </style>
     </section>
 
-    <section aria-labelledby="proof">
-      <h2 id="proof">Proof Lanes</h2>
-      <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
+    <section aria-labelledby="journey">
+      <h2 id="journey">User Journey</h2>
       <div class="card"><table>
-        <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
-        <tbody><tr><td>Render parity</td><td>pass: 2/2</td></tr><tr><td>ConfigHub proof</td><td>pass: 2/2</td></tr><tr><td>Local live</td><td>pass: 2/2</td></tr><tr><td>GitOps/OCI live</td><td>pass: 2/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>pass: 2/2</td></tr><tr><td>Two-cluster kind</td><td>pass: 2/2</td></tr></tbody>
+        <thead><tr><th>Stage</th><th>What happens</th></tr></thead>
+        <tbody><tr><td>Curious user</td><td>Use cub helm template or the public site to inspect what a chart produces.</td></tr><tr><td>Fast ConfigHub adoption</td><td>Use cub helm install to load a rendered chart into ConfigHub Units quickly.</td></tr><tr><td>Supported public catalog</td><td>Use cub installer setup --pull &lt;package&gt; --base &lt;base&gt; for curated bases with receipts.</td></tr><tr><td>Trust-building proof</td><td>Run kind/live parity commands to compare regular Helm with cub installer and ConfigHub delivery.</td></tr><tr><td>Operations</td><td>Use ConfigHub variants, diffs, scans, changesets, approvals, OCI/GitOps, observations, upgrades, and rollbacks.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -186,9 +189,15 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
+      <p>That journey keeps the fast Helm paths as useful ancestors. <code>cub helm template</code> and <code>cub helm install</code> are quick actions. <code>cub installer</code> packages are durable product artifacts. ConfigHub operations are where teams, approvals, variants, and day-2 work become valuable.</p>
+    </section>
+
+    <section aria-labelledby="commercial">
+      <h2 id="commercial">Commercial Workloads</h2>
+      <p>The managed tier should focus on hard operational value, not merely rendering. The useful paid work is private data, production scope, fleet operations, lifecycle actions, old-version support, and audit evidence.</p>
       <div class="card"><table>
-        <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
-        <tbody><tr><td>generated-passwords</td><td>start-here</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td></tr><tr><td>existing-secret-replicaset</td><td>start-here</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td></tr></tbody>
+        <thead><tr><th>Lane</th><th>Managed value</th></tr></thead>
+        <tbody><tr><td>Hooks and lifecycle</td><td>Inventory and route hooks publicly; paid support can provide target-scoped lifecycle execution, Argo jobs, preflight, or operator review.</td></tr><tr><td>Stacks</td><td>Multiple recipes become one managed platform: for example monitoring, AI/RAG stacks, AICR, NIM, or customer platforms.</td></tr><tr><td>Bulk operations</td><td>Bulk scan, patch, approve, promote, and observe across a fleet.</td></tr><tr><td>Legacy patches</td><td>Maintain or patch older chart versions when upstream moved or broke compatibility.</td></tr><tr><td>Security and audit</td><td>Signed artifacts, scan diffs, digest inventory, refresh SLAs, evidence packs, policy gates, and audit history.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -198,50 +207,17 @@
       </style>
     </section>
 
-    <section aria-labelledby="quirks">
-      <h2 id="quirks">Quirks And Inputs</h2>
-      <p>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</p>
-      <div class="card"><table>
-        <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Known quirks</td><td>generated-secrets;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage</td></tr><tr><td>User must provide</td><td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td></tr><tr><td>ConfigHub absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Extension slots</td><td>tpl-powered values</td></tr><tr><td>Extension route</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="production">
-      <h2 id="production">Production Boundary</h2>
-      <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
-      <div class="card"><table>
-        <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Production disposition</td><td>production-review-ready</td></tr><tr><td>Target-scoped support decision</td><td>supported</td></tr><tr><td>Supported base</td><td>generated-passwords</td></tr><tr><td>Target scope</td><td>cub-lk-kind-vanilla; namespace=mongodb; delivery=confighub-oci; controller=argo</td></tr><tr><td>Accepted dispositions</td><td>extension slot provenance and scan policy; generated fact ownership; hook and lifecycle phase policy; scan/gate warning disposition; storage backup restore and rollback policy; target fact preflight</td></tr><tr><td>Open dispositions</td><td>none</td></tr><tr><td>Next action</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, replica-set, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MongoDB workloads.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="files">
-      <h2 id="files">Files To Inspect</h2>
-      <div class="card"><table>
-        <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/bitnami/mongodb/19.0.7/CATALOG.md">recipes/bitnami/mongodb/19.0.7/CATALOG.md</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/bitnami/mongodb/19.0.7/recipe.yaml">recipes/bitnami/mongodb/19.0.7/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/bitnami/mongodb/19.0.7">packages/bitnami/mongodb/19.0.7</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml">recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Support decision</td><td><a href="../../data/production-support-decisions/bitnami-mongodb/support-decision.yaml">data/production-support-decisions/bitnami-mongodb/support-decision.yaml</a></td></tr><tr><td>Top-20 base readiness</td><td><a href="../../data/top20-base-readiness/summary.md">data/top20-base-readiness/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
+    <section aria-labelledby="limits">
+      <h2 id="limits">What Not To Sell Too Early</h2>
+      <p>Do not sell universal Helm compatibility, universal hook execution, universal field provenance, or signature-as-safety. Sell the staged model: clear bases, explicit prerequisites, visible proof, target-scoped support, and managed operations where the public catalog stops.</p>
+      <div class="grid">
+        <div class="card"><h3>Support tiers</h3><p><a href="../docs/user/product-support-tiers.md">Open product support tiers</a>.</p></div>
+        <div class="card"><h3>Commercial model</h3><p><a href="../docs/planning/verified-install-commercial-model.md">Open verified-install commercial model</a>.</p></div>
+        <div class="card"><h3>Serverless plan</h3><p><a href="../docs/planning/serverless-verified-install-plan.md">Open serverless verified-install plan</a>.</p></div>
+        <div class="card"><h3>Claims register</h3><p><a href="../data/claims-register/summary.md">Open current claim boundaries</a>.</p></div>
+      </div>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. Check current receipts before making production claims.</footer>
+  <footer>Generated from helm-expt proof data. Commercial claims require product, support, key, policy, and SLA decisions beyond the public proof corpus.</footer>
 </body>
 </html>
