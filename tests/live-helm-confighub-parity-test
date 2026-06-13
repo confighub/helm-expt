@@ -1961,7 +1961,7 @@ def main() -> int:
                 units.append(name)
         if not units:
             raise RuntimeError(f"no workload units found in {wspace}")
-        rc, apply_out, apply_err = sh(["cub", "unit", "apply", "--space", wspace, "--unit", ",".join(units)], timeout=300)
+        rc, apply_out, apply_err = sh(["cub", "unit", "apply", "--space", wspace, "--unit", ",".join(units), "--wait", "--timeout", "5m"], timeout=360)
         if rc != 0:
             raise RuntimeError(f"unit apply failed: {(apply_err or apply_out)[:1000]}")
 
@@ -1992,7 +1992,7 @@ def main() -> int:
         ], timeout=180)
         if rc != 0:
             raise RuntimeError(f"application unit create failed: {(app_create_err or app_create_out)[:1000]}")
-        rc, app_apply_out, app_apply_err = sh(["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{child_app}-app"], timeout=180)
+        rc, app_apply_out, app_apply_err = sh(["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{child_app}-app", "--wait", "--timeout", "5m"], timeout=360)
         if rc != 0:
             raise RuntimeError(f"application apply failed: {(app_apply_err or app_apply_out)[:1000]}")
         kubectl([
@@ -2037,10 +2037,21 @@ def main() -> int:
                         break
                 time.sleep(10)
                 waited += 10
+        child_argo_status = argo_application_status(kubeconfig, context, child_app)
+        root_argo_status = argo_application_status(kubeconfig, context, cluster_space)
         mark_stage("configHub-oci-readiness")
-        oci_runtime = wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 180))
+        if child_argo_status.get("result") == "unavailable":
+            oci_runtime = {
+                "result": "watch",
+                "namespaces": oci_runtime_namespaces,
+                "workloads": "",
+                "pods": "",
+                "notReady": [],
+                "reason": "child Argo Application was not materialized by the root ConfigHub OCI Application",
+            }
+        else:
+            oci_runtime = wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 180))
         oci_result = "pass" if oci_operations["result"] == "pass" and sync == "Synced" and health == "Healthy" and oci_runtime["result"] == "pass" else "watch"
-        argo_status = argo_application_status(kubeconfig, context, child_app)
         leg("configHubOciArgo",
             result=oci_result,
             workloadSpace=wspace,
@@ -2055,7 +2066,8 @@ def main() -> int:
             sync=sync or "unknown",
             health=health or "unknown",
             separatedSecrets=staged_secrets,
-            argoStatus=argo_status,
+            argoStatus=child_argo_status,
+            rootArgoStatus=root_argo_status,
             runtime=oci_runtime,
         )
         check_item("confighub-oci-argo-live", oci_result, f"sync={sync or '?'} health={health or '?'} after {waited}s")
