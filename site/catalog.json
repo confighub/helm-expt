@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-13T07:42:46.265Z",
+  "generatedAt": "2026-06-13T08:04:32.124Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -97,7 +97,7 @@
     "top20ChartsWithExtensionSlots": 13,
     "top100ChartsWithExtensionSlots": 82,
     "top100CoveragePromotionQueue": 37,
-    "top100PromotionWaveRows": 21,
+    "top100PromotionWaveRows": 24,
     "top100CoverageUserVariantQueue": 35,
     "top100CoverageDecisionQueue": 8,
     "refreshCurrentRows": 13,
@@ -231,7 +231,7 @@
     {
       "section": "top100",
       "metric": "first strict top100 promotion wave",
-      "value": "21",
+      "value": "24",
       "total": "37",
       "status": "partial",
       "source": "data/top100-promotion-wave/wave.csv",
@@ -241,7 +241,7 @@
       "section": "top100",
       "metric": "fast-track top100 promotion candidates",
       "value": "3",
-      "total": "21",
+      "total": "24",
       "status": "partial",
       "source": "data/top100-promotion-wave/fast-track.csv",
       "note": "Low-residue promotion-review rows with clean scan/gate state and no hook/CRD/webhook lifecycle class."
@@ -456,7 +456,7 @@
     {
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
-      "value": "72",
+      "value": "73",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -465,7 +465,7 @@
     {
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
-      "value": "72",
+      "value": "73",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -492,7 +492,7 @@
     {
       "section": "proof lanes",
       "metric": "complete core lane rows",
-      "value": "71",
+      "value": "72",
       "total": "191",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -600,8 +600,8 @@
     {
       "section": "live evidence",
       "metric": "selected live Helm-vs-ConfigHub parity receipts",
-      "value": "72",
-      "total": "72",
+      "value": "73",
+      "total": "73",
       "status": "good",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row."
@@ -646,7 +646,7 @@
       "section": "live evidence",
       "metric": "ConfigHub/OCI semantic parity defect receipts",
       "value": "0",
-      "total": "72",
+      "total": "73",
       "status": "good",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Rows whose committed receipt currently points at a semantic object comparison defect."
@@ -8665,8 +8665,8 @@
       "render_parity": "3/3",
       "in_confighub": "3/3",
       "local_live": "3/3",
-      "gitops_live": "1/3",
-      "live_parity": "1/3",
+      "gitops_live": "2/3",
+      "live_parity": "2/3",
       "two_cluster_kind_parity": "1/3",
       "hard_gap": "-",
       "proof_focus": "-",
@@ -11301,7 +11301,7 @@
       "chart": "external-dns/external-dns",
       "version": "1.21.1",
       "bucket": "works-with-target-prerequisites",
-      "current_proof": "proof-grade-ready-for-promotion-review (render parity 3/3, local live 3/3, live parity 1/3)",
+      "current_proof": "proof-grade-ready-for-promotion-review (render parity 3/3, local live 3/3, live parity 2/3)",
       "recommended_first_base": "dry-run-txt-registry (unreviewed first guess)",
       "quirks": "crds;existing-secret;extension-slots;required-values;tpl;rbac",
       "user_must_provide": "an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); mandatory chart inputs",

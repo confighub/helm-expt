@@ -14,7 +14,7 @@ spec:
   whyThisChartIsInTheWave:
     - "The chart is proof-grade in the maintained top-100 corpus."
     - "The chart has multiple named variants, so there is a real selection question."
-    - "The selected base has two-cluster kind parity evidence."
+    - "The selected base has strict parity evidence."
     - "No named limitation currently blocks promotion review."
   currentEvidence:
     catalog: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md"
@@ -57,9 +57,9 @@ spec:
     -
       workType: "selected-live-evidence"
       reviewer: "operator reviewer"
-      reason: "Two-cluster kind parity exists; catalog promotion needs the selected runtime evidence boundary."
+      reason: "Strict parity evidence exists (two-cluster-kind-parity); catalog promotion needs the selected runtime evidence boundary."
       doneWhen: "The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale."
-      evidence: "data/live-kind-parity/summary.csv"
+      evidence: "data/live-kind-parity/summary.csv;data/live-helm-confighub-compare/summary.csv"
     -
       workType: "target-scoped-support-decision"
       reviewer: "catalog owner"

@@ -159,7 +159,7 @@ recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml;rec
 
 ## kyverno/kyverno@3.8.1
 
-Current evidence: local-kubernetes-live.
+Current evidence: live-helm-vs-confighub-parity.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 
@@ -184,7 +184,7 @@ recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml;recip
 
 ## traefik/traefik@40.2.0
 
-Current evidence: local-kubernetes-live.
+Current evidence: live-helm-vs-confighub-parity.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 

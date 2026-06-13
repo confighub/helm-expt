@@ -14,7 +14,7 @@ spec:
   whyThisChartIsInTheWave:
     - "The chart is proof-grade in the maintained top-100 corpus."
     - "The chart has multiple named variants, so there is a real selection question."
-    - "The selected base has two-cluster kind parity evidence."
+    - "The selected base has strict parity evidence."
     - "No named limitation currently blocks promotion review."
   currentEvidence:
     catalog: "recipes/percona/pg-operator/3.0.0/CATALOG.md"
@@ -29,11 +29,12 @@ spec:
     installGate: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/receipts/install-gate.yaml"
     packageBase: "packages/percona/pg-operator/3.0.0/bases/default/kustomization.yaml"
     twoClusterKindParity: "runs/live-kind-parity/percona-pg-operator-default/receipt.yaml"
+    liveHelmConfigHubParity: "runs/live-helm-confighub-compare/percona-pg-operator-default/receipt.yaml"
   currentState:
     supportLevel: "machine-proof-only"
     productionReadiness: "not-reviewed-for-production"
     catalogStatus: "proof-grade"
-    strongestEvidence: "two-cluster-kind-parity"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     scanHigh: 0
     scanMedium: 8
     gateDecisions:
@@ -57,9 +58,9 @@ spec:
     -
       workType: "selected-live-evidence"
       reviewer: "operator reviewer"
-      reason: "Two-cluster kind parity exists; catalog promotion needs the selected runtime evidence boundary."
+      reason: "Strict parity evidence exists (live-helm-vs-confighub-parity); catalog promotion needs the selected runtime evidence boundary."
       doneWhen: "The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale."
-      evidence: "data/live-kind-parity/summary.csv"
+      evidence: "data/live-kind-parity/summary.csv;data/live-helm-confighub-compare/summary.csv"
     -
       workType: "target-scoped-support-decision"
       reviewer: "catalog owner"

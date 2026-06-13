@@ -29,8 +29,8 @@ Which detailed CSV should I open next?
 | top100 | partial by top100 contract | 80/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | average top100 coverage | 88/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | top100 promotion-review queue | 37/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
-| top100 | first strict top100 promotion wave | 21/37 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
-| top100 | fast-track top100 promotion candidates | 3/21 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
+| top100 | first strict top100 promotion wave | 24/37 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
+| top100 | fast-track top100 promotion candidates | 3/24 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
 | top100 | fast-track promotion review packets | 3/3 | partial | [data/top100-promotion-wave/fast-track-reviews/review-packets.csv](../../data/top100-promotion-wave/fast-track-reviews/review-packets.csv) |
 | top100 | fast-track storage rollback reviews | 3/3 | partial | [data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv](../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv) |
 | top100 | top100 user-shaped variant queue | 35/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
@@ -54,11 +54,11 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 138/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 53/53 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 72/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 72/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 73/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 73/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 70/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 71/191 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | complete core lane rows | 72/191 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 38/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 0/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
@@ -70,12 +70,12 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 72/72 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 73/73 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | live evidence | live parity rerun rows needing decisions | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing model or staging first | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing target review first | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/72 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/73 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -354,8 +354,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 155 | 0 | 36 | 191 |
 | local live | 138 | 53 | 0 | 191 |
-| GitOps/OCI live | 72 | 1 | 118 | 191 |
-| live Helm-vs-ConfigHub parity | 72 | 0 | 119 | 191 |
+| GitOps/OCI live | 73 | 1 | 117 | 191 |
+| live Helm-vs-ConfigHub parity | 73 | 0 | 118 | 191 |
 | two-cluster kind parity | 70 | 0 | 0 | 70 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -365,7 +365,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/72
+ConfigHub/OCI live comparison: 0/73
 two-cluster kind parity:       0/70
 ~~~
 

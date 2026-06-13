@@ -6,7 +6,7 @@ top-100 coverage queue.
 It selects proof-grade charts that already have:
 
 - multiple named variants;
-- two-cluster kind parity evidence;
+- strict parity evidence: two-cluster kind parity or live Helm-vs-ConfigHub parity;
 - no named limitation blocking review.
 
 Catalog support still requires a human promotion decision, production
@@ -15,8 +15,9 @@ disposition, and a current support boundary for each row.
 ## Summary
 
 ~~~text
-wave rows: 21
-two-cluster parity rows: 21
+wave rows: 24
+live Helm-vs-ConfigHub parity rows: 21
+two-cluster kind parity rows: 3
 missing item: scan and production disposition
 ~~~
 
@@ -27,13 +28,16 @@ missing item: scan and production disposition
 | `aqua/trivy-operator@0.32.1` | default;no-crds | high=0, medium=19, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `argo-cd/argo-events@2.4.21` | default;no-crds | high=0, medium=5, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `argo-cd/argo-rollouts@2.40.9` | default;no-crds | high=0, medium=10, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `argo-cd/argo-workflows@1.0.14` | default;controller-default-reviewed;minimal-crds | high=0, medium=11, gates=warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default;no-crds | high=0, medium=25, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default;no-crds | high=0, medium=16, gates=allow;warn | generated-facts;tpl;crds;cluster-rbac;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `elastic/eck-operator@3.4.0` | default;ha;no-crds | high=0, medium=18, gates=allow;warn | tpl;capabilities;cluster-rbac;webhooks;stateful-storage | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `elastic/logstash@8.5.1` | default;ha | high=0, medium=0, gates=allow | tpl;capabilities;stateful-storage | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `external-dns/external-dns@1.21.1` | default;no-crds;dry-run-txt-registry | high=0, medium=3, gates=allow;warn | tpl;crds;cluster-rbac | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `fairwinds-stable/vpa@4.11.0` | default;no-crds | high=0, medium=21, gates=allow;warn | lookup;tpl;capabilities;crds;cluster-rbac;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `gatekeeper/gatekeeper@3.22.2` | default;no-crds | high=0, medium=22, gates=allow;warn | capabilities;hooks;crds;cluster-rbac;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `grafana/alloy@1.8.2` | default;no-crds | high=0, medium=3, gates=allow;warn | tpl;capabilities;crds;cluster-rbac;stateful-storage | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `kedacore/keda@2.19.0` | default;no-crds | high=0, medium=17, gates=allow;warn | tpl;capabilities;crds;cluster-rbac;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `nats/nats@2.14.0` | default;ha | high=0, medium=1, gates=allow;warn | tpl | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default;no-crds | high=0, medium=9, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `percona/pg-operator@3.0.0` | default;no-crds | high=0, medium=8, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
@@ -57,13 +61,16 @@ offer.
 | `aqua/trivy-operator@0.32.1` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `argo-cd/argo-events@2.4.21` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `argo-cd/argo-rollouts@2.40.9` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
+| `argo-cd/argo-workflows@1.0.14` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | default-only<br>add or explicitly defer obvious user variants<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `elastic/eck-operator@3.4.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable<br>stateful storage and rollback policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `elastic/logstash@8.5.1` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>stateful storage and rollback policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `external-dns/external-dns@1.21.1` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
+| `fairwinds-stable/vpa@4.11.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `gatekeeper/gatekeeper@3.22.2` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `grafana/alloy@1.8.2` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
+| `kedacore/keda@2.19.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `nats/nats@2.14.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>stateful storage and rollback policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `open-telemetry/opentelemetry-operator@0.114.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `percona/pg-operator@3.0.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
@@ -80,15 +87,15 @@ offer.
 
 | Feature | Rows |
 | --- | ---: |
-| `tpl` | 11 |
-| `cluster-rbac` | 9 |
-| `capabilities` | 8 |
-| `crds` | 6 |
+| `tpl` | 13 |
+| `cluster-rbac` | 11 |
+| `capabilities` | 10 |
+| `crds` | 8 |
 | `stateful-storage` | 5 |
+| `webhooks` | 5 |
 | `generated-facts` | 3 |
-| `webhooks` | 3 |
+| `lookup` | 2 |
 | `hooks` | 1 |
-| `lookup` | 1 |
 
 ## Promotion Review Checklist
 

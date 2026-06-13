@@ -27,6 +27,11 @@ const contractItems = [
   ["h", "catalog and site entry", "The row has a per-chart catalog page and appears in the generated public site data."],
 ];
 
+const strictPromotionEvidence = new Set([
+  "two-cluster-kind-parity",
+  "live-helm-vs-confighub-parity",
+]);
+
 if (mode === "--generate") {
   mkdirSync(outDir, { recursive: true });
   const report = buildReport();
@@ -327,7 +332,7 @@ function queueFor(row) {
 
 function priorityFor(queue, readiness) {
   if (queue === "limitation-decision") return "1";
-  if (queue === "promotion-review" && readiness.strongest_evidence === "two-cluster-kind-parity") return "2";
+  if (queue === "promotion-review" && strictPromotionEvidence.has(readiness.strongest_evidence)) return "2";
   if (queue === "promotion-review") return "3";
   if (queue === "user-shaped-variant") return "4";
   return "5";

@@ -6,7 +6,8 @@ metadata:
 spec:
   sourceQueue: "data/top100-coverage/work-queue.csv"
   sourceReview: "data/catalog-promotion-review/review.csv"
-  scope: "Priority-2 top100 rows: proof-grade charts with multiple variants and two-cluster kind parity, but no production disposition yet."
+  sourceBaseOutcomes: "data/outcome-coverage/base-outcomes.csv"
+  scope: "Priority-2 top100 rows: proof-grade charts with multiple variants and strict parity evidence, but no production disposition yet."
   boundary: "This wave is a promotion review queue, not a catalog support claim. Promotion still requires explicit support decisions and current target-scoped evidence."
   rows:
     -
@@ -15,7 +16,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         []
       scan:
@@ -54,7 +55,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         []
       scan:
@@ -93,7 +94,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         []
       scan:
@@ -126,6 +127,45 @@ spec:
         - "recipes/argo-cd/argo-rollouts/2.40.9/helm-plan.yaml"
         - "recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md"
         - "recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
+    -
+      chart: "argo-cd/argo-workflows"
+      version: "1.0.14"
+      variants:
+        - "default"
+        - "controller-default-reviewed"
+        - "minimal-crds"
+      strongestEvidence: "live-helm-vs-confighub-parity"
+      sourceFeatures:
+        []
+      scan:
+        high: 0
+        medium: 11
+        gateDecisions:
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "default-only"
+        - "add or explicitly defer obvious user variants"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+        - "recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml"
+        - "recipes/argo-cd/argo-workflows/1.0.14/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/argo-cd/argo-workflows/1.0.14/control-points.yaml"
+        - "recipes/argo-cd/argo-workflows/1.0.14/value-model.yaml"
+        - "recipes/argo-cd/argo-workflows/1.0.14/helm-plan.yaml"
+        - "recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md"
+        - "recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml"
     -
       chart: "autoscaler/vertical-pod-autoscaler"
       version: "0.9.0"
@@ -172,7 +212,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "generated-facts"
         - "tpl"
@@ -217,7 +257,7 @@ spec:
         - "default"
         - "ha"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "tpl"
         - "capabilities"
@@ -262,7 +302,7 @@ spec:
       variants:
         - "default"
         - "ha"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "tpl"
         - "capabilities"
@@ -300,7 +340,7 @@ spec:
         - "default"
         - "no-crds"
         - "dry-run-txt-registry"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "tpl"
         - "crds"
@@ -336,12 +376,57 @@ spec:
         - "recipes/external-dns/external-dns/1.21.1/CATALOG.md"
         - "recipes/external-dns/external-dns/1.21.1/helm-pain-report.yaml"
     -
+      chart: "fairwinds-stable/vpa"
+      version: "4.11.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "live-helm-vs-confighub-parity"
+      sourceFeatures:
+        - "lookup"
+        - "tpl"
+        - "capabilities"
+        - "crds"
+        - "cluster-rbac"
+        - "webhooks"
+      scan:
+        high: 0
+        medium: 21
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+        - "webhook readiness/observation policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/fairwinds-stable/vpa/4.11.0/helm-pain-report.yaml"
+        - "recipes/fairwinds-stable/vpa/4.11.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/fairwinds-stable/vpa/4.11.0/control-points.yaml"
+        - "recipes/fairwinds-stable/vpa/4.11.0/value-model.yaml"
+        - "recipes/fairwinds-stable/vpa/4.11.0/helm-plan.yaml"
+        - "recipes/fairwinds-stable/vpa/4.11.0/CATALOG.md"
+        - "recipes/fairwinds-stable/vpa/4.11.0/helm-pain-report.yaml"
+    -
       chart: "gatekeeper/gatekeeper"
       version: "3.22.2"
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "capabilities"
         - "hooks"
@@ -385,7 +470,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "tpl"
         - "capabilities"
@@ -423,12 +508,56 @@ spec:
         - "recipes/grafana/alloy/1.8.2/CATALOG.md"
         - "recipes/grafana/alloy/1.8.2/helm-pain-report.yaml"
     -
+      chart: "kedacore/keda"
+      version: "2.19.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "live-helm-vs-confighub-parity"
+      sourceFeatures:
+        - "tpl"
+        - "capabilities"
+        - "crds"
+        - "cluster-rbac"
+        - "webhooks"
+      scan:
+        high: 0
+        medium: 17
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+        - "webhook readiness/observation policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
+        - "recipes/kedacore/keda/2.19.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/kedacore/keda/2.19.0/control-points.yaml"
+        - "recipes/kedacore/keda/2.19.0/value-model.yaml"
+        - "recipes/kedacore/keda/2.19.0/helm-plan.yaml"
+        - "recipes/kedacore/keda/2.19.0/CATALOG.md"
+        - "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
+    -
       chart: "nats/nats"
       version: "2.14.0"
       variants:
         - "default"
         - "ha"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "tpl"
       scan:
@@ -507,7 +636,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         []
       scan:
@@ -585,7 +714,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "lookup"
         - "crds"
@@ -626,7 +755,7 @@ spec:
       variants:
         - "default"
         - "ha"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "tpl"
         - "stateful-storage"
@@ -662,7 +791,7 @@ spec:
       variants:
         - "default"
         - "cluster-metrics-readonly"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "generated-facts"
         - "tpl"
@@ -704,7 +833,7 @@ spec:
       variants:
         - "default"
         - "cluster-metrics-readonly"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "tpl"
         - "capabilities"
@@ -740,7 +869,7 @@ spec:
       variants:
         - "default"
         - "cluster-metrics-readonly"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "generated-facts"
         - "tpl"
@@ -781,7 +910,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         []
       scan:
@@ -820,7 +949,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         - "tpl"
         - "capabilities"

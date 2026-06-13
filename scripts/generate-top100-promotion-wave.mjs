@@ -20,7 +20,12 @@ const reviewPacketsIndexPath = join(reviewPacketsDir, "review-packets.csv");
 const reviewPacketsReadmePath = join(reviewPacketsDir, "README.md");
 const workQueuePath = join(repoRoot, "data", "top100-coverage", "work-queue.csv");
 const catalogReviewPath = join(repoRoot, "data", "catalog-promotion-review", "review.csv");
+const baseOutcomesPath = join(repoRoot, "data", "outcome-coverage", "base-outcomes.csv");
 const mode = process.argv[2] ?? "--generate";
+const strictPromotionEvidence = new Set([
+  "two-cluster-kind-parity",
+  "live-helm-vs-confighub-parity",
+]);
 
 if (mode === "--generate") {
   const report = buildReport();
@@ -78,12 +83,13 @@ if (mode === "--generate") {
 function buildReport() {
   const workRows = parseCsvFile(workQueuePath);
   const reviewByChart = new Map(parseCsvFile(catalogReviewPath).map((row) => [row.chart, row]));
+  const baseRowsByChart = groupBy(parseCsvFile(baseOutcomesPath), (row) => row.chart);
   const rows = workRows
     .filter((row) => row.queue === "promotion-review" && row.priority === "2")
-    .map((row) => waveRow(row, reviewByChart.get(row.chart_ref)))
+    .map((row) => waveRow(row, reviewByChart.get(row.chart_ref), baseRowsByChart.get(row.chart_ref) ?? []))
     .sort((left, right) => Number(left.priority) - Number(right.priority) || left.chart_ref.localeCompare(right.chart_ref));
   check(rows.length > 0, "expected at least one priority-2 top100 promotion row");
-  check(rows.every((row) => row.strongest_evidence === "two-cluster-kind-parity"), "priority-2 promotion wave rows must already have two-cluster parity evidence");
+  check(rows.every((row) => strictPromotionEvidence.has(row.strongest_evidence)), "priority-2 promotion wave rows must already have strict parity evidence");
   check(rows.every((row) => splitList(row.missing_items).includes("f") || row.missing_requirements.includes("production disposition")), "priority-2 promotion wave rows must include production disposition as a missing item");
   for (const row of rows) {
     check(existsSync(join(repoRoot, row.recipe_path, "CATALOG.md")), `${row.chart_ref} missing catalog page at ${row.recipe_path}/CATALOG.md`);
@@ -107,16 +113,21 @@ function buildReport() {
   };
 }
 
-function waveRow(row, review) {
+function waveRow(row, review, baseRows) {
   check(review, `missing catalog promotion review row for ${row.chart_ref}`);
   const catalogPath = `recipes/${row.chart}/${row.version}/catalog-status.yaml`;
   const catalogStatus = existsSync(join(repoRoot, catalogPath)) ? readYaml(join(repoRoot, catalogPath)) : null;
+  const strictBases = baseRows
+    .filter((baseRow) => baseRow.live_helm_vs_confighub_parity === "pass" || baseRow.two_cluster_kind_parity === "pass")
+    .map((baseRow) => baseRow.base)
+    .filter(Boolean);
   return {
     priority: row.priority,
     chart: row.chart,
     version: row.version,
     chart_ref: row.chart_ref,
-    variants: row.variants,
+    variants: unionList(row.variants, strictBases.join(";")),
+    strict_evidence_bases: strictBases.join(";"),
     strongest_evidence: row.strongest_evidence,
     source_features: row.source_features,
     scan_high: review.scan_high,
@@ -149,8 +160,9 @@ function waveYaml(rows) {
     spec: {
       sourceQueue: relativeRepo(workQueuePath),
       sourceReview: relativeRepo(catalogReviewPath),
+      sourceBaseOutcomes: relativeRepo(baseOutcomesPath),
       scope:
-        "Priority-2 top100 rows: proof-grade charts with multiple variants and two-cluster kind parity, but no production disposition yet.",
+        "Priority-2 top100 rows: proof-grade charts with multiple variants and strict parity evidence, but no production disposition yet.",
       boundary:
         "This wave is a promotion review queue, not a catalog support claim. Promotion still requires explicit support decisions and current target-scoped evidence.",
       rows: rows.map((row) => ({
@@ -189,7 +201,7 @@ top-100 coverage queue.
 It selects proof-grade charts that already have:
 
 - multiple named variants;
-- two-cluster kind parity evidence;
+- strict parity evidence: two-cluster kind parity or live Helm-vs-ConfigHub parity;
 - no named limitation blocking review.
 
 Catalog support still requires a human promotion decision, production
@@ -199,7 +211,8 @@ disposition, and a current support boundary for each row.
 
 ~~~text
 wave rows: ${rows.length}
-two-cluster parity rows: ${rows.filter((row) => row.strongest_evidence === "two-cluster-kind-parity").length}
+live Helm-vs-ConfigHub parity rows: ${rows.filter((row) => row.strongest_evidence === "live-helm-vs-confighub-parity").length}
+two-cluster kind parity rows: ${rows.filter((row) => row.strongest_evidence === "two-cluster-kind-parity").length}
 missing item: scan and production disposition
 ~~~
 
@@ -266,6 +279,7 @@ function rowsToCsv(rows) {
     "version",
     "chart_ref",
     "variants",
+    "strict_evidence_bases",
     "strongest_evidence",
     "source_features",
     "scan_high",
@@ -293,7 +307,8 @@ function workOrdersMarkdown(rows) {
 These generated work orders turn the first promotion wave into assignable
 review tasks. They do not promote any chart by themselves.
 
-Each chart is already proof-grade and has two-cluster kind parity evidence.
+Each chart is already proof-grade and has strict parity evidence: either
+two-cluster kind parity or live Helm-vs-ConfigHub parity.
 Promotion still requires selecting the user-facing base, closing scan/gate and
 lifecycle questions, choosing the support scope, and linking live evidence or a
 routed deferral.
@@ -418,9 +433,9 @@ function workOrders(rows) {
       add(
         "selected-live-evidence",
         "operator reviewer",
-        "Two-cluster kind parity exists; catalog promotion needs the selected runtime evidence boundary.",
+        `Strict parity evidence exists (${row.strongest_evidence}); catalog promotion needs the selected runtime evidence boundary.`,
         "The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale.",
-        "data/live-kind-parity/summary.csv",
+        "data/live-kind-parity/summary.csv;data/live-helm-confighub-compare/summary.csv",
       ),
       add(
         "target-scoped-support-decision",
@@ -443,8 +458,8 @@ function reviewPacketsFor(rows, orders) {
   return rows.map((row) => {
     const rowOrders = orders.filter((order) => order.chart_ref === row.chart_ref);
     const selectedBase = selectedBaseFor(row);
-    const parityReceipt = liveKindParityReceiptFor(row, selectedBase);
-    check(parityReceipt, `${row.chart_ref} has strongest evidence ${row.strongest_evidence} but no live-kind parity receipt for ${selectedBase}`);
+    const parityReceipt = strictParityReceiptFor(row, selectedBase);
+    check(parityReceipt, `${row.chart_ref} has strongest evidence ${row.strongest_evidence} but no strict parity receipt for ${selectedBase}`);
     const slug = slugFor(row.chart_ref);
     const path = `data/top100-promotion-wave/review-packets/${slug}.yaml`;
     const packet = {
@@ -463,7 +478,7 @@ function reviewPacketsFor(rows, orders) {
         whyThisChartIsInTheWave: [
           "The chart is proof-grade in the maintained top-100 corpus.",
           "The chart has multiple named variants, so there is a real selection question.",
-          "The selected base has two-cluster kind parity evidence.",
+          "The selected base has strict parity evidence.",
           "No named limitation currently blocks promotion review.",
         ],
         currentEvidence: evidenceMapFor(row, selectedBase),
@@ -534,18 +549,30 @@ function evidenceMapFor(row, selectedBase) {
     installGate: `${baseRevisionRoot}/receipts/install-gate.yaml`,
     packageBase: `${row.package_path}/bases/${selectedBase}/kustomization.yaml`,
   };
-  const parity = liveKindParityReceiptFor(row, selectedBase) ??
+  const parity = liveKindParityReceiptFor(row, selectedBase) ||
     splitList(row.evidence).find((item) => item.includes("runs/live-kind-parity/") && item.endsWith("/receipt.yaml"));
   if (parity) evidence.twoClusterKindParity = parity;
+  const liveParity = liveHelmConfigHubReceiptFor(row, selectedBase) ||
+    splitList(row.evidence).find((item) => item.includes("runs/live-helm-confighub-compare/") && item.endsWith("/receipt.yaml"));
+  if (liveParity) evidence.liveHelmConfigHubParity = liveParity;
   return evidence;
 }
 
 function selectedBaseFor(row) {
-  const variants = splitList(row.variants);
+  const variants = [...splitList(row.strict_evidence_bases), ...splitList(row.variants)];
   for (const variant of variants) {
-    if (liveKindParityReceiptFor(row, variant)) return variant;
+    if (strictParityReceiptFor(row, variant)) return variant;
   }
   return variants[0] ?? "default";
+}
+
+function strictParityReceiptFor(row, variant) {
+  return liveHelmConfigHubReceiptFor(row, variant) || liveKindParityReceiptFor(row, variant);
+}
+
+function liveHelmConfigHubReceiptFor(row, variant) {
+  const path = `runs/live-helm-confighub-compare/${slugFor(`${row.chart}-${variant}`)}/receipt.yaml`;
+  return existsSync(join(repoRoot, path)) ? path : "";
 }
 
 function liveKindParityReceiptFor(row, variant) {
@@ -686,6 +713,20 @@ function formatGaps(value) {
 
 function splitList(value) {
   return String(value ?? "").split(";").map((item) => item.trim()).filter(Boolean);
+}
+
+function unionList(...values) {
+  return [...new Set(values.flatMap(splitList))].join(";");
+}
+
+function groupBy(rows, fn) {
+  const grouped = new Map();
+  for (const row of rows) {
+    const key = fn(row);
+    if (!grouped.has(key)) grouped.set(key, []);
+    grouped.get(key).push(row);
+  }
+  return grouped;
 }
 
 function escapePipes(value) {

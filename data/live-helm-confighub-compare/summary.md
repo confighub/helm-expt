@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 72
+pass: 73
 watch: 0
 blocked: 0
 not-started: 0
@@ -70,6 +70,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `elastic/eck-operator@3.4.0` | ha | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-ha/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | no-crds | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-no-crds/receipt.yaml |
 |  | `elastic/logstash@8.5.1` | default | pass | - | runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml |
+|  | `external-dns/external-dns@1.21.1` | default | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-default/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 |  | `fairwinds-stable/vpa@4.11.0` | default | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-vpa-default/receipt.yaml |
 |  | `fairwinds-stable/vpa@4.11.0` | no-crds | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-vpa-no-crds/receipt.yaml |

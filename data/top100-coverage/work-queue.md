@@ -39,15 +39,15 @@ supported-refresh: 0
 | 2 | `promotion-review` | `aqua/trivy-operator@0.32.1` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `argo-cd/argo-events@2.4.21` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `argo-cd/argo-rollouts@2.40.9` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
+| 2 | `promotion-review` | `argo-cd/argo-workflows@1.0.14` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `autoscaler/vertical-pod-autoscaler@0.9.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `cloudnative-pg/cloudnative-pg@0.28.2` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `elastic/eck-operator@3.4.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `elastic/logstash@8.5.1` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `external-dns/external-dns@1.21.1` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
+| 2 | `promotion-review` | `fairwinds-stable/vpa@4.11.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `gatekeeper/gatekeeper@3.22.2` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `grafana/alloy@1.8.2` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 2 | `promotion-review` | `nats/nats@2.14.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 2 | `promotion-review` | `open-telemetry/opentelemetry-operator@0.114.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 
 ## Files
 

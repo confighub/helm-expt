@@ -1,14 +1,15 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Top100PromotionReviewPacket"
 metadata:
-  name: "argo-cd-argo-events-2-4-21-promotion-review"
+  name: "argo-cd-argo-workflows-1-0-14-promotion-review"
 spec:
-  chart: "argo-cd/argo-events"
-  version: "2.4.21"
-  selectedBaseCandidate: "default"
+  chart: "argo-cd/argo-workflows"
+  version: "1.0.14"
+  selectedBaseCandidate: "minimal-crds"
   candidateVariants:
     - "default"
-    - "no-crds"
+    - "controller-default-reviewed"
+    - "minimal-crds"
   decisionState: "review-input-only"
   catalogSupportClaimAllowed: false
   whyThisChartIsInTheWave:
@@ -17,28 +18,26 @@ spec:
     - "The selected base has strict parity evidence."
     - "No named limitation currently blocks promotion review."
   currentEvidence:
-    catalog: "recipes/argo-cd/argo-events/2.4.21/CATALOG.md"
-    helmPainReport: "recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml"
-    controlPoints: "recipes/argo-cd/argo-events/2.4.21/control-points.yaml"
-    valueModel: "recipes/argo-cd/argo-events/2.4.21/value-model.yaml"
-    helmPlan: "recipes/argo-cd/argo-events/2.4.21/helm-plan.yaml"
-    variant: "recipes/argo-cd/argo-events/2.4.21/variants/default/variant.yaml"
-    variantRevision: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml"
-    helmEquivalence: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
-    scanReceipt: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/scan-receipt.yaml"
-    installGate: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/install-gate.yaml"
-    packageBase: "packages/argo-cd/argo-events/2.4.21/bases/default/kustomization.yaml"
-    twoClusterKindParity: "runs/live-kind-parity/argo-cd-argo-events-default/receipt.yaml"
-    liveHelmConfigHubParity: "runs/live-helm-confighub-compare/argo-cd-argo-events-default/receipt.yaml"
+    catalog: "recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md"
+    helmPainReport: "recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml"
+    controlPoints: "recipes/argo-cd/argo-workflows/1.0.14/control-points.yaml"
+    valueModel: "recipes/argo-cd/argo-workflows/1.0.14/value-model.yaml"
+    helmPlan: "recipes/argo-cd/argo-workflows/1.0.14/helm-plan.yaml"
+    variant: "recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml"
+    variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
+    helmEquivalence: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/helm-equivalence-receipt.yaml"
+    scanReceipt: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/scan-receipt.yaml"
+    installGate: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml"
+    packageBase: "packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds/kustomization.yaml"
+    liveHelmConfigHubParity: "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
   currentState:
     supportLevel: "machine-proof-only"
     productionReadiness: "not-reviewed-for-production"
     catalogStatus: "proof-grade"
     strongestEvidence: "live-helm-vs-confighub-parity"
     scanHigh: 0
-    scanMedium: 5
+    scanMedium: 11
     gateDecisions:
-      - "allow"
       - "warn"
     featureFocus:
       []
@@ -47,12 +46,12 @@ spec:
       workType: "variant-selection"
       reviewer: "catalog reviewer"
       reason: "Confirm the promoted base is a real Helm-user path, not merely the first rendered baseline."
-      doneWhen: "A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason."
-      evidence: "recipes/argo-cd/argo-events/2.4.21/CATALOG.md"
+      doneWhen: "A selected variant is named from default;controller-default-reviewed;minimal-crds and the non-selected variants have a written promote/defer reason."
+      evidence: "recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md"
     -
       workType: "scan-and-gate-disposition"
       reviewer: "security reviewer"
-      reason: "Scan/gate state is high=0, medium=5, gates=allow;warn."
+      reason: "Scan/gate state is high=0, medium=11, gates=warn."
       doneWhen: "Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support."
       evidence: "data/catalog-promotion-review/review.csv"
     -
