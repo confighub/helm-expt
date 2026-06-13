@@ -148,7 +148,7 @@ function buildReport() {
 
   check(rows.some((row) => row.chart === "metrics-server/metrics-server" && row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
   check(rows.some((row) => row.chart === "kedacore/keda" && row.coverage_status === "api-aggregation-observed"), "expected KEDA ConfigHub OCI/API aggregation observation row");
-  check(maintainedExtraRows.some((row) => row.chart === "prometheus-community/prometheus-adapter" && row.coverage_status === "target-api-version-refused"), "expected Prometheus Adapter target API-version refused maintained row");
+  check(maintainedExtraRows.some((row) => row.chart === "prometheus-community/prometheus-adapter" && row.coverage_status === "compatible-base-created-needs-standard-lanes"), "expected Prometheus Adapter compatible base maintained row");
   check(renderPathRows.length === 2, `expected two APIService render-path note rows; found ${renderPathRows.length}`);
   check(renderPathRows.some((row) => row.chart === "fairwinds-stable/goldilocks" && row.conditional_dependencies.includes("metrics-server.enabled")), "expected Goldilocks metrics-server render-path note");
   check(renderPathRows.some((row) => row.chart === "fairwinds-stable/vpa" && row.conditional_dependencies.includes("metrics-server.enabled")), "expected VPA metrics-server render-path note");
@@ -226,6 +226,7 @@ function rowFor(source, review, quirk, localTriageByRef, targetDecisions, capabi
     kindParityAggregation,
     targetBlock,
     targetDecision,
+    capabilityCandidate,
     renderedApiServiceCount: renderedApiService.count,
   });
   const contract = contractFor({
@@ -304,11 +305,12 @@ function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOp
   };
 }
 
-function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation, targetBlock, targetDecision, renderedApiServiceCount }) {
+function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation, targetBlock, targetDecision, capabilityCandidate, renderedApiServiceCount }) {
   if (runtimeGitOpsAggregation && hasRecipe && kindParity.length > 0) return "api-aggregation-observed";
   if (kindParityAggregation && hasRecipe && kindParity.length > 0) return "two-cluster-api-aggregation-observed";
   if (local && objectSet && workload && liveParity && kindParity.length > 0) return "object-and-workload-observed";
   if (hasRecipe && kindParity.length > 0) return "two-cluster-parity-only";
+  if (hasRecipe && capabilityCandidate?.promoted_base_status === "maintained-base-created") return "compatible-base-created-needs-standard-lanes";
   if (hasRecipe && targetDecision?.status) return targetDecision.status;
   if (hasRecipe && targetBlock?.route_class === "api-version-unsupported") return "target-api-version-blocked";
   if (hasRecipe && renderedApiServiceCount === 0) return "source-signal-not-rendered-in-maintained-bases";
@@ -331,6 +333,9 @@ function nextActionFor({ ref, hasRecipe, coverageStatus, targetDecision, capabil
   }
   if (coverageStatus === "target-api-version-blocked") {
     return "choose a supported chart version, compatibility base, or target Kubernetes profile before rerunning live APIService observation";
+  }
+  if (coverageStatus === "compatible-base-created-needs-standard-lanes" && capabilityCandidate?.next_action) {
+    return capabilityCandidate.next_action;
   }
   if (coverageStatus === "target-api-version-refused" && capabilityCandidate?.next_action) {
     return capabilityCandidate.next_action;
@@ -449,6 +454,13 @@ function capabilityCandidateIndex() {
     check(spec.liveRehearsal?.result === "pass", `${relativeRepo(path)} live rehearsal must pass`);
     check(spec.liveRehearsal?.apiService?.status === "True", `${relativeRepo(path)} must observe APIService Available=True`);
     check(spec.liveRehearsal?.aggregatedApiQuery?.result === "pass", `${relativeRepo(path)} must observe an aggregated API query`);
+    if (spec.promotedBase) {
+      check(spec.promotedBase.status === "maintained-base-created", `${relativeRepo(path)} promoted base status must be maintained-base-created`);
+      for (const key of ["variant", "revision", "packageBase"]) {
+        check(spec.promotedBase[key] && existsSync(join(repoRoot, spec.promotedBase[key])), `${relativeRepo(path)} promotedBase.${key} path is missing`);
+      }
+      check(spec.promotedBase.renderedObjectSetSHA256, `${relativeRepo(path)} promotedBase.renderedObjectSetSHA256 is missing`);
+    }
     const addedApiVersions = spec.candidateCapabilityProfile?.apiVersions ?? [];
     check(addedApiVersions.length > 0, `${relativeRepo(path)} must list candidate API versions`);
     result.set(`${spec.chart}@${spec.version}`, {
@@ -459,6 +471,11 @@ function capabilityCandidateIndex() {
       added_api_versions: addedApiVersions.join(";"),
       baseline_api_version: spec.renderEvidence?.changedObject?.baselineApiVersion ?? "",
       candidate_api_version: spec.renderEvidence?.changedObject?.candidateApiVersion ?? "",
+      promoted_base: spec.promotedBase?.name ?? "",
+      promoted_base_status: spec.promotedBase?.status ?? "",
+      promoted_base_revision: spec.promotedBase?.revision ?? "",
+      promoted_base_package: spec.promotedBase?.packageBase ?? "",
+      promoted_base_rendered_sha256: spec.promotedBase?.renderedObjectSetSHA256 ?? "",
       render_result: spec.renderEvidence?.result ?? "",
       live_result: spec.liveRehearsal?.result ?? "",
       api_service_available: spec.liveRehearsal?.apiService?.status === "True" ? "yes" : "no",
@@ -701,6 +718,20 @@ function workOrderFor(row) {
       evidence: row.evidence,
     };
   }
+  if (row.coverage_status === "compatible-base-created-needs-standard-lanes") {
+    return {
+      priority: 2,
+      chart: row.chart,
+      version: row.source_version,
+      current_state: row.coverage_status,
+      work_type: "compatible-base-standard-lanes",
+      owner_hint: "recipe-base-and-live-lane",
+      first_task: "run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and APIService runtime contract for apiservice-v1-capability",
+      receipts_to_add: "ConfigHub proof; local live; live Helm-vs-ConfigHub parity; APIService Available=True plus aggregated API query receipt",
+      done_when: "the maintained apiservice-v1-capability base has live aggregation evidence through the standard lanes",
+      evidence: row.evidence,
+    };
+  }
   if (row.coverage_status === "target-api-version-refused") {
     if (row.capability_candidate_status === "live-aggregation-observed") {
       return {
@@ -809,6 +840,7 @@ rows with object/workload observation:   ${objectWorkloadRows.length}
 rows with two-cluster parity only:       ${rows.filter((row) => row.coverage_status === "two-cluster-parity-only").length}
 rows still source-detected only:         ${sourceOnlyRows.length}
 aggregated API availability receipts:    ${aggregationRows.length}
+compatible capability bases created:     ${capabilityCandidates.filter((row) => row.promoted_base_status === "maintained-base-created").length}
 capability-profile candidates observed:  ${capabilityCandidates.length}
 active proof/import work orders:          ${activeWorkOrders.length}
 ~~~
@@ -817,11 +849,13 @@ Only rows with both an \`Available=True\` APIService condition and a successful
 aggregated API query receipt claim aggregated API availability. Today that
 evidence exists for Metrics Server and KEDA.
 
-Prometheus Adapter also has a live-tested capability-profile candidate. Adding
+Prometheus Adapter also has a live-tested capability-profile route. Adding
 \`apiregistration.k8s.io/v1\` to the render profile changes the chart's
 APIService from the refused \`apiregistration.k8s.io/v1beta1\` object to a
-target-supported \`apiregistration.k8s.io/v1\` object. That candidate is not a
-maintained base yet; it is the next recipe/base task.
+target-supported \`apiregistration.k8s.io/v1\` object. That route is now a
+maintained proof base, \`apiservice-v1-capability\`; it still needs the normal
+ConfigHub, live, GitOps, and APIService runtime proof lanes before catalog
+promotion.
 
 ## Coverage Status
 
@@ -857,9 +891,9 @@ ${[...maintainedCounts.entries()].sort((a, b) => a[0].localeCompare(b[0])).map((
 These rows are live-tested routes from a refused current base to a possible
 future maintained base. They are not current catalog support claims.
 
-| Chart | Candidate base | Added API versions | Render result | Live result | Receipt | Next action |
-| --- | --- | --- | --- | --- | --- | --- |
-${capabilityCandidates.map((row) => `| \`${row.chart}@${row.version}\` | \`${row.candidate_base}\` | ${escapePipes(row.added_api_versions)} | ${row.render_result} | ${row.live_result} | [receipt](./${row.path.replace(/^data\/apiservice-coverage\//, "")}) | ${escapePipes(row.next_action)} |`).join("\n")}
+| Chart | Candidate base | Maintained proof base | Added API versions | Render result | Live result | Receipt | Next action |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+${capabilityCandidates.map((row) => `| \`${row.chart}@${row.version}\` | \`${row.candidate_base}\` | ${row.promoted_base_status ? `\`${row.promoted_base}\` (${row.promoted_base_status})` : "-"} | ${escapePipes(row.added_api_versions)} | ${row.render_result} | ${row.live_result} | [receipt](./${row.path.replace(/^data\/apiservice-coverage\//, "")}) | ${escapePipes(row.next_action)} |`).join("\n")}
 
 ## Runtime Contract
 
@@ -894,6 +928,9 @@ ${rows.map((row) => `| \`${row.chart}@${row.source_version}\` | ${row.aggregatio
 - \`target-api-version-refused\` means a target-scoped compatibility decision
   records that the rendered APIService API version is unsupported for the tested
   target profile. It is not a global chart refusal.
+- \`compatible-base-created-needs-standard-lanes\` means a compatible maintained
+  proof base exists, but it still needs ConfigHub proof, live, GitOps, parity,
+  and APIService runtime evidence before stronger support claims.
 - \`source-signal-not-rendered-in-maintained-bases\` means the source scan found
   APIService templates, but the maintained recipe bases do not render APIService
   objects. Runtime aggregation evidence is not owed until a base enables that
@@ -964,10 +1001,11 @@ evidence. Its next question is product scope: whether to promote it to a
 catalog-supported entry for a named target profile, or keep it proof-grade.
 Kubernetes Dashboard, Datadog, and Bitnami Metrics Server need import/catalog
 decisions before a runtime aggregation receipt can close the gap. Prometheus
-Adapter has a maintained recipe and ConfigHub proof, but the current bases render
-an APIService version the tested target does not serve. The new capability-profile
-candidate proves the likely fix at render time and live runtime; the next task is
-to promote it into a maintained base and run the standard lanes. Goldilocks and
+Adapter has a maintained recipe and the old bases render an APIService version
+the tested target does not serve. The compatible \`apiservice-v1-capability\`
+proof base now exists and has candidate live evidence; the next task is to run
+the standard ConfigHub, live, parity, and APIService runtime lanes for that
+maintained base. Goldilocks and
 VPA have render-path notes: their current maintained bases do not render
 APIService objects, so they do not owe runtime aggregation evidence unless a
 future base enables that path.
@@ -1078,23 +1116,23 @@ function capabilityCandidateMarkdown(rows) {
 Generated. Do not edit by hand.
 
 These rows record live-tested render-profile routes from a refused current base
-to a possible future maintained base. They are not current catalog support
-claims, and they do not silently patch upstream Helm output.
+to a compatible capability profile. Some may already be maintained proof bases.
+They are not catalog support claims, and they do not silently patch upstream
+Helm output.
 
 ## Current Candidates
 
-| Chart | Candidate base | Added API versions | Baseline API version | Candidate API version | Render result | Live result | APIService Available | Aggregated query | Receipt |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart}@${row.version}\` | \`${row.candidate_base}\` | ${escapePipes(row.added_api_versions)} | \`${row.baseline_api_version}\` | \`${row.candidate_api_version}\` | ${row.render_result} | ${row.live_result} | ${row.api_service_available} | ${row.aggregated_query} | [receipt](./${row.path.replace(/^data\/apiservice-coverage\//, "")}) |`).join("\n")}
+| Chart | Candidate base | Maintained proof base | Added API versions | Baseline API version | Candidate API version | Render result | Live result | APIService Available | Aggregated query | Receipt |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | \`${row.candidate_base}\` | ${row.promoted_base_status ? `\`${row.promoted_base}\` (${row.promoted_base_status})` : "-"} | ${escapePipes(row.added_api_versions)} | \`${row.baseline_api_version}\` | \`${row.candidate_api_version}\` | ${row.render_result} | ${row.live_result} | ${row.api_service_available} | ${row.aggregated_query} | [receipt](./${row.path.replace(/^data\/apiservice-coverage\//, "")}) |`).join("\n")}
 
 ## Rule
 
 A capability-profile candidate means a render-time target fact was tested and
-observed live. It does not become part of the catalog until a maintained base is
-created and the normal ConfigHub proof, local live, live Helm-vs-ConfigHub
-parity, and APIService runtime contract all pass for that base.
-
-## Next Actions
+observed live. It does not become part of the supported catalog until a
+maintained base exists and the normal ConfigHub proof, local live, live
+Helm-vs-ConfigHub parity, and APIService runtime contract all pass for that
+base.
 
 | Chart | Next action |
 | --- | --- |

@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-adapter"
+    confighub.io/chart-version: "5.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "apiservice-v1-capability"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub installer setup for prometheus-community/prometheus-adapter@5.3.0 apiservice-v1-capability"
+    - "11 Helm objects are bound to renderedObjectSetSHA256"
+    - "capability profile renders apiregistration.k8s.io/v1/APIService for modern targets"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

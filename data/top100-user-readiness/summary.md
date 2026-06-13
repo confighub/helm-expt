@@ -13,9 +13,9 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | --- | --- | --- |
 | ready-to-try | 20 | Catalog-supported with live evidence; the recommended first base passes its lanes. Pull it and inspect the exact objects. |
 | works-with-target-prerequisites | 15 | Proof-grade and review-queued; the named gap is something your cluster or team must provide (existing Secret, storage, CRD ownership). |
-| works-with-operator-review | 22 | Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it. |
+| works-with-operator-review | 23 | Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it. |
 | needs-better-base-variant | 35 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
-| not-ready-yet | 8 | A named limitation or target compatibility issue needs a support / disclose / defer / refuse decision before this chart can be promoted. |
+| not-ready-yet | 7 | A named limitation or target compatibility issue needs a support / disclose / defer / refuse decision before this chart can be promoted. |
 
 ## ready-to-try (20)
 
@@ -62,7 +62,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | sealed-secrets/sealed-secrets@2.18.6 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | velero/velero@12.0.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 
-## works-with-operator-review (22)
+## works-with-operator-review (23)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
@@ -72,6 +72,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | grafana/alloy@1.8.2 | default (unreviewed first guess) | a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
 | prometheus-community/alertmanager@1.37.0 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
 | elastic/logstash@8.5.1 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
+| prometheus-community/prometheus-adapter@5.3.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
 | elastic/filebeat@8.5.1 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | hashicorp/terraform@1.1.2 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
 | fairwinds-stable/vpa@4.11.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
@@ -129,7 +130,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | rook-release/rook-ceph-cluster@v1.19.5 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | vm/victoria-logs-single@0.12.5 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 
-## not-ready-yet (8)
+## not-ready-yet (7)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
@@ -137,7 +138,6 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | kyverno/kyverno@3.8.1 | default (unreviewed first guess) | an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs; a decision on the named limitation before use | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | bitnami/elasticsearch@22.1.6 | default (unreviewed first guess) | an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; a decision on the named limitation before use | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | bitnami/spark@10.0.3 | default (unreviewed first guess) | an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; a decision on the named limitation before use | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| prometheus-community/prometheus-adapter@5.3.0 | default (unreviewed first guess) | a compatible Kubernetes target profile or a compatibility base | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
 | bitnami/zookeeper@13.8.7 | default (unreviewed first guess) | an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; a decision on the named limitation before use | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | bitnami/contour@21.1.4 | default (unreviewed first guess) | an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); target facts at variant time; a decision on the named limitation before use | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | grafana/pyroscope@2.0.2 | default (unreviewed first guess) | an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs; a decision on the named limitation before use | review limitation before promotion: existing-secret (chart ships no Secret toggle) |

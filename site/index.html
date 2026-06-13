@@ -146,7 +146,7 @@
   <header>
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-13T18:49:41.668Z UTC · source: committed helm-expt evidence for this public catalog dashboard.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-13T19:15:45.508Z UTC · source: committed helm-expt evidence for this public catalog dashboard.</p>
     <p class="tagline">helm-expt ports popular public Helm charts to reviewed <code>cub installer</code> packages without changing the supported end-to-end semantics. The result is explicit config: named base variants, rendered objects, target prerequisites, scans, gates, live evidence, and a receipt behind every claim.</p>
     <div class="doors">
       <div class="door">
@@ -229,13 +229,13 @@
       <div class="grid">
         <div class="metric"><strong>108/110</strong><span>Model-supported charts</span></div>
         <div class="metric"><strong>20/100</strong><span>Top100 contract covered</span></div>
-        <div class="metric"><strong>191/191</strong><span>Render parity rows</span></div>
+        <div class="metric"><strong>192/192</strong><span>Render parity rows</span></div>
         <div class="metric"><strong>20/100</strong><span>Catalog-supported charts</span></div>
         <div class="metric"><strong>80/100</strong><span>Proof-grade non-catalog</span></div>
         <div class="metric"><strong>7/20</strong><span>Top20 update candidates</span></div>
         <div class="metric"><strong>10/10</strong><span>Derived create receipts</span></div>
-        <div class="metric"><strong>83/191</strong><span>GitOps/OCI live pass</span></div>
-        <div class="metric"><strong>83/191</strong><span>Live parity pass</span></div>
+        <div class="metric"><strong>83/192</strong><span>GitOps/OCI live pass</span></div>
+        <div class="metric"><strong>83/192</strong><span>Live parity pass</span></div>
         <div class="metric"><strong>73/74</strong><span>Two-cluster parity pass</span></div>
       </div>
     </section>
@@ -302,7 +302,7 @@
       <p>The site uses the generated status dashboard. A partial or gap status means the exact lane still needs receipts, not that render parity failed.</p>
       <div class="card"><table>
         <thead><tr><th>Metric</th><th>Value</th><th>Status</th></tr></thead>
-        <tbody><tr><td>in-ConfigHub proof rows</td><td>158/191</td><td>partial</td></tr><tr><td>local live rows</td><td>138/191</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>83/191</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>83/191</td><td>partial</td></tr><tr><td>two-cluster kind parity pass rows</td><td>73/74</td><td>partial</td></tr><tr><td>two-cluster semantic parity defect receipts</td><td>0/74</td><td>good</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook route receipts present</td><td>5/5</td><td>partial</td></tr><tr><td>hook lifecycle observations present</td><td>5/5</td><td>good</td></tr><tr><td>related lifecycle observation receipts passing</td><td>4/4</td><td>good</td></tr><tr><td>hook routes still needing execution or observation</td><td>0/5</td><td>good</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
+        <tbody><tr><td>in-ConfigHub proof rows</td><td>158/192</td><td>partial</td></tr><tr><td>local live rows</td><td>139/192</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>83/192</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>83/192</td><td>partial</td></tr><tr><td>two-cluster kind parity pass rows</td><td>73/74</td><td>partial</td></tr><tr><td>two-cluster semantic parity defect receipts</td><td>0/74</td><td>good</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook route receipts present</td><td>5/5</td><td>partial</td></tr><tr><td>hook lifecycle observations present</td><td>5/5</td><td>good</td></tr><tr><td>related lifecycle observation receipts passing</td><td>4/4</td><td>good</td></tr><tr><td>hook routes still needing execution or observation</td><td>0/5</td><td>good</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -318,7 +318,7 @@
       <p>The chart-use guide gives one practical answer per top-100 chart. It is the fastest route when a user already knows the chart name and wants to know whether to try the public catalog, promote after review, design a better base, or settle a limitation first.</p>
       <div class="card"><table>
         <thead><tr><th>Answer</th><th>Charts</th><th>Meaning</th><th>First examples</th></tr></thead>
-        <tbody><tr><td>yes-public-catalog</td><td>20</td><td>Use the public catalog entry, then check the exact base and lane.</td><td>argo-cd/argo-cd@9.5.15, bitnami/mongodb@19.0.7, bitnami/mysql@14.0.3, bitnami/nginx@24.0.2</td></tr><tr><td>not-yet-public-catalog-proof-ready</td><td>37</td><td>Proof and useful variants exist, but catalog promotion review is not done.</td><td>external-dns/external-dns@1.21.1, cloudnative-pg/cloudnative-pg@0.28.2, kedacore/keda@2.19.0, prometheus-community/kube-state-metrics@7.4.0</td></tr><tr><td>not-yet-user-ready</td><td>35</td><td>The current proof is too default-shaped; design a better base variant first.</td><td>gitlab/gitlab-runner@0.89.0, fluent/fluent-bit@0.57.6, runix/pgadmin4@1.62.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td></tr><tr><td>decision-needed-first</td><td>8</td><td>A named capability gap must be supported, disclosed, deferred, or blocked first.</td><td>traefik/traefik@40.2.0, kyverno/kyverno@3.8.1, bitnami/elasticsearch@22.1.6, bitnami/spark@10.0.3</td></tr></tbody>
+        <tbody><tr><td>yes-public-catalog</td><td>20</td><td>Use the public catalog entry, then check the exact base and lane.</td><td>argo-cd/argo-cd@9.5.15, bitnami/mongodb@19.0.7, bitnami/mysql@14.0.3, bitnami/nginx@24.0.2</td></tr><tr><td>not-yet-public-catalog-proof-ready</td><td>37</td><td>Proof and useful variants exist, but catalog promotion review is not done.</td><td>external-dns/external-dns@1.21.1, cloudnative-pg/cloudnative-pg@0.28.2, kedacore/keda@2.19.0, prometheus-community/kube-state-metrics@7.4.0</td></tr><tr><td>not-yet-user-ready</td><td>35</td><td>The current proof is too default-shaped; design a better base variant first.</td><td>gitlab/gitlab-runner@0.89.0, fluent/fluent-bit@0.57.6, runix/pgadmin4@1.62.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td></tr><tr><td>decision-needed-first</td><td>7</td><td>A named capability gap must be supported, disclosed, deferred, or blocked first.</td><td>traefik/traefik@40.2.0, kyverno/kyverno@3.8.1, bitnami/elasticsearch@22.1.6, bitnami/spark@10.0.3</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -425,18 +425,18 @@
       <h2 id="top100-readiness">Top-100 Readiness</h2>
       <p>The top-100 corpus is not one claim. It separates charts a Helm user can try now from charts that need target prerequisites, operator review, better base variants, or limitation decisions.</p>
       <div class="grid">
-        <div class="metric"><strong>76/100</strong><span>Charts with live evidence</span></div>
+        <div class="metric"><strong>77/100</strong><span>Charts with live evidence</span></div>
         <div class="metric"><strong>20/100</strong><span>Ready to try</span></div>
         <div class="metric"><strong>15/100</strong><span>Need target input</span></div>
-        <div class="metric"><strong>22/100</strong><span>Need operator review</span></div>
+        <div class="metric"><strong>23/100</strong><span>Need operator review</span></div>
         <div class="metric"><strong>35/100</strong><span>Need useful variants</span></div>
         <div class="metric"><strong>37/80</strong><span>Strict promotion queue</span></div>
         <div class="metric"><strong>24</strong><span>First strict promotion wave</span></div>
-        <div class="metric"><strong>8/100</strong><span>Not ready yet</span></div>
+        <div class="metric"><strong>7/100</strong><span>Not ready yet</span></div>
       </div>
       <div class="card"><table>
         <thead><tr><th>User-readiness group</th><th>Charts</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>ready-to-try</td><td>20</td><td>Catalog-supported with a reviewed first base and live evidence.</td></tr><tr><td>works-with-target-prerequisites</td><td>15</td><td>Works once the target provides a named prerequisite such as a Secret, StorageClass, or CRD ownership choice.</td></tr><tr><td>works-with-operator-review</td><td>22</td><td>Render proof exists, but an operator should review the named lifecycle, hook, HA, or shape concern before relying on it.</td></tr><tr><td>needs-better-base-variant</td><td>35</td><td>The mechanism is proven, but the useful install shape has not been built and reviewed yet.</td></tr><tr><td>not-ready-yet</td><td>8</td><td>A named limitation needs a support, disclose, defer, or block decision before this catalog should vouch for it.</td></tr></tbody>
+        <tbody><tr><td>ready-to-try</td><td>20</td><td>Catalog-supported with a reviewed first base and live evidence.</td></tr><tr><td>works-with-target-prerequisites</td><td>15</td><td>Works once the target provides a named prerequisite such as a Secret, StorageClass, or CRD ownership choice.</td></tr><tr><td>works-with-operator-review</td><td>23</td><td>Render proof exists, but an operator should review the named lifecycle, hook, HA, or shape concern before relying on it.</td></tr><tr><td>needs-better-base-variant</td><td>35</td><td>The mechanism is proven, but the useful install shape has not been built and reviewed yet.</td></tr><tr><td>not-ready-yet</td><td>7</td><td>A named limitation needs a support, disclose, defer, or block decision before this catalog should vouch for it.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -447,7 +447,7 @@
       <p>Hard gaps are capability warnings, not automatic chart failures. Read them with the adoption bucket.</p>
       <div class="card"><table>
         <thead><tr><th>Adoption bucket</th><th>Rows</th><th>With hard gaps</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>try-from-public-catalog</td><td>20</td><td>10</td><td>Reviewed bases exist; gaps usually point to additional paths that still need support or disclosure.</td></tr><tr><td>promote-after-review</td><td>37</td><td>0</td><td>No named hard gap currently blocks promotion review.</td></tr><tr><td>needs-useful-variant</td><td>35</td><td>8</td><td>Add realistic variants first; use any gap to shape or disclose the variant boundary.</td></tr><tr><td>limitation-decision-first</td><td>8</td><td>7</td><td>The named gap blocks promotion until it is supported, disclosed, or deferred.</td></tr></tbody>
+        <tbody><tr><td>try-from-public-catalog</td><td>20</td><td>10</td><td>Reviewed bases exist; gaps usually point to additional paths that still need support or disclosure.</td></tr><tr><td>promote-after-review</td><td>37</td><td>0</td><td>No named hard gap currently blocks promotion review.</td></tr><tr><td>needs-useful-variant</td><td>35</td><td>8</td><td>Add realistic variants first; use any gap to shape or disclose the variant boundary.</td></tr><tr><td>limitation-decision-first</td><td>7</td><td>7</td><td>The named gap blocks promotion until it is supported, disclosed, or deferred.</td></tr><tr><td>not-ready</td><td>1</td><td>0</td><td>Review before promotion.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -457,7 +457,7 @@
       </style>
       <div class="card"><table>
         <thead><tr><th>Queue</th><th>First rows</th></tr></thead>
-        <tbody><tr><td>Promotion review</td><td>external-dns/external-dns@1.21.1, cloudnative-pg/cloudnative-pg@0.28.2, kedacore/keda@2.19.0, prometheus-community/kube-state-metrics@7.4.0, elastic/eck-operator@3.4.0</td></tr><tr><td>Needs useful variant</td><td>gitlab/gitlab-runner@0.89.0, fluent/fluent-bit@0.57.6, runix/pgadmin4@1.62.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, elastic/kibana@8.5.1</td></tr><tr><td>Limitation decision</td><td>traefik/traefik@40.2.0, kyverno/kyverno@3.8.1, bitnami/elasticsearch@22.1.6, bitnami/spark@10.0.3, prometheus-community/prometheus-adapter@5.3.0</td></tr></tbody>
+        <tbody><tr><td>Promotion review</td><td>external-dns/external-dns@1.21.1, cloudnative-pg/cloudnative-pg@0.28.2, kedacore/keda@2.19.0, prometheus-community/kube-state-metrics@7.4.0, elastic/eck-operator@3.4.0</td></tr><tr><td>Needs useful variant</td><td>gitlab/gitlab-runner@0.89.0, fluent/fluent-bit@0.57.6, runix/pgadmin4@1.62.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, elastic/kibana@8.5.1</td></tr><tr><td>Limitation decision</td><td>traefik/traefik@40.2.0, kyverno/kyverno@3.8.1, bitnami/elasticsearch@22.1.6, bitnami/spark@10.0.3, bitnami/zookeeper@13.8.7</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

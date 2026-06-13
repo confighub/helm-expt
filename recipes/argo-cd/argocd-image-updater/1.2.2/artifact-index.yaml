@@ -52,7 +52,7 @@ spec:
   proofSummary:
     adoptionBucket: "needs-useful-variant"
     userStatus: "proof-grade-needs-user-shaped-variant"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "two-cluster-kind-parity"
     proofLanes:
       renderParity: "1/1"
       inConfigHub: "1/1"

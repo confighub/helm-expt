@@ -100,8 +100,10 @@ function buildReport() {
   ), "expected KEDA APIService promotion focus row");
   check(rows.some((row) =>
     row.chart === "prometheus-community/prometheus-adapter@5.3.0" &&
-    row.proof_focus === "api-service-target-compatibility"
-  ), "expected Prometheus Adapter APIService target-compatibility focus row");
+    row.proof_focus === "api-service-compatible-base-standard-lanes" &&
+    row.next_action_source === "apiservice-coverage" &&
+    row.next_action_receipt === "data/apiservice-coverage/capability-profile-candidates/prometheus-community-prometheus-adapter-5.3.0-apiservice-v1.yaml"
+  ), "expected Prometheus Adapter APIService compatible-base focus row");
 
   return {
     rows,
@@ -156,6 +158,14 @@ function userStatusFor(top100, outcome, strongestEvidence, productionNextAction,
           nextAction: apiService.next_action,
           nextActionSource: "apiservice-coverage",
           nextActionReceipt: apiService.target_compatibility_receipt,
+        };
+      }
+      if (apiService?.coverage_status === "compatible-base-created-needs-standard-lanes") {
+        return {
+          userStatus: "proof-grade-compatible-base-needs-standard-lanes",
+          nextAction: apiService.next_action,
+          nextActionSource: "apiservice-coverage",
+          nextActionReceipt: apiService.capability_candidate_receipt || apiService.target_compatibility_receipt,
         };
       }
       if (apiService?.coverage_status === "target-api-version-blocked") {
@@ -222,6 +232,13 @@ function proofFocusFor(apiService) {
         ? "target compatibility decision records that this chart stays proof-grade for the tested target profile"
         : "rendered APIService objects exist, but the tested target does not serve that API version",
       receipt: apiService.target_compatibility_receipt || apiService.target_block_receipt,
+    };
+  }
+  if (apiService.coverage_status === "compatible-base-created-needs-standard-lanes") {
+    return {
+      focus: "api-service-compatible-base-standard-lanes",
+      status: "compatible APIService base exists; standard proof lanes still need to run",
+      receipt: apiService.capability_candidate_receipt || apiService.target_compatibility_receipt,
     };
   }
   if (apiService.coverage_status === "source-signal-not-rendered-in-maintained-bases") {

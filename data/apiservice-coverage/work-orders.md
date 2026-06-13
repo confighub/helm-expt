@@ -10,7 +10,7 @@ regular Helm while Kubernetes API aggregation still fails after apply.
 | ---: | --- | --- | --- | --- | --- | --- |
 | 1 | `kedacore/keda` | 2.19.0 | `api-aggregation-observed` | `catalog-promotion-decision` | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts | KEDA has either a target-scoped production/support decision or a named reason to stay proof-grade |
 | 2 | `k8s-dashboard/kubernetes-dashboard` | 7.14.0 | `source-detected-needs-recipe` | `recipe-import-plus-runtime-proof` | create the recipe/import candidate, then add APIService readiness and runtime aggregation checks | the chart has a maintained recipe row plus a pass/watch/refused aggregation receipt |
-| 2 | `prometheus-community/prometheus-adapter` | 5.3.0 | `target-api-version-refused` | `promote-compatibility-base-candidate` | promote the apiservice-v1 capability-profile candidate into a maintained base, then run the normal proof and live lanes | a maintained base renders apiregistration.k8s.io/v1/APIService and has live aggregation evidence through the standard lanes |
+| 2 | `prometheus-community/prometheus-adapter` | 5.3.0 | `compatible-base-created-needs-standard-lanes` | `compatible-base-standard-lanes` | run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and APIService runtime contract for apiservice-v1-capability | the maintained apiservice-v1-capability base has live aggregation evidence through the standard lanes |
 | 4 | `datadog/datadog` | 3.214.0 | `source-detected-needs-recipe` | `recipe-import-plus-runtime-proof` | create the recipe/import candidate, then add APIService readiness and runtime aggregation checks | the chart has a maintained recipe row plus a pass/watch/refused aggregation receipt |
 | 5 | `bitnami/metrics-server` | 7.4.12 | `source-detected-needs-recipe` | `duplicate-chart-decision` | decide whether Bitnami Metrics Server should be imported separately or routed to the existing upstream Metrics Server catalog entry | the row is either modeled with APIService readiness or intentionally refused as a duplicate package route |
 | 8 | `metrics-server/metrics-server` | 3.13.0 | `api-aggregation-observed` | `keep-fresh-pattern` | keep the Metrics Server runtime/GitOps aggregation receipt fresh and reuse its checks as the next chart pattern | existing api-aggregation-observed row remains fresh and reproducible |
@@ -35,10 +35,11 @@ evidence. Its next question is product scope: whether to promote it to a
 catalog-supported entry for a named target profile, or keep it proof-grade.
 Kubernetes Dashboard, Datadog, and Bitnami Metrics Server need import/catalog
 decisions before a runtime aggregation receipt can close the gap. Prometheus
-Adapter has a maintained recipe and ConfigHub proof, but the current bases render
-an APIService version the tested target does not serve. The new capability-profile
-candidate proves the likely fix at render time and live runtime; the next task is
-to promote it into a maintained base and run the standard lanes. Goldilocks and
+Adapter has a maintained recipe and the old bases render an APIService version
+the tested target does not serve. The compatible `apiservice-v1-capability`
+proof base now exists and has candidate live evidence; the next task is to run
+the standard ConfigHub, live, parity, and APIService runtime lanes for that
+maintained base. Goldilocks and
 VPA have render-path notes: their current maintained bases do not render
 APIService objects, so they do not owe runtime aggregation evidence unless a
 future base enables that path.

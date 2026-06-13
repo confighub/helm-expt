@@ -24,7 +24,7 @@ Which detailed CSV should I open next?
 | chart use | public catalog answers | 20/100 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | chart use | proof-ready but not public catalog answers | 37/100 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | chart use | better base variant needed answers | 35/100 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
-| chart use | limitation decision needed answers | 8/100 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
+| chart use | limitation decision needed answers | 7/100 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | top100 | covered by top100 contract | 20/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | partial by top100 contract | 80/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | average top100 coverage | 88/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
@@ -38,7 +38,7 @@ Which detailed CSV should I open next?
 | top100 | useful-base realized rows | 10/45 | partial | [data/useful-base-realization-wave/wave.csv](../../data/useful-base-realization-wave/wave.csv) |
 | top100 | useful-base proposal families | 7/7 | partial | [data/useful-base-design-queue/families.csv](../../data/useful-base-design-queue/families.csv) |
 | top100 | useful-base proposals not yet built | 35/45 | gap | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
-| top100 | top100 limitation-decision queue | 8/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
+| top100 | top100 limitation-decision queue | 7/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | top20 upstream update candidates | 7/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | update candidates with proof-complete root paths | 7/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
@@ -49,16 +49,16 @@ Which detailed CSV should I open next?
 | top500 | proof-grade rows | 71/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | rows with no current recipe proof | 409/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| proof lanes | render parity rows | 191/191 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | in-ConfigHub proof rows | 158/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live rows | 138/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | render parity rows | 192/192 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 158/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | local live rows | 139/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 53/53 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 83/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 83/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 83/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 83/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 73/74 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 74/74 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 81/191 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | complete core lane rows | 81/192 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 38/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 0/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
@@ -100,7 +100,7 @@ Which detailed CSV should I open next?
 | extension slots | top20 charts with extension slots | 13/20 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
-| secrets | top100 variants with explicit Secret disposition | 171/171 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
+| secrets | top100 variants with explicit Secret disposition | 172/172 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
 | secrets | Secret rows needing lifecycle lane support | 8/71 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
 | secrets | target-fact Secret rows | 28/71 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
 | hooks | top100 source-scan hook charts | 11/100 | partial | [data/hook-lifecycle/source-top100-hooks.csv](../../data/hook-lifecycle/source-top100-hooks.csv) |
@@ -137,7 +137,7 @@ evidence work before it becomes production-supported for a target scope.
 | Promote proof-grade charts | 37 | Run catalog promotion review, select realistic bases, and add selected live lanes. |
 | Fast-track low-residue promotion rows | 3 | Open the storage/rollback reviews, choose the target boundaries, complete any proof lanes listed in fast-track.csv, then record target-scoped support decisions. |
 | Design useful base variants | 35 | Build the proposed recipe/package bases, then rerun render parity and promotion review before treating them as catalog offers. |
-| Resolve limitation decisions | 8 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
+| Resolve limitation decisions | 7 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
 
 ### Hard Proof Gap Work
 
@@ -262,7 +262,7 @@ review, needs a better base variant, or needs a limitation decision first.
 | yes-public-catalog | 20 | Public catalog entry exists. Choose a base and check the proof lane you need. |
 | not-yet-public-catalog-proof-ready | 37 | Proof exists and variants look useful, but catalog promotion review is not done. |
 | not-yet-user-ready | 35 | The current proof is too default-shaped; design a useful base variant first. |
-| decision-needed-first | 8 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
+| decision-needed-first | 7 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
 
 Use [chart-use-guide/summary.md](../chart-use-guide/summary.md) for one row per
 top-100 chart and the next command or file to open.
@@ -274,13 +274,14 @@ top-100 chart and the next command or file to open.
 | promote-after-review | 37 |
 | needs-useful-variant | 35 |
 | try-from-public-catalog | 20 |
-| limitation-decision-first | 8 |
+| limitation-decision-first | 7 |
+| not-ready | 1 |
 
 | Strongest evidence | Charts |
 | --- | ---: |
 | live-helm-vs-confighub-parity | 49 |
-| local-kubernetes-live | 23 |
-| in-confighub-proof | 16 |
+| local-kubernetes-live | 24 |
+| in-confighub-proof | 15 |
 | render-parity | 8 |
 | two-cluster-kind-parity | 4 |
 
@@ -356,10 +357,10 @@ first.
 
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| in-ConfigHub | 158 | 0 | 33 | 191 |
-| local live | 138 | 53 | 0 | 191 |
-| GitOps/OCI live | 83 | 1 | 107 | 191 |
-| live Helm-vs-ConfigHub parity | 83 | 1 | 107 | 191 |
+| in-ConfigHub | 158 | 0 | 34 | 192 |
+| local live | 139 | 53 | 0 | 192 |
+| GitOps/OCI live | 83 | 1 | 108 | 192 |
+| live Helm-vs-ConfigHub parity | 83 | 1 | 108 | 192 |
 | two-cluster kind parity | 73 | 1 | 0 | 74 |
 
 Non-pass live receipts are useful evidence. They usually identify a target

@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default, cluster-metrics-readonly |
+| Candidate variants | default, apiservice-v1-capability, cluster-metrics-readonly |
 | Control points | apiservice, capability-profile, cluster-rbac, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -28,13 +28,13 @@ for exact base-variant evidence.
 
 | Field | Value |
 | --- | --- |
-| Adoption bucket | limitation-decision-first |
-| User status | proof-grade-with-named-limitation |
-| Strongest evidence | in-confighub-proof |
-| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
+| Adoption bucket | not-ready |
+| User status | proof-grade-compatible-base-needs-standard-lanes |
+| Strongest evidence | local-kubernetes-live |
+| Proof lanes | render parity 3/3; ConfigHub 2/3; local live 1/3; GitOps live 0/3; live parity 0/3 |
 | Feature summary | extension-slots |
 | Hard gap | - |
-| Next action | Keep prometheus-community/prometheus-adapter@5.3.0 proof-grade for this target profile. Promote only after an upstream chart version or explicit compatibility base renders a target-supported APIService object and passes the APIService runtime contract. |
+| Next action | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
 
 ## Artifact Chain
 
@@ -58,6 +58,7 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/prometheus-community/prometheus-adapter/5.3.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/prometheus-community/prometheus-adapter/5.3.0/bases/default](../../../../packages/prometheus-community/prometheus-adapter/5.3.0/bases/default) | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | warn | warn | none |
+| apiservice-v1-capability | [recipes/prometheus-community/prometheus-adapter/5.3.0/variants/apiservice-v1-capability/variant.yaml](variants/apiservice-v1-capability/variant.yaml) | [packages/prometheus-community/prometheus-adapter/5.3.0/bases/apiservice-v1-capability](../../../../packages/prometheus-community/prometheus-adapter/5.3.0/bases/apiservice-v1-capability) | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/variant-revision.yaml](revisions/apiservice-v1-capability/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | warn | warn | none |
 | cluster-metrics-readonly | [recipes/prometheus-community/prometheus-adapter/5.3.0/variants/cluster-metrics-readonly/variant.yaml](variants/cluster-metrics-readonly/variant.yaml) | [packages/prometheus-community/prometheus-adapter/5.3.0/bases/cluster-metrics-readonly](../../../../packages/prometheus-community/prometheus-adapter/5.3.0/bases/cluster-metrics-readonly) | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml](revisions/cluster-metrics-readonly/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | warn | warn | none |
 
 ## Package Bases
@@ -65,6 +66,7 @@ for exact base-variant evidence.
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/prometheus-community/prometheus-adapter/5.3.0/bases/default](../../../../packages/prometheus-community/prometheus-adapter/5.3.0/bases/default) | yes | prometheus-community/prometheus-adapter default variant rendered from prometheus-community/prometheus-adapter@5.3.0 |
+| apiservice-v1-capability | [packages/prometheus-community/prometheus-adapter/5.3.0/bases/apiservice-v1-capability](../../../../packages/prometheus-community/prometheus-adapter/5.3.0/bases/apiservice-v1-capability) | no | prometheus-community/prometheus-adapter APIService v1 capability-profile base for Kubernetes targets that serve apiregistration.k8s.io/v1 |
 | cluster-metrics-readonly | [packages/prometheus-community/prometheus-adapter/5.3.0/bases/cluster-metrics-readonly](../../../../packages/prometheus-community/prometheus-adapter/5.3.0/bases/cluster-metrics-readonly) | no | prometheus-community/prometheus-adapter cluster-metrics-readonly useful base; aliases the default render with a named user start path |
 
 ## Receipts
@@ -75,6 +77,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| apiservice-v1-capability | r001 | render | RenderReceipt | recorded | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/receipts/render-receipt.yaml](revisions/apiservice-v1-capability/r001/receipts/render-receipt.yaml) |
+| apiservice-v1-capability | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/receipts/helm-equivalence-receipt.yaml](revisions/apiservice-v1-capability/r001/receipts/helm-equivalence-receipt.yaml) |
+| apiservice-v1-capability | r001 | scan | ScanReceipt | warn | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/receipts/scan-receipt.yaml](revisions/apiservice-v1-capability/r001/receipts/scan-receipt.yaml) |
+| apiservice-v1-capability | r001 | installGate | InstallGate | warn | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/receipts/install-gate.yaml](revisions/apiservice-v1-capability/r001/receipts/install-gate.yaml) |
 | cluster-metrics-readonly | r001 | render | RenderReceipt | recorded | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/receipts/render-receipt.yaml](revisions/cluster-metrics-readonly/r001/receipts/render-receipt.yaml) |
 | cluster-metrics-readonly | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/receipts/helm-equivalence-receipt.yaml](revisions/cluster-metrics-readonly/r001/receipts/helm-equivalence-receipt.yaml) |
 | cluster-metrics-readonly | r001 | scan | ScanReceipt | warn | [recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/receipts/scan-receipt.yaml](revisions/cluster-metrics-readonly/r001/receipts/scan-receipt.yaml) |

@@ -29,8 +29,10 @@ spec:
       claim: "The APIService coverage row records the target API-version block."
     - path: "data/apiservice-coverage/capability-profile-candidates/prometheus-community-prometheus-adapter-5.3.0-apiservice-v1.yaml"
       claim: "A live-tested capability-profile candidate renders apiregistration.k8s.io/v1/APIService and observes API aggregation on vanilla kind."
-  nextAction: "Promote the apiservice-v1 capability-profile candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion."
+    - path: "recipes/prometheus-community/prometheus-adapter/5.3.0/variants/apiservice-v1-capability/variant.yaml"
+      claim: "The compatible capability profile is now a maintained proof base."
+  nextAction: "Use the apiservice-v1-capability base for the next proof lanes: ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion."
   claimsNotMade:
     - "This does not claim Prometheus Adapter is unusable on every Kubernetes target."
-    - "This does not claim APIService runtime aggregation has been observed for this recipe."
+    - "This does not claim APIService runtime aggregation has been observed for the maintained apiservice-v1-capability base through the standard lanes."
     - "This does not patch upstream Helm output silently."

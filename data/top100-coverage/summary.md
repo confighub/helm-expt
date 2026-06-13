@@ -23,7 +23,7 @@ average coverage: 88%
 | d | pain report and quirk axes | 100 | 0 | 0 |
 | e | facts declared | 100 | 0 | 0 |
 | f | scan and production disposition | 20 | 80 | 0 |
-| g | live witness or routed reason | 82 | 18 | 0 |
+| g | live witness or routed reason | 83 | 17 | 0 |
 | h | catalog and site entry | 100 | 0 | 0 |
 
 ## Coverage By Bucket
@@ -31,9 +31,10 @@ average coverage: 88%
 | Bucket | Charts |
 | --- | ---: |
 | `try-from-public-catalog` | 20 |
-| `limitation-decision-first` | 8 |
+| `limitation-decision-first` | 7 |
 | `promote-after-review` | 37 |
 | `needs-useful-variant` | 35 |
+| `not-ready` | 1 |
 
 ## Lowest Coverage Rows
 

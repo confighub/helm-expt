@@ -25,4 +25,5 @@ spec:
   importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/apiservice-v1-capability/variant.yaml"
     - "variants/cluster-metrics-readonly/variant.yaml"

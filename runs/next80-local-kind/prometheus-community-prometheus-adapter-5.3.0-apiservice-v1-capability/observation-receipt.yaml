@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5.3.0-apiservice-v1-capability-local-kind"
+spec:
+  variantRevision: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-prom-adapter"
+    context: "kind-claude-helm-expt-codex-prom-adapter"
+    namespace: "default"
+  observedAt: "2026-06-13T19:08:44.267Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "apiservice-v1-capability"
+  targetFacts:
+    {}
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "e19c8208c94d7eca31c4daae4bc8498fd3fb39a3a106949edcaea9ee4043d27d"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "11 object(s) from recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|prometheus-adapter"

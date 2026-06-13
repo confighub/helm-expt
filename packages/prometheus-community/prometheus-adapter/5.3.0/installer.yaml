@@ -12,6 +12,11 @@ spec:
       path: "bases/default"
     -
       default: false
+      description: "prometheus-community/prometheus-adapter APIService v1 capability-profile base for Kubernetes targets that serve apiregistration.k8s.io/v1"
+      name: "apiservice-v1-capability"
+      path: "bases/apiservice-v1-capability"
+    -
+      default: false
       description: "prometheus-community/prometheus-adapter cluster-metrics-readonly useful base; aliases the default render with a named user start path"
       name: "cluster-metrics-readonly"
       path: "bases/cluster-metrics-readonly"

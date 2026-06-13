@@ -1,30 +1,40 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "HelmPlan"
 metadata:
-  name: "prometheus-community-prometheus-adapter-5-3-0"
   labels:
     confighub.io/chart-ref: "prometheus-community/prometheus-adapter"
     confighub.io/chart-version: "5.3.0"
     confighub.io/proof-tier: "next80-full"
+  name: "prometheus-community-prometheus-adapter-5-3-0"
 spec:
   readiness:
-    status: "usable-with-controls"
     chart: "prometheus-community/prometheus-adapter"
-    version: "5.3.0"
-    variants:
-      - "default"
-    helmObjectsByVariant:
-      default: 11
     cubInstallObjectsByVariant:
       default: 12
+      apiservice-v1-capability: 12
     helmMatchByVariant:
       default: "11/11"
+      apiservice-v1-capability: "11/11"
+    helmObjectsByVariant:
+      default: 11
+      apiservice-v1-capability: 11
+    nextAction: "run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and APIService runtime contract for apiservice-v1-capability"
     renderedObjectSetSHA256: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
     scanGate: "warn-review-before-production"
-    nextAction: "review scan findings, then promote the digest-bound variant"
+    status: "usable-with-controls"
+    variants:
+      - "default"
+      - "apiservice-v1-capability"
+    version: "5.3.0"
+    renderedObjectSetSHA256ByVariant:
+      apiservice-v1-capability: "b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23"
   receipts:
     - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
     - "revisions/default/r001/receipts/render-receipt.yaml"
     - "revisions/default/r001/receipts/scan-receipt.yaml"
     - "revisions/default/r001/receipts/install-gate.yaml"
     - "publication/installer-package-receipt.yaml"
+    - "revisions/apiservice-v1-capability/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/apiservice-v1-capability/r001/receipts/render-receipt.yaml"
+    - "revisions/apiservice-v1-capability/r001/receipts/scan-receipt.yaml"
+    - "revisions/apiservice-v1-capability/r001/receipts/install-gate.yaml"

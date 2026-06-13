@@ -27,6 +27,7 @@ rows with object/workload observation:   2
 rows with two-cluster parity only:       0
 rows still source-detected only:         3
 aggregated API availability receipts:    2
+compatible capability bases created:     1
 capability-profile candidates observed:  1
 active proof/import work orders:          5
 ~~~
@@ -35,11 +36,13 @@ Only rows with both an `Available=True` APIService condition and a successful
 aggregated API query receipt claim aggregated API availability. Today that
 evidence exists for Metrics Server and KEDA.
 
-Prometheus Adapter also has a live-tested capability-profile candidate. Adding
+Prometheus Adapter also has a live-tested capability-profile route. Adding
 `apiregistration.k8s.io/v1` to the render profile changes the chart's
 APIService from the refused `apiregistration.k8s.io/v1beta1` object to a
-target-supported `apiregistration.k8s.io/v1` object. That candidate is not a
-maintained base yet; it is the next recipe/base task.
+target-supported `apiregistration.k8s.io/v1` object. That route is now a
+maintained proof base, `apiservice-v1-capability`; it still needs the normal
+ConfigHub, live, GitOps, and APIService runtime proof lanes before catalog
+promotion.
 
 ## Coverage Status
 
@@ -69,7 +72,7 @@ counts above.
 | ---: | --- | --- | ---: | --- | --- | --- | --- | --- |
 | 11 | `metrics-server/metrics-server` | 3.13.0 | 2 | `api-aggregation-observed` | yes | - | - | keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart |
 | 53 | `kedacore/keda` | 2.19.0 | 2 | `api-aggregation-observed` | yes | - | - | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts |
-| 118 | `prometheus-community/prometheus-adapter` | 5.3.0 | 2 | `target-api-version-refused` | yes | `api-version-unsupported` | `do-not-promote-for-this-target-profile` | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
+| 118 | `prometheus-community/prometheus-adapter` | 5.3.0 | 3 | `compatible-base-created-needs-standard-lanes` | yes | `api-version-unsupported` | `do-not-promote-for-this-target-profile` | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
 | 130 | `fairwinds-stable/goldilocks` | 10.3.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
 | 148 | `fairwinds-stable/vpa` | 4.11.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
 
@@ -78,17 +81,17 @@ Maintained status counts:
 | Status | Rows |
 | --- | ---: |
 | `api-aggregation-observed` | 2 |
+| `compatible-base-created-needs-standard-lanes` | 1 |
 | `source-signal-not-rendered-in-maintained-bases` | 2 |
-| `target-api-version-refused` | 1 |
 
 ## Capability Profile Candidates
 
 These rows are live-tested routes from a refused current base to a possible
 future maintained base. They are not current catalog support claims.
 
-| Chart | Candidate base | Added API versions | Render result | Live result | Receipt | Next action |
-| --- | --- | --- | --- | --- | --- | --- |
-| `prometheus-community/prometheus-adapter@5.3.0` | `apiservice-v1-capability` | apiregistration.k8s.io/v1 | pass | pass | [receipt](./capability-profile-candidates/prometheus-community-prometheus-adapter-5.3.0-apiservice-v1.yaml) | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
+| Chart | Candidate base | Maintained proof base | Added API versions | Render result | Live result | Receipt | Next action |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `prometheus-community/prometheus-adapter@5.3.0` | `apiservice-v1-capability` | `apiservice-v1-capability` (maintained-base-created) | apiregistration.k8s.io/v1 | pass | pass | [receipt](./capability-profile-candidates/prometheus-community-prometheus-adapter-5.3.0-apiservice-v1.yaml) | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
 
 ## Runtime Contract
 
@@ -127,6 +130,9 @@ Current contract rows:
 - `target-api-version-refused` means a target-scoped compatibility decision
   records that the rendered APIService API version is unsupported for the tested
   target profile. It is not a global chart refusal.
+- `compatible-base-created-needs-standard-lanes` means a compatible maintained
+  proof base exists, but it still needs ConfigHub proof, live, GitOps, parity,
+  and APIService runtime evidence before stronger support claims.
 - `source-signal-not-rendered-in-maintained-bases` means the source scan found
   APIService templates, but the maintained recipe bases do not render APIService
   objects. Runtime aggregation evidence is not owed until a base enables that

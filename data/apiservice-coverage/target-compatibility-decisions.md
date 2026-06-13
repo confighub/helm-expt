@@ -11,7 +11,7 @@ chart is unusable everywhere, and they do not silently patch Helm output.
 
 | Chart | Version | Status | Decision | Target block | Receipt | Next action |
 | --- | --- | --- | --- | --- | --- | --- |
-| `prometheus-community/prometheus-adapter` | 5.3.0 | `target-api-version-refused` | `do-not-promote-for-this-target-profile` | `api-version-unsupported` | `data/apiservice-coverage/target-compatibility-decisions/prometheus-community-prometheus-adapter-5.3.0.yaml` | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
+| `prometheus-community/prometheus-adapter` | 5.3.0 | `target-api-version-refused` | `do-not-promote-for-this-target-profile` | `api-version-unsupported` | `data/apiservice-coverage/target-compatibility-decisions/prometheus-community-prometheus-adapter-5.3.0.yaml` | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
 
 ## Claim Boundary
 

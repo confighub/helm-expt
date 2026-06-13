@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
 | Strongest evidence | live-helm-vs-confighub-parity |
-| Proof lanes | render parity 3/3; ConfigHub 3/3; local live 3/3; GitOps live 2/3; live parity 2/3 |
+| Proof lanes | render parity 3/3; ConfigHub 3/3; local live 3/3; GitOps live 3/3; live parity 3/3 |
 | Feature summary | crds;required-values;values-schema;extension-slots |
 | Hard gap | - |
 | Next action | run catalog promotion review |

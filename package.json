@@ -256,6 +256,8 @@
     "hooks:disposition:verify": "node scripts/generate-hook-dispositions.mjs --verify",
     "hooks:coverage": "node scripts/generate-hook-coverage.mjs --generate",
     "hooks:coverage:verify": "node scripts/generate-hook-coverage.mjs --verify",
+    "prometheus-adapter:apiservice-base": "node scripts/prometheus-adapter-apiservice-base.mjs --generate",
+    "prometheus-adapter:apiservice-base:verify": "node scripts/prometheus-adapter-apiservice-base.mjs --verify",
     "apiservice:coverage": "node scripts/generate-apiservice-coverage.mjs --generate",
     "apiservice:coverage:verify": "node scripts/generate-apiservice-coverage.mjs --verify",
     "keda:apiservice-gitops": "node scripts/run-keda-apiservice-gitops.mjs --run",

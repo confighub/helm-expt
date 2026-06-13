@@ -5,6 +5,7 @@ metadata:
 spec:
   candidateVariants:
     - "default"
+    - "apiservice-v1-capability"
     - "cluster-metrics-readonly"
   chart: "prometheus-community/prometheus-adapter"
   deferredVariants:

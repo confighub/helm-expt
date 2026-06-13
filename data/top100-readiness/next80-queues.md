@@ -8,8 +8,8 @@ Read it as a work queue, not as a support claim:
 ~~~text
 next80 charts: 80
 promotion-review: 37
-limitation-review: 8
-user-shaped-variant: 35
+limitation-review: 7
+user-shaped-variant: 36
 ~~~
 
 ## Queues
@@ -25,7 +25,7 @@ user-shaped-variant: 35
 | Queue | First charts |
 | --- | --- |
 | `promotion-review` | `external-dns/external-dns@1.21.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0`<br>`prometheus-community/kube-state-metrics@7.4.0`<br>`elastic/eck-operator@3.4.0`<br>`prometheus-community/prometheus-blackbox-exporter@11.10.0`<br>`stakater/reloader@2.2.12`<br>`grafana/alloy@1.8.2` |
-| `limitation-review` | `traefik/traefik@40.2.0`<br>`kyverno/kyverno@3.8.1`<br>`bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`prometheus-community/prometheus-adapter@5.3.0`<br>`bitnami/zookeeper@13.8.7`<br>`bitnami/contour@21.1.4`<br>`grafana/pyroscope@2.0.2` |
+| `limitation-review` | `traefik/traefik@40.2.0`<br>`kyverno/kyverno@3.8.1`<br>`bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7`<br>`bitnami/contour@21.1.4`<br>`grafana/pyroscope@2.0.2` |
 | `user-shaped-variant` | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1`<br>`descheduler/descheduler@0.36.0`<br>`jaegertracing/jaeger@4.8.0`<br>`dex/dex@0.24.0` |
 
 ## First Action Rows
@@ -43,7 +43,7 @@ They should not disappear into a generic promotion-review queue.
 | --- | --- | --- | --- | --- |
 | `kedacore/keda@2.19.0` | `api-service-aggregation-promotion` | APIService aggregation is observed; promotion needs a target-scoped decision | `data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml` | run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt |
 | `fairwinds-stable/vpa@4.11.0` | `api-service-render-path-recorded` | source APIService signal exists, but current maintained bases render no APIService objects | `data/apiservice-coverage/render-path-notes.md` | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
-| `prometheus-community/prometheus-adapter@5.3.0` | `api-service-target-compatibility` | target compatibility decision records that this chart stays proof-grade for the tested target profile | `data/apiservice-coverage/target-compatibility-decisions/prometheus-community-prometheus-adapter-5.3.0.yaml` | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
+| `prometheus-community/prometheus-adapter@5.3.0` | `api-service-compatible-base-standard-lanes` | compatible APIService base exists; standard proof lanes still need to run | `data/apiservice-coverage/capability-profile-candidates/prometheus-community-prometheus-adapter-5.3.0-apiservice-v1.yaml` | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
 | `fairwinds-stable/goldilocks@10.3.0` | `api-service-render-path-recorded` | source APIService signal exists, but current maintained bases render no APIService objects | `data/apiservice-coverage/render-path-notes.md` | add at least one user-shaped variant before catalog promotion |
 
 ### Promotion Review
@@ -67,7 +67,6 @@ They should not disappear into a generic promotion-review queue.
 | `kyverno/kyverno@3.8.1` | `default`<br>`no-crds` | `live-helm-vs-confighub-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/elasticsearch@22.1.6` | `default`<br>`ha` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/spark@10.0.3` | `default`<br>`ha` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `prometheus-community/prometheus-adapter@5.3.0` | `default`<br>`cluster-metrics-readonly` | `in-confighub-proof` | api-service-target-compatibility | - | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
 | `bitnami/zookeeper@13.8.7` | `default`<br>`ha` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/contour@21.1.4` | `default`<br>`no-crds` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `grafana/pyroscope@2.0.2` | `default`<br>`ha`<br>`no-crds` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |

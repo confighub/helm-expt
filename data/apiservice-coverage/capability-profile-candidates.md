@@ -3,27 +3,27 @@
 Generated. Do not edit by hand.
 
 These rows record live-tested render-profile routes from a refused current base
-to a possible future maintained base. They are not current catalog support
-claims, and they do not silently patch upstream Helm output.
+to a compatible capability profile. Some may already be maintained proof bases.
+They are not catalog support claims, and they do not silently patch upstream
+Helm output.
 
 ## Current Candidates
 
-| Chart | Candidate base | Added API versions | Baseline API version | Candidate API version | Render result | Live result | APIService Available | Aggregated query | Receipt |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `prometheus-community/prometheus-adapter@5.3.0` | `apiservice-v1-capability` | apiregistration.k8s.io/v1 | `apiregistration.k8s.io/v1beta1` | `apiregistration.k8s.io/v1` | pass | pass | yes | pass | [receipt](./capability-profile-candidates/prometheus-community-prometheus-adapter-5.3.0-apiservice-v1.yaml) |
+| Chart | Candidate base | Maintained proof base | Added API versions | Baseline API version | Candidate API version | Render result | Live result | APIService Available | Aggregated query | Receipt |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `prometheus-community/prometheus-adapter@5.3.0` | `apiservice-v1-capability` | `apiservice-v1-capability` (maintained-base-created) | apiregistration.k8s.io/v1 | `apiregistration.k8s.io/v1beta1` | `apiregistration.k8s.io/v1` | pass | pass | yes | pass | [receipt](./capability-profile-candidates/prometheus-community-prometheus-adapter-5.3.0-apiservice-v1.yaml) |
 
 ## Rule
 
 A capability-profile candidate means a render-time target fact was tested and
-observed live. It does not become part of the catalog until a maintained base is
-created and the normal ConfigHub proof, local live, live Helm-vs-ConfigHub
-parity, and APIService runtime contract all pass for that base.
-
-## Next Actions
+observed live. It does not become part of the supported catalog until a
+maintained base exists and the normal ConfigHub proof, local live, live
+Helm-vs-ConfigHub parity, and APIService runtime contract all pass for that
+base.
 
 | Chart | Next action |
 | --- | --- |
-| `prometheus-community/prometheus-adapter@5.3.0` | Promote this candidate into a maintained base, then run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract before catalog promotion. |
+| `prometheus-community/prometheus-adapter@5.3.0` | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
 
 Regenerate:
 

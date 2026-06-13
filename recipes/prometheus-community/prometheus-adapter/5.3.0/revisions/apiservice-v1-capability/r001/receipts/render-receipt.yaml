@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-adapter"
+    confighub.io/chart-version: "5.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "apiservice-v1-capability"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    apiVersions:
+      - "apiregistration.k8s.io/v1"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "ed8662d4c8b0690ed6cf08e4ae441b9d6694b204945690c5a8b301f633b3e0b1"
+    dependencyLockSHA256: "b3cedb4d0d78e0b20c57569b96668a1d1cfd781b37ecf9d2e6a2615364855200"
+    effectiveValuesSHA256: "d7c8d6edeb00db3a677ef87e5084558ea3ac10a7f8ba4efd71779f985f632371"
+  outputs:
+    renderedObjectSetSHA256: "b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23"
+    renderedObjectInventorySHA256: "8ac18a6af4f9eced50655f4ffadca17a75b1453aaf6f417b4cf223e4960aa491"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 11
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

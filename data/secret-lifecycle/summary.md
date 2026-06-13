@@ -17,9 +17,9 @@ receipts. It does not run live lanes.
 ## Summary
 
 ~~~text
-variants surveyed: 171
+variants surveyed: 172
 secret rows: 71
-variant dispositions: not-applicable=122, delivered=20, staged=15, needs-lane-support=6, delivered-and-staged=4, observed=4
+variant dispositions: not-applicable=123, delivered=20, staged=15, needs-lane-support=6, delivered-and-staged=4, observed=4
 secret dispositions: delivered=30, staged=28, needs-lane-support=8, observed=5
 secret roles: user-credential-material=35, kubernetes-lifecycle-state=22, secret-material-review=14
 lifecycle secrets still needing lane support: 8

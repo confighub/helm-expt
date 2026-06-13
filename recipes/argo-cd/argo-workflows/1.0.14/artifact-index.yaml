@@ -67,7 +67,7 @@ spec:
     path: "packages/argo-cd/argo-workflows/1.0.14"
     installer: "packages/argo-cd/argo-workflows/1.0.14/installer.yaml"
     receipt: "recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "27dd57b08fc0fe1c9d7c46df4722308f52ae53edb1888859f2bb486b2f7a93cf"
+    deterministicBundleSHA256: "4846574f337c453316cfbe8d1b281d8eea9c883e21d8c63ecd3fc8c17969586e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
