@@ -74,6 +74,30 @@ The current generated report is:
 Run these jobs serially. The parity harness creates and removes kind clusters
 owned by the run.
 
+## Rerun A ConfigHub/OCI Live Parity Check
+
+Use this when you want the stricter live path: regular Helm, direct
+`cub installer` apply, and ConfigHub OCI/Argo delivery for the same committed
+recipe/base.
+
+```sh
+npm run live-parity:run -- \
+  --recipe recipes/external-dns/external-dns/1.21.1 \
+  --base no-crds
+```
+
+Then regenerate and verify the summary:
+
+```sh
+npm run live-parity:top20:summary
+npm run live-parity:verify
+npm run outcomes:generate
+npm run status:dashboard
+```
+
+Run this lane serially. It creates kind clusters and uses the live ConfigHub
+and OCI path.
+
 ## Validate A cub-scout Receipt
 
 When you have a cub-scout receipt file, validate its fingerprint:

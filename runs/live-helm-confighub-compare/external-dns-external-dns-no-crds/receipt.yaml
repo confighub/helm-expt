@@ -1,0 +1,337 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: external-dns-external-dns-1.21.1-no-crds-live-parity-20260605
+spec:
+  chart: external-dns/external-dns
+  version: 1.21.1
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-13T08:23:20Z'
+  package:
+    path: packages/external-dns/external-dns/1.21.1
+  recipe:
+    path: recipes/external-dns/external-dns/1.21.1
+  variantRevision: recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-externaldns-mqc38x6w-ohr
+    kubeContext: kind-helm-expt-parity-externaldns-mqc38x6w-ohr
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-externaldns-mqc38x6w-ohr --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-externaldns-mqc38x6w-ohr"...
+
+        Deleting cluster "helm-expt-parity-externaldns-mqc38x6w-ohr" ...
+
+        Deleted nodes: ["helm-expt-parity-externaldns-mqc38x6w-ohr-control-plane"]
+
+        Deleting Space "helm-expt-parity-externaldns-mqc38x6w-ohr-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install external-dns external-dns --repo https://kubernetes-sigs.github.io/external-dns/
+        --version 1.21.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/external-dns-external-dns-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf
+      objectCount: 5
+      liveHelmManifestSHA256: a06ed9a8dc9b9e22573c62c086ae853da31166e1a2dd5eaf1d64f12cf28b6fa9
+      liveHelmManifestObjectCount: 5
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/external-dns   1/1   1     1     23s
+        pods: external-dns-9f77ccdf9-99zsr   1/1   Running   0     23s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-dns/external-dns/1.21.1
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-externaldns-mqc38x6w-ohr-external-dns
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: f51d045f84d9da5eb6dbcf9ad91d1d50a70e2a3e4d4f5e6370b7ef011afd059b
+      objectCount: 6
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/external-dns   1/1   1     1     20s'
+        pods: '# default
+
+          external-dns-9f77ccdf9-v52df   1/1   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "external-dns" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "external-dns-viewer" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|external-dns
+          - v1|ServiceAccount|default|external-dns
+          - v1|Service|default|external-dns
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-externaldns-mqc38x6w-ohr-external-dns
+      controller: Argo CD OCI
+      app: external-dns-parity
+      manifestSHA256: bc6979420abce9058353ddf45741d94e267220d0a8095ffaf2ee37585cb50b98
+      objectCount: 6
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:fde35c5506498358434107942354dee04b730af1b7b035c4f9ea2ffdba9b767e
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-externaldns-mqc38x6w-ohr-external-dns
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mqc38x6w-ohr-cluster/oci
+              targetRevision: latest
+          revision: sha256:fde35c5506498358434107942354dee04b730af1b7b035c4f9ea2ffdba9b767e
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T08:25:50Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: external-dns
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: external-dns
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: external-dns
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-dns
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: external-dns-viewer
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-externaldns-mqc38x6w-ohr-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mqc38x6w-ohr-cluster/oci
+              targetRevision: latest
+          revision: sha256:fde35c5506498358434107942354dee04b730af1b7b035c4f9ea2ffdba9b767e
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T08:24:18Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: external-dns-parity
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-externaldns-mqc38x6w-ohr-cluster
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/external-dns   1/1   1     1     72s'
+        pods: '# default
+
+          external-dns-9f77ccdf9-v52df   1/1   Running   0     72s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-externaldns-mqc38x6w-ohr\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-externaldns-mqc38x6w-ohr.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-externaldns-mqc38x6w-ohr\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-externaldns-mqc38x6w-ohr\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-externaldns-mqc38x6w-ohr\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-externaldns-mqc38x6w-ohr.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nC"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"external-dns\" does not exist. Installing it now.\nNAME: external-dns\n\
+      LAST DEPLOYED: Sat Jun 13 09:24:18 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n***********************************************************************\n\
+      * External DNS                                                        *\n***********************************************************************\n\
+      \  Chart version: 1.21.1\n  App version:   0.21.0\n  Image tag:     registry.k8s.io/external-dns/external-dns:v0.21.0\n\
+      ***********************************************************************"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/external-dns   1/1   1     1     20s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

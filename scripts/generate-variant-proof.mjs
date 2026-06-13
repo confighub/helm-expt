@@ -146,7 +146,7 @@ function main() {
 
   // 5. Recipe variant + effective-values + digest-bound revision + receipts.
   const valuesProfile = valuesArgs.filter((_, i) => i % 2 === 1).join("; ");
-  const effectiveValuesSpec = { profile: variant, renderDelta: valuesProfile, mergedValuesCaptured: false };
+  const effectiveValuesSpec = { profile: variant, renderDelta: valuesProfile, mergedValuesCaptured: false, values: {} };
   if (valuesFile) {
     const valuesPath = join(repoRoot, valuesFile);
     check(existsSync(valuesPath), `values file not found: ${valuesFile}`);

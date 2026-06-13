@@ -374,6 +374,7 @@
     "derived-variants:target-bound:verify": "node scripts/verify-target-bound-derived-variant-receipts.mjs",
     "derived-variants:target-bound:summary": "node scripts/generate-target-bound-derived-variant-summary.mjs --generate",
     "derived-variants:target-bound:summary:verify": "node scripts/generate-target-bound-derived-variant-summary.mjs --verify",
+    "live-parity:run": "node scripts/run-live-helm-confighub-parity.mjs --run",
     "live-parity:verify": "node scripts/verify-live-parity-receipts.mjs",
     "live-parity:rerun-plan": "node scripts/generate-live-parity-rerun-plan.mjs --generate",
     "live-parity:rerun-plan:verify": "node scripts/generate-live-parity-rerun-plan.mjs --verify",

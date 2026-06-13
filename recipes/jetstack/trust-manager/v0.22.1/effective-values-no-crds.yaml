@@ -10,3 +10,5 @@ spec:
   profile: "no-crds"
   renderDelta: "crds.enabled=false"
   mergedValuesCaptured: false
+  values:
+    {}

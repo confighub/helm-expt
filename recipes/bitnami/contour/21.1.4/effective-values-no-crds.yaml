@@ -10,3 +10,5 @@ spec:
   profile: "no-crds"
   renderDelta: "contour.manageCRDs=false; gatewayAPI.manageCRDs=false"
   mergedValuesCaptured: false
+  values:
+    {}

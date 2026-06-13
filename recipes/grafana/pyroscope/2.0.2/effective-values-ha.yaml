@@ -10,3 +10,5 @@ spec:
   profile: "ha"
   renderDelta: "pyroscope.replicaCount=2"
   mergedValuesCaptured: false
+  values:
+    {}

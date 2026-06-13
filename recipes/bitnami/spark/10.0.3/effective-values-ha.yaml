@@ -10,3 +10,5 @@ spec:
   profile: "ha"
   renderDelta: "worker.replicaCount=3"
   mergedValuesCaptured: false
+  values:
+    {}

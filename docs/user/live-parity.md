@@ -21,7 +21,7 @@ also matters.
 
 | Lane | Current result | What it means |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 73 pass, 0 watch, 0 blocked | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. |
+| Selected live Helm-vs-ConfigHub comparison | 74 pass, 0 watch, 0 blocked | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. |
 | Two-cluster kind parity for all top-20 bases | 42 pass, 0 watch, 0 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
 | Broader two-cluster kind parity corpus | 70 pass, 0 watch, 0 blocked, 0 semantic parity defects | The same two-cluster method has moved into selected next80 proof-grade charts. |
 
@@ -72,6 +72,11 @@ and produce a false infrastructure failure.
 Current command families:
 
 ```sh
+# Strict ConfigHub/OCI live comparison for any committed recipe/base
+npm run live-parity:run -- \
+  --recipe recipes/<repo>/<chart>/<version> \
+  --base <base>
+
 # Selected ConfigHub/OCI live comparison rows
 npm run live-parity:top20 -- --from-rank <n> --to-rank <n> --continue-on-fail
 
@@ -87,13 +92,17 @@ of the test cluster, not a change to the chart.
 
 | Target profile | Use it when | Example |
 | --- | --- | --- |
-| `kind-ingress-nginx` | A chart renders an Ingress that should be reconciled on kind. This installs a target ingress controller and proves Ingress status behavior. | `npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx` |
-| `kind-loadbalancer` | A chart renders a `Service.type=LoadBalancer` and the test should prove the cloud-shaped Service path on kind. This uses `cloud-provider-kind`. | `npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer` |
+| `kind-ingress-nginx` | A chart renders an Ingress that should be reconciled on kind. This installs a target ingress controller and proves Ingress status behavior. | `npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.2 --base existing-tls-ingress --target-profile kind-ingress-nginx` |
+| `kind-loadbalancer` | A chart renders a `Service.type=LoadBalancer` and the test should prove the cloud-shaped Service path on kind. This uses `cloud-provider-kind`. | `npm run live-parity:run -- --recipe recipes/ingress-nginx/ingress-nginx/4.15.1 --base default --target-profile kind-loadbalancer` |
 
 Use `--preflight` before starting a guarded target-profile run:
 
 ```sh
-npm run live-parity:top20 -- --preflight --chart ingress-nginx --base default --target-profile kind-loadbalancer
+npm run live-parity:run -- \
+  --preflight \
+  --recipe recipes/ingress-nginx/ingress-nginx/4.15.1 \
+  --base default \
+  --target-profile kind-loadbalancer
 ```
 
 `kind-loadbalancer` is deliberately guarded. `cloud-provider-kind` observes kind

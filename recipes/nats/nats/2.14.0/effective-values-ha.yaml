@@ -10,3 +10,5 @@ spec:
   profile: "ha"
   renderDelta: "config.cluster.enabled=true,config.cluster.replicas=3"
   mergedValuesCaptured: false
+  values:
+    {}

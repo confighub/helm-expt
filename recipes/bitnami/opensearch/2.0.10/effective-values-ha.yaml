@@ -10,3 +10,5 @@ spec:
   profile: "ha"
   renderDelta: "master.replicaCount=3,data.replicaCount=3"
   mergedValuesCaptured: false
+  values:
+    {}

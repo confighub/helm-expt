@@ -275,8 +275,8 @@ chart/base rows:                          191
 helm_template_vs_installer_setup:         191 pass, 0 missing
 confighub_upload_variant_scan_safe_ops:   155 pass, 36 missing
 local_kind_kubectl_apply:                 138 pass
-confighub_oci_argo_live:                   73 pass
-live_helm_vs_confighub_dual_compare:       73 pass, 0 watch, 0 blocked
+confighub_oci_argo_live:                   74 pass
+live_helm_vs_confighub_dual_compare:       74 pass, 0 watch, 0 blocked
 two_cluster_kind_parity:                   70 pass, 0 watch, 0 blocked
 ```
 
