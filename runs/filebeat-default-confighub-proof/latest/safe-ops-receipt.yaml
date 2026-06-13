@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "filebeat-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-filebeat-default-confighub-proof"
+    selector: "Labels.Proof = 'filebeat-default-confighub-proof'"
+  subject:
+    chart: "elastic/filebeat"
+    chartVersion: "8.5.1"
+    packagePath: "packages/elastic/filebeat/8.5.1"
+    variant: "default"
+  changeset:
+    slug: "filebeat-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Filebeat safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "filebeat-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve daemonset-filebeat-filebeat --space helm-filebeat-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "daemonset-filebeat-filebeat"
+    output: "Unit daemonset-filebeat-filebeat (81a01a7f-9a13-41f9-9d84-a37c87a9c26f) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-filebeat-default-confighub-proof --where \"Labels.Proof = 'filebeat-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req aemArAxIVmFRUZQXIrDrDJwQuXySRcpk: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-filebeat-default-confighub-proof --where \"Labels.Proof = 'filebeat-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

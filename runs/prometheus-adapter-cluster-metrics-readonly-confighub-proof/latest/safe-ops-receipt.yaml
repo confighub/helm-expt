@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "prometheus-adapter-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof"
+    selector: "Labels.Proof = 'prometheus-adapter-cluster-metrics-readonly-confighub-proof'"
+  subject:
+    chart: "prometheus-community/prometheus-adapter"
+    chartVersion: "5.3.0"
+    packagePath: "packages/prometheus-community/prometheus-adapter/5.3.0"
+    variant: "cluster-metrics-readonly"
+  changeset:
+    slug: "prometheus-adapter-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Prometheus Adapter safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "prometheus-adapter-cluster-metrics-readonly-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-prometheus-adapter --space helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-prometheus-adapter"
+    output: "Unit deployment-default-prometheus-adapter (caf71040-c8a4-47b0-a7d1-2e126951bb59) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof --where \"Labels.Proof = 'prometheus-adapter-cluster-metrics-readonly-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req oqPZWxOHuBCZyXUCeKSFdpgGkbfdgCwC: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof --where \"Labels.Proof = 'prometheus-adapter-cluster-metrics-readonly-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

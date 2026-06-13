@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "opensearch-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-opensearch-default-confighub-proof"
+    selector: "Labels.Proof = 'opensearch-default-confighub-proof'"
+  subject:
+    chart: "bitnami/opensearch"
+    chartVersion: "2.0.10"
+    packagePath: "packages/bitnami/opensearch/2.0.10"
+    variant: "default"
+    configHubUnitCount: 19
+  unitRevisionBindings:
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "networkpolicy-default-opensearch-coordinating"
+      headRevisionNum: 2
+      dataHash: "5964b9dd98a923db00178d2f75144e3c162aeb7cbbb31ae26d5260a2ddf06df5"
+    -
+      slug: "networkpolicy-default-opensearch-dashboards"
+      headRevisionNum: 2
+      dataHash: "61be6e8d1a461a0b4084cbb6500f0cfebfd17cff76d35a23da33424cd552b40e"
+    -
+      slug: "networkpolicy-default-opensearch-data"
+      headRevisionNum: 2
+      dataHash: "6908195fb7bdaaf959eb4130078df60f47a3bf7d57dba027712f2ad94b8cb80b"
+    -
+      slug: "networkpolicy-default-opensearch-ingest"
+      headRevisionNum: 2
+      dataHash: "8d52d3261fca1a40723ab23e1531907567829b87d5019d4a63846ebe91d5fd63"
+    -
+      slug: "networkpolicy-default-opensearch-master"
+      headRevisionNum: 2
+      dataHash: "14aff84df90eda3ce769357d9a8255383f08070dcb2d4933c792afa485684894"
+    -
+      slug: "poddisruptionbudget-default-opensearch-coordinating"
+      headRevisionNum: 1
+      dataHash: "feb76ae655108b992f57edfc7724191c75224c70d7419b6fb9d3d4083cef6bd5"
+    -
+      slug: "poddisruptionbudget-default-opensearch-data"
+      headRevisionNum: 1
+      dataHash: "ebe31b72de60b515ceef0f088efb5afdea4c0e91c787bd846e814dfe1022565b"
+    -
+      slug: "poddisruptionbudget-default-opensearch-ingest"
+      headRevisionNum: 1
+      dataHash: "ba036e6824bcb866249f87ff7b118f53b7e6de818c45aa094253ea5f0f26b856"
+    -
+      slug: "poddisruptionbudget-default-opensearch-master"
+      headRevisionNum: 1
+      dataHash: "9bca87738aadaeb3b1860784ced94f52bfed412740aa45fb8d9b2bc66ea49a19"
+    -
+      slug: "service-default-opensearch"
+      headRevisionNum: 2
+      dataHash: "d5dab985412ef6c1ccdc6d4a1c3e37afeadad7f3b2c83c98e6cb4cf66d3fb4e6"
+    -
+      slug: "service-default-opensearch-coordinating-hl"
+      headRevisionNum: 2
+      dataHash: "64cd19de292aff6395318a4ec1d1124255c13c8ba50195a81f88bea40c097ebc"
+    -
+      slug: "service-default-opensearch-data-hl"
+      headRevisionNum: 2
+      dataHash: "b1d27957dddce2a22fd2c40844e4334bfcfc31ed254dd19176d65968746f7fd7"
+    -
+      slug: "service-default-opensearch-ingest-hl"
+      headRevisionNum: 2
+      dataHash: "1a284b2542fb50aef6c5ab5a1e38cad209ac742bbca24efc9d8b073c6ceecfd4"
+    -
+      slug: "service-default-opensearch-master-hl"
+      headRevisionNum: 2
+      dataHash: "22d45e54ac178b85e62e5d1cee3ecc4c84d57858857a4a2bdb449999e14d9d25"
+    -
+      slug: "statefulset-default-opensearch-coordinating"
+      headRevisionNum: 2
+      dataHash: "1280e443890b8eb88a5e1d88dab8b18659d260b8ebaacfdee8b44324c4030010"
+    -
+      slug: "statefulset-default-opensearch-data"
+      headRevisionNum: 2
+      dataHash: "963d1a255cc72534ac099c720d20eaf0c2f62f22e76662194df922e53009463a"
+    -
+      slug: "statefulset-default-opensearch-ingest"
+      headRevisionNum: 2
+      dataHash: "d496a0725129c0a335d5b8d9fdacf86a22e7339854506092f26ab8d9a90f4c90"
+    -
+      slug: "statefulset-default-opensearch-master"
+      headRevisionNum: 2
+      dataHash: "dc67f8874f4bdafa6e902a7e359a4fb131e63351cf30121ea2b8e1059c978c4e"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 19
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 19
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 19
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
