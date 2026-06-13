@@ -1,0 +1,668 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: aqua-trivy-operator-0.32.1-no-crds-live-parity-20260605
+spec:
+  chart: aqua/trivy-operator
+  version: 0.32.1
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-13T00:53:51Z'
+  package:
+    path: packages/aqua/trivy-operator/0.32.1
+  recipe:
+    path: recipes/aqua/trivy-operator/0.32.1
+  variantRevision: recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-trivy-no-crds-1781312031
+    kubeContext: kind-helm-expt-parity-trivy-no-crds-1781312031
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-trivy-no-crds-1781312031 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-trivy-no-crds-1781312031"...
+
+        Deleting cluster "helm-expt-parity-trivy-no-crds-1781312031" ...
+
+        Deleted nodes: ["helm-expt-parity-trivy-no-crds-1781312031-control-plane"]
+
+        Deleting Space "helm-expt-parity-trivy-no-crds-1781312031-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install trivy-operator trivy-operator --repo https://aquasecurity.github.io/helm-charts/
+        --version 0.32.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/aqua-trivy-operator-no-crds/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: 875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492
+      objectCount: 21
+      liveHelmManifestSHA256: d16e7c027a5f62df29d1b3c1da36f00100c9b17174f7d4ae928b3b5b578eec81
+      liveHelmManifestObjectCount: 21
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/trivy-operator   1/1   1     1     17s
+        pods: 'node-collector-79f65cb6d8-rf44j             0/1   ContainerCreating   0     10s
+
+          scan-vulnerabilityreport-578fc5b667-f4v8x   0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-586849b65-6n6gh    0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-587cdbcf8-j5f24    0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-5c897dd57c-pwbs2   0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-5d7549b559-ghq8x   0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-5f5749859c-7lqw6   0/2   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-7457485bcc-r8gbj   0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-7458d6cd5-bnvqx    0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-74b9cf67dd-kdltp   0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-74c557595b-kgl8j   0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-795494fd6b-tn55h   0/1   Init:0/1            0     11s
+
+          scan-vulnerabilityreport-c78c644f7-s8pd9    0/1   Init:0/1            0     11s
+
+          trivy-operator-7b677d495c-f876v             1/1   Running             0     17s'
+        notReady: []
+        ignoredJobPods:
+        - pod: node-collector-79f65cb6d8-rf44j
+          ready: 0/1
+          status: ContainerCreating
+        - pod: scan-vulnerabilityreport-578fc5b667-f4v8x
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-586849b65-6n6gh
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-587cdbcf8-j5f24
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-5c897dd57c-pwbs2
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-5d7549b559-ghq8x
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-5f5749859c-7lqw6
+          ready: 0/2
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-7457485bcc-r8gbj
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-7458d6cd5-bnvqx
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-74b9cf67dd-kdltp
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-74c557595b-kgl8j
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-795494fd6b-tn55h
+          ready: 0/1
+          status: Init:0/1
+        - pod: scan-vulnerabilityreport-c78c644f7-s8pd9
+          ready: 0/1
+          status: Init:0/1
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aqua/trivy-operator/0.32.1
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trivy-no-crds-1781312031-aqua-trivy-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: c5b3c86859a140e78027abf1a91ddcbaf5bb664d5c9aba592082ee2fa58ad3ef
+      objectCount: 22
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/trivy-operator   1/1   1     1     20s'
+        pods: '# default
+
+          scan-vulnerabilityreport-586849b65-rkwfg    0/1   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-587cdbcf8-wtvzl    0/1   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-5b76c9cc84-7wbhv   0/2   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-5c897dd57c-s4s7r   0/1   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-5d7549b559-l4br4   0/1   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-7457485bcc-2zm4f   0/1   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-7458d6cd5-c4xld    0/1   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-74b9cf67dd-jr46d   0/1   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-74c557595b-q8bgr   0/1   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-795494fd6b-c4pp7   0/1   Init:0/1   0     19s
+
+          scan-vulnerabilityreport-c78c644f7-wvqnw    0/1   Init:0/1   0     19s
+
+          trivy-operator-7b77959c86-x2hqm             1/1   Running    0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 9
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clustercompliancereport.aquasecurity.github.io "k8s-cis-1.23" deleted
+
+            clustercompliancereport.aquasecurity.github.io "k8s-nsa-1.0" deleted
+
+            clustercompliancereport.aquasecurity.github.io "k8s-pss-baseline-0.1"
+            deleted
+
+            clustercompliancereport.aquasecurity.github.io "k8s-pss-restricted-0.1"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "aggregate-config-audit-reports-view"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "aggregate-exposed-secret-reports-view"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "aggregate-vulnerability-reports-view"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "trivy-operator" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "trivy-operator" deleted'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 12
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'configmap "trivy-operator-config" deleted from default namespace
+
+            configmap "trivy-operator-trivy-config" deleted from default namespace
+
+            configmap "trivy-operator" deleted from default namespace
+
+            deployment.apps "trivy-operator" deleted from default namespace
+
+            role.rbac.authorization.k8s.io "trivy-operator-leader-election" deleted
+            from default namespace
+
+            role.rbac.authorization.k8s.io "trivy-operator" deleted from default namespace
+
+            rolebinding.rbac.authorization.k8s.io "trivy-operator-leader-election"
+            deleted from default namespace
+
+            rolebinding.rbac.authorization.k8s.io "trivy-operator" deleted from default
+            namespace
+
+            service "trivy-operator" deleted from default namespace
+
+            serviceaccount "trivy-operator" deleted from default namespace
+
+            secret "trivy-operator-trivy-config" deleted from default namespace
+
+            secret "trivy-operator" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-trivy-no-crds-1781312031-aqua-trivy-operator
+      controller: Argo CD OCI
+      app: aqua-trivy-operator-parity
+      manifestSHA256: 934d8fa6410f0d6df092b71778b876d65310d68f380eec8c430489c4040f66dd
+      objectCount: 22
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:bee43426f875876870c6a23da2014affff2a8beb8458719371fb4466d8b34ec3
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-default-trivy-operator-trivy-config.yaml
+      - secret-default-trivy-operator.yaml
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-trivy-no-crds-1781312031-aqua-trivy-operator
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-trivy-no-crds-1781312031-cluster/oci
+              targetRevision: latest
+          revision: sha256:bee43426f875876870c6a23da2014affff2a8beb8458719371fb4466d8b34ec3
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T00:58:04Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: trivy-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: trivy-operator-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: trivy-operator-trivy-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: trivy-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: trivy-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: trivy-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: aquasecurity.github.io
+          kind: ClusterComplianceReport
+          namespace: ''
+          name: k8s-cis-1.23
+          status: Synced
+          health: ''
+          hook: false
+        - group: aquasecurity.github.io
+          kind: ClusterComplianceReport
+          namespace: ''
+          name: k8s-nsa-1.0
+          status: Synced
+          health: ''
+          hook: false
+        - group: aquasecurity.github.io
+          kind: ClusterComplianceReport
+          namespace: ''
+          name: k8s-pss-baseline-0.1
+          status: Synced
+          health: ''
+          hook: false
+        - group: aquasecurity.github.io
+          kind: ClusterComplianceReport
+          namespace: ''
+          name: k8s-pss-restricted-0.1
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: aggregate-config-audit-reports-view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: aggregate-exposed-secret-reports-view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: aggregate-vulnerability-reports-view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: trivy-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: trivy-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: trivy-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: trivy-operator-leader-election
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: trivy-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: trivy-operator-leader-election
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/trivy-operator   1/1   1     1     15s'
+        pods: '# default
+
+          scan-vulnerabilityreport-586849b65-rkwfg    1/1   Running    0     2m9s
+
+          scan-vulnerabilityreport-587cdbcf8-wtvzl    1/1   Running    0     2m9s
+
+          scan-vulnerabilityreport-5b76c9cc84-7wbhv   0/2   Init:0/1   0     2m9s
+
+          scan-vulnerabilityreport-5d7549b559-l4br4   1/1   Running    0     2m9s
+
+          scan-vulnerabilityreport-7457485bcc-2zm4f   1/1   Running    0     2m9s
+
+          scan-vulnerabilityreport-7458d6cd5-c4xld    0/1   Init:0/1   0     2m9s
+
+          scan-vulnerabilityreport-74b9cf67dd-jr46d   0/1   Init:0/1   0     2m9s
+
+          scan-vulnerabilityreport-74c557595b-q8bgr   0/1   Init:0/1   0     2m9s
+
+          scan-vulnerabilityreport-795494fd6b-c4pp7   0/1   Init:0/1   0     2m9s
+
+          scan-vulnerabilityreport-c78c644f7-wvqnw    0/1   Init:0/1   0     2m9s
+
+          trivy-operator-7b77959c86-5ph92             1/1   Running    0     15s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 21
+      configHubObjectCount: 22
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 21
+      configHubObjectCount: 22
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-trivy-no-crds-1781312031\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-trivy-no-crds-1781312031.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-trivy-no-crds-1781312031\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-trivy-no-crds-1781312031\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-trivy-no-crds-1781312031\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-trivy-no-crds-1781312031.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=12
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"trivy-operator\" does not exist. Installing it now.\nNAME:\
+      \ trivy-operator\nLAST DEPLOYED: Sat Jun 13 01:55:23 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nYou have installed Trivy Operator in the default-helm namespace.\nIt\
+      \ is configured to discover Kubernetes workloads and resources in\nall namespace(s).\n\
+      \nInspect created VulnerabilityReports by:\n\n    kubectl get vulnerabilityreports\
+      \ --all-namespaces -o wide\n\nInspect created ConfigAuditReports by:\n\n   \
+      \ kubectl get configauditreports --all-namespaces -o wide\n\nInspect the work\
+      \ log of trivy-operator by:\n\n    kubectl logs -n default-helm deployment/trivy-operator"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=12
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/trivy-operator   1/1   1     1     20s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=9
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=12 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=12
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: clustercompliancereports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterconfigauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterinfraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterrbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clustersbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clustervulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: configauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: exposedsecretreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: infraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: rbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: sbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: vulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: regularHelm
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/aqua-trivy-operator-no-crds/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: clustercompliancereports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clusterconfigauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clusterinfraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clusterrbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clustersbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clustervulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: configauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: exposedsecretreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: infraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: rbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: sbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: vulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/aqua-trivy-operator-no-crds/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: clustercompliancereports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clusterconfigauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clusterinfraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clusterrbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clustersbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clustervulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: configauditreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: exposedsecretreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: infraassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: rbacassessmentreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: sbomreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: vulnerabilityreports.aquasecurity.github.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/aqua-trivy-operator-no-crds/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

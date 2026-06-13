@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 54
+pass: 55
 watch: 1
 blocked: 0
 not-started: 0
@@ -58,6 +58,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 17 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | - | runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.2` | existing-tls-ingress | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml |
 |  | `aqua/trivy-operator@0.32.1` | default | pass | - | runs/live-helm-confighub-compare/aqua-trivy-operator-default/receipt.yaml |
+|  | `aqua/trivy-operator@0.32.1` | no-crds | pass | - | runs/live-helm-confighub-compare/aqua-trivy-operator-no-crds/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | default | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-default/receipt.yaml |
 |  | `elastic/logstash@8.5.1` | default | pass | - | runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml |
