@@ -86,7 +86,7 @@ data/latest-top20-refresh/
 npm run top20:latest-refresh
 ```
 
-That lane should be applied to the top-100 only after the six current top-20
+That lane should be applied to the top-100 only after the seven current top-20
 update candidates are refreshed. Otherwise the repo would produce a larger but
 less trustworthy matrix.
 

@@ -62,17 +62,18 @@ npm run top20:latest-refresh
 Current result:
 
 ```text
-14 / 20 proofs are on the latest upstream chart version
-6 / 20 have newer upstream chart versions available
+13 / 20 proofs are on the latest upstream chart version
+7 / 20 have newer upstream chart versions available
 ```
 
-The six update candidates are:
+The seven update candidates are:
 
 ```text
 argo-cd/argo-cd 9.5.15 -> 9.5.17
-bitnami/mongodb 19.0.7 -> 19.0.9
-bitnami/nginx 24.0.2 -> 24.0.4
-bitnami/postgresql 18.6.7 -> 18.6.10
+bitnami/mongodb 19.0.7 -> 19.1.0
+bitnami/nginx 24.0.2 -> 25.0.0
+bitnami/postgresql 18.6.7 -> 18.7.0
+bitnami/redis 25.5.3 -> 27.0.0
 prometheus-community/kube-prometheus-stack 85.3.3 -> 86.1.0
 prometheus-community/prometheus 29.8.0 -> 29.9.0
 ```
@@ -81,7 +82,7 @@ A newer chart version is a work order, not an automatic catalog promotion.
 Every updated version must rebuild the full recipe/package/proof/live-e2e chain
 before it replaces the supported catalog row.
 
-The first candidate stage is complete for all six update candidates:
+The first candidate stage is complete for all seven update candidates:
 
 ```text
 data/latest-top20-refresh/candidates/

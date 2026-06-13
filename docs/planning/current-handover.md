@@ -66,17 +66,16 @@ of chart-level shorthand:
 data/outcome-coverage/summary.md
 ```
 
-As of the current matrix, all 156 chart-recipe-variant rows have
-Helm-equivalence plus installer setup-check evidence. ConfigHub proof,
-local-kind evidence, and ConfigHub OCI/Argo live proof are partial by exact
-variant row.
+As of the current matrix, all 191 chart/base rows have Helm-equivalence plus
+installer setup-check evidence. ConfigHub proof, local-kind evidence, and
+ConfigHub OCI/Argo live proof are partial by exact variant row.
 
 There are two live parity surfaces, and they answer different questions:
 
 | Surface | Current reading | Use it for |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 20 committed receipts: 20 pass, 0 watch, 0 blocked. | Comparing regular Helm with ConfigHub delivery for one selected row per top-20 chart. |
-| Live parity rerun queue | No active non-pass rerun rows; 0 watch, 0 blocked, 0 semantic parity defects in the active queue. | Strict non-pass cert-manager `default` is lifecycle-routed and should not be rerun unless the hook decision changes. |
+| Selected live Helm-vs-ConfigHub comparison | 78 committed receipts: 77 pass, 0 watch, 1 target-fit blocked. | Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows. |
+| Live parity rerun queue | 1 target-fit row, 0 watch, 0 semantic parity defects. | The active non-pass row is Consul secure mesh on a one-node proof target; the base requires at least three schedulable nodes. |
 
 The watch and blocked rows are not currently object-set parity defects. They
 surface target prerequisites, hook/lifecycle routes, controller health, storage,
@@ -121,7 +120,8 @@ ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
 selected live Helm-vs-ConfigHub comparison: see generated status for current pass, watch, blocked, and missing counts
-broader live parity rerun queue: 0 watch, 0 blocked, 0 semantic parity defects in the active two-cluster queue
+live parity rerun queue: 1 target-fit block, 0 watch, 0 semantic parity defects in the selected live Helm-vs-ConfigHub lane
+two-cluster kind parity: 70/70 pass, 0 watch, 0 blocked, 0 semantic parity defects
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
 
