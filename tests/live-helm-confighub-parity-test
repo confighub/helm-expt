@@ -643,6 +643,83 @@ def namespace_secret_for_destination(secret_path: Path, destination_namespace: s
     return staged_path
 
 
+def rendered_lifecycle_secret_docs(manifest: str, destination_namespace: str) -> list[dict]:
+    docs = []
+    service_accounts = {}
+    manifest_docs = yaml_docs(manifest)
+    for doc in manifest_docs:
+        if doc.get("kind") == "ServiceAccount":
+            metadata = doc.get("metadata") or {}
+            name = metadata.get("name")
+            namespace = metadata.get("namespace") or destination_namespace
+            if name:
+                service_accounts[(namespace, name)] = doc
+    for doc in manifest_docs:
+        if doc.get("kind") != "Secret":
+            continue
+        if doc.get("type") != "kubernetes.io/service-account-token":
+            continue
+        metadata = doc.get("metadata") or {}
+        annotations = metadata.get("annotations") or {}
+        service_account_name = annotations.get("kubernetes.io/service-account.name")
+        if not service_account_name:
+            continue
+        namespace = metadata.get("namespace") or destination_namespace
+        service_account = service_accounts.get((namespace, service_account_name))
+        if service_account:
+            staged_service_account = json.loads(json.dumps(service_account))
+            staged_service_account_metadata = staged_service_account.setdefault("metadata", {})
+            if not staged_service_account_metadata.get("namespace"):
+                staged_service_account_metadata["namespace"] = namespace
+            docs.append(staged_service_account)
+        staged = json.loads(json.dumps(doc))
+        staged_metadata = staged.setdefault("metadata", {})
+        if not staged_metadata.get("namespace"):
+            staged_metadata["namespace"] = destination_namespace
+        docs.append(staged)
+    return docs
+
+
+def stage_rendered_lifecycle_secrets(
+    manifest: str,
+    kubeconfig: Path,
+    context: str,
+    destination_namespace: str,
+    run_root: Path,
+    label: str,
+) -> dict:
+    docs = rendered_lifecycle_secret_docs(manifest, destination_namespace)
+    if not docs:
+        return {"result": "not-needed", "count": 0, "secrets": []}
+    path = run_root / f"{label}-rendered-lifecycle-secrets.yaml"
+    secrets = [doc for doc in docs if doc.get("kind") == "Secret"]
+    service_accounts = [doc for doc in docs if doc.get("kind") == "ServiceAccount"]
+    write_text(path, render_docs_to_yaml(docs))
+    kubectl_must(["apply", "-f", str(path)], kubeconfig, context, f"{label} lifecycle secret apply", timeout=120)
+    return {
+        "result": "pass",
+        "count": len(secrets),
+        "manifest": str(path.relative_to(run_root)),
+        "stagedServiceAccounts": [
+            {
+                "namespace": (doc.get("metadata") or {}).get("namespace", destination_namespace),
+                "name": (doc.get("metadata") or {}).get("name"),
+            }
+            for doc in service_accounts
+        ],
+        "secrets": [
+            {
+                "namespace": (doc.get("metadata") or {}).get("namespace", destination_namespace),
+                "name": (doc.get("metadata") or {}).get("name"),
+                "type": doc.get("type"),
+                "serviceAccount": ((doc.get("metadata") or {}).get("annotations") or {}).get("kubernetes.io/service-account.name"),
+            }
+            for doc in secrets
+        ],
+        "reason": "rendered kubernetes.io/service-account-token Secrets are Kubernetes lifecycle state required by controllers; each is staged with its referenced ServiceAccount so token-controller ordering matches a normal apply wave, without treating user credential Secrets as ConfigHub Units",
+    }
+
+
 KNOWN_NAMESPACED_KINDS = {
     "ConfigMap",
     "CronJob",
@@ -2290,6 +2367,20 @@ def main() -> int:
                 )
                 kubectl_must(["apply", "-f", str(oci_secret_path)], kubeconfig, context, f"oci secret apply {secret_path.name}", timeout=120)
                 staged_secrets.append(secret_path.name)
+        lifecycle_secrets = stage_rendered_lifecycle_secrets(
+            cub_manifest_oci,
+            kubeconfig,
+            context,
+            oci_namespace,
+            run_root,
+            "oci",
+        )
+        if lifecycle_secrets["result"] == "pass":
+            check_item(
+                "confighub-oci-rendered-lifecycle-secrets",
+                lifecycle_secrets["result"],
+                f"secrets={len(lifecycle_secrets.get('secrets', []))}",
+            )
 
         rc, upload_out, upload_err = sh([
             "cub", "installer", "upload", "--work-dir", str(workdir),
@@ -2418,6 +2509,7 @@ def main() -> int:
             sync=sync or "unknown",
             health=health or "unknown",
             separatedSecrets=staged_secrets,
+            renderedLifecycleSecrets=lifecycle_secrets,
             argoStatus=child_argo_status,
             rootArgoStatus=root_argo_status,
             runtime=oci_runtime,

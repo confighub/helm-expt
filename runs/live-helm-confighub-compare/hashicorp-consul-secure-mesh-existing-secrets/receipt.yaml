@@ -6,76 +6,1200 @@ spec:
   chart: hashicorp/consul
   version: 2.0.0
   base: secure-mesh-existing-secrets
-  result: blocked
-  observedAt: '2026-06-13T09:00:59Z'
+  result: watch
+  observedAt: '2026-06-13T15:30:43Z'
   package:
     path: packages/hashicorp/consul/2.0.0
   recipe:
     path: recipes/hashicorp/consul/2.0.0
   variantRevision: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml
   targetProfile:
-    name: none
+    name: kind-three-node
     result: pass
-    resources: []
+    resources:
+    - node/1
+    - node/2
+    - node/3
+    observedSchedulableNodes: 3
+    observedBehavior: The proof target has at least three schedulable worker nodes
+      for bases with hard pod anti-affinity or quorum topology.
   gitOpsCanonicalizationProfile:
     name: none
+    result: pass
+    changes: []
   run:
-    rig: helm-expt-parity-consul-mqc4lcw1-v88
-    kubeContext: kind-helm-expt-parity-consul-mqc4lcw1-v88
+    rig: helm-expt-parity-consul-mqciiju3-151e
+    kubeContext: kind-helm-expt-parity-consul-mqciiju3-151e
     namespace: consul
+    namespaceMode: fixed-rendered-namespace
     legNamespaces:
-      regularHelm: consul-helm
-      configHubKubectlApply: consul-apply
-      configHubOciArgo: consul-oci
+      regularHelm: consul
+      configHubKubectlApply: consul
+      configHubOciArgo: consul
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-consul-mqc4lcw1-v88 --force
+      command: cub cluster down --name helm-expt-parity-consul-mqciiju3-151e --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-consul-mqc4lcw1-v88"...
+      detail: 'Deleting kind cluster "helm-expt-parity-consul-mqciiju3-151e"...
 
-        Deleting cluster "helm-expt-parity-consul-mqc4lcw1-v88" ...
+        Deleting cluster "helm-expt-parity-consul-mqciiju3-151e" ...
 
-        Deleted nodes: ["helm-expt-parity-consul-mqc4lcw1-v88-control-plane"]
+        Deleted nodes: ["helm-expt-parity-consul-mqciiju3-151e-worker2" "helm-expt-parity-consul-mqciiju3-151e-control-plane"
+        "helm-expt-parity-consul-mqciiju3-151e-worker" "helm-expt-parity-consul-mqciiju3-151e-worker3"]
 
-        Deleting Space "helm-expt-parity-consul-mqc4lcw1-v88-cluster" (recursive:
+        Deleting Space "helm-expt-parity-consul-mqciiju3-151e-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
         Done.'
-  legs: {}
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install consul consul --repo https://helm.releases.hashicorp.com
+        --version 2.0.0 --namespace consul --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468
+      objectCount: 97
+      liveHelmManifestSHA256: 8c06160ed49bd8fbd538b95db3983640a466674d0bc49bc19cedb1cad01090b1
+      liveHelmManifestObjectCount: 97
+      namespace: consul
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/consul-consul-connect-injector       1/1   1     1     2m33s
+
+          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     2m33s
+
+          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     2m33s
+
+          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     2m33s
+
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     2m33s
+
+          statefulset.apps/consul-consul-server   3/3   2m33s'
+        pods: 'consul-consul-connect-injector-5f47dfbd9-2b9c4        1/1   Running   0     2m33s
+
+          consul-consul-ingress-gateway-7c9f6b86f8-c8zq6        1/1   Running   0     2m33s
+
+          consul-consul-mesh-gateway-746b9dc7df-f9q9w           1/1   Running   0     2m33s
+
+          consul-consul-server-0                                1/1   Running   0     2m33s
+
+          consul-consul-server-1                                1/1   Running   0     2m33s
+
+          consul-consul-server-2                                1/1   Running   0     2m33s
+
+          consul-consul-terminating-gateway-5496cd6fbd-gs5qk    1/1   Running   0     2m33s
+
+          consul-consul-webhook-cert-manager-7b7958cdff-bkhlc   1/1   Running   0     2m33s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
+        --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-consul-mqciiju3-151e-consul
+        --non-interactive --namespace consul
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: d0c7b2dace3ea7b2d732ac243969c035c2d9c28020416b96fc3639f9a735b16a
+      objectCount: 98
+      namespace: consul
+      manifestNamespaces:
+      - consul
+      runtimeNamespaces: &id001
+      - consul
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# consul
+
+          deployment.apps/consul-consul-connect-injector       1/1   1     1     40s
+
+          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     40s
+
+          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     40s
+
+          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     40s
+
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     40s
+
+          statefulset.apps/consul-consul-server   3/3   40s'
+        pods: '# consul
+
+          consul-consul-connect-injector-5f47dfbd9-9jfbc        1/1   Running     0     40s
+
+          consul-consul-ingress-gateway-7c9f6b86f8-qzfnk        1/1   Running     0     40s
+
+          consul-consul-mesh-gateway-746b9dc7df-ng9hl           1/1   Running     0     40s
+
+          consul-consul-server-0                                1/1   Running     0     40s
+
+          consul-consul-server-1                                1/1   Running     0     40s
+
+          consul-consul-server-2                                1/1   Running     0     40s
+
+          consul-consul-server-acl-init-bjlnc                   0/1   Completed   0     39s
+
+          consul-consul-terminating-gateway-5496cd6fbd-slf8b    1/1   Running     0     40s
+
+          consul-consul-webhook-cert-manager-7b7958cdff-hbq94   1/1   Running     0     40s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - consul
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 46
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "consul-consul-auth-method"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "consul-consul-connect-injector"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "consul-consul-gateway-cleanup-custom"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "consul-consul-gateway-cleanup"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "consul-consul-gateway-resources-custom"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "consul-consul-gateway-resources"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "consul-consul-mesh-gateway" deleted
+
+            clusterrole.rbac.authorization.k8s.io "consul-consul-webhook-cert-manager"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "consul-consul-auth-method"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "consul-consul-authdelegator"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "consul-consul-connect-injector"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "consul-consul-gateway-cleanup-custom"
+            deleted
+
+            clusterrolebindin'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-consul-mqciiju3-151e-consul
+      controller: Argo CD OCI
+      app: consul-parity
+      manifestSHA256: d0c7b2dace3ea7b2d732ac243969c035c2d9c28020416b96fc3639f9a735b16a
+      objectCount: 98
+      namespace: consul
+      manifestNamespaces:
+      - consul
+      runtimeNamespaces: &id002
+      - consul
+      ociRevision: sha256:81b70d202a4e62ce413edf31d3e9190be68da5ed17570faf26915026d0298bab
+      sync: Synced
+      health: Progressing
+      separatedSecrets:
+      - secret-consul-consul-consul-auth-method.yaml
+      renderedLifecycleSecrets:
+        result: pass
+        count: 1
+        manifest: oci-rendered-lifecycle-secrets.yaml
+        stagedServiceAccounts:
+        - namespace: consul
+          name: consul-consul-auth-method
+        secrets:
+        - namespace: consul
+          name: consul-consul-auth-method
+          type: kubernetes.io/service-account-token
+          serviceAccount: consul-consul-auth-method
+        reason: rendered kubernetes.io/service-account-token Secrets are Kubernetes
+          lifecycle state required by controllers; each is staged with its referenced
+          ServiceAccount so token-controller ordering matches a normal apply wave,
+          without treating user credential Secrets as ConfigHub Units
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: consul
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-consul-mqciiju3-151e-consul
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqciiju3-151e-cluster/oci
+              targetRevision: latest
+          revision: sha256:81b70d202a4e62ce413edf31d3e9190be68da5ed17570faf26915026d0298bab
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T15:48:52Z'
+          status: Progressing
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: consul
+          name: consul-consul-connect-inject-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: consul
+          name: consul-consul-gateway-resources-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: consul
+          name: consul-consul-gateway-resources-config-custom
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: consul
+          name: consul-consul-server-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: consul
+          name: consul-consul-server-tmp-extra-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: consul
+          name: consul-consul-webhook-cert-manager-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: consul
+          name: helm-values
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: consul
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: consul
+          name: consul-consul-connect-injector
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: consul
+          name: consul-consul-dns
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: consul
+          name: consul-consul-ingress-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: consul
+          name: consul-consul-mesh-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: consul
+          name: consul-consul-server
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: consul
+          name: consul-consul-terminating-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: consul
+          name: consul-consul-ui
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-auth-method
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-connect-injector
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-gateway-cleanup
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-gateway-cleanup-custom
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-gateway-resources
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-gateway-resources-custom
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-ingress-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-mesh-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-server
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-server-acl-init
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-server-acl-init-cleanup
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-terminating-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: consul
+          name: consul-consul-webhook-cert-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: consul-consul-connect-injector
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: consul-consul-connect-injector
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: controlplanerequestlimits.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: exportedservices.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: gatewayclassconfigs.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: gatewayclasses.gateway.networking.k8s.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: gatewaypolicies.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: gateways.gateway.networking.k8s.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: httproutes.gateway.networking.k8s.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: ingressgateways.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: jwtproviders.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: meshes.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: meshservices.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: proxydefaults.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: ratelimits.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: referencegrants.gateway.networking.k8s.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: registrations.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: routeauthfilters.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: routeretryfilters.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: routetimeoutfilters.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: routetlssdsfilters.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: samenessgroups.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: servicedefaults.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: serviceintentions.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: serviceresolvers.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: servicerouters.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: servicesplitters.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: tcproutes.gateway.networking.k8s.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: terminatinggateways.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: trafficpermissions.auth.consul.hashicorp.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: consul
+          name: consul-consul-connect-injector
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: consul
+          name: consul-consul-ingress-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: consul
+          name: consul-consul-mesh-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: consul
+          name: consul-consul-terminating-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: consul
+          name: consul-consul-webhook-cert-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: consul
+          name: consul-consul-server
+          status: Synced
+          health: ''
+          hook: false
+        - group: batch
+          kind: Job
+          namespace: consul
+          name: consul-consul-server-acl-init
+          status: Synced
+          health: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: Ingress
+          namespace: consul
+          name: consul-consul-ui
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: consul-consul-auth-method
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: consul-consul-connect-injector
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: consul-consul-gateway-cleanup
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: consul-consul-gateway-cleanup-custom
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: consul-consul-gateway-resources
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: consul-consul-gateway-resources-custom
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: consul-consul-mesh-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: consul-consul-server
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: consul-consul-webhook-cert-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-auth-method
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-authdelegator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-connect-injector
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-gateway-cleanup
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-gateway-cleanup-custom
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-gateway-resources
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-gateway-resources-custom
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-mesh-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-server
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: consul-consul-webhook-cert-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: consul
+          name: consul-consul-connect-inject-leader-election
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: consul
+          name: consul-consul-ingress-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: consul
+          name: consul-consul-server
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: consul
+          name: consul-consul-server-acl-init
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: consul
+          name: consul-consul-server-acl-init-cleanup
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: consul
+          name: consul-consul-terminating-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: consul
+          name: consul-consul-connect-inject-leader-election
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: consul
+          name: consul-consul-ingress-gateway
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: consul
+          name: consul-consul-server
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: consul
+          name: consul-consul-server-acl-init
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: consul
+          name: consul-consul-server-acl-init-cleanup
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: consul
+          name: consul-consul-terminating-gateway
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-consul-mqciiju3-151e-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqciiju3-151e-cluster/oci
+              targetRevision: latest
+          revision: sha256:81b70d202a4e62ce413edf31d3e9190be68da5ed17570faf26915026d0298bab
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T15:32:32Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: consul-parity
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-consul-mqciiju3-151e-cluster
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# consul
+
+          deployment.apps/consul-consul-connect-injector       1/1   1     1     6m40s
+
+          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     6m40s
+
+          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     6m40s
+
+          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     6m40s
+
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     6m40s
+
+          statefulset.apps/consul-consul-server   3/3   6m40s'
+        pods: '# consul
+
+          consul-consul-connect-injector-5f47dfbd9-7xrmf        1/1   Running     0     6m40s
+
+          consul-consul-ingress-gateway-7c9f6b86f8-dsgcl        1/1   Running     0     6m40s
+
+          consul-consul-mesh-gateway-746b9dc7df-xjs4m           1/1   Running     0     6m40s
+
+          consul-consul-server-0                                1/1   Running     0     6m40s
+
+          consul-consul-server-1                                1/1   Running     0     6m40s
+
+          consul-consul-server-2                                1/1   Running     0     6m40s
+
+          consul-consul-server-acl-init-qgg69                   0/1   Completed   0     6m40s
+
+          consul-consul-terminating-gateway-5496cd6fbd-rnlsb    1/1   Running     0     6m40s
+
+          consul-consul-webhook-cert-manager-7b7958cdff-wf9w6   1/1   Running     0     6m40s'
+        notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||consul
-    semanticNormalizations:
+    semanticNormalizations: &id003
     - prune-null-fields
     - trim-leading-command-block-newline
     - consul-namespace-reference-normalization
     - consul-statefulset-gitops-defaults
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 97
+      configHubObjectCount: 98
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||consul
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 7891cc6ef40b47534716dbe42d3994c1ebb4e17ade5a29417342c678d62eeab4
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 97
+      configHubObjectCount: 98
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||consul
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      - trim-leading-command-block-newline
+      - consul-namespace-reference-normalization
+      - consul-statefulset-gitops-defaults
+      comparisonSHA256: 7891cc6ef40b47534716dbe42d3994c1ebb4e17ade5a29417342c678d62eeab4
   checks:
   - name: live-lane-lock
     result: pass
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
-  - name: cub-lk-up
+  - name: cluster-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-consul-mqc4lcw1-v88\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-consul-mqc4lcw1-v88.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-consul-mqc4lcw1-v88\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-consul-mqciiju3-151e\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqciiju3-151e.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-consul-mqciiju3-151e\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
-      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
-      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
-      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
-      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
-      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
-      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-consul-mqc4lcw1-v88\"\nYou\
-      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-consul-mqc4lcw1-v88\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-consul-mqc4lcw1-v88.kubeconfig\n\
-      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
-      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
-      \ {}\nsta"
-  - name: failure
-    result: blocked
-    detail: target topology requires at least 3 schedulable node(s); found 1 for regularHelm
-  failure:
-    message: target topology requires at least 3 schedulable node(s); found 1 for
-      regularHelm
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6 \U0001F4E6\
+      \ \U0001F4E6 \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \U0001F4E6\
+      \ \U0001F4E6 \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC  ...\n \u2713\
+      \ Writing configuration \U0001F4DC\n \u2022 Starting control-plane \U0001F579\
+      \uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022 Installing\
+      \ CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022 Installing\
+      \ StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\n\
+      \ \u2022 Joining worker nodes \U0001F69C  ...\n \u2713 Joining worker nodes\
+      \ \U0001F69C\nSet kubectl context to \"kind-helm-expt-parity-consul-mqciiju3-151e\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-consul-mqciiju3-151e\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqciiju3-151e.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know"
+  - name: target-profile
+    result: pass
+    detail: 'kind-three-node: The proof target has at least three schedulable worker
+      nodes for bases with hard pod anti-affinity or quorum topology.'
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=4 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'I0613 16:32:25.793082   55257 warnings.go:107] "Warning: unrecognized
+      format \"int32\""'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=4 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# consul
+
+      deployment.apps/consul-consul-connect-injector       1/1   1     1     40s
+
+      deployment.apps/consul-consul-ingress-gateway        1/1   1     1     40s
+
+      deployment.apps/consul-consul-mesh-gateway           1/1   1     1     40s
+
+      deployment.apps/consul-consul-terminating-gateway    1/1   1     1     40s
+
+      deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     40s
+
+      statefulset.apps/consul-consul-server   3/3   40s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=46
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=4 crds=0
+  - name: confighub-oci-rendered-lifecycle-secrets
+    result: pass
+    detail: secrets=1
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: consul
+        name: consul-ca-cert
+        keys:
+        - tls.crt
+        lane: regularHelm
+      - namespace: consul
+        name: consul-server-cert
+        keys:
+        - tls.crt
+        - tls.key
+        lane: regularHelm
+      - namespace: consul
+        name: consul-gossip-encryption-key
+        keys:
+        - key
+        lane: regularHelm
+      - namespace: consul
+        name: consul-bootstrap-acl-token
+        keys:
+        - token
+        lane: regularHelm
+      stagedCRDs: []
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        observedSchedulableNodes: 3
+        lane: regularHelm
+        result: pass
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: consul
+        name: consul-ca-cert
+        keys:
+        - tls.crt
+        lane: configHubKubectlApply
+      - namespace: consul
+        name: consul-server-cert
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubKubectlApply
+      - namespace: consul
+        name: consul-gossip-encryption-key
+        keys:
+        - key
+        lane: configHubKubectlApply
+      - namespace: consul
+        name: consul-bootstrap-acl-token
+        keys:
+        - token
+        lane: configHubKubectlApply
+      stagedCRDs: []
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        observedSchedulableNodes: 3
+        lane: configHubKubectlApply
+        result: pass
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: consul
+        name: consul-ca-cert
+        keys:
+        - tls.crt
+        lane: configHubOciArgo
+      - namespace: consul
+        name: consul-server-cert
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubOciArgo
+      - namespace: consul
+        name: consul-gossip-encryption-key
+        keys:
+        - key
+        lane: configHubOciArgo
+      - namespace: consul
+        name: consul-bootstrap-acl-token
+        keys:
+        - token
+        lane: configHubOciArgo
+      stagedCRDs: []
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        observedSchedulableNodes: 3
+        lane: configHubOciArgo
+        result: pass
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: consul
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: consul

@@ -50,6 +50,7 @@ need later receipts.
 | CRD upgrade behavior | 7 | operator-reviewed upgrade policy and receipts |
 | webhooks, APIServices, controller-populated fields | 5, 6, and 7 | prerequisite checks, deploy ordering, readiness observation |
 | generated Secret versus existing Secret | 2, 3, and 5 | generated fact, base variant, or target fact requirement |
+| Kubernetes lifecycle Secret such as `kubernetes.io/service-account-token` | 5 and 6 | stage or observe with the referenced ServiceAccount in the same lifecycle wave; do not treat it as user credential material |
 | ingress, TLS, HA, storage, topology choices | 3 | base variant when object shape, count, or lifecycle changes |
 | Kustomize or values overlay changing rendered objects | 3 | recipe/base overlay with digest and rendered diff |
 | ConfigHub-only labels, target, region, approval, observation policy | 4 and 7 | derived ConfigHub variant or day-2 operation |

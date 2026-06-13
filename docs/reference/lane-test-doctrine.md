@@ -65,6 +65,27 @@ npm run lane-tests:verify
 | `confighub_oci_argo_live` | A receipt from `tests/chart-install-test` or its successor proving ConfigHub Units were published through OCI and reconciled by Argo or Flux. |
 | `live_helm_vs_confighub_dual_compare` | Historical combined lane that installs the chart with Helm and compares it against ConfigHub delivery paths. Keep these receipts as useful evidence. The required 100% live parity lane should use the two-cluster kind harness described in [Two-Cluster Helm Parity Harness](two-cluster-parity-harness.md). |
 
+## Live Evidence Funnel
+
+Large charts can involve dozens or hundreds of ConfigHub Units. A single status
+label is not enough to explain what happened. Live receipts and user-facing
+tools should report the deployment funnel:
+
+| Funnel step | Question |
+| --- | --- |
+| ConfigHub Units | Were the expected Units uploaded and applied to the target? |
+| GitOps source | Did the controller pull the expected OCI or Git revision? |
+| GitOps sync | Did the controller sync the desired objects? |
+| Target facts and lifecycle prerequisites | Were required Secrets, CRDs, topology, storage, and lifecycle objects present at the right time? |
+| Workload convergence | Did Deployments, StatefulSets, Jobs, APIServices, webhooks, and chart-specific checks reach the expected state? |
+| Controller aggregate health | Does Argo, Flux, or another controller mark the application healthy, and if not, what resource or health rule explains the residue? |
+
+The funnel keeps hard cases readable. For example, a chart can have synced
+ConfigHub OCI delivery and fully converged Kubernetes workloads while a GitOps
+controller still reports an aggregate `Progressing` health label. That is a
+`watch` row, not a silent failure and not a full pass. The receipt should keep
+both facts visible: workload evidence and controller-health residue.
+
 ## Controller Namespace Protection
 
 Single-cluster GitOps lanes use a delivery controller and a chart under test in
