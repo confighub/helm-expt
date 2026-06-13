@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-13T07:03:51.835Z",
+  "generatedAt": "2026-06-13T07:13:49.387Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -456,7 +456,7 @@
     {
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
-      "value": "70",
+      "value": "71",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -465,7 +465,7 @@
     {
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
-      "value": "70",
+      "value": "71",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -492,7 +492,7 @@
     {
       "section": "proof lanes",
       "metric": "complete core lane rows",
-      "value": "69",
+      "value": "70",
       "total": "191",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -600,8 +600,8 @@
     {
       "section": "live evidence",
       "metric": "selected live Helm-vs-ConfigHub parity receipts",
-      "value": "70",
-      "total": "70",
+      "value": "71",
+      "total": "71",
       "status": "good",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row."
@@ -646,7 +646,7 @@
       "section": "live evidence",
       "metric": "ConfigHub/OCI semantic parity defect receipts",
       "value": "0",
-      "total": "70",
+      "total": "71",
       "status": "good",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Rows whose committed receipt currently points at a semantic object comparison defect."
@@ -10219,14 +10219,14 @@
       "workability": "works-as-proof-needs-catalog-review",
       "adoption_bucket": "promote-after-review",
       "user_status": "proof-grade-ready-for-promotion-review",
-      "strongest_evidence": "two-cluster-kind-parity",
+      "strongest_evidence": "live-helm-vs-confighub-parity",
       "variant_count": "2",
       "variants": "default;no-crds",
       "render_parity": "2/2",
       "in_confighub": "2/2",
       "local_live": "2/2",
-      "gitops_live": "0/2",
-      "live_parity": "0/2",
+      "gitops_live": "1/2",
+      "live_parity": "1/2",
       "two_cluster_kind_parity": "2/2",
       "hard_gap": "-",
       "proof_focus": "-",
@@ -11977,7 +11977,7 @@
       "chart": "argo-cd/argo-rollouts",
       "version": "2.40.9",
       "bucket": "works-with-operator-review",
-      "current_proof": "proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 0/2)",
+      "current_proof": "proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)",
       "recommended_first_base": "default (unreviewed first guess)",
       "quirks": "crds;extension-slots",
       "user_must_provide": "a CRD ownership choice (crds vs no-crds base)",
