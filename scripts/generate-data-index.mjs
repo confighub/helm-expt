@@ -323,6 +323,7 @@ function audienceFor(path) {
   if (path.startsWith("data/useful-base-realization-wave/")) return "user/front-door";
   if (path.startsWith("data/refresh-survival/")) return "user/front-door";
   if (path.startsWith("data/variant-path-coverage/")) return "user/front-door";
+  if (path.startsWith("data/variant-promotion/")) return "user/front-door";
   if (path.startsWith("data/quirk-coverage/")) return "user/front-door";
   if (path.startsWith("data/extension-slots/")) return "user/front-door";
   if (path.startsWith("data/production-disposition/")) return "user/front-door";
@@ -392,6 +393,7 @@ function roleFor(path) {
   if (path === "data/latest-top20-refresh/replacement-decisions/decisions.csv") return "one row per retained proof-complete update candidate: current version, candidate version, latest upstream version, freshness, proof state, decision topics, evidence, and next action";
   if (path === "data/edge-recovery/edges.csv") return "recovered desired-state graph fragments from recipe artifacts";
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
+  if (path === "data/variant-promotion/status.csv") return "one row per chart/base: whether server-side cub variant promote is proven, available but not receipt-backed, blocked, missing, or n/a";
   if (path === "data/quirk-coverage/coverage.csv") return "one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action";
   if (path === "data/quirk-work-queue/top100-queue.csv") return "one row per affected public top-100 source chart: open quirk set, priority, first action, and next artifact";
   if (path === "data/hard-proof-gaps/shortlist.csv") return "shortlist of top-100 quirk, hook, and dependency gaps most likely to undermine trust if overclaimed";
@@ -453,6 +455,7 @@ function familyRole(family) {
     "refresh-survival": "latest-version refresh survival and upgrade seed",
     "edge-recovery": "recovered desired-state graph fragments",
     "variant-path-coverage": "chart/base/path proof status matrix",
+    "variant-promotion": "server-side ConfigHub variant promotion status by chart/base",
     "quirk-coverage": "Helm quirk-axis coverage audit",
     "quirk-work-queue": "source-scan quirk work queue for top-100 charts",
     "hard-proof-gaps": "hard top-100 proof gaps joined across quirk, hook, and dependency queues",
@@ -558,6 +561,7 @@ function commandMap() {
     "refresh-survival": { generate: "npm run refresh:survival", verify: "npm run refresh:survival:verify" },
     "edge-recovery": { generate: "npm run edges:generate", verify: "npm run edges:verify" },
     "variant-path-coverage": { generate: "npm run variant-paths:generate", verify: "npm run variant-paths:verify" },
+    "variant-promotion": { generate: "npm run variant-promotion:status", verify: "npm run variant-promotion:status:verify" },
     "quirk-coverage": { generate: "npm run quirk-coverage", verify: "npm run quirk-coverage:verify" },
     "quirk-work-queue": { generate: "npm run quirk-work-queue", verify: "npm run quirk-work-queue:verify" },
     "hard-proof-gaps": { generate: "npm run top100:hard-gaps", verify: "npm run top100:hard-gaps:verify" },

@@ -7,10 +7,11 @@ metadata:
 spec:
   purpose: "Make derived ConfigHub variants visible across multiple proven chart bases before broadening catalog metrics."
   commandSurface:
-    current: "cub variant create"
-    notCurrent:
-      - "cub variant upload"
+    current:
+      - "cub variant create"
       - "cub variant promote"
+      - "cub variant upload"
+    notCurrent:
       - "cub variant release"
   summary:
     sourceBaseCount: 5
@@ -94,7 +95,7 @@ spec:
         region: "us-east"
         namespace: "redis-prod"
         target: "redis-targets/prod-us-east"
-        command: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+        command: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --namespace redis-prod --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
       review:
         installShape: "same Redis default rendered object set"
         changedFieldsOnly:
@@ -144,7 +145,7 @@ spec:
         region: "eu-west"
         namespace: "redis-staging"
         target: "redis-targets/staging-eu-west"
-        command: "cub variant create staging-eu-west helm-redis-confighub-proof --environment Staging --region eu-west --target redis-targets/staging-eu-west --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
+        command: "cub variant create staging-eu-west helm-redis-confighub-proof --environment Staging --region eu-west --target redis-targets/staging-eu-west --namespace redis-staging --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
       review:
         installShape: "same Redis default rendered object set"
         changedFieldsOnly:
@@ -192,7 +193,7 @@ spec:
         region: "us-east"
         namespace: "monitoring-prod"
         target: "monitoring-targets/prod-us-east"
-        command: "cub variant create prod-us-east helm-prometheus-confighub-proof --environment Prod --region us-east --target monitoring-targets/prod-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+        command: "cub variant create prod-us-east helm-prometheus-confighub-proof --environment Prod --region us-east --target monitoring-targets/prod-us-east --namespace monitoring-prod --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
       review:
         installShape: "same Prometheus default rendered object set"
         changedFieldsOnly:
@@ -242,7 +243,7 @@ spec:
         region: "eu-west"
         namespace: "monitoring-staging"
         target: "monitoring-targets/staging-eu-west"
-        command: "cub variant create staging-eu-west helm-prometheus-confighub-proof --environment Staging --region eu-west --target monitoring-targets/staging-eu-west --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
+        command: "cub variant create staging-eu-west helm-prometheus-confighub-proof --environment Staging --region eu-west --target monitoring-targets/staging-eu-west --namespace monitoring-staging --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
       review:
         installShape: "same Prometheus default rendered object set"
         changedFieldsOnly:
@@ -290,7 +291,7 @@ spec:
         region: "us-east"
         namespace: "nginx-prod"
         target: "web-targets/prod-us-east"
-        command: "cub variant create prod-us-east helm-nginx-confighub-proof --environment Prod --region us-east --target web-targets/prod-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+        command: "cub variant create prod-us-east helm-nginx-confighub-proof --environment Prod --region us-east --target web-targets/prod-us-east --namespace nginx-prod --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
       review:
         installShape: "same NGINX http-clusterip rendered object set"
         changedFieldsOnly:
@@ -340,7 +341,7 @@ spec:
         region: "us-west"
         namespace: "nginx-acme"
         target: "web-targets/customer-acme-prod"
-        command: "cub variant create customer-acme-prod helm-nginx-confighub-proof --environment Prod --region us-west --target web-targets/customer-acme-prod --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+        command: "cub variant create customer-acme-prod helm-nginx-confighub-proof --environment Prod --region us-west --target web-targets/customer-acme-prod --namespace nginx-acme --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
       review:
         installShape: "same NGINX http-clusterip rendered object set"
         changedFieldsOnly:
@@ -390,7 +391,7 @@ spec:
         region: "us-east"
         namespace: "grafana-prod"
         target: "observability-targets/prod-us-east"
-        command: "cub variant create prod-us-east helm-grafana-confighub-proof --environment Prod --region us-east --target observability-targets/prod-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+        command: "cub variant create prod-us-east helm-grafana-confighub-proof --environment Prod --region us-east --target observability-targets/prod-us-east --namespace grafana-prod --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
       review:
         installShape: "same Grafana generated-passwords rendered object set"
         changedFieldsOnly:
@@ -440,7 +441,7 @@ spec:
         region: "us-east"
         namespace: "grafana-acme"
         target: "observability-targets/customer-acme-prod"
-        command: "cub variant create customer-acme-prod helm-grafana-confighub-proof --environment Prod --region us-east --target observability-targets/customer-acme-prod --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+        command: "cub variant create customer-acme-prod helm-grafana-confighub-proof --environment Prod --region us-east --target observability-targets/customer-acme-prod --namespace grafana-acme --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
       review:
         installShape: "same Grafana generated-passwords rendered object set"
         changedFieldsOnly:
@@ -490,7 +491,7 @@ spec:
         region: "us-east"
         namespace: "vault-prod"
         target: "security-targets/regulated-prod-us-east"
-        command: "cub variant create regulated-prod-us-east helm-vault-confighub-proof --environment Prod --region us-east --target security-targets/regulated-prod-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+        command: "cub variant create regulated-prod-us-east helm-vault-confighub-proof --environment Prod --region us-east --target security-targets/regulated-prod-us-east --namespace vault-prod --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
       review:
         installShape: "same Vault default rendered object set"
         changedFieldsOnly:
@@ -540,7 +541,7 @@ spec:
         region: "us-east"
         namespace: "vault-staging"
         target: "security-targets/staging-us-east"
-        command: "cub variant create staging-us-east helm-vault-confighub-proof --environment Staging --region us-east --target security-targets/staging-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
+        command: "cub variant create staging-us-east helm-vault-confighub-proof --environment Staging --region us-east --target security-targets/staging-us-east --namespace vault-staging --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
       review:
         installShape: "same Vault default rendered object set"
         changedFieldsOnly:

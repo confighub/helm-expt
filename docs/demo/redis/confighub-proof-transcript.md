@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/redis-default
 cub installer package packages/bitnami/redis/25.5.3 -o .tmp/confighub-proof/redis-archives/redis-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/redis-default --space helm-redis-confighub-proof --component Redis --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Redis --unit-label HelmChart=bitnami-redis --unit-label HelmChartVersion=25.5.3 --unit-label Variant=default --unit-label Proof=redis-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/redis-default
-cub variant create staging helm-redis-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-redis-confighub-proof --environment Staging --region local --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
 cub unit list --space helm-redis-confighub-proof --where "Labels.Proof = 'redis-confighub-proof'"
 cub function vet vet-format --space helm-redis-confighub-proof --where "Labels.Proof = 'redis-confighub-proof'"
 cub unit apply --space helm-redis-confighub-proof --where "Labels.Proof = 'redis-confighub-proof'" --dry-run

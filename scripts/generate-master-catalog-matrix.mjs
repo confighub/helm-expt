@@ -47,6 +47,7 @@ const SOURCES = {
   selectedHookRoutes: "data/lifecycle-boundary/selected-routes.csv",
   decisions: "data/production-support-decisions/decisions.csv",
   activeProof: "data/live-parity-rerun-plan/rerun-plan.csv",
+  variantPromotion: "data/variant-promotion/status.csv",
 };
 
 // Spine columns come from base-outcomes (the derived lane superset).
@@ -98,6 +99,11 @@ const COLUMN_PROVENANCE = [
     source: "production-support-decisions/decisions.csv",
     carried: "decision, target scope",
     dropped: "delivery_path, image/scan/lifecycle/target-fact/live-evidence sub-decisions, evidence_count, remaining_final_requirements, next_action",
+  },
+  {
+    source: "variant-promotion/status.csv",
+    carried: "server-side ConfigHub promotion status, matrix value, evidence path, reason, and next action",
+    dropped: "none; follow the source when you need the full per-row promotion route",
   },
   {
     source: "live-parity-rerun-plan/rerun-plan.csv",
@@ -163,6 +169,7 @@ function buildReport(generatedAt) {
   const hookCandidatesByChart = indexBy(hookCandidateRows, (row) => row.chart);
   const selectedHookRoutesExactBase = indexBy(selectedHookRouteRows, (row) => `${row.chart}@${row.version}|${row.base}`);
   const decisions = indexBy(readCsv(SOURCES.decisions), (row) => `${row.chart}|${row.version}|${row.supported_base}`);
+  const variantPromotion = indexBy(readCsv(SOURCES.variantPromotion), (row) => `${row.chart}|${row.version}|${row.variant}`);
   const activeProofRows = readCsv(SOURCES.activeProof);
   const activeProof = indexBy(activeProofRows, (row) => `${row.chart}|${row.version}|${row.base}`);
 
@@ -201,6 +208,7 @@ function buildReport(generatedAt) {
       const exactHook = selectedHookRouteExactBase ?? hookExact ?? maintainedHookExact ?? hookCandidateExact;
       const hookEvidenceVersion = exactHook || !hook ? "" : hook.version;
       const decision = decisions.get(`${chartName}|${version}|${variant}`);
+      const promotion = variantPromotion.get(`${chartName}|${version}|${variant}`);
       const active = activeProof.get(`${chartName}|${version}|${variant}`);
       const hookCount = hook ? Number(hook.source_hook_count) : null;
       // A chart whose source scan flags hooks but that has no disposition row
@@ -227,6 +235,11 @@ function buildReport(generatedAt) {
         outcome_level: outcome.outcome_level ?? "",
         production_decision: decision ? (decision.decision === "supported" ? "yes" : decision.decision === "rejected" ? "no" : decision.decision) : "todo",
         production_target_scope: decision?.target_scope ?? "",
+        variant_promotion: promotion?.matrix_value ?? "todo",
+        variant_promotion_status: promotion?.promotion_status ?? "missing-status",
+        variant_promotion_evidence: promotion?.evidence ?? "",
+        variant_promotion_reason: promotion?.reason ?? "",
+        variant_promotion_next_action: promotion?.next_action ?? "generate variant promotion status",
         active_proof_next_step: active?.next_step_type ?? "",
         active_proof_readiness: active?.rerun_readiness ?? "",
         active_proof_reason: active?.reason ?? "",
@@ -322,6 +335,11 @@ function summary(rows, charts, unmatchedReadiness) {
   const supported = rows.filter((row) => row.production_decision === "yes").length;
   const superseded = rows.filter((row) => row.production_decision === "superseded").length;
   const rejected = rows.filter((row) => row.production_decision === "no").length;
+  const promotionProven = rows.filter((row) => row.variant_promotion === "yes").length;
+  const promotionWatch = rows.filter((row) => row.variant_promotion === "watch").length;
+  const promotionTodo = rows.filter((row) => row.variant_promotion === "todo").length;
+  const promotionBlocked = rows.filter((row) => row.variant_promotion === "no").length;
+  const promotionNa = rows.filter((row) => row.variant_promotion === "n/a").length;
   const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
   const activeProofRows = rows.filter((row) => row.active_proof_next_step);
   const queues = productQueues(rows);
@@ -341,7 +359,7 @@ function summary(rows, charts, unmatchedReadiness) {
               ? "0 —"
               : `${row.hook_count} ${row.hook_disposition} ${icon(row.hook_live_status)}${row.hook_evidence_version ? ` (from @${row.hook_evidence_version})` : ""}`;
       const quirks = row.quirk_features ? `\`${row.quirk_features}\`` : "—";
-      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${row.outcome_level || "—"} | ${icon(row.production_decision)} |`;
+      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${icon(row.variant_promotion)} | ${row.outcome_level || "—"} | ${icon(row.production_decision)} |`;
     })
     .join("\n");
 
@@ -373,7 +391,7 @@ Lane columns: **R** render parity (helm template vs installer setup) ·
 **C** ConfigHub upload + scan + safe ops · **L** local kind apply ·
 **Y** explicit lifecycle observation ·
 **G** ConfigHub OCI + Argo live · **P** live Helm-vs-ConfigHub dual parity ·
-**K** two-cluster kind parity.
+**K** two-cluster kind parity · **V** server-side ConfigHub variant promotion.
 Hooks column: source hook count, disposition route, live-rehearsal status.
 \`unrouted ⚠️\` marks a chart whose source scan flags hooks but that has no
 hook-disposition row yet; \`(from @x.y.z)\` marks chart-family evidence taken
@@ -389,6 +407,7 @@ from a different chart version's disposition row.
 | Variants with the complete core lane set | ${complete} |
 | Variants with a SUPPORTED production decision | ${supported} |
 | Recorded production decisions (supported / superseded / rejected) | ${supported} / ${superseded} / ${rejected} |
+| Server-side variant promotion (proven / watch / todo / blocked / n/a) | ${promotionProven} / ${promotionWatch} / ${promotionTodo} / ${promotionBlocked} / ${promotionNa} |
 | Hook-flagged variants with no disposition row (unrouted) | ${unrouted} |
 | Variants currently in the active proof queue | ${activeProofRows.length} |
 
@@ -403,6 +422,7 @@ questions before deciding what to do next:
 | Can I try this now, promote it, or does it need more design? | Use / adoption bucket |
 | What is the strongest evidence currently available? | Evidence, R/C/L/G/P/K, Core |
 | What prevents a stronger claim? | Prod, Scope, Gap, Next action |
+| Can downstream ConfigHub variants be promoted from this base? | V, Promotion status |
 | Which non-pass live row should be rerun or reviewed now? | Active proof |
 
 The HTML view carries these user/product columns directly:
@@ -436,8 +456,8 @@ when you want the user/product view with those columns visible.
 
 ## Matrix
 
-| Chart | Variant | Tier | Quirks | Hooks | R | C | L | Y | G | P | K | Outcome | Prod |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Chart | Variant | Tier | Quirks | Hooks | R | C | L | Y | G | P | K | V | Outcome | Prod |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${table}
 
 ## Regenerate
@@ -461,6 +481,11 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
   const supported = rows.filter((row) => row.production_decision === "yes").length;
   const superseded = rows.filter((row) => row.production_decision === "superseded").length;
   const rejected = rows.filter((row) => row.production_decision === "no").length;
+  const promotionProven = rows.filter((row) => row.variant_promotion === "yes").length;
+  const promotionWatch = rows.filter((row) => row.variant_promotion === "watch").length;
+  const promotionTodo = rows.filter((row) => row.variant_promotion === "todo").length;
+  const promotionBlocked = rows.filter((row) => row.variant_promotion === "no").length;
+  const promotionNa = rows.filter((row) => row.variant_promotion === "n/a").length;
   const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
   const activeProofRows = rows.filter((row) => row.active_proof_next_step);
   const queues = productQueues(rows);
@@ -489,6 +514,7 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
       const hardGap = row.hard_gap || "not applicable";
       const scope = row.production_target_scope || "not applicable";
       const activeProofText = activeProofSummary(row);
+      const promotionText = variantPromotionSummary(row);
       const links = [
         ["source", row.source_repository_url || row.source_content_url],
         ["catalog", row.recipe_catalog_path],
@@ -496,7 +522,7 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
         ["package", row.package_base_path],
         ["revision", row.variant_revision_path],
       ].map(([label, path]) => linkFor(label, path, row)).join(" · ");
-      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td class="links">${links}<br><a href="${escapeHtml(row.github_recipe_url)}">GitHub folder</a></td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note route" title="${escapeHtml(row.adoption_bucket)}">${escapeHtml(useShort(row.adoption_bucket))}</td><td class="note evidence" title="${escapeHtml(row.strongest_evidence)}">${escapeHtml(evidenceShort(row.strongest_evidence))}</td>${statusCell(row.core_lanes_complete, row.core_lanes_complete === "yes" ? "complete core lane set" : "one or more core lanes still missing")}<td class="note" title="${escapeHtml(row.quirk_features)}">${escapeHtml(row.quirk_features || "–")}</td>${hooks}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_lifecycle_observed, row.lane_lifecycle_observed === "n/a" ? "no explicit lifecycle route expected for this base" : "")}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}<td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}<td class="note scope" title="${escapeHtml(scope)}">${escapeHtml(row.production_target_scope ? compactText(row.production_target_scope, 54) : "–")}</td><td class="note gap" title="${escapeHtml(hardGap)}">${escapeHtml(row.hard_gap ? compactText(row.hard_gap, 58) : "–")}</td><td class="note active" title="${escapeHtml(activeProofText.title)}">${escapeHtml(activeProofText.label)}</td>${nextAction}</tr>`;
+      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td class="links">${links}<br><a href="${escapeHtml(row.github_recipe_url)}">GitHub folder</a></td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note route" title="${escapeHtml(row.adoption_bucket)}">${escapeHtml(useShort(row.adoption_bucket))}</td><td class="note evidence" title="${escapeHtml(row.strongest_evidence)}">${escapeHtml(evidenceShort(row.strongest_evidence))}</td>${statusCell(row.core_lanes_complete, row.core_lanes_complete === "yes" ? "complete core lane set" : "one or more core lanes still missing")}<td class="note" title="${escapeHtml(row.quirk_features)}">${escapeHtml(row.quirk_features || "–")}</td>${hooks}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_lifecycle_observed, row.lane_lifecycle_observed === "n/a" ? "no explicit lifecycle route expected for this base" : "")}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}${statusCell(row.variant_promotion, promotionText.title, promotionText.label)}<td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}<td class="note scope" title="${escapeHtml(scope)}">${escapeHtml(row.production_target_scope ? compactText(row.production_target_scope, 54) : "–")}</td><td class="note gap" title="${escapeHtml(hardGap)}">${escapeHtml(row.hard_gap ? compactText(row.hard_gap, 58) : "–")}</td><td class="note active" title="${escapeHtml(activeProofText.title)}">${escapeHtml(activeProofText.label)}</td>${nextAction}</tr>`;
     })
     .join("\n");
 
@@ -534,9 +560,9 @@ td.gap{max-width:220px;color:#7a4f00}
 <body>
 <h1>Master Catalog Matrix</h1>
 <p class="sub"><b>Generated at:</b> ${escapeHtml(generatedAt)} UTC · source: committed catalog, proof, live, and production-status data.</p>
-<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · ${activeProofRows.length} active proof queue row(s) · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
+<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · variant promotion: ${promotionProven} proven / ${promotionWatch} watch / ${promotionTodo} todo / ${promotionBlocked} blocked / ${promotionNa} n/a · ${activeProofRows.length} active proof queue row(s) · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
 <p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– n/a</span></p>
-<p class="sub">This is the user/product front door: Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where production support is bounded, Gap names the main product or chart gap, and Active proof shows the exact current non-pass live row action when a row is in the rerun plan. The Links column jumps to the chart catalog, variant definition, package base, variant revision, and GitHub folder. Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · Y explicit lifecycle observation · G OCI+Argo live · P live dual parity · K two-cluster kind parity. Hover cells for detail (hooks, quirks, production target scope, active proof command, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
+<p class="sub">This is the user/product front door: Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where production support is bounded, Gap names the main product or chart gap, and Active proof shows the exact current non-pass live row action when a row is in the rerun plan. The Links column jumps to the chart catalog, variant definition, package base, variant revision, and GitHub folder. Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · Y explicit lifecycle observation · G OCI+Argo live · P live dual parity · K two-cluster kind parity · V server-side variant promotion. Hover cells for detail (hooks, quirks, production target scope, variant promotion status, active proof command, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
 <table class="queues">
 <thead><tr><th>Current product queue</th><th>Rows</th><th>Meaning</th><th>Examples</th></tr></thead>
 <tbody>
@@ -544,7 +570,7 @@ ${queues.map((queue) => `<tr><td>${escapeHtml(queue.label)}</td><td>${queue.rows
 </tbody>
 </table>
 <table>
-<thead><tr><th>Chart</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>Outcome</th><th>Prod</th><th>Scope</th><th>Gap</th><th>Active proof</th><th>Next action</th></tr></thead>
+<thead><tr><th>Chart</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>V</th><th>Outcome</th><th>Prod</th><th>Scope</th><th>Gap</th><th>Active proof</th><th>Next action</th></tr></thead>
 <tbody>
 ${bodyRows}
 </tbody>
@@ -653,6 +679,28 @@ function activeProofSummary(row) {
   ].filter(Boolean);
   return {
     label: compactText(row.active_proof_next_step, 34),
+    title: parts.join(" | "),
+  };
+}
+
+function variantPromotionSummary(row) {
+  const parts = [
+    `status: ${row.variant_promotion_status || "unknown"}`,
+    row.variant_promotion_reason ? `reason: ${row.variant_promotion_reason}` : "",
+    row.variant_promotion_evidence ? `evidence: ${row.variant_promotion_evidence}` : "",
+    row.variant_promotion_next_action ? `next action: ${row.variant_promotion_next_action}` : "",
+  ].filter(Boolean);
+  return {
+    label:
+      row.variant_promotion === "yes"
+        ? "✓"
+        : row.variant_promotion === "watch"
+          ? "!"
+          : row.variant_promotion === "no"
+            ? "✗"
+            : row.variant_promotion === "todo"
+              ? "·"
+              : "–",
     title: parts.join(" | "),
   };
 }

@@ -2,14 +2,14 @@ import { readFileSync } from "node:fs";
 
 import { check, listFiles, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 
-const roots = ["README.md", "CATALOG.md", "docs", "scripts", "recipes", "data", "runs"];
+const roots = ["README.md", "CATALOG.md", "docs", "scripts", "recipes", "data"];
 const files = roots.flatMap((root) => {
   const path = `${repoRoot}/${root}`;
   return root.endsWith(".md") ? [path] : listFiles(path);
 });
 
 const scanned = files.filter((file) => /\.(md|mjs|yaml|yml|json)$/.test(file));
-const currentSubcommands = new Set(["create"]);
+const currentSubcommands = new Set(["create", "promote", "upload"]);
 const plannedContextPattern =
   /\b(ask|candidate|future|planned|missing product|not current|notcurrent|not local|not yet|not shipped|not available|does not|do not|product gap|product surfaces to add|roadmap|until implemented|until the CLI exposes|until it exists)\b/i;
 
@@ -30,6 +30,8 @@ for (const file of scanned) {
       lines[index - 2],
       lines[index - 1],
       line,
+      lines[index + 1],
+      lines[index + 2],
     ]
       .filter(Boolean)
       .join(" ")

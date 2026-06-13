@@ -28,6 +28,7 @@ const all = args.includes("--all");
 const cleanupSpaces = args.includes("--cleanup-spaces");
 const latestCandidates = args.includes("--latest-candidates");
 const promotionCandidates = args.includes("--promotion-candidates");
+const variantPromotionProof = args.includes("--variant-promotion-proof");
 const chartsArg = optionValue("--charts");
 const baseOverride = optionValue("--base");
 const smoke = args.includes("--smoke");
@@ -58,6 +59,7 @@ function usage() {
   node scripts/run-top20-confighub-proof.mjs --charts ingress-nginx,rabbitmq
   node scripts/run-top20-confighub-proof.mjs --charts kube-prometheus-stack --base no-crds --cleanup-spaces
   node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts keda --cleanup-spaces
+  node scripts/run-top20-confighub-proof.mjs --charts redis --base default --variant-promotion-proof --cleanup-spaces
   node scripts/run-top20-confighub-proof.mjs --all --force
   node scripts/run-top20-confighub-proof.mjs --latest-candidates --charts nginx --cleanup-spaces
   node scripts/run-top20-confighub-proof.mjs --cleanup-spaces
@@ -69,6 +71,10 @@ under data/latest-top20-refresh/candidates/.
 candidate charts without changing the top-20 proof set.
 --base selects one explicit package base for one selected chart and writes a
 base-specific proof run without replacing the chart's default proof receipt.
+--variant-promotion-proof mutates the upstream ConfigHub Space after clone,
+previews and applies cub variant promote in the downstream Space, and writes a
+VariantPromotionReceipt. It exercises changed upstream Units plus newly added
+upstream Units; deletion handling remains an explicit non-claim.
 --cleanup-spaces deletes the live proof spaces after receipts are written so
 large chart runs can stay inside the demo org quota.
 --smoke selects the first missing chart only.`);
@@ -312,7 +318,9 @@ function runChart(chart) {
     "Staging",
     "--region",
     "local",
-    "--space-name-pattern",
+    "--namespace",
+    chart.namespace,
+    "--space-pattern",
     spaceNamePattern,
     "--allow-exists",
     "--wait",
@@ -358,6 +366,18 @@ function runChart(chart) {
 
   const validations = runFunctionScans({ chart, proofUnits, selector, space, logRoot });
   const safeOps = runSafeOps({ chart, representative, selector, space, proofLabel, logRoot });
+  const variantPromotion = variantPromotionProof
+    ? runVariantPromotionProof({
+        chart,
+        defaultBase,
+        representative,
+        proofLabel,
+        space,
+        stagingSpace,
+        namespace: chart.namespace,
+        logRoot,
+      })
+    : null;
 
   const receipt = {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -426,7 +446,21 @@ function runChart(chart) {
         upstreamSpace: space,
         downstreamSpace: stagingSpace,
         clonedUnitCount: clonedUnits.length,
+        namespace: chart.namespace,
       },
+      serverSidePromotion: variantPromotion
+        ? {
+            receipt: "variant-promotion-receipt.yaml",
+            result: variantPromotion.spec.result,
+            reason: variantPromotion.spec.reason,
+            changedUnitCaughtUp: variantPromotion.spec.assertions.changedUnitCaughtUp,
+            addedUnitCloned: variantPromotion.spec.assertions.addedUnitCloned,
+            deletionHandling: variantPromotion.spec.assertions.deletionHandling,
+          }
+        : {
+            result: "not-run",
+            reason: "run with --variant-promotion-proof to exercise cub variant promote",
+          },
       review: {
         unitList: "pass",
         unitData: "pass",
@@ -516,10 +550,13 @@ function runChart(chart) {
   writeYaml(join(runRoot, "confighub-proof-receipt.yaml"), receipt);
   writeYaml(join(runRoot, "function-scan-receipt.yaml"), functionReceipt);
   writeYaml(join(runRoot, "safe-ops-receipt.yaml"), safeOpsReceipt);
+  if (variantPromotion) {
+    writeYaml(join(runRoot, "variant-promotion-receipt.yaml"), variantPromotion);
+  }
   if (!chart.skipDemoDocs) {
     writeDemoDocs({ chart, bases, defaultBase, receipt, functionReceipt, safeOpsReceipt, demoRoot });
   }
-  if (cleanupSpaces) deleteProofSpaces({ space, stagingSpace, logRoot, name: "25-space-cleanup-post" });
+  if (cleanupSpaces) deleteProofSpaces({ space, stagingSpace, logRoot, name: "99-space-cleanup-post" });
   console.log(
     `${chart.slug}: ${manifestObjects.length} rendered object(s), ${proofUnits.length} ConfigHub Unit(s), ${clonedUnits.length} staging clone Unit(s)`,
   );
@@ -682,6 +719,263 @@ function runSafeOps({ chart, representative, selector, space, proofLabel, logRoo
   };
 }
 
+function runVariantPromotionProof({ chart, defaultBase, representative, proofLabel, space, stagingSpace, namespace, logRoot }) {
+  const changedUnitSlug = representative.slug;
+  const upstreamBefore = oneUnit(space, changedUnitSlug, logRoot, "25-promotion-upstream-before");
+  const downstreamBefore = oneUnit(stagingSpace, changedUnitSlug, logRoot, "26-promotion-downstream-before");
+  const marker = `${chart.slug}-${versionSlug(defaultBase)}-promotion-${proofDateCompact}`;
+  const annotationKey = "helm-expt.confighub.com/promotion-proof";
+  const unitDataPath = join(logRoot, "27-promotion-upstream-patched.yaml");
+  const unitDataRun = run("cub", ["unit", "data", changedUnitSlug, "--space", space, "--output-file", relativeRepo(unitDataPath)], {
+    logRoot,
+    name: "27-promotion-unit-data-export",
+  });
+  check(unitDataRun.status === 0, `${chart.slug} promotion unit data export failed`);
+  const doc = readYaml(unitDataPath);
+  doc.metadata = doc.metadata ?? {};
+  doc.metadata.annotations = doc.metadata.annotations ?? {};
+  doc.metadata.annotations[annotationKey] = marker;
+  writeYaml(unitDataPath, doc);
+
+  const updateRun = run(
+    "cub",
+    [
+      "unit",
+      "update",
+      changedUnitSlug,
+      relativeRepo(unitDataPath),
+      "--space",
+      space,
+      "--change-desc",
+      `${chart.displayName} variant promotion proof: upstream annotation change`,
+      "--wait",
+      "--timeout",
+      "10m",
+    ],
+    { logRoot, name: "28-promotion-upstream-update" },
+  );
+
+  const markerSlug = `promotion-marker-${versionSlug(chart.slug)}-${versionSlug(defaultBase)}`;
+  const markerPath = join(logRoot, "29-promotion-marker-configmap.yaml");
+  writeYaml(markerPath, {
+    apiVersion: "v1",
+    kind: "ConfigMap",
+    metadata: {
+      name: markerSlug,
+      namespace,
+      labels: {
+        "app.kubernetes.io/managed-by": "helm-expt",
+        "helm-expt.confighub.com/lane": "variant-promotion",
+      },
+      annotations: {
+        [annotationKey]: marker,
+      },
+    },
+    data: {
+      chart: chart.chart,
+      chartVersion: chart.chartVersion,
+      variant: defaultBase,
+      marker,
+    },
+  });
+  const addRun = run(
+    "cub",
+    [
+      "unit",
+      "create",
+      markerSlug,
+      relativeRepo(markerPath),
+      "--space",
+      space,
+      "--label",
+      `Proof=${proofLabel}`,
+      "--label",
+      `Component=${chart.component}`,
+      "--label",
+      `HelmChart=${chart.chart.replaceAll("/", "-")}`,
+      "--label",
+      `HelmChartVersion=${chart.chartVersion}`,
+      "--label",
+      `Variant=${defaultBase}`,
+      "--label",
+      "Lane=variant-promotion",
+      "--annotation",
+      "proof.confighub.com/scope=server-promotion",
+      "--allow-exists",
+      "--change-desc",
+      `${chart.displayName} variant promotion proof: added upstream unit`,
+      "--wait",
+      "--timeout",
+      "10m",
+    ],
+    { logRoot, name: "29-promotion-upstream-add-unit" },
+  );
+  const upstreamAfter = oneUnit(space, changedUnitSlug, logRoot, "30-promotion-upstream-after");
+  const markerUpstream = oneUnit(space, markerSlug, logRoot, "31-promotion-marker-upstream");
+
+  const dryRun = run(
+    "cub",
+    ["variant", "promote", stagingSpace, "--dry-run", "-o", "mutations"],
+    { logRoot, name: "32-variant-promote-dry-run" },
+  );
+  const changesetSlug = `${chart.slug}-${versionSlug(defaultBase)}-variant-promote-${proofDateCompact}`;
+  const changesetRef = `${stagingSpace}/${changesetSlug}`;
+  const changesetRun = run(
+    "cub",
+    [
+      "changeset",
+      "create",
+      changesetSlug,
+      "--space",
+      stagingSpace,
+      "--description",
+      `${chart.displayName} variant promotion proof`,
+      "--label",
+      `Proof=${proofLabel}`,
+      "--label",
+      "Lane=variant-promotion",
+      "--allow-exists",
+    ],
+    { logRoot, name: "33-variant-promote-changeset", allowFailure: true },
+  );
+  const changesetPromoteRun =
+    changesetRun.status === 0
+      ? run(
+          "cub",
+          [
+            "variant",
+            "promote",
+            stagingSpace,
+            "--changeset",
+            changesetRef,
+            "--change-desc",
+            `${chart.displayName} variant promotion proof`,
+            "--verbose",
+          ],
+          { logRoot, name: "34-variant-promote-apply", allowFailure: true },
+        )
+      : {
+          status: 1,
+          stdout: "",
+          stderr: "changeset create failed; skipped changeset-bound promote",
+        };
+  const fallbackPromoteRun =
+    changesetPromoteRun.status === 0
+      ? null
+      : run(
+          "cub",
+          [
+            "variant",
+            "promote",
+            stagingSpace,
+            "--change-desc",
+            `${chart.displayName} variant promotion proof without changeset fallback`,
+            "--verbose",
+          ],
+          { logRoot, name: "35-variant-promote-apply-no-changeset", allowFailure: true },
+        );
+  const effectivePromoteRun = changesetPromoteRun.status === 0 ? changesetPromoteRun : fallbackPromoteRun;
+  const downstreamAfter =
+    effectivePromoteRun?.status === 0 ? oneUnit(stagingSpace, changedUnitSlug, logRoot, "36-promotion-downstream-after") : null;
+  const markerDownstream =
+    effectivePromoteRun?.status === 0 ? oneUnit(stagingSpace, markerSlug, logRoot, "37-promotion-marker-downstream") : null;
+
+  const changedUnitCaughtUp =
+    Boolean(downstreamAfter) &&
+    numberish(downstreamAfter.upstreamRevisionNum) >= numberish(upstreamAfter.headRevisionNum) &&
+    numberish(upstreamAfter.headRevisionNum) > numberish(upstreamBefore.headRevisionNum);
+  const addedUnitCloned = Boolean(markerDownstream?.slug) && Boolean(markerDownstream?.upstreamUnitID);
+  const promotionMechanicsPassed = changedUnitCaughtUp && addedUnitCloned;
+  const changesetPromotePassed = changesetRun.status === 0 && changesetPromoteRun.status === 0;
+  const result = promotionMechanicsPassed && changesetPromotePassed ? "pass" : promotionMechanicsPassed ? "watch" : "fail";
+  const reason =
+    result === "pass"
+      ? "server-side promotion passed through a changeset"
+      : result === "watch"
+        ? "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+        : "server-side promotion did not prove changed-unit catch-up and added-unit cloning";
+
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "VariantPromotionReceipt",
+    metadata: { name: `${chart.slug}-${versionSlug(defaultBase)}-variant-promotion-${proofDateCompact}` },
+    spec: {
+      observedAt: proofDate,
+      context: runContext(),
+      subject: {
+        chart: chart.chart,
+        chartVersion: chart.chartVersion,
+        packagePath: chart.packagePath,
+        variant: defaultBase,
+        upstreamSpace: space,
+        downstreamSpace: stagingSpace,
+      },
+      commands: {
+        upstreamUpdate: `cub unit update ${changedUnitSlug} ${relativeRepo(unitDataPath)} --space ${space} --change-desc ...`,
+        upstreamAddUnit: `cub unit create ${markerSlug} ${relativeRepo(markerPath)} --space ${space} --allow-exists`,
+        dryRun: "cub variant promote " + stagingSpace + " --dry-run -o mutations",
+        changeset: `cub changeset create ${changesetSlug} --space ${stagingSpace} --description ... --allow-exists`,
+        promote: `cub variant promote ${stagingSpace} --changeset ${changesetRef} --change-desc ...`,
+        fallbackPromote: `cub variant promote ${stagingSpace} --change-desc ...`,
+      },
+      upstreamChange: {
+        changedUnit: changedUnitSlug,
+        beforeHeadRevisionNum: upstreamBefore.headRevisionNum,
+        afterHeadRevisionNum: upstreamAfter.headRevisionNum,
+        annotation: `${annotationKey}=${marker}`,
+        updateResult: updateRun.status === 0 ? "pass" : "fail",
+      },
+      upstreamAddition: {
+        markerUnit: markerSlug,
+        upstreamUnitID: markerUpstream.id,
+        result: addRun.status === 0 ? "pass" : "fail",
+        proofOnly: true,
+      },
+      preview: {
+        result: dryRun.status === 0 ? "pass" : "fail",
+        output: shortSummary(dryRun.stdout || dryRun.stderr),
+      },
+      changeset: {
+        slug: changesetSlug,
+        result: changesetRun.status === 0 ? "pass" : "fail",
+        output: shortSummary(changesetRun.stdout || changesetRun.stderr),
+      },
+      promote: {
+        result: changesetPromoteRun.status === 0 ? "pass" : "fail",
+        output: shortSummary(changesetPromoteRun.stdout || changesetPromoteRun.stderr),
+      },
+      fallbackPromote: {
+        used: fallbackPromoteRun ? true : false,
+        result: fallbackPromoteRun ? (fallbackPromoteRun.status === 0 ? "pass" : "fail") : "not-used",
+        output: fallbackPromoteRun ? shortSummary(fallbackPromoteRun.stdout || fallbackPromoteRun.stderr) : "",
+      },
+      assertions: {
+        changedUnitCaughtUp: changedUnitCaughtUp ? "pass" : "fail",
+        upstreamHeadRevisionNum: upstreamAfter.headRevisionNum,
+        downstreamUpstreamRevisionNumBefore: downstreamBefore.upstreamRevisionNum,
+        downstreamUpstreamRevisionNumAfter: downstreamAfter?.upstreamRevisionNum ?? "",
+        addedUnitCloned: addedUnitCloned ? "pass" : "fail",
+        addedUnitSlug: markerSlug,
+        addedUnitDownstreamUpstreamUnitID: markerDownstream?.upstreamUnitID ?? "",
+        deletionHandling: "not-tested",
+        fieldOwnership: "not-tested",
+      },
+      result,
+      reason,
+      limitations: [
+        "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units.",
+        ...(result === "watch"
+          ? [
+              "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics.",
+            ]
+          : []),
+        "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence.",
+        "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set.",
+      ],
+    },
+  };
+}
+
 function renderedObjects(root) {
   return listYamlFiles(root).flatMap((file) => {
     const docs = parseDocs(readFileSync(file, "utf8"));
@@ -729,7 +1023,7 @@ function unitList(space, where, logRoot, name) {
     "--space",
     space,
     "--columns",
-    "Slug,HeadRevisionNum,DataHash,ToolchainType",
+    "ID,Slug,HeadRevisionNum,UpstreamRevisionNum,UpstreamUnitID,DataHash,ToolchainType",
     "-o",
     "json",
   ];
@@ -741,11 +1035,25 @@ function unitList(space, where, logRoot, name) {
     const unit = row.Unit ?? row;
     return {
       slug: unit.Slug,
+      id: unit.ID ?? unit.UnitID,
       headRevisionNum: unit.HeadRevisionNum,
+      upstreamRevisionNum: unit.UpstreamRevisionNum,
+      upstreamUnitID: unit.UpstreamUnitID,
       dataHash: unit.DataHash,
       toolchainType: unit.ToolchainType,
     };
   });
+}
+
+function oneUnit(space, slug, logRoot, name) {
+  const rows = unitList(space, `Slug = '${slug}'`, logRoot, name);
+  check(rows.length === 1, `${space} expected one Unit ${slug}, found ${rows.length}`);
+  return rows[0];
+}
+
+function numberish(value) {
+  const parsed = Number(value ?? 0);
+  return Number.isFinite(parsed) ? parsed : 0;
 }
 
 function chooseRepresentativeUnit(units) {

@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "kube-prometheus-stack-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "prometheus-community/kube-prometheus-stack"
+    chartVersion: "85.3.3"
+    packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
+    variant: "default"
+    upstreamSpace: "helm-kube-prometheus-stack-default-confighub-proof"
+    downstreamSpace: "KubePrometheusStack-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-monitoring-kube-prometheus-stack-grafana runs/kube-prometheus-stack-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-kube-prometheus-stack-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-kube-prometheus-stack-default runs/kube-prometheus-stack-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-kube-prometheus-stack-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote KubePrometheusStack-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create kube-prometheus-stack-default-variant-promote-20260527 --space KubePrometheusStack-default-staging --description ... --allow-exists"
+    promote: "cub variant promote KubePrometheusStack-default-staging --changeset KubePrometheusStack-default-staging/kube-prometheus-stack-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote KubePrometheusStack-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-monitoring-kube-prometheus-stack-grafana"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=kube-prometheus-stack-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-kube-prometheus-stack-default"
+    upstreamUnitID: "a75c01e4-5486-44c2-a086-4e7c1b97aaab"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-kube-prometheus-stack-default"
+  changeset:
+    slug: "kube-prometheus-stack-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset kube-prometheus-stack-default-variant-promote-20260527 (c5f75cc7-7de7-4012-8031-7600b124ed9f)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-monitoring-kube-prometheus-stack-grafana\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-kube-prometheus-stack-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-kube-prometheus-stack-default"
+    addedUnitDownstreamUpstreamUnitID: "a75c01e4-5486-44c2-a086-4e7c1b97aaab"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

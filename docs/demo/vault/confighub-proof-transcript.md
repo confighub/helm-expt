@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/vault-dev-mode
 cub installer package packages/hashicorp/vault/0.32.0 -o .tmp/confighub-proof/vault-archives/vault-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/vault-dev-mode --space helm-vault-confighub-proof --component Vault --layer App --environment Demo --owner ConfigHubHelm --variant dev-mode --unit-label Component=Vault --unit-label HelmChart=hashicorp-vault --unit-label HelmChartVersion=0.32.0 --unit-label Variant=dev-mode --unit-label Proof=vault-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/vault-dev-mode
-cub variant create staging helm-vault-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-vault-confighub-proof --environment Staging --region local --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
 cub unit list --space helm-vault-confighub-proof --where "Labels.Proof = 'vault-confighub-proof'"
 cub function vet vet-format --space helm-vault-confighub-proof --where "Labels.Proof = 'vault-confighub-proof'"
 cub unit apply --space helm-vault-confighub-proof --where "Labels.Proof = 'vault-confighub-proof'" --dry-run

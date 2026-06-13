@@ -50,7 +50,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Short technical explanation of the harness lifecycle and where user value is created. |
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed recipe-generation workflow and the table for where Helm pieces belong. |
 | [creating-variants.md](./user/creating-variants.md) | Simple guide to base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation. |
-| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant create` command surface and how Space/Unit metadata maps to derived variants. |
+| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant` command surface and how Space/Unit metadata maps to derived variants. |
 | [change-routing-before-oci.md](./user/change-routing-before-oci.md) | Short guide for choosing a base variant, derived ConfigHub variant, or delivery prerequisite before OCI handoff. |
 | [adopting-existing-apps.md](./user/adopting-existing-apps.md) | How existing Argo, Flux, KRM, rendered-manifest, and live-resource apps enter the ConfigHub model. |
 | [custom-overlays.md](./user/custom-overlays.md) | Plain-English ExternalDNS example for wrapper charts, platform values, customer overlay values, and target facts. |
@@ -134,7 +134,7 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed import workflow, recipe decisions, and hook policy. |
 | [choosing-commands.md](./user/choosing-commands.md) | User-facing command-routing guide for the Helm and ConfigHub command family. |
 | [creating-variants.md](./user/creating-variants.md) | Simple user guide for base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation. |
-| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant create` syntax, labels, annotations, targets, gates, and non-current variant verbs. |
+| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant` syntax for create, promote, and upload, including labels, annotations, targets, namespaces, and gates. |
 | [change-routing-before-oci.md](./user/change-routing-before-oci.md) | User-facing routing guide for base variants, derived variants, and delivery prerequisites before OCI handoff. |
 | [adopting-existing-apps.md](./user/adopting-existing-apps.md) | User-facing adoption path for existing Argo, Flux, KRM, rendered-manifest, and live-resource apps. |
 | [custom-overlays.md](./user/custom-overlays.md) | ExternalDNS managed overlay example with wrapper chart, platform values, customer values, target facts, and ConfigHub variant routing. |
@@ -195,7 +195,7 @@ ConfigHub primitives.
 | File | Role |
 | --- | --- |
 | [variant-creation-artifact.md](./reference/variant-creation-artifact.md) | Reference design for guided variant creation over existing ConfigHub capabilities. |
-| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | User-facing command surface for the current `cub variant create` clone/link substrate. |
+| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | User-facing command surface for current `cub variant` clone, promote, and upload operations. |
 | [redis-variant-creation-plan.yaml](./reference/redis-variant-creation-plan.yaml) | Concrete Redis variant creation blueprint. |
 | [variant-creator-verification.md](./reference/variant-creator-verification.md) | How Creator previews, checks, receipts, UX, agent, and fleet paths are verified. |
 | [derived-variant-live-proof.md](./reference/derived-variant-live-proof.md) | First live `cub variant create` execution receipts for derived ConfigHub variants. |

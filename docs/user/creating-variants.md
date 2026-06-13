@@ -208,6 +208,68 @@ created from a clean uploaded base, cloned with `cub variant create --target`,
 and reconciled by Argo CD. The richer guided preview screens shown later in
 this doc are proposals layered over these same commands.
 
+## Promoting A Later Base Change
+
+Every recipe-backed chart gets the same ConfigHub promotion mechanism once it
+has:
+
+- a reviewed `cub installer` base rendered from the recipe;
+- an uploaded upstream ConfigHub Space for that reviewed base;
+- one or more downstream Spaces created with `cub variant create`.
+
+The promotion capability is part of ConfigHub server use. It is not something
+each Helm recipe has to invent. The recipe creates the reviewed upstream object
+set; ConfigHub gives users a repeatable way to stage, preview, approve, and
+roll that object set into downstream variants.
+
+Do not treat that as a blanket production claim. A chart/base should advertise
+promotion support only after its own promotion receipt proves the expected
+behavior: changed upstream Units are previewed, new upstream Units are added,
+intended downstream field ownership is preserved, and any deletions or
+unsupported merge cases are either handled or refused with a named reason.
+
+When the recipe or base is refreshed, rerender and review the upstream base
+first. Then promote each downstream variant from that reviewed upstream Space:
+
+```sh
+# Preview changed Units and mutation paths.
+cub variant promote <downstream-space> --dry-run -o mutations
+
+# Promote through the normal ConfigHub review path.
+cub changeset create <release-name> --space <downstream-space>
+cub variant promote <downstream-space> \
+  --changeset <release-name> \
+  --change-desc "Promote reviewed base update"
+```
+
+That gives the rollout a visible sequence:
+
+```text
+recipe/base refresh
+-> reviewed upstream Space
+-> dry-run downstream mutation preview
+-> changeset and approval
+-> apply/publish to the target
+-> live observation
+```
+
+This is not a hidden Helm upgrade. Helm-render-changing choices still belong in
+the `cub installer` recipe/package path. `cub variant promote` carries the
+reviewed ConfigHub changes into derived variants so staging, production, and
+customer Spaces can move in controlled waves.
+
+When a downstream variant intentionally owns a field differently from the
+upstream, record that boundary explicitly. `cub unit set-predicates` can mark a
+path as protected or reopen it for future upstream merges:
+
+```sh
+cub unit set-predicates <unit> --space <downstream-space> \
+  --predicate "apps/v1/Deployment:monitoring/prometheus-server:spec.replicas=false"
+```
+
+That makes promotion safer because local ownership is represented as ConfigHub
+data, not as an undocumented patch.
+
 ## Delivery Prerequisites
 
 Before OCI publication or GitOps sync, the artifact should already represent
@@ -259,6 +321,7 @@ Current building blocks:
 cub installer setup
 cub installer upload
 cub variant create
+cub variant promote
 ConfigHub Units, Spaces, labels, links, gates, functions, and receipts
 ```
 
@@ -268,15 +331,18 @@ The current CLI primitive is:
 cub variant create prod-us-east helm-prometheus-server-only \
   --environment Prod \
   --region us-east \
-  --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'
+  --namespace monitoring-prod \
+  --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'
 ```
 
 That command clones the upstream Space and Units, sets the downstream Space
 labels to `Variant=prod-us-east`, `Environment=Prod`, and `Region=us-east`, and
 links the cloned Units back to their upstream Units. Add `--target
-<target-slug>` only when the target already exists. Cloned Units keep their
-source base labels unless a post-clone trigger or later bulk update changes
-them.
+<target-slug>` only when the target already exists. Use `--namespace` only when
+the upstream base was uploaded with a placeholder namespace and the derived
+variant should set a concrete namespace on cloned Kubernetes/YAML Units.
+Cloned Units keep their source base labels unless a post-clone trigger or later
+bulk update changes them.
 
 Current live target-bound example:
 

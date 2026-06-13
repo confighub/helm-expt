@@ -6,7 +6,7 @@ metadata:
 spec:
   executionMode: "golden-target-not-live-execution"
   issue: "https://github.com/confighub/helm-expt/issues/144"
-  command: "cub variant create staging-eu-west helm-redis-confighub-proof --environment Staging --region eu-west --target redis-targets/staging-eu-west --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
+  command: "cub variant create staging-eu-west helm-redis-confighub-proof --environment Staging --region eu-west --target redis-targets/staging-eu-west --namespace redis-staging --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
   sourceSpace: "helm-redis-confighub-proof"
   downstreamSpace: "Redis-staging-eu-west"
   sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"

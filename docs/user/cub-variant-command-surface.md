@@ -5,22 +5,22 @@
 This page records the current `cub variant` surface used by the tutorial and
 Creator-style docs. Treat local CLI help as the source of truth.
 
-Current command:
+Current commands:
 
 ```text
 cub variant create
+cub variant promote
+cub variant upload
 ```
 
-Not current local commands:
+Not current local command:
 
 ```text
-cub variant upload
-cub variant promote
 cub variant release
 ```
 
-Those may be useful product lanes, but user docs should describe them only as
-planned or candidate work until the CLI exposes them.
+`cub variant release` may become a useful product lane, but user docs should
+describe it only as planned or candidate work until the CLI exposes it.
 
 ## What Create Does
 
@@ -42,7 +42,8 @@ Example:
 cub variant create prod-us-east helm-prometheus-server-only \
   --environment Prod \
   --region us-east \
-  --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
+  --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
+  --namespace monitoring-prod \
   --unit-delete-gate production-review \
   --unit-destroy-gate production-review
 ```
@@ -74,6 +75,9 @@ The downstream Space inherits labels from the upstream Space, then overrides
 Use `--variant-labels` for additional Space labels. Use
 `--space-annotation` for Space annotations. Use `--target` only when the target
 already exists; it also sets the downstream Space's `TargetID` annotation.
+Use `--namespace` when the upstream Space was uploaded with a placeholder
+namespace and the derived variant should set a concrete namespace by running
+`set-namespace` on cloned Kubernetes/YAML Units.
 
 Unit metadata is separate:
 
@@ -92,6 +96,41 @@ Use `cub variant create` when the reviewed object set stays the same and the
 change is post-render ConfigHub metadata, target, gates, links, facts, checks,
 or approved field fills.
 
+Use `cub variant promote` when a downstream Space created by `cub variant
+create` should catch up with changes in its upstream Space. Start with
+`--dry-run -o mutations` so the changed Units and mutation paths are reviewed
+before writing.
+
+The normal chart lifecycle is:
+
+```text
+cub installer recipe/base refresh
+-> cub installer upload to the reviewed upstream Space
+-> cub variant promote downstream Spaces
+-> changeset, approval, apply or OCI/GitOps delivery
+```
+
+This is a ConfigHub server capability, not a helm-expt-only harness trick. Any
+component that is represented as an upstream ConfigHub Space with downstream
+Spaces created by `cub variant create` can use the same staging and rollout
+pattern. helm-expt uses Helm charts to show the pattern, but the promotion
+operation belongs to ConfigHub.
+
+The command being available does not mean every chart/base is already proven
+safe to promote in production. A chart/base should claim promotion support only
+after its promotion receipt covers changed Units, added Units, local field
+ownership, and any deletion or refusal case relevant to that base.
+
+Use `cub unit set-predicates` for explicit field ownership when a downstream
+variant should keep a local override during future promotion. For example, a
+production variant can protect one workload's `spec.replicas` field, then
+reopen that path later.
+
+Use `cub variant upload` for already-rendered manifests that you want to ingest
+directly as a ConfigHub variant Space. In helm-expt's curated catalog path,
+`cub installer upload` remains the preferred upload step because the package
+receipt, base, and recipe proof are part of the contract.
+
 Use a `cub installer` base variant when Helm must render a different object
 set, object shape, topology, dependency set, or lifecycle behavior.
 
@@ -105,16 +144,17 @@ Delivery blockers -> delivery prerequisite before GitOps or OCI handoff.
 
 ## Common Mistakes
 
-Do not write current examples with `--extends` or `--space`. The current CLI
-uses positional arguments:
+Do not write current `cub variant create` examples with `--extends` or
+`--space`. The current create command uses positional arguments:
 
 ```text
 <variant-name> <upstream-space>
 ```
 
-Do not describe `upload`, `promote`, or `release` as current `cub variant`
-subcommands. Use `cub installer upload` for uploading a reviewed base into
-ConfigHub. Treat promote/release as product design lanes until implemented.
+Do not use the old `--space-name-pattern` flag. The current flag is
+`--space-pattern`.
+
+Do not describe `release` as a current `cub variant` subcommand.
 
 ## Related Docs
 

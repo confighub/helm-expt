@@ -42,7 +42,7 @@ spec:
         - --unit-annotation
         - --unit-delete-gate
         - --unit-destroy-gate
-        - --space-name-pattern
+        - --space-pattern
     customization:
       - placeholders
       - TransformPaths links

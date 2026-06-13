@@ -6,7 +6,7 @@ metadata:
 spec:
   executionMode: "golden-target-not-live-execution"
   issue: "https://github.com/confighub/helm-expt/issues/144"
-  command: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+  command: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --namespace redis-prod --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
   sourceSpace: "helm-redis-confighub-proof"
   downstreamSpace: "Redis-prod-us-east"
   sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"

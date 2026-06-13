@@ -325,7 +325,7 @@ Then clone the Space into a derived ConfigHub variant:
 cub variant create prod-us-east helm-prometheus-server-only \
   --environment Prod \
   --region us-east \
-  --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
+  --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
   --unit-delete-gate production-review \
   --unit-destroy-gate production-review
 ```
@@ -334,6 +334,16 @@ Add `--target <target-slug>` only when the target already exists. The command
 sets the downstream Space labels such as `Variant=prod-us-east`,
 `Environment=Prod`, and `Region=us-east`. Cloned Units keep the source base
 labels unless a post-clone trigger or later bulk update changes them.
+
+When the reviewed upstream base changes later, preview the downstream update
+before writing it:
+
+```sh
+cub variant promote prod-us-east --dry-run -o mutations
+```
+
+Then promote through a changeset and the same approval/delivery path used for
+other ConfigHub operations.
 
 A future/polished [Creator flow](../reference/variant-creation-artifact.md#creator-status)
 should present this as:

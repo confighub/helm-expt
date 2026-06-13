@@ -23,7 +23,8 @@ Three newer planning inputs sharpen this queue:
   variants; 80 generated proofs (`next80`); 20/20 local-kind e2e + ConfigHub proof receipts; top-500
   analysis done.
 - `cub variant create` now exists and is the real current substrate for downstream ConfigHub variants.
-  Local CLI truth does **not** show `cub variant upload`, `cub variant promote`, or `cub variant release`.
+  Local CLI truth also shows `cub variant promote` and `cub variant upload`; `cub variant release`
+  is not current.
 - The catalog proves base/render variants much more strongly than derived ConfigHub variants. That is now
   an explicit gap, not a side note: derived variants need enough goldens, tutorials, metrics, and receipts
   that users can see them doing useful work.

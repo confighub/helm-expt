@@ -15,6 +15,7 @@ other.
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <package> --base <base>` |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
 | Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant. | `cub variant create` |
+| Catch a derived ConfigHub variant up with its reviewed upstream Space. | `cub variant promote --dry-run -o mutations`, then `cub variant promote` |
 | Prove a repo artifact or live lane has not drifted. | the relevant `npm run ...` verifier |
 
 The durable catalog path starts at `cub installer`, not at `cub helm install`.
@@ -39,6 +40,7 @@ path below.
 | `cub installer setup --pull ... --base ...` | Per-chart `CATALOG.md`, `helm-equivalence-receipt.yaml`, and `data/outcome-coverage/base-outcomes.csv`. | The selected base has a recorded recipe/package proof and render-parity status. |
 | `cub installer upload` | ConfigHub Units, upload/scan/safe-operation receipts, and `data/outcome-coverage/base-outcomes.csv`. | The rendered base exists in ConfigHub with the receipt lanes that are present for that row. |
 | `cub variant create` | Derived variant receipt, upstream links, changed labels/target/gates, and `data/derived-variant-target-bound/summary.md` if it was delivered live. | A reviewed uploaded base was cloned/refined post-render. It is not a Helm rerender. |
+| `cub variant promote` | Dry-run mutations, changed Units, upstream links, and any changeset/approval receipts. | A downstream variant was reconciled with its upstream Space through ConfigHub, not by silently rerendering Helm. |
 | OCI/GitOps delivery | Runtime/GitOps receipt, controller status, workload checks, and `data/runtime-gitops/summary.md`. | The selected row was reconciled by Argo or Flux only if a committed receipt says so. |
 | Two-cluster live parity | `data/live-kind-parity/summary.md` and the row receipt. | Regular Helm and `cub installer` reached the recorded live outcome for that exact chart/base row. |
 
@@ -52,7 +54,7 @@ full catalog model on day one.
 | Inspect | `cub helm template` | Render the chart locally and see the Kubernetes objects. |
 | Adopt quickly | `cub helm install` | Load one rendered Helm result into ConfigHub Units. |
 | Use a maintained catalog entry | `cub installer setup --pull <package> --base <base>` | Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks. |
-| Operate | `cub installer upload`, `cub variant create`, ConfigHub changesets, scans, approvals, OCI/GitOps, observations | Manage reviewed objects as ConfigHub Units and derived variants. |
+| Operate | `cub installer upload`, `cub variant create`, `cub variant promote`, ConfigHub changesets, scans, approvals, OCI/GitOps, observations | Manage reviewed objects as ConfigHub Units and derived variants. |
 
 Existing apps enter through the same model without a recipe rewrite:
 
@@ -145,6 +147,32 @@ It should not be used to hide a Helm rerender. If the request changes Helm
 render inputs, object count, object shape, or lifecycle behavior, route back to
 a `cub installer` base variant.
 
+### `cub variant promote`
+
+Use this when a downstream Space was created by `cub variant create` and the
+reviewed upstream Space has changed. This is a normal ConfigHub server
+operation for components represented as upstream/downstream Spaces, not a
+helm-expt-only workflow.
+
+Start with:
+
+```sh
+cub variant promote <downstream-space> --dry-run -o mutations
+```
+
+Good for:
+
+- seeing which downstream Units are behind their upstream Units;
+- previewing mutation paths before writing;
+- cloning Units that were added upstream after the downstream variant was
+  created;
+- associating the change with a ConfigHub changeset and change description.
+
+It should not be treated as a Helm upgrade by another name. If the upstream
+change required a Helm rerender, that rerender belongs in the `cub installer`
+recipe/package path first. `cub variant promote` then carries the reviewed
+upstream changes into the downstream ConfigHub variant.
+
 ## Routing Table
 
 | Request | Route |
@@ -154,7 +182,8 @@ a `cub installer` base variant.
 | "Use the supported Redis catalog entry." | `cub installer setup --pull packages/bitnami/redis/25.5.3 --base default` |
 | "Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology." | create or choose a `cub installer` base variant |
 | "Fill `extraDeploy`, `serverBlock`, `tpl`, sidecar, raw manifest, or config-block slots." | create or choose a reviewed `cub installer` base variant |
-| "Promote this reviewed Prometheus base to prod-us-east." | `cub variant create` over the uploaded ConfigHub Space |
+| "Create prod-us-east from this reviewed Prometheus base." | `cub variant create` over the uploaded ConfigHub Space |
+| "Bring prod-us-east up to the latest reviewed Prometheus base." | `cub variant promote prod-us-east --dry-run -o mutations`, then promote through a changeset |
 | "Change target, environment, region, gates, labels, links, or observation policy." | derived ConfigHub variant |
 | "Use an existing Secret that changes chart rendering." | base variant |
 | "Bind an existing Secret reference already exposed by the base." | derived ConfigHub variant plus target-fact checks |
