@@ -57,13 +57,13 @@ spec:
   proofSummary:
     adoptionBucket: "promote-after-review"
     userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "two-cluster-kind-parity"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "3/3"
-      inConfigHub: "1/3"
+      inConfigHub: "3/3"
       localLive: "3/3"
-      gitopsLive: "0/3"
-      liveParity: "0/3"
+      gitopsLive: "3/3"
+      liveParity: "3/3"
     featureSummary: "crds;webhooks;required-values;extension-slots;remote-dependencies"
     hardGap: "-"
     nextAction: "run catalog promotion review"

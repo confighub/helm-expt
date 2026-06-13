@@ -50,13 +50,13 @@ spec:
   proofSummary:
     adoptionBucket: "promote-after-review"
     userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "two-cluster-kind-parity"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "1/2"
+      inConfigHub: "2/2"
       localLive: "2/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      gitopsLive: "1/2"
+      liveParity: "1/2"
     featureSummary: "extension-slots"
     hardGap: "-"
     nextAction: "run catalog promotion review"

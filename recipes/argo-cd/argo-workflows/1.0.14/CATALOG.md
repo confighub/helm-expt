@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
 | Strongest evidence | local-kubernetes-live |
-| Proof lanes | render parity 3/3; ConfigHub 2/3; local live 1/3; GitOps live 0/3; live parity 0/3 |
+| Proof lanes | render parity 3/3; ConfigHub 3/3; local live 1/3; GitOps live 0/3; live parity 0/3 |
 | Feature summary | extension-slots |
 | Hard gap | - |
 | Next action | run catalog promotion review |

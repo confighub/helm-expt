@@ -56,9 +56,9 @@ spec:
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "2/2"
-      localLive: "1/2"
-      gitopsLive: "1/2"
-      liveParity: "1/2"
+      localLive: "2/2"
+      gitopsLive: "2/2"
+      liveParity: "2/2"
     featureSummary: "crds;extension-slots;remote-dependencies"
     hardGap: "-"
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"

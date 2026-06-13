@@ -55,13 +55,13 @@ spec:
   proofSummary:
     adoptionBucket: "limitation-decision-first"
     userStatus: "proof-grade-with-named-limitation"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "2/2"
-      localLive: "1/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      localLive: "2/2"
+      gitopsLive: "2/2"
+      liveParity: "2/2"
     featureSummary: "hooks;generated-secrets;crds;required-values;values-schema;install-vs-upgrade;extension-slots;remote-dependencies;dependency-range-frozen"
     hardGap: "existing-secret (chart ships no Secret toggle)"
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"

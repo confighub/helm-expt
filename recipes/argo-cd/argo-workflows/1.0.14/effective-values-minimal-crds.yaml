@@ -10,3 +10,6 @@ spec:
   profile: "minimal-crds"
   renderDelta: "crds.full=false"
   mergedValuesCaptured: false
+  values:
+    crds:
+      full: false

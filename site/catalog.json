@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-13T06:07:46.282Z",
+  "generatedAt": "2026-06-13T06:40:10.803Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -951,8 +951,8 @@
     {
       "section": "hooks",
       "metric": "hook/lifecycle boundary rows",
-      "value": "9",
-      "total": "9",
+      "value": "10",
+      "total": "10",
       "status": "partial",
       "source": "data/lifecycle-boundary/lifecycle-boundary.csv",
       "note": "Separates hook queue rows from hook-like controller lifecycle observations."

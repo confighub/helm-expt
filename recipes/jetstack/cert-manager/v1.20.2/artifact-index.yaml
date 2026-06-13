@@ -61,7 +61,7 @@ spec:
       liveParity: "2/2"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
+    nextAction: "write or fix the receipt for target fact preflight"
   installerPackage:
     path: "packages/jetstack/cert-manager/v1.20.2"
     installer: "packages/jetstack/cert-manager/v1.20.2/installer.yaml"

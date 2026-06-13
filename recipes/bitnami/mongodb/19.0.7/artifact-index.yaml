@@ -59,7 +59,7 @@ spec:
     strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "1/2"
+      inConfigHub: "2/2"
       localLive: "2/2"
       gitopsLive: "2/2"
       liveParity: "2/2"
