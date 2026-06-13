@@ -86,7 +86,7 @@ spec:
       name: "minimal-crds"
       path: "bases/minimal-crds"
   collector:
+    command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    command: "/bin/sh"
     description: "Records target-fact bindings and can live-check cluster-visible requirements."

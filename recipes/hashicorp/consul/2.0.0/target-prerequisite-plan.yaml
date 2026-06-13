@@ -1,0 +1,96 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetPrerequisitePlan"
+metadata:
+  name: "hashicorp-consul-2.0.0-secure-mesh-existing-secrets"
+spec:
+  chart: "hashicorp/consul@2.0.0"
+  base: "secure-mesh-existing-secrets"
+  scope: "preflight requirements before claiming live readiness for the secure mesh base"
+  prerequisites:
+    schedulableTopology:
+      minimumSchedulableNodes: 3
+      reason: "three Consul server replicas use pod anti-affinity"
+    persistentStorage:
+      required: true
+      reason: "each Consul server replica creates a persistent data volume"
+    secrets:
+      - name: "consul-ca-cert"
+        namespace: "consul"
+        keys:
+          - "tls.crt"
+        validation:
+          - "certificate parses"
+          - "certificate signs consul-server-cert"
+      - name: "consul-server-cert"
+        namespace: "consul"
+        keys:
+          - "tls.crt"
+          - "tls.key"
+        validation:
+          - "certificate parses"
+          - "private key matches certificate"
+          - "certificate verifies against consul-ca-cert"
+          - "DNS SAN covers server.dc1.consul"
+          - "DNS SAN covers consul-consul-server.consul.svc"
+          - "DNS SAN covers the rendered regular-Helm, direct-apply, and OCI namespaces used by the proof target"
+      - name: "consul-gossip-encryption-key"
+        namespace: "consul"
+        keys:
+          - "key"
+        validation:
+          - "material is valid for Consul gossip encryption"
+      - name: "consul-bootstrap-acl-token"
+        namespace: "consul"
+        keys:
+          - "token"
+        validation:
+          - "token is accepted by ACL bootstrap/init workflow"
+    policyReviews:
+      - "CRD ownership for Consul and Gateway API CRDs"
+      - "cluster RBAC for server, injector, gateway, webhook certificate manager, and ACL init resources"
+      - "injector webhook readiness"
+      - "namespace reference alignment for service DNS names, Secret namespaces, ACL init, and gateway references"
+      - "mesh, ingress, and terminating gateway exposure"
+      - "UI ingress exposure"
+    namespaceReferences:
+      required: true
+      renderedNamespace: "consul"
+      validation:
+        - "target Secrets are staged in the namespace expected by the rendered manifests"
+        - "server certificate SANs cover the service DNS names for the rendered namespace"
+        - "ACL init, injector, and gateway references do not point at a different namespace unless the base was rerendered or an explicit namespace transform was reviewed"
+      reason: "Consul secure mesh has namespace-bearing service DNS and Secret references. Moving the same rendered objects into another namespace is not a safe post-render change unless those references are part of the reviewed transform."
+    serviceAccountTokenSecrets:
+      required: true
+      examples:
+        - "consul-consul-auth-method"
+      validation:
+        - "the service-account-token Secret is present before ACL init and connect-injector startup are judged healthy"
+        - "the Secret is treated as Kubernetes-generated lifecycle state, not as a user-provided credential"
+        - "the OCI/GitOps path either delivers, stages, or otherwise observes this generated Secret dependency before claiming runtime readiness"
+      reason: "The secure mesh base renders a kubernetes.io/service-account-token Secret that the ACL init and connect injector wait for. If an OCI/GitOps path drops or fails to stage this Secret, the servers can run while the mesh lifecycle remains blocked."
+  observedRehearsals:
+    - date: "2026-06-13"
+      lane: "selected live Helm-vs-ConfigHub comparison"
+      targetProfile: "kind-three-node"
+      result: "blocked-before-parity-claim"
+      summary: "The three-node target scheduled the servers and bound PVCs, but the generated test server certificate had CN=helm-expt.local and no SAN extension. Consul rejected it for server.dc1.consul and consul-consul-server.<namespace>.svc, preventing leader election and ACL init."
+      nextAction: "Generate or supply Consul server TLS material that satisfies the rendered service DNS names."
+    - date: "2026-06-13"
+      lane: "selected live Helm-vs-ConfigHub comparison"
+      targetProfile: "kind-three-node"
+      result: "regular-helm-converged-configHub-namespace-proof-needed"
+      summary: "After SAN-aware target-fact staging, the regular Helm leg reached healthy runtime with three Consul servers, gateways, injector, webhook certificate manager, PVCs, and ACL lifecycle jobs. The ConfigHub direct-apply leg exposed the remaining namespace contract: the rendered ACL init command still passed -k8s-namespace=consul while the isolated proof leg ran in consul-apply, so the service account could not read the bootstrap token in the rendered namespace."
+      nextAction: "Add a fixed-rendered-namespace live parity mode for namespace-bound bases, or rerender the base deliberately for each target namespace before claiming ConfigHub parity."
+    - date: "2026-06-13"
+      lane: "selected live Helm-vs-ConfigHub comparison"
+      targetProfile: "kind-three-node"
+      result: "regular-helm-and-direct-apply-converged-oci-lifecycle-proof-needed"
+      summary: "With fixed rendered namespace mode and SAN-aware target-fact staging, regular Helm and ConfigHub direct apply both converged. The ConfigHub OCI/Argo leg materialized the child Application and applied the workload objects, but ACL init and the connect injector repeatedly failed waiting for the rendered service-account-token Secret consul-consul-auth-method. Servers and PVCs were healthy, but the mesh lifecycle was not."
+      nextAction: "Teach the OCI/GitOps lane how to deliver, stage, or explicitly observe rendered service-account-token Secrets before claiming Consul secure mesh readiness."
+  notProvenBy:
+    - "render parity"
+    - "Secret object presence"
+    - "tls.crt/tls.key key presence"
+    - "generic namespace rewriting"
+    - "server StatefulSet readiness alone"

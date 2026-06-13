@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 8
       semanticObjectMatches: "8/8"
       separatedSecretCount: 0
-      variant: "controller-default-reviewed"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "controller-default-reviewed"

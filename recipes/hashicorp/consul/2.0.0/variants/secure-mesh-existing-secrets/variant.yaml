@@ -7,6 +7,9 @@ spec:
   namespace: "consul"
   releaseName: "consul"
   valuesProfile: "../../effective-values-secure-mesh-existing-secrets.yaml"
+  liveParity:
+    namespaceMode: "fixed-rendered-namespace"
+    reason: "Consul secure mesh renders namespace-bearing service DNS, Secret namespace, and ACL init command references. Live parity must use the rendered namespace or a deliberately rerendered base."
   capabilityProfile:
     kubeVersion: "1.30.0"
     apiVersions:
@@ -19,14 +22,26 @@ spec:
         name: "consul-ca-cert"
         keys:
           - "tls.crt"
-        purpose: "Consul TLS CA certificate"
+        purpose: "Consul TLS CA certificate; must sign consul-server-cert"
       -
         namespace: "consul"
         name: "consul-server-cert"
         keys:
           - "tls.crt"
           - "tls.key"
-        purpose: "Consul server TLS certificate and private key"
+        purpose: "Consul server TLS certificate and private key; certificate SANs must cover server.dc1.consul and rendered consul-consul-server service DNS names"
+        caSecretName: "consul-ca-cert"
+        requiredDNSNames:
+          - "server.dc1.consul"
+          - "consul-consul-server"
+          - "consul-consul-server.consul"
+          - "consul-consul-server.consul.svc"
+          - "consul-consul-server.consul-helm"
+          - "consul-consul-server.consul-helm.svc"
+          - "consul-consul-server.consul-apply"
+          - "consul-consul-server.consul-apply.svc"
+          - "consul-consul-server.consul-oci"
+          - "consul-consul-server.consul-oci.svc"
       -
         namespace: "consul"
         name: "consul-gossip-encryption-key"

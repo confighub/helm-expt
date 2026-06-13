@@ -28,6 +28,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - Helm hooks are excluded from proof renders, while the secure variant's normal ACL init Job remains visible as an install lifecycle object.
 - secure-mesh-existing-secrets needs a target topology that can schedule three Consul server replicas with pod anti-affinity; one-node kind is useful for object parity but not for live readiness.
 - target-topology.yaml records the target shape required for the secure mesh base.
+- target-prerequisite-plan.yaml records the stricter Secret and namespace-reference contracts for the secure mesh base. The server TLS Secret must be valid for Consul's expected DNS identities, and deployment namespaces must match the rendered Consul service and Secret references or be rerendered deliberately. A SAN-aware live rehearsal got the regular Helm leg to healthy runtime, but the ConfigHub isolated-namespace legs still need a fixed-namespace or rerendered-base proof path.
 - server extra config, injector, controller, gateway, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled.
 
 ## Catalog Mitigations
@@ -47,10 +48,11 @@ operating-policy dispositions plus a final target-scoped support decision.
 | source-lock | handled | source-lock.yaml |
 | dependency-lock | handled | chart declares no subchart dependencies; the empty closure is recorded explicitly. |
 | capability-profile | handled | Kubernetes API and version branches are bound to the named Kubernetes capability profile. |
-| target-facts | variant-controlled | The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material. |
+| target-facts | variant-controlled | The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material. The server TLS Secret contract includes certificate identity, not just Secret/key presence. |
 | crd-ownership | scan-and-review | The chart templates 28 CRDs, including Gateway API CRDs that may already be cluster-managed. |
 | stateful-workload | scan-and-review | apps/v1\|StatefulSet\|consul\|consul-consul-server |
-| target-topology | target-fit-required | The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness. |
+| target-topology | target-fit-required | The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness. A three-node rehearsal first exposed invalid server TLS SANs; after SAN-aware target facts, the regular Helm leg converged. |
+| namespace-references | target-fit-required | The secure-mesh-existing-secrets base contains Consul service DNS, Secret namespace, and ACL init command references that are part of the rendered contract. Deploying the same render into a different namespace needs an explicit namespace-reference preflight, fixed-namespace live mode, or a rerendered base. |
 | admission-webhook | scan-and-review | admissionregistration.k8s.io/v1\|MutatingWebhookConfiguration\|consul\|consul-consul-connect-injector |
 | cluster-rbac | scan-and-review | Default and secure variants render broad cluster RBAC for server, injector, gateway resources, and webhook certificate manager. |
 | mesh-gateway-policy | variant-controlled | The secure-mesh-existing-secrets variant enables mesh, ingress, and terminating gateways with ClusterIP services. |
@@ -70,6 +72,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - installer-support-object
 - lifecycle-policy
 - mesh-gateway-policy
+- namespace-references
 - raw-template-extension-slots
 - source-lock
 - stateful-workload

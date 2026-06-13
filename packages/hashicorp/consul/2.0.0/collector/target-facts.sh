@@ -85,13 +85,26 @@ targetFacts:
     - tls.crt
     name: consul-ca-cert
     namespace: consul
-    purpose: Consul TLS CA certificate
-  - keys:
+    purpose: Consul TLS CA certificate; must sign consul-server-cert
+  - caSecretName: consul-ca-cert
+    keys:
     - tls.crt
     - tls.key
     name: consul-server-cert
     namespace: consul
-    purpose: Consul server TLS certificate and private key
+    purpose: Consul server TLS certificate and private key; certificate SANs must cover
+      server.dc1.consul and rendered consul-consul-server service DNS names
+    requiredDNSNames:
+    - server.dc1.consul
+    - consul-consul-server
+    - consul-consul-server.consul
+    - consul-consul-server.consul.svc
+    - consul-consul-server.consul-helm
+    - consul-consul-server.consul-helm.svc
+    - consul-consul-server.consul-apply
+    - consul-consul-server.consul-apply.svc
+    - consul-consul-server.consul-oci
+    - consul-consul-server.consul-oci.svc
   - keys:
     - key
     name: consul-gossip-encryption-key

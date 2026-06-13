@@ -22,7 +22,7 @@ spec:
       category: "target-facts"
       status: "variant-controlled"
       evidence: "global.tls.caCert / server.serverCert / gossipEncryption / acl bootstrap token"
-      note: "The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material."
+      note: "The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material. The server TLS Secret contract includes certificate identity, not just Secret/key presence."
     -
       category: "crd-ownership"
       status: "scan-and-review"
@@ -36,7 +36,12 @@ spec:
       category: "target-topology"
       status: "target-fit-required"
       evidence: "target-topology.yaml"
-      note: "The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness."
+      note: "The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness. A three-node rehearsal first exposed invalid server TLS SANs; after SAN-aware target facts, the regular Helm leg converged."
+    -
+      category: "namespace-references"
+      status: "target-fit-required"
+      evidence: "target-prerequisite-plan.yaml"
+      note: "The secure-mesh-existing-secrets base contains Consul service DNS, Secret namespace, and ACL init command references that are part of the rendered contract. Deploying the same render into a different namespace needs an explicit namespace-reference preflight, fixed-namespace live mode, or a rerendered base."
     -
       category: "admission-webhook"
       status: "scan-and-review"

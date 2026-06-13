@@ -13,6 +13,7 @@ spec:
     - "Helm hooks are excluded from proof renders, while the secure variant's normal ACL init Job remains visible as an install lifecycle object."
     - "secure-mesh-existing-secrets needs a target topology that can schedule three Consul server replicas with pod anti-affinity; one-node kind is useful for object parity but not for live readiness."
     - "target-topology.yaml records the target shape required for the secure mesh base."
+    - "target-prerequisite-plan.yaml records the stricter Secret and namespace-reference contracts for the secure mesh base. The server TLS Secret must be valid for Consul's expected DNS identities, and deployment namespaces must match the rendered Consul service and Secret references or be rerendered deliberately. A SAN-aware live rehearsal got the regular Helm leg to healthy runtime, but the ConfigHub isolated-namespace legs still need a fixed-namespace or rerendered-base proof path."
     - "server extra config, injector, controller, gateway, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled."
   knownControlPoints:
     - "target-facts"
@@ -21,6 +22,7 @@ spec:
     - "admission-webhook"
     - "stateful-workload"
     - "target-topology"
+    - "namespace-references"
     - "mesh-gateway-policy"
     - "ui-ingress-policy"
     - "lifecycle-policy"

@@ -23,6 +23,7 @@ spec:
     - "Helm hooks are excluded from proof renders, while the secure variant's normal ACL init Job remains visible as an install lifecycle object."
     - "secure-mesh-existing-secrets needs a target topology that can schedule three Consul server replicas with pod anti-affinity; one-node kind is useful for object parity but not for live readiness."
     - "target-topology.yaml records the target shape required for the secure mesh base."
+    - "target-prerequisite-plan.yaml records the stricter Secret and namespace-reference contracts for the secure mesh base. The server TLS Secret must be valid for Consul's expected DNS identities, and deployment namespaces must match the rendered Consul service and Secret references or be rerendered deliberately. A SAN-aware live rehearsal got the regular Helm leg to healthy runtime, but the ConfigHub isolated-namespace legs still need a fixed-namespace or rerendered-base proof path."
     - "server extra config, injector, controller, gateway, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled."
   painPoints:
     -
@@ -54,7 +55,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "target-facts"
-      detectedPainPoint: "The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material."
+      detectedPainPoint: "The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material. The server TLS Secret contract includes certificate identity, not just Secret/key presence."
       evidence:
         - "global.tls.caCert / server.serverCert / gossipEncryption / acl bootstrap token"
       configHubHome: "target-fact-requirement"
@@ -81,12 +82,21 @@ spec:
       supportedVariantStatus: "scan-and-review"
     -
       id: "target-topology"
-      detectedPainPoint: "The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness."
+      detectedPainPoint: "The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness. A three-node rehearsal first exposed invalid server TLS SANs; after SAN-aware target facts, the regular Helm leg converged."
       evidence:
         - "target-topology.yaml"
       configHubHome: "target-fact-requirement"
       disposition: "handled-by-target-fact-values"
       linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "target-fit-required"
+    -
+      id: "namespace-references"
+      detectedPainPoint: "The secure-mesh-existing-secrets base contains Consul service DNS, Secret namespace, and ACL init command references that are part of the rendered contract. Deploying the same render into a different namespace needs an explicit namespace-reference preflight, fixed-namespace live mode, or a rerendered base."
+      evidence:
+        - "target-prerequisite-plan.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "target-fit-required"
     -
       id: "admission-webhook"

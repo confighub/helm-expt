@@ -34,6 +34,7 @@ spec:
       - "installer-support-object"
       - "lifecycle-policy"
       - "mesh-gateway-policy"
+      - "namespace-references"
       - "source-lock"
       - "stateful-workload"
       - "target-facts"
@@ -70,7 +71,7 @@ spec:
     path: "packages/hashicorp/consul/2.0.0"
     installer: "packages/hashicorp/consul/2.0.0/installer.yaml"
     receipt: "recipes/hashicorp/consul/2.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e9c7b25aa28bd39fa4f1713d8862955c71e83b345b451bc688e6f36f5d1d0381"
+    deterministicBundleSHA256: "0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -164,14 +165,26 @@ spec:
               - "tls.crt"
             name: "consul-ca-cert"
             namespace: "consul"
-            purpose: "Consul TLS CA certificate"
+            purpose: "Consul TLS CA certificate; must sign consul-server-cert"
           -
+            caSecretName: "consul-ca-cert"
             keys:
               - "tls.crt"
               - "tls.key"
             name: "consul-server-cert"
             namespace: "consul"
-            purpose: "Consul server TLS certificate and private key"
+            purpose: "Consul server TLS certificate and private key; certificate SANs must cover server.dc1.consul and rendered consul-consul-server service DNS names"
+            requiredDNSNames:
+              - "server.dc1.consul"
+              - "consul-consul-server"
+              - "consul-consul-server.consul"
+              - "consul-consul-server.consul.svc"
+              - "consul-consul-server.consul-helm"
+              - "consul-consul-server.consul-helm.svc"
+              - "consul-consul-server.consul-apply"
+              - "consul-consul-server.consul-apply.svc"
+              - "consul-consul-server.consul-oci"
+              - "consul-consul-server.consul-oci.svc"
           -
             keys:
               - "key"

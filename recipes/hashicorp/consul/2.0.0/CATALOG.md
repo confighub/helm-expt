@@ -19,7 +19,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Production readiness | production-review-ready |
 | Supported variants | default-control-plane, secure-mesh-existing-secrets |
 | Candidate variants | none |
-| Control points | admission-webhook, capability-profile, cluster-rbac, crd-ownership, dependency-lock, extension-slots, installer-support-object, lifecycle-policy, mesh-gateway-policy, source-lock, stateful-workload, target-facts, target-topology, ui-ingress-policy |
+| Control points | admission-webhook, capability-profile, cluster-rbac, crd-ownership, dependency-lock, extension-slots, installer-support-object, lifecycle-policy, mesh-gateway-policy, namespace-references, source-lock, stateful-workload, target-facts, target-topology, ui-ingress-policy |
 
 ## Feature And Proof Summary
 
@@ -48,6 +48,7 @@ for exact base-variant evidence.
 | Control points | [recipes/hashicorp/consul/2.0.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/hashicorp/consul/2.0.0/value-model.yaml](value-model.yaml) |
 | Target topology | [recipes/hashicorp/consul/2.0.0/target-topology.yaml](target-topology.yaml) |
+| Target prerequisite plan | [recipes/hashicorp/consul/2.0.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Weirdness and mitigations | [recipes/hashicorp/consul/2.0.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/hashicorp/consul/2.0.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml](helm-pain-report.yaml) |

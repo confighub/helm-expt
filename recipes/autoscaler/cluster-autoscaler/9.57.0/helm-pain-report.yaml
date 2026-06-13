@@ -45,7 +45,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "capability-profile"
       disposition: "handled-by-capability-profile"
-      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      linkedReceipt: "revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml"
       supportedVariantStatus: "handled"
     -
       id: "variant-revision"
@@ -54,7 +54,7 @@ spec:
         - "revisions/default/r001/variant-revision.yaml"
       configHubHome: "recipe"
       disposition: "absorbed-into-recipe"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/controller-default-reviewed/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled"
     -
       id: "rendered-manifest-scan"
@@ -63,7 +63,7 @@ spec:
         - "revisions/default/r001/receipts/scan-receipt.yaml"
       configHubHome: "scan-gate"
       disposition: "absorbed-into-recipe"
-      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      linkedReceipt: "revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml"
       supportedVariantStatus: "handled"
     -
       id: "helm-equivalence"
@@ -72,7 +72,7 @@ spec:
         - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
       configHubHome: "recipe"
       disposition: "absorbed-into-recipe"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/controller-default-reviewed/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled"
     -
       id: "tpl-extension-slots"
@@ -81,7 +81,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "extension-slot"
       disposition: "needs-operator-decision"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/controller-default-reviewed/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "source-signal-recorded"
     -
       id: "extension-slots"
@@ -90,7 +90,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "extension-slot"
       disposition: "needs-operator-decision"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/controller-default-reviewed/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "source-signal-recorded"
     -
       id: "cluster-rbac"
@@ -99,7 +99,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      linkedReceipt: "revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "scan-gate"
@@ -110,7 +110,7 @@ spec:
         - "install gates"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/controller-default-reviewed/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "warn-review-before-production"
     -
       id: "value-model-diagnostics"

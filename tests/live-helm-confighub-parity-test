@@ -898,34 +898,71 @@ def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
     }
 
 
-def ensure_tls_material(run_root: Path) -> tuple[str, str]:
-    cert = run_root / "target-facts-tls.crt"
-    key = run_root / "target-facts-tls.key"
+def ensure_tls_material(run_root: Path, dns_names: list[str] | None = None) -> tuple[str, str]:
+    names = sorted({name for name in (dns_names or []) if name})
+    suffix = f"-{hashlib.sha256(chr(10).join(names).encode()).hexdigest()[:12]}" if names else ""
+    cert = run_root / f"target-facts-tls{suffix}.crt"
+    key = run_root / f"target-facts-tls{suffix}.key"
     if not cert.exists() or not key.exists():
-        rc, out, err = sh([
+        command = [
             "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
-            "-keyout", str(key), "-out", str(cert), "-subj", "/CN=helm-expt.local",
+            "-keyout", str(key), "-out", str(cert), "-subj", f"/CN={names[0] if names else 'helm-expt.local'}",
             "-days", "1",
-        ], timeout=60)
+            "-addext", "basicConstraints=critical,CA:TRUE",
+            "-addext", "keyUsage=critical,digitalSignature,keyEncipherment,keyCertSign",
+        ]
+        if names:
+            command.extend(["-addext", f"subjectAltName={','.join(f'DNS:{name}' for name in names)}"])
+        rc, out, err = sh(command, timeout=60)
         if rc != 0:
             raise RuntimeError(f"target fact TLS material generation failed: {(err or out)[:1000]}")
     return cert.read_text(), key.read_text()
 
 
-def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+def secret_identity(secret: dict) -> str:
+    return f"{secret.get('namespace', 'default')}/{secret.get('name')}"
+
+
+def target_fact_tls_material(secrets: list[dict], run_root: Path) -> dict[str, dict[str, str]]:
+    material: dict[str, dict[str, str]] = {}
+    for secret in secrets:
+        required_dns_names = secret.get("requiredDNSNames") or []
+        keys = set(secret.get("keys") or [])
+        if not required_dns_names or not {"tls.crt", "tls.key"}.issubset(keys):
+            continue
+        cert, key = ensure_tls_material(run_root, required_dns_names)
+        identity = secret_identity(secret)
+        material[identity] = {"tls.crt": cert, "tls.key": key}
+        if secret.get("name"):
+            material[str(secret.get("name"))] = {"tls.crt": cert, "tls.key": key}
+        ca_secret_name = secret.get("caSecretName")
+        if ca_secret_name:
+            ca_identity = f"{secret.get('namespace', 'default')}/{ca_secret_name}"
+            material.setdefault(ca_identity, {})["tls.crt"] = cert
+            material.setdefault(str(ca_secret_name), {})["tls.crt"] = cert
+    return material
+
+
+def target_fact_value(secret_name: str, key: str, run_root: Path, secret: dict | None = None, tls_material: dict[str, dict[str, str]] | None = None) -> str:
+    if secret:
+        precomputed = (tls_material or {}).get(secret_identity(secret), {}) or (tls_material or {}).get(str(secret.get("name")), {})
+        if key in precomputed:
+            return precomputed[key]
+    required_dns_names = (secret or {}).get("requiredDNSNames") or []
     secret_looks_like_tls = (
         "admission" in secret_name
         or "webhook" in secret_name
         or "tls" in secret_name
+        or bool(required_dns_names)
     )
     if key in ("ca", "cert", "tls.crt", "ca.crt") and secret_looks_like_tls:
-        return ensure_tls_material(run_root)[0]
+        return ensure_tls_material(run_root, required_dns_names)[0]
     if key in ("key", "tls.key") and secret_looks_like_tls:
-        return ensure_tls_material(run_root)[1]
+        return ensure_tls_material(run_root, required_dns_names)[1]
     if key in ("tls.crt", "ca.crt"):
-        return ensure_tls_material(run_root)[0]
+        return ensure_tls_material(run_root, required_dns_names)[0]
     if key == "tls.key":
-        return ensure_tls_material(run_root)[1]
+        return ensure_tls_material(run_root, required_dns_names)[1]
     if key == "admin-user":
         return "admin"
     if key == "key" and "gossip" in secret_name:
@@ -1043,6 +1080,7 @@ def stage_target_facts(
         for secret in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or [])
         if target_fact_applies(secret, lane)
     ]
+    tls_material = target_fact_tls_material(required_secrets, run_root)
     crd_docs, staged_crds = target_fact_crd_docs(variant, recipe_path, lane)
     if not required_secrets and not crd_docs:
         result = {"result": "pass", "stagedSecrets": [], "stagedCRDs": []}
@@ -1068,7 +1106,8 @@ def stage_target_facts(
         for namespace in sorted(secret_namespaces):
             namespaces.add(namespace)
             if keys:
-                string_data = {key: target_fact_value(name, key, run_root) for key in keys}
+                staged_secret = {**secret, "namespace": namespace, "name": name}
+                string_data = {key: target_fact_value(name, key, run_root, staged_secret, tls_material) for key in keys}
                 secret_type = "kubernetes.io/tls" if set(("tls.crt", "tls.key")).issubset(string_data) and len(set(string_data) - set(("tls.crt", "tls.key", "ca.crt"))) == 0 else "Opaque"
                 secret_docs.append({
                     "apiVersion": "v1",
@@ -1455,6 +1494,10 @@ def leg_namespace(namespace: str, suffix: str) -> str:
     return f"{namespace}-{suffix}"
 
 
+def live_parity_namespace_mode(variant: dict) -> str:
+    return ((variant.get("spec") or {}).get("liveParity") or {}).get("namespaceMode") or "isolated-leg-namespaces"
+
+
 def cleanup_manifest_yaml(text: str) -> str:
     docs = []
     for doc in yaml_docs(text):
@@ -1803,9 +1846,16 @@ def main() -> int:
     workdir = Path("/tmp") / f"helm-expt-live-parity-{rig}-{args.slug}"
     wspace = f"{rig}-{args.slug}"
     child_app = f"{args.slug}-parity"
-    helm_namespace = leg_namespace(args.namespace, "helm")
-    apply_namespace = leg_namespace(args.namespace, "apply")
-    oci_namespace = leg_namespace(args.namespace, "oci")
+    variant_for_namespace = load_yaml(variant_path) if variant_path.exists() else {}
+    namespace_mode = live_parity_namespace_mode(variant_for_namespace)
+    if namespace_mode == "fixed-rendered-namespace":
+        helm_namespace = args.namespace
+        apply_namespace = args.namespace
+        oci_namespace = args.namespace
+    else:
+        helm_namespace = leg_namespace(args.namespace, "helm")
+        apply_namespace = leg_namespace(args.namespace, "apply")
+        oci_namespace = leg_namespace(args.namespace, "oci")
 
     receipt = {
         "apiVersion": "helm-expt.confighub.com/v1alpha1",
@@ -1826,6 +1876,7 @@ def main() -> int:
                 "rig": rig,
                 "kubeContext": context,
                 "namespace": args.namespace,
+                "namespaceMode": namespace_mode,
                 "legNamespaces": {
                     "regularHelm": helm_namespace,
                     "configHubKubectlApply": apply_namespace,
