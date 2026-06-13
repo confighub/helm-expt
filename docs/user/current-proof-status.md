@@ -40,6 +40,13 @@ when you want the broad chart/version/base view in one browser page. It shows
 the current user route, strongest evidence, core-lane status, production
 scope, hooks, quirks, hard gap, and next action for each row.
 
+For the remaining non-pass live rows, use the generated
+[Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md). The
+current committed queue has no semantic parity defects. Its remaining rows are
+watch or modeling work: Consul secure mesh needs GitOps/controller-health
+review after parity passed, and Cluster Autoscaler `default` needs a real
+values-profile base rather than another rerun of a missing-values render.
+
 ## Product Frontiers
 
 These are the main places where the catalog is useful but the product claim is

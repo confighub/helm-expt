@@ -22,6 +22,17 @@ prerequisite-or-lifecycle-rows: 0
 runtime-or-watch-rows: 1
 ```
 
+## Current Interpretation
+
+No current row says ConfigHub and Helm produced different Kubernetes object meaning. The rows below are the active work queue for stronger live
+claims.
+
+| Chart | Base | Current | Meaning | Next action |
+| --- | --- | --- | --- | --- |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
+| `autoscaler/cluster-autoscaler@9.57.0` | default | watch | Object parity passed, but the selected base did not render a functional workload because required Helm values were missing. Choose or create a values-profile base before rerunning. | Use a values-profile rerender base such as the reviewed controller base, or model the missing values in a new base before rerunning strict parity. |
+
+
 ## Lane Breakdown
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |

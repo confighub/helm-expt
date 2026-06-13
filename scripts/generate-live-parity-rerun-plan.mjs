@@ -508,6 +508,8 @@ prerequisite-or-lifecycle-rows: ${prerequisiteRows}
 runtime-or-watch-rows: ${runtimeRows}
 \`\`\`
 
+${currentInterpretationMarkdown(rows, semanticDefects)}
+
 ## Lane Breakdown
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
@@ -597,6 +599,36 @@ The machine-readable queue is:
 data/live-parity-rerun-plan/rerun-plan.csv
 \`\`\`
 `;
+}
+
+function currentInterpretationMarkdown(rows, semanticDefects) {
+  if (rows.length === 0) {
+    return `## Current Interpretation
+
+The current committed live parity rerun queue is empty. That means the selected
+live lanes have no outstanding non-pass rows in the generated queue. It does
+not mean every possible chart, values file, target, or delivery path has been
+tested.
+`;
+  }
+  const defectSentence = semanticDefects === 0
+    ? "No current row says ConfigHub and Helm produced different Kubernetes object meaning."
+    : `${semanticDefects} row(s) currently point at an object-set parity defect; inspect those first.`;
+  return `## Current Interpretation
+
+${defectSentence} The rows below are the active work queue for stronger live
+claims.
+
+| Chart | Base | Current | Meaning | Next action |
+| --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${mdCell(`${row.chart}@${row.version}`)}\` | ${mdCell(row.base)} | ${mdCell(row.current_result)} | ${mdCell(row.diagnosis)} | ${mdCell(row.followup)} |`).join("\n")}
+`;
+}
+
+function mdCell(value) {
+  return String(value ?? "")
+    .replaceAll("|", "\\|")
+    .replaceAll("\n", " ");
 }
 
 function countBy(rows, key) {
