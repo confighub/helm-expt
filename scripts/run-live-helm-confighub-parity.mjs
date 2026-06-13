@@ -200,28 +200,28 @@ function toolCheck(binary) {
 
 function targetProfileCheck(profile) {
   if (!profile || profile === "none") return { name: "target profile", result: "pass", detail: "none" };
-  if (profile === "kind-three-node") return cubLkWorkerNodeCheck();
+  if (profile === "kind-three-node") return kubernetesNodeProfileCheck();
   if (["kind-ingress-nginx", "kind-loadbalancer"].includes(profile)) {
     return { name: `target profile ${profile}`, result: "pass", detail: "recognized" };
   }
   return { name: `target profile ${profile}`, result: "blocked", detail: "unknown target profile" };
 }
 
-function cubLkWorkerNodeCheck() {
+function kubernetesNodeProfileCheck() {
   const cluster = spawnSync("cub", ["cluster", "up", "--help"], { encoding: "utf8", stdio: "pipe" });
   const clusterOutput = `${cluster.stdout ?? ""}\n${cluster.stderr ?? ""}`;
   if (cluster.status === 0 && clusterOutput.includes("--worker-nodes")) {
-    return { name: "target profile kind-three-node", result: "pass", detail: "cub cluster up supports --worker-nodes" };
+    return { name: "target profile kind-three-node", result: "pass", detail: "local cluster helper can create the required Kubernetes node count with --worker-nodes" };
   }
   const lk = spawnSync("cub", ["lk", "up", "--help"], { encoding: "utf8", stdio: "pipe" });
   const lkOutput = `${lk.stdout ?? ""}\n${lk.stderr ?? ""}`;
   if (lk.status === 0 && lkOutput.includes("--worker-nodes")) {
-    return { name: "target profile kind-three-node", result: "pass", detail: "cub lk up supports --worker-nodes" };
+    return { name: "target profile kind-three-node", result: "pass", detail: "local cluster helper can create the required Kubernetes node count with --worker-nodes" };
   }
   return {
     name: "target profile kind-three-node",
     result: "blocked",
-    detail: "requires a cub build with cub cluster up --worker-nodes support",
+    detail: "requires a local Kubernetes target profile with at least three schedulable nodes",
   };
 }
 

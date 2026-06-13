@@ -853,7 +853,7 @@ cub changeset create --space <space> helm-review --description "Review rendered 
 # Approve the checked revision for the uploaded variant.
 cub unit approve --space <space> --where "Labels.Variant = 'default'"
 
-# Dry-run an apply when the Units are attached to a target and worker path.
+# Dry-run an apply when the Units are attached to a target.
 cub unit apply --space <space> --where "Labels.Variant = 'default'" --dry-run
 
 # Clone a reviewed ConfigHub space into an environment/region variant.
