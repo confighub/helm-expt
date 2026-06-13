@@ -43,6 +43,12 @@ spec:
       operationState: "Succeeded"
       conditions: "none"
       perResourceHealthResidue: "none recorded in the receipt"
+      resourceHealthBreakdown:
+        source: "data/gitops-health-residue/residue.csv"
+        resourceCount: 97
+        syncedResources: 97
+        blankResourceHealth: 97
+        explicitUnhealthyOrUnsyncedResources: 0
     semanticEvidence:
       directApply: "pass"
       ociArgo: "pass"
@@ -56,6 +62,7 @@ spec:
   nextActions:
     - "Keep the row as watch until Argo CD aggregate health is explained or the supported scope explicitly accepts the controller-health residue."
     - "On the next live rerun, capture the Argo resource tree or equivalent controller health details if Argo remains Progressing with no per-resource residue."
+    - "Use data/gitops-health-residue/summary.md to distinguish aggregate controller-health residue from resource-level health residue."
     - "Do not change the recipe unless semantic parity, target facts, or workload readiness starts failing."
   notClaimed:
     - "This row does not prove Consul secure mesh production support for arbitrary clusters."
