@@ -29,7 +29,9 @@ spec:
       - "leader-election or HA flags"
       - "required values"
     remainingBeforeCatalog:
+      - "required render-time values: autoDiscovery.clusterName or autoscalingGroups[]"
+      - "re-render as a non-alias base"
       - "ConfigHub proof lane"
       - "selected live lane"
       - "production disposition"
-    note: "This base intentionally reuses the default rendered object set and makes the user-facing install shape explicit."
+    note: "Strict live parity shows this alias base has object parity but no controller workload. The chart requires autoDiscovery.clusterName or autoscalingGroups[] before it becomes a functional install."

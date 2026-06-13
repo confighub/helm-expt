@@ -28,7 +28,7 @@ remaining status: candidate base, not production support
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | cluster-metrics-readonly | alias-of-default-render | ConfigHub proof lane; selected live lane; production disposition |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | alias-of-default-render | ConfigHub proof lane; selected live lane; production disposition |
 | stakater/reloader@2.2.12 | controller-default-reviewed | alias-of-default-render | ConfigHub proof lane; selected live lane; production disposition |
-| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | alias-of-default-render | ConfigHub proof lane; selected live lane; production disposition |
+| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | alias-of-default-render | required render-time values: autoDiscovery.clusterName or autoscalingGroups[]; re-render as a non-alias base; ConfigHub proof lane; selected live lane; production disposition |
 | argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | alias-of-default-render | ConfigHub proof lane; selected live lane; production disposition |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | alias-of-default-render | ConfigHub proof lane; selected live lane; production disposition |
 | istio/gateway@1.30.0 | controller-default-reviewed | alias-of-default-render | ConfigHub proof lane; selected live lane; production disposition |

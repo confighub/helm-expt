@@ -70,12 +70,12 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 79/81 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 79/82 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 0/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/81 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | live parity rerun rows needing decisions | 3/3 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 3/3 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 0/3 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/82 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -185,7 +185,7 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 ### Active Proof Queue
 
@@ -195,6 +195,7 @@ needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
+| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | watch | render-input-model | [recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml](../../recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml) |
 | elastic/logstash@8.5.1 | ha | blocked | target-fit-review | [recipes/elastic/logstash/8.5.1/target-topology.yaml](../../recipes/elastic/logstash/8.5.1/target-topology.yaml) |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | target-fit-review | [recipes/hashicorp/consul/2.0.0/target-topology.yaml](../../recipes/hashicorp/consul/2.0.0/target-topology.yaml) |
 
@@ -366,7 +367,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/81
+ConfigHub/OCI live comparison: 0/82
 two-cluster kind parity:       0/70
 ~~~
 
@@ -383,11 +384,12 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
 | target-fit-review | 2 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
+| render-input-model | 1 | Model the required Helm values as a real base before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.
@@ -397,6 +399,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | target-fit: minimum schedulable nodes not met |
+| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | watch | render-input: required Helm values missing (parity passed) |
 | elastic/logstash@8.5.1 | ha | blocked | target-fit: minimum schedulable nodes not met |
 
 

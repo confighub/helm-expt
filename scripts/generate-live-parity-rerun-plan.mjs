@@ -206,6 +206,9 @@ function classifyLiveComparisonReason(spec) {
 
 function classifyLiveComparisonWatch(spec) {
   const text = JSON.stringify(spec).toLowerCase();
+  if (text.includes("you must specify values for either") && text.includes("autodiscovery")) {
+    return "render-input: required Helm values missing (parity passed)";
+  }
   if (spec.chart === "hashicorp/vault") return "operate-policy: Vault init/unseal readiness (parity passed)";
   if (spec.chart === "ingress-nginx/ingress-nginx" && spec.base === "admission-disabled") {
     return "target-fit: LoadBalancer Service has no external IP on kind (parity passed)";
@@ -255,6 +258,9 @@ function diagnosisForConfigHubOci(row) {
   if (row.reason?.startsWith("target-fit:")) {
     return "Semantic parity and workload readiness passed, but the proof target lacks a required platform behavior such as LoadBalancer external IP assignment.";
   }
+  if (row.reason?.startsWith("render-input:")) {
+    return "Semantic object parity passed, but the selected base did not render a functional workload because required Helm values were not modeled.";
+  }
   if (row.reason?.startsWith("gitops-runtime:")) {
     return "Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.";
   }
@@ -271,6 +277,7 @@ function followupForConfigHubOci(row) {
   if (row.reason?.startsWith("infra:")) return "If it still blocks, fix rig provisioning before judging chart parity.";
   if (row.reason?.startsWith("helm-runtime:")) return "If object comparison remains clean, record this as upstream runtime readiness rather than a ConfigHub parity defect.";
   if (row.reason?.startsWith("target-fit:")) return "Use a target with the required platform behavior, or create a separate base that matches the proof target.";
+  if (row.reason?.startsWith("render-input:")) return "Create a non-alias base with the required Helm values, then rerun render, ConfigHub proof, and live parity.";
   if (row.reason?.startsWith("gitops-runtime:")) return "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.";
   if (row.result === "watch") return "Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation.";
   return "Open a dedicated parity issue only if the semantic object comparison fails.";
@@ -342,6 +349,7 @@ function nextStepType(row) {
   if (reason.startsWith("target-prerequisite:")) return "stage-prerequisite";
   if (reason.startsWith("helm-hook:")) return "lifecycle-route";
   if (reason.startsWith("operate-policy:")) return "operating-policy";
+  if (reason.startsWith("render-input:")) return "render-input-model";
   if (reason.startsWith("target-fit:")) return "target-fit-review";
   if (reason.startsWith("gitops-runtime:")) return "gitops-runtime-review";
   if (reason.startsWith("target-runtime:") || reason.startsWith("helm-runtime:")) return "runtime-review";
@@ -355,6 +363,7 @@ function supportArtifactFor(row) {
   const candidates = [];
   if (reason.startsWith("infra:")) return "data/live-helm-confighub-compare/blocked-triage.md";
   if (reason.startsWith("target-prerequisite:")) candidates.push("target-prerequisite-plan.yaml");
+  if (reason.startsWith("render-input:")) candidates.push("value-model.yaml", "helm-plan.yaml");
   if (reason.startsWith("helm-hook:")) candidates.push("lifecycle-policy.yaml");
   if (reason.startsWith("operate-policy:")) candidates.push("operating-policy.yaml");
   if (reason.startsWith("target-fit:")) candidates.push("target-topology.yaml", "operating-policy.yaml");
@@ -378,6 +387,7 @@ function nextStepDescription(type) {
     "stage-prerequisite": "Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning.",
     "lifecycle-route": "Choose the lifecycle route or observation contract before rerunning strict parity.",
     "operating-policy": "Record the operating policy decision, then rerun only if the expected readiness changes.",
+    "render-input-model": "Model the required Helm values as a real base before rerunning.",
     "target-fit-review": "Choose a target that provides the required platform behavior, or create a base that fits the target.",
     "gitops-runtime-review": "Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected.",
     "runtime-review": "Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning.",
@@ -392,6 +402,7 @@ function rerunReadiness(type) {
     "stage-prerequisite": "model-or-stage-first",
     "lifecycle-route": "model-or-stage-first",
     "operating-policy": "model-or-stage-first",
+    "render-input-model": "model-or-stage-first",
     "target-fit-review": "model-or-stage-first",
     "gitops-runtime-review": "review-target-first",
     "runtime-review": "review-target-first",

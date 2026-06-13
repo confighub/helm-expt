@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-13T10:18:02.934Z",
+  "generatedAt": "2026-06-13T10:43:39.191Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -106,7 +106,7 @@
     "latestCandidatesAwaitingReplacementDecision": 0,
     "latestRefreshP0Rows": 0,
     "top100ChartsWithLiveEvidence": 76,
-    "liveParityRerunRows": 2,
+    "liveParityRerunRows": 3,
     "liveParityRerunSemanticDefects": 0,
     "productionSupportedCharts": 17,
     "productionSupersededCharts": 2,
@@ -601,7 +601,7 @@
       "section": "live evidence",
       "metric": "selected live Helm-vs-ConfigHub parity receipts",
       "value": "79",
-      "total": "81",
+      "total": "82",
       "status": "partial",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row."
@@ -618,8 +618,8 @@
     {
       "section": "live evidence",
       "metric": "live parity rerun rows needing decisions",
-      "value": "2",
-      "total": "2",
+      "value": "3",
+      "total": "3",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."
@@ -627,8 +627,8 @@
     {
       "section": "live evidence",
       "metric": "live parity rows needing model or staging first",
-      "value": "2",
-      "total": "2",
+      "value": "3",
+      "total": "3",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."
@@ -637,7 +637,7 @@
       "section": "live evidence",
       "metric": "live parity rows needing target review first",
       "value": "0",
-      "total": "2",
+      "total": "3",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."
@@ -646,7 +646,7 @@
       "section": "live evidence",
       "metric": "ConfigHub/OCI semantic parity defect receipts",
       "value": "0",
-      "total": "81",
+      "total": "82",
       "status": "good",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Rows whose committed receipt currently points at a semantic object comparison defect."
@@ -1022,6 +1022,16 @@
     }
   ],
   "activeProofQueue": [
+    {
+      "chart": "autoscaler/cluster-autoscaler@9.57.0",
+      "base": "controller-default-reviewed",
+      "current_result": "watch",
+      "next_step_type": "render-input-model",
+      "reason": "render-input: required Helm values missing (parity passed)",
+      "support_artifact": "recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml",
+      "receipt": "runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml",
+      "rerun_command": "npm run live-parity:top20 -- --chart cluster-autoscaler --base controller-default-reviewed --continue-on-fail"
+    },
     {
       "chart": "elastic/logstash@8.5.1",
       "base": "ha",
@@ -12346,6 +12356,24 @@
     }
   ],
   "liveParityRerunPlan": [
+    {
+      "priority": "30",
+      "lane": "configHub-oci-live-comparison",
+      "chart": "autoscaler/cluster-autoscaler",
+      "version": "9.57.0",
+      "base": "controller-default-reviewed",
+      "current_result": "watch",
+      "reason": "render-input: required Helm values missing (parity passed)",
+      "next_step_type": "render-input-model",
+      "rerun_readiness": "model-or-stage-first",
+      "diagnosis": "Semantic object parity passed, but the selected base did not render a functional workload because required Helm values were not modeled.",
+      "rerun_command": "npm run live-parity:top20 -- --chart cluster-autoscaler --base controller-default-reviewed --continue-on-fail",
+      "followup": "Create a non-alias base with the required Helm values, then rerun render, ConfigHub proof, and live parity.",
+      "support_artifact": "recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml",
+      "receipt": "runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
+    },
     {
       "priority": "40",
       "lane": "configHub-oci-live-comparison",

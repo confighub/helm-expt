@@ -38,6 +38,18 @@ const wave = [
   usefulBase("vm/victoria-metrics-single", "0.39.0", "default-reviewed"),
 ];
 
+const liveFindings = new Map([
+  [keyFor("autoscaler/cluster-autoscaler", "9.57.0", "controller-default-reviewed"), {
+    status: "realized-alias-base-watch-required-values",
+    remainingBeforeCatalog:
+      "required render-time values: autoDiscovery.clusterName or autoscalingGroups[]; re-render as a non-alias base; ConfigHub proof lane; selected live lane; production disposition",
+    proofNote:
+      "Strict live parity reached semantic object parity, but Helm rendered no controller workload and printed that autoDiscovery or autoscalingGroups[] must be set. This alias base is not a functional controller install until those values are modeled and re-rendered.",
+    note:
+      "Strict live parity shows this alias base has object parity but no controller workload. The chart requires autoDiscovery.clusterName or autoscalingGroups[] before it becomes a functional install.",
+  }],
+]);
+
 const queueRows = readCsv(join(repoRoot, "data", "useful-base-design-queue", "queue.csv"));
 const queueByKey = new Map(queueRows.map((row) => [keyFor(row.chart, row.version, row.proposed_base), row]));
 const rows = wave.map((item) => buildRow(item));
@@ -78,6 +90,7 @@ function usefulBase(chart, version, base) {
 
 function buildRow(item) {
   const queueRow = queueByKey.get(keyFor(item.chart, item.version, item.base));
+  const liveFinding = liveFindings.get(keyFor(item.chart, item.version, item.base));
   check(Boolean(queueRow), `useful base queue missing ${item.chart}@${item.version} ${item.base}`);
   const recipeRoot = recipeRootFor(item);
   const packageRoot = packageRootFor(item);
@@ -85,18 +98,18 @@ function buildRow(item) {
     chart: item.chart,
     version: item.version,
     base: item.base,
-    status: "realized-alias-base",
+    status: liveFinding?.status ?? "realized-alias-base",
     realization_strategy: "alias-of-default-render",
     source_base: "default",
     rendered_object_set: existsSync(join(recipeRoot, "revisions", item.base, "r001", "rendered", "release-objects.yaml"))
       ? sha256File(join(recipeRoot, "revisions", item.base, "r001", "rendered", "release-objects.yaml"))
       : "",
     user_job: queueRow.user_job,
-    remaining_before_catalog: "ConfigHub proof lane; selected live lane; production disposition",
+    remaining_before_catalog: liveFinding?.remainingBeforeCatalog ?? "ConfigHub proof lane; selected live lane; production disposition",
     recipe_variant: relativeRepo(join(recipeRoot, "variants", item.base, "variant.yaml")),
     package_base: relativeRepo(join(packageRoot, "bases", item.base)),
     revision: relativeRepo(join(recipeRoot, "revisions", item.base, "r001", "variant-revision.yaml")),
-    proof_note: "Kubernetes object set is intentionally identical to default; the base gives users a named start path before live and production review.",
+    proof_note: liveFinding?.proofNote ?? "Kubernetes object set is intentionally identical to default; the base gives users a named start path before live and production review.",
   };
 }
 
@@ -130,6 +143,7 @@ function writeVariant(item) {
   const recipeRoot = recipeRootFor(item);
   const defaultVariant = readYaml(join(recipeRoot, "variants", "default", "variant.yaml"));
   const queueRow = queueByKey.get(keyFor(item.chart, item.version, item.base));
+  const liveFinding = liveFindings.get(keyFor(item.chart, item.version, item.base));
   const variant = {
     ...defaultVariant,
     metadata: {
@@ -150,11 +164,17 @@ function writeVariant(item) {
           userJob: queueRow.user_job,
           renderTimeChoices: splitList(queueRow.render_time_choices),
           remainingBeforeCatalog: [
+            ...(liveFinding
+              ? [
+                  "required render-time values: autoDiscovery.clusterName or autoscalingGroups[]",
+                  "re-render as a non-alias base",
+                ]
+              : []),
             "ConfigHub proof lane",
             "selected live lane",
             "production disposition",
           ],
-          note: "This base intentionally reuses the default rendered object set and makes the user-facing install shape explicit.",
+          note: liveFinding?.note ?? "This base intentionally reuses the default rendered object set and makes the user-facing install shape explicit.",
         },
     },
   };
@@ -165,17 +185,19 @@ function updateRecipe(item) {
   const path = join(recipeRootFor(item), "recipe.yaml");
   const recipe = readYaml(path);
   const variantRef = `variants/${item.base}/variant.yaml`;
-  const variants = new Set(recipe.spec?.variants ?? []);
-  variants.add(variantRef);
-  recipe.spec.variants = [...variants].sort((a, b) => (a === "variants/default/variant.yaml" ? -1 : b.localeCompare(a)));
+  const variants = recipe.spec?.variants ?? [];
+  if (!variants.includes(variantRef)) variants.push(variantRef);
+  recipe.spec.variants = variants;
   writeYaml(path, recipe);
 }
 
 function updateInstaller(item) {
   const path = join(packageRootFor(item), "installer.yaml");
   const installer = readYaml(path);
+  const existingBase = (installer.spec?.bases ?? []).find((base) => base.name === item.base);
   const bases = (installer.spec?.bases ?? []).filter((base) => base.name !== item.base);
   bases.push({
+    ...(existingBase ?? {}),
     name: item.base,
     path: `bases/${item.base}`,
     default: false,
@@ -188,6 +210,7 @@ function updateInstaller(item) {
 function updateCatalogStatus(item) {
   const path = join(recipeRootFor(item), "catalog-status.yaml");
   const status = readYaml(path);
+  const liveFinding = liveFindings.get(keyFor(item.chart, item.version, item.base));
   const candidates = new Set(status.spec?.candidateVariants ?? []);
   candidates.add(item.base);
   status.spec.candidateVariants = [...candidates].sort((a, b) => (a === "default" ? -1 : b === "default" ? 1 : a.localeCompare(b)));
@@ -195,7 +218,9 @@ function updateCatalogStatus(item) {
   status.spec.productionReadiness = status.spec.productionReadiness || "not-reviewed-for-production";
   status.spec.notes = [
     ...(status.spec.notes ?? []).filter((note) => !String(note).includes(`${item.base} is a realized useful-base alias`)),
-    `${item.base} is a realized useful-base alias of the default render; catalog support still requires ConfigHub proof, selected live evidence, and production disposition.`,
+    liveFinding?.note
+      ? `${item.base} is a realized useful-base alias of the default render, but ${liveFinding.note.charAt(0).toLowerCase()}${liveFinding.note.slice(1)}`
+      : `${item.base} is a realized useful-base alias of the default render; catalog support still requires ConfigHub proof, selected live evidence, and production disposition.`,
   ];
   writeYaml(path, status);
 }

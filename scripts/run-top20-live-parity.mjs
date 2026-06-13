@@ -482,6 +482,9 @@ function classifyReason(receipt, target) {
 
 function classifyWatch(spec, target) {
   const text = JSON.stringify(spec).toLowerCase();
+  if (text.includes("you must specify values for either") && text.includes("autodiscovery")) {
+    return "render-input: required Helm values missing (parity passed)";
+  }
   if (target.chart === "hashicorp/vault") return "operate-policy: Vault init/unseal readiness (parity passed)";
   if (target.chart === "ingress-nginx/ingress-nginx" && target.variant === "admission-disabled") {
     return "target-fit: LoadBalancer Service has no external IP on kind (parity passed)";

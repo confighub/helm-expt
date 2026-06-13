@@ -1324,6 +1324,7 @@ function liveParityNextStepMeaning(step) {
     "stage-prerequisite": "Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning.",
     "lifecycle-route": "Choose the hook or lifecycle observation route before rerunning strict parity.",
     "operating-policy": "Record the operating policy decision, then rerun only if expected readiness changes.",
+    "render-input-model": "Model the required Helm values as a real base before rerunning.",
     "target-fit-review": "Choose a target that provides the required platform behavior, or create a base that fits the target.",
     "gitops-runtime-review": "Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected.",
     "runtime-review": "Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning.",

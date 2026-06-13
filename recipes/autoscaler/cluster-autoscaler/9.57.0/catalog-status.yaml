@@ -22,3 +22,4 @@ spec:
     productReviewRequired: true
   notes:
     - "Machine proof exists; catalog support is not claimed until variant and product review are complete."
+    - "controller-default-reviewed is a realized useful-base alias of the default render, but strict live parity shows this alias base has object parity but no controller workload. The chart requires autoDiscovery.clusterName or autoscalingGroups[] before it becomes a functional install."
