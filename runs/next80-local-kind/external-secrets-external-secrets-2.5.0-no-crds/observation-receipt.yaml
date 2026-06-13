@@ -11,43 +11,425 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-eso-nocrds"
-    context: "kind-claude-helm-expt-codex-eso-nocrds"
+    name: "claude-helm-expt-eso1"
+    context: "kind-claude-helm-expt-eso1"
     namespace: "external-secrets"
-  observedAt: "2026-06-11T13:32:55.478Z"
+  observedAt: "2026-06-13T03:27:47.924Z"
   freshnessTTL: "1h"
-  result: "fail"
+  result: "pass"
   clusterStatus: "created-by-test"
   variant: "no-crds"
+  targetFacts:
+    requiredCRDs:
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "acraccesstokens.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "cloudsmithaccesstokens.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "clusterexternalsecrets.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "clustergenerators.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "clusterpushsecrets.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "clustersecretstores.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "ecrauthorizationtokens.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "externalsecrets.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "fakes.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "gcraccesstokens.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "generatorstates.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "githubaccesstokens.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "grafanas.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "mfas.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "passwords.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "pushsecrets.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "quayaccesstokens.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "secretstores.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "sshkeys.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "stssessiontokens.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "uuids.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "vaultdynamicsecrets.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "webhooks.generators.external-secrets.io"
+        purpose: "External Secrets CRD managed outside this no-crds base"
+        sourceVariant: "default"
+    requiredSecrets:
+      -
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        keys:
+          []
+        name: "external-secrets-webhook"
+        namespace: "external-secrets"
+        purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+        sourceVariant: "default"
+        suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+  stagedTargetFacts:
+    crds:
+      -
+        name: "acraccesstokens.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "cloudsmithaccesstokens.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "clusterexternalsecrets.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "clustergenerators.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "clusterpushsecrets.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "clustersecretstores.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "ecrauthorizationtokens.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "externalsecrets.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "fakes.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "gcraccesstokens.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "generatorstates.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "githubaccesstokens.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "grafanas.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "mfas.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "passwords.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "pushsecrets.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "quayaccesstokens.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "secretstores.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "sshkeys.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "stssessiontokens.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "uuids.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "vaultdynamicsecrets.generators.external-secrets.io"
+        sourceVariant: "default"
+      -
+        name: "webhooks.generators.external-secrets.io"
+        sourceVariant: "default"
   workloads: 3
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "3f453fcd07b66c248323c62dd7f6d8f8a30051656cb92eec9dacdbaee83618ec"
+    sha256: "b9003c361cffdb8a79be5608ca334869605b191d456104f43bd2f98235e99737"
   checks:
     -
       name: "namespace-created"
       result: "pass"
       object: "v1|Namespace||external-secrets"
     -
+      name: "target-fact-crds-staged"
+      result: "pass"
+      object: "23 required CRD target fact(s)"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||acraccesstokens.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||cloudsmithaccesstokens.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterexternalsecrets.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clustergenerators.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterpushsecrets.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clustersecretstores.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||ecrauthorizationtokens.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||externalsecrets.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||fakes.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||gcraccesstokens.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||generatorstates.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||githubaccesstokens.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||grafanas.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||mfas.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||passwords.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||pushsecrets.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||quayaccesstokens.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||secretstores.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||sshkeys.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||stssessiontokens.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||uuids.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||vaultdynamicsecrets.generators.external-secrets.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||webhooks.generators.external-secrets.io"
+    -
       name: "rendered-objects-applied"
       result: "pass"
       object: "19 object(s) from recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|external-secrets|external-secrets-cert-controller"
-      reason: "not-ready: external-secrets-b86785d68-gzprn[Error ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-webhook-5bc7b6dbd-6zbvl[ ready=false restarts=1;]"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|external-secrets|external-secrets"
-      reason: "not-ready: external-secrets-b86785d68-gzprn[Error ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-webhook-5bc7b6dbd-6zbvl[ ready=false restarts=1;]"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|external-secrets|external-secrets-webhook"
-      reason: "not-ready: external-secrets-b86785d68-gzprn[CrashLoopBackOff ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-webhook-5bc7b6dbd-6zbvl[Error ready=false restarts=1;]"
-  blockedReasons:
-    - "deployment/external-secrets-cert-controller: not-ready (external-secrets-b86785d68-gzprn[Error ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-web)"
-    - "deployment/external-secrets: not-ready (external-secrets-b86785d68-gzprn[Error ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-web)"
-    - "deployment/external-secrets-webhook: not-ready (external-secrets-b86785d68-gzprn[CrashLoopBackOff ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-)"

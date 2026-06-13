@@ -14,7 +14,7 @@ is a navigation surface over existing evidence, not a new support decision.
 | Delivery path | `confighub-oci` |
 | Evidence count | 14 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
-| Live summary | local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2 |
+| Live summary | local:2/2 gitops:2/2 live-parity:2/2 two-cluster:2/2 |
 
 ## Why This Chart Is Hard
 
@@ -33,7 +33,7 @@ Keep the target-scoped evidence fresh before using this supported scope as a pro
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
 | `single-binary-filesystem` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki` |
-| `simple-scalable-minio` | try-with-proof | render=pass; confighub=missing; local=missing; gitops=missing; live-parity=missing; two-cluster=pass | none | `cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki` |
+| `simple-scalable-minio` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki` |
 
 ## Quirks And Inputs
 

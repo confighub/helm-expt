@@ -24,6 +24,7 @@ rank,chart,version,variant,result,reason,receipt
 3,ingress-nginx/ingress-nginx,4.15.1,admission-disabled,pass,,runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
 3,ingress-nginx/ingress-nginx,4.15.1,default,pass,,runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml
 4,jetstack/cert-manager,v1.20.2,default,pass,,runs/live-helm-confighub-compare/jetstack-cert-manager-default/receipt.yaml
+5,external-secrets/external-secrets,2.5.0,no-crds,pass,,runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/receipt.yaml
 7,prometheus-community/kube-prometheus-stack,85.3.3,no-crds,pass,,runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml
 8,bitnami/postgresql,18.6.7,existing-secret,pass,,runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/receipt.yaml
 9,bitnami/rabbitmq,16.0.14,existing-secret,pass,,runs/live-helm-confighub-compare/bitnami-rabbitmq-existing-secret/receipt.yaml

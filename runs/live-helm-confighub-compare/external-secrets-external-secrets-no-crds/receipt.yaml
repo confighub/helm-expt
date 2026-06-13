@@ -1,0 +1,683 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: external-secrets-external-secrets-2.5.0-no-crds-live-parity-20260605
+spec:
+  chart: external-secrets/external-secrets
+  version: 2.5.0
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-13T03:29:04Z'
+  package:
+    path: packages/external-secrets/external-secrets/2.5.0
+  recipe:
+    path: recipes/external-secrets/external-secrets/2.5.0
+  variantRevision: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-eso2
+    kubeContext: kind-helm-expt-parity-eso2
+    namespace: external-secrets
+    legNamespaces:
+      regularHelm: external-secrets-helm
+      configHubKubectlApply: external-secrets-apply
+      configHubOciArgo: external-secrets-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-eso2 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-eso2"...
+
+        Deleting cluster "helm-expt-parity-eso2" ...
+
+        Deleted nodes: ["helm-expt-parity-eso2-control-plane"]
+
+        Deleting Space "helm-expt-parity-eso2-cluster" (recursive: cascades to Unit,
+        Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install external-secrets external-secrets --repo https://charts.external-secrets.io
+        --version 2.5.0 --namespace external-secrets-helm --create-namespace --values
+        /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/regular-helm-values.yaml
+        --wait --timeout 10m
+      manifestSHA256: da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b
+      objectCount: 19
+      liveHelmManifestSHA256: fab0f807034d89d9d420380ee11c02c278e5cdbe9b77c96e1829a427443c5272
+      liveHelmManifestObjectCount: 19
+      namespace: external-secrets-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/external-secrets                   1/1   1     1     35s
+
+          deployment.apps/external-secrets-cert-controller   1/1   1     1     35s
+
+          deployment.apps/external-secrets-webhook           1/1   1     1     35s'
+        pods: 'external-secrets-b86785d68-wjddn                    1/1   Running   0     35s
+
+          external-secrets-cert-controller-59f787cc4f-jhbj6   1/1   Running   0     35s
+
+          external-secrets-webhook-7f9f8ff8bf-9tcvz           1/1   Running   0     35s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-eso2-external-secrets-external-secrets
+        --non-interactive --namespace external-secrets-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 1abd2beb349fd0cee974e9c58991d133de5739a2b2413abfa474e279ac3ceb16
+      objectCount: 20
+      namespace: external-secrets-apply
+      manifestNamespaces:
+      - external-secrets-apply
+      runtimeNamespaces: &id001
+      - external-secrets-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# external-secrets-apply
+
+          deployment.apps/external-secrets                   1/1   1     1     31s
+
+          deployment.apps/external-secrets-cert-controller   1/1   1     1     31s
+
+          deployment.apps/external-secrets-webhook           1/1   1     1     31s'
+        pods: '# external-secrets-apply
+
+          external-secrets-b86785d68-d9btq                   1/1   Running   0     31s
+
+          external-secrets-cert-controller-df5844b4c-9rfc4   1/1   Running   0     31s
+
+          external-secrets-webhook-67fbbbfdd7-r29vj          1/1   Running   0     31s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - external-secrets-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 9
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "external-secrets-cert-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "external-secrets-controller" deleted
+
+            clusterrole.rbac.authorization.k8s.io "external-secrets-edit" deleted
+
+            clusterrole.rbac.authorization.k8s.io "external-secrets-servicebindings"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "external-secrets-view" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "external-secrets-cert-controller"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "external-secrets-controller"
+            deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "externalsecret-validate"
+            deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "secretstore-validate"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-eso2-external-secrets-external-secrets
+      controller: Argo CD OCI
+      app: external-secrets-external-secrets-parity
+      manifestSHA256: 78a774e043b9c2ffaece9d8aeab8f4f4ef941765f81a2eb755fa90b254eccf23
+      objectCount: 20
+      namespace: external-secrets-oci
+      manifestNamespaces:
+      - external-secrets-oci
+      runtimeNamespaces: &id002
+      - external-secrets-oci
+      ociRevision: sha256:17c9bac4735c36490189adbbdd4e7be5085c31393906e031bae606777f45c60f
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-external-secrets-oci-external-secrets-webhook.yaml
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: external-secrets-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-eso2-external-secrets-external-secrets
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-eso2-cluster/oci
+              targetRevision: latest
+          revision: sha256:17c9bac4735c36490189adbbdd4e7be5085c31393906e031bae606777f45c60f
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T03:34:42Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: external-secrets-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: external-secrets-oci
+          name: external-secrets-webhook
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: external-secrets-oci
+          name: external-secrets
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: external-secrets-oci
+          name: external-secrets-cert-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: external-secrets-oci
+          name: external-secrets-webhook
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: externalsecret-validate
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: secretstore-validate
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: external-secrets-oci
+          name: external-secrets
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: external-secrets-oci
+          name: external-secrets-cert-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: external-secrets-oci
+          name: external-secrets-webhook
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-cert-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-edit
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-servicebindings
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: external-secrets-cert-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: external-secrets-controller
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: external-secrets-oci
+          name: external-secrets-leaderelection
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: external-secrets-oci
+          name: external-secrets-leaderelection
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# external-secrets-oci
+
+          deployment.apps/external-secrets                   1/1   1     1     28s
+
+          deployment.apps/external-secrets-cert-controller   1/1   1     1     28s
+
+          deployment.apps/external-secrets-webhook           1/1   1     1     28s'
+        pods: '# external-secrets-oci
+
+          external-secrets-b86785d68-jzgfp                    1/1   Running   0     28s
+
+          external-secrets-cert-controller-5b7b65ccd9-5n2jh   1/1   Running   0     28s
+
+          external-secrets-webhook-5947b85db4-mm6bw           1/1   Running   0     28s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||external-secrets
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 19
+      configHubObjectCount: 20
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||external-secrets
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 5277be2f6920d7760e0ebb8ae733e51061295c30eac5e521cdd6bec1440f6b4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 19
+      configHubObjectCount: 20
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||external-secrets
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: 5277be2f6920d7760e0ebb8ae733e51061295c30eac5e521cdd6bec1440f6b4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-eso2\" (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-eso2.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-eso2\" ...\n \u2022 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image (kindest/node:v1.35.0)\
+      \ \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n \u2713 Preparing nodes\
+      \ \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC  ...\n \u2713 Writing\
+      \ configuration \U0001F4DC\n \u2022 Starting control-plane \U0001F579\uFE0F\
+      \  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022 Installing\
+      \ CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022 Installing\
+      \ StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\n\
+      Set kubectl context to \"kind-helm-expt-parity-eso2\"\nYou can now use your\
+      \ cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-eso2\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-eso2.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argocd\"...\napiVersion:\
+      \ v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec: {}\nstatus: {}\nnamespac"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=23
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "external-secrets" does not exist. Installing it now.
+
+      NAME: external-secrets
+
+      LAST DEPLOYED: Sat Jun 13 04:30:51 2026
+
+      NAMESPACE: external-secrets-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      external-secrets has been deployed successfully in namespace external-secrets-helm!
+
+
+      In order to begin using ExternalSecrets, you will need to set up a SecretStore
+
+      or ClusterSecretStore resource (for example, by creating a ''vault'' SecretStore).
+
+
+      More information on the different types of SecretStores and how to configure
+      them
+
+      can be found in our Github: https://github.com/external-secrets/external-secrets'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=1 crds=23
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# external-secrets-apply
+
+      deployment.apps/external-secrets                   1/1   1     1     31s
+
+      deployment.apps/external-secrets-cert-controller   1/1   1     1     31s
+
+      deployment.apps/external-secrets-webhook           1/1   1     1     31s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=9
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=1 crds=23
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 40s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: acraccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: cloudsmithaccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterexternalsecrets.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clustergenerators.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterpushsecrets.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clustersecretstores.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: ecrauthorizationtokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: externalsecrets.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: fakes.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: gcraccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: generatorstates.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: githubaccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: grafanas.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: mfas.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: passwords.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: pushsecrets.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: quayaccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: secretstores.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: sshkeys.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: stssessiontokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: uuids.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: vaultdynamicsecrets.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: webhooks.generators.external-secrets.io
+        sourceVariant: default
+        lane: regularHelm
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: external-secrets-apply
+        name: external-secrets-webhook
+        keys: []
+        lane: configHubKubectlApply
+        sourceVariant: default
+        sourceNamespace: external-secrets
+      stagedCRDs:
+      - name: acraccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: cloudsmithaccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clusterexternalsecrets.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clustergenerators.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clusterpushsecrets.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: clustersecretstores.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: ecrauthorizationtokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: externalsecrets.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: fakes.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: gcraccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: generatorstates.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: githubaccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: grafanas.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: mfas.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: passwords.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: pushsecrets.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: quayaccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: secretstores.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: sshkeys.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: stssessiontokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: uuids.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: vaultdynamicsecrets.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: webhooks.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: external-secrets-oci
+        name: external-secrets-webhook
+        keys: []
+        lane: configHubOciArgo
+        sourceVariant: default
+        sourceNamespace: external-secrets
+      stagedCRDs:
+      - name: acraccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: cloudsmithaccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clusterexternalsecrets.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clustergenerators.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clusterpushsecrets.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: clustersecretstores.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: ecrauthorizationtokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: externalsecrets.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: fakes.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: gcraccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: generatorstates.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: githubaccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: grafanas.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: mfas.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: passwords.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: pushsecrets.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: quayaccesstokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: secretstores.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: sshkeys.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: stssessiontokens.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: uuids.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: vaultdynamicsecrets.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: webhooks.generators.external-secrets.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: external-secrets-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: external-secrets-oci

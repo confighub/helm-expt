@@ -10,16 +10,16 @@ the status per chart, base variant, derived variant, and Helm feature.
 charts with model support:           108/110
 variant-rich charts:                 74/110
 chart/base rows:                     191
-complete core lane rows:             63/191
+complete core lane rows:             64/191
 render parity rows:                  191/191
 in-ConfigHub proof rows:             155/191
-local live rows:                     137/191
-GitOps/OCI live pass rows:           63/191
-GitOps/OCI non-pass receipts:        6
-live Helm-vs-ConfigHub pass rows:    63/191
+local live rows:                     138/191
+GitOps/OCI live pass rows:           64/191
+GitOps/OCI non-pass receipts:        5
+live Helm-vs-ConfigHub pass rows:    64/191
 live Helm-vs-ConfigHub non-pass receipts: 3
 lifecycle observation rows:          10/10
-selected live parity receipts:       63 pass, 3 watch, 0 blocked
+selected live parity receipts:       64 pass, 3 watch, 0 blocked
 two-cluster kind parity receipts:    70 pass, 0 watch, 0 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
@@ -68,7 +68,7 @@ related lifecycle observations:      10/10
 | `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
-| `external-secrets/external-secrets@2.5.0` | default;no-crds | no | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
+| `external-secrets/external-secrets@2.5.0` | default;no-crds | no | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 2/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |

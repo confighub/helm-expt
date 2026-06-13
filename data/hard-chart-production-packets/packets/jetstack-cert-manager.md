@@ -14,7 +14,7 @@ is a navigation surface over existing evidence, not a new support decision.
 | Delivery path | `confighub-oci` |
 | Evidence count | 16 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
-| Live summary | local:1/2 gitops:1/2 live-parity:1/2 two-cluster:1/2 |
+| Live summary | local:2/2 gitops:2/2 live-parity:2/2 two-cluster:2/2 |
 
 ## Why This Chart Is Hard
 
@@ -33,7 +33,7 @@ Keep the target-scoped evidence fresh before using this supported scope as a pro
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
 | `crds-enabled` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass; lifecycle=pass | none | `cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager` |
-| `default` | lifecycle-observed | render=pass; confighub=missing; local=missing; gitops=missing; live-parity=missing; two-cluster=blocked; lifecycle=pass | none | `cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager` |
+| `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass; lifecycle=pass | required CRD challenges.acme.cert-manager.io; required CRD orders.acme.cert-manager.io; required CRD certificaterequests.cert-manager.io; required CRD certificates.cert-manager.io; required CRD clusterissuers.cert-manager.io; required CRD issuers.cert-manager.io | `cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager` |
 
 ## Quirks And Inputs
 

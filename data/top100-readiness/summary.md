@@ -139,10 +139,10 @@ decision before catalog promotion.
 | Evidence | Count | Meaning |
 | --- | ---: | --- |
 | `in-confighub-proof` | 16 | Rendered objects uploaded to ConfigHub and passed the ConfigHub proof lane. |
-| `live-helm-vs-confighub-parity` | 21 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
-| `local-kubernetes-live` | 33 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
+| `live-helm-vs-confighub-parity` | 40 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
+| `local-kubernetes-live` | 30 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
 | `render-parity` | 8 | Regular Helm and cub installer setup render-equivalent objects. |
-| `two-cluster-kind-parity` | 22 | Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters. |
+| `two-cluster-kind-parity` | 6 | Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters. |
 
 ## How To Read This
 
@@ -189,17 +189,17 @@ decision before catalog promotion.
 | `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes | - | `production-disposition` |
 | `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 3 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
 | `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 3 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope | - | `production-disposition` |
-| `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes | - | `production-disposition` |
+| `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the receipt for target fact preflight | `data/production-disposition/receipts/jetstack-cert-manager/target-fact-preflight.yaml` | `production-disposition` |
 | `longhorn/longhorn@1.11.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
 | `metrics-server/metrics-server@3.13.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes | - | `production-disposition` |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
 | `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
 | `traefik/traefik@40.2.0` | `limitation-decision-first` | `local-kubernetes-live` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle) | - | `limitation-review` |
-| `external-dns/external-dns@1.21.1` | `promote-after-review` | `two-cluster-kind-parity` | 3 | run catalog promotion review | - | `catalog-promotion-review` |
+| `external-dns/external-dns@1.21.1` | `promote-after-review` | `live-helm-vs-confighub-parity` | 3 | run catalog promotion review | - | `catalog-promotion-review` |
 | `gitlab/gitlab-runner@0.89.0` | `needs-useful-variant` | `in-confighub-proof` | 1 | add at least one user-shaped variant before catalog promotion | - | `user-shaped-variant-backlog` |
-| `kyverno/kyverno@3.8.1` | `limitation-decision-first` | `local-kubernetes-live` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle) | - | `limitation-review` |
-| `cloudnative-pg/cloudnative-pg@0.28.2` | `promote-after-review` | `two-cluster-kind-parity` | 2 | run catalog promotion review | - | `catalog-promotion-review` |
+| `kyverno/kyverno@3.8.1` | `limitation-decision-first` | `live-helm-vs-confighub-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle) | - | `limitation-review` |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | `promote-after-review` | `live-helm-vs-confighub-parity` | 2 | run catalog promotion review | - | `catalog-promotion-review` |
 
 ## Files
 

@@ -14,7 +14,7 @@ is a navigation surface over existing evidence, not a new support decision.
 | Delivery path | `confighub-oci` |
 | Evidence count | 17 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
-| Live summary | local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2 |
+| Live summary | local:2/2 gitops:2/2 live-parity:2/2 two-cluster:2/2 |
 
 ## Why This Chart Is Hard
 
@@ -33,7 +33,7 @@ Keep the target-scoped evidence fresh before using this supported scope as a pro
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
 | `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | required Secret monitoring/kube-prometheus-stack-admission keys cert,key | `cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring` |
-| `no-crds` | try-with-proof | render=pass; confighub=missing; local=missing; gitops=blocked; live-parity=missing; two-cluster=pass | required Secret monitoring/kube-prometheus-stack-admission keys cert,key; required CRD alertmanagerconfigs.monitoring.coreos.com; required CRD alertmanagers.monitoring.coreos.com; required CRD podmonitors.monitoring.coreos.com; required CRD probes.monitoring.coreos.com; required CRD prometheusagents.monitoring.coreos.com; required CRD prometheuses.monitoring.coreos.com; required CRD prometheusrules.monitoring.coreos.com; required CRD scrapeconfigs.monitoring.coreos.com; required CRD servicemonitors.monitoring.coreos.com; required CRD thanosrulers.monitoring.coreos.com | `cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring` |
+| `no-crds` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | required Secret monitoring/kube-prometheus-stack-admission keys cert,key; required CRD alertmanagerconfigs.monitoring.coreos.com; required CRD alertmanagers.monitoring.coreos.com; required CRD podmonitors.monitoring.coreos.com; required CRD probes.monitoring.coreos.com; required CRD prometheusagents.monitoring.coreos.com; required CRD prometheuses.monitoring.coreos.com; required CRD prometheusrules.monitoring.coreos.com; required CRD scrapeconfigs.monitoring.coreos.com; required CRD servicemonitors.monitoring.coreos.com; required CRD thanosrulers.monitoring.coreos.com | `cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring` |
 
 ## Quirks And Inputs
 

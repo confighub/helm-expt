@@ -6,7 +6,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-cert-controller\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-cert-controller\",\"namespace\":\"external-secrets\"}}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -15,15 +15,15 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-cert-controller"
       namespace: "external-secrets"
-      resourceVersion: "480"
-      uid: "d869f068-70a2-4bdd-99ed-acebb5dc044b"
+      resourceVersion: "536"
+      uid: "6e1ac425-96a8-4d18-a934-4abb91dac30d"
   -
     apiVersion: "v1"
     kind: "ServiceAccount"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets\",\"namespace\":\"external-secrets\"}}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -32,15 +32,15 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets"
       namespace: "external-secrets"
-      resourceVersion: "481"
-      uid: "10f86739-1059-497b-b4fd-f852d0fdc6af"
+      resourceVersion: "537"
+      uid: "5bd4f547-ce77-446e-8aba-d186acead1cc"
   -
     apiVersion: "v1"
     kind: "ServiceAccount"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-webhook\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-webhook\",\"namespace\":\"external-secrets\"}}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -49,15 +49,17 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-webhook"
       namespace: "external-secrets"
-      resourceVersion: "482"
-      uid: "4d1bd208-24ae-448d-9ae7-a77a9b8fc9cf"
+      resourceVersion: "538"
+      uid: "228d78d3-3832-4c4b-b149-913797a8d0c9"
   -
     apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
     kind: "Secret"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -67,8 +69,8 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-webhook"
       namespace: "external-secrets"
-      resourceVersion: "483"
-      uid: "45458a27-fccb-4946-ad2a-a96682411f82"
+      resourceVersion: "626"
+      uid: "d8bfbb68-e25c-489f-8cb8-6235d7e20a1f"
     type: "Opaque"
   -
     apiVersion: "rbac.authorization.k8s.io/v1"
@@ -76,7 +78,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-leaderelection\",\"namespace\":\"external-secrets\"},\"rules\":[{\"apiGroups\":[\"\"],\"resourceNames\":[\"external-secrets-controller\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"update\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"create\",\"update\",\"patch\"]}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -85,8 +87,8 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-leaderelection"
       namespace: "external-secrets"
-      resourceVersion: "484"
-      uid: "a87ed4a3-bcca-4aa0-8377-fdf75ae3a748"
+      resourceVersion: "540"
+      uid: "8e5fd45f-852d-41d5-9971-23854005a504"
     rules:
       -
         apiGroups:
@@ -122,7 +124,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-leaderelection\",\"namespace\":\"external-secrets\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"external-secrets-leaderelection\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"external-secrets\",\"namespace\":\"external-secrets\"}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -131,8 +133,8 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-leaderelection"
       namespace: "external-secrets"
-      resourceVersion: "485"
-      uid: "1cd63170-caa0-42a7-acf6-8e6e5eaa8504"
+      resourceVersion: "541"
+      uid: "2c89f922-62ee-4892-ae6f-982f381b3787"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "Role"
@@ -148,7 +150,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-webhook\",\"app.kubernetes.io/version\":\"v2.5.0\",\"external-secrets.io/component\":\"webhook\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-webhook\",\"namespace\":\"external-secrets\"},\"spec\":{\"ports\":[{\"name\":\"webhook\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":\"webhook\"}],\"selector\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/name\":\"external-secrets-webhook\"},\"type\":\"ClusterIP\"}}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -158,12 +160,12 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-webhook"
       namespace: "external-secrets"
-      resourceVersion: "487"
-      uid: "e917865e-ea00-4020-a0f9-d6256c510452"
+      resourceVersion: "543"
+      uid: "5a26ff02-11f1-4afe-8055-bd3a90b1fd61"
     spec:
-      clusterIP: "10.96.108.199"
+      clusterIP: "10.96.119.66"
       clusterIPs:
-        - "10.96.108.199"
+        - "10.96.119.66"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -189,7 +191,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-cert-controller\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-cert-controller\",\"namespace\":\"external-secrets\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/name\":\"external-secrets-cert-controller\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-cert-controller\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"certcontroller\",\"--crd-requeue-interval=5m\",\"--service-name=external-secrets-webhook\",\"--service-namespace=external-secrets\",\"--secret-name=external-secrets-webhook\",\"--secret-namespace=external-secrets\",\"--metrics-addr=:8080\",\"--healthz-addr=:8081\",\"--loglevel=info\",\"--zap-time-encoding=epoch\"],\"image\":\"ghcr.io/external-secrets/external-secrets:v2.5.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"cert-controller\",\"ports\":[{\"containerPort\":8080,\"name\":\"metrics\",\"protocol\":\"TCP\"},{\"containerPort\":8081,\"name\":\"ready\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/readyz\",\"port\":\"ready\"},\"initialDelaySeconds\":20,\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":5},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"runAsUser\":1000,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}}}],\"hostNetwork\":false,\"serviceAccountName\":\"external-secrets-cert-controller\"}}}}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "external-secrets"
@@ -199,8 +201,8 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-cert-controller"
       namespace: "external-secrets"
-      resourceVersion: "510"
-      uid: "1a93ce4f-8d5c-418d-9dbc-b6372bd213b7"
+      resourceVersion: "684"
+      uid: "688bcfda-0c84-467e-81e2-910d601cf00b"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -282,25 +284,26 @@ items:
           serviceAccountName: "external-secrets-cert-controller"
           terminationGracePeriodSeconds: 30
     status:
+      availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T13:28:24Z"
-          lastUpdateTime: "2026-06-11T13:28:24Z"
-          message: "Deployment does not have minimum availability."
-          reason: "MinimumReplicasUnavailable"
-          status: "False"
+          lastTransitionTime: "2026-06-13T03:27:47Z"
+          lastUpdateTime: "2026-06-13T03:27:47Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T13:28:24Z"
-          lastUpdateTime: "2026-06-11T13:28:24Z"
-          message: "ReplicaSet \"external-secrets-cert-controller-647c64d965\" is progressing."
-          reason: "ReplicaSetUpdated"
+          lastTransitionTime: "2026-06-13T03:27:06Z"
+          lastUpdateTime: "2026-06-13T03:27:47Z"
+          message: "ReplicaSet \"external-secrets-cert-controller-647c64d965\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
           status: "True"
           type: "Progressing"
       observedGeneration: 1
+      readyReplicas: 1
       replicas: 1
       terminatingReplicas: 0
-      unavailableReplicas: 1
       updatedReplicas: 1
   -
     apiVersion: "apps/v1"
@@ -309,7 +312,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets\",\"namespace\":\"external-secrets\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/name\":\"external-secrets\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--concurrent=1\",\"--metrics-addr=:8080\",\"--loglevel=info\",\"--zap-time-encoding=epoch\"],\"image\":\"ghcr.io/external-secrets/external-secrets:v2.5.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"external-secrets\",\"ports\":[{\"containerPort\":8080,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"runAsUser\":1000,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}}}],\"dnsPolicy\":\"ClusterFirst\",\"hostNetwork\":false,\"serviceAccountName\":\"external-secrets\"}}}}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "external-secrets"
@@ -319,8 +322,8 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets"
       namespace: "external-secrets"
-      resourceVersion: "663"
-      uid: "f1c6ea2f-9186-427a-bb5c-16fb3f6ad6d7"
+      resourceVersion: "633"
+      uid: "7259c8fa-e174-4d29-bee1-b7403cbb8e09"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -382,25 +385,26 @@ items:
           serviceAccountName: "external-secrets"
           terminationGracePeriodSeconds: 30
     status:
+      availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T13:28:24Z"
-          lastUpdateTime: "2026-06-11T13:28:39Z"
+          lastTransitionTime: "2026-06-13T03:27:20Z"
+          lastUpdateTime: "2026-06-13T03:27:20Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-13T03:27:06Z"
+          lastUpdateTime: "2026-06-13T03:27:20Z"
           message: "ReplicaSet \"external-secrets-b86785d68\" has successfully progressed."
           reason: "NewReplicaSetAvailable"
           status: "True"
           type: "Progressing"
-        -
-          lastTransitionTime: "2026-06-11T13:28:55Z"
-          lastUpdateTime: "2026-06-11T13:28:55Z"
-          message: "Deployment does not have minimum availability."
-          reason: "MinimumReplicasUnavailable"
-          status: "False"
-          type: "Available"
       observedGeneration: 1
+      readyReplicas: 1
       replicas: 1
       terminatingReplicas: 0
-      unavailableReplicas: 1
       updatedReplicas: 1
   -
     apiVersion: "apps/v1"
@@ -409,7 +413,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-webhook\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-webhook\",\"namespace\":\"external-secrets\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/name\":\"external-secrets-webhook\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-webhook\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"webhook\",\"--port=10250\",\"--dns-name=external-secrets-webhook.external-secrets.svc\",\"--cert-dir=/tmp/certs\",\"--check-interval=5m\",\"--metrics-addr=:8080\",\"--healthz-addr=:8081\",\"--loglevel=info\",\"--zap-time-encoding=epoch\"],\"image\":\"ghcr.io/external-secrets/external-secrets:v2.5.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"webhook\",\"ports\":[{\"containerPort\":8080,\"name\":\"metrics\",\"protocol\":\"TCP\"},{\"containerPort\":10250,\"name\":\"webhook\",\"protocol\":\"TCP\"},{\"containerPort\":8081,\"name\":\"ready\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/readyz\",\"port\":\"ready\"},\"initialDelaySeconds\":20,\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":5},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"runAsUser\":1000,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp/certs\",\"name\":\"certs\",\"readOnly\":true}]}],\"hostNetwork\":false,\"serviceAccountName\":\"external-secrets-webhook\",\"volumes\":[{\"name\":\"certs\",\"secret\":{\"secretName\":\"external-secrets-webhook\"}}]}}}}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:06Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "external-secrets"
@@ -419,8 +423,8 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-webhook"
       namespace: "external-secrets"
-      resourceVersion: "528"
-      uid: "e1d518c7-fe04-4042-9287-a35aeff36692"
+      resourceVersion: "675"
+      uid: "91c6f38c-d738-4115-beb7-c8175351376c"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -516,25 +520,26 @@ items:
                 defaultMode: 420
                 secretName: "external-secrets-webhook"
     status:
+      availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T13:28:24Z"
-          lastUpdateTime: "2026-06-11T13:28:24Z"
-          message: "Deployment does not have minimum availability."
-          reason: "MinimumReplicasUnavailable"
-          status: "False"
+          lastTransitionTime: "2026-06-13T03:27:43Z"
+          lastUpdateTime: "2026-06-13T03:27:43Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T13:28:24Z"
-          lastUpdateTime: "2026-06-11T13:28:24Z"
-          message: "ReplicaSet \"external-secrets-webhook-5bc7b6dbd\" is progressing."
-          reason: "ReplicaSetUpdated"
+          lastTransitionTime: "2026-06-13T03:27:06Z"
+          lastUpdateTime: "2026-06-13T03:27:43Z"
+          message: "ReplicaSet \"external-secrets-webhook-5bc7b6dbd\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
           status: "True"
           type: "Progressing"
       observedGeneration: 1
+      readyReplicas: 1
       replicas: 1
       terminatingReplicas: 0
-      unavailableReplicas: 1
       updatedReplicas: 1
 kind: "List"
 metadata:
@@ -548,7 +553,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-cert-controller\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-cert-controller\"},\"rules\":[{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\"],\"verbs\":[\"list\",\"watch\",\"get\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resourceNames\":[\"secretstore-validate\",\"externalsecret-validate\"],\"resources\":[\"validatingwebhookconfigurations\"],\"verbs\":[\"update\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"endpoints\"],\"verbs\":[\"list\",\"get\",\"watch\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"list\",\"get\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"create\",\"update\",\"patch\"]}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:07Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -556,8 +561,8 @@ items:
         app.kubernetes.io/version: "v2.5.0"
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-cert-controller"
-      resourceVersion: "530"
-      uid: "887e15a1-298a-46cf-908d-624ddeadeed7"
+      resourceVersion: "585"
+      uid: "28fd1c6c-e06e-4aff-85a3-a76ce41fddd7"
     rules:
       -
         apiGroups:
@@ -643,7 +648,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-controller\"},\"rules\":[{\"apiGroups\":[\"external-secrets.io\"],\"resources\":[\"secretstores\",\"clustersecretstores\",\"externalsecrets\",\"clusterexternalsecrets\",\"pushsecrets\",\"clusterpushsecrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"external-secrets.io\"],\"resources\":[\"externalsecrets\",\"externalsecrets/status\",\"externalsecrets/finalizers\",\"secretstores\",\"secretstores/status\",\"secretstores/finalizers\",\"clustersecretstores\",\"clustersecretstores/status\",\"clustersecretstores/finalizers\",\"clusterexternalsecrets\",\"clusterexternalsecrets/status\",\"clusterexternalsecrets/finalizers\",\"pushsecrets\",\"pushsecrets/status\",\"pushsecrets/finalizers\",\"clusterpushsecrets\",\"clusterpushsecrets/status\",\"clusterpushsecrets/finalizers\"],\"verbs\":[\"get\",\"update\",\"patch\"]},{\"apiGroups\":[\"generators.external-secrets.io\"],\"resources\":[\"generatorstates\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\",\"deletecollection\"]},{\"apiGroups\":[\"generators.external-secrets.io\"],\"resources\":[\"acraccesstokens\",\"cloudsmithaccesstokens\",\"clustergenerators\",\"ecrauthorizationtokens\",\"fakes\",\"gcraccesstokens\",\"githubaccesstokens\",\"quayaccesstokens\",\"passwords\",\"sshkeys\",\"stssessiontokens\",\"uuids\",\"vaultdynamicsecrets\",\"webhooks\",\"grafanas\",\"mfas\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"serviceaccounts\",\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"update\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"delete\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"serviceaccounts/token\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"external-secrets.io\"],\"resources\":[\"externalsecrets\"],\"verbs\":[\"create\",\"update\",\"delete\"]},{\"apiGroups\":[\"external-secrets.io\"],\"resources\":[\"pushsecrets\"],\"verbs\":[\"create\",\"update\",\"delete\"]}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:07Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -651,8 +656,8 @@ items:
         app.kubernetes.io/version: "v2.5.0"
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-controller"
-      resourceVersion: "531"
-      uid: "7ba06c36-1742-4266-b243-e598731f8155"
+      resourceVersion: "586"
+      uid: "c0a431be-4432-4952-8f42-e9a3287b9fda"
     rules:
       -
         apiGroups:
@@ -811,7 +816,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"external-secrets-view\"},\"rules\":[{\"apiGroups\":[\"external-secrets.io\"],\"resources\":[\"externalsecrets\",\"secretstores\",\"clustersecretstores\",\"pushsecrets\",\"clusterpushsecrets\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"generators.external-secrets.io\"],\"resources\":[\"acraccesstokens\",\"cloudsmithaccesstokens\",\"clustergenerators\",\"ecrauthorizationtokens\",\"fakes\",\"gcraccesstokens\",\"githubaccesstokens\",\"quayaccesstokens\",\"passwords\",\"sshkeys\",\"vaultdynamicsecrets\",\"webhooks\",\"grafanas\",\"generatorstates\",\"mfas\",\"uuids\"],\"verbs\":[\"get\",\"watch\",\"list\"]}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:07Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -822,8 +827,8 @@ items:
         rbac.authorization.k8s.io/aggregate-to-edit: "true"
         rbac.authorization.k8s.io/aggregate-to-view: "true"
       name: "external-secrets-view"
-      resourceVersion: "532"
-      uid: "9175a874-c580-4937-b388-c241f3a66b52"
+      resourceVersion: "587"
+      uid: "41c2e11c-f387-42e7-bd26-1cd466330d57"
     rules:
       -
         apiGroups:
@@ -868,7 +873,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\"},\"name\":\"external-secrets-edit\"},\"rules\":[{\"apiGroups\":[\"external-secrets.io\"],\"resources\":[\"externalsecrets\",\"secretstores\",\"clustersecretstores\",\"pushsecrets\",\"clusterpushsecrets\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"generators.external-secrets.io\"],\"resources\":[\"acraccesstokens\",\"cloudsmithaccesstokens\",\"clustergenerators\",\"ecrauthorizationtokens\",\"fakes\",\"gcraccesstokens\",\"githubaccesstokens\",\"quayaccesstokens\",\"passwords\",\"sshkeys\",\"vaultdynamicsecrets\",\"webhooks\",\"grafanas\",\"generatorstates\",\"mfas\",\"uuids\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:07Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -878,8 +883,8 @@ items:
         rbac.authorization.k8s.io/aggregate-to-admin: "true"
         rbac.authorization.k8s.io/aggregate-to-edit: "true"
       name: "external-secrets-edit"
-      resourceVersion: "536"
-      uid: "3e9d70bc-4c6a-4423-b640-e1dc1cf3271f"
+      resourceVersion: "590"
+      uid: "56c8d55a-e3aa-408b-a49d-73c10431fbc1"
     rules:
       -
         apiGroups:
@@ -928,7 +933,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\",\"servicebinding.io/controller\":\"true\"},\"name\":\"external-secrets-servicebindings\"},\"rules\":[{\"apiGroups\":[\"external-secrets.io\"],\"resources\":[\"externalsecrets\",\"pushsecrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:07Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -937,8 +942,8 @@ items:
         helm.sh/chart: "external-secrets-2.5.0"
         servicebinding.io/controller: "true"
       name: "external-secrets-servicebindings"
-      resourceVersion: "541"
-      uid: "4b1687fe-cc5f-4128-880f-a8b334601961"
+      resourceVersion: "592"
+      uid: "5f3c4c3c-f159-44f8-a970-8a711276e708"
     rules:
       -
         apiGroups:
@@ -956,7 +961,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-cert-controller\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-cert-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"external-secrets-cert-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"external-secrets-cert-controller\",\"namespace\":\"external-secrets\"}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:07Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -964,8 +969,8 @@ items:
         app.kubernetes.io/version: "v2.5.0"
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-cert-controller"
-      resourceVersion: "543"
-      uid: "0f813314-da14-48a9-b8b0-e49b9ad96102"
+      resourceVersion: "594"
+      uid: "c96b8a1e-3dbf-4d36-bda2-0599d4040239"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -981,7 +986,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets\",\"app.kubernetes.io/version\":\"v2.5.0\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"external-secrets-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"external-secrets-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"external-secrets\",\"namespace\":\"external-secrets\"}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
+      creationTimestamp: "2026-06-13T03:27:07Z"
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -989,8 +994,8 @@ items:
         app.kubernetes.io/version: "v2.5.0"
         helm.sh/chart: "external-secrets-2.5.0"
       name: "external-secrets-controller"
-      resourceVersion: "544"
-      uid: "953c605a-517b-4085-86a3-9dc6a9f96f32"
+      resourceVersion: "596"
+      uid: "9450df8e-1da7-4a52-a49e-d8ee88884798"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -1006,8 +1011,8 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-webhook\",\"app.kubernetes.io/version\":\"v2.5.0\",\"external-secrets.io/component\":\"webhook\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"secretstore-validate\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"external-secrets-webhook\",\"namespace\":\"external-secrets\",\"path\":\"/validate-external-secrets-io-v1-secretstore\"}},\"failurePolicy\":\"Fail\",\"name\":\"validate.secretstore.external-secrets.io\",\"rules\":[{\"apiGroups\":[\"external-secrets.io\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\",\"DELETE\"],\"resources\":[\"secretstores\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":5},{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"external-secrets-webhook\",\"namespace\":\"external-secrets\",\"path\":\"/validate-external-secrets-io-v1-clustersecretstore\"}},\"failurePolicy\":\"Fail\",\"name\":\"validate.clustersecretstore.external-secrets.io\",\"rules\":[{\"apiGroups\":[\"external-secrets.io\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\",\"DELETE\"],\"resources\":[\"clustersecretstores\"],\"scope\":\"Cluster\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":5}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
-      generation: 1
+      creationTimestamp: "2026-06-13T03:27:07Z"
+      generation: 2
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -1016,14 +1021,15 @@ items:
         external-secrets.io/component: "webhook"
         helm.sh/chart: "external-secrets-2.5.0"
       name: "secretstore-validate"
-      resourceVersion: "545"
-      uid: "c902ce79-f52e-4652-a3aa-3354cd5b6fff"
+      resourceVersion: "638"
+      uid: "e94c45cc-6bce-4c89-94b9-a0424ee9b043"
     webhooks:
       -
         admissionReviewVersions:
           - "v1"
           - "v1beta1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURSakNDQWk2Z0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREEyTVJrd0Z3WURWUVFLRXhCbGVIUmwKY201aGJDMXpaV055WlhSek1Sa3dGd1lEVlFRREV4QmxlSFJsY201aGJDMXpaV055WlhSek1CNFhEVEkyTURZeApNekF5TWpjeE9Wb1hEVE0yTURZeE1EQXpNamN4T1Zvd05qRVpNQmNHQTFVRUNoTVFaWGgwWlhKdVlXd3RjMlZqCmNtVjBjekVaTUJjR0ExVUVBeE1RWlhoMFpYSnVZV3d0YzJWamNtVjBjekNDQVNJd0RRWUpLb1pJaHZjTkFRRUIKQlFBRGdnRVBBRENDQVFvQ2dnRUJBTDRqRXc2TklwaERyU0x5czVDOE90R0k5R1UvWGpGTDJFend5MmVNditnSwowRnM2QXN3Y01FODVkTmowSWUwd0ZtemlBb2YzT3hsaWlGcDJGWEd0ZUUvUkcxbHl5cjBMVDREREdhNDFFR09oCjVkNWxXSTVlbkxFM0NUM21iK0tIOS9tRGZ3SmtFR0ZRbkt4ZGcvVGtwU0RUa1B3WHBubE5laXBscmhGNGxIK28KRjZDYjZkNjZKbDJ6ME8yUFkxdWdUWmQ3ZThnOGs4R042cHlCMHdycEpXQTFvaUFWNk1EY3BZRDZRcEQwaUFxdApMYXNUOHpXbEN0Y1MvRnpNWEtzRTlKZC9NMHJETDBUZmVOQW1aY0ZWOWh6SG00WisyZWZvWUVtcjhXVTEwWG5tCktlZEVwUlZSdHIxOTJYcVIxd0kxOVE4d3hyNnlZbFpibnBvaGJsenlTSThDQXdFQUFhTmZNRjB3RGdZRFZSMFAKQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkp1a1ZuZDFlWGxRcnc0SwpXRFV5VVI3c0l2ZGhNQnNHQTFVZEVRUVVNQktDRUdWNGRHVnlibUZzTFhObFkzSmxkSE13RFFZSktvWklodmNOCkFRRUxCUUFEZ2dFQkFBQUpWdzZ4L2Y2QlVFaUp6L2JOM2RFNGNFaEpBSDU4QmNKZkRHM0J5YzdQL1ErT0lJZXQKMy9rY2pyQWVhaTFzTm4wUnhCV0o4eVZZVjhhSXVHSWpCNjlWQ2VhL1ZrN2V6ZVpJMTQ5cGwvL1Z0Yi92NVBoUgpHT1pTU0huMHl5TjJlakZIUGw1WUJrVWJYWmxndjN6V1JiNHoxV1dKd0RMejE0ZExXdVYrVVIyZVluWWprQWRFCmYxL1FJVlk0UHoycTdzaExEZTg2bEVmUVVEa2dkbWFndm81RW5yaVBXVXBNYUZsNVZNTlh1cDVyUjhVL2E4N0wKR2RpQUhDMGpDK3ZiNU9KeThnOStTUHhRMm10R2xnM05yd3dRYzk3djBDVG5Vem5QTDFrZmJXd2V5ajM4UFkxYQphdzVHQzkyRXlCYkFzVXZlOHhudVZEVzV2bCtaOEl5QWZaVT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "external-secrets-webhook"
             namespace: "external-secrets"
@@ -1056,6 +1062,7 @@ items:
           - "v1"
           - "v1beta1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURSakNDQWk2Z0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREEyTVJrd0Z3WURWUVFLRXhCbGVIUmwKY201aGJDMXpaV055WlhSek1Sa3dGd1lEVlFRREV4QmxlSFJsY201aGJDMXpaV055WlhSek1CNFhEVEkyTURZeApNekF5TWpjeE9Wb1hEVE0yTURZeE1EQXpNamN4T1Zvd05qRVpNQmNHQTFVRUNoTVFaWGgwWlhKdVlXd3RjMlZqCmNtVjBjekVaTUJjR0ExVUVBeE1RWlhoMFpYSnVZV3d0YzJWamNtVjBjekNDQVNJd0RRWUpLb1pJaHZjTkFRRUIKQlFBRGdnRVBBRENDQVFvQ2dnRUJBTDRqRXc2TklwaERyU0x5czVDOE90R0k5R1UvWGpGTDJFend5MmVNditnSwowRnM2QXN3Y01FODVkTmowSWUwd0ZtemlBb2YzT3hsaWlGcDJGWEd0ZUUvUkcxbHl5cjBMVDREREdhNDFFR09oCjVkNWxXSTVlbkxFM0NUM21iK0tIOS9tRGZ3SmtFR0ZRbkt4ZGcvVGtwU0RUa1B3WHBubE5laXBscmhGNGxIK28KRjZDYjZkNjZKbDJ6ME8yUFkxdWdUWmQ3ZThnOGs4R042cHlCMHdycEpXQTFvaUFWNk1EY3BZRDZRcEQwaUFxdApMYXNUOHpXbEN0Y1MvRnpNWEtzRTlKZC9NMHJETDBUZmVOQW1aY0ZWOWh6SG00WisyZWZvWUVtcjhXVTEwWG5tCktlZEVwUlZSdHIxOTJYcVIxd0kxOVE4d3hyNnlZbFpibnBvaGJsenlTSThDQXdFQUFhTmZNRjB3RGdZRFZSMFAKQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkp1a1ZuZDFlWGxRcnc0SwpXRFV5VVI3c0l2ZGhNQnNHQTFVZEVRUVVNQktDRUdWNGRHVnlibUZzTFhObFkzSmxkSE13RFFZSktvWklodmNOCkFRRUxCUUFEZ2dFQkFBQUpWdzZ4L2Y2QlVFaUp6L2JOM2RFNGNFaEpBSDU4QmNKZkRHM0J5YzdQL1ErT0lJZXQKMy9rY2pyQWVhaTFzTm4wUnhCV0o4eVZZVjhhSXVHSWpCNjlWQ2VhL1ZrN2V6ZVpJMTQ5cGwvL1Z0Yi92NVBoUgpHT1pTU0huMHl5TjJlakZIUGw1WUJrVWJYWmxndjN6V1JiNHoxV1dKd0RMejE0ZExXdVYrVVIyZVluWWprQWRFCmYxL1FJVlk0UHoycTdzaExEZTg2bEVmUVVEa2dkbWFndm81RW5yaVBXVXBNYUZsNVZNTlh1cDVyUjhVL2E4N0wKR2RpQUhDMGpDK3ZiNU9KeThnOStTUHhRMm10R2xnM05yd3dRYzk3djBDVG5Vem5QTDFrZmJXd2V5ajM4UFkxYQphdzVHQzkyRXlCYkFzVXZlOHhudVZEVzV2bCtaOEl5QWZaVT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "external-secrets-webhook"
             namespace: "external-secrets"
@@ -1089,8 +1096,8 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-secrets\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-secrets-webhook\",\"app.kubernetes.io/version\":\"v2.5.0\",\"external-secrets.io/component\":\"webhook\",\"helm.sh/chart\":\"external-secrets-2.5.0\"},\"name\":\"externalsecret-validate\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"external-secrets-webhook\",\"namespace\":\"external-secrets\",\"path\":\"/validate-external-secrets-io-v1-externalsecret\"}},\"failurePolicy\":\"Fail\",\"name\":\"validate.externalsecret.external-secrets.io\",\"rules\":[{\"apiGroups\":[\"external-secrets.io\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\",\"DELETE\"],\"resources\":[\"externalsecrets\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":5}]}\n"
-      creationTimestamp: "2026-06-11T13:28:24Z"
-      generation: 1
+      creationTimestamp: "2026-06-13T03:27:07Z"
+      generation: 2
       labels:
         app.kubernetes.io/instance: "external-secrets"
         app.kubernetes.io/managed-by: "Helm"
@@ -1099,14 +1106,15 @@ items:
         external-secrets.io/component: "webhook"
         helm.sh/chart: "external-secrets-2.5.0"
       name: "externalsecret-validate"
-      resourceVersion: "546"
-      uid: "cade40b3-2399-4c41-94b9-a575918605d3"
+      resourceVersion: "637"
+      uid: "51a1ce38-a3a8-4564-a0c7-da0354d6f34d"
     webhooks:
       -
         admissionReviewVersions:
           - "v1"
           - "v1beta1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURSakNDQWk2Z0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREEyTVJrd0Z3WURWUVFLRXhCbGVIUmwKY201aGJDMXpaV055WlhSek1Sa3dGd1lEVlFRREV4QmxlSFJsY201aGJDMXpaV055WlhSek1CNFhEVEkyTURZeApNekF5TWpjeE9Wb1hEVE0yTURZeE1EQXpNamN4T1Zvd05qRVpNQmNHQTFVRUNoTVFaWGgwWlhKdVlXd3RjMlZqCmNtVjBjekVaTUJjR0ExVUVBeE1RWlhoMFpYSnVZV3d0YzJWamNtVjBjekNDQVNJd0RRWUpLb1pJaHZjTkFRRUIKQlFBRGdnRVBBRENDQVFvQ2dnRUJBTDRqRXc2TklwaERyU0x5czVDOE90R0k5R1UvWGpGTDJFend5MmVNditnSwowRnM2QXN3Y01FODVkTmowSWUwd0ZtemlBb2YzT3hsaWlGcDJGWEd0ZUUvUkcxbHl5cjBMVDREREdhNDFFR09oCjVkNWxXSTVlbkxFM0NUM21iK0tIOS9tRGZ3SmtFR0ZRbkt4ZGcvVGtwU0RUa1B3WHBubE5laXBscmhGNGxIK28KRjZDYjZkNjZKbDJ6ME8yUFkxdWdUWmQ3ZThnOGs4R042cHlCMHdycEpXQTFvaUFWNk1EY3BZRDZRcEQwaUFxdApMYXNUOHpXbEN0Y1MvRnpNWEtzRTlKZC9NMHJETDBUZmVOQW1aY0ZWOWh6SG00WisyZWZvWUVtcjhXVTEwWG5tCktlZEVwUlZSdHIxOTJYcVIxd0kxOVE4d3hyNnlZbFpibnBvaGJsenlTSThDQXdFQUFhTmZNRjB3RGdZRFZSMFAKQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkp1a1ZuZDFlWGxRcnc0SwpXRFV5VVI3c0l2ZGhNQnNHQTFVZEVRUVVNQktDRUdWNGRHVnlibUZzTFhObFkzSmxkSE13RFFZSktvWklodmNOCkFRRUxCUUFEZ2dFQkFBQUpWdzZ4L2Y2QlVFaUp6L2JOM2RFNGNFaEpBSDU4QmNKZkRHM0J5YzdQL1ErT0lJZXQKMy9rY2pyQWVhaTFzTm4wUnhCV0o4eVZZVjhhSXVHSWpCNjlWQ2VhL1ZrN2V6ZVpJMTQ5cGwvL1Z0Yi92NVBoUgpHT1pTU0huMHl5TjJlakZIUGw1WUJrVWJYWmxndjN6V1JiNHoxV1dKd0RMejE0ZExXdVYrVVIyZVluWWprQWRFCmYxL1FJVlk0UHoycTdzaExEZTg2bEVmUVVEa2dkbWFndm81RW5yaVBXVXBNYUZsNVZNTlh1cDVyUjhVL2E4N0wKR2RpQUhDMGpDK3ZiNU9KeThnOStTUHhRMm10R2xnM05yd3dRYzk3djBDVG5Vem5QTDFrZmJXd2V5ajM4UFkxYQphdzVHQzkyRXlCYkFzVXZlOHhudVZEVzV2bCtaOEl5QWZaVT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "external-secrets-webhook"
             namespace: "external-secrets"

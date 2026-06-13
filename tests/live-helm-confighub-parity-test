@@ -795,6 +795,31 @@ def target_fact_crd_docs(variant: dict, recipe_path: Path, lane: str) -> tuple[l
     return docs, staged
 
 
+def target_fact_secret_doc(secret: dict, recipe_path: Path, target_namespace: str) -> dict:
+    name = secret.get("name")
+    if not name:
+        raise RuntimeError(f"invalid required secret target fact: {secret}")
+    source_variant = secret.get("sourceVariant") or "default"
+    source_path = secret.get("sourcePath")
+    if source_path:
+        source = (recipe_path / source_path).resolve() if not Path(source_path).is_absolute() else Path(source_path)
+    else:
+        source = recipe_path / "revisions" / source_variant / "r001" / "rendered" / "release-objects.yaml"
+    if not source.exists():
+        raise RuntimeError(f"required Secret source not found for {name}: {source}")
+    matches = [
+        doc
+        for doc in yaml_docs(source.read_text())
+        if doc.get("kind") == "Secret" and (doc.get("metadata") or {}).get("name") == name
+    ]
+    if not matches:
+        raise RuntimeError(f"required Secret {name} not found in {source}")
+    doc = json.loads(json.dumps(matches[0]))
+    metadata = doc.setdefault("metadata", {})
+    metadata["namespace"] = target_namespace
+    return doc
+
+
 def stage_target_facts(
     variant: dict,
     recipe_path: Path,
@@ -829,20 +854,25 @@ def stage_target_facts(
             secret_namespaces = {source_namespace or fallback_namespace}
         name = secret.get("name")
         keys = secret.get("keys") or []
-        if not name or not keys:
+        if not name:
             raise RuntimeError(f"invalid required secret target fact: {secret}")
         for namespace in sorted(secret_namespaces):
             namespaces.add(namespace)
-            string_data = {key: target_fact_value(name, key, run_root) for key in keys}
-            secret_type = "kubernetes.io/tls" if set(("tls.crt", "tls.key")).issubset(string_data) and len(set(string_data) - set(("tls.crt", "tls.key", "ca.crt"))) == 0 else "Opaque"
-            secret_docs.append({
-                "apiVersion": "v1",
-                "kind": "Secret",
-                "metadata": {"name": name, "namespace": namespace},
-                "type": secret_type,
-                "stringData": string_data,
-            })
+            if keys:
+                string_data = {key: target_fact_value(name, key, run_root) for key in keys}
+                secret_type = "kubernetes.io/tls" if set(("tls.crt", "tls.key")).issubset(string_data) and len(set(string_data) - set(("tls.crt", "tls.key", "ca.crt"))) == 0 else "Opaque"
+                secret_docs.append({
+                    "apiVersion": "v1",
+                    "kind": "Secret",
+                    "metadata": {"name": name, "namespace": namespace},
+                    "type": secret_type,
+                    "stringData": string_data,
+                })
+            else:
+                secret_docs.append(target_fact_secret_doc(secret, recipe_path, namespace))
             staged = {"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane}
+            if not keys:
+                staged["sourceVariant"] = secret.get("sourceVariant") or "default"
             if source_namespace and source_namespace != namespace:
                 staged["sourceNamespace"] = source_namespace
             staged_secrets.append(staged)

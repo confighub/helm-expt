@@ -33,7 +33,7 @@ Keep the target-scoped evidence fresh before using this supported scope as a pro
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
 | `default-control-plane` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul` |
-| `secure-mesh-existing-secrets` | try-with-proof | render=pass; confighub=missing; local=missing; gitops=blocked; live-parity=missing; two-cluster=pass | required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token | `cub installer setup --pull packages/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --work-dir <tmp> --non-interactive --namespace consul` |
+| `secure-mesh-existing-secrets` | try-with-proof | render=pass; confighub=pass; local=fail; gitops=blocked; live-parity=missing; two-cluster=pass | required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token | `cub installer setup --pull packages/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --work-dir <tmp> --non-interactive --namespace consul` |
 
 ## Quirks And Inputs
 

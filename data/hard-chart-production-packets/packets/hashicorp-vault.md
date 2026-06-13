@@ -9,12 +9,12 @@ is a navigation surface over existing evidence, not a new support decision.
 | --- | --- |
 | Supported base | `dev-mode` |
 | Support decision | `rejected` |
-| Production disposition | `blocked` |
+| Production disposition | `production-review-ready` |
 | Target scope | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux |
 | Delivery path | `confighub-oci` |
 | Evidence count | 9 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
-| Live summary | local:2/3 gitops:1/3 live-parity:1/3 two-cluster:3/3 |
+| Live summary | local:2/3 gitops:2/3 live-parity:2/3 two-cluster:3/3 |
 
 ## Why This Chart Is Hard
 
@@ -32,9 +32,9 @@ Keep dev-mode as the local/demo first path only; create a separate Vault product
 
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
+| `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault` |
 | `dev-mode` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault` |
-| `default` | try-with-proof | render=pass; confighub=missing; local=pass; gitops=watch; live-parity=watch; two-cluster=pass | none | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault` |
-| `ha-raft-ui` | try-with-proof | render=pass; confighub=missing; local=missing; gitops=missing; live-parity=missing; two-cluster=pass | see variant targetFacts | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault` |
+| `ha-raft-ui` | try-with-proof | render=pass; confighub=pass; local=blocked; gitops=missing; live-parity=missing; two-cluster=pass | see variant targetFacts | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault` |
 
 ## Quirks And Inputs
 

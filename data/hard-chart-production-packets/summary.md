@@ -17,7 +17,7 @@ packet charts: 8
 supported for a declared target scope: 7
 rejected for production support: 1
 superseded: 0
-production-disposition blocked: 1
+production-disposition blocked: 0
 ```
 
 ## Packets
@@ -30,7 +30,7 @@ production-disposition blocked: 1
 | `argo-cd/argo-cd@9.5.15` | default | supported | production-review-ready | Use default for the declared proof scope. Hardened, self-managed, repository-credential, SSO, or backup/restore paths need sepa... | [packet](./packets/argo-cd-argo-cd.md) |
 | `grafana/loki@7.0.0` | single-binary-filesystem | supported | production-review-ready | Use single-binary-filesystem for the declared local proof scope. Object-store, retention, backup, restore, tenant, and hardened... | [packet](./packets/grafana-loki.md) |
 | `hashicorp/consul@2.0.0` | default-control-plane | supported | production-review-ready | Use default-control-plane for the declared proof scope. Secure mesh, TLS, ACL, gateway, UI, production quorum, and digest-pinne... | [packet](./packets/hashicorp-consul.md) |
-| `hashicorp/vault@0.32.0` | dev-mode | rejected | blocked | Use dev-mode only for local/demo proof. A production Vault base must cover init/unseal, storage, TLS, backup/restore, and opera... | [packet](./packets/hashicorp-vault.md) |
+| `hashicorp/vault@0.32.0` | dev-mode | rejected | production-review-ready | Use dev-mode only for local/demo proof. A production Vault base must cover init/unseal, storage, TLS, backup/restore, and opera... | [packet](./packets/hashicorp-vault.md) |
 | `longhorn/longhorn@1.11.2` | default | supported | production-review-ready | Use default only inside the declared privileged storage proof scope. Backup/restore, upgrade, replica policy, UI ingress, and h... | [packet](./packets/longhorn-longhorn.md) |
 
 ## How To Read These
