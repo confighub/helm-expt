@@ -33,6 +33,7 @@ const outputs = {
   summary: join(outputRoot, "summary.md"),
   results: join(outputRoot, "results.csv"),
   html: join(outputRoot, "torture.html"),
+  generatedAt: join(outputRoot, "generated-at.txt"),
 };
 
 // Same render contract as the proof scripts.
@@ -40,22 +41,27 @@ const RENDER_FLAGS = ["--kube-version", "1.30.0", "--include-crds", "--skip-test
 const RENDER_TIMEOUT_MS = 30000;
 
 if (mode === "--record") {
+  const generatedAt = new Date().toISOString();
   const rows = recordSuite();
   write(outputs.results, toCsv(rows));
   write(outputs.summary, summary(rows));
-  write(outputs.html, htmlReport(rows));
+  write(outputs.html, htmlReport(rows, generatedAt));
+  write(outputs.generatedAt, `${generatedAt}\n`);
   const mismatches = rows.filter((row) => row.result !== "match");
   console.log(`recorded torture suite -> ${relativeRepo(outputRoot)}/ (${rows.length} fixtures, ${mismatches.length} mismatch(es))`);
   check(mismatches.length === 0, `torture fixtures landed outside their declared outcome: ${mismatches.map((row) => `${row.fixture} got ${row.outcome}, expected ${row.expected_outcome}`).join("; ")}`);
 } else if (mode === "--generate") {
+  const generatedAt = new Date().toISOString();
   const rows = readResults();
   write(outputs.summary, summary(rows));
-  write(outputs.html, htmlReport(rows));
+  write(outputs.html, htmlReport(rows, generatedAt));
+  write(outputs.generatedAt, `${generatedAt}\n`);
   console.log(`wrote torture suite summary for ${rows.length} fixture(s)`);
 } else if (mode === "--verify") {
   for (const path of Object.values(outputs)) {
     check(existsSync(path), `${relativeRepo(path)} is missing; run npm run torture:record`);
   }
+  const generatedAt = readFileSync(outputs.generatedAt, "utf8").trim();
   const rows = readResults();
   const fixtures = listFixtures();
   const recorded = new Set(rows.map((row) => row.fixture));
@@ -69,7 +75,7 @@ if (mode === "--record") {
     check(declared.expected_outcome === row.expected_outcome, `${row.fixture}: fixture.yaml expected_outcome changed since recording; run npm run torture:record`);
   }
   check(readFileSync(outputs.summary, "utf8") === summary(rows), `${relativeRepo(outputs.summary)} is stale; run npm run torture:suite`);
-  check(readFileSync(outputs.html, "utf8") === htmlReport(rows), `${relativeRepo(outputs.html)} is stale; run npm run torture:suite`);
+  check(readFileSync(outputs.html, "utf8") === htmlReport(rows, generatedAt), `${relativeRepo(outputs.html)} is stale; run npm run torture:suite`);
   console.log(`verified torture suite: ${rows.length} fixture(s), every one in a named outcome`);
 } else {
   console.log(`Usage:
@@ -255,7 +261,7 @@ npm run torture:suite:verify
 `;
 }
 
-function htmlReport(rows) {
+function htmlReport(rows, generatedAt) {
   const passes = rows.filter((row) => row.outcome === "pass-deterministic").length;
   const refusals = rows.filter((row) => row.outcome.startsWith("refused-")).length;
   const routed = rows.length - passes - refusals;
@@ -288,6 +294,7 @@ td.note{color:#5f6368}
 </head>
 <body>
 <h1>Synthetic Torture Suite</h1>
+<p class="sub"><b>Generated at:</b> ${escapeHtml(generatedAt)} UTC · source: committed torture-suite fixture results.</p>
 <p class="sub">${rows.length} fixtures · ${passes} pass · ${refusals} named refusals · ${routed} named routes · 0 silent outcomes by construction. Charts written to break the model; every one must land in a named outcome or recording fails. Hover the attack column for the routing notes. Re-record with <code>npm run torture:record</code>.</p>
 <table>
 <thead><tr><th>Fixture</th><th>Attack</th><th>Outcome</th><th>Detail</th></tr></thead>

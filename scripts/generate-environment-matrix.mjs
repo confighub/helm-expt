@@ -29,6 +29,7 @@ const outputs = {
   summary: join(outputRoot, "summary.md"),
   matrix: join(outputRoot, "matrix.csv"),
   html: join(outputRoot, "matrix.html"),
+  generatedAt: join(outputRoot, "generated-at.txt"),
 };
 
 // Same render contract as generate-variant-proof.mjs and
@@ -70,20 +71,25 @@ const FLAG_PROFILES = [
 ];
 
 if (mode === "--record") {
+  const generatedAt = new Date().toISOString();
   const rows = recordMatrix();
   write(outputs.matrix, toCsv(rows));
   write(outputs.summary, summary(rows));
-  write(outputs.html, htmlReport(rows));
+  write(outputs.html, htmlReport(rows, generatedAt));
+  write(outputs.generatedAt, `${generatedAt}\n`);
   console.log(`recorded environment matrix -> ${relativeRepo(outputRoot)}/ (${rows.length} cells)`);
 } else if (mode === "--generate") {
+  const generatedAt = new Date().toISOString();
   const rows = readMatrix();
   write(outputs.summary, summary(rows));
-  write(outputs.html, htmlReport(rows));
+  write(outputs.html, htmlReport(rows, generatedAt));
+  write(outputs.generatedAt, `${generatedAt}\n`);
   console.log(`wrote environment matrix summary for ${rows.length} cell(s)`);
 } else if (mode === "--verify") {
   for (const path of Object.values(outputs)) {
     check(existsSync(path), `${relativeRepo(path)} is missing; run npm run environment-matrix:record`);
   }
+  const generatedAt = readFileSync(outputs.generatedAt, "utf8").trim();
   const rows = readMatrix();
   check(rows.length > 0, "environment matrix has no cells");
   for (const entry of CORPUS) {
@@ -94,7 +100,7 @@ if (mode === "--record") {
     check(row.deterministic !== "true" || /^[0-9a-f]{64}$/.test(row.digest), `cell ${row.chart_path}/${row.flag_profile}/${row.env_id} is deterministic but has no well-formed digest`);
   }
   check(readFileSync(outputs.summary, "utf8") === summary(rows), `${relativeRepo(outputs.summary)} is stale; run npm run environment-matrix`);
-  check(existsSync(outputs.html) && readFileSync(outputs.html, "utf8") === htmlReport(rows), `${relativeRepo(outputs.html)} is stale; run npm run environment-matrix`);
+  check(existsSync(outputs.html) && readFileSync(outputs.html, "utf8") === htmlReport(rows, generatedAt), `${relativeRepo(outputs.html)} is stale; run npm run environment-matrix`);
   const variantCells = rows.filter((row) => row.matches_baseline_env === "false");
   console.log(`verified environment matrix: ${rows.length} cell(s), ${variantCells.length} env-variant cell(s)`);
 } else {
@@ -294,7 +300,7 @@ npm run environment-matrix:verify
 }
 
 
-function htmlReport(rows) {
+function htmlReport(rows, generatedAt) {
   const context = rows[0] ?? {};
   const variant = rows.filter((row) => row.matches_baseline_env === "false").length;
   const nonDeterministic = rows.filter((row) => row.deterministic === "false").length;
@@ -328,6 +334,7 @@ td.s{text-align:center;font-weight:700;width:28px}
 </head>
 <body>
 <h1>Environment-Determinism Matrix</h1>
+<p class="sub"><b>Generated at:</b> ${escapeHtml(generatedAt)} UTC · source: committed environment matrix cells.</p>
 <p class="sub">${rows.length} recorded cells · ${nonDeterministic} non-deterministic · ${variant} env-variant vs baseline. Platform: ${escapeHtml(context.os ?? "?")}/${escapeHtml(context.arch ?? "?")}, helm ${escapeHtml(context.helm_version ?? "?")}. "Matches baseline" compares each cell digest to the UTC/C cell for the same chart and flag profile; baseline rows show –. Re-record with <code>npm run environment-matrix:record</code>.</p>
 <table>
 <thead><tr><th>Chart</th><th>Base</th><th>Flag profile</th><th>Environment</th><th>TZ</th><th>Locale</th><th>Deterministic</th><th>Digest</th><th>Matches baseline</th></tr></thead>

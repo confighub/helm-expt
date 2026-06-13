@@ -35,6 +35,7 @@ const outputs = {
   summary: join(outputRoot, "summary.md"),
   matrix: join(outputRoot, "matrix.csv"),
   html: join(outputRoot, "matrix.html"),
+  generatedAt: join(outputRoot, "generated-at.txt"),
 };
 
 const SOURCES = {
@@ -100,15 +101,18 @@ const COLUMN_PROVENANCE = [
 ];
 
 if (mode === "--generate") {
-  const report = buildReport();
+  const generatedAt = new Date().toISOString();
+  const report = buildReport(generatedAt);
   write(outputs.matrix, report.csv);
   write(outputs.summary, report.summary);
   write(outputs.html, report.html);
+  write(outputs.generatedAt, `${generatedAt}\n`);
   console.log(`wrote master catalog matrix -> ${relativeRepo(outputRoot)}/ (${report.rows.length} variant rows)`);
 } else if (mode === "--verify") {
-  const report = buildReport();
+  check(existsSync(outputs.generatedAt), `${relativeRepo(outputs.generatedAt)} is missing; run npm run master-matrix`);
+  const report = buildReport(readFileSync(outputs.generatedAt, "utf8").trim());
   const expected = { summary: report.summary, matrix: report.csv, html: report.html };
-  for (const [name, path] of Object.entries(outputs)) {
+  for (const [name, path] of Object.entries(outputs).filter(([name]) => name !== "generatedAt")) {
     check(existsSync(path), `${relativeRepo(path)} is missing; run npm run master-matrix`);
     check(readFileSync(path, "utf8") === expected[name], `${relativeRepo(path)} is stale; run npm run master-matrix`);
   }
@@ -119,7 +123,7 @@ if (mode === "--generate") {
   node scripts/generate-master-catalog-matrix.mjs --verify`);
 }
 
-function buildReport() {
+function buildReport(generatedAt) {
   const outcomes = readCsv(SOURCES.outcomes);
   const readiness = indexBy(readCsv(SOURCES.readiness), (row) => row.chart);
   const hookRows = readCsv(SOURCES.hooks);
@@ -248,7 +252,7 @@ function buildReport() {
     unmatchedReadiness,
     csv: toCsv(rows),
     summary: summary(rows, charts, unmatchedReadiness),
-    html: htmlReport(rows, charts, unmatchedReadiness),
+    html: htmlReport(rows, charts, unmatchedReadiness, generatedAt),
   };
 }
 
@@ -429,7 +433,7 @@ npm run master-matrix:verify
 `;
 }
 
-function htmlReport(rows, charts, unmatchedReadiness) {
+function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
   const laneCells = rows.flatMap((row) => [...LANE_COLUMNS.map(([target]) => row[target]), row.lane_two_cluster_kind]).filter(Boolean);
   const counts = {
     yes: laneCells.filter((value) => value === "yes").length,
@@ -513,6 +517,7 @@ td.gap{max-width:220px;color:#7a4f00}
 </head>
 <body>
 <h1>Master Catalog Matrix</h1>
+<p class="sub"><b>Generated at:</b> ${escapeHtml(generatedAt)} UTC · source: committed catalog, proof, live, and production-status data.</p>
 <p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · ${activeProofRows.length} active proof queue row(s) · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
 <p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– n/a</span></p>
 <p class="sub">This is the user/product front door: Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where production support is bounded, Gap names the main product or chart gap, and Active proof shows the exact current non-pass live row action when a row is in the rerun plan. The Links column jumps to the chart catalog, variant definition, package base, variant revision, and GitHub folder. Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · Y explicit lifecycle observation · G OCI+Argo live · P live dual parity · K two-cluster kind parity. Hover cells for detail (hooks, quirks, production target scope, active proof command, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>

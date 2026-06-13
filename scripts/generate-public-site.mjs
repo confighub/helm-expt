@@ -11,6 +11,7 @@ const tryPath = join(siteRoot, "try.html");
 const chartIndexPath = join(chartPagesRoot, "index.html");
 const catalogJsonPath = join(siteRoot, "catalog.json");
 const readmePath = join(siteRoot, "README.md");
+const generatedAtPath = join(siteRoot, "generated-at.txt");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
 const top500Path = join(repoRoot, "data", "top500-catalog-analysis", "raw.json");
 const latestReadinessPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv");
@@ -40,7 +41,8 @@ const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-productio
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
-  const site = buildSite();
+  const generatedAt = new Date().toISOString();
+  const site = buildSite(generatedAt);
   rmSync(chartPagesRoot, { recursive: true, force: true });
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
@@ -50,15 +52,18 @@ if (mode === "--generate") {
   for (const page of site.chartPages) write(page.path, page.html);
   write(catalogJsonPath, site.catalogJson);
   write(readmePath, site.readme);
+  write(generatedAtPath, `${generatedAt}\n`);
   console.log(`wrote public site outputs and ${site.chartPages.length} chart page(s)`);
 } else if (mode === "--verify") {
-  const site = buildSite();
+  check(existsSync(generatedAtPath), "site/generated-at.txt is missing; run npm run site:generate");
+  const site = buildSite(readFileSync(generatedAtPath, "utf8").trim());
   check(existsSync(indexPath), "site/index.html is missing; run npm run site:generate");
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
   check(existsSync(chartIndexPath), "site/charts/index.html is missing; run npm run site:generate");
   check(existsSync(catalogJsonPath), "site/catalog.json is missing; run npm run site:generate");
   check(existsSync(readmePath), "site/README.md is missing; run npm run site:generate");
+  check(existsSync(generatedAtPath), "site/generated-at.txt is missing; run npm run site:generate");
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
@@ -82,7 +87,7 @@ if (mode === "--generate") {
   node scripts/generate-public-site.mjs --verify`);
 }
 
-function buildSite() {
+function buildSite(generatedAt) {
   const top100 = JSON.parse(readFileSync(top100Path, "utf8"));
   const top500 = JSON.parse(readFileSync(top500Path, "utf8"));
   const readiness = parseCsv(readFileSync(latestReadinessPath, "utf8"));
@@ -159,6 +164,7 @@ function buildSite() {
     });
   const catalog = {
     generatedBy: "scripts/generate-public-site.mjs",
+    generatedAt,
     source: {
       top100: "data/top100-catalog-analysis/raw.json",
       top500: "data/top500-catalog-analysis/raw.json",
@@ -259,6 +265,10 @@ function buildSite() {
     matrixHtml: readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
     readme: readme(),
   };
+}
+
+function generatedStamp(catalog, label) {
+  return `<p class="generated"><b>Generated at:</b> ${escapeHtml(catalog.generatedAt)} UTC · source: committed helm-expt evidence for this ${escapeHtml(label)}.</p>`;
 }
 
 function html(catalog) {
@@ -409,6 +419,7 @@ function html(catalog) {
   <header>
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./offering.html">Offering &amp; tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Helm charts in. Proof-carrying ConfigHub packages out.</h1>
+    ${generatedStamp(catalog, "public catalog dashboard")}
     <p class="tagline">helm-expt turns the most-used public Helm charts into reviewed <code>cub installer</code> packages with named variants, rendered objects, and a receipt behind every claim. Nothing here asks to be trusted: green cells are backed by committed evidence, with links to the chart, package, revision, and source data.</p>
     <div class="doors">
       <div class="door">
@@ -826,6 +837,7 @@ function offeringHtml(catalog) {
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./offering.html">Offering &amp; tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
+    ${generatedStamp(catalog, "offering page")}
     <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
     <p>Helm is still the renderer. ConfigHub turns the result into reviewed packages, named variants, rendered objects, scans, gates, receipts, and live evidence.</p>
     <pre>public Helm chart
@@ -1006,6 +1018,7 @@ function tryHtml(catalog) {
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./offering.html">Offering &amp; tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Try the catalog in three short paths.</h1>
+    ${generatedStamp(catalog, "try-now page")}
     <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
     ${markdownLikeTable([
       ["Path", "What it proves"],
@@ -1159,6 +1172,7 @@ function chartIndexHtml(catalog) {
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../offering.html">Offering &amp; tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>Catalog Chart Pages</h1>
+    ${generatedStamp(catalog, "chart index")}
     <p class="tagline">One public page per catalog-supported chart: base variants, proof lanes, production boundary, quirks, and artifact links.</p>
   </header>
   <main>
@@ -1227,6 +1241,7 @@ function chartPageHtml(catalog, entry) {
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../offering.html">Offering &amp; tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>${escapeHtml(entry.chart)}</h1>
+    ${generatedStamp(catalog, "chart status page")}
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
     <pre>${escapeHtml(entry.start_command || `cub installer setup --pull ${entry.package_path} --base ${entry.start_variant} --work-dir <tmp> --non-interactive`)}</pre>
@@ -1631,6 +1646,11 @@ function siteCss() {
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
     h3 { margin: 0 0 8px; font-size: 1rem; }
     p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }

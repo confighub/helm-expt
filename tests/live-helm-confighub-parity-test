@@ -274,9 +274,16 @@ def apply_k8s_zero_defaults(doc: dict) -> list[str]:
             obj.pop(key, None)
             changes.append(path)
 
+    metadata = doc.get("metadata") or {}
+    pop_if_empty(metadata, "labels", "metadata.labels empty")
+
     if doc.get("apiVersion") == "apiregistration.k8s.io/v1" and doc.get("kind") == "APIService":
         spec = doc.get("spec") or {}
         pop_if_equal(spec, "insecureSkipTLSVerify", False, "spec.insecureSkipTLSVerify=false")
+
+    if doc.get("apiVersion") == "apiextensions.k8s.io/v1" and doc.get("kind") == "CustomResourceDefinition":
+        spec = doc.get("spec") or {}
+        pop_if_equal(spec, "conversion", {"strategy": "None"}, "spec.conversion.strategy=None")
 
     if doc.get("apiVersion") != "apps/v1" or doc.get("kind") != "StatefulSet":
         return changes
@@ -421,6 +428,23 @@ def materialize_statefulset_gitops_defaults(doc: dict) -> list[str]:
         claim_spec = claim.get("spec") or {}
         set_default(claim_spec, "volumeMode", "Filesystem", f"spec.volumeClaimTemplates[{name}].spec.volumeMode=Filesystem")
 
+    return changes
+
+
+def materialize_crd_gitops_defaults(doc: dict) -> list[str]:
+    changes = []
+    if doc.get("apiVersion") != "apiextensions.k8s.io/v1" or doc.get("kind") != "CustomResourceDefinition":
+        return changes
+
+    metadata = doc.get("metadata") or {}
+    if metadata.get("labels") == {}:
+        metadata.pop("labels", None)
+        changes.append("removed metadata.labels empty")
+
+    spec = doc.get("spec") or {}
+    if "conversion" not in spec:
+        spec["conversion"] = {"strategy": "None"}
+        changes.append("materialized spec.conversion.strategy=None")
     return changes
 
 
@@ -1195,6 +1219,9 @@ def canonicalize_gitops_doc(doc: dict, profile: str) -> tuple[dict, list[str]]:
             changes.append(f"{doc.get('kind')}/{name}: removed {change}")
     if doc.get("apiVersion") == "apps/v1" and doc.get("kind") == "StatefulSet":
         for change in materialize_statefulset_gitops_defaults(doc):
+            changes.append(f"{doc.get('kind')}/{name}: {change}")
+    if doc.get("apiVersion") == "apiextensions.k8s.io/v1" and doc.get("kind") == "CustomResourceDefinition":
+        for change in materialize_crd_gitops_defaults(doc):
             changes.append(f"{doc.get('kind')}/{name}: {change}")
     return doc, changes
 

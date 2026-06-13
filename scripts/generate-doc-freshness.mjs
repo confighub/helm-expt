@@ -38,6 +38,7 @@ const outputs = {
   summary: join(outputRoot, "summary.md"),
   freshness: join(outputRoot, "freshness.csv"),
   html: join(outputRoot, "freshness.html"),
+  generatedAt: join(outputRoot, "generated-at.txt"),
 };
 // Hand-maintained acknowledgments: a row here says "I reviewed this doc on
 // this date and it is still accurate" — it clears review-due without a
@@ -49,10 +50,12 @@ const reviewedPath = join(outputRoot, "reviewed.csv");
 const EVIDENCE_ROOTS = ["data/", "scripts/", "tests/", "recipes/", "packages/", "CATALOG.md"];
 
 if (mode === "--generate") {
+  const generatedAt = new Date().toISOString();
   const rows = buildRows();
   write(outputs.freshness, toCsv(rows));
   write(outputs.summary, summary(rows));
-  write(outputs.html, htmlReport(rows));
+  write(outputs.html, htmlReport(rows, generatedAt));
+  write(outputs.generatedAt, `${generatedAt}\n`);
   const due = rows.filter((row) => row.status === "review-due");
   console.log(`wrote doc freshness -> ${relativeRepo(outputRoot)}/ (${rows.length} authored docs, ${due.length} review-due)`);
   for (const row of due) console.log(`  review-due: ${row.doc} (${row.days_behind}d behind ${row.newer_sources.split("; ")[0]})`);
@@ -60,6 +63,7 @@ if (mode === "--generate") {
   for (const path of Object.values(outputs)) {
     check(existsSync(path), `${relativeRepo(path)} is missing; run npm run doc-freshness`);
   }
+  const generatedAt = readFileSync(outputs.generatedAt, "utf8").trim();
   const committed = readCsv(outputs.freshness);
   const universe = authoredDocs();
   const committedDocs = new Set(committed.map((row) => row.doc));
@@ -77,7 +81,7 @@ if (mode === "--generate") {
     check(universe.includes(doc), `data/doc-freshness/reviewed.csv acknowledges ${doc}, which is not an authored doc; remove the row`);
   }
   check(readFileSync(outputs.summary, "utf8") === summary(committed), `${relativeRepo(outputs.summary)} is stale against its CSV; run npm run doc-freshness`);
-  check(existsSync(outputs.html) && readFileSync(outputs.html, "utf8") === htmlReport(committed), `${relativeRepo(outputs.html)} is stale against its CSV; run npm run doc-freshness`);
+  check(existsSync(outputs.html) && readFileSync(outputs.html, "utf8") === htmlReport(committed, generatedAt), `${relativeRepo(outputs.html)} is stale against its CSV; run npm run doc-freshness`);
   console.log(`verified doc freshness snapshot: ${committed.length} authored docs (review-due state is as of commit ${committed[0]?.as_of_commit ?? "?"}; refresh with npm run doc-freshness)`);
 } else {
   console.log(`Usage:
@@ -261,7 +265,7 @@ npm run doc-freshness:verify
 }
 
 
-function htmlReport(rows) {
+function htmlReport(rows, generatedAt) {
   const order = { "review-due": 0, fresh: 1, "no-linked-sources": 2 };
   const sorted = [...rows].sort((a, b) => (order[a.status] - order[b.status]) || (Number(b.days_behind || 0) - Number(a.days_behind || 0)) || a.doc.localeCompare(b.doc));
   const due = rows.filter((row) => row.status === "review-due").length;
@@ -306,6 +310,7 @@ td.note code{font-size:11px}
 </head>
 <body>
 <h1>Doc Freshness — when to update the authored docs</h1>
+<p class="sub"><b>Generated at:</b> ${escapeHtml(generatedAt)} UTC · source: committed docs, linked evidence files, and git history.</p>
 <p class="sub">${rows.length} authored docs · <b>${due} review-due</b> · ${fresh} fresh · ${unlinked} with no linked evidence sources. Snapshot as of ${escapeHtml(asOf)}; refresh with <code>npm run doc-freshness</code>. A review-due doc is cleared by editing it or acknowledging it in reviewed.csv ("reviewed on this date, still accurate").</p>
 <table>
 <thead><tr><th>Doc</th><th>Area</th><th>Status</th><th>Days behind</th><th>Doc last changed</th><th>Linked sources</th><th>Newer sources (triggers)</th></tr></thead>
