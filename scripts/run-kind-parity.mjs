@@ -326,6 +326,9 @@ function relatedLifecycleEvidenceFor(receipt, lifecycleEvidence) {
 function meaningFor(row) {
   if (row.result === "pass") return "live parity passed";
   if (row.semantic_parity === "defect") return "semantic object parity defect";
+  if (row.reason?.startsWith("render-input:")) {
+    return "semantic parity passed; required render inputs need a modeled base";
+  }
   if (row.semantic_parity === "pass" && row.related_lifecycle_evidence) {
     return "semantic parity passed; lifecycle route has evidence";
   }
@@ -345,6 +348,12 @@ function classifyReceipt(receipt) {
 
   const text = JSON.stringify(spec).toLowerCase();
   const paritySuffix = semanticPassed ? " (parity passed)" : "";
+  if (
+    text.includes("you must specify values for either") &&
+    (text.includes("autodiscovery") || text.includes("autoscalinggroups"))
+  ) {
+    return `render-input: required Helm values missing${paritySuffix}`;
+  }
   if (text.includes("no matches for kind") || text.includes("ensure crds are installed first") || text.includes("resource mapping not found")) {
     return `target-prerequisite: CRDs missing${paritySuffix}`;
   }

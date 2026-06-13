@@ -355,6 +355,9 @@ function diagnosisForTwoCluster(row, lifecycle) {
   if (row.reason?.startsWith("target-fit:")) {
     return "Object parity passed; the selected proof target does not provide the platform shape required by this base.";
   }
+  if (row.reason?.startsWith("render-input:")) {
+    return "Object parity passed, but the selected base did not render a functional workload because required Helm values were missing. Choose or create a values-profile base before rerunning.";
+  }
   if (row.reason?.startsWith("target-runtime:") || row.reason?.startsWith("helm-runtime:")) {
     return "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.";
   }
@@ -373,6 +376,9 @@ function followupForTwoCluster(row, lifecycle) {
   if (row.reason?.startsWith("helm-hook:")) return "Keep desired object parity separate from hook execution and document the lifecycle route.";
   if (row.reason?.startsWith("operate-policy:")) return "Record the operating procedure and a receipt for it; rerun strict parity only if the expected readiness contract changes.";
   if (row.reason?.startsWith("target-fit:")) return "Use a target that satisfies the base, or add a separate base for the smaller proof target.";
+  if (row.reason?.startsWith("render-input:")) {
+    return "Use a values-profile rerender base such as the reviewed controller base, or model the missing values in a new base before rerunning strict parity.";
+  }
   if (row.reason?.startsWith("target-runtime:") || row.reason?.startsWith("helm-runtime:")) {
     return "Keep the recipe stable unless the rendered object comparison starts failing.";
   }

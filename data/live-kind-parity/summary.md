@@ -32,7 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| watch: object parity passed; readiness needs review | 1 |
+| render-input: required Helm values missing (parity passed) | 1 |
 
 ## How To Read Non-Pass Rows
 
@@ -62,7 +62,7 @@ broader support claim.
 | `argo-cd/argo-rollouts@2.40.9` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/receipt.yaml |
 | `argo-cd/argo-workflows@1.0.14` | minimal-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml |
 | `argo-cd/argocd-image-updater@1.2.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argocd-image-updater-default/receipt.yaml |
-| `autoscaler/cluster-autoscaler@9.57.0` | default | watch | pass | watch: object parity passed; readiness needs review |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml |
+| `autoscaler/cluster-autoscaler@9.57.0` | default | watch | pass | render-input: required Helm values missing (parity passed) |  | semantic parity passed; required render inputs need a modeled base | runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
