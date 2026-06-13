@@ -1,0 +1,390 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: argo-cd-argo-rollouts-2.40.9-no-crds-live-parity-20260605
+spec:
+  chart: argo-cd/argo-rollouts
+  version: 2.40.9
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-13T07:19:54Z'
+  package:
+    path: packages/argo-cd/argo-rollouts/2.40.9
+  recipe:
+    path: recipes/argo-cd/argo-rollouts/2.40.9
+  variantRevision: recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-argoronoc-1781338201
+    kubeContext: kind-helm-expt-parity-argoronoc-1781338201
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-argoronoc-1781338201 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-argoronoc-1781338201"...
+
+        Deleting cluster "helm-expt-parity-argoronoc-1781338201" ...
+
+        Deleted nodes: ["helm-expt-parity-argoronoc-1781338201-control-plane"]
+
+        Deleting Space "helm-expt-parity-argoronoc-1781338201-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argo-rollouts argo-rollouts --repo https://argoproj.github.io/argo-helm
+        --version 2.40.9 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-rollouts-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7
+      objectCount: 9
+      liveHelmManifestSHA256: fe02bdfe48573a26521e4955c5d8c2eba46cc9a657c58f8107ea5bb654f64fa2
+      liveHelmManifestObjectCount: 9
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/argo-rollouts   2/2   2     2     27s
+        pods: 'argo-rollouts-7cd8b4d66d-k55k4   1/1   Running   0     27s
+
+          argo-rollouts-7cd8b4d66d-zq2bp   1/1   Running   0     27s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-rollouts/2.40.9
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoronoc-1781338201-argo-rollouts
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 4af4d9192346d408e1b5690ad3f52efdb8c32d040edd49e55fab462b1df5c6c9
+      objectCount: 10
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/argo-rollouts   2/2   2     2     21s'
+        pods: '# default
+
+          argo-rollouts-59bc98ffdc-hh522   1/1   Running   0     21s
+
+          argo-rollouts-59bc98ffdc-zctjx   1/1   Running   0     21s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 5
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "argo-rollouts-aggregate-to-admin"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "argo-rollouts-aggregate-to-edit"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "argo-rollouts-aggregate-to-view"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "argo-rollouts" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-rollouts" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|argo-rollouts
+          - v1|ConfigMap|default|argo-rollouts-config
+          - v1|ConfigMap|default|argo-rollouts-notification-configmap
+          - v1|ServiceAccount|default|argo-rollouts
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-argoronoc-1781338201-argo-rollouts
+      controller: Argo CD OCI
+      app: argo-rollouts-parity
+      manifestSHA256: 338fb9749568860aef80bbcbb831bcc8c71d43bdf5eaf184a6e775c698bb95d5
+      objectCount: 10
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:31cba82eddf96abffaaee2af14d1f46f2a8d08e80069c3fc4d502d01deab1595
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-argoronoc-1781338201-argo-rollouts
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoronoc-1781338201-cluster/oci
+              targetRevision: latest
+          revision: sha256:31cba82eddf96abffaaee2af14d1f46f2a8d08e80069c3fc4d502d01deab1595
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T07:24:07Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: argo-rollouts-config
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: argo-rollouts-notification-configmap
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: argo-rollouts
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: argo-rollouts
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: argo-rollouts
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: argo-rollouts-aggregate-to-admin
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: argo-rollouts-aggregate-to-edit
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: argo-rollouts-aggregate-to-view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: argo-rollouts
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-argoronoc-1781338201-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoronoc-1781338201-cluster/oci
+              targetRevision: latest
+          revision: sha256:31cba82eddf96abffaaee2af14d1f46f2a8d08e80069c3fc4d502d01deab1595
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T07:21:27Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: argo-rollouts-parity
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-argoronoc-1781338201-cluster
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/argo-rollouts   2/2   2     2     2m15s'
+        pods: '# default
+
+          argo-rollouts-59bc98ffdc-hh522   1/1   Running   0             2m15s
+
+          argo-rollouts-59bc98ffdc-zctjx   1/1   Running   4 (72s ago)   2m15s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-argoronoc-1781338201\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-argoronoc-1781338201.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-argoronoc-1781338201\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-argoronoc-1781338201\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argoronoc-1781338201\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argoronoc-1781338201.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argoc"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "argo-rollouts" does not exist. Installing it now.
+
+      NAME: argo-rollouts
+
+      LAST DEPLOYED: Sat Jun 13 08:21:21 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/argo-rollouts   2/2   2     2     21s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=5
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 70s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
