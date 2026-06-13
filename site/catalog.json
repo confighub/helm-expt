@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-13T10:49:52.517Z",
+  "generatedAt": "2026-06-13T10:51:55.971Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -456,20 +456,20 @@
     {
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
-      "value": "79",
+      "value": "80",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "1 rows have non-pass GitOps/OCI receipts."
+      "note": "2 rows have non-pass GitOps/OCI receipts."
     },
     {
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
-      "value": "79",
+      "value": "80",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "2 rows have non-pass live parity receipts."
+      "note": "3 rows have non-pass live parity receipts."
     },
     {
       "section": "proof lanes",
@@ -492,7 +492,7 @@
     {
       "section": "proof lanes",
       "metric": "complete core lane rows",
-      "value": "78",
+      "value": "79",
       "total": "191",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
