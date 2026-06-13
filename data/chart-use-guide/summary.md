@@ -94,7 +94,7 @@ or a limitation decision before they should be treated as catalog offers.
 
 | Chart | Answer | Evidence | First action |
 | --- | --- | --- | --- |
-| `traefik/traefik@40.2.0` | `decision-needed-first` | `local-kubernetes-live` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
+| `traefik/traefik@40.2.0` | `decision-needed-first` | `live-helm-vs-confighub-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
 | `external-dns/external-dns@1.21.1` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `gitlab/gitlab-runner@0.89.0` | `not-yet-user-ready` | `in-confighub-proof` | Design at least one useful base variant before catalog promotion. |
 | `kyverno/kyverno@3.8.1` | `decision-needed-first` | `live-helm-vs-confighub-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |

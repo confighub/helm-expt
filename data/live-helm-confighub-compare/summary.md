@@ -6,8 +6,8 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 65
-watch: 3
+pass: 66
+watch: 2
 blocked: 0
 not-started: 0
 ```
@@ -87,4 +87,4 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `prometheus-community/prometheus-node-exporter@4.55.0` | cluster-metrics-readonly | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/receipt.yaml |
 |  | `sealed-secrets/sealed-secrets@2.18.6` | default | pass | - | runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-default/receipt.yaml |
 |  | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | - | runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-default/receipt.yaml |
-|  | `traefik/traefik@40.2.0` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/traefik-traefik-default/receipt.yaml |
+|  | `traefik/traefik@40.2.0` | default | pass | - | runs/live-helm-confighub-compare/traefik-traefik-default/receipt.yaml |

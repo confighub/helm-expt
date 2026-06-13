@@ -6,24 +6,34 @@ spec:
   chart: traefik/traefik
   version: 40.2.0
   base: default
-  result: watch
-  observedAt: '2026-06-13T01:13:36Z'
+  result: pass
+  observedAt: '2026-06-13T05:00:17Z'
   package:
     path: packages/traefik/traefik/40.2.0
   recipe:
     path: recipes/traefik/traefik/40.2.0
   variantRevision: recipes/traefik/traefik/40.2.0/revisions/default/r001/variant-revision.yaml
   targetProfile:
-    name: none
+    name: kind-loadbalancer
     result: pass
-    resources: []
+    provider: metallb-l2
+    fallbackReason: 'cloud-provider-kind requires host privileges on this machine:
+      Error: please run this again with `sudo`'
+    addressPool: 192.168.97.225-192.168.97.254
+    resources:
+    - namespace/metallb-system
+    - ipaddresspool/kind-pool
+    - l2advertisement/kind-l2
+    observedBehavior: Service.type=LoadBalancer objects receive an in-Docker-network
+      address via MetalLB L2. Addresses populate status.loadBalancer.ingress (sufficient
+      for parity and controller health); they are NOT reachable from the macOS host.
   gitOpsCanonicalizationProfile:
     name: none
     result: pass
     changes: []
   run:
-    rig: helm-expt-parity-traefik-default-1781313216
-    kubeContext: kind-helm-expt-parity-traefik-default-1781313216
+    rig: helm-expt-parity-traefik-lb1-0613
+    kubeContext: kind-helm-expt-parity-traefik-lb1-0613
     namespace: default
     legNamespaces:
       regularHelm: default-helm
@@ -31,16 +41,16 @@ spec:
       configHubOciArgo: default-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-traefik-default-1781313216 --force
+      command: cub lk down --name helm-expt-parity-traefik-lb1-0613 --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-traefik-default-1781313216"...
+      detail: 'Deleting kind cluster "helm-expt-parity-traefik-lb1-0613"...
 
-        Deleting cluster "helm-expt-parity-traefik-default-1781313216" ...
+        Deleting cluster "helm-expt-parity-traefik-lb1-0613" ...
 
-        Deleted nodes: ["helm-expt-parity-traefik-default-1781313216-control-plane"]
+        Deleted nodes: ["helm-expt-parity-traefik-lb1-0613-control-plane"]
 
-        Deleting Space "helm-expt-parity-traefik-default-1781313216-cluster" (recursive:
-        cascades to Unit, Target, Worker)...
+        Deleting Space "helm-expt-parity-traefik-lb1-0613-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
 
 
         Done.'
@@ -49,7 +59,7 @@ spec:
       result: pass
       command: helm upgrade --install traefik traefik --repo https://traefik.github.io/charts
         --version 40.2.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/traefik-traefik-default/regular-helm-values.yaml
-        --wait --timeout 600s
+        --wait --timeout 10m
       manifestSHA256: 84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09
       objectCount: 31
       liveHelmManifestSHA256: 51a59c67584e6f30a26b382bfe51fe0ad9e5660222acc718c53e23e64ef70f31
@@ -57,8 +67,8 @@ spec:
       namespace: default-helm
       runtime:
         result: pass
-        workloads: deployment.apps/traefik   1/1   1     1     20s
-        pods: traefik-56d8b8c957-brjx7   1/1   Running   0     20s
+        workloads: deployment.apps/traefik   1/1   1     1     21s
+        pods: traefik-56d8b8c957-4j25r   1/1   Running   0     21s
         notReady: []
         ignoredJobPods: []
       stderr: ''
@@ -66,7 +76,7 @@ spec:
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/traefik/traefik/40.2.0
-        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-traefik-default-1781313216-traefik-traefik
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-traefik-lb1-0613-traefik-traefik
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: d8b0152214a507b7e98960b14f173bc8f8fbe6203ba5a6b3e21967527c0c6df6
@@ -82,10 +92,10 @@ spec:
         namespaces: *id001
         workloads: '# default
 
-          deployment.apps/traefik   1/1   1     1     20s'
+          deployment.apps/traefik   1/1   1     1     21s'
         pods: '# default
 
-          traefik-5f694f77f5-lxhjv   1/1   Running   0     20s'
+          traefik-5f694f77f5-vkpk6   1/1   Running   0     21s'
         notReady: []
       cleanupBeforeOci:
         namespaces:
@@ -130,21 +140,19 @@ spec:
 
             customresourcedefinition.apiexte'
         protectedNamespaceResources:
-          result: pass
+          result: not-needed
           namespaces:
           - default
-          objectCount: 3
-          manifest: protected-namespace-apply-cleanup.yaml
-          detail: 'deployment.apps "traefik" deleted from default namespace
-
-            service "traefik" deleted from default namespace
-
-            serviceaccount "traefik" deleted from default namespace'
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|traefik
+          - v1|ServiceAccount|default|traefik
+          - v1|Service|default|traefik
         reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
           parity rigs
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-traefik-default-1781313216-traefik-traefik
+      result: pass
+      workloadSpace: helm-expt-parity-traefik-lb1-0613-traefik-traefik
       controller: Argo CD OCI
       app: traefik-traefik-parity
       manifestSHA256: 0884a9272c91f83f7d2019097b64466d97e6fafee1459cb1eaab597f035c737e
@@ -155,9 +163,9 @@ spec:
       - default-oci
       runtimeNamespaces: &id002
       - default
-      ociRevision: sha256:2e43b93f16a288125910f723f9fa16e255fefe6e1c2cefddc0185d9dff33d11e
+      ociRevision: sha256:0bef3347e2c4998a413964be758b5591c33957988501c8e625687c7a259dc909
       sync: Synced
-      health: Progressing
+      health: Healthy
       separatedSecrets: []
       argoStatus:
         result: recorded
@@ -167,14 +175,14 @@ spec:
               namespace: default-oci
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-traefik-default-1781313216-traefik-traefik
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-default-1781313216-cluster/oci
+              path: ./helm-expt-parity-traefik-lb1-0613-traefik-traefik
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-lb1-0613-cluster/oci
               targetRevision: latest
-          revision: sha256:2e43b93f16a288125910f723f9fa16e255fefe6e1c2cefddc0185d9dff33d11e
+          revision: sha256:0bef3347e2c4998a413964be758b5591c33957988501c8e625687c7a259dc909
           status: Synced
         health:
-          lastTransitionTime: '2026-06-13T01:17:55Z'
-          status: Progressing
+          lastTransitionTime: '2026-06-13T05:07:49Z'
+          status: Healthy
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
@@ -404,15 +412,50 @@ spec:
           status: Synced
           health: ''
           hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-traefik-lb1-0613-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-lb1-0613-cluster/oci
+              targetRevision: latest
+          revision: sha256:0bef3347e2c4998a413964be758b5591c33957988501c8e625687c7a259dc909
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T05:01:49Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-traefik-lb1-0613-cluster
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: traefik-traefik-parity
+          status: Synced
+          health: ''
+          hook: false
       runtime:
         result: pass
         namespaces: *id002
         workloads: '# default
 
-          deployment.apps/traefik   1/1   1     1     6m49s'
+          deployment.apps/traefik   1/1   1     1     5m2s'
         pods: '# default
 
-          traefik-5f694f77f5-rx4kf   1/1   Running   0     6m49s'
+          traefik-5f694f77f5-vkpk6   1/1   Running   0     5m2s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -446,21 +489,27 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-traefik-default-1781313216\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-traefik-default-1781313216.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-traefik-default-1781313216\" ...\n \u2022\
-      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
-      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
-      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
-      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
-      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
-      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
-      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-traefik-default-1781313216\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-traefik-default-1781313216\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-traefik-default-1781313216.kubeconfig\n\
-      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
-      \ \U0001F642\nInsta"
+    detail: "Creating kind cluster \"helm-expt-parity-traefik-lb1-0613\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-traefik-lb1-0613.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-traefik-lb1-0613\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-traefik-lb1-0613\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-traefik-lb1-0613\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-traefik-lb1-0613.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n\
+      spec: {}\nstatus: {}\nname"
+  - name: target-profile
+    result: pass
+    detail: 'kind-loadbalancer: Service.type=LoadBalancer objects receive an in-Docker-network
+      address via MetalLB L2. Addresses populate status.loadBalancer.ingress (sufficient
+      for parity and controller health); they are NOT reachable from the macOS host.'
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=0 crds=0
@@ -470,7 +519,7 @@ spec:
 
       NAME: traefik
 
-      LAST DEPLOYED: Sat Jun 13 02:15:06 2026
+      LAST DEPLOYED: Sat Jun 13 06:02:17 2026
 
       NAMESPACE: default-helm
 
@@ -493,19 +542,16 @@ spec:
     result: pass
     detail: '# default
 
-      deployment.apps/traefik   1/1   1     1     20s'
+      deployment.apps/traefik   1/1   1     1     21s'
   - name: confighub-kubectl-apply-cluster-cleanup
     result: pass
     detail: objects=28
-  - name: confighub-kubectl-apply-protected-cleanup
-    result: pass
-    detail: objects=3 namespaces=default
   - name: target-facts-confighub-oci
     result: pass
     detail: secrets=0 crds=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=Synced health=Progressing after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 170s
   - name: semantic-object-parity
     result: pass
     detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
