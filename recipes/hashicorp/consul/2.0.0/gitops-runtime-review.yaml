@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "consul-secure-mesh-existing-secrets-argocd-health-watch"
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+spec:
+  base: "secure-mesh-existing-secrets"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with target profile kind-three-node"
+  receipt: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml"
+  observedResult: "watch"
+  targetProfile:
+    name: "kind-three-node"
+    provides:
+      - "three schedulable Kubernetes nodes for Consul server anti-affinity"
+      - "target topology for the HA/quorum shape exercised by this base"
+  passed:
+    - "regular Helm live leg reached the expected workload runtime state"
+    - "ConfigHub direct-apply leg reached the expected workload runtime state"
+    - "ConfigHub OCI/Argo leg synced successfully"
+    - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
+    - "Helm-vs-ConfigHub semantic parity passed for the direct-apply leg"
+    - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
+    - "target Secret prerequisites were staged for the OCI/Argo leg"
+    - "Consul server StatefulSet reached 3/3 ready"
+    - "Consul injector, mesh gateway, ingress gateway, terminating gateway, UI, and webhook certificate manager workloads became ready"
+  gitOpsCondition:
+    sync: "Synced"
+    health: "Progressing"
+    operationState:
+      phase: "Succeeded"
+      message: "successfully synced (all tasks run)"
+    applicationConditions: []
+    healthResidue: []
+  diagnosis:
+    summary: "The Consul secure-mesh base now proves target topology, lifecycle Secret staging, workload convergence, and semantic parity. The remaining watch condition is Argo CD aggregate Application health staying Progressing after sync success and workload readiness."
+    interpretation: "This is a GitOps/controller-health review row, not a render parity defect and not a ConfigHub worker requirement."
+    targetShapeBoundary: "The base needs a Kubernetes target with enough schedulable nodes for Consul server anti-affinity and quorum. ConfigHub remains workerless from the target cluster's point of view."
+    argoEvidence:
+      sync: "Synced"
+      health: "Progressing"
+      operationState: "Succeeded"
+      conditions: "none"
+      perResourceHealthResidue: "none recorded in the receipt"
+    semanticEvidence:
+      directApply: "pass"
+      ociArgo: "pass"
+      allowedExtraConfigHubObjects:
+        - "v1|Namespace||consul"
+      normalizations:
+        - "prune-null-fields"
+        - "trim-leading-command-block-newline"
+        - "consul-namespace-reference-normalization"
+        - "consul-statefulset-gitops-defaults"
+  nextActions:
+    - "Keep the row as watch until Argo CD aggregate health is explained or the supported scope explicitly accepts the controller-health residue."
+    - "On the next live rerun, capture the Argo resource tree or equivalent controller health details if Argo remains Progressing with no per-resource residue."
+    - "Do not change the recipe unless semantic parity, target facts, or workload readiness starts failing."
+  notClaimed:
+    - "This row does not prove Consul secure mesh production support for arbitrary clusters."
+    - "This row does not prove external gateway, ingress, ACL, backup, upgrade, or certificate rotation policy."
+    - "This row does not prove that Argo CD aggregate health should be ignored in production."

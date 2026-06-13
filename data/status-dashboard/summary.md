@@ -196,7 +196,7 @@ needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
-| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime-review | - |
+| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime-review | [recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml](../../recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml) |
 | autoscaler/cluster-autoscaler@9.57.0 | default | watch | render-input-model | [recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml](../../recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml) |
 
 ### Local Live Non-Pass Triage
