@@ -1,0 +1,385 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: percona-pg-operator-3.0.0-default-live-parity-20260605
+spec:
+  chart: percona/pg-operator
+  version: 3.0.0
+  base: default
+  result: pass
+  observedAt: '2026-06-12T23:58:00Z'
+  package:
+    path: packages/percona/pg-operator/3.0.0
+  recipe:
+    path: recipes/percona/pg-operator/3.0.0
+  variantRevision: recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-percona-pg-default-1781308680
+    kubeContext: kind-helm-expt-parity-percona-pg-default-1781308680
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-percona-pg-default-1781308680 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-percona-pg-default-1781308680"...
+
+        Deleting cluster "helm-expt-parity-percona-pg-default-1781308680" ...
+
+        Deleted nodes: ["helm-expt-parity-percona-pg-default-1781308680-control-plane"]
+
+        Deleting Space "helm-expt-parity-percona-pg-default-1781308680-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install pg-operator pg-operator --repo https://percona.github.io/percona-helm-charts/
+        --version 3.0.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pg-operator-default/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff
+      objectCount: 12
+      liveHelmManifestSHA256: bf456fd58776f367ce9761455e0854d56fb3dde07cc30215cdef06acc7b6f5cf
+      liveHelmManifestObjectCount: 4
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/pg-operator   1/1   1     1     14s
+        pods: pg-operator-79576c68cb-cfnv8   1/1   Running   0     14s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pg-operator/3.0.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-percona-pg-default-1781308680-percona-pg-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: b0f6a2f41d21a409995ab42ecd75cb0b7753381b73bad01d59812e9349d76c76
+      objectCount: 13
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/pg-operator   1/1   1     1     10s'
+        pods: '# default
+
+          pg-operator-79576c68cb-6z8nq   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 8
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'customresourcedefinition.apiextensions.k8s.io "crunchybridgeclusters.upstream.pgv2.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "perconapgbackups.pgv2.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "perconapgclusters.pgv2.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "perconapgrestores.pgv2.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "perconapgupgrades.pgv2.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "pgadmins.upstream.pgv2.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "pgupgrades.upstream.pgv2.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "postgresclusters.upstream.pgv2.percona.com"
+            deleted'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 4
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'deployment.apps "pg-operator" deleted from default namespace
+
+            role.rbac.authorization.k8s.io "pg-operator" deleted from default namespace
+
+            rolebinding.rbac.authorization.k8s.io "pg-operator" deleted from default
+            namespace
+
+            serviceaccount "pg-operator" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-percona-pg-default-1781308680-percona-pg-operator
+      controller: Argo CD OCI
+      app: percona-pg-operator-parity
+      manifestSHA256: 58ec043e3fef45da2d98fb5de32174d099b0b3a722398496695f5838135cd5db
+      objectCount: 13
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:1a027510e00411af0868fea3b882a5e26522254cfe45f376daabb522ca0982c3
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-percona-pg-default-1781308680-percona-pg-operator
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-percona-pg-default-1781308680-cluster/oci
+              targetRevision: latest
+          revision: sha256:1a027510e00411af0868fea3b882a5e26522254cfe45f376daabb522ca0982c3
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T00:01:38Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: pg-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: crunchybridgeclusters.upstream.pgv2.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconapgbackups.pgv2.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconapgclusters.pgv2.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconapgrestores.pgv2.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconapgupgrades.pgv2.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: pgadmins.upstream.pgv2.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: pgupgrades.upstream.pgv2.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: postgresclusters.upstream.pgv2.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: pg-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: pg-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: pg-operator
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/pg-operator   1/1   1     1     5s'
+        pods: '# default
+
+          pg-operator-79576c68cb-xrwr8   1/1   Running   0     5s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 12
+      configHubObjectCount: 13
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 12
+      configHubObjectCount: 13
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-percona-pg-default-1781308680\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-percona-pg-default-1781308680.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-percona-pg-default-1781308680\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-percona-pg-default-1781308680\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-percona-pg-default-1781308680\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-percona-pg-default-1781308680.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersi"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"pg-operator\" does not exist. Installing it now.\nNAME: pg-operator\n\
+      LAST DEPLOYED: Sat Jun 13 00:59:31 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Percona\
+      \ Operator for PostgreSQL is deployed. \n  See if the operator Pod is running:\n\
+      \n    kubectl get pods -l app.kubernetes.io/name=pg-operator --namespace default-helm\n\
+      \n  Check the operator logs if the Pod is not starting:\n\n    export POD=$(kubectl\
+      \ get pods -l app.kubernetes.io/name=pg-operator --namespace default-helm --output\
+      \ name)\n    kubectl logs $POD --namespace=default-helm\n\n2. Deploy the database\
+      \ cluster from pg-db chart:\n\n    helm install my-db percona/pg-db --namespace=default-helm\n\
+      \nRead more in our documentation: https://docs.percona.com/percona-operator-for-postgresql/2.0/"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/pg-operator   1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=8
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=4 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
