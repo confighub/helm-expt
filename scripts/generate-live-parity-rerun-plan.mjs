@@ -36,11 +36,15 @@ function buildPlan() {
   ].map((row) => {
     const next_step_type = nextStepType(row);
     const support_artifact = supportArtifactFor(row);
-    return {
+    const candidate = {
       next_step_type,
       rerun_readiness: rerunReadiness(next_step_type),
       support_artifact,
       ...row,
+    };
+    return {
+      ...candidate,
+      ...usefulBaseResolution(candidate),
     };
   }).sort((left, right) =>
     left.priority - right.priority
@@ -48,8 +52,9 @@ function buildPlan() {
     || `${left.chart}@${left.version}/${left.base}`.localeCompare(`${right.chart}@${right.version}/${right.base}`),
   );
   const lifecycleRoutedRows = allRows.filter(lifecycleRouted);
-  const rows = allRows.filter((row) => !lifecycleRouted(row));
-  return { rows, lifecycleRoutedRows, csv: toCsv(rows), markdown: markdown(rows, lifecycleRoutedRows) };
+  const usefulBaseResolvedRows = allRows.filter(usefulBaseResolved);
+  const rows = allRows.filter((row) => !lifecycleRouted(row) && !usefulBaseResolved(row));
+  return { rows, lifecycleRoutedRows, usefulBaseResolvedRows, csv: toCsv(rows), markdown: markdown(rows, lifecycleRoutedRows, usefulBaseResolvedRows) };
 }
 
 function configHubOciRows() {
@@ -423,6 +428,57 @@ function supportArtifactFor(row) {
   return "";
 }
 
+function usefulBaseResolution(row) {
+  if (!row.reason?.startsWith("render-input:")) return {};
+  const recipePath = join(repoRoot, "recipes", row.chart ?? "", row.version ?? "");
+  const valueModelPath = join(recipePath, "value-model.yaml");
+  if (!existsSync(valueModelPath)) return {};
+  const valueModel = readYaml(valueModelPath);
+  const candidates = [
+    ...new Set((valueModel.spec?.checkedValues ?? [])
+      .filter((entry) => entry.variant && entry.variant !== row.base)
+      .filter((entry) => entry.disposition === "required-render-input-modeled")
+      .map((entry) => entry.variant)),
+  ];
+  for (const variant of candidates) {
+    const receipt = passReceiptForVariant(row, variant);
+    if (receipt) {
+      return {
+        resolved_by_base: variant,
+        resolved_by_receipt: receipt,
+        resolved_by_reason: "required render inputs are modeled in a useful values-profile base with passing live evidence",
+      };
+    }
+  }
+  return {};
+}
+
+function passReceiptForVariant(row, variant) {
+  const chartSlug = slug(row.chart);
+  const candidates = [
+    join("runs", "live-helm-confighub-compare", `${chartSlug}-${variant}`, "receipt.yaml"),
+    join("runs", "live-kind-parity", `${chartSlug}-${variant}`, "receipt.yaml"),
+  ];
+  for (const candidate of candidates) {
+    const absolutePath = join(repoRoot, candidate);
+    if (!existsSync(absolutePath)) continue;
+    const receipt = readYaml(absolutePath);
+    if (receipt.spec?.result === "pass") return candidate;
+  }
+  return "";
+}
+
+function usefulBaseResolved(row) {
+  return Boolean(row.resolved_by_base && row.resolved_by_receipt);
+}
+
+function slug(value) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 function lifecycleRouted(row) {
   return row.related_lifecycle_result === "pass"
     && (row.reason?.startsWith("helm-hook:") || row.reason?.startsWith("target-prerequisite:"));
@@ -468,7 +524,7 @@ function rerunReadinessDescription(type) {
   }[type] ?? "Read the receipt and classify the row before rerunning.";
 }
 
-function markdown(rows, lifecycleRoutedRows = []) {
+function markdown(rows, lifecycleRoutedRows = [], usefulBaseResolvedRows = []) {
   const counts = countBy(rows, "lane");
   const resultCounts = countBy(rows, "current_result");
   const laneResults = countByLaneAndResult(rows);
@@ -498,6 +554,7 @@ block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 \`\`\`text
 rows: ${rows.length}
 lifecycle-routed-not-active-rerun: ${lifecycleRoutedRows.length}
+useful-base-resolved-not-active-rerun: ${usefulBaseResolvedRows.length}
 blocked: ${resultCounts.blocked ?? 0}
 watch: ${resultCounts.watch ?? 0}
 configHub-oci-live-comparison: ${counts["configHub-oci-live-comparison"] ?? 0}
@@ -508,7 +565,7 @@ prerequisite-or-lifecycle-rows: ${prerequisiteRows}
 runtime-or-watch-rows: ${runtimeRows}
 \`\`\`
 
-${currentInterpretationMarkdown(rows, semanticDefects)}
+${currentInterpretationMarkdown(rows, semanticDefects, usefulBaseResolvedRows)}
 
 ## Lane Breakdown
 
@@ -558,6 +615,18 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 ${Object.entries(readinessCounts).sort((left, right) => left[0].localeCompare(right[0])).map(([type, count]) => `| ${type} | ${count} | ${rerunReadinessDescription(type)} |`).join("\n")}
 
+${usefulBaseResolvedRows.length ? `## Resolved By Useful Base
+
+These rows are no longer active rerun work. The raw base still has a non-pass
+receipt, but a separate useful base models the required render inputs and has a
+passing live receipt. The product answer is to use or promote the useful base,
+not to keep rerunning a known missing-values render.
+
+| Chart | Raw base | Useful base | Receipt | Reason |
+| --- | --- | --- | --- | --- |
+${usefulBaseResolvedRows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.resolved_by_base} | [receipt](../../${row.resolved_by_receipt}) | ${row.resolved_by_reason} |`).join("\n")}
+` : ""}
+
 ## Run Safety
 
 Run live parity reruns serially. Do not run two live parity commands at the
@@ -601,12 +670,15 @@ data/live-parity-rerun-plan/rerun-plan.csv
 `;
 }
 
-function currentInterpretationMarkdown(rows, semanticDefects) {
+function currentInterpretationMarkdown(rows, semanticDefects, usefulBaseResolvedRows = []) {
   if (rows.length === 0) {
+    const resolvedSentence = usefulBaseResolvedRows.length > 0
+      ? ` ${usefulBaseResolvedRows.length} row(s) have been moved out of active rerun work because a useful base with passing live evidence exists.`
+      : "";
     return `## Current Interpretation
 
 The current committed live parity rerun queue is empty. That means the selected
-live lanes have no outstanding non-pass rows in the generated queue. It does
+live lanes have no outstanding non-pass rows in the generated queue.${resolvedSentence} It does
 not mean every possible chart, values file, target, or delivery path has been
 tested.
 `;
@@ -614,10 +686,13 @@ tested.
   const defectSentence = semanticDefects === 0
     ? "No current row says ConfigHub and Helm produced different Kubernetes object meaning."
     : `${semanticDefects} row(s) currently point at an object-set parity defect; inspect those first.`;
+  const resolvedSentence = usefulBaseResolvedRows.length > 0
+    ? ` ${usefulBaseResolvedRows.length} row(s) are documented below as resolved by a separate useful base and are no longer active rerun work.`
+    : "";
   return `## Current Interpretation
 
 ${defectSentence} The rows below are the active work queue for stronger live
-claims.
+claims.${resolvedSentence}
 
 | Chart | Base | Current | Meaning | Next action |
 | --- | --- | --- | --- | --- |

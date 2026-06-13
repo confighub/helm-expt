@@ -10,12 +10,13 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 2
+rows: 1
 lifecycle-routed-not-active-rerun: 0
+useful-base-resolved-not-active-rerun: 1
 blocked: 0
-watch: 2
+watch: 1
 configHub-oci-live-comparison: 1
-two-cluster-kind-parity: 1
+two-cluster-kind-parity: 0
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 0
@@ -25,12 +26,11 @@ runtime-or-watch-rows: 1
 ## Current Interpretation
 
 No current row says ConfigHub and Helm produced different Kubernetes object meaning. The rows below are the active work queue for stronger live
-claims.
+claims. 1 row(s) are documented below as resolved by a separate useful base and are no longer active rerun work.
 
 | Chart | Base | Current | Meaning | Next action |
 | --- | --- | --- | --- | --- |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
-| `autoscaler/cluster-autoscaler@9.57.0` | default | watch | Object parity passed, but the selected base did not render a functional workload because required Helm values were missing. Choose or create a values-profile base before rerunning. | Use a values-profile rerender base such as the reviewed controller base, or model the missing values in a new base before rerunning strict parity. |
 
 
 ## Lane Breakdown
@@ -38,7 +38,7 @@ claims.
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 1 | 0 | 1 | 0 | 0 |
-| two-cluster-kind-parity | 1 | 0 | 1 | 0 | 0 |
+| two-cluster-kind-parity | 0 | 0 | 0 | 0 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
 the next claim can be made. A `watch` row usually means object parity passed
@@ -63,7 +63,6 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | Next step | Rows | What to do |
 | --- | ---: | --- |
 | gitops-runtime-review | 1 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
-| render-input-model | 1 | Model the required Helm values as a real base before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -78,8 +77,19 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 1 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+
+## Resolved By Useful Base
+
+These rows are no longer active rerun work. The raw base still has a non-pass
+receipt, but a separate useful base models the required render inputs and has a
+passing live receipt. The product answer is to use or promote the useful base,
+not to keep rerunning a known missing-values render.
+
+| Chart | Raw base | Useful base | Receipt | Reason |
+| --- | --- | --- | --- | --- |
+| `autoscaler/cluster-autoscaler@9.57.0` | default | controller-default-reviewed | [receipt](../../runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml) | required render inputs are modeled in a useful values-profile base with passing live evidence |
+
 
 ## Run Safety
 
@@ -104,7 +114,6 @@ faithful to the locked chart/version without changing the recipe.
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml`](../../recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node` |
-| 60 | model-or-stage-first | render-input-model | two-cluster-kind-parity | `autoscaler/cluster-autoscaler@9.57.0` | default | watch | render-input: required Helm values missing (parity passed) | [`recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml`](../../recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml) | `npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base default` |
 
 
 
