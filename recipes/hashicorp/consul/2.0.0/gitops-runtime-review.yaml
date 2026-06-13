@@ -32,7 +32,8 @@ spec:
       phase: "Succeeded"
       message: "successfully synced (all tasks run)"
     applicationConditions: []
-    healthResidue: []
+    healthResidue:
+      - "aggregate-progressing-with-blank-resource-health"
   diagnosis:
     summary: "The Consul secure-mesh base now proves target topology, lifecycle Secret staging, workload convergence, and semantic parity. The remaining watch condition is Argo CD aggregate Application health staying Progressing after sync success and workload readiness."
     interpretation: "This is a GitOps/controller-health review row, not a render parity defect and not a ConfigHub worker requirement."
@@ -42,6 +43,7 @@ spec:
       health: "Progressing"
       operationState: "Succeeded"
       conditions: "none"
+      residueClassification: "aggregate-progressing-with-blank-resource-health"
       perResourceHealthResidue: "none recorded in the receipt"
       resourceHealthBreakdown:
         source: "data/gitops-health-residue/residue.csv"
