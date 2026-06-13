@@ -47,18 +47,19 @@ spec:
     candidateVariants:
       - "default"
       - "controller-default-reviewed"
+      - "minimal-crds"
     deferredVariants:
       []
   proofSummary:
     adoptionBucket: "promote-after-review"
     userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "in-confighub-proof"
+    strongestEvidence: "local-kubernetes-live"
     proofLanes:
-      renderParity: "2/2"
-      inConfigHub: "1/2"
-      localLive: "0/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      renderParity: "3/3"
+      inConfigHub: "2/3"
+      localLive: "1/3"
+      gitopsLive: "0/3"
+      liveParity: "0/3"
     featureSummary: "extension-slots"
     hardGap: "-"
     nextAction: "run catalog promotion review"
@@ -66,7 +67,7 @@ spec:
     path: "packages/argo-cd/argo-workflows/1.0.14"
     installer: "packages/argo-cd/argo-workflows/1.0.14/installer.yaml"
     receipt: "recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "09d0f78603a8dea4a5933c094aa9ab1e45b37199fd9a435b6704fdd5341f88b6"
+    deterministicBundleSHA256: "27dd57b08fc0fe1c9d7c46df4722308f52ae53edb1888859f2bb486b2f7a93cf"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -79,6 +80,11 @@ spec:
         path: "packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed"
         default: false
         description: "argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path"
+      -
+        name: "minimal-crds"
+        path: "packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds"
+        default: false
+        description: "argo-cd/argo-workflows minimal-crds variant rendered from argo-cd/argo-workflows@1.0.14"
   variants:
     -
       name: "default"
@@ -92,8 +98,24 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            name: "clusterworkflowtemplates.argoproj.io"
+          -
+            name: "cronworkflows.argoproj.io"
+          -
+            name: "workflowartifactgctasks.argoproj.io"
+          -
+            name: "workfloweventbindings.argoproj.io"
+          -
+            name: "workflows.argoproj.io"
+          -
+            name: "workflowtaskresults.argoproj.io"
+          -
+            name: "workflowtasksets.argoproj.io"
+          -
+            name: "workflowtemplates.argoproj.io"
+      targetFactSummary: "required CRD clusterworkflowtemplates.argoproj.io; required CRD cronworkflows.argoproj.io; required CRD workflowartifactgctasks.argoproj.io; required CRD workfloweventbindings.argoproj.io; required CRD workflows.argoproj.io; required CRD workflowtaskresults.argoproj.io; required CRD workflowtasksets.argoproj.io; required CRD workflowtemplates.argoproj.io"
       packageBase:
         name: "default"
         path: "packages/argo-cd/argo-workflows/1.0.14/bases/default"
@@ -154,8 +176,24 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            name: "clusterworkflowtemplates.argoproj.io"
+          -
+            name: "cronworkflows.argoproj.io"
+          -
+            name: "workflowartifactgctasks.argoproj.io"
+          -
+            name: "workfloweventbindings.argoproj.io"
+          -
+            name: "workflows.argoproj.io"
+          -
+            name: "workflowtaskresults.argoproj.io"
+          -
+            name: "workflowtasksets.argoproj.io"
+          -
+            name: "workflowtemplates.argoproj.io"
+      targetFactSummary: "required CRD clusterworkflowtemplates.argoproj.io; required CRD cronworkflows.argoproj.io; required CRD workflowartifactgctasks.argoproj.io; required CRD workfloweventbindings.argoproj.io; required CRD workflows.argoproj.io; required CRD workflowtaskresults.argoproj.io; required CRD workflowtasksets.argoproj.io; required CRD workflowtemplates.argoproj.io"
       packageBase:
         name: "controller-default-reviewed"
         path: "packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed"
@@ -204,3 +242,65 @@ spec:
               path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+    -
+      name: "minimal-crds"
+      variant: "recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "argo-workflows"
+      valuesProfile: "recipes/argo-cd/argo-workflows/1.0.14/effective-values-minimal-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "minimal-crds"
+        path: "packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds"
+        default: false
+        description: "argo-cd/argo-workflows minimal-crds variant rendered from argo-cd/argo-workflows@1.0.14"
+      setupCheck:
+        command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base minimal-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 27
+        cubInstallObjectCountIncludingSupport: 28
+        semanticObjectMatches: "27/27"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "minimal-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+          renderedObjects: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 27
+          helmObjectCount: 27
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "27/27"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"

@@ -8,26 +8,26 @@ spec:
     -
       default: true
       description: "autoscaler/vertical-pod-autoscaler default variant rendered from autoscaler/vertical-pod-autoscaler@0.9.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/vpa-tls-certs keys ca,cert,key"
+          namespace: "default"
+          suggestedSource: "Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller"
       name: "default"
       path: "bases/default"
-      externalRequires:
-        -
-          kind: "ClusterFeature"
-          name: "Secret default/vpa-tls-certs keys ca,cert,key"
-          namespace: "default"
-          suggestedSource: "Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller"
     -
       description: "autoscaler/vertical-pod-autoscaler no-crds variant rendered from autoscaler/vertical-pod-autoscaler@0.9.0"
-      name: "no-crds"
-      path: "bases/no-crds"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "Secret default/vpa-tls-certs keys ca,cert,key"
           namespace: "default"
           suggestedSource: "Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller"
+      name: "no-crds"
+      path: "bases/no-crds"
   collector:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    description: "Records target-fact bindings and can live-check existing Secret requirements."
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

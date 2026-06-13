@@ -11,6 +11,80 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "gatekeeper/gatekeeper no-crds variant rendered from gatekeeper/gatekeeper@3.22.2"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD assign.mutations.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD assignimage.mutations.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD assignmetadata.mutations.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD configs.config.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD configpodstatuses.status.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD connections.connection.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD connectionpodstatuses.status.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD constraintpodstatuses.status.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD constrainttemplates.templates.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD constrainttemplatepodstatuses.status.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD expansiontemplate.expansion.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD expansiontemplatepodstatuses.status.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD modifyset.mutations.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD mutatorpodstatuses.status.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD providers.externaldata.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD providerpodstatuses.status.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD syncsets.syncset.gatekeeper.sh"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "gatekeeper/gatekeeper no-crds variant rendered from gatekeeper/gatekeeper@3.22.2"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

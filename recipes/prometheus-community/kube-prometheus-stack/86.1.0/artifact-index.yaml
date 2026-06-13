@@ -65,7 +65,7 @@ spec:
     path: "packages/prometheus-community/kube-prometheus-stack/86.1.0"
     installer: "packages/prometheus-community/kube-prometheus-stack/86.1.0/installer.yaml"
     receipt: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "943ab5fc05633ee812c57f5777b077f5ee2bc0aec8c251a2965bfaf1f26564de"
+    deterministicBundleSHA256: "172a151008ca9378818a12914277aa0fee82276cdb64056ab5f2b408b64826fb"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

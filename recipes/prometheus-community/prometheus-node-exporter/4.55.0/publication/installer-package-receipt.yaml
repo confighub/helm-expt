@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-node-exporter/4.55.0 -o <tmp>/prometheus-community-prometheus-node-exporter-4-55-0.tgz"
-    sha256: "87f803baa591654674f0851b9b10bfaf95e08e7ced9b0d695922373e3beade74"
+    sha256: "14c57b88bbc3dfbb2650dabcc649f11b66d4a6a56a00c7977ab216ed5bf787c7"
   package:
     name: "prometheus-community-prometheus-node-exporter"
     path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
@@ -37,11 +37,11 @@ spec:
         bytes: 5221
       -
         path: "collector/target-facts.sh"
-        sha256: "b049005ea4fe57fc31467198c33ac33c88aeb17e2d3abed8f86256a7249c44b9"
-        bytes: 2061
+        sha256: "67139e18816528266f359cd18b8d922dfbdc9bc26bfb65cfc3b418d634dd0d92"
+        bytes: 2674
       -
         path: "installer.yaml"
-        sha256: "552d5d1c84f303cc6a869a1337126d73e2c835aae53066458e8ab4dae727ed2d"
+        sha256: "16c63c2dd67d47c9462b9a19936b184846a0405e2915a3feee430a4e545511f6"
         bytes: 996
     version: "4.55.0"
   setupChecks:
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 3
       semanticObjectMatches: "3/3"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 4
       semanticObjectMatches: "4/4"
       separatedSecretCount: 0
-      variant: "cluster-metrics-readonly"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "cluster-metrics-readonly"

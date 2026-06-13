@@ -67,7 +67,7 @@ spec:
     path: "packages/argo-cd/argo-cd/9.5.17"
     installer: "packages/argo-cd/argo-cd/9.5.17/installer.yaml"
     receipt: "recipes/argo-cd/argo-cd/9.5.17/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "735be4007c0d21898b8ce6613ad72ff6f67d6a9fb9a9e3abe29a34102642808b"
+    deterministicBundleSHA256: "59de914fd6dfe254740dc8e0d726b30c0202909fd44d26af444fe68c21ab7e42"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

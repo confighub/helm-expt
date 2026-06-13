@@ -9,6 +9,9 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
+  requiredValues: []
+  requiredObjectStores: []
+  requiredTopology: null
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -49,6 +52,19 @@ live_check_crd() {
   fi
 }
 
+live_check_min_schedulable_nodes() {
+  required="$1"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  count="$(kubectl get nodes -o jsonpath='{range .items[*]}{.spec.unschedulable}{"\n"}{end}' | awk '$1 != "true" { c++ } END { print c + 0 }')"
+  if [ "$count" -lt "$required" ]; then
+    echo "required at least $required schedulable node(s); found $count" >&2
+    exit 1
+  fi
+}
+
 case "$base" in
   'default')
     if [ "$check_mode" = "live" ]; then
@@ -72,6 +88,12 @@ targetFacts:
       delivery lanes stage it explicitly
 
   requiredCRDs: []
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
 
 targetFactChecks:
   base: "default"
@@ -128,6 +150,12 @@ targetFacts:
     name: appprojects.argoproj.io
     purpose: Argo CD CRD managed outside this no-crds base
     sourceVariant: default
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
 
 targetFactChecks:
   base: "no-crds"

@@ -8,14 +8,85 @@ spec:
     -
       default: true
       description: "argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterworkflowtemplates.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD cronworkflows.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflowartifactgctasks.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workfloweventbindings.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflows.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflowtaskresults.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflowtasksets.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflowtemplates.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
       name: "default"
       path: "bases/default"
     -
       default: false
       description: "argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterworkflowtemplates.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD cronworkflows.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflowartifactgctasks.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workfloweventbindings.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflows.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflowtaskresults.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflowtasksets.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workflowtemplates.argoproj.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
       name: "controller-default-reviewed"
       path: "bases/controller-default-reviewed"
     -
+      description: "argo-cd/argo-workflows minimal-crds variant rendered from argo-cd/argo-workflows@1.0.14"
       name: "minimal-crds"
       path: "bases/minimal-crds"
-      description: "argo-cd/argo-workflows minimal-crds variant rendered from argo-cd/argo-workflows@1.0.14"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

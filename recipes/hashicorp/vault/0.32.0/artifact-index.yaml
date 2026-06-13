@@ -58,7 +58,7 @@ spec:
     strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "3/3"
-      inConfigHub: "1/3"
+      inConfigHub: "3/3"
       localLive: "2/3"
       gitopsLive: "2/3"
       liveParity: "2/3"
@@ -69,7 +69,7 @@ spec:
     path: "packages/hashicorp/vault/0.32.0"
     installer: "packages/hashicorp/vault/0.32.0/installer.yaml"
     receipt: "recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "5aa3be3ba68c48d4851065a5dedcef9aac42b50400491b5858cc7bbb5f322d41"
+    deterministicBundleSHA256: "03f754297fa61a47b43bcd0c2ba94a18765dcae4a687ed4192293d97c206b013"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -11,33 +11,342 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-gatekeeper-no-crds-1781320052"
+    context: "kind-claude-helm-expt-gatekeeper-no-crds-1781320052"
     namespace: "default"
-  observedAt: "2026-06-11T14:57:39.469Z"
+  observedAt: "2026-06-13T03:08:18.860Z"
   freshnessTTL: "1h"
-  result: "fail"
-  clusterStatus: "existing"
+  result: "pass"
+  clusterStatus: "created-by-test"
   variant: "no-crds"
+  targetFacts:
+    requiredCRDs:
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "assign.mutations.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "assignimage.mutations.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "assignmetadata.mutations.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "configs.config.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "configpodstatuses.status.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "connections.connection.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "connectionpodstatuses.status.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "constraintpodstatuses.status.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "constrainttemplates.templates.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "constrainttemplatepodstatuses.status.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "expansiontemplate.expansion.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "expansiontemplatepodstatuses.status.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "modifyset.mutations.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "mutatorpodstatuses.status.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "providers.externaldata.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "providerpodstatuses.status.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "syncsets.syncset.gatekeeper.sh"
+        purpose: "Gatekeeper CRD managed outside this no-crds base"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "default"
+        suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+  stagedTargetFacts:
+    crds:
+      -
+        name: "assign.mutations.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "assignimage.mutations.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "assignmetadata.mutations.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "configs.config.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "configpodstatuses.status.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "connections.connection.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "connectionpodstatuses.status.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "constraintpodstatuses.status.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "constrainttemplates.templates.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "constrainttemplatepodstatuses.status.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "expansiontemplate.expansion.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "expansiontemplatepodstatuses.status.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "modifyset.mutations.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "mutatorpodstatuses.status.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "providers.externaldata.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "providerpodstatuses.status.gatekeeper.sh"
+        sourceVariant: "default"
+      -
+        name: "syncsets.syncset.gatekeeper.sh"
+        sourceVariant: "default"
   workloads: 2
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "1f8de656ba4828c09c663834011f77a52e687ea457552815071467811dddd8c9"
+    sha256: "75ca2120693eb3d3bb7ee410153c23d814e9991363360359ad22a3922ea62f73"
   checks:
+    -
+      name: "target-fact-crds-staged"
+      result: "pass"
+      object: "17 required CRD target fact(s)"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||assign.mutations.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||assignimage.mutations.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||assignmetadata.mutations.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||configs.config.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||configpodstatuses.status.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||connections.connection.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||connectionpodstatuses.status.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||constraintpodstatuses.status.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||constrainttemplates.templates.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||constrainttemplatepodstatuses.status.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||expansiontemplate.expansion.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||expansiontemplatepodstatuses.status.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||modifyset.mutations.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||mutatorpodstatuses.status.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||providers.externaldata.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||providerpodstatuses.status.gatekeeper.sh"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||syncsets.syncset.gatekeeper.sh"
     -
       name: "rendered-objects-applied"
       result: "pass"
       object: "13 object(s) from recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|default|gatekeeper-audit"
-      reason: "not-ready: gatekeeper-audit-858d4d5444-rr4kh[ ready=false restarts=1;] gatekeeper-controller-manager-6988f9c779-2gqlv[CrashLoopBackOff ready=false restarts=5;] gatekeeper-controller-manager-6988f9c779-2kwm5[CrashLoopBackOff ready=false restarts=5;] gatekeeper-controller-manager-6988f9c779-bg82c[CrashLoopBackOf"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|default|gatekeeper-controller-manager"
-      reason: "not-ready: gatekeeper-audit-858d4d5444-rr4kh[ ready=false restarts=1;] gatekeeper-controller-manager-6988f9c779-2gqlv[CrashLoopBackOff ready=false restarts=5;] gatekeeper-controller-manager-6988f9c779-2kwm5[CrashLoopBackOff ready=false restarts=5;] gatekeeper-controller-manager-6988f9c779-bg82c[CrashLoopBackOf"
-  blockedReasons:
-    - "deployment/gatekeeper-audit: not-ready (gatekeeper-audit-858d4d5444-rr4kh[ ready=false restarts=1;] gatekeeper-controller-manager-6988f9c779-2gqlv[CrashLoopBackOff ready=false restarts=5;] gatekeeper-)"
-    - "deployment/gatekeeper-controller-manager: not-ready (gatekeeper-audit-858d4d5444-rr4kh[ ready=false restarts=1;] gatekeeper-controller-manager-6988f9c779-2gqlv[CrashLoopBackOff ready=false restarts=5;] gatekeeper-)"

@@ -55,7 +55,7 @@ spec:
     strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "1/2"
+      inConfigHub: "2/2"
       localLive: "2/2"
       gitopsLive: "2/2"
       liveParity: "2/2"
@@ -66,7 +66,7 @@ spec:
     path: "packages/metrics-server/metrics-server/3.13.0"
     installer: "packages/metrics-server/metrics-server/3.13.0/installer.yaml"
     receipt: "recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a1e45ff0234dd3bd16d413ce2e43fb52ae463a8e717e65f0ff3d57a35ac84299"
+    deterministicBundleSHA256: "10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

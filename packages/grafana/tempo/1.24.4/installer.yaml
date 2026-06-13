@@ -15,11 +15,6 @@ spec:
       externalRequires:
         -
           kind: "ClusterFeature"
-          name: "S3-compatible object store tempo/tempo-object-store"
-          namespace: "tempo"
-          suggestedSource: "create or bind an S3-compatible endpoint, bucket, and credentials before apply"
-        -
-          kind: "ClusterFeature"
           name: "Secret tempo/tempo-s3-credentials keys access_key,secret_key"
           namespace: "tempo"
           suggestedSource: "kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>"
@@ -27,10 +22,15 @@ spec:
           kind: "ClusterFeature"
           name: "CRD servicemonitors.monitoring.coreos.com"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "S3-compatible object store tempo/tempo-object-store"
+          namespace: "tempo"
+          suggestedSource: "create or bind an S3-compatible endpoint, bucket, and credentials before apply"
       name: "s3-query-observability"
       path: "bases/s3-query-observability"
   collector:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    description: "Records target-fact bindings and can live-check existing Secret requirements."
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

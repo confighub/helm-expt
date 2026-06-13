@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/rabbitmq/16.0.14 -o <tmp>/rabbitmq-16.0.14.tgz"
-    sha256: "dee476887390866c716cd29dd7ca0485d115738e858bf392447f19fcc31b5157"
+    sha256: "42887c216015befac045652b1e0615e54f1eebaeb313c7f57f6293ee225f5b22"
   package:
     name: "bitnami-rabbitmq"
     path: "packages/bitnami/rabbitmq/16.0.14"
@@ -37,11 +37,11 @@ spec:
         bytes: 15265
       -
         path: "collector/target-facts.sh"
-        sha256: "0f0b2734626ead116bcb3f36d4ae701f7db07954296abeeb4bfbd38217d12305"
-        bytes: 1925
+        sha256: "ce0d79a9bc43e993c5c634c2cc48751b15ef7d1885fe7b70f53782f6d5631fee"
+        bytes: 2538
       -
         path: "installer.yaml"
-        sha256: "cbaa09d758633375e2fa0337a0a54f81267671f41d5b55eb3a4cae2d29071b58"
+        sha256: "1b5646c814422fd1b52d00499a48c2c8a7de18ab49aff59eb76d747118a7cc80"
         bytes: 1271
     version: "16.0.14"
   setupChecks:

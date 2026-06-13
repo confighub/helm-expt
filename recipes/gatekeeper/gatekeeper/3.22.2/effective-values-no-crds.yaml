@@ -8,5 +8,6 @@ metadata:
     confighub.io/variant: "no-crds"
 spec:
   profile: "no-crds"
-  renderDelta: ""
+  renderDelta: "omit Helm crds/ payload; Gatekeeper CRDs are managed as target facts"
   mergedValuesCaptured: false
+  values: {}

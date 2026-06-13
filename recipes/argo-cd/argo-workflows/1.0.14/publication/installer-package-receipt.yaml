@@ -4,17 +4,16 @@ metadata:
   name: "argo-cd-argo-workflows-1-0-14"
 spec:
   chart:
-    repository: "argo-cd"
     name: "argo-workflows"
+    repository: "argo-cd"
     version: "1.0.14"
   deterministicBundle:
-    command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1.0.14.tgz"
-    sha256: "cf7b33277b8dfb393aa044d47746b1621a4d1cae6752970972046cd67cb60ef2"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1.0.14.tgz"
+    sha256: "27dd57b08fc0fe1c9d7c46df4722308f52ae53edb1888859f2bb486b2f7a93cf"
   package:
-    path: "packages/argo-cd/argo-workflows/1.0.14"
     name: "argo-cd-argo-workflows"
-    version: "1.0.14"
+    path: "packages/argo-cd/argo-workflows/1.0.14"
     sourceFiles:
       -
         path: "README.md"
@@ -45,9 +44,14 @@ spec:
         sha256: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
         bytes: 872491
       -
+        path: "collector/target-facts.sh"
+        sha256: "320eb10700aad27e308a10c91bc3486f93d221d9bdb8ad27bea4befa5c6a244e"
+        bytes: 3986
+      -
         path: "installer.yaml"
-        sha256: "5ae8b62d6fb076b7c8641a6c8dcf932da58f4807ca40d06824ba8220b013e9c1"
-        bytes: 754
+        sha256: "f51c968500d93feb0d8d3acd06f20f5bd10dc873abee7145fd8eb9cdf5adeb85"
+        bytes: 3569
+    version: "1.0.14"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -58,6 +62,8 @@ spec:
       helmReleaseObjectCount: 19
       semanticObjectMatches: "19/19"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "default"
     -
       allowedCubOnlyObjects:
@@ -68,14 +74,18 @@ spec:
       helmReleaseObjectCount: 19
       semanticObjectMatches: "19/19"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "controller-default-reviewed"
     -
-      variant: "minimal-crds"
-      base: "minimal-crds"
-      command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base minimal-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 27
-      cubInstallObjectCountIncludingSupport: 28
-      semanticObjectMatches: "27/27"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "minimal-crds"
+      command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base minimal-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 28
+      helmReleaseObjectCount: 27
+      semanticObjectMatches: "27/27"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "minimal-crds"

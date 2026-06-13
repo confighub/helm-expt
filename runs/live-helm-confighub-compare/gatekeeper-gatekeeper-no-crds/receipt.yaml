@@ -1,0 +1,568 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: gatekeeper-gatekeeper-3.22.2-no-crds-live-parity-20260605
+spec:
+  chart: gatekeeper/gatekeeper
+  version: 3.22.2
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-13T03:08:33Z'
+  package:
+    path: packages/gatekeeper/gatekeeper/3.22.2
+  recipe:
+    path: recipes/gatekeeper/gatekeeper/3.22.2
+  variantRevision: recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-gatekeeper-no-crds-1781320113
+    kubeContext: kind-helm-expt-parity-gatekeeper-no-crds-1781320113
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-gatekeeper-no-crds-1781320113 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-gatekeeper-no-crds-1781320113"...
+
+        Deleting cluster "helm-expt-parity-gatekeeper-no-crds-1781320113" ...
+
+        Deleted nodes: ["helm-expt-parity-gatekeeper-no-crds-1781320113-control-plane"]
+
+        Deleting Space "helm-expt-parity-gatekeeper-no-crds-1781320113-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install gatekeeper gatekeeper --repo https://open-policy-agent.github.io/gatekeeper/charts
+        --version 3.22.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/gatekeeper-gatekeeper-no-crds/regular-helm-values.yaml
+        --wait --timeout 900s
+      manifestSHA256: ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c
+      objectCount: 13
+      liveHelmManifestSHA256: 51d7d003fbf539a52be2966ad24bf0a218bf35886c5f1cf16112a1e74d38bcbc
+      liveHelmManifestObjectCount: 13
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/gatekeeper-audit                1/1   1     1     21s
+
+          deployment.apps/gatekeeper-controller-manager   3/3   3     3     21s'
+        pods: 'gatekeeper-audit-858d4d5444-x4c6j                1/1   Running   0     21s
+
+          gatekeeper-controller-manager-59947b778b-lpf8q   1/1   Running   0     21s
+
+          gatekeeper-controller-manager-59947b778b-rnc4h   1/1   Running   0     21s
+
+          gatekeeper-controller-manager-59947b778b-rndlr   1/1   Running   0     21s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/gatekeeper/gatekeeper/3.22.2
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gatekeeper-no-crds-1781320113-gatekeeper-gatekeeper
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: ab2a699d1913f33ecc6bbaf0cf22dcf9fef12df3ab48865cc83e5a5fc86fbd65
+      objectCount: 14
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/gatekeeper-audit                1/1   1     1     10s
+
+          deployment.apps/gatekeeper-controller-manager   3/3   3     3     10s'
+        pods: '# default
+
+          gatekeeper-audit-858d4d5444-gflm6                1/1   Running   0     10s
+
+          gatekeeper-controller-manager-6988f9c779-b52v2   1/1   Running   0     10s
+
+          gatekeeper-controller-manager-6988f9c779-xk8bq   1/1   Running   0     10s
+
+          gatekeeper-controller-manager-6988f9c779-xpz4w   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 4
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "gatekeeper-manager-role"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "gatekeeper-manager-rolebinding"
+            deleted
+
+            mutatingwebhookconfiguration.admissionregistration.k8s.io "gatekeeper-mutating-webhook-configuration"
+            deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "gatekeeper-validating-webhook-configuration"
+            deleted'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 9
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'deployment.apps "gatekeeper-audit" deleted from default namespace
+
+            deployment.apps "gatekeeper-controller-manager" deleted from default namespace
+
+            poddisruptionbudget.policy "gatekeeper-controller-manager" deleted from
+            default namespace
+
+            resourcequota "gatekeeper-critical-pods" deleted from default namespace
+
+            role.rbac.authorization.k8s.io "gatekeeper-manager-role" deleted from
+            default namespace
+
+            rolebinding.rbac.authorization.k8s.io "gatekeeper-manager-rolebinding"
+            deleted from default namespace
+
+            service "gatekeeper-webhook-service" deleted from default namespace
+
+            serviceaccount "gatekeeper-admin" deleted from default namespace
+
+            secret "gatekeeper-webhook-server-cert" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-gatekeeper-no-crds-1781320113-gatekeeper-gatekeeper
+      controller: Argo CD OCI
+      app: gatekeeper-gatekeeper-parity
+      manifestSHA256: c301ba65099ec928c7b98e94fb4ef31cb6658d7a89aaf822e418f9c4cc361afe
+      objectCount: 14
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:cacfdb8323df731c24f890e0de5661b567124d5df243f8c7bedbf43b5b714c75
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-default-gatekeeper-webhook-server-cert.yaml
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-gatekeeper-no-crds-1781320113-gatekeeper-gatekeeper
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-gatekeeper-no-crds-1781320113-cluster/oci
+              targetRevision: latest
+          revision: sha256:cacfdb8323df731c24f890e0de5661b567124d5df243f8c7bedbf43b5b714c75
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T03:12:03Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ResourceQuota
+          namespace: default
+          name: gatekeeper-critical-pods
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: gatekeeper-webhook-service
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: gatekeeper-admin
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: gatekeeper-mutating-webhook-configuration
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: gatekeeper-validating-webhook-configuration
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: gatekeeper-audit
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: gatekeeper-controller-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: gatekeeper-controller-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: gatekeeper-manager-role
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: gatekeeper-manager-rolebinding
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: gatekeeper-manager-role
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: gatekeeper-manager-rolebinding
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/gatekeeper-audit                1/1   1     1     8s
+
+          deployment.apps/gatekeeper-controller-manager   3/3   3     3     8s'
+        pods: '# default
+
+          gatekeeper-audit-858d4d5444-4bm6n                1/1   Running   0     8s
+
+          gatekeeper-controller-manager-6988f9c779-7h2cm   1/1   Running   0     8s
+
+          gatekeeper-controller-manager-6988f9c779-ms852   1/1   Running   0     8s
+
+          gatekeeper-controller-manager-6988f9c779-rht5h   1/1   Running   0     8s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 13
+      configHubObjectCount: 14
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 13
+      configHubObjectCount: 14
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-gatekeeper-no-crds-1781320113\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-gatekeeper-no-crds-1781320113.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-gatekeeper-no-crds-1781320113\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-gatekeeper-no-crds-1781320113\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-gatekeeper-no-crds-1781320113\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-gatekeeper-no-crds-1781320113.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\nap"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=17
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "gatekeeper" does not exist. Installing it now.
+
+      NAME: gatekeeper
+
+      LAST DEPLOYED: Sat Jun 13 04:10:04 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=17
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/gatekeeper-audit                1/1   1     1     10s
+
+      deployment.apps/gatekeeper-controller-manager   3/3   3     3     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=4
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=9 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=17
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: assign.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: assignimage.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: assignmetadata.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: configs.config.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: configpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: connections.connection.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: connectionpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: constraintpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: constrainttemplates.templates.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: constrainttemplatepodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: expansiontemplate.expansion.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: expansiontemplatepodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: modifyset.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: mutatorpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: providers.externaldata.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: providerpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+      - name: syncsets.syncset.gatekeeper.sh
+        sourceVariant: default
+        lane: regularHelm
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: assign.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: assignimage.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: assignmetadata.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: configs.config.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: configpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: connections.connection.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: connectionpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: constraintpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: constrainttemplates.templates.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: constrainttemplatepodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: expansiontemplate.expansion.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: expansiontemplatepodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: modifyset.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: mutatorpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: providers.externaldata.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: providerpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: syncsets.syncset.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubKubectlApply
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: assign.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: assignimage.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: assignmetadata.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: configs.config.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: configpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: connections.connection.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: connectionpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: constraintpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: constrainttemplates.templates.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: constrainttemplatepodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: expansiontemplate.expansion.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: expansiontemplatepodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: modifyset.mutations.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: mutatorpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: providers.externaldata.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: providerpodstatuses.status.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: syncsets.syncset.gatekeeper.sh
+        sourceVariant: default
+        lane: configHubOciArgo
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

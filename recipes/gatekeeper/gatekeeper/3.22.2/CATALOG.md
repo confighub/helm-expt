@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
 | Strongest evidence | two-cluster-kind-parity |
-| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
+| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | hooks;crds;webhooks;extension-slots |
 | Hard gap | - |
 | Next action | run catalog promotion review |
@@ -58,7 +58,7 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/gatekeeper/gatekeeper/3.22.2/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/gatekeeper/gatekeeper/3.22.2/bases/default](../../../../packages/gatekeeper/gatekeeper/3.22.2/bases/default) | [recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 30 | 31 | 30/30 | pass | warn | warn | none |
-| no-crds | [recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds](../../../../packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds) | [recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 13 |  | 13/13 | pass |  | allow | none |
+| no-crds | [recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds](../../../../packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds) | [recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 13 |  | 13/13 | pass |  | allow | required CRD assign.mutations.gatekeeper.sh; required CRD assignimage.mutations.gatekeeper.sh; required CRD assignmetadata.mutations.gatekeeper.sh; required CRD configs.config.gatekeeper.sh; required CRD configpodstatuses.status.gatekeeper.sh; required CRD connections.connection.gatekeeper.sh; required CRD connectionpodstatuses.status.gatekeeper.sh; required CRD constraintpodstatuses.status.gatekeeper.sh; required CRD constrainttemplates.templates.gatekeeper.sh; required CRD constrainttemplatepodstatuses.status.gatekeeper.sh; required CRD expansiontemplate.expansion.gatekeeper.sh; required CRD expansiontemplatepodstatuses.status.gatekeeper.sh; required CRD modifyset.mutations.gatekeeper.sh; required CRD mutatorpodstatuses.status.gatekeeper.sh; required CRD providers.externaldata.gatekeeper.sh; required CRD providerpodstatuses.status.gatekeeper.sh; required CRD syncsets.syncset.gatekeeper.sh |
 
 ## Package Bases
 

@@ -61,7 +61,7 @@ function syncChart(chart) {
   installer.spec.collector = {
     command: "/bin/sh",
     args: ["collector/target-facts.sh"],
-    description: "Records target-fact bindings and can live-check existing Secret requirements.",
+    description: "Records target-fact bindings and can live-check cluster-visible requirements.",
   };
   installer.spec.bases = (installer.spec.bases ?? []).map((base) => {
     const targetFacts = factsByVariant.get(base.name);
@@ -163,6 +163,18 @@ function verifySetupFacts(packageRoot, variantName, targetFacts) {
       JSON.stringify(values.targetFacts?.requiredCRDs ?? []) === JSON.stringify(targetFacts.requiredCRDs ?? []),
       `${variantName} facts requiredCRDs mismatch`,
     );
+    check(
+      JSON.stringify(values.targetFacts?.requiredValues ?? []) === JSON.stringify(targetFacts.requiredValues ?? []),
+      `${variantName} facts requiredValues mismatch`,
+    );
+    check(
+      JSON.stringify(values.targetFacts?.requiredObjectStores ?? []) === JSON.stringify(targetFacts.requiredObjectStores ?? []),
+      `${variantName} facts requiredObjectStores mismatch`,
+    );
+    check(
+      JSON.stringify(values.targetFacts?.requiredTopology ?? null) === JSON.stringify(targetFacts.requiredTopology ?? null),
+      `${variantName} facts requiredTopology mismatch`,
+    );
     ok = true;
   } finally {
     if (ok) rmSync(tempRoot, { recursive: true, force: true });
@@ -197,6 +209,14 @@ function externalRequiresFor(targetFacts) {
       suggestedSource: "kubectl apply -f <crd-manifest.yaml>",
     })),
   );
+  requirements.push(
+    ...(targetFacts.requiredObjectStores ?? []).map((store) => ({
+      kind: "ClusterFeature",
+      name: objectStoreRequirementName(store),
+      namespace: store.namespace ?? "",
+      suggestedSource: store.suggestedSource ?? "create or bind an S3-compatible endpoint, bucket, and credentials before apply",
+    })),
+  );
   return requirements;
 }
 
@@ -211,8 +231,16 @@ function crdRequirementName(crd) {
   return `CRD ${crd.name}`;
 }
 
+function objectStoreRequirementName(store) {
+  return `S3-compatible object store ${store.namespace ?? "default"}/${store.name}`;
+}
+
 function isGeneratedTargetFactRequire(item) {
-  return item?.kind === "ClusterFeature" && typeof item.name === "string" && (item.name.startsWith("Secret ") || item.name.startsWith("CRD "));
+  return item?.kind === "ClusterFeature" && typeof item.name === "string" && (
+    item.name.startsWith("Secret ") ||
+    item.name.startsWith("CRD ") ||
+    item.name.startsWith("S3-compatible object store ")
+  );
 }
 
 function sameRequire(left, right) {
@@ -235,6 +263,9 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
+  requiredValues: []
+  requiredObjectStores: []
+  requiredTopology: null
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -275,6 +306,19 @@ live_check_crd() {
   fi
 }
 
+live_check_min_schedulable_nodes() {
+  required="$1"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  count="$(kubectl get nodes -o jsonpath='{range .items[*]}{.spec.unschedulable}{"\\n"}{end}' | awk '$1 != "true" { c++ } END { print c + 0 }')"
+  if [ "$count" -lt "$required" ]; then
+    echo "required at least $required schedulable node(s); found $count" >&2
+    exit 1
+  fi
+}
+
 case "$base" in
 ${cases}
   *)
@@ -292,6 +336,11 @@ function collectorCase(variantName, targetFacts) {
         : [`      live_check_secret ${shellQuote(secret.namespace ?? "default")} ${shellQuote(secret.name)} ''`],
     )
     .concat((targetFacts.requiredCRDs ?? []).map((crd) => `      live_check_crd ${shellQuote(crd.name)}`))
+    .concat(
+      targetFacts.requiredTopology?.minimumSchedulableNodes
+        ? [`      live_check_min_schedulable_nodes ${shellQuote(targetFacts.requiredTopology.minimumSchedulableNodes)}`]
+        : [],
+    )
     .join("\n");
   return `  ${shellQuote(variantName)})
     if [ "$check_mode" = "live" ]; then
@@ -304,6 +353,9 @@ ${checks || "    true"}
 targetFacts:
 ${indentYaml({ requiredSecrets: targetFacts.requiredSecrets ?? [] }, 2)}
 ${indentYaml({ requiredCRDs: targetFacts.requiredCRDs ?? [] }, 2)}
+${indentYaml({ requiredValues: targetFacts.requiredValues ?? [] }, 2)}
+${indentYaml({ requiredObjectStores: targetFacts.requiredObjectStores ?? [] }, 2)}
+${indentYaml({ requiredTopology: targetFacts.requiredTopology ?? null }, 2)}
 targetFactChecks:
   base: "${variantName}"
   mode: "$check_mode"

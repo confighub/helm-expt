@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | try-from-public-catalog |
 | User status | catalog-supported-with-live-evidence |
 | Strongest evidence | live-helm-vs-confighub-parity |
-| Proof lanes | render parity 3/3; ConfigHub 1/3; local live 2/3; GitOps live 2/3; live parity 2/3 |
+| Proof lanes | render parity 3/3; ConfigHub 3/3; local live 2/3; GitOps live 2/3; live parity 2/3 |
 | Feature summary | webhooks;required-values;values-schema;extension-slots |
 | Hard gap | - |
 | Next action | resolve image digests for each affected variant before production OCI support |

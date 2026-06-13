@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 62
+pass: 63
 watch: 3
 blocked: 0
 not-started: 0
@@ -69,6 +69,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `fairwinds-stable/vpa@4.11.0` | no-crds | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-vpa-no-crds/receipt.yaml |
 |  | `fluent/fluent-bit@0.57.6` | default | pass | - | runs/live-helm-confighub-compare/fluent-fluent-bit-default/receipt.yaml |
 |  | `gatekeeper/gatekeeper@3.22.2` | default | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-default/receipt.yaml |
+|  | `gatekeeper/gatekeeper@3.22.2` | no-crds | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-no-crds/receipt.yaml |
 |  | `grafana/alloy@1.8.2` | default | pass | - | runs/live-helm-confighub-compare/grafana-alloy-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | no-crds | pass | - | runs/live-helm-confighub-compare/kedacore-keda-no-crds/receipt.yaml |

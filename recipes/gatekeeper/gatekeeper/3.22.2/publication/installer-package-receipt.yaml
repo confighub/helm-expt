@@ -4,17 +4,16 @@ metadata:
   name: "gatekeeper-gatekeeper-3-22-2"
 spec:
   chart:
-    repository: "gatekeeper"
     name: "gatekeeper"
+    repository: "gatekeeper"
     version: "3.22.2"
   deterministicBundle:
-    command: "cub installer package packages/gatekeeper/gatekeeper/3.22.2 -o <tmp>/gatekeeper-gatekeeper-3.22.2.tgz"
-    sha256: "bb507b5109358e57ef8eb5d69ab0b35792dbd2c2f7c9c9b6923b3ff13a301531"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/gatekeeper/gatekeeper/3.22.2 -o <tmp>/gatekeeper-gatekeeper-3.22.2.tgz"
+    sha256: "fe50e229de9d1f6a0fabd807c2c54d3bd393e13d9e0a95f35be62f199834c74e"
   package:
-    path: "packages/gatekeeper/gatekeeper/3.22.2"
     name: "gatekeeper-gatekeeper"
-    version: "3.22.2"
+    path: "packages/gatekeeper/gatekeeper/3.22.2"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
         bytes: 20295
       -
+        path: "collector/target-facts.sh"
+        sha256: "05b5c887126bec2ed302f4cc842c73253f9f59ca7ed5a2fc394df8a2a5a3c02b"
+        bytes: 10408
+      -
         path: "installer.yaml"
-        sha256: "112056f250e5c3a21f88a5e54421501f43ac34cb7865b69e2ab0ad6c836ede50"
-        bytes: 476
+        sha256: "6040b4b62386038924a8fe71ffadd6b07bc8735354fce1f34bff559f3bbc1823"
+        bytes: 3573
+    version: "3.22.2"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -50,14 +54,18 @@ spec:
       helmReleaseObjectCount: 30
       semanticObjectMatches: "30/30"
       separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 13
-      cubInstallObjectCountIncludingSupport: 14
-      semanticObjectMatches: "13/13"
-      separatedSecretCount: 1
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 14
+      helmReleaseObjectCount: 13
+      semanticObjectMatches: "13/13"
+      separatedSecretCount: 1
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "no-crds"

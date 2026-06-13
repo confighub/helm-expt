@@ -12,8 +12,6 @@ spec:
       path: "bases/default"
     -
       description: "aqua/trivy-operator no-crds variant rendered from aqua/trivy-operator@0.32.1"
-      name: "no-crds"
-      path: "bases/no-crds"
       externalRequires:
         -
           kind: "ClusterFeature"
@@ -63,8 +61,10 @@ spec:
           kind: "ClusterFeature"
           name: "CRD vulnerabilityreports.aquasecurity.github.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+      name: "no-crds"
+      path: "bases/no-crds"
   collector:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    description: "Records target-fact bindings and can live-check existing Secret requirements."
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

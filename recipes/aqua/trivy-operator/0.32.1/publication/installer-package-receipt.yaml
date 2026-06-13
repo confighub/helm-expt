@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0.32.1.tgz"
-    sha256: "1173b06d9073953455f7b9b4dd7abb5fc11c43bdba94685841e31a3139da0b9e"
+    sha256: "ecb78214d9a7e0656a973bc25f78854f5baf4a4c877eb6eb126e30a1f3c762ae"
   package:
     name: "aqua-trivy-operator"
     path: "packages/aqua/trivy-operator/0.32.1"
@@ -37,11 +37,11 @@ spec:
         bytes: 66741
       -
         path: "collector/target-facts.sh"
-        sha256: "04fbff971d9b1f457f42765d315b97f29cc6996ad54de137fd67500199595b75"
-        bytes: 6260
+        sha256: "1ed8560695055aec338355ff8d2e4293e3caca298ef0da85b1501500690ddb12"
+        bytes: 6873
       -
         path: "installer.yaml"
-        sha256: "880a03e4db4edf9fb0dd0fc20e1c24b9c6975eb41e6f767784a2284f90b83b9c"
+        sha256: "b50344d1ef09131887647c2e7f0e020321e8fd0ea8d0acffcaebc74f48635afa"
         bytes: 2792
     version: "0.32.1"
   setupChecks:
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 33
       semanticObjectMatches: "33/33"
       separatedSecretCount: 2
-      variant: "default"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 21
       semanticObjectMatches: "21/21"
       separatedSecretCount: 2
-      variant: "no-crds"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "no-crds"

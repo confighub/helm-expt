@@ -57,7 +57,7 @@ spec:
     strongestEvidence: "two-cluster-kind-parity"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "1/2"
+      inConfigHub: "2/2"
       localLive: "0/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
@@ -68,7 +68,7 @@ spec:
     path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
     installer: "packages/autoscaler/vertical-pod-autoscaler/0.9.0/installer.yaml"
     receipt: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d6f9c9b6c8ac5ec53e4dda67c74949a452cafe6b64352828cd2570f4c96500f7"
+    deterministicBundleSHA256: "482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -868,7 +868,10 @@ def stage_target_facts(
     if secret_docs:
         write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": secret_docs})
         kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
-    return {"result": "pass", "stagedSecrets": staged_secrets, "stagedCRDs": staged_crds, "path": str(target_facts_path)}
+    result = {"result": "pass", "stagedSecrets": staged_secrets, "stagedCRDs": staged_crds}
+    if secret_docs:
+        result["path"] = str(target_facts_path)
+    return result
 
 
 def delete_namespace_if_safe(namespace: str, kubeconfig: Path, context: str) -> None:

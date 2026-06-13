@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/tempo-1.24.4.tgz"
-    sha256: "c619b2293a9429e60c12080f196e3880307082f553995360eaaea14afdfa6bcd"
+    sha256: "ee161ef2453c1a6911ae195742f6978669525631c17c3361275ead961a9096c3"
   package:
     name: "grafana-tempo"
     path: "packages/grafana/tempo/1.24.4"
@@ -37,11 +37,11 @@ spec:
         bytes: 9446
       -
         path: "collector/target-facts.sh"
-        sha256: "140c466089f8e7fcbcd642a66b2167855184c993c4e2e0f07bfea4a54559751a"
-        bytes: 2336
+        sha256: "b3e417e7abf0ce0e8dde7676a404e556e4d304b9c1d0dadb84d9f6154daa674f"
+        bytes: 3942
       -
         path: "installer.yaml"
-        sha256: "793af87391cf78597f3d0511834a60e451deea59c20b4aee31ad1cd17f05352a"
+        sha256: "6dbdf17f68dcef03e20ffbde817be5e69b361f986ee79b892f5d9db4431caa58"
         bytes: 1440
     version: "1.24.4"
   setupChecks:

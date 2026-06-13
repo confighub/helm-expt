@@ -52,7 +52,7 @@ spec:
     strongestEvidence: "two-cluster-kind-parity"
     proofLanes:
       renderParity: "1/1"
-      inConfigHub: "0/1"
+      inConfigHub: "1/1"
       localLive: "1/1"
       gitopsLive: "0/1"
       liveParity: "0/1"

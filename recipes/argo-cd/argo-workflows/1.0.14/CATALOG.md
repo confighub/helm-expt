@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default, controller-default-reviewed |
+| Candidate variants | default, controller-default-reviewed, minimal-crds |
 | Control points | capability-profile, cluster-rbac, dependency-lock, extension-slots, helm-equivalence, lifecycle-policy, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -30,8 +30,8 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
-| Strongest evidence | in-confighub-proof |
-| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
+| Strongest evidence | local-kubernetes-live |
+| Proof lanes | render parity 3/3; ConfigHub 2/3; local live 1/3; GitOps live 0/3; live parity 0/3 |
 | Feature summary | extension-slots |
 | Hard gap | - |
 | Next action | run catalog promotion review |
@@ -57,8 +57,9 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/argo-cd/argo-workflows/1.0.14/bases/default](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/default) | [recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 19 | 20 | 19/19 | pass | warn | warn | none |
-| controller-default-reviewed | [recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml](variants/controller-default-reviewed/variant.yaml) | [packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed) | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml](revisions/controller-default-reviewed/r001/variant-revision.yaml) | 19 | 20 | 19/19 | pass | warn | warn | none |
+| default | [recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/argo-cd/argo-workflows/1.0.14/bases/default](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/default) | [recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 19 | 20 | 19/19 | pass | warn | warn | required CRD clusterworkflowtemplates.argoproj.io; required CRD cronworkflows.argoproj.io; required CRD workflowartifactgctasks.argoproj.io; required CRD workfloweventbindings.argoproj.io; required CRD workflows.argoproj.io; required CRD workflowtaskresults.argoproj.io; required CRD workflowtasksets.argoproj.io; required CRD workflowtemplates.argoproj.io |
+| controller-default-reviewed | [recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml](variants/controller-default-reviewed/variant.yaml) | [packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed) | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml](revisions/controller-default-reviewed/r001/variant-revision.yaml) | 19 | 20 | 19/19 | pass | warn | warn | required CRD clusterworkflowtemplates.argoproj.io; required CRD cronworkflows.argoproj.io; required CRD workflowartifactgctasks.argoproj.io; required CRD workfloweventbindings.argoproj.io; required CRD workflows.argoproj.io; required CRD workflowtaskresults.argoproj.io; required CRD workflowtasksets.argoproj.io; required CRD workflowtemplates.argoproj.io |
+| minimal-crds | [recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml](variants/minimal-crds/variant.yaml) | [packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds) | [recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml](revisions/minimal-crds/r001/variant-revision.yaml) | 27 |  | 27/27 | pass |  | allow | none |
 
 ## Package Bases
 
@@ -66,6 +67,7 @@ for exact base-variant evidence.
 | --- | --- | --- | --- |
 | default | [packages/argo-cd/argo-workflows/1.0.14/bases/default](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/default) | yes | argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14 |
 | controller-default-reviewed | [packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed) | no | argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path |
+| minimal-crds | [packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds) | no | argo-cd/argo-workflows minimal-crds variant rendered from argo-cd/argo-workflows@1.0.14 |
 
 ## Receipts
 
@@ -79,6 +81,10 @@ for exact base-variant evidence.
 | controller-default-reviewed | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml) |
 | controller-default-reviewed | r001 | scan | ScanReceipt | warn | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml) |
 | controller-default-reviewed | r001 | installGate | InstallGate | warn | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/install-gate.yaml](revisions/controller-default-reviewed/r001/receipts/install-gate.yaml) |
+| minimal-crds | r001 | render | RenderReceipt | recorded | [recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/render-receipt.yaml](revisions/minimal-crds/r001/receipts/render-receipt.yaml) |
+| minimal-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/minimal-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| minimal-crds | r001 | scan | ScanReceipt |  | [recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/scan-receipt.yaml](revisions/minimal-crds/r001/receipts/scan-receipt.yaml) |
+| minimal-crds | r001 | installGate | InstallGate | allow | [recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml](revisions/minimal-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

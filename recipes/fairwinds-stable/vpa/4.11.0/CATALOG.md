@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
 | Strongest evidence | local-kubernetes-live |
-| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 2/2; GitOps live 0/2; live parity 0/2 |
+| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | crds;webhooks;extension-slots |
 | Hard gap | - |
 | Next action | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
@@ -57,8 +57,8 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/fairwinds-stable/vpa/4.11.0/bases/default](../../../../packages/fairwinds-stable/vpa/4.11.0/bases/default) | [recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 28 | 29 | 28/28 | pass | warn | warn | none |
-| no-crds | [recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/fairwinds-stable/vpa/4.11.0/bases/no-crds](../../../../packages/fairwinds-stable/vpa/4.11.0/bases/no-crds) | [recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 26 |  | 26/26 | pass |  | allow | none |
+| default | [recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/fairwinds-stable/vpa/4.11.0/bases/default](../../../../packages/fairwinds-stable/vpa/4.11.0/bases/default) | [recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 28 | 29 | 28/28 | pass | warn | warn | required Secret default/vpa-tls-secret keys ca,cert,key |
+| no-crds | [recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/fairwinds-stable/vpa/4.11.0/bases/no-crds](../../../../packages/fairwinds-stable/vpa/4.11.0/bases/no-crds) | [recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 26 |  | 26/26 | pass |  | allow | required Secret default/vpa-tls-secret keys ca,cert,key; required CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io; required CRD verticalpodautoscalers.autoscaling.k8s.io |
 
 ## Package Bases
 

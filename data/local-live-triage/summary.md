@@ -10,9 +10,9 @@ clear without turning every non-pass row into a product defect.
 ~~~text
 chart/base rows:          191
 local live observed rows: 191
-local live pass rows:     136
-local live non-pass rows: 55
-classified non-pass rows: 55
+local live pass rows:     137
+local live non-pass rows: 54
+classified non-pass rows: 54
 needs manual inspection:  0
 ~~~
 
@@ -20,7 +20,7 @@ needs manual inspection:  0
 
 | Route class | Rows | Meaning | Next action |
 | --- | ---: | --- | --- |
-| `runtime-readiness` | 24 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
+| `runtime-readiness` | 23 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | `target-prerequisite` | 9 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | `webhook-cert-lifecycle` | 8 | A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready. | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | `image-dependency` | 6 | The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity. | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
@@ -58,11 +58,11 @@ needs manual inspection:  0
 | `dex/dex@0.24.0` | default | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/dex-dex-0.24.0-default/observation-receipt.yaml) |
 | `elastic/logstash@8.5.1` | ha | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/elastic-logstash-8.5.1-ha/observation-receipt.yaml) |
 | `external-secrets/external-secrets@2.5.0` | no-crds | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/external-secrets-external-secrets-2.5.0-no-crds/observation-receipt.yaml) |
-| `gatekeeper/gatekeeper@3.22.2` | no-crds | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/gatekeeper-gatekeeper-3.22.2-no-crds/observation-receipt.yaml) |
 | `gitlab/gitlab-runner@0.89.0` | default | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/gitlab-gitlab-runner-0.89.0-default/observation-receipt.yaml) |
 | `grafana/pyroscope@2.0.2` | ha | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/grafana-pyroscope-2.0.2-ha/observation-receipt.yaml) |
 | `grafana/rollout-operator@0.49.0` | no-crds | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/grafana-rollout-operator-0.49.0-no-crds/observation-receipt.yaml) |
 | `hashicorp/terraform@1.1.2` | no-crds | blocked | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/hashicorp-terraform-1.1.2-no-crds/observation-receipt.yaml) |
+| `istio/istiod@1.30.0` | default | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/istio-istiod-1.30.0-default/observation-receipt.yaml) |
 
 ## How To Use This
 

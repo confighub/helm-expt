@@ -8,9 +8,34 @@ spec:
     -
       default: true
       description: "fairwinds-stable/vpa default variant rendered from fairwinds-stable/vpa@4.11.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/vpa-tls-secret keys ca,cert,key"
+          namespace: "default"
+          suggestedSource: "kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value>"
       name: "default"
       path: "bases/default"
     -
+      description: "fairwinds-stable/vpa no-crds variant rendered from fairwinds-stable/vpa@4.11.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/vpa-tls-secret keys ca,cert,key"
+          namespace: "default"
+          suggestedSource: "kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD verticalpodautoscalers.autoscaling.k8s.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "fairwinds-stable/vpa no-crds variant rendered from fairwinds-stable/vpa@4.11.0"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

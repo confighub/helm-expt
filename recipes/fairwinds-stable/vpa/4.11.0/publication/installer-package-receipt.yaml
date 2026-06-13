@@ -4,17 +4,16 @@ metadata:
   name: "fairwinds-stable-vpa-4-11-0"
 spec:
   chart:
-    repository: "fairwinds-stable"
     name: "vpa"
+    repository: "fairwinds-stable"
     version: "4.11.0"
   deterministicBundle:
-    command: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4.11.0.tgz"
-    sha256: "46a65dee2bb14f813e99a120331d8c6f2c437bdc805d57c506b3e6b3ce974504"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4.11.0.tgz"
+    sha256: "c411917b35d86c3df3725986517a94884e6dee9d7761cf6fb5ba62d3d25027e6"
   package:
-    path: "packages/fairwinds-stable/vpa/4.11.0"
     name: "fairwinds-stable-vpa"
-    version: "4.11.0"
+    path: "packages/fairwinds-stable/vpa/4.11.0"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
         bytes: 17274
       -
+        path: "collector/target-facts.sh"
+        sha256: "892cae349a1726079f5a61d0fa1c163decfaf87de42ad7b4e8e54e33cf3163bd"
+        bytes: 3989
+      -
         path: "installer.yaml"
-        sha256: "1eb0eeaa416aee6628cab0d02fd5cb13e7cc348713a5f1e5dd4cef7c5b99cd8b"
-        bytes: 471
+        sha256: "3d9bbc1e7be27be37c56389697fdaacc1233ef2de09eb064aa6b88d9c1b122bb"
+        bytes: 1664
+    version: "4.11.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -50,14 +54,18 @@ spec:
       helmReleaseObjectCount: 28
       semanticObjectMatches: "28/28"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/fairwinds-stable/vpa/4.11.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 26
-      cubInstallObjectCountIncludingSupport: 27
-      semanticObjectMatches: "26/26"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/fairwinds-stable/vpa/4.11.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 27
+      helmReleaseObjectCount: 26
+      semanticObjectMatches: "26/26"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "no-crds"

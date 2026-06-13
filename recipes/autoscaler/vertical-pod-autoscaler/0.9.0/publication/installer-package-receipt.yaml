@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o <tmp>/autoscaler-vertical-pod-autoscaler-0.9.0.tgz"
-    sha256: "d6f9c9b6c8ac5ec53e4dda67c74949a452cafe6b64352828cd2570f4c96500f7"
+    sha256: "482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
   package:
     name: "autoscaler-vertical-pod-autoscaler"
     path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
@@ -37,11 +37,11 @@ spec:
         bytes: 35787
       -
         path: "collector/target-facts.sh"
-        sha256: "1742ad47dd3723818013eac7683f50a6cdee129a0ec9fc20f996d4302f2f0a62"
-        bytes: 3061
+        sha256: "0bd34e467d509b53f9235af3f28bbd71152f9c90e544d0e7c917499bfd4b8447"
+        bytes: 3750
       -
         path: "installer.yaml"
-        sha256: "5e34cf82db0ba528bef0ced87303a437440d09e91c9e57ffb79318cc2c66f5da"
+        sha256: "e9d879c4df74bbe215eb8300b4e64408bb89eba30a69e482047537a84b74bd31"
         bytes: 1341
     version: "0.9.0"
   setupChecks:
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 39
       semanticObjectMatches: "39/39"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 37
       semanticObjectMatches: "37/37"
       separatedSecretCount: 0
-      variant: "no-crds"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "no-crds"

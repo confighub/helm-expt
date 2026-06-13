@@ -6,13 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default-control-plane"
-      path: "bases/default-control-plane"
       default: true
       description: "consul default control plane variant rendered from hashicorp/consul@2.0.0"
+      name: "default-control-plane"
+      path: "bases/default-control-plane"
     -
-      name: "secure-mesh-existing-secrets"
-      path: "bases/secure-mesh-existing-secrets"
       description: "consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0"
       externalRequires:
         -
@@ -35,89 +33,91 @@ spec:
           name: "Secret consul/consul-bootstrap-acl-token key token"
           namespace: "consul"
           suggestedSource: "kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value>"
+      name: "secure-mesh-existing-secrets"
+      path: "bases/secure-mesh-existing-secrets"
   collector:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    description: "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."
   transformers:
     -
-      toolchain: "Kubernetes/YAML"
-      whereResource: ""
       description: "Set the namespace on every namespaced resource."
       invocations:
         -
-          name: "set-namespace"
           args:
             - "{{ .Namespace }}"
-    -
+          name: "set-namespace"
       toolchain: "Kubernetes/YAML"
-      whereResource: "ConfigHub.ResourceType = 'rbac.authorization.k8s.io/v1/ClusterRoleBinding'"
+      whereResource: ""
+    -
       description: "Keep cluster-role binding subject namespaces aligned with the selected install namespace."
       invocations:
         -
-          name: "yq-i"
           args:
             - ".subjects[]?.namespace = \"{{ .Namespace }}\""
-    -
+          name: "yq-i"
       toolchain: "Kubernetes/YAML"
-      whereResource: "ConfigHub.ResourceType = 'v1/ConfigMap'"
+      whereResource: "ConfigHub.ResourceType = 'rbac.authorization.k8s.io/v1/ClusterRoleBinding'"
+    -
       description: "Keep Consul service DNS and webhook Secret namespace references aligned with the selected install namespace."
       invocations:
         -
-          name: "set-starlark"
           args:
             - "def rewrite(value):\n  ns = params[\"namespace\"]\n  if type(value) == \"dict\":\n    for key in value.keys():\n      value[key] = rewrite(value[key])\n    return value\n  if type(value) == \"list\":\n    for index in range(len(value)):\n      value[index] = rewrite(value[index])\n    return value\n  if type(value) == \"string\":\n    value = re.sub(\"consul-consul-server[.]consul[.]svc\", \"consul-consul-server.\" + ns + \".svc\", value)\n    value = re.sub(\"consul-consul-connect-injector[.]consul[.]svc[.]cluster[.]local\", \"consul-consul-connect-injector.\" + ns + \".svc.cluster.local\", value)\n    value = re.sub(\"consul-consul-connect-injector[.]consul[.]svc\", \"consul-consul-connect-injector.\" + ns + \".svc\", value)\n    value = re.sub('consul-consul-connect-injector[.]consul\"', 'consul-consul-connect-injector.' + ns + '\"', value)\n    value = re.sub('\"secretNamespace\": \"consul\"', '\"secretNamespace\": \"' + ns + '\"', value)\n    return value\n  return value\n\nrewrite(r)\n"
             - "namespace={{ .Namespace }}"
-    -
+          name: "set-starlark"
       toolchain: "Kubernetes/YAML"
-      whereResource: "ConfigHub.ResourceType = 'apps/v1/Deployment'"
+      whereResource: "ConfigHub.ResourceType = 'v1/ConfigMap'"
+    -
       description: "Keep Consul controller namespace flags and service references aligned with the selected install namespace."
       invocations:
         -
-          name: "set-starlark"
           args:
             - "def rewrite(value):\n  ns = params[\"namespace\"]\n  if type(value) == \"dict\":\n    for key in value.keys():\n      value[key] = rewrite(value[key])\n    return value\n  if type(value) == \"list\":\n    for index in range(len(value)):\n      value[index] = rewrite(value[index])\n    return value\n  if type(value) == \"string\":\n    value = re.sub(\"consul-consul-server[.]consul[.]svc\", \"consul-consul-server.\" + ns + \".svc\", value)\n    value = re.sub('-release-namespace=\"consul\"', '-release-namespace=\"' + ns + '\"', value)\n    value = re.sub(\"-deployment-namespace=consul\", \"-deployment-namespace=\" + ns, value)\n    return value\n  return value\n\nrewrite(r)\n"
             - "namespace={{ .Namespace }}"
-    -
+          name: "set-starlark"
       toolchain: "Kubernetes/YAML"
-      whereResource: "ConfigHub.ResourceType = 'apps/v1/StatefulSet'"
+      whereResource: "ConfigHub.ResourceType = 'apps/v1/Deployment'"
+    -
       description: "Make the Consul server StatefulSet stable under Kubernetes defaulting so GitOps can converge."
       invocations:
         -
-          name: "yq-i"
           args:
             - ".spec.persistentVolumeClaimRetentionPolicy = {\"whenDeleted\": \"Retain\", \"whenScaled\": \"Retain\"} | .spec.revisionHistoryLimit = 10 | .spec.updateStrategy = {\"type\": \"RollingUpdate\", \"rollingUpdate\": {\"partition\": 0, \"maxUnavailable\": 1}}"
-        -
           name: "yq-i"
+        -
           args:
             - ".spec.template.spec.dnsPolicy = \"ClusterFirst\" | .spec.template.spec.restartPolicy = \"Always\" | .spec.template.spec.schedulerName = \"default-scheduler\" | .spec.template.spec.serviceAccount = \"consul-consul-server\""
-        -
           name: "yq-i"
+        -
           args:
             - "(.spec.template.spec.containers[].env[]? | select(.valueFrom.fieldRef).valueFrom.fieldRef.apiVersion) = \"v1\" | (.spec.template.spec.initContainers[].env[]? | select(.valueFrom.fieldRef).valueFrom.fieldRef.apiVersion) = \"v1\""
-        -
           name: "yq-i"
+        -
           args:
             - ".spec.template.spec.containers[].imagePullPolicy = \"IfNotPresent\" | .spec.template.spec.initContainers[].imagePullPolicy = \"IfNotPresent\" | .spec.template.spec.initContainers[].resources = {}"
-        -
           name: "yq-i"
+        -
           args:
             - "(.spec.template.spec.containers[].ports[] | select(.protocol == null).protocol) = \"TCP\" | .spec.template.spec.containers[].terminationMessagePath = \"/dev/termination-log\" | .spec.template.spec.containers[].terminationMessagePolicy = \"File\" | .spec.template.spec.initContainers[].terminationMessagePath = \"/dev/termination-log\" | .spec.template.spec.initContainers[].terminationMessagePolicy = \"File\""
-        -
           name: "yq-i"
+        -
           args:
             - "(.spec.template.spec.volumes[] | select(has(\"configMap\")).configMap.defaultMode) = 420 | .spec.volumeClaimTemplates[].apiVersion = \"v1\" | .spec.volumeClaimTemplates[].kind = \"PersistentVolumeClaim\" | .spec.volumeClaimTemplates[].spec.volumeMode = \"Filesystem\""
-        -
           name: "yq-i"
+        -
           args:
             - "del(.spec.template.spec.containers[].volumeMounts[] | select(.readOnly == false).readOnly)"
-    -
+          name: "yq-i"
       toolchain: "Kubernetes/YAML"
-      whereResource: "ConfigHub.ResourceType IN ('admissionregistration.k8s.io/v1/MutatingWebhookConfiguration', 'admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration')"
+      whereResource: "ConfigHub.ResourceType = 'apps/v1/StatefulSet'"
+    -
       description: "Keep admission webhook service references aligned with the selected install namespace."
       invocations:
         -
-          name: "yq-i"
           args:
             - ".webhooks[].clientConfig.service.namespace = \"{{ .Namespace }}\""
+          name: "yq-i"
+      toolchain: "Kubernetes/YAML"
+      whereResource: "ConfigHub.ResourceType IN ('admissionregistration.k8s.io/v1/MutatingWebhookConfiguration', 'admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration')"

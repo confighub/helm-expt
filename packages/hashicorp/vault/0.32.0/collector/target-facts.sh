@@ -76,14 +76,19 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets: []
+
   requiredCRDs: []
+
   requiredValues: []
+
   requiredObjectStores: []
+
   requiredTopology:
     minimumSchedulableNodes: 3
-    purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
+    purpose: schedule the three Vault server replicas rendered by the HA Raft base
+
 targetFactChecks:
-  base: "$base"
+  base: "ha-raft-ui"
   mode: "$check_mode"
   result: "$result"
 YAML

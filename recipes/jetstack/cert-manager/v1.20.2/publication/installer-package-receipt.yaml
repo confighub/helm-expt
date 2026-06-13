@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jetstack/cert-manager/v1.20.2 -o <tmp>/cert-manager-v1.20.2.tgz"
-    sha256: "84f9e1aacfc398c5f402f03d217d3913d02721b4f6506537f352a0f6de79c782"
+    sha256: "326411dcaef701800272480b88e4456fe21b5256714db346dc5c60bf5cb96275"
   package:
     name: "jetstack-cert-manager"
     path: "packages/jetstack/cert-manager/v1.20.2"
@@ -37,11 +37,11 @@ spec:
         bytes: 41880
       -
         path: "collector/target-facts.sh"
-        sha256: "51d6ea261e58f262651da4049f23b85190c7aa8b5728b130e0959dad3b977d00"
-        bytes: 3742
+        sha256: "ece9475911f45d88ab48d90e43abb9d2bd51e35015ed7a199b33aedf6f10d1e9"
+        bytes: 4355
       -
         path: "installer.yaml"
-        sha256: "adf0106af102bd10627f2baef958531b206086878fb4c497d693301dca96d1c3"
+        sha256: "59e3e678cf528fad5e0f8bc31d264a359e1dd6768232f1904ac75ae45f344994"
         bytes: 1645
     version: "v1.20.2"
   setupChecks:
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 42
       semanticObjectMatches: "42/42"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||cert-manager"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 48
       semanticObjectMatches: "48/48"
       separatedSecretCount: 0
-      variant: "crds-enabled"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "crds-enabled"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/nginx/24.0.4 -o <tmp>/nginx-24.0.4.tgz"
-    sha256: "28aac6557bfa910607cfe33f638bcb85fdb8e076b1bb41ec7fcfa6da17f167fb"
+    sha256: "c282cddd3f61388ba8e1abc51d32b468667577b9093e337e06ec45a5a1d1057c"
   package:
     name: "bitnami-nginx"
     path: "packages/bitnami/nginx/24.0.4"
@@ -37,11 +37,11 @@ spec:
         bytes: 7244
       -
         path: "collector/target-facts.sh"
-        sha256: "97000c32a9f8422f0c02a1cc0117daa667d1c5e8ce7b417d1f99922bc341312a"
-        bytes: 2123
+        sha256: "c8077e26daa353736af17b31c7e47891de44587a083c7ddce8e697981b204b35"
+        bytes: 2736
       -
         path: "installer.yaml"
-        sha256: "694bb7f9d55bc330c43719c59ba6e3a200a072acaf89e568d3d148c9017a391a"
+        sha256: "bef82dc03607c807d20992524283c994dbb6cec0eb35f320a45862b5273f7fef"
         bytes: 1311
     version: "24.0.4"
   setupChecks:

@@ -57,7 +57,7 @@ spec:
     strongestEvidence: "local-kubernetes-live"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "1/2"
+      inConfigHub: "2/2"
       localLive: "2/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
@@ -68,7 +68,7 @@ spec:
     path: "packages/fairwinds-stable/vpa/4.11.0"
     installer: "packages/fairwinds-stable/vpa/4.11.0/installer.yaml"
     receipt: "recipes/fairwinds-stable/vpa/4.11.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "46a65dee2bb14f813e99a120331d8c6f2c437bdc805d57c506b3e6b3ce974504"
+    deterministicBundleSHA256: "c411917b35d86c3df3725986517a94884e6dee9d7761cf6fb5ba62d3d25027e6"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -94,8 +94,20 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "ca"
+              - "cert"
+              - "key"
+            name: "vpa-tls-secret"
+            namespace: "default"
+            purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+      targetFactSummary: "required Secret default/vpa-tls-secret keys ca,cert,key"
       packageBase:
         name: "default"
         path: "packages/fairwinds-stable/vpa/4.11.0/bases/default"
@@ -156,8 +168,39 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+            purpose: "VPA CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "verticalpodautoscalers.autoscaling.k8s.io"
+            purpose: "VPA CRD managed outside this no-crds base"
+            sourceVariant: "default"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "ca"
+              - "cert"
+              - "key"
+            name: "vpa-tls-secret"
+            namespace: "default"
+            purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+      targetFactSummary: "required Secret default/vpa-tls-secret keys ca,cert,key; required CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io; required CRD verticalpodautoscalers.autoscaling.k8s.io"
       packageBase:
         name: "no-crds"
         path: "packages/fairwinds-stable/vpa/4.11.0/bases/no-crds"

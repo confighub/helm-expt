@@ -67,7 +67,7 @@ spec:
     path: "packages/bitnami/postgresql/18.7.0"
     installer: "packages/bitnami/postgresql/18.7.0/installer.yaml"
     receipt: "recipes/bitnami/postgresql/18.7.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "98980df2b6a70d86ee31b6ef6ad480534c2ce9372c9e45ff7fd93c123ac3912a"
+    deterministicBundleSHA256: "325bb171918958666a38e2e441599f48ab7b8e02278f168d3a745f5b111a50d2"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

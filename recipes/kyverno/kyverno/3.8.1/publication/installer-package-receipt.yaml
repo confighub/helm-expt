@@ -4,17 +4,16 @@ metadata:
   name: "kyverno-kyverno-3-8-1"
 spec:
   chart:
-    repository: "kyverno"
     name: "kyverno"
+    repository: "kyverno"
     version: "3.8.1"
   deterministicBundle:
-    command: "cub installer package packages/kyverno/kyverno/3.8.1 -o <tmp>/kyverno-kyverno-3.8.1.tgz"
-    sha256: "870c7579ffef1a15847aca668fd5b1ae00ddbf6306593e9371b69dc9f069ad5b"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/kyverno/kyverno/3.8.1 -o <tmp>/kyverno-kyverno-3.8.1.tgz"
+    sha256: "57cfb3d1704a91e6c91f22eaf9ca936bd8ef23e823f9a3161eb5f045321fea2e"
   package:
-    path: "packages/kyverno/kyverno/3.8.1"
     name: "kyverno-kyverno"
-    version: "3.8.1"
+    path: "packages/kyverno/kyverno/3.8.1"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
         bytes: 69444
       -
+        path: "collector/target-facts.sh"
+        sha256: "789f954ab14a6254c8d5d0094ce9a5743082c91ca58e0cde14afef48e0e4f973"
+        bytes: 8803
+      -
         path: "installer.yaml"
-        sha256: "5ce822d42494957ea3625d14b626d7ef2a042a206ec742312b6d197b12ffcd9a"
-        bytes: 443
+        sha256: "dbb3861d705e9523e3ebdc71208c8523c0a77d6e439de3313c36018c242628e9"
+        bytes: 4345
+    version: "3.8.1"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -50,14 +54,18 @@ spec:
       helmReleaseObjectCount: 69
       semanticObjectMatches: "69/69"
       separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 47
-      cubInstallObjectCountIncludingSupport: 48
-      semanticObjectMatches: "47/47"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 48
+      helmReleaseObjectCount: 47
+      semanticObjectMatches: "47/47"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "no-crds"

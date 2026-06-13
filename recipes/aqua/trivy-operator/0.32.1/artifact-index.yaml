@@ -57,7 +57,7 @@ spec:
     strongestEvidence: "two-cluster-kind-parity"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "1/2"
+      inConfigHub: "2/2"
       localLive: "2/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
@@ -68,7 +68,7 @@ spec:
     path: "packages/aqua/trivy-operator/0.32.1"
     installer: "packages/aqua/trivy-operator/0.32.1/installer.yaml"
     receipt: "recipes/aqua/trivy-operator/0.32.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1173b06d9073953455f7b9b4dd7abb5fc11c43bdba94685841e31a3139da0b9e"
+    deterministicBundleSHA256: "ecb78214d9a7e0656a973bc25f78854f5baf4a4c877eb6eb126e30a1f3c762ae"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
