@@ -1,0 +1,76 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: elastic-logstash-8.5.1-ha-live-parity-20260605
+spec:
+  chart: elastic/logstash
+  version: 8.5.1
+  base: ha
+  result: blocked
+  observedAt: '2026-06-13T09:31:27Z'
+  package:
+    path: packages/elastic/logstash/8.5.1
+  recipe:
+    path: recipes/elastic/logstash/8.5.1
+  variantRevision: recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+  run:
+    rig: helm-expt-parity-logstash-mqc5ojbd-1wze
+    kubeContext: kind-helm-expt-parity-logstash-mqc5ojbd-1wze
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-logstash-mqc5ojbd-1wze --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-logstash-mqc5ojbd-1wze"...
+
+        Deleting cluster "helm-expt-parity-logstash-mqc5ojbd-1wze" ...
+
+        Deleted nodes: ["helm-expt-parity-logstash-mqc5ojbd-1wze-control-plane"]
+
+        Deleting Space "helm-expt-parity-logstash-mqc5ojbd-1wze-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-logstash-mqc5ojbd-1wze\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-logstash-mqc5ojbd-1wze.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-logstash-mqc5ojbd-1wze\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-logstash-mqc5ojbd-1wze\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-logstash-mqc5ojbd-1wze\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-logstash-mqc5ojbd-1wze.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreatin"
+  - name: failure
+    result: blocked
+    detail: target topology requires at least 3 schedulable node(s); found 1 for regularHelm
+  failure:
+    message: target topology requires at least 3 schedulable node(s); found 1 for
+      regularHelm

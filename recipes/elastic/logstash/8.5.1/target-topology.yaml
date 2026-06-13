@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetTopology"
+metadata:
+  name: "elastic-logstash-8.5.1"
+spec:
+  chart: "elastic/logstash@8.5.1"
+  scope: "target shape required by each proof-grade base after render parity has passed"
+  bases:
+    default:
+      variant: "default"
+      status: "single-node-compatible"
+      reason: "the default base renders one Logstash replica and has live parity on the standard proof target"
+    ha:
+      variant: "ha"
+      status: "target-fit-required"
+      targetFit:
+        minimumSchedulableNodes: 3
+        requiresPersistentStorage: false
+        reason: "the HA base renders three Logstash replicas with required pod anti-affinity across kubernetes.io/hostname"
+      requiredReceipts:
+        - "target-fit-observation-receipt"
+        - "three-node-live-parity-receipt"
+  notProvenBy:
+    - "one-node kind runtime readiness"
+    - "render parity alone"
+    - "a local-live receipt where only one replica becomes ready"

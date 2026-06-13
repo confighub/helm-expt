@@ -349,6 +349,9 @@ function targetFactSummary(targetFacts) {
   for (const value of targetFacts.requiredValues ?? []) {
     bits.push(`required Value ${value.path}${value.stage ? ` (${value.stage})` : ""}`);
   }
+  if (targetFacts.requiredTopology?.minimumSchedulableNodes) {
+    bits.push(`topology minSchedulableNodes=${targetFacts.requiredTopology.minimumSchedulableNodes}`);
+  }
   return bits.length ? bits.join("; ") : "see variant targetFacts";
 }
 

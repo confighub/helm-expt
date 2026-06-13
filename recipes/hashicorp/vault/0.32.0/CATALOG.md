@@ -61,7 +61,7 @@ for exact base-variant evidence.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | dev-mode | [recipes/hashicorp/vault/0.32.0/variants/dev-mode/variant.yaml](variants/dev-mode/variant.yaml) | [packages/hashicorp/vault/0.32.0/bases/dev-mode](../../../../packages/hashicorp/vault/0.32.0/bases/dev-mode) | [recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/variant-revision.yaml](revisions/dev-mode/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | warn | warn | none |
 | default | [recipes/hashicorp/vault/0.32.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/hashicorp/vault/0.32.0/bases/default](../../../../packages/hashicorp/vault/0.32.0/bases/default) | [recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 12 | 13 | 12/12 | pass | warn | warn | none |
-| ha-raft-ui | [recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml](variants/ha-raft-ui/variant.yaml) | [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](../../../../packages/hashicorp/vault/0.32.0/bases/ha-raft-ui) | [recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml](revisions/ha-raft-ui/r001/variant-revision.yaml) | 18 | 19 | 18/18 | pass | warn | warn | see variant targetFacts |
+| ha-raft-ui | [recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml](variants/ha-raft-ui/variant.yaml) | [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](../../../../packages/hashicorp/vault/0.32.0/bases/ha-raft-ui) | [recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml](revisions/ha-raft-ui/r001/variant-revision.yaml) | 18 | 19 | 18/18 | pass | warn | warn | topology minSchedulableNodes=3 |
 
 ## Package Bases
 

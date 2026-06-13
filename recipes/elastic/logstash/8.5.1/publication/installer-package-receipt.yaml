@@ -4,17 +4,16 @@ metadata:
   name: "elastic-logstash-8-5-1"
 spec:
   chart:
-    repository: "elastic"
     name: "logstash"
+    repository: "elastic"
     version: "8.5.1"
   deterministicBundle:
-    command: "cub installer package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8.5.1.tgz"
-    sha256: "bc30315bed50eda7f5684ff7bb3bfa43daca0f9ebac8f0634f1ce0cdd311ff56"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8.5.1.tgz"
+    sha256: "941195981b033cff6a6ef10ed35568cf67c6fae3cc0891c6f2e52d7d4857d736"
   package:
-    path: "packages/elastic/logstash/8.5.1"
     name: "elastic-logstash"
-    version: "8.5.1"
+    path: "packages/elastic/logstash/8.5.1"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
         bytes: 2874
       -
+        path: "collector/target-facts.sh"
+        sha256: "b35b327a8e6c38ea5a3a77979b923c8f8d04f80b0abf58a3b6d62a387333cade"
+        bytes: 2350
+      -
         path: "installer.yaml"
-        sha256: "d12609177a0c23573cf2f97b730a14f4998ff0689c941a72b6284bd993413df3"
-        bytes: 433
+        sha256: "9daf7a689fbf0e8261e30201805a282a291f2f1d775cb86ec2f276b892a59348"
+        bytes: 827
+    version: "8.5.1"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -51,13 +55,17 @@ spec:
       semanticObjectMatches: "3/3"
       separatedSecretCount: 0
       variant: "default"
+      targetFactMode: "not-required"
+      targetFactsBound: false
     -
-      variant: "ha"
-      base: "ha"
-      command: "cub installer setup --pull packages/elastic/logstash/8.5.1 --base ha --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 3
-      cubInstallObjectCountIncludingSupport: 4
-      semanticObjectMatches: "3/3"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "ha"
+      command: "cub installer setup --pull packages/elastic/logstash/8.5.1 --base ha --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 4
+      helmReleaseObjectCount: 3
+      semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      variant: "ha"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true

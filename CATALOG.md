@@ -741,7 +741,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/vault/0.32.0/CATALOG.md)
 When to use: vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0
 Readiness: try-with-proof
 Namespace: vault
-Target facts: see variant targetFacts
+Target facts: topology minSchedulableNodes=3
 Package base: [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](packages/hashicorp/vault/0.32.0/bases/ha-raft-ui)
 Variant file: [recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml](recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml)
 Rendered objects: [recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml](recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml)
@@ -1011,7 +1011,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 When to use: consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0
 Readiness: try-with-proof
 Namespace: consul
-Target facts: required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token
+Target facts: required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token; topology minSchedulableNodes=3
 Package base: [packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets](packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets)
 Variant file: [recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml](recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml)
 Rendered objects: [recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml](recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml)

@@ -69,7 +69,7 @@ spec:
     path: "packages/hashicorp/vault/0.32.0"
     installer: "packages/hashicorp/vault/0.32.0/installer.yaml"
     receipt: "recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "03f754297fa61a47b43bcd0c2ba94a18765dcae4a687ed4192293d97c206b013"
+    deterministicBundleSHA256: "fefda66caf61931a51fcb81ccc432b844e33975cfeff490dd08901f97f964beb"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -227,7 +227,7 @@ spec:
         requiredTopology:
           minimumSchedulableNodes: 3
           purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
-      targetFactSummary: "see variant targetFacts"
+      targetFactSummary: "topology minSchedulableNodes=3"
       packageBase:
         name: "ha-raft-ui"
         path: "packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"

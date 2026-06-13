@@ -11,6 +11,16 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "elastic/logstash ha variant rendered from elastic/logstash@8.5.1"
       name: "ha"
       path: "bases/ha"
-      description: "elastic/logstash ha variant rendered from elastic/logstash@8.5.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "minimum schedulable nodes 3"
+          suggestedSource: "use a target with at least 3 schedulable nodes before applying this base"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

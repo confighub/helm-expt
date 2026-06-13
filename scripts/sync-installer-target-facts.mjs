@@ -217,6 +217,15 @@ function externalRequiresFor(targetFacts) {
       suggestedSource: store.suggestedSource ?? "create or bind an S3-compatible endpoint, bucket, and credentials before apply",
     })),
   );
+  if (targetFacts.requiredTopology?.minimumSchedulableNodes) {
+    requirements.push({
+      kind: "ClusterFeature",
+      name: topologyRequirementName(targetFacts.requiredTopology),
+      suggestedSource:
+        targetFacts.requiredTopology.suggestedSource ??
+        `use a target with at least ${targetFacts.requiredTopology.minimumSchedulableNodes} schedulable nodes before applying this base`,
+    });
+  }
   return requirements;
 }
 
@@ -235,11 +244,16 @@ function objectStoreRequirementName(store) {
   return `S3-compatible object store ${store.namespace ?? "default"}/${store.name}`;
 }
 
+function topologyRequirementName(topology) {
+  return `minimum schedulable nodes ${topology.minimumSchedulableNodes}`;
+}
+
 function isGeneratedTargetFactRequire(item) {
   return item?.kind === "ClusterFeature" && typeof item.name === "string" && (
     item.name.startsWith("Secret ") ||
     item.name.startsWith("CRD ") ||
-    item.name.startsWith("S3-compatible object store ")
+    item.name.startsWith("S3-compatible object store ") ||
+    item.name.startsWith("minimum schedulable nodes ")
   );
 }
 

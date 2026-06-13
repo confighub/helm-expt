@@ -70,7 +70,7 @@ spec:
     path: "packages/hashicorp/consul/2.0.0"
     installer: "packages/hashicorp/consul/2.0.0/installer.yaml"
     receipt: "recipes/hashicorp/consul/2.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "2c8482b5c2a0269d513cb4d7678189978a2d815cb27dff456617e6bab0e02bc6"
+    deterministicBundleSHA256: "e9c7b25aa28bd39fa4f1713d8862955c71e83b345b451bc688e6f36f5d1d0381"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -190,7 +190,7 @@ spec:
             - "cubInstallerApply"
           minimumSchedulableNodes: 3
           purpose: "Consul secure mesh renders three server replicas with anti-affinity and gateway workloads."
-      targetFactSummary: "required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token"
+      targetFactSummary: "required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token; topology minSchedulableNodes=3"
       packageBase:
         name: "secure-mesh-existing-secrets"
         path: "packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets"

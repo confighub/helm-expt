@@ -65,7 +65,7 @@ spec:
     path: "packages/elastic/logstash/8.5.1"
     installer: "packages/elastic/logstash/8.5.1/installer.yaml"
     receipt: "recipes/elastic/logstash/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "bc30315bed50eda7f5684ff7bb3bfa43daca0f9ebac8f0634f1ce0cdd311ff56"
+    deterministicBundleSHA256: "941195981b033cff6a6ef10ed35568cf67c6fae3cc0891c6f2e52d7d4857d736"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -153,8 +153,14 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredTopology:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubOciArgo"
+          minimumSchedulableNodes: 3
+          purpose: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
+      targetFactSummary: "topology minSchedulableNodes=3"
       packageBase:
         name: "ha"
         path: "packages/elastic/logstash/8.5.1/bases/ha"

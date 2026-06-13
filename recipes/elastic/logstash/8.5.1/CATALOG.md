@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/elastic/logstash/8.5.1/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/elastic/logstash/8.5.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/elastic/logstash/8.5.1/value-model.yaml](value-model.yaml) |
+| Target topology | [recipes/elastic/logstash/8.5.1/target-topology.yaml](target-topology.yaml) |
 | Catalog status | [recipes/elastic/logstash/8.5.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/elastic/logstash/8.5.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/elastic/logstash/8.5.1](../../../../packages/elastic/logstash/8.5.1) |
@@ -58,7 +59,7 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/elastic/logstash/8.5.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/elastic/logstash/8.5.1/bases/default](../../../../packages/elastic/logstash/8.5.1/bases/default) | [recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 3 | 4 | 3/3 | pass | pass | allow | none |
-| ha | [recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml](variants/ha/variant.yaml) | [packages/elastic/logstash/8.5.1/bases/ha](../../../../packages/elastic/logstash/8.5.1/bases/ha) | [recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml](revisions/ha/r001/variant-revision.yaml) | 3 |  | 3/3 | pass |  | allow | none |
+| ha | [recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml](variants/ha/variant.yaml) | [packages/elastic/logstash/8.5.1/bases/ha](../../../../packages/elastic/logstash/8.5.1/bases/ha) | [recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml](revisions/ha/r001/variant-revision.yaml) | 3 |  | 3/3 | pass |  | allow | topology minSchedulableNodes=3 |
 
 ## Package Bases
 

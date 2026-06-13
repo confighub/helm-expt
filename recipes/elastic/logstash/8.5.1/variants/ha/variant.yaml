@@ -16,3 +16,11 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredTopology:
+      minimumSchedulableNodes: 3
+      purpose: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubOciArgo"
