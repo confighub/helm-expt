@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 48
+pass: 49
 watch: 1
 blocked: 0
 not-started: 0
@@ -65,6 +65,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
 |  | `nats/nats@2.14.0` | default | pass | - | runs/live-helm-confighub-compare/nats-nats-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | default | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-default/receipt.yaml |
+|  | `percona/pxc-operator@1.19.1` | default | pass | - | runs/live-helm-confighub-compare/percona-pxc-operator-default/receipt.yaml |
 |  | `prometheus-community/alertmanager@1.37.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/receipt.yaml |
 |  | `prometheus-community/alertmanager@1.37.0` | ha | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | runs/live-helm-confighub-compare/prometheus-community-alertmanager-ha/receipt.yaml |
 |  | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | cluster-metrics-readonly | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml |

@@ -1,0 +1,336 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: percona-pxc-operator-1.19.1-default-live-parity-20260605
+spec:
+  chart: percona/pxc-operator
+  version: 1.19.1
+  base: default
+  result: pass
+  observedAt: '2026-06-13T00:07:51Z'
+  package:
+    path: packages/percona/pxc-operator/1.19.1
+  recipe:
+    path: recipes/percona/pxc-operator/1.19.1
+  variantRevision: recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-percona-pxc-default-1781309271
+    kubeContext: kind-helm-expt-parity-percona-pxc-default-1781309271
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-percona-pxc-default-1781309271
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-percona-pxc-default-1781309271"...
+
+        Deleting cluster "helm-expt-parity-percona-pxc-default-1781309271" ...
+
+        Deleted nodes: ["helm-expt-parity-percona-pxc-default-1781309271-control-plane"]
+
+        Deleting Space "helm-expt-parity-percona-pxc-default-1781309271-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install pxc-operator pxc-operator --repo https://percona.github.io/percona-helm-charts/
+        --version 1.19.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-default/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: 769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6
+      objectCount: 7
+      liveHelmManifestSHA256: f0d76dbb5edb44146a219e8d4ae39afdba3e8deeaca08125ce4c3d73369024e3
+      liveHelmManifestObjectCount: 4
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/pxc-operator   1/1   1     1     19s
+        pods: pxc-operator-7dbf87b567-7fr96   1/1   Running   0     19s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pxc-operator/1.19.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-percona-pxc-default-1781309271-percona-pxc-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: d62bce7360afc9056ae95738bd0688d05fe8eaf455149ae5242a17e7a7518d8d
+      objectCount: 8
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/pxc-operator   1/1   1     1     11s'
+        pods: '# default
+
+          pxc-operator-5f59645bd-2hp7f   1/1   Running   0     11s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'customresourcedefinition.apiextensions.k8s.io "perconaxtradbclusterbackups.pxc.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "perconaxtradbclusterrestores.pxc.percona.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "perconaxtradbclusters.pxc.percona.com"
+            deleted'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 4
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'deployment.apps "pxc-operator" deleted from default namespace
+
+            role.rbac.authorization.k8s.io "pxc-operator" deleted from default namespace
+
+            rolebinding.rbac.authorization.k8s.io "pxc-operator" deleted from default
+            namespace
+
+            serviceaccount "pxc-operator" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-percona-pxc-default-1781309271-percona-pxc-operator
+      controller: Argo CD OCI
+      app: percona-pxc-operator-parity
+      manifestSHA256: f25b5fd5f0cde45b2f5af50db92c40f6563f471fe7ccad1474043f26cd105534
+      objectCount: 8
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:7d104ff90ed156f9e6006bc7d135c12450ed85d096657aa1c014b9b2f51e49d6
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-percona-pxc-default-1781309271-percona-pxc-operator
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-percona-pxc-default-1781309271-cluster/oci
+              targetRevision: latest
+          revision: sha256:7d104ff90ed156f9e6006bc7d135c12450ed85d096657aa1c014b9b2f51e49d6
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T00:11:04Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: pxc-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconaxtradbclusterbackups.pxc.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconaxtradbclusterrestores.pxc.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: perconaxtradbclusters.pxc.percona.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: pxc-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: pxc-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: pxc-operator
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/pxc-operator   1/1   1     1     11s'
+        pods: '# default
+
+          pxc-operator-5f59645bd-vn946   1/1   Running   0     11s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-percona-pxc-default-1781309271\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-percona-pxc-default-1781309271.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-percona-pxc-default-1781309271\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-percona-pxc-default-1781309271\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-percona-pxc-default-1781309271\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-percona-pxc-default-1781309271.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\nap"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"pxc-operator\" does not exist. Installing it now.\nNAME: pxc-operator\n\
+      LAST DEPLOYED: Sat Jun 13 01:09:19 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Percona\
+      \ Operator for MySQL is deployed. \n\n  Check if operator Pod is running:\n\n\
+      \    kubectl get pods -l app.kubernetes.io/name=pxc-operator --namespace default-helm\n\
+      \n  Troubleshoot by checking the logs:\n\n    export POD=$(kubectl get pods\
+      \ -l app.kubernetes.io/name=pxc-operator --namespace default-helm --output name)\n\
+      \    kubectl logs $POD --namespace=default-helm\n\n2. Deploy the cluster with\
+      \ the following command:\n\n    helm install my-db percona/pxc-db --namespace=default-helm\n\
+      \nRead more in our documentation: https://docs.percona.com/percona-operator-for-mysql/pxc/"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/pxc-operator   1/1   1     1     11s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=4 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
