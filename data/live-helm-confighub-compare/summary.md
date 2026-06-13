@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 59
+pass: 60
 watch: 3
 blocked: 0
 not-started: 0
@@ -66,6 +66,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `elastic/logstash@8.5.1` | default | pass | - | runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 |  | `fairwinds-stable/vpa@4.11.0` | default | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-vpa-default/receipt.yaml |
+|  | `fairwinds-stable/vpa@4.11.0` | no-crds | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-vpa-no-crds/receipt.yaml |
 |  | `gatekeeper/gatekeeper@3.22.2` | default | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-default/receipt.yaml |
 |  | `grafana/alloy@1.8.2` | default | pass | - | runs/live-helm-confighub-compare/grafana-alloy-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
