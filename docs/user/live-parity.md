@@ -105,6 +105,11 @@ of the test cluster, not a change to the chart.
 | `kind-loadbalancer` | A chart renders a `Service.type=LoadBalancer` and the test should prove the cloud-shaped Service path on kind. This uses `cloud-provider-kind`. | `npm run live-parity:run -- --recipe recipes/ingress-nginx/ingress-nginx/4.15.1 --base default --target-profile kind-loadbalancer` |
 | `kind-three-node` | A chart requires more than one schedulable Kubernetes node for anti-affinity, quorum, or topology. This is target shape, not a ConfigHub worker requirement. | `npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node` |
 
+The strict two-cluster kind parity lane can create multi-node vanilla kind
+targets directly. The ConfigHub/OCI lane also needs Argo CD and a ConfigHub
+target, so its multi-node path depends on local proof-cluster helper support. If
+that helper is missing, the preflight blocks before creating a cluster.
+
 Use `--preflight` before starting a guarded target-profile run:
 
 ```sh

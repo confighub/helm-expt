@@ -142,8 +142,39 @@ def release_live_parity_lock(lock_path: Path | None) -> None:
         shutil.rmtree(lock_path, ignore_errors=True)
 
 
+def cub_up_help(manager: str) -> tuple[int, str]:
+    rc, out, err = sh(["cub", manager, "up", "--help"], timeout=60)
+    return rc, f"{out}\n{err}"
+
+
+def cub_up_supports_worker_nodes(manager: str) -> bool:
+    rc, output = cub_up_help(manager)
+    return rc == 0 and "--worker-nodes" in output
+
+
+def multi_node_cluster_manager() -> str | None:
+    for manager in ("cluster", "lk"):
+        if cub_up_supports_worker_nodes(manager):
+            return manager
+    return None
+
+
 def cluster_manager_for_profile(profile: str) -> str:
-    return "cluster" if profile == "kind-three-node" else "lk"
+    if profile == "kind-three-node":
+        return multi_node_cluster_manager() or "lk"
+    return "lk"
+
+
+def multi_node_target_profile_blocker() -> str:
+    return (
+        "target profile kind-three-node requires local proof-cluster helper support "
+        "for a Kubernetes target with at least three schedulable nodes. ConfigHub "
+        "remains workerless; this is target-cluster topology, not a ConfigHub "
+        "worker requirement. The strict two-cluster kind parity lane already "
+        "creates multi-node vanilla kind targets from target facts; the "
+        "ConfigHub/OCI lane needs cub cluster/lk up --worker-nodes or an "
+        "equivalent bootstrap path."
+    )
 
 
 def cluster_kubeconfig_for_profile(profile: str, rig: str) -> Path:
@@ -2053,6 +2084,8 @@ def main() -> int:
         rc, out, err = 1, "", ""
         cub_lk_up = ["cub", cluster_manager, "up", "--name", rig, "--no-ports"]
         if args.target_profile == "kind-three-node":
+            if not cub_up_supports_worker_nodes(cluster_manager):
+                raise RuntimeError(multi_node_target_profile_blocker())
             cub_lk_up.extend(["--worker-nodes", "3"])
         for attempt in range(1, 3):
             rc, out, err = sh(cub_lk_up, timeout=900)

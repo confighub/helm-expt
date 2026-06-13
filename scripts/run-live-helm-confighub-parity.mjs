@@ -211,17 +211,17 @@ function kubernetesNodeProfileCheck() {
   const cluster = spawnSync("cub", ["cluster", "up", "--help"], { encoding: "utf8", stdio: "pipe" });
   const clusterOutput = `${cluster.stdout ?? ""}\n${cluster.stderr ?? ""}`;
   if (cluster.status === 0 && clusterOutput.includes("--worker-nodes")) {
-    return { name: "target profile kind-three-node", result: "pass", detail: "local cluster helper can create the required Kubernetes node count with --worker-nodes" };
+    return { name: "target profile kind-three-node", result: "pass", detail: "local proof-cluster helper can create a multi-node Kubernetes target with --worker-nodes" };
   }
   const lk = spawnSync("cub", ["lk", "up", "--help"], { encoding: "utf8", stdio: "pipe" });
   const lkOutput = `${lk.stdout ?? ""}\n${lk.stderr ?? ""}`;
   if (lk.status === 0 && lkOutput.includes("--worker-nodes")) {
-    return { name: "target profile kind-three-node", result: "pass", detail: "local cluster helper can create the required Kubernetes node count with --worker-nodes" };
+    return { name: "target profile kind-three-node", result: "pass", detail: "local proof-cluster helper can create a multi-node Kubernetes target with --worker-nodes" };
   }
   return {
     name: "target profile kind-three-node",
     result: "blocked",
-    detail: "requires a local Kubernetes target profile with at least three schedulable nodes",
+    detail: "requires local proof-cluster helper support for a Kubernetes target with at least three schedulable nodes; ConfigHub remains workerless",
   };
 }
 

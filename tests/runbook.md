@@ -73,6 +73,7 @@ parity harness calls those capabilities target profiles.
 | --- | --- | --- |
 | `kind-ingress-nginx` | Proves Ingress behavior on kind by installing the target ingress controller. | `npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx` |
 | `kind-loadbalancer` | Proves `Service.type=LoadBalancer` behavior on kind by running `cloud-provider-kind`. | `npm run live-parity:top20 -- --chart ingress-nginx --base default --target-profile kind-loadbalancer` |
+| `kind-three-node` | Proves a base that needs multiple schedulable Kubernetes nodes for anti-affinity or quorum. This is target shape, not a ConfigHub worker requirement. | `npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node` |
 
 Before starting a guarded target-profile run, use preflight:
 

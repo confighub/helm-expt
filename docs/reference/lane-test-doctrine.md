@@ -94,6 +94,14 @@ workerless from the cluster's point of view: Argo or Flux pulls the published
 desired state, and the receipt records the target topology that made the chart
 schedulable.
 
+The strict two-cluster kind parity lane can create multi-node vanilla kind
+targets directly from target facts. The single-cluster ConfigHub/OCI rig also
+needs the same Kubernetes target shape, but its cluster bootstrap goes through
+the local `cub lk`/`cub cluster` helper because that helper provisions Argo CD
+and the ConfigHub target. If that helper cannot create a multi-node kind target,
+the row is blocked on proof-rig provisioning. It is not a ConfigHub worker
+requirement and not a render-parity defect.
+
 ## Controller Namespace Protection
 
 Single-cluster GitOps lanes use a delivery controller and a chart under test in
