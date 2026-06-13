@@ -1,0 +1,521 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: kedacore-keda-2.19.0-no-crds-live-parity-20260605
+spec:
+  chart: kedacore/keda
+  version: 2.19.0
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-13T01:05:12Z'
+  package:
+    path: packages/kedacore/keda/2.19.0
+  recipe:
+    path: recipes/kedacore/keda/2.19.0
+  variantRevision: recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-keda-no-crds-1781312712
+    kubeContext: kind-helm-expt-parity-keda-no-crds-1781312712
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-keda-no-crds-1781312712 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-keda-no-crds-1781312712"...
+
+        Deleting cluster "helm-expt-parity-keda-no-crds-1781312712" ...
+
+        Deleted nodes: ["helm-expt-parity-keda-no-crds-1781312712-control-plane"]
+
+        Deleting Space "helm-expt-parity-keda-no-crds-1781312712-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install keda keda --repo https://kedacore.github.io/charts
+        --version 2.19.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kedacore-keda-no-crds/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7
+      objectCount: 23
+      liveHelmManifestSHA256: 045bd7a35bf99f197e6616b614da918f308646484e1c34afc5424e9e641f094a
+      liveHelmManifestObjectCount: 23
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/keda-admission-webhooks           1/1   1     1     42s
+
+          deployment.apps/keda-operator                     1/1   1     1     42s
+
+          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     42s'
+        pods: 'keda-admission-webhooks-7b48797dc8-dvmhk           1/1   Running   0             42s
+
+          keda-operator-55db59458d-dmdzq                     1/1   Running   1 (30s
+          ago)   42s
+
+          keda-operator-metrics-apiserver-84745765b9-zfbd6   1/1   Running   0             42s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-keda-no-crds-1781312712-kedacore-keda
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 821a7bb123703f49fee231e05dc939714bff340a8fba1149ebea13f4e02b0523
+      objectCount: 24
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      - kube-system
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/keda-admission-webhooks           1/1   1     1     30s
+
+          deployment.apps/keda-operator                     1/1   1     1     30s
+
+          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     30s'
+        pods: '# default
+
+          keda-admission-webhooks-7b48797dc8-rhzqq          1/1   Running   0             30s
+
+          keda-operator-55db59458d-gg4nb                    1/1   Running   1 (29s
+          ago)   30s
+
+          keda-operator-metrics-apiserver-cb7df9874-x95fx   1/1   Running   0             30s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 11
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'apiservice.apiregistration.k8s.io "v1beta1.external.metrics.k8s.io"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "keda-operator-external-metrics-reader"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "keda-operator-minimal-cluster-role"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "keda-operator-webhook" deleted
+
+            clusterrole.rbac.authorization.k8s.io "keda-operator" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "keda-operator-hpa-controller-external-metrics"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "keda-operator-minimal" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "keda-operator-system-auth-delegator"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "keda-operator-webhook" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "keda-operator" deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "keda-admission"
+            deleted'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          - kube-system
+          objectCount: 12
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'deployment.apps "keda-admission-webhooks" deleted from default
+            namespace
+
+            deployment.apps "keda-operator-metrics-apiserver" deleted from default
+            namespace
+
+            deployment.apps "keda-operator" deleted from default namespace
+
+            role.rbac.authorization.k8s.io "keda-operator-certs" deleted from default
+            namespace
+
+            rolebinding.rbac.authorization.k8s.io "keda-operator-certs" deleted from
+            default namespace
+
+            rolebinding.rbac.authorization.k8s.io "keda-operator-auth-reader" deleted
+            from kube-system namespace
+
+            service "keda-admission-webhooks" deleted from default namespace
+
+            service "keda-operator-metrics-apiserver" deleted from default namespace
+
+            service "keda-operator" deleted from default namespace
+
+            serviceaccount "keda-metrics-server" deleted from default namespace
+
+            serviceaccount "keda-operator" deleted from default namespace
+
+            serviceaccount "keda-webhook" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-keda-no-crds-1781312712-kedacore-keda
+      controller: Argo CD OCI
+      app: kedacore-keda-parity
+      manifestSHA256: 2aef246c591e03cb258e587f48f0c737ca23779dbd9dfd9e0aeba9ff201b9e17
+      objectCount: 24
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      - kube-system
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:c026d6dee16b01f37c77ed183b92731f36f64973a2e799d4bf7f63592d95ea5c
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-keda-no-crds-1781312712-kedacore-keda
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-keda-no-crds-1781312712-cluster/oci
+              targetRevision: latest
+          revision: sha256:c026d6dee16b01f37c77ed183b92731f36f64973a2e799d4bf7f63592d95ea5c
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T01:10:07Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: keda-admission-webhooks
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: keda-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: keda-operator-metrics-apiserver
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: keda-metrics-server
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: keda-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: keda-webhook
+          status: Synced
+          health: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: keda-admission
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiregistration.k8s.io
+          kind: APIService
+          namespace: ''
+          name: v1beta1.external.metrics.k8s.io
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: keda-admission-webhooks
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: keda-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: keda-operator-metrics-apiserver
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: keda-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: keda-operator-external-metrics-reader
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: keda-operator-minimal-cluster-role
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: keda-operator-webhook
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: keda-operator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: keda-operator-hpa-controller-external-metrics
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: keda-operator-minimal
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: keda-operator-system-auth-delegator
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: keda-operator-webhook
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: keda-operator-certs
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: keda-operator-certs
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: kube-system
+          name: keda-operator-auth-reader
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/keda-admission-webhooks           1/1   1     1     28s
+
+          deployment.apps/keda-operator                     1/1   1     1     28s
+
+          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     28s'
+        pods: '# default
+
+          keda-admission-webhooks-7b48797dc8-v2glk          1/1   Running   0     28s
+
+          keda-operator-55db59458d-7l5r8                    1/1   Running   0     28s
+
+          keda-operator-metrics-apiserver-cb7df9874-c7ksv   1/1   Running   0     28s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 23
+      configHubObjectCount: 24
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 23
+      configHubObjectCount: 24
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-keda-no-crds-1781312712\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-keda-no-crds-1781312712.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-keda-no-crds-1781312712\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-keda-no-crds-1781312712\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-keda-no-crds-1781312712\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-keda-no-crds-1781312712.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nC"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"keda\" does not exist. Installing it now.\nNAME: keda\nLAST\
+      \ DEPLOYED: Sat Jun 13 02:06:42 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n:::^.\
+      \     .::::^:     :::::::::::::::    .:::::::::.                   .^.     \
+      \             \n7???~   .^7????~.     7??????????????.   :?????????77!^.   \
+      \           .7?7.                 \n7???~  ^7???7~.       ~!!!!!!!!!!!!!!. \
+      \  :????!!!!7????7~.           .7???7.                \n7???~^7????~.      \
+      \                      :????:    :~7???7.         :7?????7.               \n\
+      7???7????!.           ::::::::::::.      :????:      .7???!        :7??77???7.\
+      \              \n7????????7:           7???????????~      :????:       :????:\
+      \      :???7?5????7.             \n7????!~????^          !77777777777^     \
+      \ :????:       :????:     ^???7?#P7????7.            \n7???~  ^????~       \
+      \                     :????:      :7???!     ^???7J#@J7?????7.           \n\
+      7???~   :7???!.                          :????: "
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/keda-admission-webhooks           1/1   1     1     30s
+
+      deployment.apps/keda-operator                     1/1   1     1     30s
+
+      deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     30s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=11
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=12 namespaces=default,kube-system
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 40s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

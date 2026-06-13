@@ -36,11 +36,11 @@ proof lanes,in-ConfigHub proof rows,155,191,partial,data/outcome-coverage/base-o
 proof lanes,local live rows,135,191,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
 proof lanes,explicit lifecycle observation rows,10,10,good,data/outcome-coverage/base-outcomes.csv,"Rows where CRD, webhook, controller-owned field, or post-apply API readiness was proven through an explicit lifecycle receipt rather than a plain bulk apply."
 proof lanes,local live non-pass rows classified,56,56,good,data/local-live-triage/triage.csv,"Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."
-proof lanes,GitOps/OCI live pass rows,55,191,partial,data/outcome-coverage/base-outcomes.csv,4 rows have non-pass GitOps/OCI receipts.
-proof lanes,live Helm-vs-ConfigHub parity pass rows,55,191,partial,data/outcome-coverage/base-outcomes.csv,1 rows have non-pass live parity receipts.
+proof lanes,GitOps/OCI live pass rows,56,191,partial,data/outcome-coverage/base-outcomes.csv,4 rows have non-pass GitOps/OCI receipts.
+proof lanes,live Helm-vs-ConfigHub parity pass rows,56,191,partial,data/outcome-coverage/base-outcomes.csv,1 rows have non-pass live parity receipts.
 proof lanes,two-cluster kind parity pass rows,70,70,partial,data/live-kind-parity/summary.csv,"Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
 proof lanes,two-cluster semantic parity pass rows,70,70,good,data/live-kind-parity/summary.csv,"Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."
-proof lanes,complete core lane rows,55,191,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
+proof lanes,complete core lane rows,56,191,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
 proof lanes,top20 start-here base variants,32,42,partial,data/top20-base-readiness/base-readiness.csv,Base variants that are the cleanest first catalog paths today.
 proof lanes,top20 bases needing unresolved prerequisite or runtime review,2,42,partial,data/top20-base-readiness/base-readiness.csv,"Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."
 derived variants,derived variant golden rows,10,10,good,data/variant-goldens/derived-expansion-wave/work-orders.csv,"Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."
@@ -52,12 +52,12 @@ graph bridge,target-fact graph edges,65,108,partial,data/edge-recovery/edges.csv
 graph bridge,generated-fact graph edges,1,108,partial,data/edge-recovery/edges.csv,Edges from generated facts to the rendered fields they affect where field reachability is available.
 graph bridge,rows with field reachability,4,108,partial,data/edge-recovery/edges.csv,"Rows that connect an input, generated fact, or variant change to rendered output fields."
 live evidence,runtime/GitOps wave rows,11,11,partial,data/runtime-gitops/wave1.csv,Selected Argo/Flux OCI wave rows; this is not the whole corpus.
-live evidence,selected live Helm-vs-ConfigHub parity receipts,55,56,partial,data/live-helm-confighub-compare/summary.csv,Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row.
+live evidence,selected live Helm-vs-ConfigHub parity receipts,56,57,partial,data/live-helm-confighub-compare/summary.csv,Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row.
 live evidence,two-cluster kind parity receipts,70,70,partial,data/live-kind-parity/summary.csv,"Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
 live evidence,live parity rerun rows needing decisions,0,0,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."
 live evidence,live parity rows needing model or staging first,0,0,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."
 live evidence,live parity rows needing target review first,0,0,partial,data/live-parity-rerun-plan/rerun-plan.csv,"Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."
-live evidence,ConfigHub/OCI semantic parity defect receipts,0,56,good,data/live-helm-confighub-compare/summary.csv,Rows whose committed receipt currently points at a semantic object comparison defect.
+live evidence,ConfigHub/OCI semantic parity defect receipts,0,57,good,data/live-helm-confighub-compare/summary.csv,Rows whose committed receipt currently points at a semantic object comparison defect.
 live evidence,two-cluster semantic parity defect receipts,0,70,good,data/live-kind-parity/summary.csv,Rows whose committed two-cluster receipt currently points at a semantic object comparison defect.
 production disposition,top20 production-review-ready charts,20,20,partial,data/production-disposition/top20.csv,Top-20 catalog charts with required pre-review dispositions closed.
 production disposition,top20 production-blocked charts,0,20,partial,data/production-disposition/top20.csv,Top-20 catalog charts that still have open disposition work before support review.
