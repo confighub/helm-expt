@@ -953,15 +953,46 @@ def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
     status = payload.get("status") or {}
     resources = []
     for item in status.get("resources") or []:
+        health = item.get("health") or {}
         resources.append({
             "group": item.get("group", ""),
             "kind": item.get("kind", ""),
             "namespace": item.get("namespace", ""),
             "name": item.get("name", ""),
             "status": item.get("status", ""),
-            "health": (item.get("health") or {}).get("status", ""),
+            "health": health.get("status", ""),
+            "healthMessage": health.get("message", ""),
             "hook": item.get("hook", False),
         })
+    rc_describe, describe_out, describe_err = kubectl(
+        ["describe", "application", app, "-n", "argocd"],
+        kubeconfig,
+        context,
+        timeout=60,
+    )
+    rc_events, events_out, events_err = kubectl(
+        [
+            "get", "events", "-n", "argocd",
+            "--field-selector", f"involvedObject.kind=Application,involvedObject.name={app}",
+            "--sort-by=.lastTimestamp",
+        ],
+        kubeconfig,
+        context,
+        timeout=60,
+    )
+    health_residue = [
+        {
+            "group": item["group"],
+            "kind": item["kind"],
+            "namespace": item["namespace"],
+            "name": item["name"],
+            "status": item["status"],
+            "health": item["health"],
+            "healthMessage": item["healthMessage"],
+        }
+        for item in resources
+        if item.get("health") and item.get("health") != "Healthy"
+    ]
     return {
         "result": "recorded",
         "sync": status.get("sync") or {},
@@ -972,6 +1003,17 @@ def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
         },
         "conditions": status.get("conditions") or [],
         "resources": resources,
+        "diagnostics": {
+            "healthResidue": health_residue,
+            "describe": {
+                "result": "pass" if rc_describe == 0 else "blocked",
+                "output": (describe_out or describe_err)[:6000],
+            },
+            "events": {
+                "result": "pass" if rc_events == 0 else "blocked",
+                "output": (events_out or events_err)[:3000],
+            },
+        },
     }
 
 
@@ -1275,7 +1317,7 @@ def install_target_profile(profile: str, kubeconfig: Path, context: str, run_roo
             "result": "pass" if observed_nodes >= 3 else "blocked",
             "resources": [f"node/{index}" for index in range(1, observed_nodes + 1)],
             "observedSchedulableNodes": observed_nodes,
-            "observedBehavior": "The proof target has at least three schedulable worker nodes for bases with hard pod anti-affinity or quorum topology.",
+            "observedBehavior": "The proof target has at least three schedulable Kubernetes nodes for bases with hard pod anti-affinity or quorum topology.",
         }
         write_yaml(run_root / f"target-profile-{profile}.yaml", {
             "apiVersion": "helm-expt.confighub.com/v1alpha1",

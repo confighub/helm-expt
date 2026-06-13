@@ -7,7 +7,7 @@ spec:
   version: 2.0.0
   base: secure-mesh-existing-secrets
   result: watch
-  observedAt: '2026-06-13T15:30:43Z'
+  observedAt: '2026-06-13T16:16:42Z'
   package:
     path: packages/hashicorp/consul/2.0.0
   recipe:
@@ -21,37 +21,24 @@ spec:
     - node/2
     - node/3
     observedSchedulableNodes: 3
-    observedBehavior: The proof target has at least three schedulable worker nodes
+    observedBehavior: The proof target has at least three schedulable Kubernetes nodes
       for bases with hard pod anti-affinity or quorum topology.
   gitOpsCanonicalizationProfile:
     name: none
     result: pass
     changes: []
   run:
-    rig: helm-expt-parity-consul-mqciiju3-151e
-    kubeContext: kind-helm-expt-parity-consul-mqciiju3-151e
+    rig: helm-expt-parity-consul-mqck5obu-b3q
+    kubeContext: kind-helm-expt-parity-consul-mqck5obu-b3q
     namespace: consul
     namespaceMode: fixed-rendered-namespace
     legNamespaces:
       regularHelm: consul
       configHubKubectlApply: consul
       configHubOciArgo: consul
-    clusterLifecycle: cleaned-up
+    clusterLifecycle: retained
     cleanup:
-      command: cub cluster down --name helm-expt-parity-consul-mqciiju3-151e --force
-      result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-consul-mqciiju3-151e"...
-
-        Deleting cluster "helm-expt-parity-consul-mqciiju3-151e" ...
-
-        Deleted nodes: ["helm-expt-parity-consul-mqciiju3-151e-worker2" "helm-expt-parity-consul-mqciiju3-151e-control-plane"
-        "helm-expt-parity-consul-mqciiju3-151e-worker" "helm-expt-parity-consul-mqciiju3-151e-worker3"]
-
-        Deleting Space "helm-expt-parity-consul-mqciiju3-151e-cluster" (recursive:
-        cascades to Unit, Target, Worker)...
-
-
-        Done.'
+      result: retained
   legs:
     regularHelm:
       result: pass
@@ -65,32 +52,32 @@ spec:
       namespace: consul
       runtime:
         result: pass
-        workloads: 'deployment.apps/consul-consul-connect-injector       1/1   1     1     2m33s
+        workloads: 'deployment.apps/consul-consul-connect-injector       1/1   1     1     2m17s
 
-          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     2m33s
+          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     2m17s
 
-          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     2m33s
+          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     2m17s
 
-          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     2m33s
+          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     2m17s
 
-          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     2m33s
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     2m17s
 
-          statefulset.apps/consul-consul-server   3/3   2m33s'
-        pods: 'consul-consul-connect-injector-5f47dfbd9-2b9c4        1/1   Running   0     2m33s
+          statefulset.apps/consul-consul-server   3/3   2m17s'
+        pods: 'consul-consul-connect-injector-5f47dfbd9-mpf7b        1/1   Running   0     2m17s
 
-          consul-consul-ingress-gateway-7c9f6b86f8-c8zq6        1/1   Running   0     2m33s
+          consul-consul-ingress-gateway-7c9f6b86f8-kbwkc        1/1   Running   0     2m17s
 
-          consul-consul-mesh-gateway-746b9dc7df-f9q9w           1/1   Running   0     2m33s
+          consul-consul-mesh-gateway-746b9dc7df-vmjzx           1/1   Running   0     2m17s
 
-          consul-consul-server-0                                1/1   Running   0     2m33s
+          consul-consul-server-0                                1/1   Running   0     2m17s
 
-          consul-consul-server-1                                1/1   Running   0     2m33s
+          consul-consul-server-1                                1/1   Running   0     2m17s
 
-          consul-consul-server-2                                1/1   Running   0     2m33s
+          consul-consul-server-2                                1/1   Running   0     2m17s
 
-          consul-consul-terminating-gateway-5496cd6fbd-gs5qk    1/1   Running   0     2m33s
+          consul-consul-terminating-gateway-5496cd6fbd-c6kmk    1/1   Running   0     2m17s
 
-          consul-consul-webhook-cert-manager-7b7958cdff-bkhlc   1/1   Running   0     2m33s'
+          consul-consul-webhook-cert-manager-7b7958cdff-j2r6z   1/1   Running   0     2m17s'
         notReady: []
         ignoredJobPods: []
       stderr: ''
@@ -98,7 +85,7 @@ spec:
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
-        --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-consul-mqciiju3-151e-consul
+        --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-consul-mqck5obu-b3q-consul
         --non-interactive --namespace consul
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: d0c7b2dace3ea7b2d732ac243969c035c2d9c28020416b96fc3639f9a735b16a
@@ -113,24 +100,24 @@ spec:
         namespaces: *id001
         workloads: '# consul
 
-          deployment.apps/consul-consul-connect-injector       1/1   1     1     40s
+          deployment.apps/consul-consul-connect-injector       1/1   1     1     41s
 
-          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     40s
+          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     41s
 
-          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     40s
+          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     41s
 
-          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     40s
+          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     41s
 
-          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     40s
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     41s
 
           statefulset.apps/consul-consul-server   3/3   40s'
         pods: '# consul
 
-          consul-consul-connect-injector-5f47dfbd9-9jfbc        1/1   Running     0     40s
+          consul-consul-connect-injector-5f47dfbd9-87b5j        1/1   Running     0     40s
 
-          consul-consul-ingress-gateway-7c9f6b86f8-qzfnk        1/1   Running     0     40s
+          consul-consul-ingress-gateway-7c9f6b86f8-cw2jv        1/1   Running     0     40s
 
-          consul-consul-mesh-gateway-746b9dc7df-ng9hl           1/1   Running     0     40s
+          consul-consul-mesh-gateway-746b9dc7df-7bl8p           1/1   Running     0     40s
 
           consul-consul-server-0                                1/1   Running     0     40s
 
@@ -138,11 +125,11 @@ spec:
 
           consul-consul-server-2                                1/1   Running     0     40s
 
-          consul-consul-server-acl-init-bjlnc                   0/1   Completed   0     39s
+          consul-consul-server-acl-init-5jstq                   0/1   Completed   0     40s
 
-          consul-consul-terminating-gateway-5496cd6fbd-slf8b    1/1   Running     0     40s
+          consul-consul-terminating-gateway-5496cd6fbd-m964n    1/1   Running     0     40s
 
-          consul-consul-webhook-cert-manager-7b7958cdff-hbq94   1/1   Running     0     40s'
+          consul-consul-webhook-cert-manager-7b7958cdff-zhmj6   1/1   Running     0     40s'
         notReady: []
       cleanupBeforeOci:
         namespaces:
@@ -197,7 +184,7 @@ spec:
           parity rigs
     configHubOciArgo:
       result: watch
-      workloadSpace: helm-expt-parity-consul-mqciiju3-151e-consul
+      workloadSpace: helm-expt-parity-consul-mqck5obu-b3q-consul
       controller: Argo CD OCI
       app: consul-parity
       manifestSHA256: d0c7b2dace3ea7b2d732ac243969c035c2d9c28020416b96fc3639f9a735b16a
@@ -207,7 +194,7 @@ spec:
       - consul
       runtimeNamespaces: &id002
       - consul
-      ociRevision: sha256:81b70d202a4e62ce413edf31d3e9190be68da5ed17570faf26915026d0298bab
+      ociRevision: sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e
       sync: Synced
       health: Progressing
       separatedSecrets:
@@ -236,13 +223,13 @@ spec:
               namespace: consul
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-consul-mqciiju3-151e-consul
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqciiju3-151e-cluster/oci
+              path: ./helm-expt-parity-consul-mqck5obu-b3q-consul
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci
               targetRevision: latest
-          revision: sha256:81b70d202a4e62ce413edf31d3e9190be68da5ed17570faf26915026d0298bab
+          revision: sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e
           status: Synced
         health:
-          lastTransitionTime: '2026-06-13T15:48:52Z'
+          lastTransitionTime: '2026-06-13T16:35:01Z'
           status: Progressing
         operationState:
           phase: Succeeded
@@ -255,6 +242,7 @@ spec:
           name: consul-consul-connect-inject-config
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ConfigMap
@@ -262,6 +250,7 @@ spec:
           name: consul-consul-gateway-resources-config
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ConfigMap
@@ -269,6 +258,7 @@ spec:
           name: consul-consul-gateway-resources-config-custom
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ConfigMap
@@ -276,6 +266,7 @@ spec:
           name: consul-consul-server-config
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ConfigMap
@@ -283,6 +274,7 @@ spec:
           name: consul-consul-server-tmp-extra-config
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ConfigMap
@@ -290,6 +282,7 @@ spec:
           name: consul-consul-webhook-cert-manager-config
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ConfigMap
@@ -297,6 +290,7 @@ spec:
           name: helm-values
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: Namespace
@@ -304,6 +298,7 @@ spec:
           name: consul
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: Service
@@ -311,6 +306,7 @@ spec:
           name: consul-consul-connect-injector
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: Service
@@ -318,6 +314,7 @@ spec:
           name: consul-consul-dns
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: Service
@@ -325,6 +322,7 @@ spec:
           name: consul-consul-ingress-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: Service
@@ -332,6 +330,7 @@ spec:
           name: consul-consul-mesh-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: Service
@@ -339,6 +338,7 @@ spec:
           name: consul-consul-server
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: Service
@@ -346,6 +346,7 @@ spec:
           name: consul-consul-terminating-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: Service
@@ -353,6 +354,7 @@ spec:
           name: consul-consul-ui
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -360,6 +362,7 @@ spec:
           name: consul-consul-auth-method
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -367,6 +370,7 @@ spec:
           name: consul-consul-connect-injector
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -374,6 +378,7 @@ spec:
           name: consul-consul-gateway-cleanup
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -381,6 +386,7 @@ spec:
           name: consul-consul-gateway-cleanup-custom
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -388,6 +394,7 @@ spec:
           name: consul-consul-gateway-resources
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -395,6 +402,7 @@ spec:
           name: consul-consul-gateway-resources-custom
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -402,6 +410,7 @@ spec:
           name: consul-consul-ingress-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -409,6 +418,7 @@ spec:
           name: consul-consul-mesh-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -416,6 +426,7 @@ spec:
           name: consul-consul-server
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -423,6 +434,7 @@ spec:
           name: consul-consul-server-acl-init
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -430,6 +442,7 @@ spec:
           name: consul-consul-server-acl-init-cleanup
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -437,6 +450,7 @@ spec:
           name: consul-consul-terminating-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -444,6 +458,7 @@ spec:
           name: consul-consul-webhook-cert-manager
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: admissionregistration.k8s.io
           kind: MutatingWebhookConfiguration
@@ -451,6 +466,7 @@ spec:
           name: consul-consul-connect-injector
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: admissionregistration.k8s.io
           kind: ValidatingWebhookConfiguration
@@ -458,6 +474,7 @@ spec:
           name: consul-consul-connect-injector
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -465,6 +482,7 @@ spec:
           name: controlplanerequestlimits.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -472,6 +490,7 @@ spec:
           name: exportedservices.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -479,6 +498,7 @@ spec:
           name: gatewayclassconfigs.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -486,6 +506,7 @@ spec:
           name: gatewayclasses.gateway.networking.k8s.io
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -493,6 +514,7 @@ spec:
           name: gatewaypolicies.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -500,6 +522,7 @@ spec:
           name: gateways.gateway.networking.k8s.io
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -507,6 +530,7 @@ spec:
           name: httproutes.gateway.networking.k8s.io
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -514,6 +538,7 @@ spec:
           name: ingressgateways.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -521,6 +546,7 @@ spec:
           name: jwtproviders.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -528,6 +554,7 @@ spec:
           name: meshes.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -535,6 +562,7 @@ spec:
           name: meshservices.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -542,6 +570,7 @@ spec:
           name: proxydefaults.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -549,6 +578,7 @@ spec:
           name: ratelimits.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -556,6 +586,7 @@ spec:
           name: referencegrants.gateway.networking.k8s.io
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -563,6 +594,7 @@ spec:
           name: registrations.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -570,6 +602,7 @@ spec:
           name: routeauthfilters.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -577,6 +610,7 @@ spec:
           name: routeretryfilters.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -584,6 +618,7 @@ spec:
           name: routetimeoutfilters.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -591,6 +626,7 @@ spec:
           name: routetlssdsfilters.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -598,6 +634,7 @@ spec:
           name: samenessgroups.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -605,6 +642,7 @@ spec:
           name: servicedefaults.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -612,6 +650,7 @@ spec:
           name: serviceintentions.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -619,6 +658,7 @@ spec:
           name: serviceresolvers.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -626,6 +666,7 @@ spec:
           name: servicerouters.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -633,6 +674,7 @@ spec:
           name: servicesplitters.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -640,6 +682,7 @@ spec:
           name: tcproutes.gateway.networking.k8s.io
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -647,6 +690,7 @@ spec:
           name: terminatinggateways.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apiextensions.k8s.io
           kind: CustomResourceDefinition
@@ -654,6 +698,7 @@ spec:
           name: trafficpermissions.auth.consul.hashicorp.com
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apps
           kind: Deployment
@@ -661,6 +706,7 @@ spec:
           name: consul-consul-connect-injector
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apps
           kind: Deployment
@@ -668,6 +714,7 @@ spec:
           name: consul-consul-ingress-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apps
           kind: Deployment
@@ -675,6 +722,7 @@ spec:
           name: consul-consul-mesh-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apps
           kind: Deployment
@@ -682,6 +730,7 @@ spec:
           name: consul-consul-terminating-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apps
           kind: Deployment
@@ -689,6 +738,7 @@ spec:
           name: consul-consul-webhook-cert-manager
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apps
           kind: StatefulSet
@@ -696,6 +746,7 @@ spec:
           name: consul-consul-server
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: batch
           kind: Job
@@ -703,6 +754,7 @@ spec:
           name: consul-consul-server-acl-init
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: networking.k8s.io
           kind: Ingress
@@ -710,6 +762,7 @@ spec:
           name: consul-consul-ui
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -717,6 +770,7 @@ spec:
           name: consul-consul-auth-method
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -724,6 +778,7 @@ spec:
           name: consul-consul-connect-injector
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -731,6 +786,7 @@ spec:
           name: consul-consul-gateway-cleanup
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -738,6 +794,7 @@ spec:
           name: consul-consul-gateway-cleanup-custom
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -745,6 +802,7 @@ spec:
           name: consul-consul-gateway-resources
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -752,6 +810,7 @@ spec:
           name: consul-consul-gateway-resources-custom
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -759,6 +818,7 @@ spec:
           name: consul-consul-mesh-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -766,6 +826,7 @@ spec:
           name: consul-consul-server
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -773,6 +834,7 @@ spec:
           name: consul-consul-webhook-cert-manager
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -780,6 +842,7 @@ spec:
           name: consul-consul-auth-method
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -787,6 +850,7 @@ spec:
           name: consul-consul-authdelegator
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -794,6 +858,7 @@ spec:
           name: consul-consul-connect-injector
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -801,6 +866,7 @@ spec:
           name: consul-consul-gateway-cleanup
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -808,6 +874,7 @@ spec:
           name: consul-consul-gateway-cleanup-custom
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -815,6 +882,7 @@ spec:
           name: consul-consul-gateway-resources
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -822,6 +890,7 @@ spec:
           name: consul-consul-gateway-resources-custom
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -829,6 +898,7 @@ spec:
           name: consul-consul-mesh-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -836,6 +906,7 @@ spec:
           name: consul-consul-server
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -843,6 +914,7 @@ spec:
           name: consul-consul-webhook-cert-manager
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: Role
@@ -850,6 +922,7 @@ spec:
           name: consul-consul-connect-inject-leader-election
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: Role
@@ -857,6 +930,7 @@ spec:
           name: consul-consul-ingress-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: Role
@@ -864,6 +938,7 @@ spec:
           name: consul-consul-server
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: Role
@@ -871,6 +946,7 @@ spec:
           name: consul-consul-server-acl-init
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: Role
@@ -878,6 +954,7 @@ spec:
           name: consul-consul-server-acl-init-cleanup
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: Role
@@ -885,6 +962,7 @@ spec:
           name: consul-consul-terminating-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: RoleBinding
@@ -892,6 +970,7 @@ spec:
           name: consul-consul-connect-inject-leader-election
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: RoleBinding
@@ -899,6 +978,7 @@ spec:
           name: consul-consul-ingress-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: RoleBinding
@@ -906,6 +986,7 @@ spec:
           name: consul-consul-server
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: RoleBinding
@@ -913,6 +994,7 @@ spec:
           name: consul-consul-server-acl-init
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: RoleBinding
@@ -920,6 +1002,7 @@ spec:
           name: consul-consul-server-acl-init-cleanup
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: RoleBinding
@@ -927,7 +1010,121 @@ spec:
           name: consul-consul-terminating-gateway
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         consul-parity\nNamespace:    argocd\nLabels:  \
+              \     <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-consul-mqck5obu-b3q-cluster:argoproj.io/Application:argocd/consul-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 4ae674a2-5364-40fc-9487-93573d9a7441\n              confighub.com/UnitSlug:\
+              \ consul-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:     \
+              \    Application\nMetadata:\n  Creation Timestamp:  2026-06-13T16:34:46Z\n\
+              \  Generation:          10\n  Resource Version:    5632\n  UID:    \
+              \             ca8ea997-9102-4db8-aea0-da83d88a219f\nSpec:\n  Destination:\n\
+              \    Namespace:  consul\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-consul-mqck5obu-b3q-consul\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-13T16:35:01Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-13T16:34:50Z\n    Deployed At:        2026-06-13T16:34:53Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e\n\
+              \    Source:\n      Path:             ./helm-expt-parity-consul-mqck5obu-b3q-consul\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-13T16:34:53Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e\n\
+              \        Source:\n          Path:             ./helm-expt-parity-consul-mqck5obu-b3q-consul\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-13T16:34:50Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/consul\
+              \ serverside-applied\n        Name:        consul\n        Namespace:\
+              \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/consul-consul-server serverside-applied\n       \
+              \ Name:        consul-consul-server\n        Namespace:   consul\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/consul-consul-ingress-gateway\
+              \ serverside-applied\n        Name:        consul-consul-ingress-gateway\n\
+              \        Namespace:   consul\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
+              \     Hook Phase:  Running\n        Kind:        ServiceAccount\n  \
+              \      Message:     serviceaccount/consul-consul-gateway-cleanup serverside-applied\n\
+              \        Name:        consul-consul-gateway-cleanup\n        Namespace:\
+              \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/consul-consul-terminating-gateway serverside-applied\n\
+              \        Name:        consul-consul-terminating-gateway\n        Namespace:\
+              \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/consul-consul-gateway-cleanup-custom serverside-applied\n\
+              \        Name:        consul-consul-gateway-cleanup-custom\n       \
+              \ Namespace:   consul\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
+              \     serviceaccount/consul-consul-gateway-resources serverside-applied\n\
+              \        Name:        consul-consul-gateway-resources\n        Namespace:\
+              \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/consul-consul-server-acl-init-cleanup serverside-applied\n\
+              \        Name:        consul-consul-server-acl-init-cleanup\n      \
+              \  Namespace:   consul\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
+              \     serviceaccount/consul-consul-server-acl-init serverside-applied\n\
+              \        Name:        consul-consul-server-acl-init\n        Namespace:\
+              \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/consul-consul-auth-method serverside-applied\n  \
+              \      Name:        consul-consul-auth-method\n        Namespace:  \
+              \ consul\n        Status:      Synced\n        Sync Phase:  Sync\n \
+              \       Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/consul-consul-gateway-resources-custom serverside-applied\n\
+              \        Name:        consul-consul-gateway-resources-custom\n     \
+              \   Namespace:   consul\n        Status:    "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                      MESSAGE
+
+              6m47s       Normal   OperationStarted     application/consul-parity   Initiated
+              automated sync to ''sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e''
+
+              6m47s       Normal   ResourceUpdated      application/consul-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m47s       Normal   ResourceUpdated      application/consul-parity   Updated
+              health status:  -> Healthy
+
+              6m44s       Normal   OperationCompleted   application/consul-parity   Sync
+              operation to sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e
+              succeeded
+
+              6m43s       Normal   ResourceUpdated      application/consul-parity   Updated
+              health status: Healthy -> Degraded
+
+              6m40s       Normal   ResourceUpdated      application/consul-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m36s       Normal   ResourceUpdated      application/consul-parity   Updated
+              health status: Degraded -> Progressing'
       rootArgoStatus:
         result: recorded
         sync:
@@ -936,13 +1133,13 @@ spec:
               namespace: argocd
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-consul-mqciiju3-151e-cluster
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqciiju3-151e-cluster/oci
+              path: ./helm-expt-parity-consul-mqck5obu-b3q-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci
               targetRevision: latest
-          revision: sha256:81b70d202a4e62ce413edf31d3e9190be68da5ed17570faf26915026d0298bab
+          revision: sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e
           status: Synced
         health:
-          lastTransitionTime: '2026-06-13T15:32:32Z'
+          lastTransitionTime: '2026-06-13T16:18:43Z'
           status: Healthy
         operationState:
           phase: Succeeded
@@ -955,49 +1152,146 @@ spec:
           name: consul-parity
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: argoproj.io
           kind: Application
           namespace: argocd
-          name: helm-expt-parity-consul-mqciiju3-151e-cluster
+          name: helm-expt-parity-consul-mqck5obu-b3q-cluster
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-consul-mqck5obu-b3q-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-13T16:18:33Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        14\n  Resource Version:  5807\n  UID:        \
+              \       b667dede-78d7-4870-a741-a386d40f81d3\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-consul-mqck5obu-b3q-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-13T16:18:43Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-13T16:34:45Z\n\
+              \    Deployed At:        2026-06-13T16:34:46Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e\n\
+              \    Source:\n      Path:             ./helm-expt-parity-consul-mqck5obu-b3q-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-13T16:34:46Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e\n\
+              \        Source:\n          Path:             ./helm-expt-parity-consul-mqck5obu-b3q-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-13T16:34:45Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/consul-parity serverside-applied\n\
+              \        Name:        consul-parity\n        Namespace:   argocd\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-consul-mqck5obu-b3q-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-consul-mqck5obu-b3q-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e\n\
+              \      Source:\n        Path:              ./helm-expt-parity-consul-mqck5obu-b3q-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-13T16:40:36Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       consul-parity\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-consul-mqck5obu-b3q-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-consul-mqck5obu-b3q-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqck5obu-b3q-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     22m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     22m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  6m52s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e'\n\
+              \  Normal  ResourceUpdated     6m52s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  6m51s  argocd-application-controller  Sync operation to sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e\
+              \ succeeded\n  Normal  ResourceUpdated     6m47s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                     MESSAGE
+
+              22m         Normal   ResourceUpdated      application/helm-expt-parity-consul-mqck5obu-b3q-cluster   Updated
+              sync status:  -> Synced
+
+              22m         Normal   ResourceUpdated      application/helm-expt-parity-consul-mqck5obu-b3q-cluster   Updated
+              health status:  -> Healthy
+
+              6m52s       Normal   OperationStarted     application/helm-expt-parity-consul-mqck5obu-b3q-cluster   Initiated
+              automated sync to ''sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e''
+
+              6m52s       Normal   ResourceUpdated      application/helm-expt-parity-consul-mqck5obu-b3q-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              6m51s       Normal   OperationCompleted   application/helm-expt-parity-consul-mqck5obu-b3q-cluster   Sync
+              operation to sha256:be0b89ec6b9e5c7eb5171ff4e01807e7c29c0bfea5bffc843be61db7a461ce9e
+              succeeded
+
+              6m47s       Normal   ResourceUpdated      application/helm-expt-parity-consul-mqck5obu-b3q-cluster   Updated
+              sync status: OutOfSync -> Synced'
       runtime:
         result: pass
         namespaces: *id002
         workloads: '# consul
 
-          deployment.apps/consul-consul-connect-injector       1/1   1     1     6m40s
+          deployment.apps/consul-consul-connect-injector       1/1   1     1     6m44s
 
-          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     6m40s
+          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     6m44s
 
-          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     6m40s
+          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     6m44s
 
-          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     6m40s
+          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     6m44s
 
-          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     6m40s
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     6m44s
 
-          statefulset.apps/consul-consul-server   3/3   6m40s'
+          statefulset.apps/consul-consul-server   3/3   6m44s'
         pods: '# consul
 
-          consul-consul-connect-injector-5f47dfbd9-7xrmf        1/1   Running     0     6m40s
+          consul-consul-connect-injector-5f47dfbd9-ffwxr        1/1   Running     0     6m44s
 
-          consul-consul-ingress-gateway-7c9f6b86f8-dsgcl        1/1   Running     0     6m40s
+          consul-consul-ingress-gateway-7c9f6b86f8-qxkkz        1/1   Running     0     6m44s
 
-          consul-consul-mesh-gateway-746b9dc7df-xjs4m           1/1   Running     0     6m40s
+          consul-consul-mesh-gateway-746b9dc7df-r5j77           1/1   Running     0     6m44s
 
-          consul-consul-server-0                                1/1   Running     0     6m40s
+          consul-consul-server-0                                1/1   Running     0     6m44s
 
-          consul-consul-server-1                                1/1   Running     0     6m40s
+          consul-consul-server-1                                1/1   Running     0     6m44s
 
-          consul-consul-server-2                                1/1   Running     0     6m40s
+          consul-consul-server-2                                1/1   Running     0     6m44s
 
-          consul-consul-server-acl-init-qgg69                   0/1   Completed   0     6m40s
+          consul-consul-server-acl-init-8bwvv                   0/1   Completed   0     6m44s
 
-          consul-consul-terminating-gateway-5496cd6fbd-rnlsb    1/1   Running     0     6m40s
+          consul-consul-terminating-gateway-5496cd6fbd-59rxp    1/1   Running     0     6m44s
 
-          consul-consul-webhook-cert-manager-7b7958cdff-wf9w6   1/1   Running     0     6m40s'
+          consul-consul-webhook-cert-manager-7b7958cdff-stv79   1/1   Running     0     6m44s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -1037,9 +1331,9 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-consul-mqciiju3-151e\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqciiju3-151e.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-consul-mqciiju3-151e\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-consul-mqck5obu-b3q\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqck5obu-b3q.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-consul-mqck5obu-b3q\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6 \U0001F4E6\
       \ \U0001F4E6 \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \U0001F4E6\
@@ -1049,20 +1343,20 @@ spec:
       \ CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022 Installing\
       \ StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\n\
       \ \u2022 Joining worker nodes \U0001F69C  ...\n \u2713 Joining worker nodes\
-      \ \U0001F69C\nSet kubectl context to \"kind-helm-expt-parity-consul-mqciiju3-151e\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-consul-mqciiju3-151e\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqciiju3-151e.kubeconfig\n\
-      \nHave a question, bug, or feature request? Let us know"
+      \ \U0001F69C\nSet kubectl context to \"kind-helm-expt-parity-consul-mqck5obu-b3q\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-consul-mqck5obu-b3q\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqck5obu-b3q.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8"
   - name: target-profile
     result: pass
-    detail: 'kind-three-node: The proof target has at least three schedulable worker
+    detail: 'kind-three-node: The proof target has at least three schedulable Kubernetes
       nodes for bases with hard pod anti-affinity or quorum topology.'
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=4 crds=0
   - name: regular-helm-live
     result: pass
-    detail: 'I0613 16:32:25.793082   55257 warnings.go:107] "Warning: unrecognized
+    detail: 'I0613 17:18:37.700334   15453 warnings.go:107] "Warning: unrecognized
       format \"int32\""'
   - name: target-facts-confighub-apply
     result: pass
@@ -1071,15 +1365,15 @@ spec:
     result: pass
     detail: '# consul
 
-      deployment.apps/consul-consul-connect-injector       1/1   1     1     40s
+      deployment.apps/consul-consul-connect-injector       1/1   1     1     41s
 
-      deployment.apps/consul-consul-ingress-gateway        1/1   1     1     40s
+      deployment.apps/consul-consul-ingress-gateway        1/1   1     1     41s
 
-      deployment.apps/consul-consul-mesh-gateway           1/1   1     1     40s
+      deployment.apps/consul-consul-mesh-gateway           1/1   1     1     41s
 
-      deployment.apps/consul-consul-terminating-gateway    1/1   1     1     40s
+      deployment.apps/consul-consul-terminating-gateway    1/1   1     1     41s
 
-      deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     40s
+      deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     41s
 
       statefulset.apps/consul-consul-server   3/3   40s'
   - name: confighub-kubectl-apply-cluster-cleanup

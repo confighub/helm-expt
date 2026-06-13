@@ -86,6 +86,14 @@ controller still reports an aggregate `Progressing` health label. That is a
 `watch` row, not a silent failure and not a full pass. The receipt should keep
 both facts visible: workload evidence and controller-health residue.
 
+Target shape is Kubernetes topology, not ConfigHub deployment architecture. A
+chart such as Consul may require three schedulable Kubernetes nodes because its
+server pods have hard anti-affinity and quorum expectations. That does not mean
+ConfigHub needs an in-cluster worker. In the OCI/GitOps lane, ConfigHub remains
+workerless from the cluster's point of view: Argo or Flux pulls the published
+desired state, and the receipt records the target topology that made the chart
+schedulable.
+
 ## Controller Namespace Protection
 
 Single-cluster GitOps lanes use a delivery controller and a chart under test in
