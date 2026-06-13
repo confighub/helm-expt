@@ -1,0 +1,521 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: crossplane-stable-crossplane-2.3.1-default-live-parity-20260605
+spec:
+  chart: crossplane-stable/crossplane
+  version: 2.3.1
+  base: default
+  result: pass
+  observedAt: '2026-06-13T09:14:33Z'
+  package:
+    path: packages/crossplane-stable/crossplane/2.3.1
+  recipe:
+    path: recipes/crossplane-stable/crossplane/2.3.1
+  variantRevision: recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-crossplane-mqc52sm4-6kh
+    kubeContext: kind-helm-expt-parity-crossplane-mqc52sm4-6kh
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-crossplane-mqc52sm4-6kh --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-crossplane-mqc52sm4-6kh"...
+
+        Deleting cluster "helm-expt-parity-crossplane-mqc52sm4-6kh" ...
+
+        Deleted nodes: ["helm-expt-parity-crossplane-mqc52sm4-6kh-control-plane"]
+
+        Deleting Space "helm-expt-parity-crossplane-mqc52sm4-6kh-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install crossplane crossplane --repo https://charts.crossplane.io/stable
+        --version 2.3.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/crossplane-stable-crossplane-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996
+      objectCount: 23
+      liveHelmManifestSHA256: 3499d8e0eecf2060acf3a089785adfbac62e8382963ade2ac207afe758263d3c
+      liveHelmManifestObjectCount: 23
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/crossplane                1/1   1     1     21s
+
+          deployment.apps/crossplane-rbac-manager   1/1   1     1     21s'
+        pods: 'crossplane-5f4c664688-ntxwd                1/1   Running   0     21s
+
+          crossplane-rbac-manager-759c79fbb9-swcb2   1/1   Running   0     21s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/crossplane-stable/crossplane/2.3.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-crossplane-mqc52sm4-6kh-crossplane
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: fdbbef55a8b013354de7e57fdbb7d888d82f270dc879028bcd95577d7cd29809
+      objectCount: 24
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/crossplane                1/1   1     1     10s
+
+          deployment.apps/crossplane-rbac-manager   1/1   1     1     10s'
+        pods: '# default
+
+          crossplane-5f4c664688-6lpkm                1/1   Running   1 (9s ago)   10s
+
+          crossplane-rbac-manager-759c79fbb9-p8djc   1/1   Running   0            10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 15
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "crossplane-admin" deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane-browse" deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane-edit" deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane-rbac-manager" deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane-view" deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane" deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane:aggregate-to-admin"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane:aggregate-to-browse"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane:aggregate-to-edit" deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane:aggregate-to-view" deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane:allowed-provider-permissions"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "crossplane:system:aggregate-to-crossplane"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "crossplane-admin" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "cro'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|crossplane
+          - apps/v1|Deployment|default|crossplane-rbac-manager
+          - v1|Secret|default|crossplane-root-ca
+          - v1|Secret|default|crossplane-tls-client
+          - v1|Secret|default|crossplane-tls-server
+          - v1|ServiceAccount|default|crossplane
+          - v1|ServiceAccount|default|rbac-manager
+          - v1|Service|default|crossplane-webhooks
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-crossplane-mqc52sm4-6kh-crossplane
+      controller: Argo CD OCI
+      app: crossplane-parity
+      manifestSHA256: bd37435002c4d958e4451b2bb788311595d18df9908b7dd9164becbe82fafae3
+      objectCount: 24
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:05ee5f971a93a6adc2d74afea694104c86a8ad680c907b2bb8721a87f3b8938e
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-default-crossplane-root-ca.yaml
+      - secret-default-crossplane-tls-client.yaml
+      - secret-default-crossplane-tls-server.yaml
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-crossplane-mqc52sm4-6kh-crossplane
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-crossplane-mqc52sm4-6kh-cluster/oci
+              targetRevision: latest
+          revision: sha256:05ee5f971a93a6adc2d74afea694104c86a8ad680c907b2bb8721a87f3b8938e
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T09:17:35Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: crossplane-webhooks
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: crossplane
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: rbac-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: crossplane
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: crossplane-rbac-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane-admin
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane-browse
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane-edit
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane-rbac-manager
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane-view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane:aggregate-to-admin
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane:aggregate-to-browse
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane:aggregate-to-edit
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane:aggregate-to-view
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane:allowed-provider-permissions
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: crossplane:system:aggregate-to-crossplane
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: crossplane
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: crossplane-admin
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: crossplane-rbac-manager
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-crossplane-mqc52sm4-6kh-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-crossplane-mqc52sm4-6kh-cluster/oci
+              targetRevision: latest
+          revision: sha256:05ee5f971a93a6adc2d74afea694104c86a8ad680c907b2bb8721a87f3b8938e
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T09:15:32Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: crossplane-parity
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-crossplane-mqc52sm4-6kh-cluster
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/crossplane                1/1   1     1     107s
+
+          deployment.apps/crossplane-rbac-manager   1/1   1     1     107s'
+        pods: '# default
+
+          crossplane-5f4c664688-6lpkm                1/1   Running   2 (47s ago)   107s
+
+          crossplane-rbac-manager-759c79fbb9-p8djc   1/1   Running   1 (87s ago)   107s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 23
+      configHubObjectCount: 24
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 23
+      configHubObjectCount: 24
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-crossplane-mqc52sm4-6kh\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-crossplane-mqc52sm4-6kh.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-crossplane-mqc52sm4-6kh\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-crossplane-mqc52sm4-6kh\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-crossplane-mqc52sm4-6kh\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-crossplane-mqc52sm4-6kh.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreatin"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "crossplane" does not exist. Installing it now.
+
+      NAME: crossplane
+
+      LAST DEPLOYED: Sat Jun 13 10:15:30 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Release: crossplane
+
+
+      Chart Name: crossplane
+
+      Chart Description: Crossplane is an open source Kubernetes add-on that enables
+      platform teams to assemble infrastructure from multiple vendors, and expose
+      higher level self-service APIs for application teams to consume.
+
+      Chart Version: 2.3.1
+
+      Chart Application Version: 2.3.1
+
+
+      Kube Version: v1.35.0'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/crossplane                1/1   1     1     10s
+
+      deployment.apps/crossplane-rbac-manager   1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=15
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

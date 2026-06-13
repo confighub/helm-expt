@@ -275,8 +275,8 @@ chart/base rows:                          191
 helm_template_vs_installer_setup:         191 pass, 0 missing
 confighub_upload_variant_scan_safe_ops:   155 pass, 36 missing
 local_kind_kubectl_apply:                 138 pass
-confighub_oci_argo_live:                   76 pass
-live_helm_vs_confighub_dual_compare:       76 pass, 0 watch, 1 target-fit blocked
+confighub_oci_argo_live:                   77 pass
+live_helm_vs_confighub_dual_compare:       77 pass, 0 watch, 1 target-fit blocked
 two_cluster_kind_parity:                   70 pass, 0 watch, 0 blocked
 ```
 
@@ -297,8 +297,8 @@ GitOps/OCI live proof has started:
 
 Live Helm-vs-ConfigHub parity is selected-row evidence:
 
-- The selected live comparison lane has 77 committed receipts.
-- 76 rows pass, no rows are watch, and 1 row is blocked by a target-fit
+- The selected live comparison lane has 78 committed receipts.
+- 77 rows pass, no rows are watch, and 1 row is blocked by a target-fit
   decision.
 - The blocked row is Consul secure mesh on a one-node proof target; the base
   requires at least three schedulable nodes.

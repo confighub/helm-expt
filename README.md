@@ -332,8 +332,8 @@ chart/base row has every lane complete.
 100 charts have recipe/package proof artifacts.
 191 chart/base rows have Helm-template versus cub installer render parity.
 155/191 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
-The selected live Helm-vs-ConfigHub comparison lane has 77 committed receipts:
-76 pass, 0 watch, 1 target-fit blocked row, and 0 semantic parity defects.
+The selected live Helm-vs-ConfigHub comparison lane has 78 committed receipts:
+77 pass, 0 watch, 1 target-fit blocked row, and 0 semantic parity defects.
 The top-20 base-variant two-cluster kind parity lane has 42 committed
 receipts: 42 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
 The broader two-cluster kind parity corpus has 70 committed receipts:
@@ -393,8 +393,8 @@ ConfigHub OCI
 
 That lane depends on a live GitOps controller and cluster, so it is documented
 and exercised outside the pure local `npm run verify` corpus. The strict
-live Helm-vs-ConfigHub comparison lane currently has 77 committed receipts:
-76 pass, 0 watch, and 1 target-fit blocked row. The blocked row is Consul
+live Helm-vs-ConfigHub comparison lane currently has 78 committed receipts:
+77 pass, 0 watch, and 1 target-fit blocked row. The blocked row is Consul
 secure mesh on a one-node proof target; the base requires at least three
 schedulable nodes. Across the full 191-row lane matrix, the remaining rows are
 backlog or target-fit work, not semantic parity defects. The strict two-cluster
@@ -895,8 +895,8 @@ The Argo CD / Flux OCI path is verified in a separate live lane because it needs
 a running GitOps controller and cluster. The current generated status is:
 
 ```text
-GitOps/OCI live pass rows: 76/191
-selected live Helm-vs-ConfigHub comparison: 76 pass, 0 watch, 1 target-fit blocked
+GitOps/OCI live pass rows: 77/191
+selected live Helm-vs-ConfigHub comparison: 77 pass, 0 watch, 1 target-fit blocked
 all-base top-20 two-cluster kind parity: 42 pass, 0 watch, 0 blocked, 0 semantic defects
 broader two-cluster kind parity corpus: 70 pass, 0 watch, 0 blocked, 0 semantic defects
 ```
