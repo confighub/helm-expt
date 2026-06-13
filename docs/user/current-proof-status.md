@@ -276,7 +276,7 @@ helm_template_vs_installer_setup:         191 pass, 0 missing
 confighub_upload_variant_scan_safe_ops:   155 pass, 36 missing
 local_kind_kubectl_apply:                 138 pass
 confighub_oci_argo_live:                   76 pass
-live_helm_vs_confighub_dual_compare:       76 pass, 0 watch, 0 blocked
+live_helm_vs_confighub_dual_compare:       76 pass, 0 watch, 1 target-fit blocked
 two_cluster_kind_parity:                   70 pass, 0 watch, 0 blocked
 ```
 
@@ -297,8 +297,11 @@ GitOps/OCI live proof has started:
 
 Live Helm-vs-ConfigHub parity is selected-row evidence:
 
-- The selected live comparison lane has 73 committed receipts.
-- 73 rows pass, no rows are watch, and no rows are blocked.
+- The selected live comparison lane has 77 committed receipts.
+- 76 rows pass, no rows are watch, and 1 row is blocked by a target-fit
+  decision.
+- The blocked row is Consul secure mesh on a one-node proof target; the base
+  requires at least three schedulable nodes.
 - Across the full 191-row lane matrix, rows without this receipt remain backlog
   for this lane. That is planned work, not failed work.
 - The comparison checks regular Helm against ConfigHub delivery and records the
@@ -320,9 +323,10 @@ Use the generated rerun plan for the next command and expected remediation:
 For the shortest active queue, use:
 [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv).
 
-The current rerun queue has 2 active watch rows and no semantic parity defects.
-Both are ingress-nginx rows where object parity passed and the target needs
-LoadBalancer behavior or a target-specific support decision.
+The current rerun queue has 1 active target-fit row and no semantic parity
+defects. It is the Consul secure-mesh base, where the proof target must provide
+at least three schedulable nodes before the live comparison can make a pass
+claim.
 
 Production support decisions are now explicit for the top-20 catalog:
 

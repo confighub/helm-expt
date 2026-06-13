@@ -8,14 +8,14 @@ completed row has a receipt under
 ```text
 pass: 76
 watch: 0
-blocked: 0
+blocked: 1
 not-started: 0
 ```
 
 Blocked rows broken down by cause (see `blocked-triage.md`):
 
 ```text
-(none)
+target-fit: minimum schedulable nodes not met: 1
 ```
 
 | Rank | Chart | Base | Result | Reason | Receipt |
@@ -59,6 +59,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 16 | `bitnami/mysql@14.0.3` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-mysql-existing-secret/receipt.yaml |
 | 17 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | - | runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.2` | existing-tls-ingress | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml |
+| 20 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-fit: minimum schedulable nodes not met | runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
 |  | `aqua/trivy-operator@0.32.1` | default | pass | - | runs/live-helm-confighub-compare/aqua-trivy-operator-default/receipt.yaml |
 |  | `aqua/trivy-operator@0.32.1` | no-crds | pass | - | runs/live-helm-confighub-compare/aqua-trivy-operator-no-crds/receipt.yaml |
 |  | `argo-cd/argo-events@2.4.21` | default | pass | - | runs/live-helm-confighub-compare/argo-cd-argo-events-default/receipt.yaml |

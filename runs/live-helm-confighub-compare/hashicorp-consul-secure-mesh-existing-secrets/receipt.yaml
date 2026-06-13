@@ -1,0 +1,81 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: hashicorp-consul-2.0.0-secure-mesh-existing-secrets-live-parity-20260605
+spec:
+  chart: hashicorp/consul
+  version: 2.0.0
+  base: secure-mesh-existing-secrets
+  result: blocked
+  observedAt: '2026-06-13T09:00:59Z'
+  package:
+    path: packages/hashicorp/consul/2.0.0
+  recipe:
+    path: recipes/hashicorp/consul/2.0.0
+  variantRevision: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+  run:
+    rig: helm-expt-parity-consul-mqc4lcw1-v88
+    kubeContext: kind-helm-expt-parity-consul-mqc4lcw1-v88
+    namespace: consul
+    legNamespaces:
+      regularHelm: consul-helm
+      configHubKubectlApply: consul-apply
+      configHubOciArgo: consul-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-consul-mqc4lcw1-v88 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-consul-mqc4lcw1-v88"...
+
+        Deleting cluster "helm-expt-parity-consul-mqc4lcw1-v88" ...
+
+        Deleted nodes: ["helm-expt-parity-consul-mqc4lcw1-v88-control-plane"]
+
+        Deleting Space "helm-expt-parity-consul-mqc4lcw1-v88-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||consul
+    semanticNormalizations:
+    - prune-null-fields
+    - trim-leading-command-block-newline
+    - consul-namespace-reference-normalization
+    - consul-statefulset-gitops-defaults
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-consul-mqc4lcw1-v88\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-consul-mqc4lcw1-v88.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-consul-mqc4lcw1-v88\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-consul-mqc4lcw1-v88\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-consul-mqc4lcw1-v88\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-consul-mqc4lcw1-v88.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nsta"
+  - name: failure
+    result: blocked
+    detail: target topology requires at least 3 schedulable node(s); found 1 for regularHelm
+  failure:
+    message: target topology requires at least 3 schedulable node(s); found 1 for
+      regularHelm

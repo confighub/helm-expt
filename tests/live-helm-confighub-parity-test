@@ -716,6 +716,27 @@ def kubectl_must(args: list[str], kubeconfig: Path, context: str, step: str, tim
     return out
 
 
+def schedulable_node_count(kubeconfig: Path, context: str) -> int:
+    out = kubectl_must(
+        ["get", "nodes", "-o", "json"],
+        kubeconfig,
+        context,
+        "target topology node inspection",
+        timeout=60,
+    )
+    try:
+        payload = json.loads(out)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"target topology node inspection returned invalid JSON: {exc}") from exc
+    count = 0
+    for item in payload.get("items") or []:
+        spec = item.get("spec") or {}
+        if spec.get("unschedulable") is True:
+            continue
+        count += 1
+    return count
+
+
 def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
     rc, out, err = kubectl(
         ["get", "application", app, "-n", "argocd", "-o", "json"],
@@ -877,6 +898,23 @@ def stage_target_facts(
     rendered_namespaces: list[str] | None = None,
 ) -> dict:
     variant_namespace = (variant.get("spec") or {}).get("namespace")
+    required_topology = (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredTopology") or {})
+    topology_result = None
+    if isinstance(required_topology, dict) and target_fact_applies(required_topology, lane):
+        minimum_nodes = required_topology.get("minimumSchedulableNodes")
+        if minimum_nodes:
+            observed_nodes = schedulable_node_count(kubeconfig, context)
+            topology_result = {
+                "minimumSchedulableNodes": minimum_nodes,
+                "observedSchedulableNodes": observed_nodes,
+                "lane": lane,
+                "result": "pass" if observed_nodes >= int(minimum_nodes) else "blocked",
+            }
+            if observed_nodes < int(minimum_nodes):
+                raise RuntimeError(
+                    f"target topology requires at least {minimum_nodes} schedulable node(s); "
+                    f"found {observed_nodes} for {lane}"
+                )
     required_secrets = [
         secret
         for secret in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or [])
@@ -884,7 +922,10 @@ def stage_target_facts(
     ]
     crd_docs, staged_crds = target_fact_crd_docs(variant, recipe_path, lane)
     if not required_secrets and not crd_docs:
-        return {"result": "pass", "stagedSecrets": [], "stagedCRDs": []}
+        result = {"result": "pass", "stagedSecrets": [], "stagedCRDs": []}
+        if topology_result:
+            result["requiredTopology"] = topology_result
+        return result
     secret_docs = []
     namespaces = set()
     staged_secrets = []
@@ -944,6 +985,8 @@ def stage_target_facts(
         write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": secret_docs})
         kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
     result = {"result": "pass", "stagedSecrets": staged_secrets, "stagedCRDs": staged_crds}
+    if topology_result:
+        result["requiredTopology"] = topology_result
     if secret_docs:
         result["path"] = str(target_facts_path)
     return result
@@ -1639,6 +1682,8 @@ def main() -> int:
 
     cleanup_ok = True
     lock_path = None
+    workload_space_created = False
+    child_app_unit_created = False
     try:
         mark_stage("acquire-live-lane-lock")
         lock_path = acquire_live_parity_lock(args.lock_timeout_seconds)
@@ -2010,6 +2055,7 @@ def main() -> int:
         ], timeout=600)
         if rc != 0:
             raise RuntimeError(f"installer upload failed: {(upload_err or upload_out)[:1000]}")
+        workload_space_created = True
 
         rc, units_out, units_err = sh(["cub", "unit", "list", "--space", wspace], timeout=120)
         if rc != 0:
@@ -2055,6 +2101,7 @@ def main() -> int:
         ], timeout=180)
         if rc != 0:
             raise RuntimeError(f"application unit create failed: {(app_create_err or app_create_out)[:1000]}")
+        child_app_unit_created = True
         rc, app_apply_out, app_apply_err = sh(["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{child_app}-app", "--wait", "--timeout", "5m"], timeout=360)
         if rc != 0:
             raise RuntimeError(f"application apply failed: {(app_apply_err or app_apply_out)[:1000]}")
@@ -2183,10 +2230,12 @@ def main() -> int:
                 }
             else:
                 mark_stage("cleanup")
-                for cmd in [
-                    ["cub", "space", "delete", wspace, "--recursive-force"],
-                    ["cub", "unit", "delete", "--space", cluster_space, f"{child_app}-app"],
-                ]:
+                cleanup_commands = []
+                if workload_space_created:
+                    cleanup_commands.append(["cub", "space", "delete", wspace, "--recursive-force"])
+                if child_app_unit_created:
+                    cleanup_commands.append(["cub", "unit", "delete", "--space", cluster_space, f"{child_app}-app"])
+                for cmd in cleanup_commands:
                     rc, _, _ = sh(cmd, timeout=180)
                     cleanup_ok = cleanup_ok and rc == 0
                 down_ok, down_detail = teardown_rig(rig)

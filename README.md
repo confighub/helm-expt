@@ -332,8 +332,8 @@ chart/base row has every lane complete.
 100 charts have recipe/package proof artifacts.
 191 chart/base rows have Helm-template versus cub installer render parity.
 155/191 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
-The selected live Helm-vs-ConfigHub comparison lane has 76 committed receipts:
-76 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
+The selected live Helm-vs-ConfigHub comparison lane has 77 committed receipts:
+76 pass, 0 watch, 1 target-fit blocked row, and 0 semantic parity defects.
 The top-20 base-variant two-cluster kind parity lane has 42 committed
 receipts: 42 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
 The broader two-cluster kind parity corpus has 70 committed receipts:
@@ -370,7 +370,8 @@ Use [Chain Of Proof](./docs/user/chain-of-proof.md) to avoid mixing proof
 levels: render proof is not live proof, and live proof has a freshness boundary.
 For the current non-pass live rows, use
 `data/live-parity-rerun-plan/summary.md`; it separates semantic parity defects
-from target prerequisites, runtime watch rows, and lifecycle work.
+from target prerequisites, target-fit rows, runtime watch rows, and lifecycle
+work.
 
 The current selected live comparison proof means:
 
@@ -392,9 +393,11 @@ ConfigHub OCI
 
 That lane depends on a live GitOps controller and cluster, so it is documented
 and exercised outside the pure local `npm run verify` corpus. The strict
-live Helm-vs-ConfigHub comparison lane currently has 76 committed receipts:
-76 pass, 0 watch, and 0 blocked. Across the full 191-row lane matrix, the
-remaining rows are backlog, not semantic parity defects. The strict two-cluster
+live Helm-vs-ConfigHub comparison lane currently has 77 committed receipts:
+76 pass, 0 watch, and 1 target-fit blocked row. The blocked row is Consul
+secure mesh on a one-node proof target; the base requires at least three
+schedulable nodes. Across the full 191-row lane matrix, the remaining rows are
+backlog or target-fit work, not semantic parity defects. The strict two-cluster
 kind parity lane has receipts for all 42 maintained top-20 base variants and
 70 committed receipts overall, all passing. It separates semantic parity from
 target prerequisites, runtime readiness, hooks, and storage behavior.
@@ -893,7 +896,7 @@ a running GitOps controller and cluster. The current generated status is:
 
 ```text
 GitOps/OCI live pass rows: 76/191
-selected live Helm-vs-ConfigHub comparison: 76 pass, 0 watch, 0 blocked
+selected live Helm-vs-ConfigHub comparison: 76 pass, 0 watch, 1 target-fit blocked
 all-base top-20 two-cluster kind parity: 42 pass, 0 watch, 0 blocked, 0 semantic defects
 broader two-cluster kind parity corpus: 70 pass, 0 watch, 0 blocked, 0 semantic defects
 ```

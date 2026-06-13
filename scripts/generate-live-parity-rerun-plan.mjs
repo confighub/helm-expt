@@ -185,6 +185,9 @@ function classifyLiveComparisonReason(spec) {
   if (message.includes("please run this again with `sudo`") || message.includes("please run this again with sudo")) {
     return "infra: target profile requires sudo";
   }
+  if (message.includes("target topology requires at least") || message.includes("schedulable node")) {
+    return "target-fit: minimum schedulable nodes not met";
+  }
   if (message.includes("timeout after")) return "infra: provisioning timeout";
   if (message.includes("etcdserver") || message.includes("request timed out")) return "infra: etcd/apiserver overload";
   const semanticPassed = Object.values(semantic).some(
@@ -455,17 +458,20 @@ ${["configHub-oci-live-comparison", "two-cluster-kind-parity"].map((lane) => {
   return `| ${lane} | ${counts[lane] ?? 0} | ${row.pass ?? 0} | ${row.watch ?? 0} | ${row.blocked ?? 0} | ${row.fail ?? 0} |`;
 }).join("\n")}
 
-The ConfigHub/OCI live comparison rows in this queue are current \`watch\` rows.
-They have semantic parity and need runtime, target, or controller-health review.
-The \`blocked\` rows are currently from the two-cluster kind parity lane.
+Rows in this queue are non-pass live parity rows that need a decision before
+the next claim can be made. A \`watch\` row usually means object parity passed
+and runtime/controller health needs review. A \`blocked\` row can come from
+either lane and may be infrastructure, prerequisite, lifecycle, target-fit, or
+upstream-runtime work. Only \`parity:\` rows indicate an object-set defect.
 
 ## Recommended Order
 
 1. Inspect any \`parity:\` rows first. Those are the only rows that currently
    point at an object-set difference.
 2. Re-run any \`infra:\` rows on a clean host, one at a time.
-3. Resolve \`target-prerequisite:\` and \`helm-hook:\` rows by staging the
-   prerequisite or choosing the lifecycle route before rerunning.
+3. Resolve \`target-prerequisite:\`, \`target-fit:\`, and \`helm-hook:\` rows by
+   staging the prerequisite, choosing a suitable target, or choosing the
+   lifecycle route before rerunning.
 4. Review \`target-runtime:\`, \`helm-runtime:\`, and \`watch\` rows last. They
    usually mean object parity passed and the target needs a readiness, storage,
    capacity, or operating-policy decision.

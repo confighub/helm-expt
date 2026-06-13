@@ -460,6 +460,9 @@ function classifyReason(receipt, target) {
   if (message.includes("effectivevalues wrapper") && message.includes("spec.values")) {
     return "input-contract: raw Helm values missing";
   }
+  if (message.includes("target topology requires at least") || message.includes("schedulable node")) {
+    return "target-fit: minimum schedulable nodes not met";
+  }
   if (message.includes("timeout after")) return "infra: provisioning timeout";
   if (message.includes("etcdserver") || message.includes("request timed out")) return "infra: etcd/apiserver overload";
   const semanticPassed = Object.values(semantic).some(

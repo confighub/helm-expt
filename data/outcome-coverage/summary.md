@@ -17,9 +17,9 @@ local live rows:                     138/191
 GitOps/OCI live pass rows:           76/191
 GitOps/OCI non-pass receipts:        1
 live Helm-vs-ConfigHub pass rows:    76/191
-live Helm-vs-ConfigHub non-pass receipts: 0
+live Helm-vs-ConfigHub non-pass receipts: 1
 lifecycle observation rows:          10/10
-selected live parity receipts:       76 pass, 0 watch, 0 blocked
+selected live parity receipts:       76 pass, 0 watch, 1 blocked
 two-cluster kind parity receipts:    70 pass, 0 watch, 0 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5

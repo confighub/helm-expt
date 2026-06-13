@@ -10,11 +10,11 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 0
+rows: 1
 lifecycle-routed-not-active-rerun: 0
-blocked: 0
+blocked: 1
 watch: 0
-configHub-oci-live-comparison: 0
+configHub-oci-live-comparison: 1
 two-cluster-kind-parity: 0
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
@@ -26,20 +26,23 @@ runtime-or-watch-rows: 0
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 0 | 0 | 0 | 0 | 0 |
+| configHub-oci-live-comparison | 1 | 0 | 0 | 1 | 0 |
 | two-cluster-kind-parity | 0 | 0 | 0 | 0 | 0 |
 
-The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
-They have semantic parity and need runtime, target, or controller-health review.
-The `blocked` rows are currently from the two-cluster kind parity lane.
+Rows in this queue are non-pass live parity rows that need a decision before
+the next claim can be made. A `watch` row usually means object parity passed
+and runtime/controller health needs review. A `blocked` row can come from
+either lane and may be infrastructure, prerequisite, lifecycle, target-fit, or
+upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 
 ## Recommended Order
 
 1. Inspect any `parity:` rows first. Those are the only rows that currently
    point at an object-set difference.
 2. Re-run any `infra:` rows on a clean host, one at a time.
-3. Resolve `target-prerequisite:` and `helm-hook:` rows by staging the
-   prerequisite or choosing the lifecycle route before rerunning.
+3. Resolve `target-prerequisite:`, `target-fit:`, and `helm-hook:` rows by
+   staging the prerequisite, choosing a suitable target, or choosing the
+   lifecycle route before rerunning.
 4. Review `target-runtime:`, `helm-runtime:`, and `watch` rows last. They
    usually mean object parity passed and the target needs a readiness, storage,
    capacity, or operating-policy decision.
@@ -48,7 +51,7 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-
+| target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -63,7 +66,7 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-
+| model-or-stage-first | 1 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 ## Run Safety
 
@@ -87,7 +90,7 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
+| 40 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-fit: minimum schedulable nodes not met | [`recipes/hashicorp/consul/2.0.0/target-topology.yaml`](../../recipes/hashicorp/consul/2.0.0/target-topology.yaml) | `npm run live-parity:top20 -- --chart consul --base secure-mesh-existing-secrets --continue-on-fail` |
 
 
 
