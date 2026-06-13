@@ -455,7 +455,7 @@
     {
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
-      "value": "52",
+      "value": "53",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -464,7 +464,7 @@
     {
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
-      "value": "52",
+      "value": "53",
       "total": "191",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -491,7 +491,7 @@
     {
       "section": "proof lanes",
       "metric": "complete core lane rows",
-      "value": "52",
+      "value": "53",
       "total": "191",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -599,8 +599,8 @@
     {
       "section": "live evidence",
       "metric": "selected live Helm-vs-ConfigHub parity receipts",
-      "value": "52",
-      "total": "53",
+      "value": "53",
+      "total": "54",
       "status": "partial",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row."
@@ -645,7 +645,7 @@
       "section": "live evidence",
       "metric": "ConfigHub/OCI semantic parity defect receipts",
       "value": "0",
-      "total": "53",
+      "total": "54",
       "status": "good",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Rows whose committed receipt currently points at a semantic object comparison defect."

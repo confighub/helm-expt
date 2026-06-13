@@ -1,0 +1,314 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-prometheus-node-exporter-4.55.0-cluster-metrics-readonly-live-parity-20260605
+spec:
+  chart: prometheus-community/prometheus-node-exporter
+  version: 4.55.0
+  base: cluster-metrics-readonly
+  result: pass
+  observedAt: '2026-06-13T00:38:20Z'
+  package:
+    path: packages/prometheus-community/prometheus-node-exporter/4.55.0
+  recipe:
+    path: recipes/prometheus-community/prometheus-node-exporter/4.55.0
+  variantRevision: recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-node-exporter-1781311100
+    kubeContext: kind-helm-expt-parity-node-exporter-1781311100
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-node-exporter-1781311100 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-node-exporter-1781311100"...
+
+        Deleting cluster "helm-expt-parity-node-exporter-1781311100" ...
+
+        Deleted nodes: ["helm-expt-parity-node-exporter-1781311100-control-plane"]
+
+        Deleting Space "helm-expt-parity-node-exporter-1781311100-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install prometheus-node-exporter prometheus-node-exporter
+        --repo https://prometheus-community.github.io/helm-charts --version 4.55.0
+        --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: 76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d
+      objectCount: 4
+      liveHelmManifestSHA256: 942636155ca617085a6e891365403e1f33bc8eab618ad3ecefb195b6123588cb
+      liveHelmManifestObjectCount: 4
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: daemonset.apps/prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   4s
+        pods: prometheus-node-exporter-bpsf2   1/1   Running   0     4s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-node-exporter/4.55.0
+        --base cluster-metrics-readonly --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-node-exporter-1781311100-prometheus-node-exporter
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: c60f03bfd6fee984dd6862d820991ba3c49e32af7a7abe3ec93248c81521d807
+      objectCount: 5
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          daemonset.apps/prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   10s'
+        pods: '# default
+
+          prometheus-node-exporter-hws2w   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 4
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'daemonset.apps "prometheus-node-exporter" deleted from default
+            namespace
+
+            service "prometheus-node-exporter" deleted from default namespace
+
+            serviceaccount "prometheus-node-exporter" deleted from default namespace
+
+            servicemonitor.monitoring.coreos.com "prometheus-node-exporter" deleted
+            from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-node-exporter-1781311100-prometheus-node-exporter
+      controller: Argo CD OCI
+      app: prometheus-node-exporter-parity
+      manifestSHA256: 23d57bbf7f2dfb5eea27bd7a4e53174c922bff058864eea2694e01b8940b163c
+      objectCount: 5
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:719e1e6c924368c1dd00f18e9cb8fb9cceefd152e29ba782710ea659b49b3151
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-node-exporter-1781311100-prometheus-node-exporter
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-node-exporter-1781311100-cluster/oci
+              targetRevision: latest
+          revision: sha256:719e1e6c924368c1dd00f18e9cb8fb9cceefd152e29ba782710ea659b49b3151
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T00:40:52Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: prometheus-node-exporter
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: prometheus-node-exporter
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default
+          name: prometheus-node-exporter
+          status: Synced
+          health: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: default
+          name: prometheus-node-exporter
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          daemonset.apps/prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   12s'
+        pods: '# default
+
+          prometheus-node-exporter-794xk   1/1   Running   0     12s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 4
+      configHubObjectCount: 5
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 4
+      configHubObjectCount: 5
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-node-exporter-1781311100\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-node-exporter-1781311100.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-node-exporter-1781311100\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-node-exporter-1781311100\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-node-exporter-1781311100\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-node-exporter-1781311100.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=1
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"prometheus-node-exporter\" does not exist. Installing it now.\n\
+      NAME: prometheus-node-exporter\nLAST DEPLOYED: Sat Jun 13 01:39:47 2026\nNAMESPACE:\
+      \ default-helm\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\n1. Get the application URL by running these commands:\n\
+      \  export POD_NAME=$(kubectl get pods --namespace default-helm -l \"app.kubernetes.io/name=prometheus-node-exporter,app.kubernetes.io/instance=prometheus-node-exporter\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n  echo \"Visit http://127.0.0.1:9100\
+      \ to use your application\"\n  kubectl port-forward --namespace default-helm\
+      \ $POD_NAME 9100"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=1
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      daemonset.apps/prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   10s'
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=4 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=1
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: prometheus-community/prometheus-operator-crds@29.0.0/default
+        lane: regularHelm
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: prometheus-community/prometheus-operator-crds@29.0.0/default
+        lane: configHubKubectlApply
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: prometheus-community/prometheus-operator-crds@29.0.0/default
+        lane: configHubOciArgo
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
