@@ -1,0 +1,353 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: stakater-reloader-2.2.12-controller-default-reviewed-live-parity-20260605
+spec:
+  chart: stakater/reloader
+  version: 2.2.12
+  base: controller-default-reviewed
+  result: pass
+  observedAt: '2026-06-13T10:14:08Z'
+  package:
+    path: packages/stakater/reloader/2.2.12
+  recipe:
+    path: recipes/stakater/reloader/2.2.12
+  variantRevision: recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-reloader-mqc77f35-4qk
+    kubeContext: kind-helm-expt-parity-reloader-mqc77f35-4qk
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-reloader-mqc77f35-4qk --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-reloader-mqc77f35-4qk"...
+
+        Deleting cluster "helm-expt-parity-reloader-mqc77f35-4qk" ...
+
+        Deleted nodes: ["helm-expt-parity-reloader-mqc77f35-4qk-control-plane"]
+
+        Deleting Space "helm-expt-parity-reloader-mqc77f35-4qk-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install reloader reloader --repo https://stakater.github.io/stakater-charts
+        --version 2.2.12 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/stakater-reloader-controller-default-reviewed/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e
+      objectCount: 6
+      liveHelmManifestSHA256: 27d8be3b828e275ea6f11a2d12bf9cefa58c0b1ab8952f996f18d200d6e7390d
+      liveHelmManifestObjectCount: 6
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/reloader-reloader   1/1   1     1     14s
+        pods: reloader-reloader-78b4cc9c8b-jkd4w   1/1   Running   0     14s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/stakater/reloader/2.2.12
+        --base controller-default-reviewed --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-reloader-mqc77f35-4qk-reloader
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 8450c68fd92d54b9b59151f07fda5c10851a821ff46591d28f0fc50faa24cf12
+      objectCount: 7
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/reloader-reloader   1/1   1     1     21s'
+        pods: '# default
+
+          reloader-reloader-78b4cc9c8b-8pb6c   1/1   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "reloader-reloader-role"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "reloader-reloader-role-binding"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|reloader-reloader
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|reloader-reloader-metadata-role-binding
+          - rbac.authorization.k8s.io/v1|Role|default|reloader-reloader-metadata-role
+          - v1|ServiceAccount|default|reloader-reloader
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-reloader-mqc77f35-4qk-reloader
+      controller: Argo CD OCI
+      app: reloader-parity
+      manifestSHA256: b9600b09f3977ef9b97b1ea36b5933b0280e1ec7d07a5b27a3c759c10bc3f666
+      objectCount: 7
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:9290d9e8e6419455bf54db49997964386da18a59b779ead1083a64f9e389cde1
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-reloader-mqc77f35-4qk-reloader
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-reloader-mqc77f35-4qk-cluster/oci
+              targetRevision: latest
+          revision: sha256:9290d9e8e6419455bf54db49997964386da18a59b779ead1083a64f9e389cde1
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T10:17:11Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: reloader-reloader
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: reloader-reloader
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: reloader-reloader-role
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: reloader-reloader-role-binding
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: reloader-reloader-metadata-role
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: reloader-reloader-metadata-role-binding
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-reloader-mqc77f35-4qk-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-reloader-mqc77f35-4qk-cluster/oci
+              targetRevision: latest
+          revision: sha256:9290d9e8e6419455bf54db49997964386da18a59b779ead1083a64f9e389cde1
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T10:15:41Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-reloader-mqc77f35-4qk-cluster
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: reloader-parity
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/reloader-reloader   1/1   1     1     82s'
+        pods: '# default
+
+          reloader-reloader-78b4cc9c8b-8pb6c   1/1   Running   0     81s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-reloader-mqc77f35-4qk\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-reloader-mqc77f35-4qk.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-reloader-mqc77f35-4qk\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-reloader-mqc77f35-4qk\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-reloader-mqc77f35-4qk\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-reloader-mqc77f35-4qk.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"reloader\" does not exist. Installing it now.\nNAME: reloader\n\
+      LAST DEPLOYED: Sat Jun 13 11:15:36 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n- For\
+      \ a `Deployment` called `foo` have a `ConfigMap` called `foo-configmap`. Then\
+      \ add this annotation to main metadata of your `Deployment`\n  configmap.reloader.stakater.com/reload:\
+      \ \"foo-configmap\"\n\n- For a `Deployment` called `foo` have a `Secret` called\
+      \ `foo-secret`. Then add this annotation to main metadata of your `Deployment`\n\
+      \  secret.reloader.stakater.com/reload: \"foo-secret\"\n\n- After successful\
+      \ installation, your pods will get rolling updates when a change in data of\
+      \ configmap or secret will happen."
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/reloader-reloader   1/1   1     1     21s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
