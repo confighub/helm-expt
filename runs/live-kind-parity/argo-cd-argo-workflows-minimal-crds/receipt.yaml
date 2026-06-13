@@ -1,0 +1,196 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: argo-cd-argo-workflows-1.0.14-minimal-crds-kind-parity-20260606
+spec:
+  chart: argo-cd/argo-workflows
+  version: 1.0.14
+  base: minimal-crds
+  result: pass
+  observedAt: '2026-06-13T15:54:46Z'
+  package:
+    path: packages/argo-cd/argo-workflows/1.0.14
+  recipe:
+    path: recipes/argo-cd/argo-workflows/1.0.14
+  variantRevision: recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-argowo-51b25-dhc5-helm
+    installerCluster: hx-argowo-51b25-dhc5-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-argowo-51b25-dhc5-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-argowo-51b25-dhc5-helm" ...
+
+          Deleted nodes: ["hx-argowo-51b25-dhc5-helm-control-plane"]'
+      - cluster: hx-argowo-51b25-dhc5-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-argowo-51b25-dhc5-installer" ...
+
+          Deleted nodes: ["hx-argowo-51b25-dhc5-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argo-workflows argo-workflows --repo https://argoproj.github.io/argo-helm
+        --version 1.0.14 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b
+      objectCount: 27
+      liveHelmManifestSHA256: 8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b
+      liveHelmManifestObjectCount: 27
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/argo-workflows-server                1/1   1     1     39s
+
+          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     39s'
+        pods: '# default
+
+          argo-workflows-server-68dc849dd4-gwlwb                1/1   Running   0     39s
+
+          argo-workflows-workflow-controller-5f7944bc8f-kwqp5   1/1   Running   0     39s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/argo-cd/argo-workflows/1.0.14
+        --base minimal-crds --work-dir /tmp/helm-expt-kind-parity-hx-argowo-51b25-dhc5-argo-workflows
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: cfcdc4015f69a6bf2ff5c182cb7647527eaefbea2b3f6f7b4e52a684fcefd117
+      objectCount: 28
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/argo-workflows-server                1/1   1     1     41s
+
+          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     41s'
+        pods: '# default
+
+          argo-workflows-server-68dc849dd4-n87k9                1/1   Running   0     41s
+
+          argo-workflows-workflow-controller-5f7944bc8f-pg265   1/1   Running   0     41s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 27
+      installerObjectCount: 28
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "argo-workflows" does not exist. Installing it now.
+
+      NAME: argo-workflows
+
+      LAST DEPLOYED: Sat Jun 13 16:55:38 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      1. Get Argo Server external IP/domain by running:
+
+
+      kubectl --namespace default get services -o wide | grep argo-workflows-server
+
+
+      2. Submit the hello-world workflow by running:
+
+
+      argo submit https://raw.githubusercontent.com/argoproj/argo-workflows/master/examples/hello-world.yaml
+      --watch'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/argo-workflows-server                1/1   1     1     41s
+
+      deployment.apps/argo-workflows-workflow-controller   1/1   1     1     41s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
