@@ -27,6 +27,7 @@ hook partial lifecycle observations:      0/5
 hook routes awaiting observation:         0/5
 hook rows still needing route receipt:    0/5
 hook-like lifecycle observations passing: 4/4
+selected candidate routes observed:       1/1
 ~~~
 
 ## Rows
@@ -42,6 +43,7 @@ hook-like lifecycle observations passing: 4/4
 | hook-like-lifecycle-observation | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | startupapicheck-becomes-post-apply-api-dry-run | CRD ownership policy, startup API readiness route, webhook CA bundle injection, and server dry-run | universal Helm hook support or support for unrelated hook-bearing charts |
 | hook-like-lifecycle-observation | `external-secrets/external-secrets@2.5.0` | default | pass | no-helm-hook | CRD ownership policy, webhook CA bundle injection, controller-populated webhook Secret data, and server dry-run | universal Helm hook support or support for unrelated hook-bearing charts |
 | hook-like-lifecycle-observation | `external-secrets/external-secrets@2.5.0` | no-crds | pass | no-helm-hook | CRD ownership policy, webhook CA bundle injection, controller-populated webhook Secret data, and server dry-run | universal Helm hook support or support for unrelated hook-bearing charts |
+| selected-hook-route | `argo-cd/argo-workflows@1.0.14` | minimal-crds | lifecycle-observed | The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. | selected hook candidate route has runtime observation for this base | the same route for other bases, full Helm hook execution, full CRD upgrade safety, or production support |
 
 ## Files
 
@@ -51,6 +53,8 @@ hook-like lifecycle observations passing: 4/4
 | `data/hook-lifecycle/source-top100-hooks.csv` | Source-scan inventory of top-100 public charts where the retained source scan found Helm hooks. |
 | `data/hook-lifecycle/maintained-hook-queue.csv` | Maintained hook queue rows that need route, execution, or observation receipts. |
 | `data/lifecycle-observations/cert-manager-eso/summary.csv` | Current cert-manager and External Secrets lifecycle observations. |
+| `data/lifecycle-boundary/selected-routes.csv` | Base-specific selected routes promoted from hook route candidates. |
+| `data/hook-route-candidates/selected-routes/*.yaml` | Receipt files for selected candidate routes. |
 
 Regenerate:
 

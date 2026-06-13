@@ -109,7 +109,7 @@ Which detailed CSV should I open next?
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook lifecycle observations present | 5/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook partial lifecycle observations present | 0/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
-| hooks | hook/lifecycle boundary rows | 9/9 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
+| hooks | hook/lifecycle boundary rows | 10/10 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook queue rows still needing route receipts | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook routes still needing execution or observation | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
@@ -536,6 +536,7 @@ controller lifecycle observations:
 | --- | ---: |
 | helm-hook-lifecycle-queue | 5 |
 | hook-like-lifecycle-observation | 4 |
+| selected-hook-route | 1 |
 
 Open [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) when the
 question is whether a row proves hook execution or only proves controller

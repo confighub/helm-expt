@@ -44,6 +44,7 @@ const SOURCES = {
   hooks: "data/hook-disposition/top100-hook-dispositions.csv",
   maintainedHooks: "data/hook-lifecycle/maintained-hook-queue.csv",
   hookCandidates: "data/hook-route-candidates/candidates.csv",
+  selectedHookRoutes: "data/lifecycle-boundary/selected-routes.csv",
   decisions: "data/production-support-decisions/decisions.csv",
   activeProof: "data/live-parity-rerun-plan/rerun-plan.csv",
 };
@@ -87,6 +88,11 @@ const COLUMN_PROVENANCE = [
     source: "hook-route-candidates/candidates.csv",
     carried: "candidate hook routes for charts whose hook or hook-like lifecycle work has been reviewed but not promoted to a maintained receipt",
     dropped: "pattern, phases, delete policies, dependency source, target dependencies, promotion next step",
+  },
+  {
+    source: "lifecycle-boundary/selected-routes.csv",
+    carried: "base-specific hook candidate routes that have a selected route receipt",
+    dropped: "receipt evidence list, non-claim boundaries, remaining work",
   },
   {
     source: "production-support-decisions/decisions.csv",
@@ -141,12 +147,21 @@ function buildReport(generatedAt) {
     disposition: "candidate-route",
     live_status: "none",
   }));
+  const selectedHookRouteRows = readCsv(SOURCES.selectedHookRoutes).map((row) => ({
+    chart: row.chart,
+    version: row.version,
+    base: row.base,
+    source_hook_count: row.hook_count || "1",
+    disposition: row.status === "lifecycle-observed" ? "observed" : row.status,
+    live_status: row.status === "lifecycle-observed" ? "observed" : row.status === "blocked" ? "blocked" : "none",
+  }));
   const hooksExact = indexBy(hookRows, (row) => `${row.chart}@${row.version}`);
   const hooksByChart = indexBy(hookRows, (row) => row.chart);
   const maintainedHooksExact = indexBy(maintainedHookRows, (row) => `${row.chart}@${row.version}`);
   const maintainedHooksByChart = indexBy(maintainedHookRows, (row) => row.chart);
   const hookCandidatesExact = indexBy(hookCandidateRows, (row) => `${row.chart}@${row.version}`);
   const hookCandidatesByChart = indexBy(hookCandidateRows, (row) => row.chart);
+  const selectedHookRoutesExactBase = indexBy(selectedHookRouteRows, (row) => `${row.chart}@${row.version}|${row.base}`);
   const decisions = indexBy(readCsv(SOURCES.decisions), (row) => `${row.chart}|${row.version}|${row.supported_base}`);
   const activeProofRows = readCsv(SOURCES.activeProof);
   const activeProof = indexBy(activeProofRows, (row) => `${row.chart}|${row.version}|${row.base}`);
@@ -176,13 +191,14 @@ function buildReport(generatedAt) {
       // hook_evidence_version — family evidence must not read as evidence
       // for this exact version.
       const hookExact = hooksExact.get(chartAtVersion);
+      const selectedHookRouteExactBase = selectedHookRoutesExactBase.get(`${chartAtVersion}|${variant}`);
       const hookFamily = hooksByChart.get(chartName);
       const maintainedHookExact = maintainedHooksExact.get(chartAtVersion);
       const maintainedHookFamily = maintainedHooksByChart.get(chartName);
       const hookCandidateExact = hookCandidatesExact.get(chartAtVersion);
       const hookCandidateFamily = hookCandidatesByChart.get(chartName);
-      const hook = hookExact ?? maintainedHookExact ?? hookCandidateExact ?? hookFamily ?? maintainedHookFamily ?? hookCandidateFamily;
-      const exactHook = hookExact ?? maintainedHookExact ?? hookCandidateExact;
+      const hook = selectedHookRouteExactBase ?? hookExact ?? maintainedHookExact ?? hookCandidateExact ?? hookFamily ?? maintainedHookFamily ?? hookCandidateFamily;
+      const exactHook = selectedHookRouteExactBase ?? hookExact ?? maintainedHookExact ?? hookCandidateExact;
       const hookEvidenceVersion = exactHook || !hook ? "" : hook.version;
       const decision = decisions.get(`${chartName}|${version}|${variant}`);
       const active = activeProof.get(`${chartName}|${version}|${variant}`);

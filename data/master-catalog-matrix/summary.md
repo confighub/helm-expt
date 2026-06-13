@@ -91,6 +91,7 @@ duplicates of this one.
 | [hook-disposition/top100-hook-dispositions.csv](../hook-disposition/top100-hook-dispositions.csv) | source-top100 hook count, disposition, live status | hook_phases, selected_route detail, evidence_status text, next_action, evidence paths, rank |
 | [hook-lifecycle/maintained-hook-queue.csv](../hook-lifecycle/maintained-hook-queue.csv) | maintained hook lifecycle fallback rows when a chart has an observed route outside the source-top100 disposition table | hook examples, route details, required receipt path, next action |
 | [hook-route-candidates/candidates.csv](../hook-route-candidates/candidates.csv) | candidate hook routes for charts whose hook or hook-like lifecycle work has been reviewed but not promoted to a maintained receipt | pattern, phases, delete policies, dependency source, target dependencies, promotion next step |
+| [lifecycle-boundary/selected-routes.csv](../lifecycle-boundary/selected-routes.csv) | base-specific hook candidate routes that have a selected route receipt | receipt evidence list, non-claim boundaries, remaining work |
 | [production-support-decisions/decisions.csv](../production-support-decisions/decisions.csv) | decision, target scope | delivery_path, image/scan/lifecycle/target-fact/live-evidence sub-decisions, evidence_count, remaining_final_requirements, next_action |
 | [live-parity-rerun-plan/rerun-plan.csv](../live-parity-rerun-plan/rerun-plan.csv) | active non-pass live parity rows: next step, rerun readiness, reason, support artifact, rerun command | priority, lane, current result, receipt path; follow the source when diagnosing the run itself |
 
@@ -115,7 +116,7 @@ when you want the user/product view with those columns visible.
 |  | no-crds | next80 | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ✅ | two-cluster-kind-parity | ⬜ |
 | `argo-cd/argo-workflows@1.0.14` | default | next80 | — | 1 candidate-route ⬜ | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | controller-default-reviewed | next80 | — | 1 candidate-route ⬜ | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
-|  | minimal-crds | next80 | — | 1 candidate-route ⬜ | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | minimal-crds | next80 | — | 1 observed ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | local-live | ⬜ |

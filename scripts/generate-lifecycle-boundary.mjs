@@ -1,28 +1,35 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "lifecycle-boundary");
 const outputs = {
   summary: join(outputRoot, "summary.md"),
   csv: join(outputRoot, "lifecycle-boundary.csv"),
+  selectedRoutes: join(outputRoot, "selected-routes.csv"),
 };
 
 if (mode === "--generate") {
   const report = buildReport();
   write(outputs.csv, report.csv);
+  write(outputs.selectedRoutes, report.selectedRoutesCsv);
   write(outputs.summary, report.summary);
   console.log(`wrote ${relativeRepo(outputRoot)}/`);
 } else if (mode === "--verify") {
   const report = buildReport();
-  check(existsSync(outputs.csv), `${relativeRepo(outputs.csv)} is missing; run npm run lifecycle:boundary`);
-  check(existsSync(outputs.summary), `${relativeRepo(outputs.summary)} is missing; run npm run lifecycle:boundary`);
-  check(readFileSync(outputs.csv, "utf8") === report.csv, `${relativeRepo(outputs.csv)} is stale; run npm run lifecycle:boundary`);
-  check(readFileSync(outputs.summary, "utf8") === report.summary, `${relativeRepo(outputs.summary)} is stale; run npm run lifecycle:boundary`);
+  const expected = {
+    csv: report.csv,
+    selectedRoutes: report.selectedRoutesCsv,
+    summary: report.summary,
+  };
+  for (const [name, path] of Object.entries(outputs)) {
+    check(existsSync(path), `${relativeRepo(path)} is missing; run npm run lifecycle:boundary`);
+    check(readFileSync(path, "utf8") === expected[name], `${relativeRepo(path)} is stale; run npm run lifecycle:boundary`);
+  }
   console.log(`verified lifecycle boundary for ${report.rows.length} row(s)`);
 } else {
   console.log(`Usage:
@@ -33,6 +40,7 @@ if (mode === "--generate") {
 function buildReport() {
   const hookRows = parseCsvFile("data/hook-lifecycle/maintained-hook-queue.csv");
   const observationRows = parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv");
+  const selectedRouteRows = readSelectedRouteReceipts();
   const rows = [
     ...hookRows.map((row) => ({
       lane: "helm-hook-lifecycle-queue",
@@ -56,6 +64,17 @@ function buildReport() {
       evidence: row.receipt,
       next_action: row.result === "pass" ? "keep receipt fresh when chart, base, or cluster version changes" : "rerun lifecycle observation and inspect the receipt",
     })),
+    ...selectedRouteRows.map((row) => ({
+      lane: "selected-hook-route",
+      chart: `${row.chart}@${row.version}`,
+      base: row.base,
+      status: row.status,
+      route_or_policy: row.route_or_policy,
+      proves: row.proves,
+      does_not_prove: row.does_not_prove,
+      evidence: row.evidence,
+      next_action: row.next_action,
+    })),
   ];
 
   const hookRouteReceiptCount = hookRows.filter((row) => ["route-selected", "partially-observed", "observed", "blocked"].includes(row.receipt_status)).length;
@@ -64,7 +83,9 @@ function buildReport() {
   const hookRouteOnlyCount = hookRows.filter((row) => row.receipt_status === "route-selected").length;
   const hookRouteNeededCount = hookRows.filter((row) => row.receipt_status === "not-yet-written").length;
   const observationPass = observationRows.filter((row) => row.result === "pass").length;
+  const selectedRouteObserved = selectedRouteRows.filter((row) => row.status === "lifecycle-observed").length;
   const csv = toCsv(rows);
+  const selectedRoutesCsv = toCsv(selectedRouteRows);
   const summary = `# Hook And Lifecycle Boundary
 
 This generated report separates two related but different claims:
@@ -94,6 +115,7 @@ hook partial lifecycle observations:      ${hookPartiallyObservedCount}/${hookRo
 hook routes awaiting observation:         ${hookRouteOnlyCount}/${hookRows.length}
 hook rows still needing route receipt:    ${hookRouteNeededCount}/${hookRows.length}
 hook-like lifecycle observations passing: ${observationPass}/${observationRows.length}
+selected candidate routes observed:       ${selectedRouteObserved}/${selectedRouteRows.length}
 ~~~
 
 ## Rows
@@ -110,6 +132,8 @@ ${rows.map((row) => `| ${row.lane} | \`${row.chart}\` | ${row.base} | ${row.stat
 | \`data/hook-lifecycle/source-top100-hooks.csv\` | Source-scan inventory of top-100 public charts where the retained source scan found Helm hooks. |
 | \`data/hook-lifecycle/maintained-hook-queue.csv\` | Maintained hook queue rows that need route, execution, or observation receipts. |
 | \`data/lifecycle-observations/cert-manager-eso/summary.csv\` | Current cert-manager and External Secrets lifecycle observations. |
+| \`data/lifecycle-boundary/selected-routes.csv\` | Base-specific selected routes promoted from hook route candidates. |
+| \`data/hook-route-candidates/selected-routes/*.yaml\` | Receipt files for selected candidate routes. |
 
 Regenerate:
 
@@ -118,7 +142,45 @@ npm run lifecycle:boundary
 npm run lifecycle:boundary:verify
 ~~~
 `;
-  return { rows, csv, summary };
+  return { rows, csv, selectedRoutesCsv, summary };
+}
+
+function readSelectedRouteReceipts() {
+  const receiptDir = join(repoRoot, "data", "hook-route-candidates", "selected-routes");
+  if (!existsSync(receiptDir)) return [];
+  return readdirSync(receiptDir)
+    .filter((name) => name.endsWith(".yaml"))
+    .sort()
+    .map((name) => {
+      const path = `data/hook-route-candidates/selected-routes/${name}`;
+      const doc = readYaml(join(repoRoot, path));
+      const spec = doc.spec ?? {};
+      const result = spec.result ?? "";
+      const runtimeObserved = spec.execution?.runtimeObserved === true;
+      const evidencePaths = (spec.evidence ?? []).map((entry) => entry.path).filter(Boolean);
+      check(spec.chart, `${path} is missing spec.chart`);
+      check(spec.version, `${path} is missing spec.version`);
+      check(spec.base, `${path} is missing spec.base`);
+      check(result, `${path} is missing spec.result`);
+      for (const evidencePath of evidencePaths) {
+        check(evidencePath.startsWith("http") || existsSync(join(repoRoot, evidencePath)), `${path} references missing evidence ${evidencePath}`);
+      }
+      const status = result === "observed" && runtimeObserved ? "lifecycle-observed" : result === "blocked" ? "blocked" : "route-selected";
+      return {
+        chart: spec.chart,
+        version: spec.version,
+        base: spec.base,
+        status,
+        hook_count: String(spec.route?.phases?.length ?? 1),
+        route_or_policy: spec.route?.summary ?? "",
+        proves: status === "lifecycle-observed"
+          ? "selected hook candidate route has runtime observation for this base"
+          : "selected hook candidate route is recorded for this base",
+        does_not_prove: "the same route for other bases, full Helm hook execution, full CRD upgrade safety, or production support",
+        evidence: [path, ...evidencePaths].join(";"),
+        next_action: (spec.remainingWork ?? [])[0] ?? "keep receipt fresh when chart, base, or cluster version changes",
+      };
+    });
 }
 
 function hookQueueStatus(receiptStatus) {

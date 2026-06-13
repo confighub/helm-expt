@@ -91,7 +91,7 @@ hooks,hook candidate route work orders,72,72,partial,data/hook-route-candidates/
 hooks,hook route receipts present,5,5,partial,data/hook-lifecycle/maintained-hook-queue.csv,"Maintained hook queue rows with a recorded lifecycle route, observation, or blocker."
 hooks,hook lifecycle observations present,5,5,good,data/hook-lifecycle/maintained-hook-queue.csv,Maintained hook queue rows with runtime lifecycle observation or execution receipts.
 hooks,hook partial lifecycle observations present,0,5,good,data/hook-lifecycle/maintained-hook-queue.csv,Maintained hook queue rows whose fresh-install route has live observation while another hook phase remains pending.
-hooks,hook/lifecycle boundary rows,9,9,partial,data/lifecycle-boundary/lifecycle-boundary.csv,Separates hook queue rows from hook-like controller lifecycle observations.
+hooks,hook/lifecycle boundary rows,10,10,partial,data/lifecycle-boundary/lifecycle-boundary.csv,Separates hook queue rows from hook-like controller lifecycle observations.
 hooks,hook queue rows still needing route receipts,0,5,good,data/lifecycle-boundary/lifecycle-boundary.csv,Hook-bearing rows whose behavior is inventoried but has no selected route.
 hooks,hook routes still needing execution or observation,0,5,good,data/lifecycle-boundary/lifecycle-boundary.csv,Hook-bearing rows with a selected route and at least one missing runtime observation or execution receipt.
 hooks,related lifecycle observation receipts passing,4,4,good,data/lifecycle-observations/cert-manager-eso/summary.csv,Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove.

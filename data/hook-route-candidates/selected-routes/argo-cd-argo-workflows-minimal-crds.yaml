@@ -1,0 +1,43 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteReceipt
+metadata:
+  name: argo-cd-argo-workflows-minimal-crds-route
+spec:
+  chart: argo-cd/argo-workflows
+  version: 1.0.14
+  base: minimal-crds
+  result: observed
+  selectedAt: "2026-06-13"
+  observedAt: "2026-06-12T16:51:15.443Z"
+  route:
+    summary: The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false.
+    phases:
+      - hookTypes: [pre-install, pre-upgrade]
+        action: self-contained-crd-base
+        reason: Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.
+  evidence:
+    - path: data/hook-route-candidates/argo-cd-argo-workflows.yaml
+      claim: Candidate route review records the full-CRD hook and the two safe routes.
+    - path: recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml
+      claim: The selected base records the minimal-CRD render boundary.
+    - path: recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml
+      claim: The minimal-CRDs revision is allowed by the install gate.
+    - path: runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml
+      claim: Local kind observation applied the rendered objects, established 8 CRDs, and converged the controller and server Deployments.
+    - path: runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: ConfigHub proof uploaded the minimal-CRDs base as visible Units and exercised the server-side variant clone path.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: true
+    observedRoute:
+      route: self-contained-minimal-crds-base
+      result: pass
+      receipt: runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml
+    notes:
+      - This receipt applies only to the minimal-crds base.
+      - The upstream full-CRD pre-install hook is not executed by Helm in this route.
+      - The default and controller-default-reviewed bases still require full CRDs as target prerequisites.
+      - Minimal CRDs are not a proof of full CRD upgrade safety.
+  remainingWork:
+    - Prove a full-CRD target-prerequisite route if a user needs the upstream full OpenAPI CRD schemas.
+    - Add ConfigHub OCI/Argo live parity for this base before treating it as complete core-lane evidence.
