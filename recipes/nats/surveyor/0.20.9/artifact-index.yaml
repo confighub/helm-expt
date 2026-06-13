@@ -63,7 +63,7 @@ spec:
     path: "packages/nats/surveyor/0.20.9"
     installer: "packages/nats/surveyor/0.20.9/installer.yaml"
     receipt: "recipes/nats/surveyor/0.20.9/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "477c5a5d1d55e272745e3948373b7577381dd50a19876d0165661cd81618284f"
+    deterministicBundleSHA256: "d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

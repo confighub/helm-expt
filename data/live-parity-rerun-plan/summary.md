@@ -10,11 +10,11 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 3
+rows: 2
 lifecycle-routed-not-active-rerun: 0
 blocked: 2
-watch: 1
-configHub-oci-live-comparison: 3
+watch: 0
+configHub-oci-live-comparison: 2
 two-cluster-kind-parity: 0
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
@@ -26,7 +26,7 @@ runtime-or-watch-rows: 0
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 3 | 0 | 1 | 2 | 0 |
+| configHub-oci-live-comparison | 2 | 0 | 0 | 2 | 0 |
 | two-cluster-kind-parity | 0 | 0 | 0 | 0 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -51,7 +51,6 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-| render-input-model | 1 | Model the required Helm values as a real base before rerunning. |
 | target-fit-review | 2 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -67,7 +66,7 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 ## Run Safety
 
@@ -91,7 +90,6 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 30 | model-or-stage-first | render-input-model | configHub-oci-live-comparison | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | watch | render-input: required Helm values missing (parity passed) | [`recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml`](../../recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml) | `npm run live-parity:top20 -- --chart cluster-autoscaler --base controller-default-reviewed --continue-on-fail` |
 | 40 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `elastic/logstash@8.5.1` | ha | blocked | target-fit: minimum schedulable nodes not met | [`recipes/elastic/logstash/8.5.1/target-topology.yaml`](../../recipes/elastic/logstash/8.5.1/target-topology.yaml) | `npm run live-parity:top20 -- --chart logstash --base ha --continue-on-fail` |
 | 40 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-fit: minimum schedulable nodes not met | [`recipes/hashicorp/consul/2.0.0/target-topology.yaml`](../../recipes/hashicorp/consul/2.0.0/target-topology.yaml) | `npm run live-parity:top20 -- --chart consul --base secure-mesh-existing-secrets --continue-on-fail` |
 

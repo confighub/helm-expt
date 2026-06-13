@@ -1,37 +1,38 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Variant"
 metadata:
+  name: "controller-default-reviewed"
   labels:
     confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
     confighub.io/chart-version: "9.57.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "controller-default-reviewed"
-    helm-expt.confighub.com/useful-base-status: "realized-alias-base"
-  name: "controller-default-reviewed"
+    helm-expt.confighub.com/useful-base-status: "values-profile-rerender"
 spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "cluster-autoscaler"
+  valuesProfile: "../../effective-values-controller-default-reviewed.yaml"
   capabilityProfile:
+    kubeVersion: "1.30.0"
     apiVersions:
       []
-    kubeVersion: "1.30.0"
   hookPolicy: "no-hooks"
-  namespace: "default"
-  recipe: "../../recipe.yaml"
-  releaseName: "cluster-autoscaler"
-  valuesProfile: "../../effective-values.yaml"
+  targetFacts:
+    requiredValues:
+      -
+        path: "autoDiscovery.clusterName"
+        value: "kind"
+        purpose: "Enables the chart's node-group autodiscovery path so the controller Deployment is rendered."
+      -
+        path: "awsRegion"
+        value: "us-east-1"
+        purpose: "Supplies the AWS region value required by this chart's default cloud-provider path."
   usefulBase:
-    realizationStrategy: "alias-of-default-render"
-    sourceBase: "default"
-    userJob: "install a cluster controller with explicit CRD, RBAC, and lifecycle boundaries"
+    realizationStrategy: "values-profile-rerender"
+    userJob: "Install Cluster Autoscaler as a controller with explicit AWS autodiscovery values."
     renderTimeChoices:
-      - "CRD ownership"
-      - "admission/webhook behavior"
-      - "RBAC scope"
-      - "leader-election or HA flags"
-      - "required values"
-    remainingBeforeCatalog:
-      - "required render-time values: autoDiscovery.clusterName or autoscalingGroups[]"
-      - "re-render as a non-alias base"
-      - "ConfigHub proof lane"
-      - "selected live lane"
-      - "production disposition"
-    note: "Strict live parity shows this alias base has object parity but no controller workload. The chart requires autoDiscovery.clusterName or autoscalingGroups[] before it becomes a functional install."
+      - "autoDiscovery.clusterName"
+      - "awsRegion"
+    addedObjects:
+      - "apps/v1|Deployment|default|cluster-autoscaler-aws-cluster-autoscaler"

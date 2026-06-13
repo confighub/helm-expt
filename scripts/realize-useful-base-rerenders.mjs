@@ -72,7 +72,42 @@ const targets = [
         },
       ],
     },
+    renderTimeChoices: ["prometheus.monitor.enabled", "prometheus.monitor.additionalLabels"],
+    description: "useful base rendered with Prometheus monitor values",
     expectedAddedObjects: ["monitoring.coreos.com/v1|ServiceMonitor|default|prometheus-node-exporter"],
+  },
+  {
+    chart: "autoscaler/cluster-autoscaler",
+    repository: "autoscaler",
+    name: "cluster-autoscaler",
+    version: "9.57.0",
+    base: "controller-default-reviewed",
+    namespace: "default",
+    releaseName: "cluster-autoscaler",
+    userJob: "Install Cluster Autoscaler as a controller with explicit AWS autodiscovery values.",
+    values: {
+      autoDiscovery: {
+        clusterName: "kind",
+      },
+      awsRegion: "us-east-1",
+    },
+    targetFacts: {
+      requiredValues: [
+        {
+          path: "autoDiscovery.clusterName",
+          value: "kind",
+          purpose: "Enables the chart's node-group autodiscovery path so the controller Deployment is rendered.",
+        },
+        {
+          path: "awsRegion",
+          value: "us-east-1",
+          purpose: "Supplies the AWS region value required by this chart's default cloud-provider path.",
+        },
+      ],
+    },
+    renderTimeChoices: ["autoDiscovery.clusterName", "awsRegion"],
+    description: "useful base rendered with AWS autodiscovery values",
+    expectedAddedObjects: ["apps/v1|Deployment|default|cluster-autoscaler-aws-cluster-autoscaler"],
   },
 ];
 
@@ -155,13 +190,14 @@ function realize(target) {
       usefulBase: {
         realizationStrategy: "values-profile-rerender",
         userJob: target.userJob,
-        renderTimeChoices: ["prometheus.monitor.enabled", "prometheus.monitor.additionalLabels"],
+        renderTimeChoices: target.renderTimeChoices,
         addedObjects,
       },
     },
   });
 
   updateRecipe(target);
+  updateValueModel(target);
   updateCatalogStatus(target);
   updateInstaller(target);
 
@@ -320,6 +356,7 @@ function realize(target) {
   });
 
   updatePublicationReceipt(target, packageRoot, packageResult);
+  updateHelmPlan(target);
 }
 
 function verifyTarget(target) {
@@ -456,20 +493,79 @@ function updateCatalogStatus(target) {
   candidates.add(target.base);
   status.spec.candidateVariants = [...candidates].sort(sortDefaultFirst);
   status.spec.notes = [
-    ...(status.spec.notes ?? []).filter((note) => !String(note).includes(`${target.base} is a values-profile rerender`)),
+    ...(status.spec.notes ?? []).filter((note) => {
+      const text = String(note);
+      return !text.includes(`${target.base} is a values-profile rerender`) && !text.includes(`${target.base} is a realized useful-base alias`);
+    }),
     `${target.base} is a values-profile rerender that changes Helm inputs; catalog support still requires selected live evidence and production disposition.`,
   ];
   writeYaml(path, status);
 }
 
+function updateValueModel(target) {
+  const path = join(repoRoot, "recipes", target.repository, target.name, target.version, "value-model.yaml");
+  const model = readYaml(path);
+  const checkedValues = (model.spec?.checkedValues ?? []).filter((entry) => entry.variant !== target.base);
+  for (const valuePath of target.renderTimeChoices ?? []) {
+    checkedValues.push({
+      path: valuePath,
+      variant: target.base,
+      disposition: "required-render-input-modeled",
+      reason: `${target.base} is a values-profile rerender; this Helm value is pinned in effective-values-${target.base}.yaml and digest-bound by the variant revision.`,
+    });
+  }
+  model.spec.checkedValues = checkedValues;
+  writeYaml(path, model);
+}
+
+function updateHelmPlan(target) {
+  const recipeRoot = join(repoRoot, "recipes", target.repository, target.name, target.version);
+  const path = join(recipeRoot, "helm-plan.yaml");
+  const plan = readYaml(path);
+  const releaseObjects = readFileSync(join(recipeRoot, "revisions", target.base, "r001", "rendered", "release-objects.yaml"), "utf8");
+  const objects = parseObjects(releaseObjects);
+  const packageReceipt = readYaml(join(recipeRoot, "publication", "installer-package-receipt.yaml"));
+  const setupCheck = (packageReceipt.spec.setupChecks ?? []).find((check) => check.base === target.base);
+  check(Boolean(setupCheck), `${target.chart} ${target.base} missing setup check for helm plan update`);
+  const variants = new Set(plan.spec.readiness.variants ?? []);
+  variants.add(target.base);
+  plan.spec.readiness.variants = [...variants].sort(sortDefaultFirst);
+  plan.spec.readiness.helmObjectsByVariant = {
+    ...(plan.spec.readiness.helmObjectsByVariant ?? {}),
+    [target.base]: objects.length,
+  };
+  plan.spec.readiness.cubInstallObjectsByVariant = {
+    ...(plan.spec.readiness.cubInstallObjectsByVariant ?? {}),
+    [target.base]: setupCheck.cubInstallObjectCountIncludingSupport,
+  };
+  plan.spec.readiness.helmMatchByVariant = {
+    ...(plan.spec.readiness.helmMatchByVariant ?? {}),
+    [target.base]: setupCheck.semanticObjectMatches,
+  };
+  const receipts = new Set(plan.spec.receipts ?? []);
+  for (const receipt of [
+    `revisions/${target.base}/r001/receipts/helm-equivalence-receipt.yaml`,
+    `revisions/${target.base}/r001/receipts/render-receipt.yaml`,
+    `revisions/${target.base}/r001/receipts/scan-receipt.yaml`,
+    `revisions/${target.base}/r001/receipts/install-gate.yaml`,
+  ]) {
+    receipts.add(receipt);
+  }
+  plan.spec.receipts = [...receipts].sort();
+  writeYaml(path, plan);
+}
+
 function updateInstaller(target) {
   const path = join(repoRoot, "packages", target.repository, target.name, target.version, "installer.yaml");
   const installer = readYaml(path);
+  const existingBase = (installer.spec.bases ?? []).find((base) => base.name === target.base);
   const bases = (installer.spec.bases ?? []).filter((base) => base.name !== target.base);
   bases.push({
+    ...(existingBase ?? {}),
     name: target.base,
     path: `bases/${target.base}`,
-    description: `${target.chart} ${target.base} useful base rendered with Prometheus monitor values`,
+    default: existingBase?.default ?? false,
+    description: `${target.chart} ${target.base} ${target.description ?? "useful base rendered with explicit values"}`,
   });
   installer.spec.bases = bases.sort((left, right) => sortDefaultFirst(left.name, right.name));
   writeYaml(path, installer);

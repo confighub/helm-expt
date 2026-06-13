@@ -67,7 +67,7 @@ spec:
     path: "packages/argo-cd/argo-workflows/1.0.14"
     installer: "packages/argo-cd/argo-workflows/1.0.14/installer.yaml"
     receipt: "recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "27dd57b08fc0fe1c9d7c46df4722308f52ae53edb1888859f2bb486b2f7a93cf"
+    deterministicBundleSHA256: "4846574f337c453316cfbe8d1b281d8eea9c883e21d8c63ecd3fc8c17969586e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -134,7 +134,7 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
-          digest: "1d484fac9319349776af73fdadc0159d611ac70f4e160e5ce240f14284a8c25d"
+          digest: "6f309c2f82e24a8f29c0839a41fdfab60a79b4906bcfff82c8ac16fa4b642015"
           renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
           renderedObjects: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml"
@@ -212,7 +212,7 @@ spec:
           name: "controller-default-reviewed-r001"
           revision: "r001"
           variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
-          digest: "e6a419a8143360c595c866d6a54ecd6ec6a73915cf395832b59131290d87123d"
+          digest: "7cd0e619e5023b6d19b099a9f1f741cdc1a7f76993678eeb3e3b6b7af3633714"
           renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
           renderedObjects: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"

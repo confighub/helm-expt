@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 -o <tmp>/prometheus-community-prometheus-blackbox-exporter-11-10-0.tgz"
-    sha256: "c79ccb65a4813be3c4eecc663fd8d9b1dce4567f220ce9a13f32dfcdc42e1620"
+    sha256: "3eb5efd08840b14d24050f793f65e86ea13fbf6ef09986298f9f76e2c142e040"
   package:
     name: "prometheus-community-prometheus-blackbox-exporter"
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
@@ -37,7 +37,7 @@ spec:
         bytes: 4027
       -
         path: "installer.yaml"
-        sha256: "562857af2abaddbe8437f8e39e634dcc65fad9091ea7ebf5e48df1c6bcaff3a4"
+        sha256: "62042ecf5492b1d8e88d4b838abc19994f4046f5a83a3eac4a9b25c367bd9006"
         bytes: 680
     version: "11.10.0"
   setupChecks:

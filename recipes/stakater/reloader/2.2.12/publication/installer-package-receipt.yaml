@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/stakater/reloader/2.2.12 -o <tmp>/stakater-reloader-2-2-12.tgz"
-    sha256: "c6d0f3f0fffec34fdf8200acfc98757bba8a4f83d9e3bb87fcc999000b156ff1"
+    sha256: "297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75"
   package:
     name: "stakater-reloader"
     path: "packages/stakater/reloader/2.2.12"
@@ -37,7 +37,7 @@ spec:
         bytes: 6708
       -
         path: "installer.yaml"
-        sha256: "a79b605a5d6a11c972e39faa55420270cd591b70c635e7ffaffcc8fe369c2aee"
+        sha256: "7e3850f01217a4b0610481ca6a2bdcf5386c0b52888560a0176c83763fcb8289"
         bytes: 559
     version: "2.2.12"
   setupChecks:

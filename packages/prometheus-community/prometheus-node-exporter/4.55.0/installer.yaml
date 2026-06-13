@@ -11,14 +11,15 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      default: false
       description: "prometheus-community/prometheus-node-exporter cluster-metrics-readonly useful base rendered with Prometheus monitor values"
+      name: "cluster-metrics-readonly"
+      path: "bases/cluster-metrics-readonly"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "CRD servicemonitors.monitoring.coreos.com"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
-      name: "cluster-metrics-readonly"
-      path: "bases/cluster-metrics-readonly"
   collector:
     command: "/bin/sh"
     args:

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/istio/gateway/1.30.0 -o <tmp>/istio-gateway-1-30-0.tgz"
-    sha256: "42db618bfad3b83002abc50d06a2950526e0bf548bca689fc41a8be1a3bd948f"
+    sha256: "2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270"
   package:
     name: "istio-gateway"
     path: "packages/istio/gateway/1.30.0"
@@ -37,7 +37,7 @@ spec:
         bytes: 5488
       -
         path: "installer.yaml"
-        sha256: "55d9900662c23cb5382dcca7873e856ea2048d59792f94dd401efd27a14bc56e"
+        sha256: "bc0740e32995cc914b72e9b67db0c5a00a822677427cb25e12ca52be6f9662b2"
         bytes: 543
     version: "1.30.0"
   setupChecks:

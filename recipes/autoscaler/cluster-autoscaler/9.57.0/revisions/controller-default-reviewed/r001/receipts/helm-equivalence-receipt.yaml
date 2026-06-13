@@ -1,31 +1,34 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "HelmEquivalenceReceipt"
 metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed-r001"
   labels:
     confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
     confighub.io/chart-version: "9.57.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "controller-default-reviewed"
-  name: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed-r001"
 spec:
-  classifications:
-    -
-      classification: "installer-support-object"
-      disposition: "allowed"
-      identity: "v1|Namespace||default"
-  cubInstall:
-    objectCountIncludingSecretsAndSupportObjects: 8
-    semanticObjectMatches: "7/7"
-    separatedSecretFiles: 0
-    uploadedManifestFiles: 8
-  evidenceCommand: "npm run next80:verify-packages"
+  variantRevision: "../variant-revision.yaml"
   regularHelm:
-    objectCount: 7
-    renderedSHA256: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
-  result: "pass"
+    renderedSHA256: "b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a"
+    objectCount: 8
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 9
+    uploadedManifestFiles: 9
+    separatedSecretFiles: 0
+    semanticObjectMatches: "8/8"
   semanticNormalizations:
     - "prune-null-fields"
-  variantRevision: "../variant-revision.yaml"
-  usefulBaseAlias:
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  usefulBaseDelta:
     sourceBase: "default"
-    realizationStrategy: "alias-of-default-render"
+    addedObjects:
+      - "apps/v1|Deployment|default|cluster-autoscaler-aws-cluster-autoscaler"
+    removedObjects:
+      []
+  result: "pass"
+  evidenceCommand: "node scripts/realize-useful-base-rerenders.mjs --verify"

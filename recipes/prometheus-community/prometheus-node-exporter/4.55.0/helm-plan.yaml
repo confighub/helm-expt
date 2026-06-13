@@ -1,30 +1,38 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "HelmPlan"
 metadata:
-  name: "prometheus-community-prometheus-node-exporter-4-55-0"
   labels:
     confighub.io/chart-ref: "prometheus-community/prometheus-node-exporter"
     confighub.io/chart-version: "4.55.0"
     confighub.io/proof-tier: "next80-full"
+  name: "prometheus-community-prometheus-node-exporter-4-55-0"
 spec:
   readiness:
-    status: "usable-with-controls"
     chart: "prometheus-community/prometheus-node-exporter"
-    version: "4.55.0"
-    variants:
-      - "default"
-    helmObjectsByVariant:
-      default: 3
     cubInstallObjectsByVariant:
+      cluster-metrics-readonly: 5
       default: 4
     helmMatchByVariant:
+      cluster-metrics-readonly: "4/4"
       default: "3/3"
+    helmObjectsByVariant:
+      cluster-metrics-readonly: 4
+      default: 3
+    nextAction: "review scan findings, then promote the digest-bound variant"
     renderedObjectSetSHA256: "37862948d7c5d39d7be726864e9c71e6fb9e9fcc1ac40140e97153152aa6ffbc"
     scanGate: "warn-review-before-production"
-    nextAction: "review scan findings, then promote the digest-bound variant"
+    status: "usable-with-controls"
+    variants:
+      - "default"
+      - "cluster-metrics-readonly"
+    version: "4.55.0"
   receipts:
+    - "publication/installer-package-receipt.yaml"
+    - "revisions/cluster-metrics-readonly/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/cluster-metrics-readonly/r001/receipts/install-gate.yaml"
+    - "revisions/cluster-metrics-readonly/r001/receipts/render-receipt.yaml"
+    - "revisions/cluster-metrics-readonly/r001/receipts/scan-receipt.yaml"
     - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
     - "revisions/default/r001/receipts/render-receipt.yaml"
     - "revisions/default/r001/receipts/scan-receipt.yaml"
-    - "revisions/default/r001/receipts/install-gate.yaml"
-    - "publication/installer-package-receipt.yaml"

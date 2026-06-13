@@ -1,25 +1,23 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "InstallGate"
 metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed-r001"
   labels:
     confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
     confighub.io/chart-version: "9.57.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "controller-default-reviewed"
-  name: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed-r001"
 spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a"
+  decision: "warn"
   allowedScopes:
     - "local-test"
     - "review"
   blockedScopes:
     - "production-without-review"
-  decision: "warn"
   reasons:
-    - "regular Helm output matches cub installer setup for autoscaler/cluster-autoscaler@9.57.0"
-    - "7 Helm objects are bound to renderedObjectSetSHA256"
+    - "regular Helm output matches cub installer setup for autoscaler/cluster-autoscaler@9.57.0 controller-default-reviewed"
+    - "8 Helm objects are bound to renderedObjectSetSHA256"
+    - "controller-default-reviewed is a values-profile rerender, not an alias of default"
     - "rendered-object scan has review findings; see scan-receipt.yaml"
-  renderedObjectSetSHA256: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
-  variantRevision: "../variant-revision.yaml"
-  usefulBaseAlias:
-    sourceBase: "default"
-    realizationStrategy: "alias-of-default-render"

@@ -392,7 +392,8 @@ function verifyOutputs(report) {
     check(existsSync(absolute), `${path} is missing; run npm run top100:useful-base-queue`);
     check(readFileSync(absolute, "utf8") === report[name], `${path} is stale; run npm run top100:useful-base-queue`);
   }
-  check(report.rows.length === 46, `expected 46 useful-base rows, found ${report.rows.length}`);
+  const expectedRows = readCsv(sources.chartUse).filter((row) => row.answer === "not-yet-user-ready").length;
+  check(report.rows.length === expectedRows, `expected ${expectedRows} useful-base rows, found ${report.rows.length}`);
   for (const row of report.rows) {
     for (const path of row.evidence.split(";").map((item) => item.trim()).filter(Boolean)) {
       check(existsSync(join(repoRoot, path)), `missing evidence path for ${row.chart}@${row.version}: ${path}`);

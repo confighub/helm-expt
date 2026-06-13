@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8.5.1.tgz"
-    sha256: "941195981b033cff6a6ef10ed35568cf67c6fae3cc0891c6f2e52d7d4857d736"
+    sha256: "83975cfa57b676362b21dc888072d70ae569ab4503ca2e72d170d8e5a19e2bd3"
   package:
     name: "elastic-logstash"
     path: "packages/elastic/logstash/8.5.1"
@@ -41,7 +41,7 @@ spec:
         bytes: 2350
       -
         path: "installer.yaml"
-        sha256: "9daf7a689fbf0e8261e30201805a282a291f2f1d775cb86ec2f276b892a59348"
+        sha256: "a0194aaa7dce14cdb14ffb2d49c4d75b205dd4667bc6605210e6a90c4a80b295"
         bytes: 827
     version: "8.5.1"
   setupChecks:
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 3
       semanticObjectMatches: "3/3"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 3
       semanticObjectMatches: "3/3"
       separatedSecretCount: 0
-      variant: "ha"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "ha"

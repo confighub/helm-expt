@@ -58,14 +58,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/autoscaler/cluster-autoscaler/9.57.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/default](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/default) | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
-| controller-default-reviewed | [recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml](variants/controller-default-reviewed/variant.yaml) | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed) | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml](revisions/controller-default-reviewed/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
+| controller-default-reviewed | [recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml](variants/controller-default-reviewed/variant.yaml) | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed) | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml](revisions/controller-default-reviewed/r001/variant-revision.yaml) | 8 | 9 | 8/8 | pass | warn | warn | required Value autoDiscovery.clusterName; required Value awsRegion |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/default](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/default) | yes | autoscaler/cluster-autoscaler default variant rendered from autoscaler/cluster-autoscaler@9.57.0 |
-| controller-default-reviewed | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed) | no | autoscaler/cluster-autoscaler controller-default-reviewed useful base; aliases the default render with a named user start path |
+| controller-default-reviewed | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed) | no | autoscaler/cluster-autoscaler controller-default-reviewed useful base rendered with AWS autodiscovery values |
 
 ## Receipts
 

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/kube-state-metrics/7.4.0 -o <tmp>/prometheus-community-kube-state-metrics-7-4-0.tgz"
-    sha256: "e6a9f9fe1fde85952eafafa6845ccf29ea88a9fe150072acc034213e2ba7a810"
+    sha256: "1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90"
   package:
     name: "prometheus-community-kube-state-metrics"
     path: "packages/prometheus-community/kube-state-metrics/7.4.0"
@@ -37,7 +37,7 @@ spec:
         bytes: 7739
       -
         path: "installer.yaml"
-        sha256: "3fc58411d011d30647d9110b21dfea5390f62adf91469daf2e8983f261fe9f4c"
+        sha256: "2f98880aa186d84a07de4133fef5802fce60c3884ac9025c37b1674929eddadd"
         bytes: 636
     version: "7.4.0"
   setupChecks:

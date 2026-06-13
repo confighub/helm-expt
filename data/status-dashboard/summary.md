@@ -34,10 +34,10 @@ Which detailed CSV should I open next?
 | top100 | fast-track promotion review packets | 3/3 | partial | [data/top100-promotion-wave/fast-track-reviews/review-packets.csv](../../data/top100-promotion-wave/fast-track-reviews/review-packets.csv) |
 | top100 | fast-track storage rollback reviews | 3/3 | partial | [data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv](../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv) |
 | top100 | top100 user-shaped variant queue | 35/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
-| top100 | useful-base proposal rows | 46 | partial | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
-| top100 | useful-base realized rows | 10/46 | partial | [data/useful-base-realization-wave/wave.csv](../../data/useful-base-realization-wave/wave.csv) |
+| top100 | useful-base proposal rows | 35 | partial | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
+| top100 | useful-base realized rows | 10/35 | partial | [data/useful-base-realization-wave/wave.csv](../../data/useful-base-realization-wave/wave.csv) |
 | top100 | useful-base proposal families | 7/7 | partial | [data/useful-base-design-queue/families.csv](../../data/useful-base-design-queue/families.csv) |
-| top100 | useful-base proposals not yet built | 35/46 | gap | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
+| top100 | useful-base proposals not yet built | 35/35 | gap | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
 | top100 | top100 limitation-decision queue | 8/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | top20 upstream update candidates | 7/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
@@ -54,11 +54,11 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 138/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 53/53 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 81/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 81/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 82/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 82/191 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 70/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 80/191 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | complete core lane rows | 81/191 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 38/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 0/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
@@ -70,11 +70,11 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 81/84 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 82/84 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 70/70 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 3/3 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 3/3 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 0/3 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 0/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/84 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/70 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -132,7 +132,7 @@ evidence work before it becomes production-supported for a target scope.
 | Use public catalog now | 20 | Open CATALOG.md and top20 base readiness; choose a base with the lane you need. |
 | Promote proof-grade charts | 37 | Run catalog promotion review, select realistic bases, and add selected live lanes. |
 | Fast-track low-residue promotion rows | 3 | Open the storage/rollback reviews, choose the target boundaries, complete any proof lanes listed in fast-track.csv, then record target-scoped support decisions. |
-| Design useful base variants | 46 | Build the proposed recipe/package bases, then rerun render parity and promotion review before treating them as catalog offers. |
+| Design useful base variants | 35 | Build the proposed recipe/package bases, then rerun render parity and promotion review before treating them as catalog offers. |
 | Resolve limitation decisions | 8 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
 
 ### Hard Proof Gap Work
@@ -185,7 +185,7 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 ### Active Proof Queue
 
@@ -195,7 +195,6 @@ needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
-| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | watch | render-input-model | [recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml](../../recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml) |
 | elastic/logstash@8.5.1 | ha | blocked | target-fit-review | [recipes/elastic/logstash/8.5.1/target-topology.yaml](../../recipes/elastic/logstash/8.5.1/target-topology.yaml) |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | target-fit-review | [recipes/hashicorp/consul/2.0.0/target-topology.yaml](../../recipes/hashicorp/consul/2.0.0/target-topology.yaml) |
 
@@ -356,8 +355,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 155 | 0 | 36 | 191 |
 | local live | 138 | 53 | 0 | 191 |
-| GitOps/OCI live | 81 | 2 | 108 | 191 |
-| live Helm-vs-ConfigHub parity | 81 | 3 | 107 | 191 |
+| GitOps/OCI live | 82 | 1 | 108 | 191 |
+| live Helm-vs-ConfigHub parity | 82 | 2 | 107 | 191 |
 | two-cluster kind parity | 70 | 0 | 0 | 70 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -384,12 +383,11 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
 | target-fit-review | 2 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
-| render-input-model | 1 | Model the required Helm values as a real base before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.
@@ -399,7 +397,6 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | target-fit: minimum schedulable nodes not met |
-| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | watch | render-input: required Helm values missing (parity passed) |
 | elastic/logstash@8.5.1 | ha | blocked | target-fit: minimum schedulable nodes not met |
 
 

@@ -12,6 +12,7 @@ spec:
     []
   notes:
     - "Machine proof exists; catalog support is not claimed until variant and product review are complete."
+    - "controller-default-reviewed is a realized useful-base alias of the default render; catalog support still requires ConfigHub proof, selected live evidence, and production disposition."
   productionReadiness: "not-reviewed-for-production"
   review:
     humanReviewRequired: true

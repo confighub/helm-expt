@@ -66,7 +66,7 @@ spec:
     path: "packages/prometheus-community/kube-state-metrics/7.4.0"
     installer: "packages/prometheus-community/kube-state-metrics/7.4.0/installer.yaml"
     receipt: "recipes/prometheus-community/kube-state-metrics/7.4.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e6a9f9fe1fde85952eafafa6845ccf29ea88a9fe150072acc034213e2ba7a810"
+    deterministicBundleSHA256: "1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/autoscaler/cluster-autoscaler/9.57.0 -o <tmp>/autoscaler-cluster-autoscaler-9-57-0.tgz"
-    sha256: "351121a8d10b6a6fa0ba0a81b1d5345038f25968c117c5ae4dc9c4e1a7474b8d"
+    sha256: "3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2"
   package:
     name: "autoscaler-cluster-autoscaler"
     path: "packages/autoscaler/cluster-autoscaler/9.57.0"
@@ -25,8 +25,8 @@ spec:
         bytes: 99
       -
         path: "bases/controller-default-reviewed/upstream.yaml"
-        sha256: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
-        bytes: 6270
+        sha256: "b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a"
+        bytes: 8249
       -
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -36,9 +36,13 @@ spec:
         sha256: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
         bytes: 6270
       -
+        path: "collector/target-facts.sh"
+        sha256: "263bc219f94fae2f5d00911b36a2f96d0cd0d261c0caf9e7d9b824b991461771"
+        bytes: 2443
+      -
         path: "installer.yaml"
-        sha256: "fc58e02f3abf561fda805f5bc99a2eadb95b3b62ea6527bfadd5ae0260c3ac28"
-        bytes: 607
+        sha256: "cf8d09096ab447c23438d375d5ef5d5e9f8bbca342dbb7d4c053c8f17bd651bd"
+        bytes: 768
     version: "9.57.0"
   setupChecks:
     -
@@ -51,13 +55,17 @@ spec:
       semanticObjectMatches: "7/7"
       separatedSecretCount: 0
       variant: "default"
+      targetFactMode: "not-required"
+      targetFactsBound: false
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
       base: "controller-default-reviewed"
       command: "cub installer setup --pull packages/autoscaler/cluster-autoscaler/9.57.0 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
-      cubInstallObjectCountIncludingSupport: 8
-      helmReleaseObjectCount: 7
-      semanticObjectMatches: "7/7"
+      cubInstallObjectCountIncludingSupport: 9
+      helmReleaseObjectCount: 8
+      semanticObjectMatches: "8/8"
       separatedSecretCount: 0
       variant: "controller-default-reviewed"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true

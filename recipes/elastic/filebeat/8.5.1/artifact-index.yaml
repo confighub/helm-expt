@@ -65,7 +65,7 @@ spec:
     path: "packages/elastic/filebeat/8.5.1"
     installer: "packages/elastic/filebeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "30587401053a7a2e7bd7ab87a13d4cae6e788d7ba69e09375afdc5df38421525"
+    deterministicBundleSHA256: "32748d9cac7d65bcf6929d943932f65f6861c8e6aab63ffb7824c43b89da669c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

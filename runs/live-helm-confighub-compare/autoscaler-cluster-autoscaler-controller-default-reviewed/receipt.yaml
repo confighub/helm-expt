@@ -6,8 +6,8 @@ spec:
   chart: autoscaler/cluster-autoscaler
   version: 9.57.0
   base: controller-default-reviewed
-  result: watch
-  observedAt: '2026-06-13T10:21:37Z'
+  result: pass
+  observedAt: '2026-06-13T11:54:39Z'
   package:
     path: packages/autoscaler/cluster-autoscaler/9.57.0
   recipe:
@@ -22,8 +22,8 @@ spec:
     result: pass
     changes: []
   run:
-    rig: helm-expt-parity-clusterautoscaler-mqc7h1op-ise
-    kubeContext: kind-helm-expt-parity-clusterautoscaler-mqc7h1op-ise
+    rig: helm-expt-parity-clusterautoscaler-mqcasosi-151d
+    kubeContext: kind-helm-expt-parity-clusterautoscaler-mqcasosi-151d
     namespace: default
     legNamespaces:
       regularHelm: default-helm
@@ -31,59 +31,63 @@ spec:
       configHubOciArgo: default-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-clusterautoscaler-mqc7h1op-ise
+      command: cub lk down --name helm-expt-parity-clusterautoscaler-mqcasosi-151d
         --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-clusterautoscaler-mqc7h1op-ise"...
+      detail: 'Deleting kind cluster "helm-expt-parity-clusterautoscaler-mqcasosi-151d"...
 
-        Deleting cluster "helm-expt-parity-clusterautoscaler-mqc7h1op-ise" ...
+        Deleting cluster "helm-expt-parity-clusterautoscaler-mqcasosi-151d" ...
 
-        Deleted nodes: ["helm-expt-parity-clusterautoscaler-mqc7h1op-ise-control-plane"]
+        Deleted nodes: ["helm-expt-parity-clusterautoscaler-mqcasosi-151d-control-plane"]
 
-        Deleting Space "helm-expt-parity-clusterautoscaler-mqc7h1op-ise-cluster" (recursive:
-        cascades to Unit, Target, Worker)...
+        Deleting Space "helm-expt-parity-clusterautoscaler-mqcasosi-151d-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
 
 
         Done.'
   legs:
     regularHelm:
-      result: watch
+      result: pass
       command: helm upgrade --install cluster-autoscaler cluster-autoscaler --repo
         https://kubernetes.github.io/autoscaler --version 9.57.0 --namespace default-helm
         --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/regular-helm-values.yaml
         --wait --timeout 8m
-      manifestSHA256: 9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446
-      objectCount: 7
-      liveHelmManifestSHA256: 604d28a56ccd52e59bf83583c27f814bb513ae6485c97e7ee391abe06f504137
-      liveHelmManifestObjectCount: 7
+      manifestSHA256: b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a
+      objectCount: 8
+      liveHelmManifestSHA256: a29c3308a03ba7d2264a298cea71c622411dc4014b5e8a855c6abff2b6fa9840
+      liveHelmManifestObjectCount: 8
       namespace: default-helm
       runtime:
-        result: watch
-        workloads: ''
-        pods: ''
+        result: pass
+        workloads: deployment.apps/cluster-autoscaler-aws-cluster-autoscaler   1/1   1     1     12s
+        pods: cluster-autoscaler-aws-cluster-autoscaler-78f57c68c-x6twr   1/1   Running   0     12s
         notReady: []
         ignoredJobPods: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
-      result: watch
+      result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/cluster-autoscaler/9.57.0
-        --base controller-default-reviewed --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-clusterautoscaler-mqc7h1op-ise-cluster-autoscaler
+        --base controller-default-reviewed --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-clusterautoscaler-mqcasosi-151d-cluster-autoscaler
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
-      manifestSHA256: f716c030a94ae208d3cdcb1ce398848a60b23b061fef3c1ab8d13a314b084143
-      objectCount: 8
+      manifestSHA256: 3767777cda8a276ce652426bf5e75c854732f336d43fb9a836af28cb0da211dd
+      objectCount: 9
       namespace: default-apply
       manifestNamespaces:
       - default
       - default-apply
       runtimeNamespaces: &id001
-      - default-apply
+      - default
       runtime:
-        result: watch
+        result: pass
         namespaces: *id001
-        workloads: '# default-apply'
-        pods: '# default-apply'
+        workloads: '# default
+
+          deployment.apps/cluster-autoscaler-aws-cluster-autoscaler   1/1   1     1     10s'
+        pods: '# default
+
+          cluster-autoscaler-aws-cluster-autoscaler-6b658f79fd-sjllh   1/1   Running   0     10s'
         notReady: []
       cleanupBeforeOci:
         namespaces:
@@ -104,6 +108,7 @@ spec:
           - default
           objectCount: 0
           preservedPreExistingObjects:
+          - apps/v1|Deployment|default|cluster-autoscaler-aws-cluster-autoscaler
           - policy/v1|PodDisruptionBudget|default|cluster-autoscaler-aws-cluster-autoscaler
           - rbac.authorization.k8s.io/v1|RoleBinding|default|cluster-autoscaler-aws-cluster-autoscaler
           - rbac.authorization.k8s.io/v1|Role|default|cluster-autoscaler-aws-cluster-autoscaler
@@ -112,19 +117,19 @@ spec:
         reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
           parity rigs
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-clusterautoscaler-mqc7h1op-ise-cluster-autoscaler
+      result: pass
+      workloadSpace: helm-expt-parity-clusterautoscaler-mqcasosi-151d-cluster-autoscaler
       controller: Argo CD OCI
       app: cluster-autoscaler-parity
-      manifestSHA256: f9a9d22c7ce1f32175e0be984dc558520bdcb57bbcf98e0fb39e1978c66a355d
-      objectCount: 8
+      manifestSHA256: 3ecf2e76941c7bea5f61532ace9c38b7b9787fb830f536bea28fbf33b497ec2b
+      objectCount: 9
       namespace: default-oci
       manifestNamespaces:
       - default
       - default-oci
       runtimeNamespaces: &id002
-      - default-oci
-      ociRevision: sha256:ba560f3c725d0688f0ecd116df4d22b36457e9c1bf268753be8fda560ec98418
+      - default
+      ociRevision: sha256:d7866854f3de36ed25d7b526afc3f29aaec9c336fee9a913b8c91b18d5e727d9
       sync: Synced
       health: Healthy
       separatedSecrets: []
@@ -136,13 +141,13 @@ spec:
               namespace: default-oci
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-clusterautoscaler-mqc7h1op-ise-cluster-autoscaler
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-clusterautoscaler-mqc7h1op-ise-cluster/oci
+              path: ./helm-expt-parity-clusterautoscaler-mqcasosi-151d-cluster-autoscaler
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-clusterautoscaler-mqcasosi-151d-cluster/oci
               targetRevision: latest
-          revision: sha256:ba560f3c725d0688f0ecd116df4d22b36457e9c1bf268753be8fda560ec98418
+          revision: sha256:d7866854f3de36ed25d7b526afc3f29aaec9c336fee9a913b8c91b18d5e727d9
           status: Synced
         health:
-          lastTransitionTime: '2026-06-13T10:32:07Z'
+          lastTransitionTime: '2026-06-13T11:58:08Z'
           status: Healthy
         operationState:
           phase: Succeeded
@@ -165,6 +170,13 @@ spec:
           hook: false
         - group: ''
           kind: ServiceAccount
+          namespace: default
+          name: cluster-autoscaler-aws-cluster-autoscaler
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
           namespace: default
           name: cluster-autoscaler-aws-cluster-autoscaler
           status: Synced
@@ -213,13 +225,13 @@ spec:
               namespace: argocd
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-clusterautoscaler-mqc7h1op-ise-cluster
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-clusterautoscaler-mqc7h1op-ise-cluster/oci
+              path: ./helm-expt-parity-clusterautoscaler-mqcasosi-151d-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-clusterautoscaler-mqcasosi-151d-cluster/oci
               targetRevision: latest
-          revision: sha256:ba560f3c725d0688f0ecd116df4d22b36457e9c1bf268753be8fda560ec98418
+          revision: sha256:d7866854f3de36ed25d7b526afc3f29aaec9c336fee9a913b8c91b18d5e727d9
           status: Synced
         health:
-          lastTransitionTime: '2026-06-13T10:23:16Z'
+          lastTransitionTime: '2026-06-13T11:56:13Z'
           status: Healthy
         operationState:
           phase: Succeeded
@@ -236,15 +248,20 @@ spec:
         - group: argoproj.io
           kind: Application
           namespace: argocd
-          name: helm-expt-parity-clusterautoscaler-mqc7h1op-ise-cluster
+          name: helm-expt-parity-clusterautoscaler-mqcasosi-151d-cluster
           status: Synced
           health: ''
           hook: false
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
-        workloads: '# default-oci'
-        pods: '# default-oci'
+        workloads: '# default
+
+          deployment.apps/cluster-autoscaler-aws-cluster-autoscaler   1/1   1     1     107s'
+        pods: '# default
+
+          cluster-autoscaler-aws-cluster-autoscaler-6b658f79fd-sjllh   1/1   Running   4
+          (54s ago)   107s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -253,8 +270,8 @@ spec:
     - prune-null-fields
     helmVsConfigHubKubectlApply:
       result: pass
-      helmObjectCount: 7
-      configHubObjectCount: 8
+      helmObjectCount: 8
+      configHubObjectCount: 9
       missingFromConfigHub: []
       extraInConfigHub:
       - v1|Namespace||default
@@ -263,8 +280,8 @@ spec:
       comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
     helmVsConfigHubOciArgo:
       result: pass
-      helmObjectCount: 7
-      configHubObjectCount: 8
+      helmObjectCount: 8
+      configHubObjectCount: 9
       missingFromConfigHub: []
       extraInConfigHub:
       - v1|Namespace||default
@@ -278,40 +295,39 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-clusterautoscaler-mqc7h1op-ise\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-clusterautoscaler-mqc7h1op-ise.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-clusterautoscaler-mqc7h1op-ise\" ...\n \u2022\
-      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
-      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
-      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+    detail: "Creating kind cluster \"helm-expt-parity-clusterautoscaler-mqcasosi-151d\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-clusterautoscaler-mqcasosi-151d.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-clusterautoscaler-mqcasosi-151d\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
       \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
       \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
       \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-clusterautoscaler-mqc7h1op-ise\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-clusterautoscaler-mqc7h1op-ise\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-clusterautoscaler-mqc7h1op-ise.kubeconfig\n\
-      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
-      \ \"argocd\""
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-clusterautoscaler-mqcasosi-151d\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-clusterautoscaler-mqcasosi-151d\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-clusterautoscaler-mqcasosi-151d.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\""
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=0 crds=0
   - name: regular-helm-live
-    result: watch
+    result: pass
     detail: "Release \"cluster-autoscaler\" does not exist. Installing it now.\nNAME:\
-      \ cluster-autoscaler\nLAST DEPLOYED: Sat Jun 13 11:23:08 2026\nNAMESPACE: default-helm\n\
+      \ cluster-autoscaler\nLAST DEPLOYED: Sat Jun 13 12:56:07 2026\nNAMESPACE: default-helm\n\
       STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
-      NOTES:\n##############################################################################\n\
-      ####   ERROR: You must specify values for either                          ####\n\
-      ####   autoDiscovery or autoscalingGroups[]                   ####\n##############################################################################\n\
-      \nThe deployment and pod will not be created and the installation is not functional\n\
-      See README:\n  open https://github.com/kubernetes/autoscaler/tree/master/charts/cluster-autoscaler"
+      NOTES:\nTo verify that cluster-autoscaler has started, run:\n\n  kubectl --namespace=default-helm\
+      \ get pods -l \"app.kubernetes.io/name=aws-cluster-autoscaler,app.kubernetes.io/instance=cluster-autoscaler\""
   - name: target-facts-confighub-apply
     result: pass
     detail: secrets=0 crds=0
   - name: confighub-kubectl-apply-live
-    result: watch
-    detail: '# default-apply'
+    result: pass
+    detail: '# default
+
+      deployment.apps/cluster-autoscaler-aws-cluster-autoscaler   1/1   1     1     10s'
   - name: confighub-kubectl-apply-cluster-cleanup
     result: pass
     detail: objects=2
@@ -319,8 +335,8 @@ spec:
     result: pass
     detail: secrets=0 crds=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=Synced health=Healthy after 20s
+    result: pass
+    detail: sync=Synced health=Healthy after 50s
   - name: semantic-object-parity
     result: pass
     detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0

@@ -62,7 +62,7 @@ spec:
     path: "packages/istio/gateway/1.30.0"
     installer: "packages/istio/gateway/1.30.0/installer.yaml"
     receipt: "recipes/istio/gateway/1.30.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "42db618bfad3b83002abc50d06a2950526e0bf548bca689fc41a8be1a3bd948f"
+    deterministicBundleSHA256: "2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

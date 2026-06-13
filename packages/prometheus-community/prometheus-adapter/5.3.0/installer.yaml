@@ -11,7 +11,7 @@ spec:
       name: "default"
       path: "bases/default"
     -
-      name: "cluster-metrics-readonly"
-      path: "bases/cluster-metrics-readonly"
       default: false
       description: "prometheus-community/prometheus-adapter cluster-metrics-readonly useful base; aliases the default render with a named user start path"
+      name: "cluster-metrics-readonly"
+      path: "bases/cluster-metrics-readonly"

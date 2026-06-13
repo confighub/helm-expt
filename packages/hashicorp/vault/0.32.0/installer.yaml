@@ -16,13 +16,13 @@ spec:
       path: "bases/default"
     -
       description: "vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0"
-      name: "ha-raft-ui"
-      path: "bases/ha-raft-ui"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "minimum schedulable nodes 3"
           suggestedSource: "use a target with at least 3 schedulable nodes before applying this base"
+      name: "ha-raft-ui"
+      path: "bases/ha-raft-ui"
   collector:
     command: "/bin/sh"
     args:

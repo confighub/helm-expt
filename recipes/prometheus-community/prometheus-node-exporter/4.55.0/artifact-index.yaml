@@ -65,7 +65,7 @@ spec:
     path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
     installer: "packages/prometheus-community/prometheus-node-exporter/4.55.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "14c57b88bbc3dfbb2650dabcc649f11b66d4a6a56a00c7977ab216ed5bf787c7"
+    deterministicBundleSHA256: "dcf073fe43c5d7fab615c8034f52a6616902a458ad9c1f6379ae054db24ac288"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

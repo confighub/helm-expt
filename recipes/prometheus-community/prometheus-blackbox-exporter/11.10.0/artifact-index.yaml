@@ -64,7 +64,7 @@ spec:
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
     installer: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c79ccb65a4813be3c4eecc663fd8d9b1dce4567f220ce9a13f32dfcdc42e1620"
+    deterministicBundleSHA256: "3eb5efd08840b14d24050f793f65e86ea13fbf6ef09986298f9f76e2c142e040"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

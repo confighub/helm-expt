@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed"
+  labels:
+    confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
+    confighub.io/chart-version: "9.57.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+spec:
+  files:
+    -
+      path: "effective-values-controller-default-reviewed.yaml"
+      source: "useful-base-rerender"
+      sha256: "c675f5567859987c7e12f0c4121ca2a6fe3f053ca5e9ecefd6bb8ade5cf43f6c"
+  mergedValuesCaptured: false
+  values:
+    autoDiscovery:
+      clusterName: "kind"
+    awsRegion: "us-east-1"

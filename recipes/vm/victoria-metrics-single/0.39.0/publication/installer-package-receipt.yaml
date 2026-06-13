@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/vm/victoria-metrics-single/0.39.0 -o <tmp>/vm-victoria-metrics-single-0-39-0.tgz"
-    sha256: "add593b97e4b0ad37c7b474f749158ac42ef9f2658ae1aac3f417b206e7274e3"
+    sha256: "15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946"
   package:
     name: "vm-victoria-metrics-single"
     path: "packages/vm/victoria-metrics-single/0.39.0"
@@ -37,7 +37,7 @@ spec:
         bytes: 3466
       -
         path: "installer.yaml"
-        sha256: "f14a80edd6d381c7eff0338869a43670feb7930ba8c3d092a0b0a21fbc4df4bd"
+        sha256: "6b86d8f7553da1430ec824b5fed42f18f6548f93ee04123f9b10ed6877c781ce"
         bytes: 562
     version: "0.39.0"
   setupChecks:

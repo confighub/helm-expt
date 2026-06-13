@@ -5,16 +5,26 @@ metadata:
 spec:
   checkedValues:
     -
-      path: "<chart defaults>"
-      variant: "default"
       disposition: "default-render-captured"
+      path: "<chart defaults>"
       reason: "default chart values are bound by source-lock.yaml and effective-values.yaml; rendered objects are digest-bound in the revision receipts"
-  sourceFeatureSignals:
-    usesLookup: false
-    usesGeneratedFacts: false
-    usesCapabilities: true
-    usesTpl: true
-    hasExtensionSlots: true
-  unknownValues: "not-exhaustively-checked-in-next80-lane"
+      variant: "default"
+    -
+      path: "autoDiscovery.clusterName"
+      variant: "controller-default-reviewed"
+      disposition: "required-render-input-modeled"
+      reason: "controller-default-reviewed is a values-profile rerender; this Helm value is pinned in effective-values-controller-default-reviewed.yaml and digest-bound by the variant revision."
+    -
+      path: "awsRegion"
+      variant: "controller-default-reviewed"
+      disposition: "required-render-input-modeled"
+      reason: "controller-default-reviewed is a values-profile rerender; this Helm value is pinned in effective-values-controller-default-reviewed.yaml and digest-bound by the variant revision."
   deadValues: "not-exhaustively-checked-in-next80-lane"
   ignoredValues: "not-exhaustively-checked-in-next80-lane"
+  sourceFeatureSignals:
+    hasExtensionSlots: true
+    usesCapabilities: true
+    usesGeneratedFacts: false
+    usesLookup: false
+    usesTpl: true
+  unknownValues: "not-exhaustively-checked-in-next80-lane"

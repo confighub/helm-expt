@@ -11,7 +11,7 @@ spec:
       name: "default"
       path: "bases/default"
     -
-      name: "node-or-cluster-collector"
-      path: "bases/node-or-cluster-collector"
       default: false
       description: "elastic/filebeat node-or-cluster-collector useful base; aliases the default render with a named user start path"
+      name: "node-or-cluster-collector"
+      path: "bases/node-or-cluster-collector"

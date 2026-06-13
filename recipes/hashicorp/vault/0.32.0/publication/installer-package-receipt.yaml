@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/hashicorp/vault/0.32.0 -o <tmp>/vault-0.32.0.tgz"
-    sha256: "fefda66caf61931a51fcb81ccc432b844e33975cfeff490dd08901f97f964beb"
+    sha256: "bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654"
   package:
     name: "hashicorp-vault"
     path: "packages/hashicorp/vault/0.32.0"
@@ -49,7 +49,7 @@ spec:
         bytes: 2248
       -
         path: "installer.yaml"
-        sha256: "4ecf7fc53e4430333b2f47b1bb07ac2065a9fd211794ebb8a76bf65c39deae6f"
+        sha256: "4e2946b1e62037472450274df0a57f0815dee70315158c0639605b2766efcc17"
         bytes: 1016
     version: "0.32.0"
   setupChecks:

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-node-exporter/4.55.0 -o <tmp>/prometheus-community-prometheus-node-exporter-4-55-0.tgz"
-    sha256: "14c57b88bbc3dfbb2650dabcc649f11b66d4a6a56a00c7977ab216ed5bf787c7"
+    sha256: "dcf073fe43c5d7fab615c8034f52a6616902a458ad9c1f6379ae054db24ac288"
   package:
     name: "prometheus-community-prometheus-node-exporter"
     path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
@@ -41,8 +41,8 @@ spec:
         bytes: 2674
       -
         path: "installer.yaml"
-        sha256: "16c63c2dd67d47c9462b9a19936b184846a0405e2915a3feee430a4e545511f6"
-        bytes: 996
+        sha256: "c1d07262ce26e22a128f85bb35554c8ca4834f6ca17186c0eb64a83f0339512c"
+        bytes: 1017
     version: "4.55.0"
   setupChecks:
     -
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 4
       semanticObjectMatches: "4/4"
       separatedSecretCount: 0
+      variant: "cluster-metrics-readonly"
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      variant: "cluster-metrics-readonly"

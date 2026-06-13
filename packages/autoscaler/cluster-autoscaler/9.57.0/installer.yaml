@@ -11,7 +11,12 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      default: false
+      description: "autoscaler/cluster-autoscaler controller-default-reviewed useful base rendered with AWS autodiscovery values"
       name: "controller-default-reviewed"
       path: "bases/controller-default-reviewed"
-      default: false
-      description: "autoscaler/cluster-autoscaler controller-default-reviewed useful base; aliases the default render with a named user start path"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

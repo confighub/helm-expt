@@ -1,25 +1,26 @@
-apiVersion: helm-expt.confighub.com/v1alpha1
-kind: CatalogStatus
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "CatalogStatus"
 metadata:
   name: "autoscaler-cluster-autoscaler-9.57.0"
 spec:
+  candidateVariants:
+    - "default"
+    - "controller-default-reviewed"
   chart: "autoscaler/cluster-autoscaler"
-  version: "9.57.0"
+  deferredVariants:
+    []
+  notes:
+    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."
+    - "controller-default-reviewed is a values-profile rerender that changes Helm inputs; catalog support still requires selected live evidence and production disposition."
+  productionReadiness: "not-reviewed-for-production"
+  review:
+    humanReviewRequired: true
+    lastReviewed: "2026-05-27"
+    productReviewRequired: true
   status: "proof-grade"
   supportLevel: "machine-proof-only"
   supportedScopes:
     []
-  productionReadiness: "not-reviewed-for-production"
   supportedVariants:
     []
-  candidateVariants:
-    - "default"
-    - "controller-default-reviewed"
-  deferredVariants: []
-  review:
-    lastReviewed: "2026-05-27"
-    humanReviewRequired: true
-    productReviewRequired: true
-  notes:
-    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."
-    - "controller-default-reviewed is a realized useful-base alias of the default render, but strict live parity shows this alias base has object parity but no controller workload. The chart requires autoDiscovery.clusterName or autoscalingGroups[] before it becomes a functional install."
+  version: "9.57.0"

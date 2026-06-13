@@ -26,27 +26,27 @@ const outputPaths = {
 };
 
 const wave = [
-  usefulBase("prometheus-community/kube-state-metrics", "7.4.0", "cluster-metrics-readonly"),
-  usefulBase("prometheus-community/prometheus-blackbox-exporter", "11.10.0", "cluster-metrics-readonly"),
-  usefulBase("prometheus-community/prometheus-adapter", "5.3.0", "cluster-metrics-readonly"),
-  usefulBase("stakater/reloader", "2.2.12", "controller-default-reviewed"),
-  usefulBase("autoscaler/cluster-autoscaler", "9.57.0", "controller-default-reviewed"),
-  usefulBase("argo-cd/argo-workflows", "1.0.14", "controller-default-reviewed"),
-  usefulBase("elastic/filebeat", "8.5.1", "node-or-cluster-collector"),
-  usefulBase("istio/gateway", "1.30.0", "controller-default-reviewed"),
-  usefulBase("nats/surveyor", "0.20.9", "default-reviewed"),
-  usefulBase("vm/victoria-metrics-single", "0.39.0", "default-reviewed"),
+  monitoringBase("prometheus-community/kube-state-metrics", "7.4.0"),
+  monitoringBase("prometheus-community/prometheus-blackbox-exporter", "11.10.0"),
+  monitoringBase("prometheus-community/prometheus-adapter", "5.3.0"),
+  controllerBase("stakater/reloader", "2.2.12"),
+  controllerBase("autoscaler/cluster-autoscaler", "9.57.0"),
+  controllerBase("argo-cd/argo-workflows", "1.0.14"),
+  collectorBase("elastic/filebeat", "8.5.1"),
+  controllerBase("istio/gateway", "1.30.0"),
+  defaultReviewedBase("nats/surveyor", "0.20.9"),
+  defaultReviewedBase("vm/victoria-metrics-single", "0.39.0"),
 ];
 
 const liveFindings = new Map([
   [keyFor("autoscaler/cluster-autoscaler", "9.57.0", "controller-default-reviewed"), {
-    status: "realized-alias-base-watch-required-values",
-    remainingBeforeCatalog:
-      "required render-time values: autoDiscovery.clusterName or autoscalingGroups[]; re-render as a non-alias base; ConfigHub proof lane; selected live lane; production disposition",
+    status: "realized-values-profile-rerender",
+    realizationStrategy: "values-profile-rerender",
+    remainingBeforeCatalog: "production disposition",
     proofNote:
-      "Strict live parity reached semantic object parity, but Helm rendered no controller workload and printed that autoDiscovery or autoscalingGroups[] must be set. This alias base is not a functional controller install until those values are modeled and re-rendered.",
+      "The earlier alias proved semantic parity but rendered no controller workload. This base is now re-rendered with autoDiscovery.clusterName and awsRegion pinned, and strict live parity passed regular Helm, ConfigHub apply, and ConfigHub OCI/Argo.",
     note:
-      "Strict live parity shows this alias base has object parity but no controller workload. The chart requires autoDiscovery.clusterName or autoscalingGroups[] before it becomes a functional install.",
+      "controller-default-reviewed is a values-profile rerender with autoDiscovery.clusterName and awsRegion modeled as render-time inputs.",
   }],
 ]);
 
@@ -73,7 +73,10 @@ const report = {
 };
 
 if (generate) {
-  for (const item of wave) realizeUsefulBase(item);
+  for (const item of wave) {
+    if (realizationStrategyFor(item) === "values-profile-rerender") continue;
+    realizeUsefulBase(item);
+  }
   write(join(repoRoot, outputPaths.wave), report.wave);
   write(join(repoRoot, outputPaths.summary), report.summary);
   console.log(`wrote useful base realization wave for ${wave.length} chart(s)`);
@@ -84,14 +87,71 @@ if (generate) {
   console.log(`verified useful base realization wave for ${wave.length} chart(s)`);
 }
 
-function usefulBase(chart, version, base) {
-  return { chart, version, base };
+function monitoringBase(chart, version) {
+  return {
+    chart,
+    version,
+    base: "cluster-metrics-readonly",
+    userJob: "collect or expose cluster metrics without changing application workloads",
+    renderTimeChoices: [
+      "service exposure",
+      "RBAC scope",
+      "persistence if the chart stores state",
+      "CRD ownership if present",
+    ],
+  };
+}
+
+function controllerBase(chart, version) {
+  return {
+    chart,
+    version,
+    base: "controller-default-reviewed",
+    userJob: "install a cluster controller with explicit CRD, RBAC, and lifecycle boundaries",
+    renderTimeChoices: [
+      "CRD ownership",
+      "admission/webhook behavior",
+      "RBAC scope",
+      "leader-election or HA flags",
+      "required values",
+    ],
+  };
+}
+
+function collectorBase(chart, version) {
+  return {
+    chart,
+    version,
+    base: "node-or-cluster-collector",
+    userJob: "run an observability collector or security agent with explicit output destinations",
+    renderTimeChoices: [
+      "DaemonSet versus Deployment shape",
+      "destination Secret or endpoint",
+      "RBAC scope",
+      "persistence if present",
+    ],
+  };
+}
+
+function defaultReviewedBase(chart, version) {
+  return {
+    chart,
+    version,
+    base: "default-reviewed",
+    userJob: "turn the default render into a named, reviewed install shape",
+    renderTimeChoices: [
+      "required values",
+      "Secret policy",
+      "Service/Ingress shape",
+      "storage if present",
+    ],
+  };
 }
 
 function buildRow(item) {
   const queueRow = queueByKey.get(keyFor(item.chart, item.version, item.base));
   const liveFinding = liveFindings.get(keyFor(item.chart, item.version, item.base));
-  check(Boolean(queueRow), `useful base queue missing ${item.chart}@${item.version} ${item.base}`);
+  check(Boolean(queueRow) || Boolean(item.userJob), `useful base metadata missing ${item.chart}@${item.version} ${item.base}`);
   const recipeRoot = recipeRootFor(item);
   const packageRoot = packageRootFor(item);
   return {
@@ -99,12 +159,12 @@ function buildRow(item) {
     version: item.version,
     base: item.base,
     status: liveFinding?.status ?? "realized-alias-base",
-    realization_strategy: "alias-of-default-render",
+    realization_strategy: realizationStrategyFor(item),
     source_base: "default",
     rendered_object_set: existsSync(join(recipeRoot, "revisions", item.base, "r001", "rendered", "release-objects.yaml"))
       ? sha256File(join(recipeRoot, "revisions", item.base, "r001", "rendered", "release-objects.yaml"))
       : "",
-    user_job: queueRow.user_job,
+    user_job: queueRow?.user_job ?? item.userJob,
     remaining_before_catalog: liveFinding?.remainingBeforeCatalog ?? "ConfigHub proof lane; selected live lane; production disposition",
     recipe_variant: relativeRepo(join(recipeRoot, "variants", item.base, "variant.yaml")),
     package_base: relativeRepo(join(packageRoot, "bases", item.base)),
@@ -114,6 +174,7 @@ function buildRow(item) {
 }
 
 function realizeUsefulBase(item) {
+  check(realizationStrategyFor(item) === "alias-of-default-render", `${item.chart} ${item.base} is not an alias base`);
   const recipeRoot = recipeRootFor(item);
   const packageRoot = packageRootFor(item);
   const defaultBaseRoot = join(packageRoot, "bases", "default");
@@ -161,8 +222,8 @@ function writeVariant(item) {
         {
           realizationStrategy: "alias-of-default-render",
           sourceBase: "default",
-          userJob: queueRow.user_job,
-          renderTimeChoices: splitList(queueRow.render_time_choices),
+          userJob: queueRow?.user_job ?? item.userJob,
+          renderTimeChoices: queueRow ? splitList(queueRow.render_time_choices) : item.renderTimeChoices,
           remainingBeforeCatalog: [
             ...(liveFinding
               ? [
@@ -343,6 +404,10 @@ function updatePackageReceipt(item) {
 }
 
 function verifyUsefulBase(item) {
+  if (realizationStrategyFor(item) === "values-profile-rerender") {
+    verifyValuesProfileRerender(item);
+    return;
+  }
   const recipeRoot = recipeRootFor(item);
   const packageRoot = packageRootFor(item);
   const recipe = readYaml(join(recipeRoot, "recipe.yaml"));
@@ -372,6 +437,58 @@ function verifyUsefulBase(item) {
   check(revision.spec?.digestInputs?.variantSHA256 === sha256File(variantPath), `${item.chart} ${item.base} variant digest mismatch`);
   check(revision.spec?.digestInputs?.renderedObjectSetSHA256 === sha256File(aliasRelease), `${item.chart} ${item.base} rendered digest mismatch`);
   check(receipt.spec?.setupChecks?.some((setup) => setup.variant === item.base), `${item.chart} package receipt missing setup check for ${item.base}`);
+  for (const file of receipt.spec?.package?.sourceFiles ?? []) {
+    const actual = join(packageRoot, file.path);
+    check(existsSync(actual), `${item.chart} package receipt references missing ${file.path}`);
+    check(sha256File(actual) === file.sha256, `${item.chart} package source SHA mismatch for ${file.path}`);
+  }
+  check(
+    receipt.spec?.deterministicBundle?.sha256 === deterministicBundleSHA(packageRoot, item),
+    `${item.chart} deterministic package bundle SHA mismatch`,
+  );
+}
+
+function verifyValuesProfileRerender(item) {
+  const recipeRoot = recipeRootFor(item);
+  const packageRoot = packageRootFor(item);
+  const recipe = readYaml(join(recipeRoot, "recipe.yaml"));
+  const installer = readYaml(join(packageRoot, "installer.yaml"));
+  const catalogStatus = readYaml(join(recipeRoot, "catalog-status.yaml"));
+  const receipt = readYaml(join(recipeRoot, "publication", "installer-package-receipt.yaml"));
+  const variantPath = join(recipeRoot, "variants", item.base, "variant.yaml");
+  const revisionRoot = join(recipeRoot, "revisions", item.base, "r001");
+  const releasePath = join(revisionRoot, "rendered", "release-objects.yaml");
+  const baseUpstream = join(packageRoot, "bases", item.base, "upstream.yaml");
+  const variant = readYaml(variantPath);
+  const revision = readYaml(join(revisionRoot, "variant-revision.yaml"));
+  const inventory = readYaml(join(revisionRoot, "rendered", "object-inventory.yaml"));
+  const liveReceiptPath = join(
+    repoRoot,
+    "runs",
+    "live-helm-confighub-compare",
+    `${item.chart.replaceAll("/", "-")}-${item.base}`,
+    "receipt.yaml",
+  );
+  const liveReceipt = readYaml(liveReceiptPath);
+
+  check(recipe.spec?.variants?.includes(`variants/${item.base}/variant.yaml`), `${item.chart} recipe missing ${item.base}`);
+  check(installer.spec?.bases?.some((base) => base.name === item.base), `${item.chart} installer missing base ${item.base}`);
+  check(catalogStatus.spec?.candidateVariants?.includes(item.base), `${item.chart} catalog status missing candidate ${item.base}`);
+  check(existsSync(variantPath), `${item.chart} missing variant file ${item.base}`);
+  check(existsSync(join(packageRoot, "bases", item.base, "upstream.yaml")), `${item.chart} missing package base upstream ${item.base}`);
+  check(readFileSync(baseUpstream, "utf8") === readFileSync(releasePath, "utf8"), `${item.chart} ${item.base} package base must match rendered objects`);
+  check(variant.spec?.usefulBase?.realizationStrategy === "values-profile-rerender", `${item.chart} ${item.base} missing rerender metadata`);
+  check(variant.spec?.valuesProfile === `../../effective-values-${item.base}.yaml`, `${item.chart} ${item.base} missing values profile`);
+  check(existsSync(join(recipeRoot, `effective-values-${item.base}.yaml`)), `${item.chart} ${item.base} missing effective values profile`);
+  check((variant.spec?.targetFacts?.requiredValues ?? []).length > 0, `${item.chart} ${item.base} missing required render values`);
+  check(
+    (variant.spec?.usefulBase?.addedObjects ?? []).every((identity) => (inventory.spec?.objects ?? []).some((object) => object.identity === identity)),
+    `${item.chart} ${item.base} missing expected added object in inventory`,
+  );
+  check(revision.spec?.digestInputs?.variantSHA256 === sha256File(variantPath), `${item.chart} ${item.base} variant digest mismatch`);
+  check(revision.spec?.digestInputs?.renderedObjectSetSHA256 === sha256File(releasePath), `${item.chart} ${item.base} rendered digest mismatch`);
+  check(receipt.spec?.setupChecks?.some((setup) => setup.variant === item.base), `${item.chart} package receipt missing setup check for ${item.base}`);
+  check(liveReceipt.spec?.result === "pass", `${item.chart} ${item.base} live parity receipt is not pass`);
   for (const file of receipt.spec?.package?.sourceFiles ?? []) {
     const actual = join(packageRoot, file.path);
     check(existsSync(actual), `${item.chart} package receipt references missing ${file.path}`);
@@ -421,6 +538,10 @@ function keyFor(chart, version, base) {
   return `${chart}@${version}#${base}`;
 }
 
+function realizationStrategyFor(item) {
+  return liveFindings.get(keyFor(item.chart, item.version, item.base))?.realizationStrategy ?? "alias-of-default-render";
+}
+
 function splitList(value) {
   return String(value ?? "")
     .split(";")
@@ -446,10 +567,12 @@ function summary(rows) {
 Generated. Do not edit by hand.
 
 This wave turns selected useful-base proposals into real recipe variants and
-\`cub installer\` package bases. Every row in this first wave is an
+\`cub installer\` package bases. Most rows in this first wave are
 \`alias-of-default-render\`: the Kubernetes object set is intentionally identical
-to the already-proved default render, but users now get a named start path that
-matches the job they are trying to do.
+to the already-proved default render, but users get a named start path that
+matches the job they are trying to do. Rows marked
+\`values-profile-rerender\` change Helm inputs and carry their own rendered
+object set.
 
 These rows are not production-supported catalog offers yet. They still need the
 ConfigHub proof lane, selected live evidence, and production disposition before
@@ -459,7 +582,8 @@ they can be promoted.
 
 ~~~text
 realized bases: ${rows.length}
-strategy: alias-of-default-render
+alias bases: ${rows.filter((row) => row.realization_strategy === "alias-of-default-render").length}
+values-profile rerenders: ${rows.filter((row) => row.realization_strategy === "values-profile-rerender").length}
 remaining status: candidate base, not production support
 ~~~
 
@@ -472,9 +596,12 @@ ${tableRows}
 ## Reading Rule
 
 - Use these bases as clearer start paths, not as production guarantees.
-- The rendered YAML matches the default render by design.
-- If a future useful base changes values or objects, it must be rendered and
-  proved as its own object set rather than treated as an alias.
+- For \`alias-of-default-render\` rows, the rendered YAML matches the default
+  render by design.
+- For \`values-profile-rerender\` rows, the base has its own values profile,
+  rendered objects, receipts, and live parity evidence.
+- If a useful base changes values or objects, it must be rendered and proved as
+  its own object set rather than treated as an alias.
 
 Machine-readable form:
 

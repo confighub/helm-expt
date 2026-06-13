@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/nats/surveyor/0.20.9 -o <tmp>/nats-surveyor-0-20-9.tgz"
-    sha256: "477c5a5d1d55e272745e3948373b7577381dd50a19876d0165661cd81618284f"
+    sha256: "d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6"
   package:
     name: "nats-surveyor"
     path: "packages/nats/surveyor/0.20.9"
@@ -37,7 +37,7 @@ spec:
         bytes: 2294
       -
         path: "installer.yaml"
-        sha256: "164ce5dff6422e608ee56a8f32d2da81d388b80eaf447664d3d6ba8afef7d1bd"
+        sha256: "94125efc9f0ca1ca6f7153f29379da7ef4efd105450d5735e60fcf86a6f210dd"
         bytes: 510
     version: "0.20.9"
   setupChecks:

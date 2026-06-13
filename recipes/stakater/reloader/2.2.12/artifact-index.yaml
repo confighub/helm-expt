@@ -65,7 +65,7 @@ spec:
     path: "packages/stakater/reloader/2.2.12"
     installer: "packages/stakater/reloader/2.2.12/installer.yaml"
     receipt: "recipes/stakater/reloader/2.2.12/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c6d0f3f0fffec34fdf8200acfc98757bba8a4f83d9e3bb87fcc999000b156ff1"
+    deterministicBundleSHA256: "297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
