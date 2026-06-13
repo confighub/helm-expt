@@ -301,6 +301,7 @@ npm run verify
 function audienceFor(path) {
   if (path === "data/csv-index.csv") return "user/front-door";
   if (path.startsWith("data/master-catalog-matrix/")) return "user/front-door";
+  if (path.startsWith("data/disposition-frontier/")) return "user/front-door";
   if (path.startsWith("data/environment-matrix/")) return "user/front-door";
   if (path.startsWith("data/torture-suite/")) return "user/front-door";
   if (path.startsWith("data/chart-use-guide/")) return "user/front-door";
@@ -346,6 +347,7 @@ function roleFor(path) {
   if (path === "data/master-catalog-matrix/matrix.csv") return "machine/spreadsheet form of the master catalog matrix; same row set as matrix.html without color";
   if (path === "data/master-catalog-matrix/summary.md") return "compact GitHub orientation for the master catalog matrix";
   if (path.startsWith("data/master-catalog-matrix/")) return "front-door master view: one row per catalog variant with lanes, hooks, quirks, decisions";
+  if (path.startsWith("data/disposition-frontier/")) return "distance to the 99% disposition bar: every lane cell scored, missing cells derived to honest dispositions + next actions";
   if (path.startsWith("data/environment-matrix/")) return "recorded environment-determinism cells (TZ/locale/flag profiles)";
   if (path.startsWith("data/torture-suite/")) return "synthetic breaker fixtures: every chart lands in a named pass/refusal/route, never silence";
   if (path.startsWith("data/doc-freshness/")) return "authored-doc freshness snapshot and review acknowledgments";
@@ -534,6 +536,7 @@ function commandMap() {
     "claims-register": { generate: "npm run claims:register", verify: "npm run claims:register:verify" },
     "blast-radius-accuracy": { generate: "npm run blast-radius:accuracy", verify: "npm run blast-radius:accuracy:verify" },
     "master-catalog-matrix": { generate: "npm run master-matrix", verify: "npm run master-matrix:verify" },
+    "disposition-frontier": { generate: "npm run disposition-frontier", verify: "npm run disposition-frontier:verify" },
     "environment-matrix": { generate: "npm run environment-matrix", verify: "npm run environment-matrix:verify" },
     "torture-suite": { generate: "npm run torture:suite", verify: "npm run torture:suite:verify" },
     "doc-freshness": { generate: "npm run doc-freshness", verify: "npm run doc-freshness:verify" },
