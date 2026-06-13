@@ -12,7 +12,7 @@ variant-rich charts:                 74/110
 chart/base rows:                     192
 complete core lane rows:             81/192
 render parity rows:                  192/192
-in-ConfigHub proof rows:             158/192
+in-ConfigHub proof rows:             190/192
 local live rows:                     139/192
 GitOps/OCI live pass rows:           83/192
 GitOps/OCI non-pass receipts:        1

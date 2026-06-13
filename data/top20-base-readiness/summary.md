@@ -15,9 +15,9 @@ or runtime review.
 
 ~~~text
 base variants: 42
-start-here: 38
-try-with-proof: 4
-runtime-watch: 0
+start-here: 37
+try-with-proof: 3
+runtime-watch: 1
 runtime-review-needed: 0
 operating-policy-needed: 0
 target-fit-needed: 0
@@ -25,7 +25,7 @@ target-prerequisite-needed: 0
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 0
 prerequisite-observed: 0
-render-only: 0
+render-only: 1
 ~~~
 
 Live rerun readiness for non-pass rows:
@@ -33,7 +33,7 @@ Live rerun readiness for non-pass rows:
 ~~~text
 ready-to-collect: 0
 model-or-stage-first: 0
-review-target-first: 0
+review-target-first: 1
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
 ~~~
@@ -58,7 +58,7 @@ rerun-now-after-cleanup: 0
 
 | Chart | Base | First | Readiness | Rerun readiness | Why | Next action | Support artifact |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
+| `argo-cd/argo-cd@9.5.15` | default | yes | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
 | `argo-cd/argo-cd@9.5.15` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): local kind kubectl apply | - |
 | `bitnami/mongodb@19.0.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
@@ -81,7 +81,7 @@ rerun-now-after-cleanup: 0
 | `grafana/tempo@1.24.4` | local-persistent | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/tempo@1.24.4` | s3-query-observability | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | runtime-watch | review-target-first | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `hashicorp/vault@0.32.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `hashicorp/vault@0.32.0` | dev-mode | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |

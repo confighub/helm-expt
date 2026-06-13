@@ -18,28 +18,28 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 ## Headline
 
 ```text
-lane cells:                 1146
-recorded disposition:       782  (68.2%)
+lane cells:                 1152
+recorded disposition:       816  (70.8%)
 + derived blocked:          145
-= verified disposition:     927  (80.9%)
-genuine todo (named next):  219
+= verified disposition:     961  (83.4%)
+genuine todo (named next):  191
 un-dispositioned gap:       0
 ```
 
-**Distance to 99%:** 219 cells are not yet a
-non-todo verified disposition (19.1% of cells).
+**Distance to 99%:** 191 cells are not yet a
+non-todo verified disposition (16.6% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
 
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
-| R render_parity | 191 | 191 | 0 | 0 |
-| C in_confighub | 191 | 158 | 33 | 0 |
-| L local_live | 191 | 191 | 0 | 0 |
-| G gitops_oci_live | 191 | 134 | 57 | 0 |
-| P live_helm_vs_confighub_parity | 191 | 134 | 57 | 0 |
-| K two_cluster_kind_parity | 191 | 119 | 72 | 0 |
+| R render_parity | 192 | 192 | 0 | 0 |
+| C in_confighub | 192 | 190 | 2 | 0 |
+| L local_live | 192 | 192 | 0 | 0 |
+| G gitops_oci_live | 192 | 134 | 58 | 0 |
+| P live_helm_vs_confighub_parity | 192 | 134 | 58 | 0 |
+| K two_cluster_kind_parity | 192 | 119 | 73 | 0 |
 
 ## The work to 99%, by next action
 
@@ -47,41 +47,10 @@ Each genuine `todo` cell, grouped by what closes it.
 
 | Cells | Next action |
 | --- | --- |
-| 72 | run the two-cluster kind parity lane |
-| 57 | run the ConfigHub OCI/Argo live lane |
-| 57 | run scripts/run-top20-live-parity.mjs for this row |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/apache@11.4.29 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/contour@21.1.4 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/contour@21.1.4 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/elasticsearch@22.1.6 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/elasticsearch@22.1.6 ha (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/memcached@8.5.5 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@19.0.9 existing-secret-replicaset (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@19.0.9 generated-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@19.1.0 existing-secret-replicaset (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@19.1.0 generated-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@24.0.4 existing-tls-ingress (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@24.0.4 http-clusterip (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@25.0.0 existing-tls-ingress (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@25.0.0 http-clusterip (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/phpmyadmin@20.0.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.6.10 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.6.10 generated-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.7.0 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.7.0 generated-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/redis@27.0.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/redis@27.0.0 reuse-existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/spark@10.0.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/spark@10.0.3 ha (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/zookeeper@13.8.7 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/zookeeper@13.8.7 ha (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for elastic/kibana@8.5.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for elastic/metricbeat@8.5.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/kube-prometheus-stack@86.1.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/kube-prometheus-stack@86.1.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-operator-crds@29.0.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-pushgateway@3.6.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
-| 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus@29.9.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 73 | run the two-cluster kind parity lane |
+| 58 | run the ConfigHub OCI/Argo live lane |
+| 58 | run scripts/run-top20-live-parity.mjs for this row |
+| 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-adapter@5.3.0 apiservice-v1-capability (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus@29.9.0 server-only-ephemeral (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 
 ## Rules (so the derivation is auditable)

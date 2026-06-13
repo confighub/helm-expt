@@ -114,37 +114,37 @@ aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,default,gitops_oci_live,G,missing,b
 aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/apache@11.4.29,default,render_parity,R,pass,pass,no,,,
-bitnami/apache@11.4.29,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/apache@11.4.29 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/apache@11.4.29,default,in_confighub,C,pass,pass,no,,,
 bitnami/apache@11.4.29,default,local_live,L,blocked,blocked,no,,,
 bitnami/apache@11.4.29,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/apache@11.4.29,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/apache@11.4.29,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/contour@21.1.4,default,render_parity,R,pass,pass,no,,,
-bitnami/contour@21.1.4,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/contour@21.1.4 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/contour@21.1.4,default,in_confighub,C,pass,pass,no,,,
 bitnami/contour@21.1.4,default,local_live,L,blocked,blocked,no,,,
 bitnami/contour@21.1.4,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/contour@21.1.4,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/contour@21.1.4,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/contour@21.1.4,no-crds,render_parity,R,pass,pass,no,,,
-bitnami/contour@21.1.4,no-crds,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/contour@21.1.4 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/contour@21.1.4,no-crds,in_confighub,C,pass,pass,no,,,
 bitnami/contour@21.1.4,no-crds,local_live,L,blocked,blocked,no,,,
 bitnami/contour@21.1.4,no-crds,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/contour@21.1.4,no-crds,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/contour@21.1.4,no-crds,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/elasticsearch@22.1.6,default,render_parity,R,pass,pass,no,,,
-bitnami/elasticsearch@22.1.6,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/elasticsearch@22.1.6 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/elasticsearch@22.1.6,default,in_confighub,C,pass,pass,no,,,
 bitnami/elasticsearch@22.1.6,default,local_live,L,fail,fail,no,,,
 bitnami/elasticsearch@22.1.6,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/elasticsearch@22.1.6,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/elasticsearch@22.1.6,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/elasticsearch@22.1.6,ha,render_parity,R,pass,pass,no,,,
-bitnami/elasticsearch@22.1.6,ha,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/elasticsearch@22.1.6 ha (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/elasticsearch@22.1.6,ha,in_confighub,C,pass,pass,no,,,
 bitnami/elasticsearch@22.1.6,ha,local_live,L,fail,fail,no,,,
 bitnami/elasticsearch@22.1.6,ha,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/elasticsearch@22.1.6,ha,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/elasticsearch@22.1.6,ha,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/memcached@8.5.5,default,render_parity,R,pass,pass,no,,,
-bitnami/memcached@8.5.5,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/memcached@8.5.5 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/memcached@8.5.5,default,in_confighub,C,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,local_live,L,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/memcached@8.5.5,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
@@ -162,25 +162,25 @@ bitnami/mongodb@19.0.7,generated-passwords,gitops_oci_live,G,pass,pass,no,,,
 bitnami/mongodb@19.0.7,generated-passwords,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 bitnami/mongodb@19.0.7,generated-passwords,two_cluster_kind_parity,K,pass,pass,no,,,
 bitnami/mongodb@19.0.9,existing-secret-replicaset,render_parity,R,pass,pass,no,,,
-bitnami/mongodb@19.0.9,existing-secret-replicaset,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@19.0.9 existing-secret-replicaset (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/mongodb@19.0.9,existing-secret-replicaset,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.0.9,existing-secret-replicaset,local_live,L,pass,pass,no,,,
 bitnami/mongodb@19.0.9,existing-secret-replicaset,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/mongodb@19.0.9,existing-secret-replicaset,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/mongodb@19.0.9,existing-secret-replicaset,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/mongodb@19.0.9,generated-passwords,render_parity,R,pass,pass,no,,,
-bitnami/mongodb@19.0.9,generated-passwords,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@19.0.9 generated-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/mongodb@19.0.9,generated-passwords,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.0.9,generated-passwords,local_live,L,pass,pass,no,,,
 bitnami/mongodb@19.0.9,generated-passwords,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/mongodb@19.0.9,generated-passwords,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/mongodb@19.0.9,generated-passwords,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/mongodb@19.1.0,existing-secret-replicaset,render_parity,R,pass,pass,no,,,
-bitnami/mongodb@19.1.0,existing-secret-replicaset,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@19.1.0 existing-secret-replicaset (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/mongodb@19.1.0,existing-secret-replicaset,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.1.0,existing-secret-replicaset,local_live,L,pass,pass,no,,,
 bitnami/mongodb@19.1.0,existing-secret-replicaset,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/mongodb@19.1.0,existing-secret-replicaset,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/mongodb@19.1.0,existing-secret-replicaset,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/mongodb@19.1.0,generated-passwords,render_parity,R,pass,pass,no,,,
-bitnami/mongodb@19.1.0,generated-passwords,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@19.1.0 generated-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/mongodb@19.1.0,generated-passwords,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.1.0,generated-passwords,local_live,L,pass,pass,no,,,
 bitnami/mongodb@19.1.0,generated-passwords,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/mongodb@19.1.0,generated-passwords,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
@@ -210,25 +210,25 @@ bitnami/nginx@24.0.2,http-clusterip,gitops_oci_live,G,pass,pass,no,,,
 bitnami/nginx@24.0.2,http-clusterip,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 bitnami/nginx@24.0.2,http-clusterip,two_cluster_kind_parity,K,pass,pass,no,,,
 bitnami/nginx@24.0.4,existing-tls-ingress,render_parity,R,pass,pass,no,,,
-bitnami/nginx@24.0.4,existing-tls-ingress,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@24.0.4 existing-tls-ingress (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/nginx@24.0.4,existing-tls-ingress,in_confighub,C,pass,pass,no,,,
 bitnami/nginx@24.0.4,existing-tls-ingress,local_live,L,pass,pass,no,,,
 bitnami/nginx@24.0.4,existing-tls-ingress,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/nginx@24.0.4,existing-tls-ingress,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/nginx@24.0.4,existing-tls-ingress,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/nginx@24.0.4,http-clusterip,render_parity,R,pass,pass,no,,,
-bitnami/nginx@24.0.4,http-clusterip,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@24.0.4 http-clusterip (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/nginx@24.0.4,http-clusterip,in_confighub,C,pass,pass,no,,,
 bitnami/nginx@24.0.4,http-clusterip,local_live,L,pass,pass,no,,,
 bitnami/nginx@24.0.4,http-clusterip,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/nginx@24.0.4,http-clusterip,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/nginx@24.0.4,http-clusterip,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/nginx@25.0.0,existing-tls-ingress,render_parity,R,pass,pass,no,,,
-bitnami/nginx@25.0.0,existing-tls-ingress,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@25.0.0 existing-tls-ingress (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/nginx@25.0.0,existing-tls-ingress,in_confighub,C,pass,pass,no,,,
 bitnami/nginx@25.0.0,existing-tls-ingress,local_live,L,pass,pass,no,,,
 bitnami/nginx@25.0.0,existing-tls-ingress,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/nginx@25.0.0,existing-tls-ingress,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/nginx@25.0.0,existing-tls-ingress,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/nginx@25.0.0,http-clusterip,render_parity,R,pass,pass,no,,,
-bitnami/nginx@25.0.0,http-clusterip,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@25.0.0 http-clusterip (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/nginx@25.0.0,http-clusterip,in_confighub,C,pass,pass,no,,,
 bitnami/nginx@25.0.0,http-clusterip,local_live,L,pass,pass,no,,,
 bitnami/nginx@25.0.0,http-clusterip,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/nginx@25.0.0,http-clusterip,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
@@ -246,19 +246,19 @@ bitnami/opensearch@2.0.10,ha,gitops_oci_live,G,missing,blocked,yes,upstream: sin
 bitnami/opensearch@2.0.10,ha,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/opensearch@2.0.10,ha,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/phpmyadmin@20.0.0,default,render_parity,R,pass,pass,no,,,
-bitnami/phpmyadmin@20.0.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/phpmyadmin@20.0.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/phpmyadmin@20.0.0,default,in_confighub,C,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,default,local_live,L,blocked,blocked,no,,,
 bitnami/phpmyadmin@20.0.0,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/phpmyadmin@20.0.0,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/phpmyadmin@20.0.0,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/postgresql@18.6.10,existing-secret,render_parity,R,pass,pass,no,,,
-bitnami/postgresql@18.6.10,existing-secret,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.6.10 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/postgresql@18.6.10,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,local_live,L,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/postgresql@18.6.10,existing-secret,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/postgresql@18.6.10,existing-secret,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/postgresql@18.6.10,generated-passwords,render_parity,R,pass,pass,no,,,
-bitnami/postgresql@18.6.10,generated-passwords,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.6.10 generated-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/postgresql@18.6.10,generated-passwords,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.10,generated-passwords,local_live,L,pass,pass,no,,,
 bitnami/postgresql@18.6.10,generated-passwords,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/postgresql@18.6.10,generated-passwords,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
@@ -276,13 +276,13 @@ bitnami/postgresql@18.6.7,generated-passwords,gitops_oci_live,G,pass,pass,no,,,
 bitnami/postgresql@18.6.7,generated-passwords,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 bitnami/postgresql@18.6.7,generated-passwords,two_cluster_kind_parity,K,pass,pass,no,,,
 bitnami/postgresql@18.7.0,existing-secret,render_parity,R,pass,pass,no,,,
-bitnami/postgresql@18.7.0,existing-secret,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.7.0 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/postgresql@18.7.0,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.7.0,existing-secret,local_live,L,pass,pass,no,,,
 bitnami/postgresql@18.7.0,existing-secret,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/postgresql@18.7.0,existing-secret,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/postgresql@18.7.0,existing-secret,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/postgresql@18.7.0,generated-passwords,render_parity,R,pass,pass,no,,,
-bitnami/postgresql@18.7.0,generated-passwords,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.7.0 generated-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/postgresql@18.7.0,generated-passwords,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.7.0,generated-passwords,local_live,L,pass,pass,no,,,
 bitnami/postgresql@18.7.0,generated-passwords,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/postgresql@18.7.0,generated-passwords,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
@@ -312,37 +312,37 @@ bitnami/redis@25.5.3,reuse-existing-secret,gitops_oci_live,G,pass,pass,no,,,
 bitnami/redis@25.5.3,reuse-existing-secret,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 bitnami/redis@25.5.3,reuse-existing-secret,two_cluster_kind_parity,K,pass,pass,no,,,
 bitnami/redis@27.0.0,default,render_parity,R,pass,pass,no,,,
-bitnami/redis@27.0.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/redis@27.0.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/redis@27.0.0,default,in_confighub,C,pass,pass,no,,,
 bitnami/redis@27.0.0,default,local_live,L,pass,pass,no,,,
 bitnami/redis@27.0.0,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/redis@27.0.0,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/redis@27.0.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/redis@27.0.0,reuse-existing-secret,render_parity,R,pass,pass,no,,,
-bitnami/redis@27.0.0,reuse-existing-secret,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/redis@27.0.0 reuse-existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/redis@27.0.0,reuse-existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/redis@27.0.0,reuse-existing-secret,local_live,L,pass,pass,no,,,
 bitnami/redis@27.0.0,reuse-existing-secret,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 bitnami/redis@27.0.0,reuse-existing-secret,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 bitnami/redis@27.0.0,reuse-existing-secret,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/spark@10.0.3,default,render_parity,R,pass,pass,no,,,
-bitnami/spark@10.0.3,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/spark@10.0.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/spark@10.0.3,default,in_confighub,C,pass,pass,no,,,
 bitnami/spark@10.0.3,default,local_live,L,blocked,blocked,no,,,
 bitnami/spark@10.0.3,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/spark@10.0.3,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/spark@10.0.3,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/spark@10.0.3,ha,render_parity,R,pass,pass,no,,,
-bitnami/spark@10.0.3,ha,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/spark@10.0.3 ha (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/spark@10.0.3,ha,in_confighub,C,pass,pass,no,,,
 bitnami/spark@10.0.3,ha,local_live,L,blocked,blocked,no,,,
 bitnami/spark@10.0.3,ha,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/spark@10.0.3,ha,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/spark@10.0.3,ha,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/zookeeper@13.8.7,default,render_parity,R,pass,pass,no,,,
-bitnami/zookeeper@13.8.7,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/zookeeper@13.8.7 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/zookeeper@13.8.7,default,in_confighub,C,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,default,local_live,L,blocked,blocked,no,,,
 bitnami/zookeeper@13.8.7,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/zookeeper@13.8.7,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/zookeeper@13.8.7,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/zookeeper@13.8.7,ha,render_parity,R,pass,pass,no,,,
-bitnami/zookeeper@13.8.7,ha,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/zookeeper@13.8.7 ha (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/zookeeper@13.8.7,ha,in_confighub,C,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,ha,local_live,L,blocked,blocked,no,,,
 bitnami/zookeeper@13.8.7,ha,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/zookeeper@13.8.7,ha,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
@@ -414,7 +414,7 @@ elastic/filebeat@8.5.1,node-or-cluster-collector,gitops_oci_live,G,missing,block
 elastic/filebeat@8.5.1,node-or-cluster-collector,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 elastic/filebeat@8.5.1,node-or-cluster-collector,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 elastic/kibana@8.5.1,default,render_parity,R,pass,pass,no,,,
-elastic/kibana@8.5.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for elastic/kibana@8.5.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+elastic/kibana@8.5.1,default,in_confighub,C,pass,pass,no,,,
 elastic/kibana@8.5.1,default,local_live,L,blocked,blocked,no,,,
 elastic/kibana@8.5.1,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 elastic/kibana@8.5.1,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
@@ -432,7 +432,7 @@ elastic/logstash@8.5.1,ha,gitops_oci_live,G,pass,pass,no,,,
 elastic/logstash@8.5.1,ha,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 elastic/logstash@8.5.1,ha,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 elastic/metricbeat@8.5.1,default,render_parity,R,pass,pass,no,,,
-elastic/metricbeat@8.5.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for elastic/metricbeat@8.5.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+elastic/metricbeat@8.5.1,default,in_confighub,C,pass,pass,no,,,
 elastic/metricbeat@8.5.1,default,local_live,L,blocked,blocked,no,,,
 elastic/metricbeat@8.5.1,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 elastic/metricbeat@8.5.1,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
@@ -942,13 +942,13 @@ prometheus-community/kube-prometheus-stack@85.3.3,no-crds,gitops_oci_live,G,pass
 prometheus-community/kube-prometheus-stack@85.3.3,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@85.3.3,no-crds,two_cluster_kind_parity,K,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@86.1.0,default,render_parity,R,pass,pass,no,,,
-prometheus-community/kube-prometheus-stack@86.1.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/kube-prometheus-stack@86.1.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/kube-prometheus-stack@86.1.0,default,in_confighub,C,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@86.1.0,default,local_live,L,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@86.1.0,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 prometheus-community/kube-prometheus-stack@86.1.0,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 prometheus-community/kube-prometheus-stack@86.1.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 prometheus-community/kube-prometheus-stack@86.1.0,no-crds,render_parity,R,pass,pass,no,,,
-prometheus-community/kube-prometheus-stack@86.1.0,no-crds,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/kube-prometheus-stack@86.1.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/kube-prometheus-stack@86.1.0,no-crds,in_confighub,C,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@86.1.0,no-crds,local_live,L,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@86.1.0,no-crds,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 prometheus-community/kube-prometheus-stack@86.1.0,no-crds,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
@@ -965,6 +965,12 @@ prometheus-community/kube-state-metrics@7.4.0,default,local_live,L,pass,pass,no,
 prometheus-community/kube-state-metrics@7.4.0,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 prometheus-community/kube-state-metrics@7.4.0,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 prometheus-community/kube-state-metrics@7.4.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,render_parity,R,pass,pass,no,,,
+prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-adapter@5.3.0 apiservice-v1-capability (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,local_live,L,pass,pass,no,,,
+prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
+prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 prometheus-community/prometheus-adapter@5.3.0,cluster-metrics-readonly,render_parity,R,pass,pass,no,,,
 prometheus-community/prometheus-adapter@5.3.0,cluster-metrics-readonly,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus-adapter@5.3.0,cluster-metrics-readonly,local_live,L,blocked,blocked,no,,,
@@ -1002,13 +1008,13 @@ prometheus-community/prometheus-node-exporter@4.55.0,default,gitops_oci_live,G,m
 prometheus-community/prometheus-node-exporter@4.55.0,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 prometheus-community/prometheus-node-exporter@4.55.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 prometheus-community/prometheus-operator-crds@29.0.0,default,render_parity,R,pass,pass,no,,,
-prometheus-community/prometheus-operator-crds@29.0.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-operator-crds@29.0.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/prometheus-operator-crds@29.0.0,default,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus-operator-crds@29.0.0,default,local_live,L,pass,pass,no,,,
 prometheus-community/prometheus-operator-crds@29.0.0,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 prometheus-community/prometheus-operator-crds@29.0.0,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
 prometheus-community/prometheus-operator-crds@29.0.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 prometheus-community/prometheus-pushgateway@3.6.0,default,render_parity,R,pass,pass,no,,,
-prometheus-community/prometheus-pushgateway@3.6.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-pushgateway@3.6.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/prometheus-pushgateway@3.6.0,default,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus-pushgateway@3.6.0,default,local_live,L,pass,pass,no,,,
 prometheus-community/prometheus-pushgateway@3.6.0,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 prometheus-community/prometheus-pushgateway@3.6.0,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
@@ -1026,7 +1032,7 @@ prometheus-community/prometheus@29.8.0,server-only-ephemeral,gitops_oci_live,G,p
 prometheus-community/prometheus@29.8.0,server-only-ephemeral,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 prometheus-community/prometheus@29.8.0,server-only-ephemeral,two_cluster_kind_parity,K,pass,pass,no,,,
 prometheus-community/prometheus@29.9.0,default,render_parity,R,pass,pass,no,,,
-prometheus-community/prometheus@29.9.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus@29.9.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/prometheus@29.9.0,default,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus@29.9.0,default,local_live,L,pass,pass,no,,,
 prometheus-community/prometheus@29.9.0,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
 prometheus-community/prometheus@29.9.0,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either

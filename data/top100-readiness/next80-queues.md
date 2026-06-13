@@ -65,10 +65,10 @@ They should not disappear into a generic promotion-review queue.
 | --- | --- | --- | --- | --- | --- |
 | `traefik/traefik@40.2.0` | `default`<br>`no-crds` | `live-helm-vs-confighub-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `kyverno/kyverno@3.8.1` | `default`<br>`no-crds` | `live-helm-vs-confighub-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `bitnami/elasticsearch@22.1.6` | `default`<br>`ha` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `bitnami/spark@10.0.3` | `default`<br>`ha` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `bitnami/zookeeper@13.8.7` | `default`<br>`ha` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `bitnami/contour@21.1.4` | `default`<br>`no-crds` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/elasticsearch@22.1.6` | `default`<br>`ha` | `in-confighub-proof` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/spark@10.0.3` | `default`<br>`ha` | `in-confighub-proof` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/zookeeper@13.8.7` | `default`<br>`ha` | `in-confighub-proof` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/contour@21.1.4` | `default`<br>`no-crds` | `in-confighub-proof` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `grafana/pyroscope@2.0.2` | `default`<br>`ha`<br>`no-crds` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 
 ### User-Shaped Variant Work
@@ -79,7 +79,7 @@ They should not disappear into a generic promotion-review queue.
 | `fluent/fluent-bit@0.57.6` | `default` | `live-helm-vs-confighub-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 | `runix/pgadmin4@1.62.0` | `default` | `local-kubernetes-live` | - | - | add at least one user-shaped variant before catalog promotion |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `default` | `in-confighub-proof` | - | - | add at least one user-shaped variant before catalog promotion |
-| `elastic/kibana@8.5.1` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
+| `elastic/kibana@8.5.1` | `default` | `in-confighub-proof` | - | - | add at least one user-shaped variant before catalog promotion |
 | `descheduler/descheduler@0.36.0` | `default` | `live-helm-vs-confighub-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 | `jaegertracing/jaeger@4.8.0` | `default` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | add at least one user-shaped variant before catalog promotion |
 | `dex/dex@0.24.0` | `default` | `in-confighub-proof` | - | - | add at least one user-shaped variant before catalog promotion |
