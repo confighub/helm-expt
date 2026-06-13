@@ -40,6 +40,7 @@ rank,chart,version,variant,result,reason,receipt
 ,cloudnative-pg/cloudnative-pg,0.28.2,default,pass,,runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml
 ,elastic/eck-operator,3.4.0,default,pass,,runs/live-helm-confighub-compare/elastic-eck-operator-default/receipt.yaml
 ,elastic/logstash,8.5.1,default,pass,,runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml
+,external-dns/external-dns,1.21.1,dry-run-txt-registry,pass,,runs/live-helm-confighub-compare/external-dns-external-dns-dry-run-txt-registry/receipt.yaml
 ,gatekeeper/gatekeeper,3.22.2,default,pass,,runs/live-helm-confighub-compare/gatekeeper-gatekeeper-default/receipt.yaml
 ,grafana/alloy,1.8.2,default,pass,,runs/live-helm-confighub-compare/grafana-alloy-default/receipt.yaml
 ,kedacore/keda,2.19.0,default,pass,,runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml
