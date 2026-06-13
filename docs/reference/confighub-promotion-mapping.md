@@ -136,7 +136,7 @@ cub variant create prod-us-east helm-redis-default \
   --environment Prod \
   --region us-east \
   --target redis-prod/cluster \
-  --space-name-pattern "template:{{.Labels.Component}}-{{.Labels.Variant}}" \
+  --space-pattern "template:{{.Labels.Component}}-{{.Labels.Variant}}" \
   --unit-delete-gate production-review \
   --unit-destroy-gate production-review
 ```

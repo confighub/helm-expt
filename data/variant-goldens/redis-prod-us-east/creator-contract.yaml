@@ -24,7 +24,7 @@ spec:
     namespace: "redis-prod"
   commandSurface:
     primitive: "cub variant create"
-    example: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}"
+    example: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --namespace redis-prod --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}"
     porcelainNeeded:
       - "preview"
       - "checks"

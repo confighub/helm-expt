@@ -6,7 +6,7 @@ metadata:
 spec:
   executionMode: "golden-target-not-live-execution"
   issue: "https://github.com/confighub/helm-expt/issues/144"
-  command: "cub variant create prod-us-east helm-prometheus-confighub-proof --environment Prod --region us-east --target monitoring-targets/prod-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+  command: "cub variant create prod-us-east helm-prometheus-confighub-proof --environment Prod --region us-east --target monitoring-targets/prod-us-east --namespace monitoring-prod --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
   sourceSpace: "helm-prometheus-confighub-proof"
   downstreamSpace: "Prometheus-prod-us-east"
   sourceRevision: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml"

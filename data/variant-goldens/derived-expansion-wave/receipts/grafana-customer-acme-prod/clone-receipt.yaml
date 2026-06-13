@@ -6,7 +6,7 @@ metadata:
 spec:
   executionMode: "golden-target-not-live-execution"
   issue: "https://github.com/confighub/helm-expt/issues/144"
-  command: "cub variant create customer-acme-prod helm-grafana-confighub-proof --environment Prod --region us-east --target observability-targets/customer-acme-prod --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+  command: "cub variant create customer-acme-prod helm-grafana-confighub-proof --environment Prod --region us-east --target observability-targets/customer-acme-prod --namespace grafana-acme --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
   sourceSpace: "helm-grafana-confighub-proof"
   downstreamSpace: "Grafana-customer-acme-prod"
   sourceRevision: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml"

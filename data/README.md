@@ -278,6 +278,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `variant-backlog` | [variant-backlog/summary.md](./variant-backlog/summary.md) | candidate base-variant expansion backlog |
 | `variant-goldens` | - | golden work orders for derived-variant examples |
 | `variant-path-coverage` | [variant-path-coverage/summary.md](./variant-path-coverage/summary.md) | chart/base/path proof status matrix |
+| `variant-promotion` | [variant-promotion/summary.md](./variant-promotion/summary.md) | server-side ConfigHub variant promotion status by chart/base |
 | `webhook-cert-lifecycle` | [webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md) | webhook serving certificate lifecycle evidence and proof boundaries |
 
 ## Every CSV
@@ -288,7 +289,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 132 CSV files. Each row records the path, audience,
+It includes 133 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

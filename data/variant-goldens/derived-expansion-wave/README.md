@@ -19,7 +19,7 @@ Summary:
 ```text
 source bases: 5
 derived variants: 10
-current command: cub variant create
+current command: cub variant create,cub variant promote,cub variant upload
 receipt targets: 30
 ```
 

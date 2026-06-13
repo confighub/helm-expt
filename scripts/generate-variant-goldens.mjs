@@ -94,7 +94,7 @@ function redisGolden() {
       commandSurface: {
         primitive: "cub variant create",
         example:
-          "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}",
+          "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --namespace redis-prod --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}",
         porcelainNeeded: ["preview", "checks", "receipt display"],
       },
       confighubPromotionModel: {
@@ -338,8 +338,8 @@ function derivedExpansionWave() {
       purpose:
         "Make derived ConfigHub variants visible across multiple proven chart bases before broadening catalog metrics.",
       commandSurface: {
-        current: "cub variant create",
-        notCurrent: ["cub variant upload", "cub variant promote", "cub variant release"],
+        current: ["cub variant create", "cub variant promote", "cub variant upload"],
+        notCurrent: ["cub variant release"],
       },
       summary: {
         sourceBaseCount: sources.length,
@@ -537,7 +537,8 @@ function buildDerivedWorkOrder(source, variant) {
     `--environment ${variant.environment}`,
     `--region ${variant.region}`,
     `--target ${target}`,
-    "--space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'",
+    `--namespace ${variant.namespace}`,
+    "--space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'",
   ].join(" ");
 
   const changedFields = [

@@ -118,7 +118,7 @@ The current command shape is:
 cub variant create prod-us-east helm-prometheus-server-only \
   --environment Prod \
   --region us-east \
-  --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
+  --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
   --unit-delete-gate production-review \
   --unit-destroy-gate production-review
 ```

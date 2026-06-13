@@ -192,11 +192,15 @@ Current CLI truth:
 
 ```text
 cub variant create
+cub variant promote
+cub variant upload
 ```
 
-`cub variant create` is the current derived-variant substrate. `cub variant
-upload`, `cub variant promote`, and `cub variant release` are not current local
-commands and should be described only as planned or candidate product lanes.
+`cub variant create` is the current derived-variant clone/link substrate.
+`cub variant promote` is the current upstream-to-downstream catch-up command.
+`cub variant upload` is a direct already-rendered-manifest ingestion command.
+`cub variant release` is not a current local command and should be described
+only as planned or candidate product work.
 
 New issues created from the configuration-as-data / derived-variant review:
 

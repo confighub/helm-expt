@@ -240,6 +240,7 @@ Current implementation:
 ```text
 cub installer upload
 cub variant create
+cub variant promote
 cub unit list/data/tree/diff/revision
 cub changeset and unit approve/apply/cancel lanes where proven
 ConfigHub function scans
@@ -251,13 +252,14 @@ Roadmap surfaces, not current commands in this repo:
 Creator preview
 Creator check
 variant diff
-variant promote
 variant update/rebase
 operation receipts
 ```
 
-`cub variant create` provides the clone/link substrate. The product layer should
-make the safe variant-creation path easy to preview, check, and explain.
+`cub variant create` provides the clone/link substrate. `cub variant promote`
+provides the upstream-to-downstream catch-up command. The product layer should
+make the safe variant-creation and promotion paths easy to preview, check, and
+explain.
 
 ## Stage 5 - Live, GitOps, And Lifecycle Evidence
 
