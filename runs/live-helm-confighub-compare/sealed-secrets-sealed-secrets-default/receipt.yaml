@@ -1,0 +1,374 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: sealed-secrets-sealed-secrets-2.18.6-default-live-parity-20260605
+spec:
+  chart: sealed-secrets/sealed-secrets
+  version: 2.18.6
+  base: default
+  result: pass
+  observedAt: '2026-06-13T00:45:19Z'
+  package:
+    path: packages/sealed-secrets/sealed-secrets/2.18.6
+  recipe:
+    path: recipes/sealed-secrets/sealed-secrets/2.18.6
+  variantRevision: recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-sealed-secrets-1781311519
+    kubeContext: kind-helm-expt-parity-sealed-secrets-1781311519
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-sealed-secrets-1781311519 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-sealed-secrets-1781311519"...
+
+        Deleting cluster "helm-expt-parity-sealed-secrets-1781311519" ...
+
+        Deleted nodes: ["helm-expt-parity-sealed-secrets-1781311519-control-plane"]
+
+        Deleting Space "helm-expt-parity-sealed-secrets-1781311519-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install sealed-secrets sealed-secrets --repo https://bitnami-labs.github.io/sealed-secrets
+        --version 2.18.6 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-default/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: 096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e
+      objectCount: 11
+      liveHelmManifestSHA256: 7e1b6e339eb52b5f40735abc5911a8fba5ecae94304c1747ae7c5bf6db084d6e
+      liveHelmManifestObjectCount: 10
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/sealed-secrets   1/1   1     1     6s
+        pods: sealed-secrets-657974dfb4-j76k7   1/1   Running   0     6s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/sealed-secrets/sealed-secrets/2.18.6
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-sealed-secrets-1781311519-sealed-secrets
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 6de1dce80afb348407010e5a38b65addc07e32bcf692b57024fedc9cc55696f8
+      objectCount: 12
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/sealed-secrets   1/1   1     1     11s'
+        pods: '# default
+
+          sealed-secrets-657974dfb4-qthbh   1/1   Running   0     11s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "secrets-unsealer" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "sealed-secrets" deleted
+
+            customresourcedefinition.apiextensions.k8s.io "sealedsecrets.bitnami.com"
+            deleted'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 8
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'deployment.apps "sealed-secrets" deleted from default namespace
+
+            role.rbac.authorization.k8s.io "sealed-secrets-key-admin" deleted from
+            default namespace
+
+            role.rbac.authorization.k8s.io "sealed-secrets-service-proxier" deleted
+            from default namespace
+
+            rolebinding.rbac.authorization.k8s.io "sealed-secrets-key-admin" deleted
+            from default namespace
+
+            rolebinding.rbac.authorization.k8s.io "sealed-secrets-service-proxier"
+            deleted from default namespace
+
+            service "sealed-secrets-metrics" deleted from default namespace
+
+            service "sealed-secrets" deleted from default namespace
+
+            serviceaccount "sealed-secrets" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-sealed-secrets-1781311519-sealed-secrets
+      controller: Argo CD OCI
+      app: sealed-secrets-parity
+      manifestSHA256: 51a3e3c23fa35d0087ce80c4d95b5b1e0af7cc8a2c0c22cae7b7b13c5432350d
+      objectCount: 12
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:fa9e0386f70a770c395aa5d5e40c4b1bf9eff39740380f287533652093dd92a3
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-sealed-secrets-1781311519-sealed-secrets
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealed-secrets-1781311519-cluster/oci
+              targetRevision: latest
+          revision: sha256:fa9e0386f70a770c395aa5d5e40c4b1bf9eff39740380f287533652093dd92a3
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T00:48:08Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: sealed-secrets
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: sealed-secrets-metrics
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: sealed-secrets
+          status: Synced
+          health: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: sealedsecrets.bitnami.com
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: sealed-secrets
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: secrets-unsealer
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: sealed-secrets
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: sealed-secrets-key-admin
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: sealed-secrets-service-proxier
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: sealed-secrets-key-admin
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: sealed-secrets-service-proxier
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/sealed-secrets   1/1   1     1     7s'
+        pods: '# default
+
+          sealed-secrets-657974dfb4-f6h6p   1/1   Running   0     7s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-sealed-secrets-1781311519\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-sealed-secrets-1781311519.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-sealed-secrets-1781311519\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-sealed-secrets-1781311519\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-sealed-secrets-1781311519\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-sealed-secrets-1781311519.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo C"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"sealed-secrets\" does not exist. Installing it now.\nNAME:\
+      \ sealed-secrets\nLAST DEPLOYED: Sat Jun 13 01:46:45 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\n** Please be patient while the chart is being deployed **\n\nYou should\
+      \ now be able to create sealed secrets.\n\n1. Install the client-side tool (kubeseal)\
+      \ as explained in the docs below:\n\n    https://github.com/bitnami-labs/sealed-secrets#installation-from-source\n\
+      \n2. Create a sealed secret file running the command below:\n\n    kubectl create\
+      \ secret generic secret-name --dry-run=client --from-literal=foo=bar -o [json|yaml]\
+      \ | \\\n    kubeseal \\\n      --controller-name=sealed-secrets \\\n      --controller-namespace=default-helm\
+      \ \\\n      --format yaml > mysealedsecret.[json|yaml]\n\nThe file mysealedsecret.[json|yaml]\
+      \ is a commitable file.\n\nIf you would rather not need access to the cluster\
+      \ to generate the sealed secret you can run:\n\n    kubeseal \\\n      --controller-name=sea"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/sealed-secrets   1/1   1     1     11s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=8 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
