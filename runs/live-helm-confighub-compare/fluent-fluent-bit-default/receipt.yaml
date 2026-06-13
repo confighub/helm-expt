@@ -1,0 +1,337 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: fluent-fluent-bit-0.57.6-default-live-parity-20260605
+spec:
+  chart: fluent/fluent-bit
+  version: 0.57.6
+  base: default
+  result: pass
+  observedAt: '2026-06-13T02:33:35Z'
+  package:
+    path: packages/fluent/fluent-bit/0.57.6
+  recipe:
+    path: recipes/fluent/fluent-bit/0.57.6
+  variantRevision: recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-fluent-bit-default-1781318015
+    kubeContext: kind-helm-expt-parity-fluent-bit-default-1781318015
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-fluent-bit-default-1781318015 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-fluent-bit-default-1781318015"...
+
+        Deleting cluster "helm-expt-parity-fluent-bit-default-1781318015" ...
+
+        Deleted nodes: ["helm-expt-parity-fluent-bit-default-1781318015-control-plane"]
+
+        Deleting Space "helm-expt-parity-fluent-bit-default-1781318015-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install fluent-bit fluent-bit --repo https://fluent.github.io/helm-charts
+        --version 0.57.6 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluent-bit-default/regular-helm-values.yaml
+        --wait --timeout 600s
+      manifestSHA256: 464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b
+      objectCount: 6
+      liveHelmManifestSHA256: 4c64990a205352804ab5155f22903e920e0ab1fa13eb74319a0789a2c9f82f43
+      liveHelmManifestObjectCount: 6
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: daemonset.apps/fluent-bit   1     1     1     1     1     <none>   39s
+        pods: fluent-bit-5qrf4   1/1   Running   0     39s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fluent/fluent-bit/0.57.6
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-fluent-bit-default-1781318015-fluent-fluent-bit
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 359cd2f6183157f18dfcf18fe1f4755e5855658ed444aa084aa9ccf464bd6bda
+      objectCount: 7
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          daemonset.apps/fluent-bit   1     1     1     1     1     <none>   10s'
+        pods: '# default
+
+          fluent-bit-fz85c   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "fluent-bit" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "fluent-bit" deleted'
+        protectedNamespaceResources:
+          result: pass
+          namespaces:
+          - default
+          objectCount: 4
+          manifest: protected-namespace-apply-cleanup.yaml
+          detail: 'configmap "fluent-bit" deleted from default namespace
+
+            daemonset.apps "fluent-bit" deleted from default namespace
+
+            service "fluent-bit" deleted from default namespace
+
+            serviceaccount "fluent-bit" deleted from default namespace'
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-fluent-bit-default-1781318015-fluent-fluent-bit
+      controller: Argo CD OCI
+      app: fluent-fluent-bit-parity
+      manifestSHA256: c88aa3dd0ac59ee3d5bbe69ef20c48de9ff80dc4af30821f11522f0cb6e5d518
+      objectCount: 7
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:a717da6c01b4a2d67e4cf063225c2ebab0ad6c98c16a3e78b4d88bc9dc24406a
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-fluent-bit-default-1781318015-fluent-fluent-bit
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluent-bit-default-1781318015-cluster/oci
+              targetRevision: latest
+          revision: sha256:a717da6c01b4a2d67e4cf063225c2ebab0ad6c98c16a3e78b4d88bc9dc24406a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T02:36:18Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: fluent-bit
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: fluent-bit
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: fluent-bit
+          status: Synced
+          health: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default
+          name: fluent-bit
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: fluent-bit
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: fluent-bit
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          daemonset.apps/fluent-bit   1     1     1     1     1     <none>   7s'
+        pods: '# default
+
+          fluent-bit-n5ctv   1/1   Running   0     7s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-fluent-bit-default-1781318015\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-fluent-bit-default-1781318015.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-fluent-bit-default-1781318015\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-fluent-bit-default-1781318015\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-fluent-bit-default-1781318015\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-fluent-bit-default-1781318015.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\nap"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "fluent-bit" does not exist. Installing it now.
+
+      NAME: fluent-bit
+
+      LAST DEPLOYED: Sat Jun 13 03:34:35 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      NOTES:
+
+      Get Fluent Bit build information by running these commands:
+
+
+      export POD_NAME=$(kubectl get pods --namespace default-helm -l "app.kubernetes.io/name=fluent-bit,app.kubernetes.io/instance=fluent-bit"
+      -o jsonpath="{.items[0].metadata.name}")
+
+      kubectl --namespace default-helm port-forward $POD_NAME 2020:2020
+
+      curl http://127.0.0.1:2020'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      daemonset.apps/fluent-bit   1     1     1     1     1     <none>   10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: confighub-kubectl-apply-protected-cleanup
+    result: pass
+    detail: objects=4 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
