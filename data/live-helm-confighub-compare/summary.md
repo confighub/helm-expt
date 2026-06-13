@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 77
+pass: 78
 watch: 0
 blocked: 2
 not-started: 0
@@ -69,6 +69,7 @@ target-fit: minimum schedulable nodes not met: 2
 |  | `argo-cd/argo-workflows@1.0.14` | minimal-crds | pass | - | runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `crossplane-stable/crossplane@2.3.1` | default | pass | - | runs/live-helm-confighub-compare/crossplane-stable-crossplane-default/receipt.yaml |
+|  | `descheduler/descheduler@0.36.0` | default | pass | - | runs/live-helm-confighub-compare/descheduler-descheduler-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | default | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | ha | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-ha/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | no-crds | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-no-crds/receipt.yaml |

@@ -74,7 +74,7 @@ There are two live parity surfaces, and they answer different questions:
 
 | Surface | Current reading | Use it for |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 79 committed receipts: 77 pass, 0 watch, 2 target-fit blocked. | Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows. |
+| Selected live Helm-vs-ConfigHub comparison | 80 committed receipts: 78 pass, 0 watch, 2 target-fit blocked. | Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows. |
 | Live parity rerun queue | 2 target-fit rows, 0 watch, 0 semantic parity defects. | The active non-pass rows are Consul secure mesh and Logstash HA on a one-node proof target; those bases require at least three schedulable nodes. |
 
 The watch and blocked rows are not currently object-set parity defects. They

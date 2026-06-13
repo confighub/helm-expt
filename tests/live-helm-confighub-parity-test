@@ -694,7 +694,7 @@ def cluster_scoped_cleanup_docs(text: str) -> list[dict]:
 
 
 def workload_namespaces(text: str, fallback: str) -> list[str]:
-    workload_kinds = {"Deployment", "StatefulSet", "DaemonSet"}
+    workload_kinds = {"Deployment", "StatefulSet", "DaemonSet", "CronJob", "Job"}
     namespaces = set()
     for doc in yaml_docs(text):
         if doc.get("kind") not in workload_kinds:
@@ -1360,6 +1360,34 @@ def ready_status(kubeconfig: Path, context: str, namespace: str, command_timeout
                 ignored_job_pods.append({"pod": name, "ready": ready, "status": status})
                 continue
             not_ready.append({"pod": name, "ready": ready, "status": status})
+    if rc == 0 and not workloads.strip():
+        rc_cron, crons, cron_err = kubectl(["-n", namespace, "get", "cronjobs", "--no-headers"], kubeconfig, context, timeout=command_timeout)
+        if rc_cron == 0 and crons.strip():
+            rc_jobs, jobs, _jobs_err = kubectl(["-n", namespace, "get", "jobs", "--no-headers"], kubeconfig, context, timeout=command_timeout)
+            job_lines = [line.split() for line in jobs.splitlines() if line.split()] if rc_jobs == 0 else []
+            completed = [fields[0] for fields in job_lines if len(fields) > 1 and fields[1].startswith("Complete")]
+            completed += [fields[0] for fields in job_lines if len(fields) > 2 and fields[2].startswith("Complete")]
+            completed += [
+                fields[0]
+                for fields in job_lines
+                if len(fields) > 1
+                and "/" in fields[1]
+                and fields[1].split("/")[0] == fields[1].split("/")[1]
+                and fields[1].split("/")[0] != "0"
+            ]
+            failed = [fields[0] for fields in job_lines if len(fields) > 1 and fields[1].startswith("Failed")]
+            failed += [fields[0] for fields in job_lines if len(fields) > 2 and fields[2].startswith("Failed")]
+            failed += [item["pod"] for item in not_ready if item.get("status", "").startswith(("Error", "CrashLoop"))]
+            result = "blocked" if failed else "pass" if completed else "pending-cronjob"
+            return {
+                "result": result,
+                "kind": "cronjob-only",
+                "workloads": f"cronjobs:\n{crons}\njobs:\n{jobs if rc_jobs == 0 else ''}".rstrip(),
+                "pods": pods if rc_pods == 0 else pod_err,
+                "notReady": not_ready,
+                "ignoredJobPods": ignored_job_pods,
+                "cronJobEvidence": {"completedJobs": sorted(set(completed)), "failedJobs": sorted(set(failed))},
+            }
     return {
         "result": "pass" if workloads_ready and rc_pods == 0 and not not_ready else "watch",
         "workloads": workloads if rc == 0 else workload_err,

@@ -1,0 +1,396 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: descheduler-descheduler-0.36.0-default-live-parity-20260605
+spec:
+  chart: descheduler/descheduler
+  version: 0.36.0
+  base: default
+  result: pass
+  observedAt: '2026-06-13T10:04:22Z'
+  package:
+    path: packages/descheduler/descheduler/0.36.0
+  recipe:
+    path: recipes/descheduler/descheduler/0.36.0
+  variantRevision: recipes/descheduler/descheduler/0.36.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-descheduler-mqc6uv1r-1tnn
+    kubeContext: kind-helm-expt-parity-descheduler-mqc6uv1r-1tnn
+    namespace: default
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-descheduler-mqc6uv1r-1tnn --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-descheduler-mqc6uv1r-1tnn"...
+
+        Deleting cluster "helm-expt-parity-descheduler-mqc6uv1r-1tnn" ...
+
+        Deleted nodes: ["helm-expt-parity-descheduler-mqc6uv1r-1tnn-control-plane"]
+
+        Deleting Space "helm-expt-parity-descheduler-mqc6uv1r-1tnn-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install descheduler descheduler --repo https://kubernetes-sigs.github.io/descheduler/
+        --version 0.36.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/descheduler-descheduler-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707
+      objectCount: 5
+      liveHelmManifestSHA256: d665cf81d95061df3cd4657c034e75ecffb7a244c6404b236e5210a734d12f81
+      liveHelmManifestObjectCount: 5
+      namespace: default-helm
+      runtime:
+        result: pass
+        kind: cronjob-only
+        workloads: 'cronjobs:
+
+          descheduler   */2 * * * *   <none>   False   0     10s   20s
+
+          jobs:
+
+          descheduler-29689086   Complete   1/1   8s    10s'
+        pods: descheduler-29689086-r7ppn   0/1   Completed   0     10s
+        notReady: []
+        ignoredJobPods: []
+        cronJobEvidence:
+          completedJobs:
+          - descheduler-29689086
+          failedJobs: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/descheduler/descheduler/0.36.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-descheduler-mqc6uv1r-1tnn-descheduler
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 4f997a4da9cf63cb79560b0656b3e6e0103c1b6a808c45d27bb01cadf815b719
+      objectCount: 6
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          cronjobs:
+
+          descheduler   */2 * * * *   <none>   False   0     9s    113s
+
+          jobs:
+
+          descheduler-29689088   Complete   1/1   3s    9s'
+        pods: '# default
+
+          descheduler-29689088-7rdg6   0/1   Completed   0     9s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "descheduler" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "descheduler" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - batch/v1|CronJob|default|descheduler
+          - v1|ConfigMap|default|descheduler
+          - v1|ServiceAccount|default|descheduler
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-descheduler-mqc6uv1r-1tnn-descheduler
+      controller: Argo CD OCI
+      app: descheduler-parity
+      manifestSHA256: d7e7225c9f4e2537cd0fd998bae92fbeb40815a0131edac5d696a5de5ef60184
+      objectCount: 6
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:91854f39a49abf0bb54cb99c8d54e253be45b3163c11056e0d8fda7808f05732
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-descheduler-mqc6uv1r-1tnn-descheduler
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-descheduler-mqc6uv1r-1tnn-cluster/oci
+              targetRevision: latest
+          revision: sha256:91854f39a49abf0bb54cb99c8d54e253be45b3163c11056e0d8fda7808f05732
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T10:08:54Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: descheduler
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: descheduler
+          status: Synced
+          health: ''
+          hook: false
+        - group: batch
+          kind: CronJob
+          namespace: default
+          name: descheduler
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: descheduler
+          status: Synced
+          health: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: descheduler
+          status: Synced
+          health: ''
+          hook: false
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-descheduler-mqc6uv1r-1tnn-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-descheduler-mqc6uv1r-1tnn-cluster/oci
+              targetRevision: latest
+          revision: sha256:91854f39a49abf0bb54cb99c8d54e253be45b3163c11056e0d8fda7808f05732
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-13T10:05:55Z'
+          status: Healthy
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: descheduler-parity
+          status: Synced
+          health: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-descheduler-mqc6uv1r-1tnn-cluster
+          status: Synced
+          health: ''
+          hook: false
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          cronjobs:
+
+          descheduler   */2 * * * *   <none>   False   0     61s   2m45s
+
+          jobs:
+
+          descheduler-29689088   Complete   1/1   3s    61s'
+        pods: '# default
+
+          descheduler-29689088-7rdg6   0/1   Completed   0     61s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-descheduler-mqc6uv1r-1tnn\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-descheduler-mqc6uv1r-1tnn.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-descheduler-mqc6uv1r-1tnn\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-descheduler-mqc6uv1r-1tnn\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-descheduler-mqc6uv1r-1tnn\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-descheduler-mqc6uv1r-1tnn.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nm"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "descheduler" does not exist. Installing it now.
+
+      NAME: descheduler
+
+      LAST DEPLOYED: Sat Jun 13 11:05:49 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Descheduler installed as a CronJob.
+
+      A DeschedulerPolicy has been applied for you. You can view the policy with:
+
+
+      kubectl get configmap -n default-helm descheduler -o yaml
+
+
+      If you wish to define your own policies out of band from this chart, you may
+      define a configmap named descheduler.
+
+      To avoid a conflict between helm and your out of band method to deploy the configmap,
+      please set deschedulerPolicy in values.yaml to an empty object as below.
+
+
+      deschedulerPolicy: {}'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      cronjobs:
+
+      descheduler   */2 * * * *   <none>   False   0     9s    113s
+
+      jobs:
+
+      descheduler-29689088   Complete   1/1   3s    9s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
