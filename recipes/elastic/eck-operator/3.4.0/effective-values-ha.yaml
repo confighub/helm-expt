@@ -10,3 +10,5 @@ spec:
   profile: "ha"
   renderDelta: "replicaCount=2"
   mergedValuesCaptured: false
+  values:
+    replicaCount: 2
