@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "argo-cd-default-child-application-materialization-watch"
+  chart: "argo-cd/argo-cd"
+  version: "9.5.17"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with ConfigHub OCI source"
+  receipt: "runs/live-helm-confighub-compare/argo-cd-argo-cd-default-9-5-17/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "unknown"
+    configHubOciHealth: "unknown"
+    semanticParity: "pass"
+    targetFacts: "pass"
+  passed:
+    - "regular Helm reached readiness"
+    - "ConfigHub direct apply reached readiness"
+    - "ConfigHub OCI upload, Unit apply, and root Application apply completed"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+    - "required Redis auth Secrets were staged for the ConfigHub apply and OCI/Argo legs"
+  watch:
+    summary: "The root ConfigHub OCI Application was applied, but the child Argo Application was not materialized within the controller wait."
+    observedResidue:
+      - "child Argo Application status remained unavailable in the receipt"
+      - "the API server reported no Application resource type when the harness queried the child and root Argo status"
+      - "ConfigHub OCI leg did not reach a Synced/Healthy child Application status within 420 seconds"
+    interpretation: "This is a GitOps/controller materialization watch row, not a render parity defect."
+  diagnosis:
+    summary: "The default Argo CD chart is special because the installed workload is also an Argo CD controller. The proof rig exercises a self-hosted/nested Argo ownership shape, and the remaining question is which delivery route should be supported for that shape."
+    productBoundary: "A production claim for this base needs a target decision for self-hosted Argo CD, CRD ownership, Redis Secret ownership, and whether the child Application should be created by the bootstrap controller or by the installed controller."
+    nextInvestigation:
+      - "Inspect the root Application creation path and why Application CRDs were unavailable at the child-status query point."
+      - "Decide whether self-hosted Argo CD should use the no-crds base, a preinstalled-control-plane target, or a different child Application delivery route."
+      - "Rerun only after the self-hosted Argo materialization route is explicit."
+  notClaimed:
+    - "This row does not prove production self-hosted Argo CD upgrades."
+    - "This row does not prove nested Argo CD application management is the recommended production route."
+    - "This row does not claim the OCI/Argo leg reached Synced/Healthy."

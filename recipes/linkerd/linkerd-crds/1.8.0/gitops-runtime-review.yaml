@@ -1,0 +1,48 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "linkerd-crds-default-crd-sync-watch"
+  chart: "linkerd/linkerd-crds"
+  version: "1.8.0"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with ConfigHub OCI source"
+  receipt: "runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "OutOfSync"
+    configHubOciHealth: "Healthy"
+    semanticParity: "pass"
+    workloadRuntime: "not-applicable"
+  passed:
+    - "regular Helm installed the CRD-only chart"
+    - "ConfigHub direct apply installed the CRD-only chart"
+    - "ConfigHub OCI/Argo applied the CRD-only chart"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+    - "there are no workload objects to wait for"
+  watch:
+    summary: "Argo stayed OutOfSync/Healthy because one CRD remained OutOfSync after repeated successful sync attempts."
+    observedResidue:
+      - "CustomResourceDefinition/serviceprofiles.linkerd.io: OutOfSync"
+      - "all other Linkerd CRDs were Synced"
+      - "the repeated sync operation applied serviceprofiles.linkerd.io successfully but did not settle the aggregate sync status"
+    interpretation: "This is a CRD/GitOps canonicalization watch row, not a workload readiness or render parity defect."
+  diagnosis:
+    summary: "CRD-only charts can apply successfully while Argo still reports drift on a CRD after server-side apply."
+    productBoundary: "A production claim for this base needs a target-scoped CRD ownership and drift policy. A green CRD install alone is not a Linkerd control-plane claim."
+    nextInvestigation:
+      - "Inspect the live serviceprofiles.linkerd.io CRD diff against the OCI desired object."
+      - "Decide whether a CRD-specific Argo ignore/canonicalization profile is justified for this base."
+      - "Keep the row as watch until the CRD drift is explained by a receipt."
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/argocd-core-root-tree.txt"
+  notClaimed:
+    - "This row does not prove the Linkerd control plane."
+    - "This row does not prove CRD upgrade compatibility."
+    - "This row does not claim Argo OutOfSync is harmless in production."
