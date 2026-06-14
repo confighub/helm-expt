@@ -1,0 +1,27 @@
+Name:               argocd/tempo-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          tempo-oci
+URL:                http://localhost:54264/applications/tempo-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-tempo
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                STATUS  HEALTH       AGE   MESSAGE                                                        REASON
+ServiceAccount/tempo                     Synced               7m1s  serviceaccount/tempo serverside-applied
+StatefulSet/tempo                        Synced  Healthy      7m1s  statefulset.apps/tempo serverside-applied                      statefulset rolling update complete 1 pods at revision tempo-6977b44fb9...
+├─PersistentVolumeClaim/storage-tempo-0          Healthy      7m1s
+├─Pod/tempo-0                                    Healthy      7m1s
+└─ControllerRevision/tempo-6977b44fb9                         7m1s
+ServiceMonitor/tempo                     Synced               7m1s  servicemonitor.monitoring.coreos.com/tempo serverside-applied
+ConfigMap/tempo                          Synced               7m1s  configmap/tempo serverside-applied
+Ingress/tempo                            Synced  Progressing  7m1s  ingress.networking.k8s.io/tempo serverside-applied
+NetworkPolicy/tempo                      Synced               7m1s  networkpolicy.networking.k8s.io/tempo serverside-applied
+ConfigMap/tempo-query                    Synced               7m1s  configmap/tempo-query serverside-applied
+Namespace/tempo-oci                      Synced               8m4s
+Service/tempo                            Synced  Healthy      7m1s  service/tempo serverside-applied

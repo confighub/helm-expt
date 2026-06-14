@@ -1,0 +1,1136 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: grafana-tempo-1.24.4-s3-query-observability-live-parity-20260605
+spec:
+  chart: grafana/tempo
+  version: 1.24.4
+  base: s3-query-observability
+  result: watch
+  observedAt: '2026-06-14T18:21:25Z'
+  package:
+    path: packages/grafana/tempo/1.24.4
+  recipe:
+    path: recipes/grafana/tempo/1.24.4
+  variantRevision: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-tempo-mqe41wvv-q4v
+    kubeContext: kind-helm-expt-parity-tempo-mqe41wvv-q4v
+    namespace: tempo
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: tempo-helm
+      configHubKubectlApply: tempo-apply
+      configHubOciArgo: tempo-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-tempo-mqe41wvv-q4v --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-tempo-mqe41wvv-q4v"...
+
+        Deleting cluster "helm-expt-parity-tempo-mqe41wvv-q4v" ...
+
+        Deleted nodes: ["helm-expt-parity-tempo-mqe41wvv-q4v-control-plane"]
+
+        Deleting Space "helm-expt-parity-tempo-mqe41wvv-q4v-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install tempo tempo --repo https://grafana.github.io/helm-charts
+        --version 1.24.4 --namespace tempo-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed
+      objectCount: 8
+      liveHelmManifestSHA256: e4c521e79965f6688c932f78749cd2ec54e07e71e9d6a8db12185da59e9ed4d0
+      liveHelmManifestObjectCount: 8
+      namespace: tempo-helm
+      runtime:
+        result: pass
+        workloads: statefulset.apps/tempo   1/1   58s
+        pods: tempo-0   2/2   Running   0     58s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/tempo/1.24.4
+        --base s3-query-observability --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tempo-mqe41wvv-q4v-tempo
+        --non-interactive --namespace tempo-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 88de3b1ca0981f8ba3ec26c5718723928752998f409a91b168c10ba9cc201500
+      objectCount: 9
+      namespace: tempo-apply
+      manifestNamespaces:
+      - tempo
+      - tempo-apply
+      runtimeNamespaces: &id001
+      - tempo
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# tempo
+
+          deployment.apps/tempo-object-store   1/1   1     1     2m24s
+
+          statefulset.apps/tempo   1/1   51s'
+        pods: '# tempo
+
+          tempo-0                                  2/2   Running     0     51s
+
+          tempo-object-store-6f9fc7cc78-fg697      1/1   Running     0     2m24s
+
+          tempo-object-store-create-bucket-5nj5f   0/1   Completed   0     2m24s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - tempo
+        - tempo-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-tempo-mqe41wvv-q4v-tempo
+      controller: Argo CD OCI
+      app: tempo-parity
+      manifestSHA256: 87b7f29d900d78a2f81c6ce3fde71b8fa4a4985cd7a0e91ab4c41e7f1ee0fe91
+      objectCount: 9
+      namespace: tempo-oci
+      manifestNamespaces:
+      - tempo
+      - tempo-oci
+      runtimeNamespaces: &id002
+      - tempo
+      ociRevision: sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: tempo-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-tempo-mqe41wvv-q4v-tempo
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci
+              targetRevision: latest
+          revision: sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T18:26:43Z'
+          status: Progressing
+        summary:
+          externalURLs:
+          - http://query.tempo.example.com/
+          images:
+          - docker.io/grafana/tempo:2.9.0
+          - grafana/tempo-query:2.9.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T18:26:38Z'
+          finishedAt: '2026-06-14T18:26:42Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 9
+          syncResultStatusCounts:
+            Synced: 9
+        history:
+        - id: 0
+          revision: sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610
+          deployedAt: '2026-06-14T18:26:42Z'
+          deployStartedAt: '2026-06-14T18:26:38Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-tempo-mqe41wvv-q4v-tempo
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: tempo
+          name: tempo
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: tempo
+          name: tempo-query
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: tempo-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: tempo
+          name: tempo
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: tempo
+          name: tempo
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: tempo
+          name: tempo
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: tempo
+          name: tempo
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: Ingress
+          namespace: tempo
+          name: tempo
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: tempo
+          name: tempo
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         tempo-parity\nNamespace:    argocd\nLabels:   \
+              \    <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-tempo-mqe41wvv-q4v-cluster:argoproj.io/Application:argocd/tempo-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ fa875256-557c-4280-9c81-07e413b14aca\n              confighub.com/UnitSlug:\
+              \ tempo-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:      \
+              \   Application\nMetadata:\n  Creation Timestamp:  2026-06-14T18:26:35Z\n\
+              \  Generation:          10\n  Resource Version:    2092\n  UID:    \
+              \             31477f3d-d388-45cf-95f6-bfc9bc718fa7\nSpec:\n  Destination:\n\
+              \    Namespace:  tempo-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-tempo\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T18:26:43Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T18:26:38Z\n    Deployed At:        2026-06-14T18:26:42Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\n\
+              \    Source:\n      Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-tempo\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T18:26:42Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\n\
+              \        Source:\n          Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-tempo\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T18:26:38Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/tempo-oci\
+              \ serverside-applied\n        Name:        tempo-oci\n        Namespace:\
+              \   tempo-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/tempo serverside-applied\n\
+              \        Name:        tempo\n        Namespace:   tempo\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        ServiceAccount\n        Message:     serviceaccount/tempo serverside-applied\n\
+              \        Name:        tempo\n        Namespace:   tempo\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        ConfigMap\n        Message:     configmap/tempo-query serverside-applied\n\
+              \        Name:        tempo-query\n        Namespace:   tempo\n    \
+              \    Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ConfigMap\n        Message:     configmap/tempo serverside-applied\n\
+              \        Name:        tempo\n        Namespace:   tempo\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        Service\n        Message:     service/tempo serverside-applied\n\
+              \        Name:        tempo\n        Namespace:   tempo\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       apps\n        Hook Phase:  Running\n        Images:\n\
+              \          docker.io/grafana/tempo:2.9.0\n          grafana/tempo-query:2.9.0\n\
+              \        Kind:        StatefulSet\n        Message:     statefulset.apps/tempo\
+              \ serverside-applied\n        Name:        tempo\n        Namespace:\
+              \   tempo\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        Ingress\n       \
+              \ Message:     ingress.networking.k8s.io/tempo serverside-applied\n\
+              \        Name:        tempo\n        Namespace:   tempo\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       monitoring.coreos.com\n        Hook Phase:  Running\n\
+              \        Kind:        ServiceMonitor\n        Message:     servicemonitor.monitoring.coreos.com/tempo\
+              \ serverside-applied\n        Name:        tempo\n        Namespace:\
+              \   tempo\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\n\
+              \      Source:\n        Path:              ./helm-expt-parity-tempo-mqe41wvv-q4v-tempo\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T18:32:35Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       ConfigMap\n\
+              \    Name:       tempo\n    Namespace:  tempo\n    Status:     Synced\n\
+              \    Version:    v1\n    Kind:       ConfigMap\n    Name:       tempo-query\n\
+              \    Namespace:  tempo\n    Status:     Synced\n    Version:    v1\n\
+              \    Kind:       Namespace\n    Name:       tempo-oci\n    Status: \
+              \    Synced\n    Version:    v1\n    Kind:       Service\n    Name:\
+              \       tempo\n    Namespace:  tempo\n    Status:     Synced\n    Version:\
+              \    v1\n"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                     MESSAGE
+
+              6m49s       Normal   OperationStarted     application/tempo-parity   Initiated
+              automated sync to ''sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610''
+
+              6m49s       Normal   ResourceUpdated      application/tempo-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m49s       Normal   ResourceUpdated      application/tempo-parity   Updated
+              health status:  -> Healthy
+
+              6m45s       Normal   OperationCompleted   application/tempo-parity   Sync
+              operation to sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610
+              succeeded
+
+              6m44s       Normal   ResourceUpdated      application/tempo-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m44s       Normal   ResourceUpdated      application/tempo-parity   Updated
+              health status: Healthy -> Progressing'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 9
+              artifact:
+                path: argocd-core-child.json
+                sha256: 8fa87c6e7d07307bdd7d355414416b87d6b769f2bbe59ca8d76b002b4cb4b808
+                bytes: 12717
+              output: "{\n  \"metadata\": {\n    \"name\": \"tempo-parity\",\n   \
+                \ \"namespace\": \"argocd\",\n    \"uid\": \"31477f3d-d388-45cf-95f6-bfc9bc718fa7\"\
+                ,\n    \"resourceVersion\": \"2164\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-14T18:26:35Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-tempo-mqe41wvv-q4v-cluster:argoproj.io/Application:argocd/tempo-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"fa875256-557c-4280-9c81-07e413b14aca\",\n      \"confighub.com/UnitSlug\"\
+                : \"tempo-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T18:26:35Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T18:33:34Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:externalURLs\": {},\n    \
+                \          \"f:images\": {}\n            },\n            \"f:sync\"\
+                : {\n              \".\": {},\n              \"f:comparedTo\": {\n\
+                \                \".\": {},\n                \"f:destination\": {\n\
+                \                  \".\": {},\n                  \"f:namespace\":\
+                \ {},\n                  \"f:server\": {}\n                },\n  \
+                \              \"f:source\": {\n                  \".\": {},\n   \
+                \               \"f:path\": {},\n                  \"f:repoURL\":\
+                \ {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {},\n      \
+                \        \"f:status\": {}\n            }\n          }\n        }\n\
+                \      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n      \"\
+                repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-tempo-mqe41wvv-q4v-tempo\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"tempo-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"tempo\",\n        \"name\": \"tempo\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"tempo\",\n        \"name\": \"tempo-query\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n  \
+                \      \"kind\": \"Namespace\",\n        \"name\": \"tempo-oci\",\n\
+                \        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"tempo\",\n        \"name\": \"tempo\",\n        \"status\": \"\
+                Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                \n        }\n      },\n      {\n        \"version\": \"v1\",\n   \
+                \     \"kind\": \"ServiceAccount\",\n        \"namespace\": \"tempo\"\
+                ,\n        \"name\": \"tempo\",\n        \"status\": \"Synced\"\n\
+                \      },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"StatefulSet\",\n        \"namespace\"\
+                : \"tempo\",\n        \"name\": \"tempo\",\n        \"status\": \"\
+                Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                ,\n          \"message\": \"statefulset rolling update complete 1\
+                \ pods at revision tempo-6977b44fb9...\"\n        }\n      },\n  \
+                \    {\n        \"group\": \"monitoring.coreos.com\",\n        \"\
+                version\": \"v1\",\n        \"kind\": \"ServiceMonit"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 50b78b3a41c026af9be676039fa2a6c26ab0ee27ed54b210af29ab0fdfc56963
+                bytes: 1993
+              output: "Name:               argocd/tempo-parity\nProject:         \
+                \   default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          tempo-oci\nURL:                http://localhost:54264/applications/tempo-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-tempo\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                                STATUS\
+                \  HEALTH       AGE   MESSAGE                                    \
+                \                    REASON\nServiceAccount/tempo                \
+                \     Synced               7m1s  serviceaccount/tempo serverside-applied\
+                \                        \nStatefulSet/tempo                     \
+                \   Synced  Healthy      7m1s  statefulset.apps/tempo serverside-applied\
+                \                      statefulset rolling update complete 1 pods\
+                \ at revision tempo-6977b44fb9...\n\u251C\u2500PersistentVolumeClaim/storage-tempo-0\
+                \          Healthy      7m1s                                     \
+                \                            \n\u251C\u2500Pod/tempo-0           \
+                \                         Healthy      7m1s                      \
+                \                                           \n\u2514\u2500ControllerRevision/tempo-6977b44fb9\
+                \                         7m1s                                   \
+                \                              \nServiceMonitor/tempo            \
+                \         Synced               7m1s  servicemonitor.monitoring.coreos.com/tempo\
+                \ serverside-applied  \nConfigMap/tempo                          Synced\
+                \               7m1s  configmap/tempo serverside-applied         \
+                \                    \nIngress/tempo                            Synced\
+                \  Progressing  7m1s  ingress.networking.k8s.io/tempo serverside-applied\
+                \             \nNetworkPolicy/tempo                      Synced  \
+                \             7m1s  networkpolicy.networking.k8s.io/tempo serverside-applied\
+                \       \nConfigMap/tempo-query                    Synced        \
+                \       7m1s  configmap/tempo-query serverside-applied           \
+                \            \nNamespace/tempo-oci                      Synced   \
+                \            8m4s                                                \
+                \                 \nService/tempo                            Synced\
+                \  Healthy      7m1s  service/tempo serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-tempo-mqe41wvv-q4v-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-tempo-mqe41wvv-q4v-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              tempo-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/tempo-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-tempo-mqe41wvv-q4v-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"tempo-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-tempo-mqe41wvv-q4v-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci
+              targetRevision: latest
+          revision: sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T18:23:00Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T18:26:32Z'
+          finishedAt: '2026-06-14T18:26:35Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610
+          deployedAt: '2026-06-14T18:26:35Z'
+          deployStartedAt: '2026-06-14T18:26:32Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-tempo-mqe41wvv-q4v-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-tempo-mqe41wvv-q4v-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: tempo-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-tempo-mqe41wvv-q4v-cluster\nNamespace:\
+              \    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:\
+              \  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation\
+              \ Timestamp:  2026-06-14T18:22:52Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        12\n  Resource Version:  2141\n  UID:        \
+              \       33c24c8d-aa35-49ad-8229-4758506b5477\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T18:23:00Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T18:26:32Z\n\
+              \    Deployed At:        2026-06-14T18:26:35Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\n\
+              \    Source:\n      Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T18:26:35Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\n\
+              \        Source:\n          Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T18:26:32Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/tempo-parity serverside-applied\n\
+              \        Name:        tempo-parity\n        Namespace:   argocd\n  \
+              \      Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-tempo-mqe41wvv-q4v-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\n\
+              \      Source:\n        Path:              ./helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T18:33:16Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       tempo-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     10m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     10m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m12s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m9s   argocd-application-controller  Sync operation to sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\
+              \ succeeded\n  Normal  ResourceUpdated     7m6s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                    MESSAGE
+
+              10m         Normal   ResourceUpdated      application/helm-expt-parity-tempo-mqe41wvv-q4v-cluster   Updated
+              sync status:  -> Synced
+
+              10m         Normal   ResourceUpdated      application/helm-expt-parity-tempo-mqe41wvv-q4v-cluster   Updated
+              health status:  -> Healthy
+
+              7m12s       Normal   OperationStarted     application/helm-expt-parity-tempo-mqe41wvv-q4v-cluster   Initiated
+              automated sync to ''sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610''
+
+              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-tempo-mqe41wvv-q4v-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m9s        Normal   OperationCompleted   application/helm-expt-parity-tempo-mqe41wvv-q4v-cluster   Sync
+              operation to sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610
+              succeeded
+
+              7m6s        Normal   ResourceUpdated      application/helm-expt-parity-tempo-mqe41wvv-q4v-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 2d43b793a36ed77bf2c7eed925f846455cfdce25be19715027136034f51bc285
+                bytes: 10591
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-tempo-mqe41wvv-q4v-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"33c24c8d-aa35-49ad-8229-4758506b5477\"\
+                ,\n    \"resourceVersion\": \"2191\",\n    \"generation\": 13,\n \
+                \   \"creationTimestamp\": \"2026-06-14T18:22:52Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-tempo-mqe41wvv-q4v-cluster\\\",\\\"namespace\\\"\
+                :\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-tempo-mqe41wvv-q4v-cluster\\\",\\\"repoURL\\\"\
+                :\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T18:22:52Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T18:33:51Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 2ab9f066d4b835acd6b439781c8197e707d431dc00951f4731326835a8e0d3ae
+                bytes: 1101
+              output: "Name:               argocd/helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:54381/applications/helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-tempo-mqe41wvv-q4v-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \       STATUS  HEALTH  AGE    MESSAGE                           \
+                \                                                      REASON\nApplication/helm-expt-parity-tempo-mqe41wvv-q4v-cluster\
+                \  Synced          11m    application.argoproj.io/helm-expt-parity-tempo-mqe41wvv-q4v-cluster\
+                \ serverside-applied  \nApplication/tempo-parity                 \
+                \                Synced          7m26s  application.argoproj.io/tempo-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-tempo-mqe41wvv-q4v-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-tempo-mqe41wvv-q4v-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              tempo-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/tempo-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-tempo-mqe41wvv-q4v-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"tempo-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# tempo
+
+          deployment.apps/tempo-object-store   1/1   1     1     8m21s
+
+          statefulset.apps/tempo   1/1   7m20s'
+        pods: '# tempo
+
+          tempo-0                                  2/2   Running     0     7m20s
+
+          tempo-object-store-6f9fc7cc78-sw8p8      1/1   Running     0     8m21s
+
+          tempo-object-store-create-bucket-jmdcv   0/1   Completed   0     8m21s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||tempo
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 8
+      configHubObjectCount: 9
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||tempo
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 8b00d5bf7dfb6f4ee3e5330bcb26d8b9861352f81ea90b16bd6aae90eef49ebc
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 8
+      configHubObjectCount: 9
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||tempo
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: 8b00d5bf7dfb6f4ee3e5330bcb26d8b9861352f81ea90b16bd6aae90eef49ebc
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T18:23:14Z'
+    finishedAt: '2026-06-14T18:24:14Z'
+    elapsedSeconds: 59.124
+    timeoutSeconds: 900
+    command: helm upgrade --install tempo tempo --repo https://grafana.github.io/helm-charts
+      --version 1.24.4 --namespace tempo-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T18:24:24Z'
+    finishedAt: '2026-06-14T18:24:25Z'
+    elapsedSeconds: 0.37
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/tempo/1.24.4
+      --base s3-query-observability --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tempo-mqe41wvv-q4v-tempo
+      --non-interactive --namespace tempo-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T18:24:27Z'
+    finishedAt: '2026-06-14T18:24:27Z'
+    elapsedSeconds: 0.139
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-tempo-mqe41wvv-q4v.kubeconfig
+      --context kind-helm-expt-parity-tempo-mqe41wvv-q4v apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/direct-apply-manifest.yaml
+    objectCount: 8
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T18:24:27Z'
+    finishedAt: '2026-06-14T18:25:18Z'
+    elapsedSeconds: 50.788
+    timeoutSeconds: 300
+    namespaces: tempo
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T18:25:38Z'
+    finishedAt: '2026-06-14T18:25:39Z'
+    elapsedSeconds: 0.25
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/tempo/1.24.4
+      --base s3-query-observability --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tempo-mqe41wvv-q4v-tempo
+      --non-interactive --namespace tempo-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T18:25:46Z'
+    finishedAt: '2026-06-14T18:26:17Z'
+    elapsedSeconds: 30.17
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tempo-mqe41wvv-q4v-tempo
+      --space helm-expt-parity-tempo-mqe41wvv-q4v-tempo --target helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci
+    objectCount: 9
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T18:26:17Z'
+    finishedAt: '2026-06-14T18:26:17Z'
+    elapsedSeconds: 0.594
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-tempo-mqe41wvv-q4v-tempo
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T18:26:17Z'
+    finishedAt: '2026-06-14T18:26:22Z'
+    elapsedSeconds: 4.972
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-tempo-mqe41wvv-q4v-tempo --unit
+      <9 unit(s)> --wait --timeout 5m
+    unitCount: 9
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T18:26:22Z'
+    finishedAt: '2026-06-14T18:26:23Z'
+    elapsedSeconds: 1.031
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-tempo-mqe41wvv-q4v-cluster tempo-parity-app
+      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/argo-application.json
+      --target helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T18:26:23Z'
+    finishedAt: '2026-06-14T18:26:24Z'
+    elapsedSeconds: 1.045
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-tempo-mqe41wvv-q4v-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-14T18:26:24Z'
+    finishedAt: '2026-06-14T18:33:27Z'
+    elapsedSeconds: 422.459
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T18:34:02Z'
+    finishedAt: '2026-06-14T18:34:02Z'
+    elapsedSeconds: 0.104
+    timeoutSeconds: 180
+    namespaces: tempo
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-tempo-mqe41wvv-q4v\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-tempo-mqe41wvv-q4v.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-tempo-mqe41wvv-q4v\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-tempo-mqe41wvv-q4v\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-tempo-mqe41wvv-q4v\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-tempo-mqe41wvv-q4v.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argocd\"...\napiVer"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=2 crds=1 objectStores=1
+  - name: regular-helm-live
+    result: pass
+    detail: level=WARN msg="this chart is deprecated"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=2 crds=1 objectStores=1
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# tempo
+
+      deployment.apps/tempo-object-store   1/1   1     1     2m24s
+
+      statefulset.apps/tempo   1/1   51s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=2 crds=1 objectStores=1
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: tempo
+        name: tempo-s3-credentials
+        keys:
+        - access_key
+        - secret_key
+        lane: regularHelm
+      - namespace: tempo-helm
+        name: tempo-s3-credentials
+        keys:
+        - access_key
+        - secret_key
+        lane: regularHelm
+        sourceNamespace: tempo
+      stagedCRDs:
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: prometheus-community/kube-prometheus-stack@85.3.3/default
+        lane: regularHelm
+      stagedObjectStores:
+      - namespace: tempo
+        name: tempo-object-store
+        serviceName: tempo-object-store
+        bucket: tempo-traces
+        lane: regularHelm
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/target-facts-regular-helm.yaml
+      objectStorePath: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/target-facts-regular-helm-object-stores.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: tempo
+        name: tempo-s3-credentials
+        keys:
+        - access_key
+        - secret_key
+        lane: configHubKubectlApply
+      - namespace: tempo-apply
+        name: tempo-s3-credentials
+        keys:
+        - access_key
+        - secret_key
+        lane: configHubKubectlApply
+        sourceNamespace: tempo
+      stagedCRDs:
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: prometheus-community/kube-prometheus-stack@85.3.3/default
+        lane: configHubKubectlApply
+      stagedObjectStores:
+      - namespace: tempo
+        name: tempo-object-store
+        serviceName: tempo-object-store
+        bucket: tempo-traces
+        lane: configHubKubectlApply
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/target-facts-confighub-apply.yaml
+      objectStorePath: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/target-facts-confighub-apply-object-stores.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: tempo
+        name: tempo-s3-credentials
+        keys:
+        - access_key
+        - secret_key
+        lane: configHubOciArgo
+      - namespace: tempo-oci
+        name: tempo-s3-credentials
+        keys:
+        - access_key
+        - secret_key
+        lane: configHubOciArgo
+        sourceNamespace: tempo
+      stagedCRDs:
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: prometheus-community/kube-prometheus-stack@85.3.3/default
+        lane: configHubOciArgo
+      stagedObjectStores:
+      - namespace: tempo
+        name: tempo-object-store
+        serviceName: tempo-object-store
+        bucket: tempo-traces
+        lane: configHubOciArgo
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/target-facts-confighub-oci.yaml
+      objectStorePath: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/target-facts-confighub-oci-object-stores.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: tempo
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: tempo

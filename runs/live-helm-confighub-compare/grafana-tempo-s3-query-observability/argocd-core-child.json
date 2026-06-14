@@ -1,0 +1,434 @@
+{
+  "metadata": {
+    "name": "tempo-parity",
+    "namespace": "argocd",
+    "uid": "31477f3d-d388-45cf-95f6-bfc9bc718fa7",
+    "resourceVersion": "2164",
+    "generation": 11,
+    "creationTimestamp": "2026-06-14T18:26:35Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-tempo-mqe41wvv-q4v-cluster:argoproj.io/Application:argocd/tempo-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "fa875256-557c-4280-9c81-07e413b14aca",
+      "confighub.com/UnitSlug": "tempo-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T18:26:35Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T18:33:34Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:externalURLs": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci",
+      "path": "./helm-expt-parity-tempo-mqe41wvv-q4v-tempo",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "tempo-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "tempo",
+        "name": "tempo",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "tempo",
+        "name": "tempo-query",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "tempo-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "tempo",
+        "name": "tempo",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "tempo",
+        "name": "tempo",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "tempo",
+        "name": "tempo",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "statefulset rolling update complete 1 pods at revision tempo-6977b44fb9..."
+        }
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "version": "v1",
+        "kind": "ServiceMonitor",
+        "namespace": "tempo",
+        "name": "tempo",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "Ingress",
+        "namespace": "tempo",
+        "name": "tempo",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing"
+        }
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "tempo",
+        "name": "tempo",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci",
+          "path": "./helm-expt-parity-tempo-mqe41wvv-q4v-tempo",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "tempo-oci"
+        }
+      },
+      "revision": "sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-14T18:26:43Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610",
+        "deployedAt": "2026-06-14T18:26:42Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci",
+          "path": "./helm-expt-parity-tempo-mqe41wvv-q4v-tempo",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-14T18:26:38Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-14T18:33:27Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci",
+            "path": "./helm-expt-parity-tempo-mqe41wvv-q4v-tempo",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "tempo-oci",
+            "name": "tempo-oci",
+            "status": "Synced",
+            "message": "namespace/tempo-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "tempo",
+            "name": "tempo",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/tempo serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "tempo",
+            "name": "tempo",
+            "status": "Synced",
+            "message": "serviceaccount/tempo serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "tempo",
+            "name": "tempo-query",
+            "status": "Synced",
+            "message": "configmap/tempo-query serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "tempo",
+            "name": "tempo",
+            "status": "Synced",
+            "message": "configmap/tempo serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "tempo",
+            "name": "tempo",
+            "status": "Synced",
+            "message": "service/tempo serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "tempo",
+            "name": "tempo",
+            "status": "Synced",
+            "message": "statefulset.apps/tempo serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/grafana/tempo:2.9.0",
+              "grafana/tempo-query:2.9.0"
+            ]
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "Ingress",
+            "namespace": "tempo",
+            "name": "tempo",
+            "status": "Synced",
+            "message": "ingress.networking.k8s.io/tempo serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "version": "v1",
+            "kind": "ServiceMonitor",
+            "namespace": "tempo",
+            "name": "tempo",
+            "status": "Synced",
+            "message": "servicemonitor.monitoring.coreos.com/tempo serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:987ab2ae28a018f206ebeb30515d53d8d05fdbd374f6040364a8b9ee6d810610",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tempo-mqe41wvv-q4v-cluster/oci",
+          "path": "./helm-expt-parity-tempo-mqe41wvv-q4v-tempo",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-14T18:26:38Z",
+      "finishedAt": "2026-06-14T18:26:42Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "externalURLs": [
+        "http://query.tempo.example.com/"
+      ],
+      "images": [
+        "docker.io/grafana/tempo:2.9.0",
+        "grafana/tempo-query:2.9.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
