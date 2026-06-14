@@ -1,6 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { check, readYaml, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 
@@ -146,12 +146,39 @@ function resolveTarget() {
     valuesPath: normalizeRelative(recipe, `variants/${base}`, valuesProfile),
     variantRevision: `${recipe}/revisions/${base}/r001/variant-revision.yaml`,
     rig: rigOverride ?? `helm-expt-parity-${rigSlug(slug)}-${uniqueRunSuffix()}`,
-    out: outOverride ?? `runs/live-helm-confighub-compare/${chart.replaceAll("/", "-")}-${base}/receipt.yaml`,
+    out: outOverride ?? defaultReceiptPath({ chart, version, base, recipe }),
   };
   check(existsSync(join(repoRoot, target.packagePath)), `${target.packagePath} is missing`);
   check(existsSync(join(repoRoot, target.valuesPath)), `${target.valuesPath} is missing`);
   check(existsSync(join(repoRoot, target.variantRevision)), `${target.variantRevision} is missing`);
   return target;
+}
+
+function defaultReceiptPath({ chart, version, base, recipe }) {
+  const chartBase = `${chart.replaceAll("/", "-")}-${base}`;
+  if (!hasDuplicateChartBaseVersion({ chart, base, recipe })) {
+    return `runs/live-helm-confighub-compare/${chartBase}/receipt.yaml`;
+  }
+  return `runs/live-helm-confighub-compare/${chartBase}-${slugPart(version)}/receipt.yaml`;
+}
+
+function hasDuplicateChartBaseVersion({ chart, base, recipe }) {
+  const chartRoot = join(repoRoot, "recipes", chart);
+  if (!existsSync(chartRoot)) return false;
+  const currentRecipe = relativeRepo(join(repoRoot, recipe));
+  const matches = [];
+  for (const entry of readdirSync(chartRoot, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const candidateRecipe = relativeRepo(join(chartRoot, entry.name));
+    if (existsSync(join(chartRoot, entry.name, "variants", base, "variant.yaml"))) {
+      matches.push(candidateRecipe);
+    }
+  }
+  return matches.includes(currentRecipe) && matches.length > 1;
+}
+
+function slugPart(value) {
+  return String(value).replaceAll(/[^a-zA-Z0-9]+/g, "-").replaceAll(/^-|-$/g, "").toLowerCase();
 }
 
 function normalizeRecipePath(value) {
