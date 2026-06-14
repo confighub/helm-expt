@@ -7,7 +7,7 @@ spec:
   version: 2.0.0
   base: secure-mesh-existing-secrets
   result: watch
-  observedAt: '2026-06-14T08:25:38Z'
+  observedAt: '2026-06-14T09:34:19Z'
   package:
     path: packages/hashicorp/consul/2.0.0
   recipe:
@@ -28,8 +28,8 @@ spec:
     result: pass
     changes: []
   run:
-    rig: helm-expt-parity-consul-mqdirqpn-1if4
-    kubeContext: kind-helm-expt-parity-consul-mqdirqpn-1if4
+    rig: helm-expt-parity-consul-mqdl821u-vkg
+    kubeContext: kind-helm-expt-parity-consul-mqdl821u-vkg
     namespace: consul
     namespaceMode: fixed-rendered-namespace
     legNamespaces:
@@ -38,16 +38,16 @@ spec:
       configHubOciArgo: consul
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub cluster down --name helm-expt-parity-consul-mqdirqpn-1if4 --force
+      command: cub cluster down --name helm-expt-parity-consul-mqdl821u-vkg --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-consul-mqdirqpn-1if4"...
+      detail: 'Deleting kind cluster "helm-expt-parity-consul-mqdl821u-vkg"...
 
-        Deleting cluster "helm-expt-parity-consul-mqdirqpn-1if4" ...
+        Deleting cluster "helm-expt-parity-consul-mqdl821u-vkg" ...
 
-        Deleted nodes: ["helm-expt-parity-consul-mqdirqpn-1if4-control-plane" "helm-expt-parity-consul-mqdirqpn-1if4-worker"
-        "helm-expt-parity-consul-mqdirqpn-1if4-worker2" "helm-expt-parity-consul-mqdirqpn-1if4-worker3"]
+        Deleted nodes: ["helm-expt-parity-consul-mqdl821u-vkg-worker2" "helm-expt-parity-consul-mqdl821u-vkg-worker"
+        "helm-expt-parity-consul-mqdl821u-vkg-control-plane" "helm-expt-parity-consul-mqdl821u-vkg-worker3"]
 
-        Deleting Space "helm-expt-parity-consul-mqdirqpn-1if4-cluster" (recursive:
+        Deleting Space "helm-expt-parity-consul-mqdl821u-vkg-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -65,32 +65,32 @@ spec:
       namespace: consul
       runtime:
         result: pass
-        workloads: 'deployment.apps/consul-consul-connect-injector       1/1   1     1     2m13s
+        workloads: 'deployment.apps/consul-consul-connect-injector       1/1   1     1     2m9s
 
-          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     2m13s
+          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     2m9s
 
-          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     2m13s
+          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     2m9s
 
-          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     2m13s
+          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     2m9s
 
-          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     2m13s
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     2m9s
 
-          statefulset.apps/consul-consul-server   3/3   2m13s'
-        pods: 'consul-consul-connect-injector-5f47dfbd9-sppwb        1/1   Running   0     2m13s
+          statefulset.apps/consul-consul-server   3/3   2m8s'
+        pods: 'consul-consul-connect-injector-5f47dfbd9-p7wtz        1/1   Running   0     2m8s
 
-          consul-consul-ingress-gateway-7c9f6b86f8-9vjvm        1/1   Running   0     2m13s
+          consul-consul-ingress-gateway-7c9f6b86f8-h5j8z        1/1   Running   0     2m8s
 
-          consul-consul-mesh-gateway-746b9dc7df-pwp8b           1/1   Running   0     2m13s
+          consul-consul-mesh-gateway-746b9dc7df-c84nl           1/1   Running   0     2m8s
 
-          consul-consul-server-0                                1/1   Running   0     2m13s
+          consul-consul-server-0                                1/1   Running   0     2m8s
 
-          consul-consul-server-1                                1/1   Running   0     2m13s
+          consul-consul-server-1                                1/1   Running   0     2m8s
 
-          consul-consul-server-2                                1/1   Running   0     2m13s
+          consul-consul-server-2                                1/1   Running   0     2m8s
 
-          consul-consul-terminating-gateway-5496cd6fbd-4vhzn    1/1   Running   0     2m13s
+          consul-consul-terminating-gateway-5496cd6fbd-kqkl4    1/1   Running   0     2m8s
 
-          consul-consul-webhook-cert-manager-7b7958cdff-6vdfd   1/1   Running   0     2m13s'
+          consul-consul-webhook-cert-manager-7b7958cdff-8pg4w   1/1   Running   0     2m8s'
         notReady: []
         ignoredJobPods: []
       stderr: ''
@@ -98,7 +98,7 @@ spec:
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
-        --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-consul-mqdirqpn-1if4-consul
+        --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-consul-mqdl821u-vkg-consul
         --non-interactive --namespace consul
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: d0c7b2dace3ea7b2d732ac243969c035c2d9c28020416b96fc3639f9a735b16a
@@ -126,11 +126,11 @@ spec:
           statefulset.apps/consul-consul-server   3/3   41s'
         pods: '# consul
 
-          consul-consul-connect-injector-5f47dfbd9-pdv92        1/1   Running     0     41s
+          consul-consul-connect-injector-5f47dfbd9-5qdqj        1/1   Running     0     41s
 
-          consul-consul-ingress-gateway-7c9f6b86f8-4wjx8        1/1   Running     0     41s
+          consul-consul-ingress-gateway-7c9f6b86f8-dmmzk        1/1   Running     0     41s
 
-          consul-consul-mesh-gateway-746b9dc7df-tsdmc           1/1   Running     0     41s
+          consul-consul-mesh-gateway-746b9dc7df-92xwd           1/1   Running     0     41s
 
           consul-consul-server-0                                1/1   Running     0     41s
 
@@ -138,11 +138,11 @@ spec:
 
           consul-consul-server-2                                1/1   Running     0     41s
 
-          consul-consul-server-acl-init-882vm                   0/1   Completed   0     40s
+          consul-consul-server-acl-init-24d44                   0/1   Completed   0     40s
 
-          consul-consul-terminating-gateway-5496cd6fbd-2tmpm    1/1   Running     0     41s
+          consul-consul-terminating-gateway-5496cd6fbd-7q679    1/1   Running     0     41s
 
-          consul-consul-webhook-cert-manager-7b7958cdff-6z9l8   1/1   Running     0     41s'
+          consul-consul-webhook-cert-manager-7b7958cdff-fhtjn   1/1   Running     0     41s'
         notReady: []
       cleanupBeforeOci:
         namespaces:
@@ -197,7 +197,7 @@ spec:
           parity rigs
     configHubOciArgo:
       result: watch
-      workloadSpace: helm-expt-parity-consul-mqdirqpn-1if4-consul
+      workloadSpace: helm-expt-parity-consul-mqdl821u-vkg-consul
       controller: Argo CD OCI
       app: consul-parity
       manifestSHA256: d0c7b2dace3ea7b2d732ac243969c035c2d9c28020416b96fc3639f9a735b16a
@@ -207,7 +207,7 @@ spec:
       - consul
       runtimeNamespaces: &id002
       - consul
-      ociRevision: sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9
+      ociRevision: sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195
       sync: Synced
       health: Progressing
       separatedSecrets:
@@ -236,13 +236,13 @@ spec:
               namespace: consul
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-consul-mqdirqpn-1if4-consul
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci
+              path: ./helm-expt-parity-consul-mqdl821u-vkg-consul
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci
               targetRevision: latest
-          revision: sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9
+          revision: sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195
           status: Synced
         health:
-          lastTransitionTime: '2026-06-14T08:43:24Z'
+          lastTransitionTime: '2026-06-14T09:51:41Z'
           status: Progressing
         summary:
           externalURLs:
@@ -254,8 +254,8 @@ spec:
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
-          startedAt: '2026-06-14T08:43:05Z'
-          finishedAt: '2026-06-14T08:43:08Z'
+          startedAt: '2026-06-14T09:51:32Z'
+          finishedAt: '2026-06-14T09:51:35Z'
           operationSyncResourceCount: 0
           operationSyncResources: []
           syncResultResourceCount: 97
@@ -263,13 +263,13 @@ spec:
             Synced: 97
         history:
         - id: 0
-          revision: sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9
-          deployedAt: '2026-06-14T08:43:08Z'
-          deployStartedAt: '2026-06-14T08:43:05Z'
+          revision: sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195
+          deployedAt: '2026-06-14T09:51:35Z'
+          deployStartedAt: '2026-06-14T09:51:32Z'
           source:
-            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci
             targetRevision: latest
-            path: ./helm-expt-parity-consul-mqdirqpn-1if4-consul
+            path: ./helm-expt-parity-consul-mqdl821u-vkg-consul
         conditions: []
         resources:
         - group: ''
@@ -1053,36 +1053,36 @@ spec:
           describe:
             result: pass
             output: "Name:         consul-parity\nNamespace:    argocd\nLabels:  \
-              \     <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-consul-mqdirqpn-1if4-cluster:argoproj.io/Application:argocd/consul-parity\n\
+              \     <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-consul-mqdl821u-vkg-cluster:argoproj.io/Application:argocd/consul-parity\n\
               \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
-              \ f5dcd985-b187-4a3d-9beb-bccafb373abf\n              confighub.com/UnitSlug:\
+              \ 76f91922-376f-4538-922a-5320998f4e54\n              confighub.com/UnitSlug:\
               \ consul-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:     \
-              \    Application\nMetadata:\n  Creation Timestamp:  2026-06-14T08:43:03Z\n\
-              \  Generation:          11\n  Resource Version:    5788\n  UID:    \
-              \             d7b3f775-f20b-4277-a939-c7a151d84761\nSpec:\n  Destination:\n\
+              \    Application\nMetadata:\n  Creation Timestamp:  2026-06-14T09:51:30Z\n\
+              \  Generation:          11\n  Resource Version:    5740\n  UID:    \
+              \             820313bd-ac39-4d36-9e20-61db40ab049e\nSpec:\n  Destination:\n\
               \    Namespace:  consul\n    Server:     https://kubernetes.default.svc\n\
-              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-consul-mqdirqpn-1if4-consul\n\
-              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-consul-mqdl821u-vkg-consul\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
               \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
               \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
               \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
-              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T08:43:24Z\n\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T09:51:41Z\n\
               \    Status:                Progressing\n  History:\n    Deploy Started\
-              \ At:  2026-06-14T08:43:05Z\n    Deployed At:        2026-06-14T08:43:08Z\n\
+              \ At:  2026-06-14T09:51:32Z\n    Deployed At:        2026-06-14T09:51:35Z\n\
               \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
-              \    Revision:     sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\n\
-              \    Source:\n      Path:             ./helm-expt-parity-consul-mqdirqpn-1if4-consul\n\
-              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci\n\
+              \    Revision:     sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\n\
+              \    Source:\n      Path:             ./helm-expt-parity-consul-mqdl821u-vkg-consul\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
               \      Target Revision:  latest\n  Operation State:\n    Finished At:\
-              \  2026-06-14T08:43:08Z\n    Message:      successfully synced (all\
+              \  2026-06-14T09:51:35Z\n    Message:      successfully synced (all\
               \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
               \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
-              \     true\n        Revision:  sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\n\
-              \        Source:\n          Path:             ./helm-expt-parity-consul-mqdirqpn-1if4-consul\n\
-              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci\n\
+              \     true\n        Revision:  sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\n\
+              \        Source:\n          Path:             ./helm-expt-parity-consul-mqdl821u-vkg-consul\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
               \          Target Revision:  latest\n        Sync Options:\n       \
               \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
-              \       Succeeded\n    Started At:  2026-06-14T08:43:05Z\n    Sync Result:\n\
+              \       Succeeded\n    Started At:  2026-06-14T09:51:32Z\n    Sync Result:\n\
               \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
               \        Kind:        Namespace\n        Message:     namespace/consul\
               \ serverside-applied\n        Name:        consul\n        Namespace:\
@@ -1094,8 +1094,28 @@ spec:
               \  Namespace:   consul\n        Status:      Synced\n        Sync Phase:\
               \  Sync\n        Version:     v1\n        Group:       \n        Hook\
               \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
+              \     serviceaccount/consul-consul-gateway-resources-custom serverside-applied\n\
+              \        Name:        consul-consul-gateway-resources-custom\n     \
+              \   Namespace:   consul\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
+              \     serviceaccount/consul-consul-gateway-cleanup-custom serverside-applied\n\
+              \        Name:        consul-consul-gateway-cleanup-custom\n       \
+              \ Namespace:   consul\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
               \     serviceaccount/consul-consul-terminating-gateway serverside-applied\n\
               \        Name:        consul-consul-terminating-gateway\n        Namespace:\
+              \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/consul-consul-connect-injector serverside-applied\n\
+              \        Name:        consul-consul-connect-injector\n        Namespace:\
+              \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/consul-consul-server-acl-init serverside-applied\n\
+              \        Name:        consul-consul-server-acl-init\n        Namespace:\
               \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
               \        Version:     v1\n        Group:       \n        Hook Phase:\
               \  Running\n        Kind:        ServiceAccount\n        Message:  \
@@ -1104,13 +1124,8 @@ spec:
               \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
               \        Version:     v1\n        Group:       \n        Hook Phase:\
               \  Running\n        Kind:        ServiceAccount\n        Message:  \
-              \   serviceaccount/consul-consul-gateway-resources-custom serverside-applied\n\
-              \        Name:        consul-consul-gateway-resources-custom\n     \
-              \   Namespace:   consul\n        Status:      Synced\n        Sync Phase:\
-              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
-              \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
-              \     serviceaccount/consul-consul-server-acl-init serverside-applied\n\
-              \        Name:        consul-consul-server-acl-init\n        Namespace:\
+              \   serviceaccount/consul-consul-webhook-cert-manager serverside-applied\n\
+              \        Name:        consul-consul-webhook-cert-manager\n        Namespace:\
               \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
               \        Version:     v1\n        Group:       \n        Hook Phase:\
               \  Running\n        Kind:        ServiceAccount\n        Message:  \
@@ -1118,58 +1133,258 @@ spec:
               \ Name:        consul-consul-server\n        Namespace:   consul\n \
               \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
               \     v1\n        Group:       \n        Hook Phase:  Running\n    \
-              \    Kind:        ServiceAccount\n        Message:     serviceaccount/consul-consul-gateway-cleanup-custom\
-              \ serverside-applied\n        Name:        consul-consul-gateway-cleanup-custom\n\
-              \        Namespace:   consul\n        Status:      Synced\n        Sync\
-              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
-              \     Hook Phase:  Running\n        Kind:        ServiceAccount\n  \
-              \      Message:     serviceaccount/consul-consul-webhook-cert-manager\
-              \ serverside-applied\n        Name:        consul-consul-webhook-cert-manager\n\
-              \        Namespace:   consul\n        Status:      Synced\n        Sync\
-              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
-              \     Hook Phase:  Running\n        Kind:        ServiceAccount\n  \
-              \      Message:     serviceaccount/consul-consul-ingress-gateway serverside-applied\n\
-              \        Name:        consul-consul-ingress-gateway\n        Namespace:\
-              \   consul\n        Status:      Synced\n        Sync Phase:  Sync\n\
-              \        Version:     v1\n        Group:       \n        Hook Phase:\
-              \  Running\n        Kind:        ServiceAccount\n        Message:  \
-              \   serviceaccount/consul-consul-gateway-cleanup serverside-applied\n\
-              \        Name:        consul-consul-gateway-cleanup\n        Namespace:\
-              \   c"
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/consul-consul-gateway-cleanup\
+              \ serverside-applied\n        Name:        consul-consul-gateway-cleanup\n\
+              \        Namespace:   consul"
           events:
             result: pass
             output: 'LAST SEEN   TYPE     REASON               OBJECT                      MESSAGE
 
-              6m47s       Normal   OperationStarted     application/consul-parity   Initiated
-              automated sync to ''sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9''
+              6m52s       Normal   OperationStarted     application/consul-parity   Initiated
+              automated sync to ''sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195''
 
-              6m47s       Normal   ResourceUpdated      application/consul-parity   Updated
+              6m52s       Normal   ResourceUpdated      application/consul-parity   Updated
               sync status:  -> OutOfSync
 
-              6m47s       Normal   ResourceUpdated      application/consul-parity   Updated
+              6m52s       Normal   ResourceUpdated      application/consul-parity   Updated
               health status:  -> Healthy
 
-              6m44s       Normal   OperationCompleted   application/consul-parity   Sync
-              operation to sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9
+              6m49s       Normal   OperationCompleted   application/consul-parity   Sync
+              operation to sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195
               succeeded
 
-              6m42s       Normal   ResourceUpdated      application/consul-parity   Updated
+              6m48s       Normal   ResourceUpdated      application/consul-parity   Updated
               health status: Healthy -> Degraded
 
-              6m40s       Normal   ResourceUpdated      application/consul-parity   Updated
+              6m46s       Normal   ResourceUpdated      application/consul-parity   Updated
               sync status: OutOfSync -> Synced
 
-              6m28s       Normal   ResourceUpdated      application/consul-parity   Updated
+              6m43s       Normal   ResourceUpdated      application/consul-parity   Updated
               health status: Degraded -> Progressing'
           argocdCore:
-            result: blocked
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
             json:
-              result: blocked
-              summary: {}
-              output: '{"level":"fatal","msg":"configmap \"argocd-cm\" not found","time":"2026-06-14T09:49:53+01:00"}'
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 97
+              output: "{\n  \"metadata\": {\n    \"name\": \"consul-parity\",\n  \
+                \  \"namespace\": \"argocd\",\n    \"uid\": \"820313bd-ac39-4d36-9e20-61db40ab049e\"\
+                ,\n    \"resourceVersion\": \"5868\",\n    \"generation\": 12,\n \
+                \   \"creationTimestamp\": \"2026-06-14T09:51:30Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-consul-mqdl821u-vkg-cluster:argoproj.io/Application:argocd/consul-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"76f91922-376f-4538-922a-5320998f4e54\",\n      \"confighub.com/UnitSlug\"\
+                : \"consul-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T09:51:30Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T09:58:40Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:externalURLs\": {},\n    \
+                \          \"f:images\": {}\n            },\n            \"f:sync\"\
+                : {\n              \".\": {},\n              \"f:comparedTo\": {\n\
+                \                \".\": {},\n                \"f:destination\": {\n\
+                \                  \".\": {},\n                  \"f:namespace\":\
+                \ {},\n                  \"f:server\": {}\n                },\n  \
+                \              \"f:source\": {\n                  \".\": {},\n   \
+                \               \"f:path\": {},\n                  \"f:repoURL\":\
+                \ {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {},\n      \
+                \        \"f:status\": {}\n            }\n          }\n        }\n\
+                \      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n      \"\
+                repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-consul-mqdl821u-vkg-consul\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"consul\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"consul\",\n        \"name\": \"consul-consul-connect-inject-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"consul\",\n        \"name\": \"consul-consul-gateway-resources-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"consul\",\n        \"name\": \"consul-consul-gateway-resources-config-custom\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"consul\",\n        \"name\": \"consul-consul-server-config\",\n\
+                \        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"consul\",\n        \"name\": \"consul-consul-server-tmp-extra-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"consul\",\n        \"name\": \"consul-consul-webhook-cert-manager-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"consul\",\n        \"name\": \"helm-values\",\n        "
             tree:
-              result: blocked
-              output: '{"level":"fatal","msg":"configmap \"argocd-cm\" not found","time":"2026-06-14T09:49:53+01:00"}'
+              result: pass
+              output: "Name:               argocd/consul-parity\nProject:        \
+                \    default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          consul\nURL:                http://localhost:62867/applications/consul-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-consul-mqdl821u-vkg-consul\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                                     \
+                \                           STATUS  HEALTH   AGE    MESSAGE      \
+                \                                             REASON\nClusterRoleBinding/consul-consul-server\
+                \                                  Synced           7m15s        \
+                \                                                    \nConfigMap/consul-consul-server-config\
+                \                                    Synced           7m16s  configmap/consul-consul-server-config\
+                \ serverside-applied  \nMutatingWebhookConfiguration/consul-consul-connect-injector\
+                \              Synced           19m                              \
+                \                                \nCustomResourceDefinition/tcproutes.gateway.networking.k8s.io\
+                \             Synced  Healthy  7m16s                             \
+                \                               CRD is healthy\nClusterRoleBinding/consul-consul-gateway-cleanup\
+                \                         Synced           7m15s                 \
+                \                                           \nRole/consul-consul-connect-inject-leader-election\
+                \                        Synced           7m15s  role.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election\
+                \ reconciled. reconciliation required create\n                   \
+                \                                                      missing rules\
+                \ added:\n                                                       \
+                \                          {Verbs:[get list watch create update patch\
+                \ delete] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\
+                \                                                                \
+                \                 {Verbs:[get update patch] APIGroups:[] Resources:[configmaps/status]\
+                \ ResourceNames:[] NonResourceURLs:[]}\n                         \
+                \                                                        {Verbs:[create\
+                \ patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}.\
+                \ role.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election\
+                \ serverside-applied  \nRoleBinding/consul-consul-ingress-gateway\
+                \                                Synced                          \
+                \                                                                \
+                \                                                                \
+                \                                    7m15s  rolebinding.rbac.authorization.k8s.io/consul-consul-ingress-gateway\
+                \ reconciled. reconciliation required create\n                   \
+                \                                                      missing subjects\
+                \ added:\n                                                       \
+                \                          {Kind:ServiceAccount APIGroup: Name:consul-consul-ingress-gateway\
+                \ Namespace:consul}. rolebinding.rbac.authorization.k8s.io/consul-consul-ingress-gateway\
+                \ serverside-applied  \nConfigMap/consul-consul-webhook-cert-manager-config\
+                \                      Synced                                    \
+                \                                                                \
+                \                                                                \
+                \           7m16s  configmap/consul-consul-webhook-cert-manager-config\
+                \ serverside-applied  \nDeployment/consul-consul-webhook-cert-manager\
+                \                            Synced  Healthy                     \
+                \                                                                \
+                \                                                                \
+                \                 7m15s  deployment.apps/consul-consul-webhook-cert-manager\
+                \ serverside-applied   \n\u251C\u2500Secret/consul-consul-connect-inject-webhook-cert\
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \            7m10s                                               \
+                \                           \n\u2514\u2500ReplicaSet/consul-consul-webhook-cert-manager-7b7958cdff\
+                \                       Healthy                                  \
+                \                                                                \
+                \                                                                \
+                \    7m15s                                                       \
+                \                   \n  \u2514\u2500Pod/consul-consul-webhook-cert-manager-7b7958cdff-vcq8t\
+                \                      Healthy                                   \
+                \                                                                \
+                \                                                                \
+                \   7m15s                                                        \
+                \                  \nStatefulSet/consul-consul-server            \
+                \                             Synced  Healthy                    \
+                \                                                                \
+                \                                                                \
+                \                  7m15s  statefulset.apps/consul-consul-server serverside-applied\
+                \                partitioned roll out complete: 3 new pods have been\
+                \ updated...\n\u251C\u2500PersistentVolumeClaim/data-consul-consul-consul-server-0\
+                \                       Healthy                                  \
+                \                                                                \
+                \                                                                \
+                \    7m15s                                                       \
+                \                   \n\u251C\u2500PersistentVolumeClaim/data-consul-consul-consul-server-1\
+                \                       Healthy                                  \
+                \                                                                \
+                \                                                                \
+                \    7m15s                                                       \
+                \                   \n\u251C\u2500PersistentVolumeClaim/data-consul-consul-consul-server-2\
+                \                       Healthy                                  \
+                \                                                                \
+                \                                                                \
+                \    7m15s                                                       \
+                \                   \n\u251C\u2500Pod/consul-consul-server-0     \
+                \                                                Healthy         \
+                \                                                                \
+                \                                                                \
+                \                             7m15s                              \
+                \                                            \n\u251C\u2500Pod/consul-consul-server-1\
+                \                                                     Healthy    \
+                \                                                                \
+                \                                                                \
+                \                                  7m15s                         \
+                \                                                 \n\u251C\u2500Pod/consul-consul-server-2\
+                \                                                     Healthy    \
+                \                                                                \
+                \                                                                \
+                \                                  7m15s                         \
+                \                                                 \n\u2514\u2500ControllerRevision/consul-consul-server-ffbb78b98\
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \           7m15s                                                \
+                \                          \nRoleBinding/consul-consul-server-acl-init\
+                \                                Synced                          \
+                \                                                                \
+                \                                                                \
+                \                     7m15s  rolebinding.rbac.authorization.k8s.io/consul-consul-server-acl-init\
+                \ reconciled. reconciliat"
           cubScoutGitOpsStatus:
             result: pass
             summary:
@@ -1184,18 +1399,18 @@ spec:
               ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
               \   \"sourceRef\": \"OCIRepository/argocd/consul-parity\",\n      \"\
               syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
-              \      \"lastAttemptedRevision\": \"sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\"\
+              \      \"lastAttemptedRevision\": \"sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\"\
               \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
-              helm-expt-parity-consul-mqdirqpn-1if4-cluster\",\n      \"namespace\"\
+              helm-expt-parity-consul-mqdl821u-vkg-cluster\",\n      \"namespace\"\
               : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
               ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
-              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-consul-mqdirqpn-1if4-cluster\"\
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-consul-mqdl821u-vkg-cluster\"\
               ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\"\
               \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
               ,\n      \"name\": \"consul-parity\",\n      \"namespace\": \"argocd\"\
               ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
-              ,\n      \"name\": \"helm-expt-parity-consul-mqdirqpn-1if4-cluster\"\
+              ,\n      \"name\": \"helm-expt-parity-consul-mqdl821u-vkg-cluster\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
               \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
       rootArgoStatus:
@@ -1206,20 +1421,20 @@ spec:
               namespace: argocd
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-consul-mqdirqpn-1if4-cluster
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci
+              path: ./helm-expt-parity-consul-mqdl821u-vkg-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci
               targetRevision: latest
-          revision: sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9
+          revision: sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195
           status: Synced
         health:
-          lastTransitionTime: '2026-06-14T08:27:17Z'
+          lastTransitionTime: '2026-06-14T09:36:03Z'
           status: Healthy
         summary: {}
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
-          startedAt: '2026-06-14T08:43:02Z'
-          finishedAt: '2026-06-14T08:43:03Z'
+          startedAt: '2026-06-14T09:51:29Z'
+          finishedAt: '2026-06-14T09:51:30Z'
           operationSyncResourceCount: 0
           operationSyncResources: []
           syncResultResourceCount: 2
@@ -1227,13 +1442,13 @@ spec:
             Synced: 2
         history:
         - id: 0
-          revision: sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9
-          deployedAt: '2026-06-14T08:43:03Z'
-          deployStartedAt: '2026-06-14T08:43:02Z'
+          revision: sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195
+          deployedAt: '2026-06-14T09:51:30Z'
+          deployStartedAt: '2026-06-14T09:51:29Z'
           source:
-            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci
             targetRevision: latest
-            path: ./helm-expt-parity-consul-mqdirqpn-1if4-cluster
+            path: ./helm-expt-parity-consul-mqdl821u-vkg-cluster
         conditions: []
         resources:
         - group: argoproj.io
@@ -1247,7 +1462,7 @@ spec:
         - group: argoproj.io
           kind: Application
           namespace: argocd
-          name: helm-expt-parity-consul-mqdirqpn-1if4-cluster
+          name: helm-expt-parity-consul-mqdl821u-vkg-cluster
           status: Synced
           health: ''
           healthMessage: ''
@@ -1256,106 +1471,223 @@ spec:
           healthResidue: []
           describe:
             result: pass
-            output: "Name:         helm-expt-parity-consul-mqdirqpn-1if4-cluster\n\
+            output: "Name:         helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
               Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
               \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
-              \  Creation Timestamp:  2026-06-14T08:27:08Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
-              \  Generation:        14\n  Resource Version:  5811\n  UID:        \
-              \       f155b6a2-a24d-4c23-a9c2-336424663e24\nSpec:\n  Destination:\n\
+              \  Creation Timestamp:  2026-06-14T09:35:52Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        16\n  Resource Version:  5773\n  UID:        \
+              \       38fa9440-8ab7-49b8-8d45-f45f5819a78d\nSpec:\n  Destination:\n\
               \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
-              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-consul-mqdirqpn-1if4-cluster\n\
-              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
               \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
               \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
               \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
               \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
-              \  Health:\n    Last Transition Time:  2026-06-14T08:27:17Z\n    Status:\
-              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T08:43:02Z\n\
-              \    Deployed At:        2026-06-14T08:43:03Z\n    Id:             \
+              \  Health:\n    Last Transition Time:  2026-06-14T09:36:03Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T09:51:29Z\n\
+              \    Deployed At:        2026-06-14T09:51:30Z\n    Id:             \
               \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
-              \  sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\n\
-              \    Source:\n      Path:             ./helm-expt-parity-consul-mqdirqpn-1if4-cluster\n\
-              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci\n\
+              \  sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\n\
+              \    Source:\n      Path:             ./helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
               \      Target Revision:  latest\n  Operation State:\n    Finished At:\
-              \  2026-06-14T08:43:03Z\n    Message:      successfully synced (all\
+              \  2026-06-14T09:51:30Z\n    Message:      successfully synced (all\
               \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
               \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
-              \  sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\n\
-              \        Source:\n          Path:             ./helm-expt-parity-consul-mqdirqpn-1if4-cluster\n\
-              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci\n\
+              \  sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\n\
+              \        Source:\n          Path:             ./helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
               \          Target Revision:  latest\n        Sync Options:\n       \
               \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
               \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
-              \    Phase:       Succeeded\n    Started At:  2026-06-14T08:43:02Z\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T09:51:29Z\n\
               \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
               \        Hook Phase:  Running\n        Kind:        Application\n  \
-              \      Message:     application.argoproj.io/helm-expt-parity-consul-mqdirqpn-1if4-cluster\
-              \ serverside-applied\n        Name:        helm-expt-parity-consul-mqdirqpn-1if4-cluster\n\
+              \      Message:     application.argoproj.io/helm-expt-parity-consul-mqdl821u-vkg-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
               \        Namespace:   argocd\n        Status:      Synced\n        Sync\
               \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
               \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
               \        Message:     application.argoproj.io/consul-parity serverside-applied\n\
               \        Name:        consul-parity\n        Namespace:   argocd\n \
               \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
-              \     v1alpha1\n      Revision:      sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\n\
-              \      Source:\n        Path:              ./helm-expt-parity-consul-mqdirqpn-1if4-cluster\n\
-              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci\n\
-              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T08:48:48Z\n\
+              \     v1alpha1\n      Revision:      sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\n\
+              \      Source:\n        Path:              ./helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T09:57:43Z\n\
               \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
               \    Kind:       Application\n    Name:       consul-parity\n    Namespace:\
               \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
-              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-consul-mqdirqpn-1if4-cluster\n\
+              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
               \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
               \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
               \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
               \        Server:     https://kubernetes.default.svc\n      Source:\n\
-              \        Path:             ./helm-expt-parity-consul-mqdirqpn-1if4-cluster\n\
-              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdirqpn-1if4-cluster/oci\n\
-              \        Target Revision:  latest\n    Revision:             sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\n\
+              \        Path:             ./helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\n\
               \    Status:               Synced\nEvents:\n  Type    Reason       \
               \       Age    From                           Message\n  ----    ------\
               \              ----   ----                           -------\n  Normal\
               \  ResourceUpdated     22m    argocd-application-controller  Updated\
               \ sync status:  -> Synced\n  Normal  ResourceUpdated     22m    argocd-application-controller\
               \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
-              \  6m51s  argocd-application-controller  Initiated automated sync to\
-              \ 'sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9'\n\
-              \  Normal  ResourceUpdated     6m51s  argocd-application-controller\
+              \  7m22s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195'\n\
+              \  Normal  ResourceUpdated     7m22s  argocd-application-controller\
               \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
-              \  6m50s  argocd-application-controller  Sync operation to sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\
-              \ succeeded\n  Normal  ResourceUpdated     6m48s  argocd-application-controller\
+              \  7m21s  argocd-application-controller  Sync operation to sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\
+              \ succeeded\n  Normal  ResourceUpdated     7m19s  argocd-application-controller\
               \  Updated sync status: OutOfSync -> Synced"
           events:
             result: pass
-            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                      MESSAGE
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                     MESSAGE
 
-              22m         Normal   ResourceUpdated      application/helm-expt-parity-consul-mqdirqpn-1if4-cluster   Updated
+              22m         Normal   ResourceUpdated      application/helm-expt-parity-consul-mqdl821u-vkg-cluster   Updated
               sync status:  -> Synced
 
-              22m         Normal   ResourceUpdated      application/helm-expt-parity-consul-mqdirqpn-1if4-cluster   Updated
+              22m         Normal   ResourceUpdated      application/helm-expt-parity-consul-mqdl821u-vkg-cluster   Updated
               health status:  -> Healthy
 
-              6m52s       Normal   OperationStarted     application/helm-expt-parity-consul-mqdirqpn-1if4-cluster   Initiated
-              automated sync to ''sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9''
+              7m22s       Normal   OperationStarted     application/helm-expt-parity-consul-mqdl821u-vkg-cluster   Initiated
+              automated sync to ''sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195''
 
-              6m52s       Normal   ResourceUpdated      application/helm-expt-parity-consul-mqdirqpn-1if4-cluster   Updated
+              7m22s       Normal   ResourceUpdated      application/helm-expt-parity-consul-mqdl821u-vkg-cluster   Updated
               sync status: Synced -> OutOfSync
 
-              6m51s       Normal   OperationCompleted   application/helm-expt-parity-consul-mqdirqpn-1if4-cluster   Sync
-              operation to sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9
+              7m21s       Normal   OperationCompleted   application/helm-expt-parity-consul-mqdl821u-vkg-cluster   Sync
+              operation to sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195
               succeeded
 
-              6m49s       Normal   ResourceUpdated      application/helm-expt-parity-consul-mqdirqpn-1if4-cluster   Updated
+              7m19s       Normal   ResourceUpdated      application/helm-expt-parity-consul-mqdl821u-vkg-cluster   Updated
               sync status: OutOfSync -> Synced'
           argocdCore:
-            result: blocked
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
             json:
-              result: blocked
-              summary: {}
-              output: '{"level":"fatal","msg":"configmap \"argocd-cm\" not found","time":"2026-06-14T09:49:54+01:00"}'
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-consul-mqdl821u-vkg-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"38fa9440-8ab7-49b8-8d45-f45f5819a78d\"\
+                ,\n    \"resourceVersion\": \"5908\",\n    \"generation\": 17,\n \
+                \   \"creationTimestamp\": \"2026-06-14T09:35:52Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-consul-mqdl821u-vkg-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-consul-mqdl821u-vkg-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T09:35:52Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T09:59:01Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/ta"
             tree:
-              result: blocked
-              output: '{"level":"fatal","msg":"configmap \"argocd-cm\" not found","time":"2026-06-14T09:49:54+01:00"}'
+              result: pass
+              output: "Name:               argocd/helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:62988/applications/helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdl821u-vkg-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-consul-mqdl821u-vkg-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \        STATUS  HEALTH  AGE    MESSAGE                          \
+                \                                                        REASON\n\
+                Application/consul-parity                                 Synced \
+                \         7m40s  application.argoproj.io/consul-parity serverside-applied\
+                \                                 \nApplication/helm-expt-parity-consul-mqdl821u-vkg-cluster\
+                \  Synced          23m    application.argoproj.io/helm-expt-parity-consul-mqdl821u-vkg-cluster\
+                \ serverside-applied"
           cubScoutGitOpsStatus:
             result: pass
             summary:
@@ -1370,18 +1702,18 @@ spec:
               ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
               \   \"sourceRef\": \"OCIRepository/argocd/consul-parity\",\n      \"\
               syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
-              \      \"lastAttemptedRevision\": \"sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\"\
+              \      \"lastAttemptedRevision\": \"sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\"\
               \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
-              helm-expt-parity-consul-mqdirqpn-1if4-cluster\",\n      \"namespace\"\
+              helm-expt-parity-consul-mqdl821u-vkg-cluster\",\n      \"namespace\"\
               : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
               ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
-              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-consul-mqdirqpn-1if4-cluster\"\
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-consul-mqdl821u-vkg-cluster\"\
               ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:10ad2b9d270721836193775d73ae3efe4b4512dbe2431fb5c9e5450dffd57cf9\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e383af3423b9cdb95f96ac7cd55ffcda2a7c5adad740e1dc62c43c3ee894e195\"\
               \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
               ,\n      \"name\": \"consul-parity\",\n      \"namespace\": \"argocd\"\
               ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
-              ,\n      \"name\": \"helm-expt-parity-consul-mqdirqpn-1if4-cluster\"\
+              ,\n      \"name\": \"helm-expt-parity-consul-mqdl821u-vkg-cluster\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
               \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
       runtime:
@@ -1389,36 +1721,36 @@ spec:
         namespaces: *id002
         workloads: '# consul
 
-          deployment.apps/consul-consul-connect-injector       1/1   1     1     6m46s
+          deployment.apps/consul-consul-connect-injector       1/1   1     1     7m36s
 
-          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     6m46s
+          deployment.apps/consul-consul-ingress-gateway        1/1   1     1     7m36s
 
-          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     6m46s
+          deployment.apps/consul-consul-mesh-gateway           1/1   1     1     7m36s
 
-          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     6m46s
+          deployment.apps/consul-consul-terminating-gateway    1/1   1     1     7m36s
 
-          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     6m46s
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     7m36s
 
-          statefulset.apps/consul-consul-server   3/3   6m46s'
+          statefulset.apps/consul-consul-server   3/3   7m36s'
         pods: '# consul
 
-          consul-consul-connect-injector-5f47dfbd9-tmmb4        1/1   Running     0     6m46s
+          consul-consul-connect-injector-5f47dfbd9-h5szm        1/1   Running     0     7m36s
 
-          consul-consul-ingress-gateway-7c9f6b86f8-2qfmp        1/1   Running     0     6m46s
+          consul-consul-ingress-gateway-7c9f6b86f8-r2tcx        1/1   Running     0     7m36s
 
-          consul-consul-mesh-gateway-746b9dc7df-6vhjz           1/1   Running     0     6m46s
+          consul-consul-mesh-gateway-746b9dc7df-pbdp6           1/1   Running     0     7m36s
 
-          consul-consul-server-0                                1/1   Running     0     6m46s
+          consul-consul-server-0                                1/1   Running     0     7m36s
 
-          consul-consul-server-1                                1/1   Running     0     6m46s
+          consul-consul-server-1                                1/1   Running     0     7m36s
 
-          consul-consul-server-2                                1/1   Running     0     6m46s
+          consul-consul-server-2                                1/1   Running     0     7m36s
 
-          consul-consul-server-acl-init-vd9ld                   0/1   Completed   0     6m46s
+          consul-consul-server-acl-init-9lpsd                   0/1   Completed   0     7m36s
 
-          consul-consul-terminating-gateway-5496cd6fbd-t7v9c    1/1   Running     0     6m46s
+          consul-consul-terminating-gateway-5496cd6fbd-mdxz9    1/1   Running     0     7m36s
 
-          consul-consul-webhook-cert-manager-7b7958cdff-jrghr   1/1   Running     0     6m46s'
+          consul-consul-webhook-cert-manager-7b7958cdff-vcq8t   1/1   Running     0     7m36s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -1458,9 +1790,9 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-consul-mqdirqpn-1if4\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqdirqpn-1if4.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-consul-mqdirqpn-1if4\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-consul-mqdl821u-vkg\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqdl821u-vkg.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-consul-mqdl821u-vkg\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6 \U0001F4E6\
       \ \U0001F4E6 \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \U0001F4E6\
@@ -1470,10 +1802,10 @@ spec:
       \ CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022 Installing\
       \ StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\n\
       \ \u2022 Joining worker nodes \U0001F69C  ...\n \u2713 Joining worker nodes\
-      \ \U0001F69C\nSet kubectl context to \"kind-helm-expt-parity-consul-mqdirqpn-1if4\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-consul-mqdirqpn-1if4\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqdirqpn-1if4.kubeconfig\n\
-      \nNot sure what to do next? \U0001F605  Check out https://kind.s"
+      \ \U0001F69C\nSet kubectl context to \"kind-helm-expt-parity-consul-mqdl821u-vkg\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-consul-mqdl821u-vkg\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-consul-mqdl821u-vkg.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating nam"
   - name: target-profile
     result: pass
     detail: 'kind-three-node: The proof target has at least three schedulable Kubernetes
@@ -1483,7 +1815,7 @@ spec:
     detail: secrets=4 crds=0
   - name: regular-helm-live
     result: pass
-    detail: 'I0614 09:27:11.462042   71035 warnings.go:107] "Warning: unrecognized
+    detail: 'I0614 10:35:55.903119   41986 warnings.go:107] "Warning: unrecognized
       format \"int32\""'
   - name: target-facts-confighub-apply
     result: pass
