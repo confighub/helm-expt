@@ -44,6 +44,7 @@ smallest generated surface that answers it.
 | I want hook, APIService, CRD, webhook, or lifecycle status. | [hook-coverage/summary.md](./hook-coverage/summary.md)<br>[apiservice-coverage/summary.md](./apiservice-coverage/summary.md)<br>[apiservice-coverage/work-orders.md](./apiservice-coverage/work-orders.md)<br>[lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
 | I want candidate routes for hook-bearing source charts. | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md)<br>[hook-route-candidates/candidates.csv](./hook-route-candidates/candidates.csv)<br>[hook-route-candidates/work-orders.md](./hook-route-candidates/work-orders.md) |
 | I want the machine-readable lifecycle route contract: where a hook or hidden behavior goes, who executes it, the default, and the off-ramps. | [lifecycle-routes/summary.md](./lifecycle-routes/summary.md)<br>[lifecycle-routes/routes.csv](./lifecycle-routes/routes.csv)<br>[lifecycle-routes/routes.json](./lifecycle-routes/routes.json) |
+| I want to know which operating skill/playbook applies to a chart. | [chart-skills/summary.md](./chart-skills/summary.md)<br>[chart-skills/skills.csv](./chart-skills/skills.csv)<br>[chart-skills/skills.json](./chart-skills/skills.json) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
 | I want accepted pre-review production dispositions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
@@ -216,6 +217,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `catalog-promotion-wave2` | [catalog-promotion-wave2/summary.md](./catalog-promotion-wave2/summary.md) | older user-shaped variant work-order worksheet |
 | `chart-evidence-router` | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | front-door per-chart evidence router across bases, receipts, hooks, quirks, and decisions |
 | `chart-facts` | [chart-facts/summary.md](./chart-facts/summary.md) | per-chart feature, quirk, and hard-gap facts |
+| `chart-skills` | [chart-skills/summary.md](./chart-skills/summary.md) | advisory chart-to-skill mapping: which docs/skills/ playbooks apply to each chart and why |
 | `chart-use-guide` | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | front-door can-I-use-this-chart guide |
 | `claims-register` | [claims-register/summary.md](./claims-register/summary.md) | front-door public claim-to-evidence register |
 | `data-index` | - | CSV index and generated data guide |
@@ -291,7 +293,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 134 CSV files. Each row records the path, audience,
+It includes 135 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

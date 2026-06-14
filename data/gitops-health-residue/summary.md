@@ -17,7 +17,7 @@ aggregate-progressing-with-blank-resource-health: 1
 
 | Chart | Base | Result | Classification | Sync | Health | Resources | Blank health | Residue | Receipt | Next action |
 | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | aggregate-progressing-with-blank-resource-health | Synced | Progressing | 97 | 97 | 0 | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | Capture Argo resource tree/controller-health detail on rerun, or record a target-scoped policy explaining why blank per-resource health can leave aggregate health Progressing. |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | aggregate-progressing-with-blank-resource-health | Synced | Progressing | 97 | 97 | 0 | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | Record the target-scoped controller-health policy: Argo sync succeeded for all resources and workloads converged, but aggregate health remains Progressing because per-resource health is blank. |
 
 ## How To Read This
 
