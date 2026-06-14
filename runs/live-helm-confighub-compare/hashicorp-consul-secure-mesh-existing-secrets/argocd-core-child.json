@@ -1,23 +1,23 @@
 {
   "metadata": {
-    "name": "consul-parity",
+    "name": "hashicorp-consul-secure-mesh-existing-secrets-parity",
     "namespace": "argocd",
-    "uid": "49f73d40-1869-41b5-a340-055922ce5bb5",
-    "resourceVersion": "5843",
-    "generation": 12,
-    "creationTimestamp": "2026-06-14T10:27:03Z",
+    "uid": "adf44e75-0a09-408e-a21e-bab29f74fc65",
+    "resourceVersion": "5915",
+    "generation": 11,
+    "creationTimestamp": "2026-06-14T13:28:45Z",
     "annotations": {
-      "argocd.argoproj.io/tracking-id": "helm-expt-parity-consul-mqdmhwbs-1o28-cluster:argoproj.io/Application:argocd/consul-parity",
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster:argoproj.io/Application:argocd/hashicorp-consul-secure-mesh-existing-secrets-parity",
       "confighub.com/RevisionNum": "1",
-      "confighub.com/SpaceID": "ac8b9372-9bfd-4887-9edb-8ba8a0dea550",
-      "confighub.com/UnitSlug": "consul-parity-app"
+      "confighub.com/SpaceID": "e5cf4763-8f40-4671-98a2-fb91aa927bb4",
+      "confighub.com/UnitSlug": "hashicorp-consul-secure-mesh-existing-secrets-parity-app"
     },
     "managedFields": [
       {
         "manager": "argocd-controller",
         "operation": "Apply",
         "apiVersion": "argoproj.io/v1alpha1",
-        "time": "2026-06-14T10:27:03Z",
+        "time": "2026-06-14T13:28:45Z",
         "fieldsType": "FieldsV1",
         "fieldsV1": {
           "f:metadata": {
@@ -53,7 +53,7 @@
         "manager": "argocd-application-controller",
         "operation": "Update",
         "apiVersion": "argoproj.io/v1alpha1",
-        "time": "2026-06-14T10:34:04Z",
+        "time": "2026-06-14T13:35:44Z",
         "fieldsType": "FieldsV1",
         "fieldsV1": {
           "f:status": {
@@ -142,8 +142,8 @@
   },
   "spec": {
     "source": {
-      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-      "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-consul",
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+      "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-hashicorp-consul-secure-mesh-existing-secrets",
       "targetRevision": "latest"
     },
     "destination": {
@@ -710,7 +710,8 @@
         "name": "consul-consul-connect-injector",
         "status": "Synced",
         "health": {
-          "status": "Healthy"
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 of 1 updated replicas are available..."
         }
       },
       {
@@ -721,7 +722,8 @@
         "name": "consul-consul-ingress-gateway",
         "status": "Synced",
         "health": {
-          "status": "Healthy"
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 of 1 updated replicas are available..."
         }
       },
       {
@@ -732,7 +734,8 @@
         "name": "consul-consul-mesh-gateway",
         "status": "Synced",
         "health": {
-          "status": "Healthy"
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 of 1 updated replicas are available..."
         }
       },
       {
@@ -743,7 +746,8 @@
         "name": "consul-consul-terminating-gateway",
         "status": "Synced",
         "health": {
-          "status": "Healthy"
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 of 1 updated replicas are available..."
         }
       },
       {
@@ -765,8 +769,8 @@
         "name": "consul-consul-server",
         "status": "Synced",
         "health": {
-          "status": "Healthy",
-          "message": "partitioned roll out complete: 3 new pods have been updated..."
+          "status": "Progressing",
+          "message": "Waiting for 3 pods to be ready..."
         }
       },
       {
@@ -777,8 +781,7 @@
         "name": "consul-consul-server-acl-init",
         "status": "Synced",
         "health": {
-          "status": "Healthy",
-          "message": "Reached expected number of succeeded pods"
+          "status": "Progressing"
         }
       },
       {
@@ -1026,8 +1029,8 @@
       "status": "Synced",
       "comparedTo": {
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-          "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-consul",
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+          "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-hashicorp-consul-secure-mesh-existing-secrets",
           "targetRevision": "latest"
         },
         "destination": {
@@ -1035,37 +1038,37 @@
           "namespace": "consul"
         }
       },
-      "revision": "sha256:f54189a97592ce1b4b3cc1d780e8c07906a3eb63a18b181bdeafa6802ddbdc37"
+      "revision": "sha256:ceef44f347fcb11acc2efdaae2c015d01fd2ef227c12d97e0e5894c864a47510"
     },
     "health": {
       "status": "Progressing",
-      "lastTransitionTime": "2026-06-14T10:27:13Z"
+      "lastTransitionTime": "2026-06-14T13:30:56Z"
     },
     "history": [
       {
-        "revision": "sha256:f54189a97592ce1b4b3cc1d780e8c07906a3eb63a18b181bdeafa6802ddbdc37",
-        "deployedAt": "2026-06-14T10:27:08Z",
+        "revision": "sha256:ceef44f347fcb11acc2efdaae2c015d01fd2ef227c12d97e0e5894c864a47510",
+        "deployedAt": "2026-06-14T13:28:50Z",
         "id": 0,
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-          "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-consul",
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+          "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-hashicorp-consul-secure-mesh-existing-secrets",
           "targetRevision": "latest"
         },
-        "deployStartedAt": "2026-06-14T10:27:05Z",
+        "deployStartedAt": "2026-06-14T13:28:47Z",
         "initiatedBy": {
           "automated": true
         }
       }
     ],
-    "reconciledAt": "2026-06-14T10:33:56Z",
+    "reconciledAt": "2026-06-14T13:35:32Z",
     "operationState": {
       "operation": {
         "sync": {
-          "revision": "sha256:f54189a97592ce1b4b3cc1d780e8c07906a3eb63a18b181bdeafa6802ddbdc37",
+          "revision": "sha256:ceef44f347fcb11acc2efdaae2c015d01fd2ef227c12d97e0e5894c864a47510",
           "prune": true,
           "source": {
-            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-            "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-consul",
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+            "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-hashicorp-consul-secure-mesh-existing-secrets",
             "targetRevision": "latest"
           },
           "syncOptions": [
@@ -1100,42 +1103,9 @@
             "version": "v1",
             "kind": "ServiceAccount",
             "namespace": "consul",
-            "name": "consul-consul-connect-injector",
+            "name": "consul-consul-gateway-cleanup",
             "status": "Synced",
-            "message": "serviceaccount/consul-consul-connect-injector serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "",
-            "version": "v1",
-            "kind": "ServiceAccount",
-            "namespace": "consul",
-            "name": "consul-consul-webhook-cert-manager",
-            "status": "Synced",
-            "message": "serviceaccount/consul-consul-webhook-cert-manager serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "",
-            "version": "v1",
-            "kind": "ServiceAccount",
-            "namespace": "consul",
-            "name": "consul-consul-gateway-cleanup-custom",
-            "status": "Synced",
-            "message": "serviceaccount/consul-consul-gateway-cleanup-custom serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "",
-            "version": "v1",
-            "kind": "ServiceAccount",
-            "namespace": "consul",
-            "name": "consul-consul-server-acl-init-cleanup",
-            "status": "Synced",
-            "message": "serviceaccount/consul-consul-server-acl-init-cleanup serverside-applied",
+            "message": "serviceaccount/consul-consul-gateway-cleanup serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1147,6 +1117,39 @@
             "name": "consul-consul-gateway-resources",
             "status": "Synced",
             "message": "serviceaccount/consul-consul-gateway-resources serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "consul",
+            "name": "consul-consul-connect-injector",
+            "status": "Synced",
+            "message": "serviceaccount/consul-consul-connect-injector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "consul",
+            "name": "consul-consul-server-acl-init",
+            "status": "Synced",
+            "message": "serviceaccount/consul-consul-server-acl-init serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "consul",
+            "name": "consul-consul-gateway-cleanup-custom",
+            "status": "Synced",
+            "message": "serviceaccount/consul-consul-gateway-cleanup-custom serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1177,20 +1180,9 @@
             "version": "v1",
             "kind": "ServiceAccount",
             "namespace": "consul",
-            "name": "consul-consul-server-acl-init",
+            "name": "consul-consul-server-acl-init-cleanup",
             "status": "Synced",
-            "message": "serviceaccount/consul-consul-server-acl-init serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "",
-            "version": "v1",
-            "kind": "ServiceAccount",
-            "namespace": "consul",
-            "name": "consul-consul-gateway-cleanup",
-            "status": "Synced",
-            "message": "serviceaccount/consul-consul-gateway-cleanup serverside-applied",
+            "message": "serviceaccount/consul-consul-server-acl-init-cleanup serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1210,9 +1202,9 @@
             "version": "v1",
             "kind": "ServiceAccount",
             "namespace": "consul",
-            "name": "consul-consul-gateway-resources-custom",
+            "name": "consul-consul-auth-method",
             "status": "Synced",
-            "message": "serviceaccount/consul-consul-gateway-resources-custom serverside-applied",
+            "message": "serviceaccount/consul-consul-auth-method serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1232,20 +1224,20 @@
             "version": "v1",
             "kind": "ServiceAccount",
             "namespace": "consul",
-            "name": "consul-consul-auth-method",
+            "name": "consul-consul-gateway-resources-custom",
             "status": "Synced",
-            "message": "serviceaccount/consul-consul-auth-method serverside-applied",
+            "message": "serviceaccount/consul-consul-gateway-resources-custom serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
           {
             "group": "",
             "version": "v1",
-            "kind": "ConfigMap",
+            "kind": "ServiceAccount",
             "namespace": "consul",
-            "name": "consul-consul-server-tmp-extra-config",
+            "name": "consul-consul-webhook-cert-manager",
             "status": "Synced",
-            "message": "configmap/consul-consul-server-tmp-extra-config serverside-applied",
+            "message": "serviceaccount/consul-consul-webhook-cert-manager serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1287,9 +1279,9 @@
             "version": "v1",
             "kind": "ConfigMap",
             "namespace": "consul",
-            "name": "consul-consul-gateway-resources-config-custom",
+            "name": "helm-values",
             "status": "Synced",
-            "message": "configmap/consul-consul-gateway-resources-config-custom serverside-applied",
+            "message": "configmap/helm-values serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1298,9 +1290,9 @@
             "version": "v1",
             "kind": "ConfigMap",
             "namespace": "consul",
-            "name": "helm-values",
+            "name": "consul-consul-server-tmp-extra-config",
             "status": "Synced",
-            "message": "configmap/helm-values serverside-applied",
+            "message": "configmap/consul-consul-server-tmp-extra-config serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1316,35 +1308,13 @@
             "syncPhase": "Sync"
           },
           {
-            "group": "apiextensions.k8s.io",
+            "group": "",
             "version": "v1",
-            "kind": "CustomResourceDefinition",
+            "kind": "ConfigMap",
             "namespace": "consul",
-            "name": "registrations.consul.hashicorp.com",
+            "name": "consul-consul-gateway-resources-config-custom",
             "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/registrations.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "routetimeoutfilters.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/routetimeoutfilters.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "gatewaypolicies.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/gatewaypolicies.consul.hashicorp.com serverside-applied",
+            "message": "configmap/consul-consul-gateway-resources-config-custom serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1364,53 +1334,9 @@
             "version": "v1",
             "kind": "CustomResourceDefinition",
             "namespace": "consul",
-            "name": "meshservices.consul.hashicorp.com",
+            "name": "routetlssdsfilters.consul.hashicorp.com",
             "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/meshservices.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "serviceresolvers.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/serviceresolvers.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "gatewayclassconfigs.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/gatewayclassconfigs.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "servicesplitters.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/servicesplitters.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "routeretryfilters.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/routeretryfilters.consul.hashicorp.com serverside-applied",
+            "message": "customresourcedefinition.apiextensions.k8s.io/routetlssdsfilters.consul.hashicorp.com serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1441,9 +1367,9 @@
             "version": "v1",
             "kind": "CustomResourceDefinition",
             "namespace": "consul",
-            "name": "jwtproviders.consul.hashicorp.com",
+            "name": "meshservices.consul.hashicorp.com",
             "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/jwtproviders.consul.hashicorp.com serverside-applied",
+            "message": "customresourcedefinition.apiextensions.k8s.io/meshservices.consul.hashicorp.com serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1452,64 +1378,9 @@
             "version": "v1",
             "kind": "CustomResourceDefinition",
             "namespace": "consul",
-            "name": "serviceintentions.consul.hashicorp.com",
+            "name": "registrations.consul.hashicorp.com",
             "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/serviceintentions.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "routeauthfilters.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/routeauthfilters.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "ingressgateways.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/ingressgateways.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "exportedservices.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/exportedservices.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "routetlssdsfilters.consul.hashicorp.com",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/routetlssdsfilters.consul.hashicorp.com serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "kind": "CustomResourceDefinition",
-            "namespace": "consul",
-            "name": "referencegrants.gateway.networking.k8s.io",
-            "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/referencegrants.gateway.networking.k8s.io serverside-applied",
+            "message": "customresourcedefinition.apiextensions.k8s.io/registrations.consul.hashicorp.com serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1529,6 +1400,28 @@
             "version": "v1",
             "kind": "CustomResourceDefinition",
             "namespace": "consul",
+            "name": "routetimeoutfilters.consul.hashicorp.com",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/routetimeoutfilters.consul.hashicorp.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "routeauthfilters.consul.hashicorp.com",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/routeauthfilters.consul.hashicorp.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
             "name": "proxydefaults.consul.hashicorp.com",
             "status": "Synced",
             "message": "customresourcedefinition.apiextensions.k8s.io/proxydefaults.consul.hashicorp.com serverside-applied",
@@ -1540,9 +1433,9 @@
             "version": "v1",
             "kind": "CustomResourceDefinition",
             "namespace": "consul",
-            "name": "meshes.consul.hashicorp.com",
+            "name": "servicesplitters.consul.hashicorp.com",
             "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/meshes.consul.hashicorp.com serverside-applied",
+            "message": "customresourcedefinition.apiextensions.k8s.io/servicesplitters.consul.hashicorp.com serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1551,9 +1444,31 @@
             "version": "v1",
             "kind": "CustomResourceDefinition",
             "namespace": "consul",
-            "name": "gateways.gateway.networking.k8s.io",
+            "name": "jwtproviders.consul.hashicorp.com",
             "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/gateways.gateway.networking.k8s.io serverside-applied",
+            "message": "customresourcedefinition.apiextensions.k8s.io/jwtproviders.consul.hashicorp.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "gatewayclassconfigs.consul.hashicorp.com",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/gatewayclassconfigs.consul.hashicorp.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "exportedservices.consul.hashicorp.com",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/exportedservices.consul.hashicorp.com serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1573,6 +1488,17 @@
             "version": "v1",
             "kind": "CustomResourceDefinition",
             "namespace": "consul",
+            "name": "meshes.consul.hashicorp.com",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/meshes.consul.hashicorp.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
             "name": "samenessgroups.consul.hashicorp.com",
             "status": "Synced",
             "message": "customresourcedefinition.apiextensions.k8s.io/samenessgroups.consul.hashicorp.com serverside-applied",
@@ -1584,9 +1510,20 @@
             "version": "v1",
             "kind": "CustomResourceDefinition",
             "namespace": "consul",
-            "name": "gatewayclasses.gateway.networking.k8s.io",
+            "name": "routeretryfilters.consul.hashicorp.com",
             "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/gatewayclasses.gateway.networking.k8s.io serverside-applied",
+            "message": "customresourcedefinition.apiextensions.k8s.io/routeretryfilters.consul.hashicorp.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "serviceresolvers.consul.hashicorp.com",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/serviceresolvers.consul.hashicorp.com serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1606,9 +1543,53 @@
             "version": "v1",
             "kind": "CustomResourceDefinition",
             "namespace": "consul",
-            "name": "terminatinggateways.consul.hashicorp.com",
+            "name": "serviceintentions.consul.hashicorp.com",
             "status": "Synced",
-            "message": "customresourcedefinition.apiextensions.k8s.io/terminatinggateways.consul.hashicorp.com serverside-applied",
+            "message": "customresourcedefinition.apiextensions.k8s.io/serviceintentions.consul.hashicorp.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "referencegrants.gateway.networking.k8s.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/referencegrants.gateway.networking.k8s.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "ingressgateways.consul.hashicorp.com",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/ingressgateways.consul.hashicorp.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "gatewaypolicies.consul.hashicorp.com",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/gatewaypolicies.consul.hashicorp.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "gatewayclasses.gateway.networking.k8s.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/gatewayclasses.gateway.networking.k8s.io serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1620,6 +1601,28 @@
             "name": "httproutes.gateway.networking.k8s.io",
             "status": "Synced",
             "message": "customresourcedefinition.apiextensions.k8s.io/httproutes.gateway.networking.k8s.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "gateways.gateway.networking.k8s.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/gateways.gateway.networking.k8s.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "consul",
+            "name": "terminatinggateways.consul.hashicorp.com",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/terminatinggateways.consul.hashicorp.com serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1639,9 +1642,9 @@
             "version": "v1",
             "kind": "ClusterRole",
             "namespace": "consul",
-            "name": "consul-consul-gateway-cleanup-custom",
+            "name": "consul-consul-gateway-resources-custom",
             "status": "Synced",
-            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-cleanup-custom reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get delete] APIGroups:[consul.hashicorp.com] Resources:[gatewayclassconfigs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get delete] APIGroups:[consul.hashicorp.com] Resources:[customgatewayclasses] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-cleanup-custom serverside-applied",
+            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-resources-custom reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get update create] APIGroups:[consul.hashicorp.com] Resources:[gatewayclassconfigs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update create] APIGroups:[consul.hashicorp.com] Resources:[customgatewayclasses] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-resources-custom serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1661,9 +1664,9 @@
             "version": "v1",
             "kind": "ClusterRole",
             "namespace": "consul",
-            "name": "consul-consul-mesh-gateway",
+            "name": "consul-consul-gateway-resources",
             "status": "Synced",
-            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-mesh-gateway reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get] APIGroups:[] Resources:[services] ResourceNames:[consul-consul-mesh-gateway] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-mesh-gateway serverside-applied",
+            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-resources reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get update create] APIGroups:[consul.hashicorp.com] Resources:[gatewayclassconfigs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update create] APIGroups:[gateway.networking.k8s.io] Resources:[gatewayclasses] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-resources serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1683,9 +1686,9 @@
             "version": "v1",
             "kind": "ClusterRole",
             "namespace": "consul",
-            "name": "consul-consul-webhook-cert-manager",
+            "name": "consul-consul-gateway-cleanup-custom",
             "status": "Synced",
-            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-webhook-cert-manager reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch patch] APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations validatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[apps] Resources:[deployments] ResourceNames:[consul-consul-webhook-cert-manager] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-webhook-cert-manager serverside-applied",
+            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-cleanup-custom reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get delete] APIGroups:[consul.hashicorp.com] Resources:[gatewayclassconfigs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get delete] APIGroups:[consul.hashicorp.com] Resources:[customgatewayclasses] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-cleanup-custom serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1705,9 +1708,9 @@
             "version": "v1",
             "kind": "ClusterRole",
             "namespace": "consul",
-            "name": "consul-consul-gateway-resources",
+            "name": "consul-consul-mesh-gateway",
             "status": "Synced",
-            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-resources reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get update create] APIGroups:[consul.hashicorp.com] Resources:[gatewayclassconfigs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update create] APIGroups:[gateway.networking.k8s.io] Resources:[gatewayclasses] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-resources serverside-applied",
+            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-mesh-gateway reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get] APIGroups:[] Resources:[services] ResourceNames:[consul-consul-mesh-gateway] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-mesh-gateway serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1716,9 +1719,31 @@
             "version": "v1",
             "kind": "ClusterRole",
             "namespace": "consul",
-            "name": "consul-consul-gateway-resources-custom",
+            "name": "consul-consul-webhook-cert-manager",
             "status": "Synced",
-            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-resources-custom reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get update create] APIGroups:[consul.hashicorp.com] Resources:[gatewayclassconfigs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update create] APIGroups:[consul.hashicorp.com] Resources:[customgatewayclasses] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-gateway-resources-custom serverside-applied",
+            "message": "clusterrole.rbac.authorization.k8s.io/consul-consul-webhook-cert-manager reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch patch] APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations validatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[apps] Resources:[deployments] ResourceNames:[consul-consul-webhook-cert-manager] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/consul-consul-webhook-cert-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "consul",
+            "name": "consul-consul-authdelegator",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-authdelegator reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-auth-method Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-authdelegator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "consul",
+            "name": "consul-consul-gateway-cleanup-custom",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-gateway-cleanup-custom reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-gateway-cleanup-custom Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-gateway-cleanup-custom serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1738,9 +1763,20 @@
             "version": "v1",
             "kind": "ClusterRoleBinding",
             "namespace": "consul",
-            "name": "consul-consul-connect-injector",
+            "name": "consul-consul-server",
             "status": "Synced",
-            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-connect-injector reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-connect-injector Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-connect-injector serverside-applied",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-server reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-server Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "consul",
+            "name": "consul-consul-gateway-resources-custom",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-gateway-resources-custom reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-gateway-resources-custom Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-gateway-resources-custom serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1771,42 +1807,9 @@
             "version": "v1",
             "kind": "ClusterRoleBinding",
             "namespace": "consul",
-            "name": "consul-consul-gateway-resources-custom",
+            "name": "consul-consul-connect-injector",
             "status": "Synced",
-            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-gateway-resources-custom reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-gateway-resources-custom Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-gateway-resources-custom serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "kind": "ClusterRoleBinding",
-            "namespace": "consul",
-            "name": "consul-consul-mesh-gateway",
-            "status": "Synced",
-            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-mesh-gateway reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-mesh-gateway Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-mesh-gateway serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "kind": "ClusterRoleBinding",
-            "namespace": "consul",
-            "name": "consul-consul-server",
-            "status": "Synced",
-            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-server reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-server Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-server serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "kind": "ClusterRoleBinding",
-            "namespace": "consul",
-            "name": "consul-consul-gateway-cleanup-custom",
-            "status": "Synced",
-            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-gateway-cleanup-custom reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-gateway-cleanup-custom Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-gateway-cleanup-custom serverside-applied",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-connect-injector reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-connect-injector Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-connect-injector serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1826,9 +1829,53 @@
             "version": "v1",
             "kind": "ClusterRoleBinding",
             "namespace": "consul",
-            "name": "consul-consul-authdelegator",
+            "name": "consul-consul-mesh-gateway",
             "status": "Synced",
-            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-authdelegator reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-auth-method Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-authdelegator serverside-applied",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/consul-consul-mesh-gateway reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-mesh-gateway Namespace:consul}. clusterrolebinding.rbac.authorization.k8s.io/consul-consul-mesh-gateway serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "consul",
+            "name": "consul-consul-server",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/consul-consul-server reconciled. reconciliation required create. role.rbac.authorization.k8s.io/consul-consul-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "consul",
+            "name": "consul-consul-connect-inject-leader-election",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch create update patch delete] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update patch] APIGroups:[] Resources:[configmaps/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "consul",
+            "name": "consul-consul-server-acl-init-cleanup",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/consul-consul-server-acl-init-cleanup reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get delete] APIGroups:[batch] Resources:[jobs] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/consul-consul-server-acl-init-cleanup serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "consul",
+            "name": "consul-consul-terminating-gateway",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/consul-consul-terminating-gateway reconciled. reconciliation required create. role.rbac.authorization.k8s.io/consul-consul-terminating-gateway serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1857,61 +1904,6 @@
           {
             "group": "rbac.authorization.k8s.io",
             "version": "v1",
-            "kind": "Role",
-            "namespace": "consul",
-            "name": "consul-consul-connect-inject-leader-election",
-            "status": "Synced",
-            "message": "role.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch create update patch delete] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update patch] APIGroups:[] Resources:[configmaps/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "kind": "Role",
-            "namespace": "consul",
-            "name": "consul-consul-terminating-gateway",
-            "status": "Synced",
-            "message": "role.rbac.authorization.k8s.io/consul-consul-terminating-gateway reconciled. reconciliation required create. role.rbac.authorization.k8s.io/consul-consul-terminating-gateway serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "kind": "Role",
-            "namespace": "consul",
-            "name": "consul-consul-server",
-            "status": "Synced",
-            "message": "role.rbac.authorization.k8s.io/consul-consul-server reconciled. reconciliation required create. role.rbac.authorization.k8s.io/consul-consul-server serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "kind": "Role",
-            "namespace": "consul",
-            "name": "consul-consul-server-acl-init-cleanup",
-            "status": "Synced",
-            "message": "role.rbac.authorization.k8s.io/consul-consul-server-acl-init-cleanup reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get delete] APIGroups:[batch] Resources:[jobs] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/consul-consul-server-acl-init-cleanup serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "kind": "RoleBinding",
-            "namespace": "consul",
-            "name": "consul-consul-connect-inject-leader-election",
-            "status": "Synced",
-            "message": "rolebinding.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-connect-injector Namespace:consul}. rolebinding.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
             "kind": "RoleBinding",
             "namespace": "consul",
             "name": "consul-consul-server-acl-init-cleanup",
@@ -1925,9 +1917,9 @@
             "version": "v1",
             "kind": "RoleBinding",
             "namespace": "consul",
-            "name": "consul-consul-ingress-gateway",
+            "name": "consul-consul-server",
             "status": "Synced",
-            "message": "rolebinding.rbac.authorization.k8s.io/consul-consul-ingress-gateway reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-ingress-gateway Namespace:consul}. rolebinding.rbac.authorization.k8s.io/consul-consul-ingress-gateway serverside-applied",
+            "message": "rolebinding.rbac.authorization.k8s.io/consul-consul-server reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-server Namespace:consul}. rolebinding.rbac.authorization.k8s.io/consul-consul-server serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -1947,6 +1939,17 @@
             "version": "v1",
             "kind": "RoleBinding",
             "namespace": "consul",
+            "name": "consul-consul-ingress-gateway",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/consul-consul-ingress-gateway reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-ingress-gateway Namespace:consul}. rolebinding.rbac.authorization.k8s.io/consul-consul-ingress-gateway serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "consul",
             "name": "consul-consul-terminating-gateway",
             "status": "Synced",
             "message": "rolebinding.rbac.authorization.k8s.io/consul-consul-terminating-gateway reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-terminating-gateway Namespace:consul}. rolebinding.rbac.authorization.k8s.io/consul-consul-terminating-gateway serverside-applied",
@@ -1958,53 +1961,9 @@
             "version": "v1",
             "kind": "RoleBinding",
             "namespace": "consul",
-            "name": "consul-consul-server",
+            "name": "consul-consul-connect-inject-leader-election",
             "status": "Synced",
-            "message": "rolebinding.rbac.authorization.k8s.io/consul-consul-server reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-server Namespace:consul}. rolebinding.rbac.authorization.k8s.io/consul-consul-server serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "",
-            "version": "v1",
-            "kind": "Service",
-            "namespace": "consul",
-            "name": "consul-consul-server",
-            "status": "Synced",
-            "message": "service/consul-consul-server serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "",
-            "version": "v1",
-            "kind": "Service",
-            "namespace": "consul",
-            "name": "consul-consul-terminating-gateway",
-            "status": "Synced",
-            "message": "service/consul-consul-terminating-gateway serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "",
-            "version": "v1",
-            "kind": "Service",
-            "namespace": "consul",
-            "name": "consul-consul-mesh-gateway",
-            "status": "Synced",
-            "message": "service/consul-consul-mesh-gateway serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync"
-          },
-          {
-            "group": "",
-            "version": "v1",
-            "kind": "Service",
-            "namespace": "consul",
-            "name": "consul-consul-ui",
-            "status": "Synced",
-            "message": "service/consul-consul-ui serverside-applied",
+            "message": "rolebinding.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:consul-consul-connect-injector Namespace:consul}. rolebinding.rbac.authorization.k8s.io/consul-consul-connect-inject-leader-election serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -2024,9 +1983,31 @@
             "version": "v1",
             "kind": "Service",
             "namespace": "consul",
+            "name": "consul-consul-terminating-gateway",
+            "status": "Synced",
+            "message": "service/consul-consul-terminating-gateway serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "consul",
             "name": "consul-consul-connect-injector",
             "status": "Synced",
             "message": "service/consul-consul-connect-injector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "consul",
+            "name": "consul-consul-server",
+            "status": "Synced",
+            "message": "service/consul-consul-server serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -2042,13 +2023,35 @@
             "syncPhase": "Sync"
           },
           {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "consul",
+            "name": "consul-consul-ui",
+            "status": "Synced",
+            "message": "service/consul-consul-ui serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "consul",
+            "name": "consul-consul-mesh-gateway",
+            "status": "Synced",
+            "message": "service/consul-consul-mesh-gateway serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
             "group": "apps",
             "version": "v1",
             "kind": "Deployment",
             "namespace": "consul",
-            "name": "consul-consul-ingress-gateway",
+            "name": "consul-consul-mesh-gateway",
             "status": "Synced",
-            "message": "deployment.apps/consul-consul-ingress-gateway serverside-applied",
+            "message": "deployment.apps/consul-consul-mesh-gateway serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync",
             "images": [
@@ -2074,34 +2077,6 @@
             "version": "v1",
             "kind": "Deployment",
             "namespace": "consul",
-            "name": "consul-consul-webhook-cert-manager",
-            "status": "Synced",
-            "message": "deployment.apps/consul-consul-webhook-cert-manager serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync",
-            "images": [
-              "hashicorp/consul-k8s-control-plane:2.0.0"
-            ]
-          },
-          {
-            "group": "apps",
-            "version": "v1",
-            "kind": "Deployment",
-            "namespace": "consul",
-            "name": "consul-consul-mesh-gateway",
-            "status": "Synced",
-            "message": "deployment.apps/consul-consul-mesh-gateway serverside-applied",
-            "hookPhase": "Running",
-            "syncPhase": "Sync",
-            "images": [
-              "hashicorp/consul-dataplane:2.0.0"
-            ]
-          },
-          {
-            "group": "apps",
-            "version": "v1",
-            "kind": "Deployment",
-            "namespace": "consul",
             "name": "consul-consul-terminating-gateway",
             "status": "Synced",
             "message": "deployment.apps/consul-consul-terminating-gateway serverside-applied",
@@ -2109,6 +2084,34 @@
             "syncPhase": "Sync",
             "images": [
               "hashicorp/consul-dataplane:2.0.0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "consul",
+            "name": "consul-consul-ingress-gateway",
+            "status": "Synced",
+            "message": "deployment.apps/consul-consul-ingress-gateway serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "hashicorp/consul-dataplane:2.0.0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "consul",
+            "name": "consul-consul-webhook-cert-manager",
+            "status": "Synced",
+            "message": "deployment.apps/consul-consul-webhook-cert-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "hashicorp/consul-k8s-control-plane:2.0.0"
             ]
           },
           {
@@ -2173,15 +2176,15 @@
             "syncPhase": "Sync"
           }
         ],
-        "revision": "sha256:f54189a97592ce1b4b3cc1d780e8c07906a3eb63a18b181bdeafa6802ddbdc37",
+        "revision": "sha256:ceef44f347fcb11acc2efdaae2c015d01fd2ef227c12d97e0e5894c864a47510",
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-          "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-consul",
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+          "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-hashicorp-consul-secure-mesh-existing-secrets",
           "targetRevision": "latest"
         }
       },
-      "startedAt": "2026-06-14T10:27:05Z",
-      "finishedAt": "2026-06-14T10:27:08Z"
+      "startedAt": "2026-06-14T13:28:47Z",
+      "finishedAt": "2026-06-14T13:28:50Z"
     },
     "sourceType": "Directory",
     "summary": {

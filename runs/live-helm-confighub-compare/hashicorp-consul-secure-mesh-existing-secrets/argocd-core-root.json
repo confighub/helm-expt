@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "name": "helm-expt-parity-consul-mqdmhwbs-1o28-cluster",
+    "name": "helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster",
     "namespace": "argocd",
-    "uid": "31cc8b3f-92fe-4817-9838-c88d72724070",
-    "resourceVersion": "5882",
+    "uid": "c859ca82-d057-42ff-91f6-28b00717a63f",
+    "resourceVersion": "5961",
     "generation": 15,
-    "creationTimestamp": "2026-06-14T10:11:24Z",
+    "creationTimestamp": "2026-06-14T13:12:45Z",
     "annotations": {
-      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"name\":\"helm-expt-parity-consul-mqdmhwbs-1o28-cluster\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"argocd\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"./helm-expt-parity-consul-mqdmhwbs-1o28-cluster\",\"repoURL\":\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci\",\"targetRevision\":\"latest\"},\"syncPolicy\":{\"automated\":{\"selfHeal\":true},\"syncOptions\":[\"ServerSideApply=true\",\"ServerSideApply.ForceConflicts=true\",\"RespectIgnoreDifferences=true\",\"CreateNamespace=false\"]}}}\n"
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"name\":\"helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"argocd\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster\",\"repoURL\":\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci\",\"targetRevision\":\"latest\"},\"syncPolicy\":{\"automated\":{\"selfHeal\":true},\"syncOptions\":[\"ServerSideApply=true\",\"ServerSideApply.ForceConflicts=true\",\"RespectIgnoreDifferences=true\",\"CreateNamespace=false\"]}}}\n"
     },
     "finalizers": [
       "resources-finalizer.argocd.argoproj.io"
@@ -17,7 +17,7 @@
         "manager": "argocd-controller",
         "operation": "Apply",
         "apiVersion": "argoproj.io/v1alpha1",
-        "time": "2026-06-14T10:11:24Z",
+        "time": "2026-06-14T13:12:45Z",
         "fieldsType": "FieldsV1",
         "fieldsV1": {
           "f:metadata": {
@@ -97,7 +97,7 @@
         "manager": "argocd-application-controller",
         "operation": "Update",
         "apiVersion": "argoproj.io/v1alpha1",
-        "time": "2026-06-14T10:34:26Z",
+        "time": "2026-06-14T13:36:09Z",
         "fieldsType": "FieldsV1",
         "fieldsV1": {
           "f:status": {
@@ -181,8 +181,8 @@
   },
   "spec": {
     "source": {
-      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-      "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-cluster",
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+      "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster",
       "targetRevision": "latest"
     },
     "destination": {
@@ -209,7 +209,7 @@
         "version": "v1alpha1",
         "kind": "Application",
         "namespace": "argocd",
-        "name": "consul-parity",
+        "name": "hashicorp-consul-secure-mesh-existing-secrets-parity",
         "status": "Synced"
       },
       {
@@ -217,7 +217,7 @@
         "version": "v1alpha1",
         "kind": "Application",
         "namespace": "argocd",
-        "name": "helm-expt-parity-consul-mqdmhwbs-1o28-cluster",
+        "name": "helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster",
         "status": "Synced"
       }
     ],
@@ -225,8 +225,8 @@
       "status": "Synced",
       "comparedTo": {
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-          "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-cluster",
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+          "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster",
           "targetRevision": "latest"
         },
         "destination": {
@@ -234,36 +234,36 @@
           "namespace": "argocd"
         }
       },
-      "revision": "sha256:f54189a97592ce1b4b3cc1d780e8c07906a3eb63a18b181bdeafa6802ddbdc37"
+      "revision": "sha256:ceef44f347fcb11acc2efdaae2c015d01fd2ef227c12d97e0e5894c864a47510"
     },
     "health": {
       "status": "Healthy",
-      "lastTransitionTime": "2026-06-14T10:11:35Z"
+      "lastTransitionTime": "2026-06-14T13:12:59Z"
     },
     "history": [
       {
-        "revision": "sha256:f54189a97592ce1b4b3cc1d780e8c07906a3eb63a18b181bdeafa6802ddbdc37",
-        "deployedAt": "2026-06-14T10:27:03Z",
+        "revision": "sha256:ceef44f347fcb11acc2efdaae2c015d01fd2ef227c12d97e0e5894c864a47510",
+        "deployedAt": "2026-06-14T13:28:45Z",
         "id": 0,
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-          "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-cluster",
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+          "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster",
           "targetRevision": "latest"
         },
-        "deployStartedAt": "2026-06-14T10:27:01Z",
+        "deployStartedAt": "2026-06-14T13:28:43Z",
         "initiatedBy": {
           "automated": true
         }
       }
     ],
-    "reconciledAt": "2026-06-14T10:34:17Z",
+    "reconciledAt": "2026-06-14T13:36:00Z",
     "operationState": {
       "operation": {
         "sync": {
-          "revision": "sha256:f54189a97592ce1b4b3cc1d780e8c07906a3eb63a18b181bdeafa6802ddbdc37",
+          "revision": "sha256:ceef44f347fcb11acc2efdaae2c015d01fd2ef227c12d97e0e5894c864a47510",
           "source": {
-            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-            "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-cluster",
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+            "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster",
             "targetRevision": "latest"
           },
           "syncOptions": [
@@ -289,9 +289,9 @@
             "version": "v1alpha1",
             "kind": "Application",
             "namespace": "argocd",
-            "name": "consul-parity",
+            "name": "hashicorp-consul-secure-mesh-existing-secrets-parity",
             "status": "Synced",
-            "message": "application.argoproj.io/consul-parity serverside-applied",
+            "message": "application.argoproj.io/hashicorp-consul-secure-mesh-existing-secrets-parity serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -300,22 +300,22 @@
             "version": "v1alpha1",
             "kind": "Application",
             "namespace": "argocd",
-            "name": "helm-expt-parity-consul-mqdmhwbs-1o28-cluster",
+            "name": "helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster",
             "status": "Synced",
-            "message": "application.argoproj.io/helm-expt-parity-consul-mqdmhwbs-1o28-cluster serverside-applied",
+            "message": "application.argoproj.io/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           }
         ],
-        "revision": "sha256:f54189a97592ce1b4b3cc1d780e8c07906a3eb63a18b181bdeafa6802ddbdc37",
+        "revision": "sha256:ceef44f347fcb11acc2efdaae2c015d01fd2ef227c12d97e0e5894c864a47510",
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci",
-          "path": "./helm-expt-parity-consul-mqdmhwbs-1o28-cluster",
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci",
+          "path": "./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster",
           "targetRevision": "latest"
         }
       },
-      "startedAt": "2026-06-14T10:27:01Z",
-      "finishedAt": "2026-06-14T10:27:03Z"
+      "startedAt": "2026-06-14T13:28:43Z",
+      "finishedAt": "2026-06-14T13:28:45Z"
     },
     "sourceType": "Directory",
     "summary": {},
