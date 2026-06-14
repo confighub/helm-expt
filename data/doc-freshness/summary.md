@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-14 (commit `9d794b48`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-14 (commit `5cbc6a09`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 164 |
-| Fresh (no linked source newer than the doc) | 13 |
-| **Review-due** | 34 |
-| No linked evidence sources (cannot auto-trigger) | 117 |
+| Authored docs tracked | 165 |
+| Fresh (no linked source newer than the doc) | 14 |
+| **Review-due** | 33 |
+| No linked evidence sources (cannot auto-trigger) | 118 |
 
 ## Review queue
 
@@ -41,18 +41,17 @@ most recently changed triggers.
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-06-11 | 3 | `data/outcome-coverage/summary.md (2026-06-13)`<br>`data/status-dashboard/summary.md (2026-06-13)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-13)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 3 | `data/outcome-coverage/summary.md (2026-06-13)` |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 3 | `data/top100-user-readiness/summary.md (2026-06-13)` |
-| [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-06-10 | 3 | `data/lifecycle-boundary/summary.md (2026-06-13)` |
 | [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 3 | `data/README.md (2026-06-13)`<br>`data/csv-index.csv (2026-06-13)`<br>`data/outcome-coverage/base-outcomes.csv (2026-06-13)` |
+| [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-06-12 | 3 | `data/master-catalog-matrix/summary.md (2026-06-14)`<br>`data/live-kind-parity/summary.md (2026-06-13)`<br>`packages/jetstack/cert-manager/v1.20.2/installer.yaml (2026-06-13)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 3 | `data/outcome-coverage/base-outcomes.csv (2026-06-13)`<br>`data/top100-readiness/next80-queues.csv (2026-06-13)`<br>`data/top100-readiness/next80-queues.md (2026-06-13)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 3 | `data/outcome-coverage/summary.md (2026-06-13)`<br>`tests/npm-scripts.md (2026-06-12)` |
-| [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-12 | 2 | `data/master-catalog-matrix/matrix.csv (2026-06-14)`<br>`data/master-catalog-matrix/matrix.html (2026-06-14)`<br>`data/master-catalog-matrix/summary.md (2026-06-13)` |
+| [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-12 | 2 | `data/master-catalog-matrix/matrix.csv (2026-06-14)`<br>`data/master-catalog-matrix/matrix.html (2026-06-14)`<br>`data/master-catalog-matrix/summary.md (2026-06-14)` |
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 2 | `data/live-helm-confighub-compare/summary.md (2026-06-13)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 2 | `data/quirk-coverage/coverage.csv (2026-06-13)`<br>`data/quirk-coverage/summary.md (2026-06-13)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 2 | `data/outcome-coverage/base-outcomes.csv (2026-06-13)`<br>`data/top100-readiness/readiness.csv (2026-06-13)`<br>`data/top100-readiness/summary.md (2026-06-13)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-12 | 2 | `data/master-catalog-matrix/matrix.html (2026-06-14)`<br>`data/chart-use-guide/summary.md (2026-06-13)`<br>`data/outcome-evidence-contract/summary.md (2026-06-13)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 2 | `data/production-disposition/next-actions.csv (2026-06-13)`<br>`data/production-disposition/support-decision-contract.md (2026-06-13)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 2 | `data/hard-chart-production-packets/summary.md (2026-06-13)` |
-| [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-06-12 | 2 | `data/master-catalog-matrix/summary.md (2026-06-13)`<br>`data/live-kind-parity/summary.md (2026-06-13)`<br>`packages/jetstack/cert-manager/v1.20.2/installer.yaml (2026-06-13)` |
 | [README.md](../../README.md) | root | 2026-06-13 | 1 | `data/status-dashboard/summary.md (2026-06-13)`<br>`CATALOG.md (2026-06-13)`<br>`data/chart-use-guide/summary.md (2026-06-13)` |
 | [docs/README.md](../../docs/README.md) | docs | 2026-06-14 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-14)` |
 | [docs/planning/next-execution-plan.md](../../docs/planning/next-execution-plan.md) | planning | 2026-06-13 | 1 | `data/outcome-coverage/summary.md (2026-06-13)`<br>`data/status-dashboard/summary.md (2026-06-13)`<br>`data/top20-base-readiness/summary.md (2026-06-13)` |
@@ -141,6 +140,7 @@ into this freshness model.
 - [docs/planning/top20-full-proof-target.md](../../docs/planning/top20-full-proof-target.md)
 - [docs/planning/top500-matrix-refresh-review.md](../../docs/planning/top500-matrix-refresh-review.md)
 - [docs/planning/verified-install-commercial-model.md](../../docs/planning/verified-install-commercial-model.md)
+- [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md)
 - [docs/reference/artifact-verifier-spec.md](../../docs/reference/artifact-verifier-spec.md)
 - [docs/reference/capability-profile-catalog.md](../../docs/reference/capability-profile-catalog.md)
 - [docs/reference/catalog-doctrine.md](../../docs/reference/catalog-doctrine.md)
