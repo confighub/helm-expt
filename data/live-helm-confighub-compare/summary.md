@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 86
+pass: 87
 watch: 5
 blocked: 0
 not-started: 0
@@ -70,6 +70,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `argo-cd/argo-workflows@1.0.14` | minimal-crds | pass | - | runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml |
 |  | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | pass | - | runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
+|  | `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
 |  | `crossplane-stable/crossplane@2.3.1` | default | pass | - | runs/live-helm-confighub-compare/crossplane-stable-crossplane-default/receipt.yaml |
 |  | `descheduler/descheduler@0.36.0` | default | pass | - | runs/live-helm-confighub-compare/descheduler-descheduler-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | default | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-default/receipt.yaml |
