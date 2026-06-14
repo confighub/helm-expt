@@ -1,0 +1,1175 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-mongodb-19.1.0-existing-secret-replicaset-live-parity-20260605
+spec:
+  chart: bitnami/mongodb
+  version: 19.1.0
+  base: existing-secret-replicaset
+  result: watch
+  observedAt: '2026-06-14T22:48:49Z'
+  package:
+    path: packages/bitnami/mongodb/19.1.0
+  recipe:
+    path: recipes/bitnami/mongodb/19.1.0
+  variantRevision: recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-mongodb-mqedlsmg-6um
+    kubeContext: kind-helm-expt-parity-mongodb-mqedlsmg-6um
+    namespace: mongodb
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: mongodb-helm
+      configHubKubectlApply: mongodb-apply
+      configHubOciArgo: mongodb-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-mongodb-mqedlsmg-6um --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-mongodb-mqedlsmg-6um"...
+
+        Deleting cluster "helm-expt-parity-mongodb-mqedlsmg-6um" ...
+
+        Deleted nodes: ["helm-expt-parity-mongodb-mqedlsmg-6um-control-plane"]
+
+        Deleting Space "helm-expt-parity-mongodb-mqedlsmg-6um-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
+        --version 19.1.0 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd
+      objectCount: 10
+      liveHelmManifestSHA256: e8ea7d44a6dd03f954b07d38b98d2aa37b871beeec01a88a21ac95b3c621c185
+      liveHelmManifestObjectCount: 10
+      namespace: mongodb-helm
+      runtime:
+        result: pass
+        workloads: 'statefulset.apps/mongodb           2/2   64s
+
+          statefulset.apps/mongodb-arbiter   1/1   64s'
+        pods: 'mongodb-0           1/1   Running   0     64s
+
+          mongodb-1           1/1   Running   0     17s
+
+          mongodb-arbiter-0   1/1   Running   0     64s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.1.0
+        --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+        --non-interactive --namespace mongodb-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 45ed3b103a5eb94e168e0c13710626fab6a3766882dc1838781533a1dfc9e93d
+      objectCount: 11
+      namespace: mongodb-apply
+      manifestNamespaces:
+      - mongodb-apply
+      runtimeNamespaces: &id001
+      - mongodb-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# mongodb-apply
+
+          statefulset.apps/mongodb           2/2   41s
+
+          statefulset.apps/mongodb-arbiter   1/1   41s'
+        pods: '# mongodb-apply
+
+          mongodb-0           1/1   Running   0     41s
+
+          mongodb-1           1/1   Running   0     24s
+
+          mongodb-arbiter-0   1/1   Running   0     41s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - mongodb-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+      controller: Argo CD OCI
+      app: mongodb-parity
+      manifestSHA256: 65660cb6f9a9db9f52bffef8487aac9fc334c9d93f23c207913e5cf059b61706
+      objectCount: 11
+      namespace: mongodb-oci
+      manifestNamespaces:
+      - mongodb-oci
+      runtimeNamespaces: &id002
+      - mongodb-oci
+      ociRevision: sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+      sync: OutOfSync
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: mongodb-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci
+              targetRevision: latest
+          revision: sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+          status: OutOfSync
+        health:
+          lastTransitionTime: '2026-06-14T23:00:58Z'
+          status: Healthy
+        summary:
+          images:
+          - registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T23:04:32Z'
+          finishedAt: '2026-06-14T23:04:34Z'
+          operationSyncResourceCount: 1
+          operationSyncResources:
+          - group: apps
+            kind: StatefulSet
+            namespace: ''
+            name: mongodb
+          syncResultResourceCount: 1
+          syncResultStatusCounts:
+            Synced: 1
+        history:
+        - id: 0
+          revision: sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+          deployedAt: '2026-06-14T23:00:00Z'
+          deployStartedAt: '2026-06-14T22:59:58Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: mongodb-oci
+          name: mongodb-common-scripts
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: mongodb-oci
+          name: mongodb-scripts
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: mongodb-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: mongodb-oci
+          name: mongodb-arbiter-headless
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: mongodb-oci
+          name: mongodb-headless
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: mongodb-oci
+          name: mongodb
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: mongodb-oci
+          name: mongodb
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: mongodb-oci
+          name: mongodb-arbiter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: mongodb-oci
+          name: mongodb
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: mongodb-oci
+          name: mongodb
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: mongodb-oci
+          name: mongodb-arbiter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         mongodb-parity\nNamespace:    argocd\nLabels: \
+              \      <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-mongodb-mqedlsmg-6um-cluster:argoproj.io/Application:argocd/mongodb-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ d25ba895-bea8-413c-8395-b92f30fa66f7\n              confighub.com/UnitSlug:\
+              \ mongodb-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:    \
+              \     Application\nMetadata:\n  Creation Timestamp:  2026-06-14T22:59:56Z\n\
+              \  Generation:          38\n  Resource Version:    2721\n  UID:    \
+              \             80835059-c1f3-4e16-a03a-e10ddd31f13b\nSpec:\n  Destination:\n\
+              \    Namespace:  mongodb-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T23:00:58Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T22:59:58Z\n    Deployed At:        2026-06-14T23:00:00Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\n\
+              \    Source:\n      Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T23:04:34Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Auto\
+              \ Heal Attempts Count:  6\n        Prune:                     true\n\
+              \        Resources:\n          Group:   apps\n          Kind:    StatefulSet\n\
+              \          Name:    mongodb\n        Revision:  sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\n\
+              \        Source:\n          Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T23:04:32Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       apps\n        Hook Phase:  Running\n\
+              \        Images:\n          registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\n\
+              \        Kind:        StatefulSet\n        Message:     statefulset.apps/mongodb\
+              \ serverside-applied\n        Name:        mongodb\n        Namespace:\
+              \   mongodb-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\n\
+              \      Source:\n        Path:              ./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T23:04:34Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       ConfigMap\n\
+              \    Name:       mongodb-common-scripts\n    Namespace:  mongodb-oci\n\
+              \    Status:     Synced\n    Version:    v1\n    Kind:       ConfigMap\n\
+              \    Name:       mongodb-scripts\n    Namespace:  mongodb-oci\n    Status:\
+              \     Synced\n    Version:    v1\n    Kind:       Namespace\n    Name:\
+              \       mongodb-oci\n    Status:     Synced\n    Version:    v1\n  \
+              \  Kind:       Service\n    Name:       mongodb-arbiter-headless\n \
+              \   Namespace:  mongodb-oci\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       Service\n    Name:       mongodb-headless\n \
+              \   Namespace:  mongodb-oci\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       ServiceAccount\n    Name:       mongodb\n   \
+              \ Namespace:  mongodb-oci\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      apps\n    Kind:       StatefulSet\n    Name:      \
+              \ mongodb\n    Namespace:  mongodb-oci\n    Status:     OutOfSync\n\
+              \    Version:    v1\n    Group:      apps\n    Kind:       StatefulSet\n\
+              \    Name:       mongodb-arbiter\n    Namespace:  mongodb-oci\n    Status:\
+              \     Synced\n    Version:    v1\n    Group:      networking.k8s.io\n\
+              \    Kind:       NetworkPolicy\n    Name:       mongodb\n    Namespace:\
+              \  mongodb-oci\n    Status:     Synced\n    Version:    v1\n    Group:\
+              \      policy\n    Kind:       PodDisruptionBudget\n    Name:      \
+              \ mongodb\n    Namespace:  mongodb-oci\n    Status:     Synced\n   \
+              \ Version:    v1\n    Group:      policy\n    Kind:       PodDisruptionBudget\n\
+              \    Name:       mongodb-arbiter\n    Namespace:  mongodb-oci\n    Status:\
+              \     Synced\n    Version:    v1\n  Source Hydrator:\n  Source Type:\
+              \  Directory\n  Summary:\n    Images:\n      registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\n\
+              \  Sync:\n    Compared To:\n      Destination:\n        Namespace: \
+              \ mongodb-oci\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\n\
+              \    Status:               OutOfSync\nEvents:\n  Type    Reason    \
+              \          Age    From                           Message\n  ----   \
+              \ ------              ----   ----                           -------\n\
+              \  Normal  OperationStarted    6m51s  argocd-application-controller\
+              \  Initiated automated sync to 'sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f000"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                       MESSAGE
+
+              6m51s       Normal   OperationStarted     application/mongodb-parity   Initiated
+              automated sync to ''sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c''
+
+              6m51s       Normal   ResourceUpdated      application/mongodb-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m51s       Normal   ResourceUpdated      application/mongodb-parity   Updated
+              health status:  -> Healthy
+
+              6m49s       Normal   OperationCompleted   application/mongodb-parity   Sync
+              operation to sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+              succeeded
+
+              6m35s       Normal   ResourceUpdated      application/mongodb-parity   Updated
+              health status: Healthy -> Progressing
+
+              6m34s       Normal   OperationStarted     application/mongodb-parity   Initiated
+              automated sync to ''sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c''
+
+              6m31s       Normal   OperationCompleted   application/mongodb-parity   Partial
+              sync operation to sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+              succeeded
+
+              6m29s       Normal   OperationStarted     application/mongodb-parity   Initiated
+              automated sync to ''sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c''
+
+              6m28s       Normal   OperationCompleted   application/mongodb-parity   Partial
+              sync operation to sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+              succeeded
+
+              6m20s       Normal   OperationStarted     application/mongodb-parity   Initiated
+              automated sync to ''sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c''
+
+              6m18s       Normal   OperationCompleted   application/mongodb-parity   Partial
+              sync operation to sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+              succeeded
+
+              5m59s       Normal   OperationStarted     application/mongodb-parity   Initiated
+              automated sync to ''sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c''
+
+              5m58s       Normal   OperationCompleted   application/mongodb-parity   Partial
+              sync operation to sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+              succeeded
+
+              5m51s       Normal   ResourceUpdated      application/mongodb-parity   Updated
+              health status: Progressing -> Healthy
+
+              5m2s        Normal   OperationStarted     application/mongodb-parity   Initiated
+              automated sync to ''sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c''
+
+              5m1s        Normal   OperationCompleted   application/mongodb-parity   Partial
+              sync operation to sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+              succeeded
+
+              2m17s       Normal   OperationStarted     application/mongodb-parity   Initiated
+              automated sync to ''sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c''
+
+              2m15s       Normal   OperationCompleted   application/mongodb-parity   Partial
+              sync operation to sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+              succeeded'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: OutOfSync
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 11
+              artifact:
+                path: argocd-core-child.json
+                sha256: f015b3fb64bae87ad3781dcc42eab851d5564d4229e657ee117ad18ae7a67b2e
+                bytes: 11061
+              output: "{\n  \"metadata\": {\n    \"name\": \"mongodb-parity\",\n \
+                \   \"namespace\": \"argocd\",\n    \"uid\": \"80835059-c1f3-4e16-a03a-e10ddd31f13b\"\
+                ,\n    \"resourceVersion\": \"2909\",\n    \"generation\": 39,\n \
+                \   \"creationTimestamp\": \"2026-06-14T22:59:56Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-mongodb-mqedlsmg-6um-cluster:argoproj.io/Application:argocd/mongodb-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"d25ba895-bea8-413c-8395-b92f30fa66f7\",\n      \"confighub.com/UnitSlug\"\
+                : \"mongodb-parity-app\"\n    },\n    \"managedFields\": [\n     \
+                \ {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T22:59:56Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T23:06:57Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:autoHealAttemptsCount\"\
+                : {},\n                  \"f:prune\": {},\n                  \"f:resources\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"mongodb-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"mongodb-oci\",\n        \"name\": \"mongodb-common-scripts\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"mongodb-oci\",\n        \"name\": \"mongodb-scripts\",\n     \
+                \   \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                mongodb-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"mongodb-oci\",\n        \"name\": \"mongodb-arbiter-headless\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"mongodb-oci\",\n        \"name\": \"mongodb-headless\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"mongodb-oci\",\n        \"name\": \"mongodb\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Statef"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 10c71d23a6df07d87b240079b5f88c1498fed15a887008ae0235a4857cba634d
+                bytes: 2484
+              output: "Name:               argocd/mongodb-parity\nProject:       \
+                \     default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          mongodb-oci\nURL:                http://localhost:53923/applications/mongodb-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        OutOfSync from latest (sha256:)\nHealth Status:\
+                \      Healthy\n\nKIND/NAME                                      \
+                \ STATUS     HEALTH   AGE    MESSAGE                             \
+                \         REASON\nService/mongodb-headless                       \
+                \ Synced     Healthy  7m6s                                       \
+                \         \nNetworkPolicy/mongodb                           Synced\
+                \              7m7s                                              \
+                \  \nPodDisruptionBudget/mongodb                     Synced     Healthy\
+                \  7m7s                                                PodDisruptionBudget\
+                \ has SufficientPods\nPodDisruptionBudget/mongodb-arbiter        \
+                \     Synced     Healthy  7m7s                                   \
+                \             PodDisruptionBudget has SufficientPods\nConfigMap/mongodb-common-scripts\
+                \                Synced              7m7s                        \
+                \                        \nNamespace/mongodb-oci                 \
+                \          Synced              13m                               \
+                \                  \nService/mongodb-arbiter-headless            \
+                \    Synced     Healthy  7m6s                                    \
+                \            \nServiceAccount/mongodb                          Synced\
+                \              7m7s                                              \
+                \  \nStatefulSet/mongodb                             OutOfSync  Healthy\
+                \  7m6s   statefulset.apps/mongodb serverside-applied  statefulset\
+                \ rolling update complete 2 pods at revision mongodb-594485b878...\n\
+                \u251C\u2500PersistentVolumeClaim/datadir-mongodb-0              \
+                \    Healthy  7m6s                                               \
+                \ \n\u251C\u2500PersistentVolumeClaim/datadir-mongodb-1          \
+                \        Healthy  6m47s                                          \
+                \     \n\u251C\u2500Pod/mongodb-0                                \
+                \            Healthy  7m6s                                       \
+                \         \n\u251C\u2500Pod/mongodb-1                            \
+                \                Healthy  6m47s                                  \
+                \             \n\u2514\u2500ControllerRevision/mongodb-594485b878\
+                \                             7m6s                               \
+                \                 \nStatefulSet/mongodb-arbiter                  \
+                \   Synced     Healthy  7m6s                                     \
+                \           statefulset rolling update complete 1 pods at revision\
+                \ mongodb-arbiter-8f6dc7754...\n\u251C\u2500Pod/mongodb-arbiter-0\
+                \                                    Healthy  7m6s               \
+                \                                 \n\u2514\u2500ControllerRevision/mongodb-arbiter-8f6dc7754\
+                \                      7m6s                                      \
+                \          \nConfigMap/mongodb-scripts                       Synced\
+                \              7m7s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-mongodb-mqedlsmg-6um-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-mongodb-mqedlsmg-6um-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              mongodb-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"sync\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/mongodb-parity\"\
+              ,\n      \"syncStatus\": \"OutOfSync\",\n      \"healthStatus\": \"\
+              Healthy\",\n      \"lastAttemptedRevision\": \"sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-mongodb-mqedlsmg-6um-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"mongodb-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-mongodb-mqedlsmg-6um-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci
+              targetRevision: latest
+          revision: sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T22:50:23Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T22:59:54Z'
+          finishedAt: '2026-06-14T22:59:56Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+          deployedAt: '2026-06-14T22:59:56Z'
+          deployStartedAt: '2026-06-14T22:59:54Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-mongodb-mqedlsmg-6um-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-mongodb-mqedlsmg-6um-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: mongodb-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T22:50:14Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        13\n  Resource Version:  2858\n  UID:        \
+              \       28bfdd00-111d-4afe-a276-ceea971a5b60\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T22:50:23Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T22:59:54Z\n\
+              \    Deployed At:        2026-06-14T22:59:56Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\n\
+              \    Source:\n      Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T22:59:56Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\n\
+              \        Source:\n          Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T22:59:54Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/mongodb-parity serverside-applied\n\
+              \        Name:        mongodb-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-mongodb-mqedlsmg-6um-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\n\
+              \      Source:\n        Path:              ./helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T23:06:19Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       mongodb-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     16m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     16m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m12s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m10s  argocd-application-controller  Sync operation to sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\
+              \ succeeded\n  Normal  ResourceUpdated     7m9s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                      MESSAGE
+
+              16m         Normal   ResourceUpdated      application/helm-expt-parity-mongodb-mqedlsmg-6um-cluster   Updated
+              sync status:  -> Synced
+
+              16m         Normal   ResourceUpdated      application/helm-expt-parity-mongodb-mqedlsmg-6um-cluster   Updated
+              health status:  -> Healthy
+
+              7m13s       Normal   OperationStarted     application/helm-expt-parity-mongodb-mqedlsmg-6um-cluster   Initiated
+              automated sync to ''sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c''
+
+              7m13s       Normal   ResourceUpdated      application/helm-expt-parity-mongodb-mqedlsmg-6um-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m11s       Normal   OperationCompleted   application/helm-expt-parity-mongodb-mqedlsmg-6um-cluster   Sync
+              operation to sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c
+              succeeded
+
+              7m10s       Normal   ResourceUpdated      application/helm-expt-parity-mongodb-mqedlsmg-6um-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 5f429a7439287e52235a57922302bf4cfc349c75f25bb07e5cc0daa77a0c7ab4
+                bytes: 10631
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-mongodb-mqedlsmg-6um-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"28bfdd00-111d-4afe-a276-ceea971a5b60\"\
+                ,\n    \"resourceVersion\": \"2933\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-06-14T22:50:14Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-mongodb-mqedlsmg-6um-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-mongodb-mqedlsmg-6um-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T22:50:14Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T23:07:15Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:44"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: e26997684fb6d6d74a25a63f4873e20f74aebd7fea55f1dfa8fe2c2f169cb56e
+                bytes: 1121
+              output: "Name:               argocd/helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:54039/applications/helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \         STATUS  HEALTH  AGE    MESSAGE                         \
+                \                                                          REASON\n\
+                Application/helm-expt-parity-mongodb-mqedlsmg-6um-cluster  Synced\
+                \          17m    application.argoproj.io/helm-expt-parity-mongodb-mqedlsmg-6um-cluster\
+                \ serverside-applied  \nApplication/mongodb-parity               \
+                \                  Synced          7m27s  application.argoproj.io/mongodb-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-mongodb-mqedlsmg-6um-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-mongodb-mqedlsmg-6um-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              mongodb-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"sync\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/mongodb-parity\"\
+              ,\n      \"syncStatus\": \"OutOfSync\",\n      \"healthStatus\": \"\
+              Healthy\",\n      \"lastAttemptedRevision\": \"sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-mongodb-mqedlsmg-6um-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"mongodb-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# mongodb-oci
+
+          statefulset.apps/mongodb           2/2   7m23s
+
+          statefulset.apps/mongodb-arbiter   1/1   7m23s'
+        pods: '# mongodb-oci
+
+          mongodb-0           1/1   Running   0     7m23s
+
+          mongodb-1           1/1   Running   0     7m4s
+
+          mongodb-arbiter-0   1/1   Running   0     7m23s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||mongodb
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||mongodb
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 2591245b77ed39e866bd1a3753767f8f1edb0bd3eac14ad79101ce6133d129e5
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||mongodb
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: 2591245b77ed39e866bd1a3753767f8f1edb0bd3eac14ad79101ce6133d129e5
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T22:50:14Z'
+    finishedAt: '2026-06-14T22:51:24Z'
+    elapsedSeconds: 69.944
+    timeoutSeconds: 900
+    command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
+      --version 19.1.0 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T22:52:12Z'
+    finishedAt: '2026-06-14T22:52:13Z'
+    elapsedSeconds: 0.733
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.1.0
+      --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+      --non-interactive --namespace mongodb-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T22:52:13Z'
+    finishedAt: '2026-06-14T22:52:13Z'
+    elapsedSeconds: 0.136
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqedlsmg-6um.kubeconfig
+      --context kind-helm-expt-parity-mongodb-mqedlsmg-6um apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/direct-apply-manifest.yaml
+    objectCount: 10
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T22:52:13Z'
+    finishedAt: '2026-06-14T22:52:54Z'
+    elapsedSeconds: 40.615
+    timeoutSeconds: 300
+    namespaces: mongodb-apply
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T22:53:41Z'
+    finishedAt: '2026-06-14T22:53:42Z'
+    elapsedSeconds: 0.533
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.1.0
+      --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+      --non-interactive --namespace mongodb-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T22:53:42Z'
+    finishedAt: '2026-06-14T22:54:37Z'
+    elapsedSeconds: 55.235
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+      --space helm-expt-parity-mongodb-mqedlsmg-6um-mongodb --target helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci
+    objectCount: 11
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T22:54:37Z'
+    finishedAt: '2026-06-14T22:54:39Z'
+    elapsedSeconds: 1.815
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T22:54:39Z'
+    finishedAt: '2026-06-14T22:59:45Z'
+    elapsedSeconds: 305.869
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+      --unit <11 unit(s)> --wait --timeout 5m
+    unitCount: 11
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T22:59:45Z'
+    finishedAt: '2026-06-14T22:59:46Z'
+    elapsedSeconds: 0.999
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-mongodb-mqedlsmg-6um-cluster
+      mongodb-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/argo-application.json
+      --target helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T22:59:46Z'
+    finishedAt: '2026-06-14T22:59:47Z'
+    elapsedSeconds: 0.97
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-mongodb-mqedlsmg-6um-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-14T22:59:47Z'
+    finishedAt: '2026-06-14T23:06:49Z'
+    elapsedSeconds: 422.251
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: OutOfSync
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T23:07:23Z'
+    finishedAt: '2026-06-14T23:07:23Z'
+    elapsedSeconds: 0.108
+    timeoutSeconds: 180
+    namespaces: mongodb-oci
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-mongodb-mqedlsmg-6um\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqedlsmg-6um.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-mongodb-mqedlsmg-6um\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-mongodb-mqedlsmg-6um\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mongodb-mqedlsmg-6um\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqedlsmg-6um.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec: "
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=2 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"mongodb\" does not exist. Installing it now.\nNAME: mongodb\n\
+      LAST DEPLOYED: Sun Jun 14 23:50:20 2026\nNAMESPACE: mongodb-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: mongodb\nCHART VERSION: 19.1.0\nAPP VERSION: 8.3.2\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nMongoDB&reg;\
+      \ can be accessed on the following DNS name(s) and ports from within your cluster:\n\
+      \n    mongodb-0.mongodb-headless.mongodb-helm.svc.cluster.local:27017\n    mongodb-1.mongodb-headless.mongodb-helm.svc.cluster.local:27017\n\
+      \nTo get the root password run:\n\n    export MONGODB_ROOT_PASSWORD=$(kubectl\
+      \ get secret --namespace mongodb-helm mongodb-auth -o jsonpath=\"{.data.mongodb-"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=1 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# mongodb-apply
+
+      statefulset.apps/mongodb           2/2   41s
+
+      statefulset.apps/mongodb-arbiter   1/1   41s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=1 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=OutOfSync health=Healthy after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: mongodb
+        name: mongodb-auth
+        keys:
+        - mongodb-replica-set-key
+        - mongodb-root-password
+        lane: regularHelm
+      - namespace: mongodb-helm
+        name: mongodb-auth
+        keys:
+        - mongodb-replica-set-key
+        - mongodb-root-password
+        lane: regularHelm
+        sourceNamespace: mongodb
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: mongodb-apply
+        name: mongodb-auth
+        keys:
+        - mongodb-replica-set-key
+        - mongodb-root-password
+        lane: configHubKubectlApply
+        sourceNamespace: mongodb
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: mongodb-oci
+        name: mongodb-auth
+        keys:
+        - mongodb-replica-set-key
+        - mongodb-root-password
+        lane: configHubOciArgo
+        sourceNamespace: mongodb
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: mongodb-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: mongodb-oci
