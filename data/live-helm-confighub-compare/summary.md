@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 96
+pass: 97
 watch: 8
 blocked: 0
 not-started: 0
@@ -58,6 +58,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 12 | `hashicorp/vault@0.32.0` | ha-raft-ui | watch | operate-policy: Vault init/unseal readiness (parity passed) | runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml |
 | 13 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | pass | - | runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/receipt.yaml |
 | 14 | `prometheus-community/prometheus@29.8.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-default/receipt.yaml |
+| 14 | `prometheus-community/prometheus@29.9.0` | server-only-ephemeral | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/receipt.yaml |
 | 15 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass | - | runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/receipt.yaml |
 | 16 | `bitnami/mysql@14.0.3` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-mysql-existing-secret/receipt.yaml |
 | 17 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | - | runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |

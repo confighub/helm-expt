@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 796 / 17 / 53 / 356 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 798 / 17 / 53 / 354 / 122 |
 | Variants with the complete core lane set | 89 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -277,7 +277,7 @@ when you want the user/product view with those columns visible.
 | `prometheus-community/prometheus@29.8.0` | default | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | server-only-ephemeral | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 | `prometheus-community/prometheus@29.9.0` | default | — | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | server-only-ephemeral | — | — | — | — | ✅ | ⬜ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | server-only-ephemeral | — | — | — | — | ✅ | ⬜ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `prometheus-community/prometheus-adapter@5.3.0` | default | next80 | `tpl;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | apiservice-v1-capability | next80 | `tpl;capabilities;cluster-rbac` | — | — | ✅ | ⬜ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 |  | cluster-metrics-readonly | next80 | `tpl;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
