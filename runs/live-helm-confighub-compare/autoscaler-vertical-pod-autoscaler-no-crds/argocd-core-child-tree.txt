@@ -1,0 +1,62 @@
+Name:               argocd/vertical-pod-autoscaler-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:51872/applications/vertical-pod-autoscaler-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2pqdo-znq-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2pqdo-znq-vertical-pod-autoscaler
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                                 STATUS  HEALTH   AGE    MESSAGE                                                                                                                                                                                                                                                   REASON
+MutatingWebhookConfiguration/vertical-pod-autoscaler-webhook-config       Synced           22s
+PodDisruptionBudget/vertical-pod-autoscaler-admission-controller          Synced  Healthy  3m14s  poddisruptionbudget.policy/vertical-pod-autoscaler-admission-controller serverside-applied                                                                                                                                                                PodDisruptionBudget has SufficientPods
+ClusterRole/vertical-pod-autoscaler-recommender-checkpoint-actor          Synced           22s
+ClusterRole/vertical-pod-autoscaler-updater-in-place                      Synced           22s
+ClusterRole/vertical-pod-autoscaler-updater-status-reader                 Synced           22s
+ClusterRole/vertical-pod-autoscaler-updater-target-reader                 Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-recommender-status-actor       Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-recommender-metrics-reader     Synced           22s
+Role/vertical-pod-autoscaler-recommender-leader-locking                   Synced           3m14s  role.rbac.authorization.k8s.io/vertical-pod-autoscaler-recommender-leader-locking reconciled. reconciliation required update. role.rbac.authorization.k8s.io/vertical-pod-autoscaler-recommender-leader-locking serverside-applied
+Service/vpa-webhook                                                       Synced  Healthy  3m14s  service/vpa-webhook serverside-applied
+ServiceAccount/vertical-pod-autoscaler-recommender                        Synced           3m14s  serviceaccount/vertical-pod-autoscaler-recommender serverside-applied
+Deployment/vertical-pod-autoscaler-recommender                            Synced  Healthy  3m14s  deployment.apps/vertical-pod-autoscaler-recommender serverside-applied
+└─ReplicaSet/vertical-pod-autoscaler-recommender-65cf99b9bd                       Healthy  3m14s
+  ├─Pod/vertical-pod-autoscaler-recommender-65cf99b9bd-6l8h6                      Healthy  3m14s
+  └─Pod/vertical-pod-autoscaler-recommender-65cf99b9bd-mgqnb                      Healthy  3m14s
+ClusterRole/vertical-pod-autoscaler-recommender-target-reader             Synced           22s
+Namespace/default-oci                                                     Synced           2m55s
+PodDisruptionBudget/vertical-pod-autoscaler-updater                       Synced  Healthy  3m14s  poddisruptionbudget.policy/vertical-pod-autoscaler-updater serverside-applied                                                                                                                                                                             PodDisruptionBudget has SufficientPods
+ClusterRoleBinding/vertical-pod-autoscaler-recommender-checkpoint-actor   Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-recommender-target-reader      Synced           22s
+ClusterRole/vertical-pod-autoscaler-recommender-actor                     Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-updater-evictioner-binding     Synced           22s
+Deployment/vertical-pod-autoscaler-admission-controller                   Synced  Healthy  3m14s  deployment.apps/vertical-pod-autoscaler-admission-controller serverside-applied
+└─ReplicaSet/vertical-pod-autoscaler-admission-controller-b7787b7f8               Healthy  3m14s
+  ├─Pod/vertical-pod-autoscaler-admission-controller-b7787b7f8-5skqn              Healthy  3m14s
+  └─Pod/vertical-pod-autoscaler-admission-controller-b7787b7f8-g4h2q              Healthy  3m14s
+ClusterRole/vertical-pod-autoscaler-recommender-status-actor              Synced           22s
+ClusterRole/vertical-pod-autoscaler-updater-actor                         Synced           22s
+ClusterRole/vertical-pod-autoscaler-updater-evictioner                    Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-admission-controller           Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-updater-actor-binding          Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-updater-in-place-binding       Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-updater-status-reader-binding  Synced           22s
+ServiceAccount/vertical-pod-autoscaler-updater                            Synced           3m14s  serviceaccount/vertical-pod-autoscaler-updater serverside-applied
+PodDisruptionBudget/vertical-pod-autoscaler-recommender                   Synced  Healthy  3m14s  poddisruptionbudget.policy/vertical-pod-autoscaler-recommender serverside-applied                                                                                                                                                                         PodDisruptionBudget has SufficientPods
+ClusterRole/vertical-pod-autoscaler-recommender-metrics-reader            Synced           22s
+Role/vertical-pod-autoscaler-updater-leader-locking                       Synced           3m14s  role.rbac.authorization.k8s.io/vertical-pod-autoscaler-updater-leader-locking reconciled. reconciliation required update. role.rbac.authorization.k8s.io/vertical-pod-autoscaler-updater-leader-locking serverside-applied
+ServiceAccount/vertical-pod-autoscaler-admission-controller               Synced           3m14s  serviceaccount/vertical-pod-autoscaler-admission-controller serverside-applied
+Deployment/vertical-pod-autoscaler-updater                                Synced  Healthy  3m14s  deployment.apps/vertical-pod-autoscaler-updater serverside-applied
+└─ReplicaSet/vertical-pod-autoscaler-updater-6bd8467c99                           Healthy  3m14s
+  ├─Pod/vertical-pod-autoscaler-updater-6bd8467c99-27b49                          Healthy  3m14s
+  └─Pod/vertical-pod-autoscaler-updater-6bd8467c99-rj8rb                          Healthy  3m13s
+ClusterRole/vertical-pod-autoscaler-admission-controller                  Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-recommender-actor              Synced           22s
+ClusterRoleBinding/vertical-pod-autoscaler-updater-target-reader-binding  Synced           22s
+RoleBinding/vertical-pod-autoscaler-recommender-leader-locking            Synced           3m14s  rolebinding.rbac.authorization.k8s.io/vertical-pod-autoscaler-recommender-leader-locking reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/vertical-pod-autoscaler-recommender-leader-locking serverside-applied
+RoleBinding/vertical-pod-autoscaler-updater-leader-locking-binding        Synced           3m14s  rolebinding.rbac.authorization.k8s.io/vertical-pod-autoscaler-updater-leader-locking-binding reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/vertical-pod-autoscaler-updater-leader-locking-binding serverside-applied

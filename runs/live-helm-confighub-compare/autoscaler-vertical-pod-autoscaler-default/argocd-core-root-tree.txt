@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:51375/applications/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                             STATUS  HEALTH  AGE    MESSAGE                                                                                              REASON
+Application/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster  Synced          4m13s  application.argoproj.io/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster serverside-applied
+Application/vertical-pod-autoscaler-parity                            Synced          46s    application.argoproj.io/vertical-pod-autoscaler-parity serverside-applied

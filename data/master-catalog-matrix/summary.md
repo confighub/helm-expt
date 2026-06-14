@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 778 / 11 / 53 / 380 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 782 / 11 / 53 / 376 / 122 |
 | Variants with the complete core lane set | 83 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -129,8 +129,8 @@ when you want the user/product view with those columns visible.
 | `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⚠️ | ⬜ | local-live | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
-| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
-|  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
+|  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | next80 | `tpl;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `bitnami/apache@11.4.29` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `bitnami/contour@21.1.4` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
