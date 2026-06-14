@@ -39,8 +39,8 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 772 / 5 / 53 / 392 / 122 |
-| Variants with the complete core lane set | 82 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 774 / 5 / 53 / 390 / 122 |
+| Variants with the complete core lane set | 83 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | 0 / 20 / 172 / 0 / 0 |
@@ -77,7 +77,7 @@ otherwise.
 | Promote after review | 77 | Proof-grade rows that need catalog/product review before becoming public starting points. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-events@2.4.21/default` |
 | Design a more useful base | 35 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/apache@11.4.29/default` |
 | Decide a limitation first | 15 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/contour@21.1.4/default`, `bitnami/contour@21.1.4/no-crds`, `bitnami/elasticsearch@22.1.6/default` |
-| Complete the core proof lane | 110 | Rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
+| Complete the core proof lane | 109 | Rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
 | Active proof queue | 2 | Rows with a current non-pass live parity result and an exact rerun or review action. | `hashicorp/consul@2.0.0/secure-mesh-existing-secrets`, `hashicorp/vault@0.32.0/ha-raft-ui` |
 | Record or finish production scope | 172 | Rows without a target-scoped supported, superseded, or rejected production decision. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
 | Investigate hard gaps | 43 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
@@ -191,7 +191,7 @@ when you want the user/product view with those columns visible.
 |  | no-crds | next80 | `tpl;crds;cluster-rbac` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `external-secrets/external-secrets@2.5.0` | default | top20 | — | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 |  | no-crds | top20 | — | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `fairwinds-stable/goldilocks@10.3.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `fairwinds-stable/goldilocks@10.3.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `fairwinds-stable/vpa@4.11.0` | default | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `falcosecurity/falco@9.0.0` | default | next80 | `lookup;tpl;capabilities;cluster-rbac;stateful-storage` | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |

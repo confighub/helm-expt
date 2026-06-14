@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 84
+pass: 85
 watch: 2
 blocked: 0
 not-started: 0
@@ -80,6 +80,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `external-dns/external-dns@1.21.1` | default | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-default/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | no-crds | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-no-crds/receipt.yaml |
+|  | `fairwinds-stable/goldilocks@10.3.0` | default | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-goldilocks-default/receipt.yaml |
 |  | `fairwinds-stable/vpa@4.11.0` | default | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-vpa-default/receipt.yaml |
 |  | `fairwinds-stable/vpa@4.11.0` | no-crds | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-vpa-no-crds/receipt.yaml |
 |  | `fluent/fluent-bit@0.57.6` | default | pass | - | runs/live-helm-confighub-compare/fluent-fluent-bit-default/receipt.yaml |
