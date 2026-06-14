@@ -1,0 +1,1128 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-nginx-24.0.4-existing-tls-ingress-live-parity-20260605
+spec:
+  chart: bitnami/nginx
+  version: 24.0.4
+  base: existing-tls-ingress
+  result: watch
+  observedAt: '2026-06-14T23:20:11Z'
+  package:
+    path: packages/bitnami/nginx/24.0.4
+  recipe:
+    path: recipes/bitnami/nginx/24.0.4
+  variantRevision: recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-nginx-mqeeq513-1aex
+    kubeContext: kind-helm-expt-parity-nginx-mqeeq513-1aex
+    namespace: nginx
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: nginx-helm
+      configHubKubectlApply: nginx-apply
+      configHubOciArgo: nginx-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-nginx-mqeeq513-1aex --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-nginx-mqeeq513-1aex"...
+
+        Deleting cluster "helm-expt-parity-nginx-mqeeq513-1aex" ...
+
+        Deleted nodes: ["helm-expt-parity-nginx-mqeeq513-1aex-control-plane"]
+
+        Deleting Space "helm-expt-parity-nginx-mqeeq513-1aex-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
+        --version 24.0.4 --namespace nginx-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f
+      objectCount: 6
+      liveHelmManifestSHA256: c8f9525897123ad40511b24c3d425f6cf63e8269628a01a3f106719fbde80f96
+      liveHelmManifestObjectCount: 6
+      namespace: nginx-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/nginx   1/1   1     1     16s
+        pods: nginx-78b966456-fflsh   1/1   Running   0     16s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.4
+        --base existing-tls-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqeeq513-1aex-nginx
+        --non-interactive --namespace nginx-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 494c2c16d9ce1b55656f3945545a07256a508b66197a0de0ca688184d26220a0
+      objectCount: 7
+      namespace: nginx-apply
+      manifestNamespaces:
+      - nginx
+      - nginx-apply
+      runtimeNamespaces: &id001
+      - nginx
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# nginx
+
+          deployment.apps/nginx   1/1   1     1     10s'
+        pods: '# nginx
+
+          nginx-78b966456-6xk4w   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - nginx
+        - nginx-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-nginx-mqeeq513-1aex-nginx
+      controller: Argo CD OCI
+      app: nginx-parity
+      manifestSHA256: 8d695f757f1332e4d774f4116af10352b46608ecdd1e42ce8d0adfde0cb9d0f8
+      objectCount: 7
+      namespace: nginx-oci
+      manifestNamespaces:
+      - nginx
+      - nginx-oci
+      runtimeNamespaces: &id002
+      - nginx
+      ociRevision: sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: nginx-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-nginx-mqeeq513-1aex-nginx
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci
+              targetRevision: latest
+          revision: sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T23:23:18Z'
+          status: Progressing
+        summary:
+          externalURLs:
+          - https://nginx.example.test/
+          images:
+          - registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T23:23:15Z'
+          finishedAt: '2026-06-14T23:23:17Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 7
+          syncResultStatusCounts:
+            Synced: 7
+        history:
+        - id: 0
+          revision: sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885
+          deployedAt: '2026-06-14T23:23:17Z'
+          deployStartedAt: '2026-06-14T23:23:15Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-nginx-mqeeq513-1aex-nginx
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: nginx-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: nginx
+          name: nginx
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: nginx
+          name: nginx
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: nginx
+          name: nginx
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: Ingress
+          namespace: nginx
+          name: nginx
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: nginx
+          name: nginx
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: nginx
+          name: nginx
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         nginx-parity\nNamespace:    argocd\nLabels:   \
+              \    <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-nginx-mqeeq513-1aex-cluster:argoproj.io/Application:argocd/nginx-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 7e3cc7ac-290d-49d4-9f51-9bcdbc43020c\n              confighub.com/UnitSlug:\
+              \ nginx-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:      \
+              \   Application\nMetadata:\n  Creation Timestamp:  2026-06-14T23:23:12Z\n\
+              \  Generation:          10\n  Resource Version:    1760\n  UID:    \
+              \             0577fd50-a382-4dbe-a4c6-1350aa9492e5\nSpec:\n  Destination:\n\
+              \    Namespace:  nginx-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-nginx\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T23:23:18Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T23:23:15Z\n    Deployed At:        2026-06-14T23:23:17Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\n\
+              \    Source:\n      Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-nginx\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T23:23:17Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\n\
+              \        Source:\n          Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-nginx\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T23:23:15Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/nginx-oci\
+              \ serverside-applied\n        Name:        nginx-oci\n        Namespace:\
+              \   nginx-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/nginx serverside-applied\n\
+              \        Name:        nginx\n        Namespace:   nginx\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       policy\n        Hook Phase:  Running\n       \
+              \ Kind:        PodDisruptionBudget\n        Message:     poddisruptionbudget.policy/nginx\
+              \ serverside-applied\n        Name:        nginx\n        Namespace:\
+              \   nginx\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/nginx serverside-applied\n        Name:        nginx\n\
+              \        Namespace:   nginx\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
+              \     Hook Phase:  Running\n        Kind:        Service\n        Message:\
+              \     service/nginx serverside-applied\n        Name:        nginx\n\
+              \        Namespace:   nginx\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       apps\n\
+              \        Hook Phase:  Running\n        Images:\n          registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/nginx\
+              \ serverside-applied\n        Name:        nginx\n        Namespace:\
+              \   nginx\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        Ingress\n       \
+              \ Message:     ingress.networking.k8s.io/nginx serverside-applied\n\
+              \        Name:        nginx\n        Namespace:   nginx\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \      Revision:      sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\n\
+              \      Source:\n        Path:              ./helm-expt-parity-nginx-mqeeq513-1aex-nginx\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T23:29:53Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       nginx-oci\n    Status:     Synced\n    Version:   \
+              \ v1\n    Kind:       Service\n    Name:       nginx\n    Namespace:\
+              \  nginx\n    Status:     Synced\n    Version:    v1\n    Kind:    \
+              \   ServiceAccount\n    Name:       nginx\n    Namespace:  nginx\n \
+              \   Status:     Synced\n    Version:    v1\n    Group:      apps\n \
+              \   Kind:       Deployment\n    Name:       nginx\n    Namespace:  nginx\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      networking.k8s.io\n\
+              \    Kind:       Ingress\n    Name:       nginx\n    Namespace:  nginx\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      networking.k8s.io\n\
+              \    Kind:       NetworkPolicy\n    Name:       nginx\n    Namespace:\
+              \  nginx\n    Status:     Synced\n    Version:    v1\n    Group:   \
+              \   policy\n    Kind:       PodDisruptionBudget\n    Name:       nginx\n\
+              \    Namespace:  nginx\n    Status:     Synced\n    Version:    v1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n    Exte"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                     MESSAGE
+
+              6m50s       Normal   OperationStarted     application/nginx-parity   Initiated
+              automated sync to ''sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885''
+
+              6m50s       Normal   ResourceUpdated      application/nginx-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m50s       Normal   ResourceUpdated      application/nginx-parity   Updated
+              health status:  -> Healthy
+
+              6m48s       Normal   OperationCompleted   application/nginx-parity   Sync
+              operation to sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885
+              succeeded
+
+              6m47s       Normal   ResourceUpdated      application/nginx-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m47s       Normal   ResourceUpdated      application/nginx-parity   Updated
+              health status: Healthy -> Progressing'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 7
+              artifact:
+                path: argocd-core-child.json
+                sha256: bbc45cd7c6f0ecb0d30feb32bd843cb4c24487db233e55d49c3a983f974e4a86
+                bytes: 11794
+              output: "{\n  \"metadata\": {\n    \"name\": \"nginx-parity\",\n   \
+                \ \"namespace\": \"argocd\",\n    \"uid\": \"0577fd50-a382-4dbe-a4c6-1350aa9492e5\"\
+                ,\n    \"resourceVersion\": \"1786\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-14T23:23:12Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-nginx-mqeeq513-1aex-cluster:argoproj.io/Application:argocd/nginx-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"7e3cc7ac-290d-49d4-9f51-9bcdbc43020c\",\n      \"confighub.com/UnitSlug\"\
+                : \"nginx-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T23:23:12Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T23:30:13Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:externalURLs\": {},\n    \
+                \          \"f:images\": {}\n            },\n            \"f:sync\"\
+                : {\n              \".\": {},\n              \"f:comparedTo\": {\n\
+                \                \".\": {},\n                \"f:destination\": {\n\
+                \                  \".\": {},\n                  \"f:namespace\":\
+                \ {},\n                  \"f:server\": {}\n                },\n  \
+                \              \"f:source\": {\n                  \".\": {},\n   \
+                \               \"f:path\": {},\n                  \"f:repoURL\":\
+                \ {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {},\n      \
+                \        \"f:status\": {}\n            }\n          }\n        }\n\
+                \      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n      \"\
+                repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-nginx-mqeeq513-1aex-nginx\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"nginx-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"nginx-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"nginx\",\n        \"name\"\
+                : \"nginx\",\n        \"status\": \"Synced\",\n        \"health\"\
+                : {\n          \"status\": \"Healthy\"\n        }\n      },\n    \
+                \  {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"nginx\",\n        \"name\": \"nginx\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"nginx\",\n        \"name\": \"nginx\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"networking.k8s.io\",\n        \"version\": \"v1\"\
+                ,\n        \"kind\": \"Ingress\",\n        \"namespace\": \"nginx\"\
+                ,\n        \"name\": \"nginx\",\n        \"status\": \"Synced\",\n\
+                \        \"health\": {\n          \"status\": \"Progressing\"\n  \
+                \      }\n      },\n      {\n        \"group\": \"networking.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"NetworkPolicy\"\
+                ,\n        \"namespace\": \"nginx\",\n        \"name\": \"nginx\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"policy\",\n        \"version\": \"v1\",\n    "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 6d54044521ab121564bd0fbe8efdcaa803a2310d435248911491c3c0f7df9571
+                bytes: 1553
+              output: "Name:               argocd/nginx-parity\nProject:         \
+                \   default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          nginx-oci\nURL:                http://localhost:55379/applications/nginx-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-nginx\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                      STATUS  HEALTH \
+                \      AGE    MESSAGE                                            \
+                \       REASON\nNamespace/nginx-oci            Synced            \
+                \   7m51s                                                        \
+                \    \nService/nginx                  Synced  Healthy      7m6s  \
+                \ service/nginx serverside-applied                          \nServiceAccount/nginx\
+                \           Synced               7m6s   serviceaccount/nginx serverside-applied\
+                \                   \nDeployment/nginx               Synced  Healthy\
+                \      7m6s   deployment.apps/nginx serverside-applied           \
+                \       \n\u2514\u2500ReplicaSet/nginx-78b966456           Healthy\
+                \      7m6s                                                      \
+                \       \n  \u2514\u2500Pod/nginx-78b966456-x4zv9          Healthy\
+                \      7m6s                                                      \
+                \       \nIngress/nginx                  Synced  Progressing  7m6s\
+                \   ingress.networking.k8s.io/nginx serverside-applied        \nNetworkPolicy/nginx\
+                \            Synced               7m6s   networkpolicy.networking.k8s.io/nginx\
+                \ serverside-applied  \nPodDisruptionBudget/nginx      Synced  Healthy\
+                \      7m6s   poddisruptionbudget.policy/nginx serverside-applied\
+                \       PodDisruptionBudget has SufficientPods"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-nginx-mqeeq513-1aex-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-nginx-mqeeq513-1aex-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              nginx-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/nginx-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-nginx-mqeeq513-1aex-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"nginx-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-nginx-mqeeq513-1aex-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci
+              targetRevision: latest
+          revision: sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T23:21:45Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T23:23:11Z'
+          finishedAt: '2026-06-14T23:23:13Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885
+          deployedAt: '2026-06-14T23:23:12Z'
+          deployStartedAt: '2026-06-14T23:23:11Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-nginx-mqeeq513-1aex-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-nginx-mqeeq513-1aex-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: nginx-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T23:21:37Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        10\n  Resource Version:  1584\n  UID:        \
+              \       a39c0401-da90-489a-96ad-2bd3c866ef4c\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T23:21:45Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T23:23:11Z\n\
+              \    Deployed At:        2026-06-14T23:23:12Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\n\
+              \    Source:\n      Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T23:23:13Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\n\
+              \        Source:\n          Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T23:23:11Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/nginx-parity serverside-applied\n\
+              \        Name:        nginx-parity\n        Namespace:   argocd\n  \
+              \      Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-nginx-mqeeq513-1aex-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\n\
+              \      Source:\n        Path:              ./helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T23:27:37Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       nginx-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     8m39s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     8m39s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m13s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885'\n\
+              \  Normal  ResourceUpdated     7m13s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m11s  argocd-application-controller  Sync operation to sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\
+              \ succeeded\n  Normal  ResourceUpdated     7m9s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                     MESSAGE
+
+              8m39s       Normal   ResourceUpdated      application/helm-expt-parity-nginx-mqeeq513-1aex-cluster   Updated
+              sync status:  -> Synced
+
+              8m39s       Normal   ResourceUpdated      application/helm-expt-parity-nginx-mqeeq513-1aex-cluster   Updated
+              health status:  -> Healthy
+
+              7m13s       Normal   OperationStarted     application/helm-expt-parity-nginx-mqeeq513-1aex-cluster   Initiated
+              automated sync to ''sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885''
+
+              7m13s       Normal   ResourceUpdated      application/helm-expt-parity-nginx-mqeeq513-1aex-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m11s       Normal   OperationCompleted   application/helm-expt-parity-nginx-mqeeq513-1aex-cluster   Sync
+              operation to sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885
+              succeeded
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-nginx-mqeeq513-1aex-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: db4ca744c95519e263feccf2a008e5ea09109e26db8dfe8cafa271a0890dd0dd
+                bytes: 10608
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-nginx-mqeeq513-1aex-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"a39c0401-da90-489a-96ad-2bd3c866ef4c\"\
+                ,\n    \"resourceVersion\": \"1819\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-14T23:21:37Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-nginx-mqeeq513-1aex-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-nginx-mqeeq513-1aex-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T23:21:37Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T23:30:34Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/ta"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: a054818aea730bcf5e15ef694f6595fdde74ab89b0be371ef1ccf6f85f675373
+                bytes: 1110
+              output: "Name:               argocd/helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:55495/applications/helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \        STATUS  HEALTH  AGE    MESSAGE                          \
+                \                                                        REASON\n\
+                Application/nginx-parity                                  Synced \
+                \         7m31s  application.argoproj.io/nginx-parity serverside-applied\
+                \                                  \nApplication/helm-expt-parity-nginx-mqeeq513-1aex-cluster\
+                \  Synced          9m6s   application.argoproj.io/helm-expt-parity-nginx-mqeeq513-1aex-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-nginx-mqeeq513-1aex-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-nginx-mqeeq513-1aex-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              nginx-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/nginx-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:8be2070bab1c367810d752cf87490accf9ff22f8400377cb87709bde637d7885\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-nginx-mqeeq513-1aex-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"nginx-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# nginx
+
+          deployment.apps/nginx   1/1   1     1     7m26s'
+        pods: '# nginx
+
+          nginx-78b966456-x4zv9   1/1   Running   0     7m26s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||nginx
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||nginx
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 1f64b51473cd93ede52825fc67021deddba2e606605e31aa51bb92f5d50d460e
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||nginx
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: 1f64b51473cd93ede52825fc67021deddba2e606605e31aa51bb92f5d50d460e
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T23:21:37Z'
+    finishedAt: '2026-06-14T23:22:00Z'
+    elapsedSeconds: 22.033
+    timeoutSeconds: 900
+    command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
+      --version 24.0.4 --namespace nginx-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T23:22:05Z'
+    finishedAt: '2026-06-14T23:22:05Z'
+    elapsedSeconds: 0.384
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.4
+      --base existing-tls-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqeeq513-1aex-nginx
+      --non-interactive --namespace nginx-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T23:22:06Z'
+    finishedAt: '2026-06-14T23:22:06Z'
+    elapsedSeconds: 0.106
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqeeq513-1aex.kubeconfig
+      --context kind-helm-expt-parity-nginx-mqeeq513-1aex apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/direct-apply-manifest.yaml
+    objectCount: 6
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T23:22:06Z'
+    finishedAt: '2026-06-14T23:22:16Z'
+    elapsedSeconds: 10.218
+    timeoutSeconds: 300
+    namespaces: nginx
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T23:22:32Z'
+    finishedAt: '2026-06-14T23:22:32Z'
+    elapsedSeconds: 0.252
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.4
+      --base existing-tls-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqeeq513-1aex-nginx
+      --non-interactive --namespace nginx-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T23:22:33Z'
+    finishedAt: '2026-06-14T23:22:55Z'
+    elapsedSeconds: 22.574
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqeeq513-1aex-nginx
+      --space helm-expt-parity-nginx-mqeeq513-1aex-nginx --target helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci
+    objectCount: 7
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T23:22:55Z'
+    finishedAt: '2026-06-14T23:22:56Z'
+    elapsedSeconds: 0.507
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-nginx-mqeeq513-1aex-nginx
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T23:22:56Z'
+    finishedAt: '2026-06-14T23:23:00Z'
+    elapsedSeconds: 3.987
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-nginx-mqeeq513-1aex-nginx --unit
+      <7 unit(s)> --wait --timeout 5m
+    unitCount: 7
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T23:23:00Z'
+    finishedAt: '2026-06-14T23:23:01Z'
+    elapsedSeconds: 1.005
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-nginx-mqeeq513-1aex-cluster
+      nginx-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/argo-application.json
+      --target helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T23:23:01Z'
+    finishedAt: '2026-06-14T23:23:02Z'
+    elapsedSeconds: 1.032
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-nginx-mqeeq513-1aex-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-14T23:23:02Z'
+    finishedAt: '2026-06-14T23:30:04Z'
+    elapsedSeconds: 422.549
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T23:30:43Z'
+    finishedAt: '2026-06-14T23:30:43Z'
+    elapsedSeconds: 0.102
+    timeoutSeconds: 180
+    namespaces: nginx
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-nginx-mqeeq513-1aex\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqeeq513-1aex.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-nginx-mqeeq513-1aex\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-nginx-mqeeq513-1aex\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nginx-mqeeq513-1aex\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqeeq513-1aex.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nsta"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=4 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"nginx\" does not exist. Installing it now.\nNAME: nginx\nLAST\
+      \ DEPLOYED: Mon Jun 15 00:21:44 2026\nNAMESPACE: nginx-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: nginx\nCHART VERSION: 24.0.4\nAPP VERSION: 1.31.1\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\nNGINX can be accessed\
+      \ through the following DNS name from within your cluster:\n\n    nginx.nginx-helm.svc.cluster.local\
+      \ (port 80)\n\nTo access NGINX from outside the cluster, follow the steps below:\n\
+      \n1. Get the NGINX URL and associate its hostname to your cluster external IP:\n\
+      \n   export CLUSTER_IP=$(minikube ip) # On Minikube. Use: `kubectl cluster-info`\
+      \ on others K8s clusters\n   echo \"NGINX"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=4 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# nginx
+
+      deployment.apps/nginx   1/1   1     1     10s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=4 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: nginx
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+        lane: regularHelm
+      - namespace: nginx-helm
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+        lane: regularHelm
+        sourceNamespace: nginx
+      - namespace: nginx
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: regularHelm
+      - namespace: nginx-helm
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: regularHelm
+        sourceNamespace: nginx
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: nginx
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+        lane: configHubKubectlApply
+      - namespace: nginx-apply
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+        lane: configHubKubectlApply
+        sourceNamespace: nginx
+      - namespace: nginx
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubKubectlApply
+      - namespace: nginx-apply
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubKubectlApply
+        sourceNamespace: nginx
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: nginx
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+        lane: configHubOciArgo
+      - namespace: nginx-oci
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+        lane: configHubOciArgo
+        sourceNamespace: nginx
+      - namespace: nginx
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubOciArgo
+      - namespace: nginx-oci
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubOciArgo
+        sourceNamespace: nginx
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: nginx
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: nginx
