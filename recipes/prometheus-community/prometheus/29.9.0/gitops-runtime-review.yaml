@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "prometheus-default-alertmanager-statefulset-sync-watch"
+  chart: "prometheus-community/prometheus"
+  version: "29.9.0"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with ConfigHub OCI source and local-path storage"
+  receipt: "runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "OutOfSync"
+    configHubOciHealth: "Healthy"
+    semanticParity: "pass"
+    workloadRuntime: "pass"
+  passed:
+    - "regular Helm reached readiness"
+    - "ConfigHub direct apply reached readiness"
+    - "ConfigHub OCI/Argo workloads reached readiness"
+    - "Prometheus server, Alertmanager, kube-state-metrics, node-exporter, and pushgateway became ready"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+  watch:
+    summary: "Argo stayed OutOfSync/Healthy even though all workloads reached readiness."
+    observedResidue:
+      - "StatefulSet/monitoring/prometheus-alertmanager: OutOfSync"
+      - "Argo repeatedly server-side-applied prometheus-alertmanager and reported each sync attempt as succeeded"
+    interpretation: "This is a GitOps StatefulSet drift/canonicalization watch row, not a render parity or runtime readiness defect."
+  diagnosis:
+    summary: "The default base includes Alertmanager state and persistent storage. The server-only-ephemeral base has passing live OCI evidence and is the simpler try-now path; this default base needs an explicit decision about Alertmanager StatefulSet drift under Argo server-side apply."
+    productBoundary: "A production claim for this base needs target-scoped storage, retention, Alertmanager routing, backup, and StatefulSet drift decisions."
+    nextInvestigation:
+      - "Compare the live Alertmanager StatefulSet against the OCI desired object."
+      - "Decide whether the k8s-zero-defaults canonicalization profile used for the older Prometheus default receipt applies to 29.9.0."
+      - "Keep storage, retention, Alertmanager, and backup policy out of the production claim until they have target-scoped decisions."
+  relatedPassingBase:
+    base: "server-only-ephemeral"
+    receipt: "runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/receipt.yaml"
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/argocd-core-root-tree.txt"
+  notClaimed:
+    - "This row does not prove production Prometheus storage, retention, Alertmanager routing, backup, or HA."
+    - "This row does not claim Argo OutOfSync is harmless in production."
