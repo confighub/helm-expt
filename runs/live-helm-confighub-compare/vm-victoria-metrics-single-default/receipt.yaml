@@ -1,0 +1,1007 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: vm-victoria-metrics-single-0.39.0-default-live-parity-20260605
+spec:
+  chart: vm/victoria-metrics-single
+  version: 0.39.0
+  base: default
+  result: pass
+  observedAt: '2026-06-14T19:58:59Z'
+  package:
+    path: packages/vm/victoria-metrics-single/0.39.0
+  recipe:
+    path: recipes/vm/victoria-metrics-single/0.39.0
+  variantRevision: recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-victoriametri752f4-mqe7jegq-1j76
+    kubeContext: kind-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-victoriametri752f4-mqe7jegq-1j76
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-victoriametri752f4-mqe7jegq-1j76"...
+
+        Deleting cluster "helm-expt-parity-victoriametri752f4-mqe7jegq-1j76" ...
+
+        Deleted nodes: ["helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-control-plane"]
+
+        Deleting Space "helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install victoria-metrics-single victoria-metrics-single
+        --repo https://victoriametrics.github.io/helm-charts --version 0.39.0 --namespace
+        default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8
+      objectCount: 3
+      liveHelmManifestSHA256: 6b94efd5cb50a22b75b2a602248ad95ccab8f78d22a2b40a35ac2fa35e0814cb
+      liveHelmManifestObjectCount: 3
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: statefulset.apps/victoria-metrics-single-server   1/1   27s
+        pods: victoria-metrics-single-server-0   1/1   Running   0     27s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: dac3e719caa4e08e9eaa2ec1962635f23d29755b781f56688009bff5c063f32a
+      objectCount: 4
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/victoria-metrics-single-server   1/1   31s'
+        pods: '# default
+
+          victoria-metrics-single-server-0   1/1   Running   0     31s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|StatefulSet|default|victoria-metrics-single-server
+          - v1|ServiceAccount|default|victoria-metrics-single-server
+          - v1|Service|default|victoria-metrics-single-server
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+      controller: Argo CD OCI
+      app: victoria-metrics-single-parity
+      manifestSHA256: 13273ef0318f668e82e96cb5f9070c31199e13fc399797c36f38980720909a0f
+      objectCount: 4
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci
+              targetRevision: latest
+          revision: sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T20:07:18Z'
+          status: Healthy
+        summary:
+          images:
+          - victoriametrics/victoria-metrics:v1.144.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T20:07:18Z'
+          finishedAt: '2026-06-14T20:07:20Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 4
+          syncResultStatusCounts:
+            Synced: 4
+        history:
+        - id: 0
+          revision: sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e
+          deployedAt: '2026-06-14T20:07:20Z'
+          deployStartedAt: '2026-06-14T20:07:18Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: victoria-metrics-single-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: victoria-metrics-single-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: victoria-metrics-single-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         victoria-metrics-single-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster:argoproj.io/Application:argocd/victoria-metrics-single-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 73835135-6740-46e3-acfc-ad8d417f2731\n              confighub.com/UnitSlug:\
+              \ victoria-metrics-single-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T20:07:16Z\n\
+              \  Generation:          8\n  Resource Version:    1558\n  UID:     \
+              \            5426a4a9-da5e-43e0-a8d3-d8d167acf20b\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T20:07:18Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T20:07:18Z\n    Deployed At:        2026-06-14T20:07:20Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\n\
+              \    Source:\n      Path:             ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T20:07:20Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\n\
+              \        Source:\n          Path:             ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T20:07:18Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/victoria-metrics-single-server serverside-applied\n\
+              \        Name:        victoria-metrics-single-server\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/victoria-metrics-single-server\
+              \ serverside-applied\n        Name:        victoria-metrics-single-server\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       apps\n\
+              \        Hook Phase:  Running\n        Images:\n          victoriametrics/victoria-metrics:v1.144.0\n\
+              \        Kind:        StatefulSet\n        Message:     statefulset.apps/victoria-metrics-single-server\
+              \ serverside-applied\n        Name:        victoria-metrics-single-server\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n      Revision:      sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\n\
+              \      Source:\n        Path:              ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T20:07:21Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       Service\n    Name:       victoria-metrics-single-server\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Kind:       ServiceAccount\n    Name:       victoria-metrics-single-server\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      apps\n    Kind:       StatefulSet\n    Name:      \
+              \ victoria-metrics-single-server\n    Namespace:  default\n    Status:\
+              \     Synced\n    Version:    v1\n  Source Hydrator:\n  Source Type:\
+              \  Directory\n  Summary:\n    Images:\n      victoriametrics/victoria-metrics:v1.144.0\n\
+              \  Sync:\n    Compared To:\n      Destination:\n        Namespace: \
+              \ default-oci\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  OperationStarted    7s    argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e'\n\
+              \  No"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                       MESSAGE
+
+              7s          Normal   OperationStarted     application/victoria-metrics-single-parity   Initiated
+              automated sync to ''sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e''
+
+              7s          Normal   ResourceUpdated      application/victoria-metrics-single-parity   Updated
+              sync status:  -> OutOfSync
+
+              7s          Normal   ResourceUpdated      application/victoria-metrics-single-parity   Updated
+              health status:  -> Healthy
+
+              5s          Normal   OperationCompleted   application/victoria-metrics-single-parity   Sync
+              operation to sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e
+              succeeded
+
+              4s          Normal   ResourceUpdated      application/victoria-metrics-single-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 4
+              artifact:
+                path: argocd-core-child.json
+                sha256: c1ec7cc8d069eb0b1184d12ab73a3d9e6741631c9729fe9695eff1c5ae916e5a
+                bytes: 10300
+              output: "{\n  \"metadata\": {\n    \"name\": \"victoria-metrics-single-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"5426a4a9-da5e-43e0-a8d3-d8d167acf20b\"\
+                ,\n    \"resourceVersion\": \"1573\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T20:07:16Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster:argoproj.io/Application:argocd/victoria-metrics-single-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"73835135-6740-46e3-acfc-ad8d417f2731\",\n      \"confighub.com/UnitSlug\"\
+                : \"victoria-metrics-single-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T20:07:16Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T20:07:33Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"victoria-metrics-single-server\",\n        \"status\": \"Synced\"\
+                ,\n        \"health\": {\n          \"status\": \"Healthy\"\n    \
+                \    }\n      },\n      {\n        \"version\": \"v1\",\n        \"\
+                kind\": \"ServiceAccount\",\n        \"namespace\": \"default\",\n\
+                \        \"name\": \"victoria-metrics-single-server\",\n        \"\
+                status\": \"Synced\"\n      },\n      {\n        \"group\": \"apps\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"StatefulSet\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"victoria-metrics-single-server\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\",\n          \"message\": \"partitioned\
+                \ roll out complete: 1 new pods have been updated...\"\n        }\n\
+                \      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\",\n\
+                \      \"comparedTo\": {\n        \"source\": {\n          \"repoURL\"\
+                : \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-victoriametri75"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 5946be22144c89d34e2135b6887482415eed0cbb5463568c1be1f594da6c6791
+                bytes: 1756
+              output: "Name:               argocd/victoria-metrics-single-parity\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:59714/applications/victoria-metrics-single-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                      STATUS  HEALTH   AGE    MESSAGE           \
+                \                                                  REASON\nNamespace/default-oci\
+                \                                                   Synced       \
+                \    6m                                                          \
+                \               \nService/victoria-metrics-single-server         \
+                \                         Synced  Healthy  6m36s  service/victoria-metrics-single-server\
+                \ serverside-applied           \nServiceAccount/victoria-metrics-single-server\
+                \                           Synced           6m36s  serviceaccount/victoria-metrics-single-server\
+                \ serverside-applied    \nStatefulSet/victoria-metrics-single-server\
+                \                              Synced  Healthy  6m36s  statefulset.apps/victoria-metrics-single-server\
+                \ serverside-applied  partitioned roll out complete: 1 new pods have\
+                \ been updated...\n\u251C\u2500PersistentVolumeClaim/server-volume-victoria-metrics-single-server-0\
+                \          Healthy  6m36s                                        \
+                \                              \n\u251C\u2500Pod/victoria-metrics-single-server-0\
+                \                                          Healthy  6m36s        \
+                \                                                              \n\u2514\
+                \u2500ControllerRevision/victoria-metrics-single-server-656569fb78\
+                \                           6m36s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              victoria-metrics-single-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/victoria-metrics-single-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"victoria-metrics-single-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci
+              targetRevision: latest
+          revision: sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T20:00:33Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T20:07:14Z'
+          finishedAt: '2026-06-14T20:07:16Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e
+          deployedAt: '2026-06-14T20:07:16Z'
+          deployStartedAt: '2026-06-14T20:07:14Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: victoria-metrics-single-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T20:00:24Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        10\n  Resource Version:  1537\n  UID:        \
+              \       724c4ff4-db22-4a8f-bd42-4ebeb42d095c\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T20:00:33Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T20:07:14Z\n\
+              \    Deployed At:        2026-06-14T20:07:16Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\n\
+              \    Source:\n      Path:             ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T20:07:16Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\n\
+              \        Source:\n          Path:             ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T20:07:14Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/victoria-metrics-single-parity\
+              \ serverside-applied\n        Name:        victoria-metrics-single-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\n\
+              \      Source:\n        Path:              ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T20:07:16Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       victoria-metrics-single-parity\n    Namespace:  argocd\n   \
+              \ Status:     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n\
+              \  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n\
+              \      Destination:\n        Namespace:  argocd\n        Server:   \
+              \  https://kubernetes.default.svc\n      Source:\n        Path:    \
+              \         ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     7m9s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     7m9s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  28s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e'\n\
+              \  Normal  ResourceUpdated     28s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  26s   argocd-application-controller  Sync operation to sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\
+              \ succeeded\n  Normal  ResourceUpdated     24s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                  MESSAGE
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster   Updated
+              sync status:  -> Synced
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster   Updated
+              health status:  -> Healthy
+
+              28s         Normal   OperationStarted     application/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster   Initiated
+              automated sync to ''sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e''
+
+              28s         Normal   ResourceUpdated      application/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              26s         Normal   OperationCompleted   application/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster   Sync
+              operation to sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e
+              succeeded
+
+              24s         Normal   ResourceUpdated      application/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: c615b8ca9072e010bf9ee32530f3d77b92384576906305093698ab79cc0b21aa
+                bytes: 10883
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"724c4ff4-db22-4a8f-bd42-4ebeb42d095c\"\
+                ,\n    \"resourceVersion\": \"1600\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-14T20:00:24Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\\\",\\\
+                \"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\"\
+                :{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\\\"\
+                ,\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T20:00:24Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T20:07:50Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 017d856adc9810bd23b9b3ac061a566b1c3b5aed9f766f1a7bd44b34fa516297
+                bytes: 1245
+              output: "Name:               argocd/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:59833/applications/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                     STATUS  HEALTH  AGE    MESSAGE             \
+                \                                                                \
+                \                  REASON\nApplication/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\
+                \  Synced          7m35s  application.argoproj.io/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\
+                \ serverside-applied  \nApplication/victoria-metrics-single-parity\
+                \                             Synced          43s    application.argoproj.io/victoria-metrics-single-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              victoria-metrics-single-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/victoria-metrics-single-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:f1524e07b45c7f629a5a6da3ae20934adedf185cf362a9ed3606ba1567df4e1e\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"victoria-metrics-single-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/victoria-metrics-single-server   1/1   6m54s'
+        pods: '# default
+
+          victoria-metrics-single-server-0   1/1   Running   0     6m54s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 3
+      configHubObjectCount: 4
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 3
+      configHubObjectCount: 4
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T20:00:24Z'
+    finishedAt: '2026-06-14T20:00:54Z'
+    elapsedSeconds: 30.465
+    timeoutSeconds: 900
+    command: helm upgrade --install victoria-metrics-single victoria-metrics-single
+      --repo https://victoriametrics.github.io/helm-charts --version 0.39.0 --namespace
+      default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T20:01:05Z'
+    finishedAt: '2026-06-14T20:01:05Z'
+    elapsedSeconds: 0.341
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T20:01:05Z'
+    finishedAt: '2026-06-14T20:01:05Z'
+    elapsedSeconds: 0.082
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76.kubeconfig
+      --context kind-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/direct-apply-manifest.yaml
+    objectCount: 3
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T20:01:05Z'
+    finishedAt: '2026-06-14T20:01:36Z'
+    elapsedSeconds: 30.441
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T20:01:41Z'
+    finishedAt: '2026-06-14T20:01:41Z'
+    elapsedSeconds: 0.243
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T20:01:41Z'
+    finishedAt: '2026-06-14T20:01:59Z'
+    elapsedSeconds: 17.213
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+      --space helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+      --target helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci
+    objectCount: 4
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T20:01:59Z'
+    finishedAt: '2026-06-14T20:01:59Z'
+    elapsedSeconds: 0.578
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T20:01:59Z'
+    finishedAt: '2026-06-14T20:07:02Z'
+    elapsedSeconds: 303.073
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
+      --unit <4 unit(s)> --wait --timeout 5m
+    unitCount: 4
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T20:07:02Z'
+    finishedAt: '2026-06-14T20:07:03Z'
+    elapsedSeconds: 1.056
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster
+      victoria-metrics-single-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/argo-application.json
+      --target helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T20:07:03Z'
+    finishedAt: '2026-06-14T20:07:04Z'
+    elapsedSeconds: 0.978
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T20:07:04Z'
+    finishedAt: '2026-06-14T20:07:25Z'
+    elapsedSeconds: 20.158
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T20:07:59Z'
+    finishedAt: '2026-06-14T20:08:00Z'
+    elapsedSeconds: 0.124
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"a"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"victoria-metrics-single\" does not exist. Installing it now.\n\
+      NAME: victoria-metrics-single\nLAST DEPLOYED: Sun Jun 14 21:00:27 2026\nNAMESPACE:\
+      \ default-helm\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nThe VictoriaMetrics write api can be accessed via\
+      \ port 8428 on the following DNS name from within your cluster:\n    victoria-metrics-single-server.default-helm.svc.cluster.local.\n\
+      \nMetrics Ingestion:\n  Get the Victoria Metrics service URL by running these\
+      \ commands in the same shell:\n    export POD_NAME=$(kubectl get pods --namespace\
+      \ default-helm -l \"app.kubernetes.io/component=server\" -l \"app.kubernetes.io/instance=victoria-metrics-single\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n    kubectl --namespace default-helm\
+      \ port-forward $POD_NAME 8428\n\n  Write URL inside the kubernetes cluster:\n\
+      \    http://victoria-metrics-single-server.default-helm.svc.cluster.local.:8428/<protocol-specific-write-endpoint>\n\
+      \n  All supported write endpoints can be found a"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/victoria-metrics-single-server   1/1   31s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

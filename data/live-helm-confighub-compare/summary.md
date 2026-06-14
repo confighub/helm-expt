@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 95
+pass: 96
 watch: 7
 blocked: 0
 not-started: 0
@@ -122,3 +122,4 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | - | runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-default/receipt.yaml |
 |  | `traefik/traefik@40.2.0` | default | pass | - | runs/live-helm-confighub-compare/traefik-traefik-default/receipt.yaml |
 |  | `traefik/traefik@40.2.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml |
+|  | `vm/victoria-metrics-single@0.39.0` | default | pass | - | runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/receipt.yaml |
