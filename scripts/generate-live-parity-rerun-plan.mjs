@@ -240,6 +240,9 @@ function classifyLiveComparisonWatch(spec) {
     return "target-runtime: pod config/runtime errors (parity passed)";
   }
   if (text.includes("containercreating")) return "target-runtime: pod ContainerCreating (parity passed)";
+  if (text.includes("child argo application was not materialized")) {
+    return "gitops-runtime: child Argo Application not materialized (parity passed)";
+  }
   const gitops = spec.legs?.configHubOciArgo ?? {};
   if (gitops.sync && gitops.sync !== "Synced") {
     return `gitops-runtime: Argo sync ${gitops.sync} health ${gitops.health || "unknown"} (parity passed)`;

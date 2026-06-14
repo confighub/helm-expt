@@ -516,6 +516,9 @@ function classifyWatch(spec, target) {
   const regularRuntime = spec.legs?.regularHelm?.runtime ?? {};
   const directRuntime = spec.legs?.configHubKubectlApply?.runtime ?? {};
   const ociRuntime = spec.legs?.configHubOciArgo?.runtime ?? {};
+  if (text.includes("child argo application was not materialized")) {
+    return "gitops-runtime: child Argo Application not materialized (parity passed)";
+  }
   if (
     regularRuntime.result === "pass" &&
     (directRuntime.result === "watch" || ociRuntime.result === "watch")

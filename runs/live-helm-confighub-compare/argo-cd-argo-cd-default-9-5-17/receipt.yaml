@@ -1,0 +1,552 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: argo-cd-argo-cd-9.5.17-default-live-parity-20260605
+spec:
+  chart: argo-cd/argo-cd
+  version: 9.5.17
+  base: default
+  result: watch
+  observedAt: '2026-06-14T18:53:29Z'
+  package:
+    path: packages/argo-cd/argo-cd/9.5.17
+  recipe:
+    path: recipes/argo-cd/argo-cd/9.5.17
+  variantRevision: recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-argocd-mqe575l2-s1w
+    kubeContext: kind-helm-expt-parity-argocd-mqe575l2-s1w
+    namespace: argocd
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: argocd-helm
+      configHubKubectlApply: argocd-apply
+      configHubOciArgo: argocd-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-argocd-mqe575l2-s1w --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-argocd-mqe575l2-s1w"...
+
+        Deleting cluster "helm-expt-parity-argocd-mqe575l2-s1w" ...
+
+        Deleted nodes: ["helm-expt-parity-argocd-mqe575l2-s1w-control-plane"]
+
+        Deleting Space "helm-expt-parity-argocd-mqe575l2-s1w-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
+        --version 9.5.17 --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: e79d4daf30498e893d2dc41c736de2de1fe3ff3a4dc396212a86336143f80fa7
+      objectCount: 49
+      liveHelmManifestSHA256: 6a6f02825f70f89222ff3894e18a2f5425bf80a71b2552cdeca2b04cd8b01f06
+      liveHelmManifestObjectCount: 49
+      namespace: argocd-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     13s
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     13s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     13s
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     13s
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     13s
+
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     13s
+
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   13s'
+        pods: 'argo-cd-argocd-application-controller-0                     1/1   Running     0     13s
+
+          argo-cd-argocd-applicationset-controller-7569f97bf9-xpsrr   1/1   Running     0     13s
+
+          argo-cd-argocd-dex-server-bc485bd5-lq5lb                    1/1   Running     0     13s
+
+          argo-cd-argocd-notifications-controller-795cc9cb68-s6drx    1/1   Running     0     13s
+
+          argo-cd-argocd-redis-6c9c67bf6f-gr664                       1/1   Running     0     13s
+
+          argo-cd-argocd-redis-secret-init-sh45l                      0/1   Completed   0     17s
+
+          argo-cd-argocd-repo-server-679d6b78b4-d6bg5                 1/1   Running     0     13s
+
+          argo-cd-argocd-server-5c96cf5b8-pg58v                       1/1   Running     0     13s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.17
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-mqe575l2-s1w-argo-cd
+        --non-interactive --namespace argocd-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 8ec106233dacd87242e665162f4fd53216c42b4eb155af68c927831f01b35ae4
+      objectCount: 50
+      namespace: argocd-apply
+      manifestNamespaces:
+      - argocd
+      - argocd-apply
+      runtimeNamespaces: &id001
+      - argocd
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# argocd
+
+          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     20s
+
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     20s
+
+          deployment.apps/argocd-applicationset-controller           1/1   1     1     106s
+
+          deployment.apps/argocd-dex-server                          1/1   1     1     106s
+
+          deployment.apps/argocd-notifications-controller            1/1   1     1     106s
+
+          deployment.apps/argocd-redis                               1/1   1     1     106s
+
+          deployment.apps/argocd-repo-server                         1/1   1     1     106s
+
+          deployment.apps/argocd-server                              1/1   1     1     106s
+
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   20s
+
+          statefulset.apps/argocd-application-controller           1/1   106s'
+        pods: '# argocd
+
+          argo-cd-argocd-application-controller-0                    1/1   Running   0     21s
+
+          argo-cd-argocd-applicationset-controller-f898765c5-ksqxc   1/1   Running   0     21s
+
+          argo-cd-argocd-dex-server-5c76c6ccd5-s8n82                 1/1   Running   0     21s
+
+          argo-cd-argocd-notifications-controller-59c87779b5-mzf48   1/1   Running   0     21s
+
+          argo-cd-argocd-redis-6c9c67bf6f-56h2c                      1/1   Running   0     21s
+
+          argo-cd-argocd-repo-server-765d9d5bd8-8fbx5                1/1   Running   0     21s
+
+          argo-cd-argocd-server-5b4bd9977b-575z4                     1/1   Running   0     21s
+
+          argocd-application-controller-0                            1/1   Running   0     103s
+
+          argocd-applicationset-controller-b7669f646-v2jv9           1/1   Running   0     102s
+
+          argocd-dex-server-569b757-7v5s7                            1/1   Running   0     102s
+
+          argocd-notifications-controller-58ff87546-wjntj            1/1   Running   0     102s
+
+          argocd-redis-b9496d8bf-7lnx4                               1/1   Running   0     102s
+
+          argocd-repo-server-75ffcfc9df-vlrxr                        1/1   Running   0     102s
+
+          argocd-server-67799c79cf-9c7b4                             1/1   Running   0     102s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - argocd-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 9
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "argo-cd-argocd-application-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "argo-cd-argocd-notifications-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "argo-cd-argocd-server" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-cd-argocd-application-controller"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-cd-argocd-notifications-controller"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-cd-argocd-server" deleted
+
+            customresourcedefinition.apiextensions.k8s.io "applications.argoproj.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "applicationsets.argoproj.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "appprojects.argoproj.io"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - argocd
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|argocd|argo-cd-argocd-applicationset-controller
+          - apps/v1|Deployment|argocd|argo-cd-argocd-dex-server
+          - apps/v1|Deployment|argocd|argo-cd-argocd-notifications-controller
+          - apps/v1|Deployment|argocd|argo-cd-argocd-redis
+          - apps/v1|Deployment|argocd|argo-cd-argocd-repo-server
+          - apps/v1|Deployment|argocd|argo-cd-argocd-server
+          - apps/v1|StatefulSet|argocd|argo-cd-argocd-application-controller
+          - rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-application-controller
+          - rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-applicationset-controller
+          - rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-dex-server
+          - rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-notifications-controller
+          - rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-repo-server
+          - rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-server
+          - rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-application-controller
+          - rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-applicationset-controller
+          - rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-dex-server
+          - rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-notifications-controller
+          - rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-repo-server
+          - rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-server
+          - v1|ConfigMap|argocd|argo-cd-argocd-redis-health-configmap
+          - v1|ConfigMap|argocd|argocd-cm
+          - v1|ConfigMap|argocd|argocd-cmd-params-cm
+          - v1|ConfigMap|argocd|argocd-gpg-keys-cm
+          - v1|ConfigMap|argocd|argocd-notifications-cm
+          - v1|ConfigMap|argocd|argocd-rbac-cm
+          - v1|ConfigMap|argocd|argocd-ssh-known-hosts-cm
+          - v1|ConfigMap|argocd|argocd-tls-certs-cm
+          - v1|Secret|argocd|argocd-notifications-secret
+          - v1|Secret|argocd|argocd-secret
+          - v1|ServiceAccount|argocd|argo-cd-argocd-repo-server
+          - v1|ServiceAccount|argocd|argocd-application-controller
+          - v1|ServiceAccount|argocd|argocd-applicationset-controller
+          - v1|ServiceAccount|argocd|argocd-dex-server
+          - v1|ServiceAccount|argocd|argocd-notifications-controller
+          - v1|ServiceAccount|argocd|argocd-server
+          - v1|Service|argocd|argo-cd-argocd-applicationset-controller
+          - v1|Service|argocd|argo-cd-argocd-dex-server
+          - v1|Service|argocd|argo-cd-argocd-redis
+          - v1|Service|argocd|argo-cd-argocd-repo-server
+          - v1|Service|argocd|argo-cd-argocd-server
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-argocd-mqe575l2-s1w-argo-cd
+      controller: Argo CD OCI
+      app: argo-cd-parity
+      manifestSHA256: b7f8e4e30853e7c85ad261f530a6c822b94da5ccb3a75d67174ef547592f0e2f
+      objectCount: 50
+      namespace: argocd-oci
+      manifestNamespaces:
+      - argocd
+      - argocd-oci
+      runtimeNamespaces: &id002
+      - argocd
+      ociRevision: ''
+      sync: unknown
+      health: unknown
+      separatedSecrets:
+      - secret-argocd-argocd-notifications-secret.yaml
+      - secret-argocd-argocd-secret.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: unavailable
+        error: 'error: the server doesn''t have a resource type "application"'
+      rootArgoStatus:
+        result: unavailable
+        error: 'error: the server doesn''t have a resource type "application"'
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: ''
+        pods: ''
+        notReady: []
+        reason: child Argo Application was not materialized by the root ConfigHub
+          OCI Application
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||argocd
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 49
+      configHubObjectCount: 50
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||argocd
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: f00cda42b8be29a8ad9c40b227fb0becab7fc0cf1a9d2a5c9f3e8f645acf82c6
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 49
+      configHubObjectCount: 50
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||argocd
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: f00cda42b8be29a8ad9c40b227fb0becab7fc0cf1a9d2a5c9f3e8f645acf82c6
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T18:54:27Z'
+    finishedAt: '2026-06-14T18:54:48Z'
+    elapsedSeconds: 21.568
+    timeoutSeconds: 900
+    command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
+      --version 9.5.17 --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T18:54:56Z'
+    finishedAt: '2026-06-14T18:54:57Z'
+    elapsedSeconds: 1.237
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.17
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-mqe575l2-s1w-argo-cd
+      --non-interactive --namespace argocd-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-14T18:55:00Z'
+    finishedAt: '2026-06-14T18:55:00Z'
+    elapsedSeconds: 0.481
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig
+      --context kind-helm-expt-parity-argocd-mqe575l2-s1w apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/confighub-rendered-crds.yaml
+    objectCount: 3
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T18:55:04Z'
+    finishedAt: '2026-06-14T18:55:04Z'
+    elapsedSeconds: 0.31
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig
+      --context kind-helm-expt-parity-argocd-mqe575l2-s1w apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/direct-apply-manifest.yaml
+    objectCount: 46
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T18:55:04Z'
+    finishedAt: '2026-06-14T18:55:25Z'
+    elapsedSeconds: 20.459
+    timeoutSeconds: 300
+    namespaces: argocd
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T18:55:39Z'
+    finishedAt: '2026-06-14T18:55:40Z'
+    elapsedSeconds: 1.124
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.17
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-mqe575l2-s1w-argo-cd
+      --non-interactive --namespace argocd-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T18:55:43Z'
+    finishedAt: '2026-06-14T18:58:13Z'
+    elapsedSeconds: 150.478
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-mqe575l2-s1w-argo-cd
+      --space helm-expt-parity-argocd-mqe575l2-s1w-argo-cd --target helm-expt-parity-argocd-mqe575l2-s1w-cluster/oci
+    objectCount: 50
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T18:58:13Z'
+    finishedAt: '2026-06-14T18:58:14Z'
+    elapsedSeconds: 0.622
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-argocd-mqe575l2-s1w-argo-cd
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T18:58:14Z'
+    finishedAt: '2026-06-14T18:58:48Z'
+    elapsedSeconds: 34.253
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-argocd-mqe575l2-s1w-argo-cd --unit
+      <48 unit(s)> --wait --timeout 5m
+    unitCount: 48
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T18:58:48Z'
+    finishedAt: '2026-06-14T18:58:49Z'
+    elapsedSeconds: 1.164
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-argocd-mqe575l2-s1w-cluster
+      argo-cd-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/argo-application.json
+      --target helm-expt-parity-argocd-mqe575l2-s1w-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T18:58:49Z'
+    finishedAt: '2026-06-14T18:58:50Z'
+    elapsedSeconds: 0.989
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-argocd-mqe575l2-s1w-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-14T18:58:51Z'
+    finishedAt: '2026-06-14T19:05:53Z'
+    elapsedSeconds: 422.643
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: unknown
+    health: unknown
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-argocd-mqe575l2-s1w\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-argocd-mqe575l2-s1w\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-argocd-mqe575l2-s1w\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argocd-mqe575l2-s1w\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argocd\"...\n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"argo-cd\" does not exist. Installing it now.\nNAME: argo-cd\n\
+      LAST DEPLOYED: Sun Jun 14 19:54:29 2026\nNAMESPACE: argocd-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nIn order\
+      \ to access the server UI you have the following options:\n\n1. kubectl port-forward\
+      \ service/argo-cd-argocd-server -n argocd-helm 8080:443\n\n    and then open\
+      \ the browser on http://localhost:8080 and accept the certificate\n\n2. enable\
+      \ ingress in the values file `server.ingress.enabled` and either\n      - Add\
+      \ the annotation for ssl passthrough: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough\n\
+      \      - Set the `configs.params.\"server.insecure\"` in the values file and\
+      \ terminate SSL at your ingress: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts\n\
+      \n\nAfter reaching the UI the first time you can login with username: admin\
+      \ and the random password generated during the installation."
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=2 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# argocd
+
+      deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-redis                       1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     20s
+
+      deployment.apps/argo-cd-argocd-server                      1/1   1     1     20s
+
+      deployment.apps/argocd-applicationset-controller           1/1   1     1     106s
+
+      deployment.apps/argocd-dex-server                          1/1   1     1     106s
+
+      deployment.apps/argocd-notifications-controller            1/1   1     1     106s
+
+      deployment.apps/argocd-redis                               1/1   1     1     106s
+
+      deployment.apps/argocd-repo-server                         1/1   1     1     106s
+
+      deployment.apps/argocd-server                              1/1   1     1     106s
+
+      statefulset.a'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=9
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=2 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=? health=? after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: argocd
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubKubectlApply
+      - namespace: argocd-apply
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubKubectlApply
+        sourceNamespace: argocd
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: argocd
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubOciArgo
+      - namespace: argocd-oci
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubOciArgo
+        sourceNamespace: argocd
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: argocd-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: argocd-oci
