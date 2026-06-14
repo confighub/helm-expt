@@ -74,6 +74,13 @@ catalog pages, data summaries, and per-chart proof transcripts are corpus
 evidence. They should be linked when useful, but they are not the first-run
 documentation set.
 
+## Maintained Orientation Layer
+
+The [project knowledge index](../knowledge/index.md) is a short maintained
+orientation layer for humans and agents. It summarizes the current model and
+routes to authoritative evidence. It is not a second source of truth; generated
+data, receipts, recipes, current issues, and verifiers remain authoritative.
+
 ## Generated And Reference Markdown
 
 | Location | Role |
