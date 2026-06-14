@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 105
-watch: 12
+watch: 13
 blocked: 0
 not-started: 0
 ```
@@ -71,6 +71,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 17 | `bitnami/mongodb@19.1.0` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-mongodb-generated-passwords-19-1-0/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.2` | existing-tls-ingress | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.4` | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/receipt.yaml |
+| 18 | `bitnami/nginx@25.0.0` | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-25-0-0/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.4` | http-clusterip | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/receipt.yaml |
 | 19 | `grafana/tempo@1.24.4` | s3-query-observability | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/receipt.yaml |
 | 20 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
