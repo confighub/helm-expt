@@ -150,14 +150,14 @@
         "result": "pass",
         "object": "statefulset/alertmanager-kube-prometheus-stack-alertmanager",
         "evidencePath": "statefulset-alertmanager-kube-prometheus-stack-alertmanager-rollout.txt",
-        "evidenceSHA256": "760455038836dfccfc38612f0bbc993f3060b4526751e9e0a72c06e763d72090"
+        "evidenceSHA256": "d1f12a472c3f4a9a19293b15ac7a0398b6780b040168e4cde67dfd1a499e7ced"
       },
       {
         "name": "statefulset-prometheus-kube-prometheus-stack-prometheus-rollout",
         "result": "pass",
         "object": "statefulset/prometheus-kube-prometheus-stack-prometheus",
         "evidencePath": "statefulset-prometheus-kube-prometheus-stack-prometheus-rollout.txt",
-        "evidenceSHA256": "ffa43bd35aeb9546795510ffebea7a95f34375f26a17a3038b61ae718dca3c67"
+        "evidenceSHA256": "cd747e49a2d1b1b792e48fc9e29354c169189d98b5b004472722e890fd648e59"
       },
       {
         "name": "crd-exists",
