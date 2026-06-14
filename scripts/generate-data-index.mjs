@@ -77,6 +77,7 @@ function readme(rows) {
     ["I want to understand local live non-pass rows.", "data/local-live-triage/summary.md; data/local-live-triage/triage.csv"],
     ["I want hook, APIService, CRD, webhook, or lifecycle status.", "data/hook-coverage/summary.md; data/apiservice-coverage/summary.md; data/apiservice-coverage/work-orders.md; data/lifecycle-boundary/summary.md; data/webhook-cert-lifecycle/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want candidate routes for hook-bearing source charts.", "data/hook-route-candidates/summary.md; data/hook-route-candidates/candidates.csv; data/hook-route-candidates/work-orders.md"],
+    ["I want the machine-readable lifecycle route contract: where a hook or hidden behavior goes, who executes it, the default, and the off-ramps.", "data/lifecycle-routes/summary.md; data/lifecycle-routes/routes.csv; data/lifecycle-routes/routes.json"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv; data/hard-chart-production-packets/summary.md"],
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
@@ -335,6 +336,7 @@ function audienceFor(path) {
   if (path.startsWith("data/hook-coverage/")) return "user/front-door";
   if (path.startsWith("data/apiservice-coverage/")) return "user/front-door";
   if (path.startsWith("data/lifecycle-boundary/")) return "user/front-door";
+  if (path.startsWith("data/lifecycle-routes/")) return "user/front-door";
   if (path.startsWith("data/webhook-cert-lifecycle/")) return "user/front-door";
   if (path.startsWith("data/high-fanout-demo/")) return "user/front-door";
   if (path.startsWith("data/edge-recovery/")) return "corpus";
@@ -401,6 +403,7 @@ function roleFor(path) {
   if (path === "data/extension-slots/extension-slots.csv") return "one row per chart with NGINX-like extension slots and the route for populated slots";
   if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
+  if (path === "data/lifecycle-routes/routes.csv") return "one row per hook/lifecycle route: disposition, route, execution mode, default, alternatives, human/agent off-ramps, and whether it is safe to show as automatic";
   if (path === "data/webhook-cert-lifecycle/evidence.csv") return "one row per staged webhook certificate route: Secret, paired live observation, and proof boundary";
   if (path === "data/hook-coverage/top100-hook-coverage.csv") return "one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage";
   if (path === "data/apiservice-coverage/top100-apiservice-coverage.csv") return "one row per source top-100 APIService chart: source signal, modeled status, object/workload evidence, parity evidence, aggregation evidence, and next action";
@@ -463,6 +466,7 @@ function familyRole(family) {
     "extension-slots": "NGINX-like extension-slot coverage and routing",
     "nginx-config-checks": "NGINX supported-base config extension checks",
     "lifecycle-boundary": "hook queue and hook-like lifecycle observation boundary",
+    "lifecycle-routes": "machine-readable lifecycle route contract: disposition, route, execution mode, default, alternatives, and human/agent off-ramps",
     "webhook-cert-lifecycle": "webhook serving certificate lifecycle evidence and proof boundaries",
     "secret-lifecycle": "front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state",
     "hook-coverage": "top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans",
@@ -569,6 +573,7 @@ function commandMap() {
     "extension-slots": { generate: "npm run extension-slots", verify: "npm run extension-slots:verify" },
     "nginx-config-checks": { generate: "npm run nginx:config-checks", verify: "npm run nginx:config-checks:verify" },
     "lifecycle-boundary": { generate: "npm run lifecycle:boundary", verify: "npm run lifecycle:boundary:verify" },
+    "lifecycle-routes": { generate: "npm run lifecycle:routes", verify: "npm run lifecycle:routes:verify" },
     "webhook-cert-lifecycle": { generate: "npm run webhook-cert:lifecycle", verify: "npm run webhook-cert:lifecycle:verify" },
     "high-fanout-demo": { generate: "npm run high-fanout:generate", verify: "npm run high-fanout:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },
