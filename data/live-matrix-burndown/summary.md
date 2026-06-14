@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 208 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 89 |
+| Live commands remaining | 207 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 88 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 12 |
-| Ready-to-run todo rows | 196 |
+| Ready-to-run todo rows | 195 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 89 |
+| `live-parity` | 88 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 196 |
+| `todo` | 195 |
 | `watch` | 12 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 196 |
+| `ready-to-run` | 195 |
 | `review-target-first` | 11 |
 
 ## Active Watch Rows
@@ -71,7 +71,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/mongodb | 19.1.0 | generated-passwords | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.1.0 --base generated-passwords |
 | bitnami/nginx | 24.0.4 | existing-tls-ingress | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.4 --base existing-tls-ingress |
 | bitnami/nginx | 24.0.4 | http-clusterip | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.4 --base http-clusterip |
 | bitnami/nginx | 25.0.0 | existing-tls-ingress | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.0.0 --base existing-tls-ingress |
@@ -91,6 +90,7 @@ generated priority. They are good candidates for a serial live block.
 | jaegertracing/jaeger | 4.8.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger/4.8.0 --base default |
 | jetstack/cert-manager-csi-driver | v0.14.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/cert-manager-csi-driver/v0.14.0 --base default |
 | kyverno/kyverno-policies | 3.8.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/kyverno/kyverno-policies/3.8.0 --base default |
+| minio-operator/operator | 7.1.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/minio-operator/operator/7.1.1 --base default |
 
 ## Full Queue
 
