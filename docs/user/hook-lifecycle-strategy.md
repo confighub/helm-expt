@@ -124,6 +124,22 @@ evidence for the target scope or is explicitly marked per-target, refused, or
 blocked. A chart can have perfect render parity and still be incomplete if its
 hook route is only inventoried.
 
+### Machine-Readable Route Contract
+
+The same disposition, route, execution mode, default, and off-ramps are also a
+machine-readable surface:
+[data/lifecycle-routes/](../../data/lifecycle-routes/summary.md) —
+[routes.csv](../../data/lifecycle-routes/routes.csv) for spreadsheets,
+[routes.json](../../data/lifecycle-routes/routes.json) for agents, and
+[contract.md](../../data/lifecycle-routes/contract.md) for the field definitions.
+
+To read one row: `route_name` is where the behavior goes; `disposition` is one of
+`observed`, `routed`, `per-target`, `refused`, or `todo`; `execution_mode` is who
+runs it (`user-executes`, `target-owned`, or `not-yet-executable`;
+`product-executes` only with evidence); `default_route` plus `alternatives` are
+the off-ramps; and `safe_as_automatic` stays `no` unless the product itself runs
+the route. No row is shown as automatic without evidence.
+
 For the current recipe corpus, use:
 
 ```text

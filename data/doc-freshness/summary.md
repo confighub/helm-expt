@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-14 (commit `767ff8b4`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-14 (commit `922a0747`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,9 +24,9 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 166 |
-| Fresh (no linked source newer than the doc) | 16 |
-| **Review-due** | 32 |
-| No linked evidence sources (cannot auto-trigger) | 118 |
+| Fresh (no linked source newer than the doc) | 15 |
+| **Review-due** | 34 |
+| No linked evidence sources (cannot auto-trigger) | 117 |
 
 ## Review queue
 
@@ -41,7 +41,7 @@ most recently changed triggers.
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-06-11 | 3 | `data/outcome-coverage/summary.md (2026-06-13)`<br>`data/status-dashboard/summary.md (2026-06-13)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-13)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 3 | `data/outcome-coverage/summary.md (2026-06-13)` |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 3 | `data/top100-user-readiness/summary.md (2026-06-13)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 3 | `data/README.md (2026-06-13)`<br>`data/csv-index.csv (2026-06-13)`<br>`data/outcome-coverage/base-outcomes.csv (2026-06-13)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 3 | `data/README.md (2026-06-14)`<br>`data/csv-index.csv (2026-06-14)`<br>`data/outcome-coverage/base-outcomes.csv (2026-06-13)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-06-12 | 3 | `data/master-catalog-matrix/summary.md (2026-06-14)`<br>`data/live-kind-parity/summary.md (2026-06-13)`<br>`packages/jetstack/cert-manager/v1.20.2/installer.yaml (2026-06-13)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 3 | `data/outcome-coverage/base-outcomes.csv (2026-06-13)`<br>`data/top100-readiness/next80-queues.csv (2026-06-13)`<br>`data/top100-readiness/next80-queues.md (2026-06-13)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 3 | `data/outcome-coverage/summary.md (2026-06-13)`<br>`tests/npm-scripts.md (2026-06-12)` |
@@ -55,10 +55,12 @@ most recently changed triggers.
 | [README.md](../../README.md) | root | 2026-06-13 | 1 | `data/status-dashboard/summary.md (2026-06-13)`<br>`CATALOG.md (2026-06-13)`<br>`data/chart-use-guide/summary.md (2026-06-13)` |
 | [docs/planning/next-execution-plan.md](../../docs/planning/next-execution-plan.md) | planning | 2026-06-13 | 1 | `data/outcome-coverage/summary.md (2026-06-13)`<br>`data/status-dashboard/summary.md (2026-06-13)`<br>`data/top20-base-readiness/summary.md (2026-06-13)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
+| [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 1 | `data/lifecycle-routes/routes.json (2026-06-14)`<br>`data/lifecycle-routes/summary.md (2026-06-14)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 1 | `data/secret-lifecycle/summary.md (2026-06-13)`<br>`data/secret-lifecycle/variant-summary.csv (2026-06-13)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-06-13 | 1 | `data/chart-use-guide/summary.md (2026-06-13)` |
 | [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md) | user | 2026-06-11 | 1 | `data/webhook-cert-lifecycle/summary.md (2026-06-11)` |
 | [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-06-13 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-14)`<br>`data/outcome-coverage/summary.md (2026-06-13)`<br>`data/status-dashboard/summary.md (2026-06-13)` |
+| [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-06-14 | 1 | `data/lifecycle-routes/contract.md (2026-06-14)`<br>`data/lifecycle-routes/routes.csv (2026-06-14)`<br>`data/lifecycle-routes/routes.json (2026-06-14)` |
 | [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-06-13 | 1 | `data/live-parity-rerun-plan/summary.md (2026-06-13)`<br>`data/status-dashboard/active-proof-queue.csv (2026-06-13)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-13 | 1 | `data/chart-use-guide/summary.md (2026-06-13)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-06-11 | 1 | `data/high-fanout-demo/prometheus-kps.csv (2026-06-12)`<br>`data/high-fanout-demo/summary.md (2026-06-12)`<br>`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11)` |
@@ -139,7 +141,6 @@ into this freshness model.
 - [docs/planning/top20-full-proof-target.md](../../docs/planning/top20-full-proof-target.md)
 - [docs/planning/top500-matrix-refresh-review.md](../../docs/planning/top500-matrix-refresh-review.md)
 - [docs/planning/verified-install-commercial-model.md](../../docs/planning/verified-install-commercial-model.md)
-- [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md)
 - [docs/reference/artifact-verifier-spec.md](../../docs/reference/artifact-verifier-spec.md)
 - [docs/reference/capability-profile-catalog.md](../../docs/reference/capability-profile-catalog.md)
 - [docs/reference/catalog-doctrine.md](../../docs/reference/catalog-doctrine.md)

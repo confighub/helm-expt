@@ -653,3 +653,10 @@ for the loop:
 **Done when:** for at least one Tier-1 chart, a human and an agent can each (a)
 see the default that would be applied, (b) list the alternatives, and (c) select
 a non-default route — with a captured transcript for each.
+
+**Status:** a first machine-readable cut of this contract now exists in
+[data/lifecycle-routes/](../../data/lifecycle-routes/summary.md) — every
+hook/lifecycle row with its route, execution mode, default, alternatives, and
+human/agent off-ramp, with
+[routes.json](../../data/lifecycle-routes/routes.json) as the agent listing. See
+[#688](https://github.com/confighub/helm-expt/issues/688).
