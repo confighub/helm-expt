@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/secrets-store-csi-driver-de
 cub installer package packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 -o .tmp/confighub-proof/secrets-store-csi-driver-archives/secrets-store-csi-driver-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/secrets-store-csi-driver-default --space helm-secrets-store-csi-driver-confighub-proof --component SecretsStoreCSIDriver --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=SecretsStoreCSIDriver --unit-label HelmChart=secrets-store-csi-driver-secrets-store-csi-driver --unit-label HelmChartVersion=1.6.0 --unit-label Variant=default --unit-label Proof=secrets-store-csi-driver-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/secrets-store-csi-driver-default
-cub variant create staging helm-secrets-store-csi-driver-confighub-proof --environment Staging --region local --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-secrets-store-csi-driver-confighub-proof --environment Staging --region local --namespace kube-system --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m
 cub unit list --space helm-secrets-store-csi-driver-confighub-proof --where "Labels.Proof = 'secrets-store-csi-driver-confighub-proof'"
 cub function vet vet-format --space helm-secrets-store-csi-driver-confighub-proof --where "Labels.Proof = 'secrets-store-csi-driver-confighub-proof'"
 cub unit apply --space helm-secrets-store-csi-driver-confighub-proof --where "Labels.Proof = 'secrets-store-csi-driver-confighub-proof'" --dry-run

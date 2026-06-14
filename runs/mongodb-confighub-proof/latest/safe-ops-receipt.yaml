@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-mongodb-mongodb --space helm-mongodb-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-mongodb-mongodb"
-    output: "Unit deployment-mongodb-mongodb (1d68bc5d-fbb6-4190-b346-bad98168dba4) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-mongodb-mongodb (76f3213f-8cc6-4850-9fbc-9fd99b850029) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-mongodb-confighub-proof --where \"Labels.Proof = 'mongodb-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req cBkqneOGHgynWOUcKpddzosaDJWcjBSn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req aAkjuTsFkJfHGiGKVRACFKeukOTEVztS: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-mongodb-confighub-proof --where \"Labels.Proof = 'mongodb-confighub-proof'\""
     result: "pass"

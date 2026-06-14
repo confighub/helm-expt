@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.49"
+      cubServerVersion: "v0.1.79"
   package:
     path: "packages/longhorn/longhorn/1.11.2"
     name: "longhorn-longhorn"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-longhorn-confighub-proof (post-render):\n      DaemonSet/longhorn-manager [longhorn-manager] docker.io/longhornio/longhorn-manager:v1.11.2\n      DaemonSet/longhorn-manager [pre-pull-share-manager-image] docker.io/longhornio/longhorn-share-manager:v1.11.2\n  init  Deployment/longhorn-driver-deployer [wait-longhorn-manager] docker.io/longhornio/longhorn-manager:v1.11.2\n      Deployment/longhorn-driver-deployer [longhorn-driver-deployer] docker.io/longhornio/longhorn-manager:v1.11.2\n      Deployment/longhorn-ui [longhorn-ui] docker.io/longhornio/longhorn-ui:v1.11.2"
   serverSideVariant:
-    command: "cub variant create staging helm-longhorn-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-longhorn-confighub-proof --environment Staging --region local --namespace longhorn-system --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-longhorn-confighub-proof"
-    downstreamSpace: "helm-longhorn-confighub-proof-staging"
+    downstreamSpace: "Longhorn-staging"
     clonedUnitCount: 43
+    namespace: "longhorn-system"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "watch"
+    reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
@@ -76,7 +84,7 @@ spec:
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
     spaces:
       - "helm-longhorn-confighub-proof"
-      - "helm-longhorn-confighub-proof-staging"
+      - "Longhorn-staging"
   observedFriction:
     - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."

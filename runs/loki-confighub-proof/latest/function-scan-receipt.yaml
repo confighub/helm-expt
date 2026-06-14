@@ -17,85 +17,85 @@ spec:
     configHubUnitCount: 20
   unitRevisionBindings:
     -
-      slug: "clusterrolebinding-loki-clusterrolebinding"
-      headRevisionNum: 2
-      dataHash: "00ab3a778a4017a2d027bdc290e8ffd389c04b07975f635644c8ce383cafdafa"
-    -
-      slug: "configmap-loki-loki"
-      headRevisionNum: 2
-      dataHash: "e4bb02a74ea5ed64955121ab1c073e994b67c00c309b06f1700c758fccf55a5c"
-    -
-      slug: "configmap-loki-loki-gateway"
-      headRevisionNum: 2
-      dataHash: "4127a18744f96b4ab4fc5783602f5cf259757dbb0691fd5f2f7e904b4fb8564a"
-    -
-      slug: "configmap-loki-loki-runtime"
-      headRevisionNum: 2
-      dataHash: "2a5fb5343d6ced2bb10883e633b1df21873e1651c68f244990077c232c4406e9"
-    -
-      slug: "daemonset-loki-loki-canary"
-      headRevisionNum: 2
-      dataHash: "581fb5b245e9f5b7b4485366a24025cb42e22bf30d1f664f3f6d67b05ecd9a4c"
-    -
-      slug: "service-loki-loki"
-      headRevisionNum: 2
-      dataHash: "7f15855d0260200edb97518ec4c133eb081e566e0a86a348779a349505b4a703"
-    -
-      slug: "service-loki-loki-canary"
-      headRevisionNum: 2
-      dataHash: "c60f7ace181c9632ba359ebcaecf2014e002d2afde1eb5ab9999db9edf66ed46"
-    -
-      slug: "service-loki-loki-headless"
-      headRevisionNum: 2
-      dataHash: "0460663de5f660c18799bed52ab5cd41ae31f47c223736de685a328ab201cf7c"
-    -
-      slug: "clusterrole-loki-clusterrole"
-      headRevisionNum: 2
-      dataHash: "f9f47544add32c89a4cfac81d4456708864e73e60632c5e953e19fb58109c492"
-    -
-      slug: "service-loki-loki-memberlist"
-      headRevisionNum: 2
-      dataHash: "19a948bbff9bb7d4755082fb19265a11e6ebe65cbef69f1439c4b61fbf76f573"
-    -
-      slug: "serviceaccount-loki-loki"
-      headRevisionNum: 2
-      dataHash: "d93d2b6910f0f6551ed87c08dca8837db9d19f7dcc456c523771465ad00d20d5"
-    -
-      slug: "deployment-loki-loki-gateway"
-      headRevisionNum: 2
-      dataHash: "b3b76f598de828e09fab93fe74abc55fd51fe1d9d15705097e9dfb89bfdd1c29"
-    -
       slug: "statefulset-loki-loki"
       headRevisionNum: 2
-      dataHash: "aebda195dd74734f21b39059225bf1842aaec439343d8759ea940630868eec34"
-    -
-      slug: "namespace-loki"
-      headRevisionNum: 2
-      dataHash: "4fa65f9b0a303e2dbcbbab974423ae144aee9b29256394910a8bbc3da20e96d1"
-    -
-      slug: "service-loki-loki-chunks-cache"
-      headRevisionNum: 2
-      dataHash: "138c24b470ecedc9203db7bbe0b2ffb16adb9074008aee2aaef52ef1fe36e2eb"
-    -
-      slug: "service-loki-loki-gateway"
-      headRevisionNum: 2
-      dataHash: "72e7a4e2f525bd0a6aebdfce05880407d868c3a0ef581cdc29a312c95542fcd8"
-    -
-      slug: "service-loki-loki-results-cache"
-      headRevisionNum: 2
-      dataHash: "61592c95f7d55b8da0c46c78a5f66f2804a079040a67049b6c4640400cc548d2"
-    -
-      slug: "serviceaccount-loki-loki-canary"
-      headRevisionNum: 2
-      dataHash: "c40d04f0433e6edb27102c8b2248baafde276c328258a30cfc548b162458e22d"
+      dataHash: "d10a01bb6b661d473de58eb7c6e2ccb5a9d5fb00b13a56644cffaace8fa78327"
     -
       slug: "statefulset-loki-loki-chunks-cache"
       headRevisionNum: 2
-      dataHash: "223e3cee7b4ad5ee674a610cfa0760115a39e36d97168b4b1763e7d5674162d8"
+      dataHash: "24fd8dd9f6e1025e546d5fe901a1bacd0faf7f41a61f4d6acd150fde3c170889"
+    -
+      slug: "clusterrole-loki-clusterrole"
+      headRevisionNum: 2
+      dataHash: "f12ec390e35d4c9ba74d47766b89c4f1cfc11b6fdfd82f0dfe2948e478840821"
+    -
+      slug: "namespace-loki"
+      headRevisionNum: 1
+      dataHash: "3bb653d2506e3baf781c67953d6ef2c2d74fe8ea30ba6ec4364569cb732b6052"
+    -
+      slug: "configmap-loki-loki-gateway"
+      headRevisionNum: 1
+      dataHash: "f96a209aad312d9d46cfffd2c151294ca434820186e57452035369a51227ac4d"
+    -
+      slug: "configmap-loki-loki"
+      headRevisionNum: 1
+      dataHash: "db8457671feb83d4061ab1a9a6eba06808bdf14a991426a9a7717ca9626cbc6f"
+    -
+      slug: "configmap-loki-loki-runtime"
+      headRevisionNum: 1
+      dataHash: "e55add11aef43d13acd3451ef929002c52114dcf9d67ae7fb2f3bf1da29757d1"
+    -
+      slug: "deployment-loki-loki-gateway"
+      headRevisionNum: 2
+      dataHash: "72a7becbd6d3c51c1c7dadfd457a14f781348a80d22de416a7de564239de1b95"
+    -
+      slug: "service-loki-loki-canary"
+      headRevisionNum: 2
+      dataHash: "1fa2edf26a68420f7456bf30eb2760a0ae10b4cd906cbca94c63b3efc3f70e21"
+    -
+      slug: "service-loki-loki-headless"
+      headRevisionNum: 2
+      dataHash: "021d497408d0987eecac9aa84bf1b35925dc27a3a1d20b8241f76e9e1c9bef70"
+    -
+      slug: "service-loki-loki-memberlist"
+      headRevisionNum: 2
+      dataHash: "c938e928ae4b8462cd96725cd05afea41b86f20d812e9bcd463c348a638607ad"
+    -
+      slug: "serviceaccount-loki-loki-canary"
+      headRevisionNum: 1
+      dataHash: "e5df87b59e2a19f8d2f680b4b02f42b1247702b877bec9b9c1fe356faf4f2450"
+    -
+      slug: "service-loki-loki"
+      headRevisionNum: 2
+      dataHash: "45b313749a847909a1615cdfd2b79407c4395edee552290446dc62acb8777743"
+    -
+      slug: "serviceaccount-loki-loki"
+      headRevisionNum: 1
+      dataHash: "ecbc5e9426e3c0ccf3c1edca422af276cbb3ba80aa0775c29c35a2c4bd209d80"
     -
       slug: "statefulset-loki-loki-results-cache"
       headRevisionNum: 2
-      dataHash: "f9939bf0f5aa118e9766741436993153f98005b5cde9bf61aa4c0838a7f0129f"
+      dataHash: "d153eabbab9347073b99e19b1dc7d47a8c51c2577f4eed614c5501173aa9d718"
+    -
+      slug: "clusterrolebinding-loki-clusterrolebinding"
+      headRevisionNum: 2
+      dataHash: "4c3259ab13c55559dbd4effcba1f2d61e9bac1b4b6e4a51679107551d32ec5ac"
+    -
+      slug: "daemonset-loki-loki-canary"
+      headRevisionNum: 2
+      dataHash: "59fe6d977bc502528716312dc3fbb931f12aea81a4976a914ab79f9d6c6fcd37"
+    -
+      slug: "service-loki-loki-chunks-cache"
+      headRevisionNum: 2
+      dataHash: "336ddb4adc3ab9077873837066ece8f4f9714b13dbb387507febc8d5174c94da"
+    -
+      slug: "service-loki-loki-gateway"
+      headRevisionNum: 2
+      dataHash: "9fc8bccdeca667abd2dfde05e00fe4a402964c4a3f287634761f27cebe4ee410"
+    -
+      slug: "service-loki-loki-results-cache"
+      headRevisionNum: 2
+      dataHash: "62ef7b78f3220339420f8b859285c97d9b094d5f1d491073e7e0c1f419d47fe5"
   validations:
     -
       function: "vet-format"

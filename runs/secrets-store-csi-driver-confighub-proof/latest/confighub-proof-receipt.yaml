@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.49"
+      cubServerVersion: "v0.1.79"
   package:
     path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
     name: "secrets-store-csi-driver"
@@ -36,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 -o .tmp/confighub-proof/secrets-store-csi-driver-archives/secrets-store-csi-driver-a.tgz"
-    sha256: "f9996d7c744f87c3988cacd5e6c65edc88de2596c6f3cc61505ce132a82873a1"
+    sha256: "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/secrets-store-csi-driver-default"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-secrets-store-csi-driver-confighub-proof (post-render):\n      DaemonSet/secrets-store-csi-driver [liveness-probe] registry.k8s.io/sig-storage/livenessprobe:v2.18.0\n      DaemonSet/secrets-store-csi-driver [node-driver-registrar] registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0\n      DaemonSet/secrets-store-csi-driver [secrets-store] registry.k8s.io/csi-secrets-store/driver:v1.6.0"
   serverSideVariant:
-    command: "cub variant create staging helm-secrets-store-csi-driver-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-secrets-store-csi-driver-confighub-proof --environment Staging --region local --namespace kube-system --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-secrets-store-csi-driver-confighub-proof"
-    downstreamSpace: "helm-secrets-store-csi-driver-confighub-proof-staging"
+    downstreamSpace: "SecretsStoreCSIDriver-staging"
     clonedUnitCount: 12
+    namespace: "kube-system"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "watch"
+    reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
@@ -76,7 +84,7 @@ spec:
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
     spaces:
       - "helm-secrets-store-csi-driver-confighub-proof"
-      - "helm-secrets-store-csi-driver-confighub-proof-staging"
+      - "SecretsStoreCSIDriver-staging"
   observedFriction:
     - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."

@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.49"
+      cubServerVersion: "v0.1.79"
   package:
     path: "packages/grafana/loki/7.0.0"
     name: "grafana-loki"
@@ -36,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/grafana/loki/7.0.0 -o .tmp/confighub-proof/loki-archives/loki-a.tgz"
-    sha256: "67c9172a7400c4b175236c300106540837399255845180c5258cbb4cb632661b"
+    sha256: "811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/loki-single-binary-filesystem"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-loki-confighub-proof (post-render):\n      DaemonSet/loki-canary [loki-canary] docker.io/grafana/loki-canary:3.6.7\n      Deployment/loki-gateway [nginx] docker.io/nginxinc/nginx-unprivileged:1.29-alpine\n      StatefulSet/loki [loki] docker.io/grafana/loki:3.6.7\n      StatefulSet/loki [loki-sc-rules] docker.io/kiwigrid/k8s-sidecar:2.5.0\n      StatefulSet/loki-chunks-cache [exporter] prom/memcached-exporter:v0.15.4\n      StatefulSet/loki-chunks-cache [memcached] memcached:1.6.39-alpine\n      StatefulSet/loki-results-cache [exporter] prom/memcached-exporter:v0.15.4\n      StatefulSet/loki-results-cache [memcached] memcached:1.6.39-alpine"
   serverSideVariant:
-    command: "cub variant create staging helm-loki-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-loki-confighub-proof --environment Staging --region local --namespace loki --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-loki-confighub-proof"
-    downstreamSpace: "helm-loki-confighub-proof-staging"
+    downstreamSpace: "Loki-staging"
     clonedUnitCount: 21
+    namespace: "loki"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "watch"
+    reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
@@ -76,7 +84,7 @@ spec:
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
     spaces:
       - "helm-loki-confighub-proof"
-      - "helm-loki-confighub-proof-staging"
+      - "Loki-staging"
   observedFriction:
     - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."

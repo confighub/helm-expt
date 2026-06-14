@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-prometheus-confighub-proof (post-render):\n      Deployment/prometheus-server [prometheus-server] quay.io/prometheus/prometheus:v3.11.3\n      Deployment/prometheus-server [prometheus-server-configmap-reload] quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0"
   serverSideVariant:
-    command: "cub variant create staging helm-prometheus-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-prometheus-confighub-proof --environment Staging --region local --namespace monitoring --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-prometheus-confighub-proof"
     downstreamSpace: "Prometheus-staging"
     clonedUnitCount: 8
+    namespace: "monitoring"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "watch"
+    reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
@@ -72,7 +80,8 @@ spec:
     revisionDiff: "pass"
     representativeUnit: "deployment-monitoring-prometheus-server"
   retention:
-    liveSpacesDeletedAfterProof: false
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
     spaces:
       - "helm-prometheus-confighub-proof"
       - "Prometheus-staging"

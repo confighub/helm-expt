@@ -19,47 +19,47 @@ spec:
     -
       slug: "clusterrolebinding-secretproviderclasses-rolebinding"
       headRevisionNum: 2
-      dataHash: "026f610b905a503734ad5a08d1854729ae1cc7302f5e2451146eb1f2e3b1517a"
+      dataHash: "4910febf0b01e8b0c0c0a6a5765772dd6cc6dc9fd8569bf542e64daba21f9444"
     -
       slug: "clusterrole-secretproviderclasses-admin-role"
       headRevisionNum: 2
-      dataHash: "0ccce734d3b4dad9ca63c88a1dbd24cced486856ad7fafaeeebedd7ef3fc2727"
+      dataHash: "ccb3b9ebb36ef462184c2efa10ed85f815685c4c71a42582fc8eb928ba958d1b"
     -
       slug: "clusterrole-secretproviderclasses-role"
       headRevisionNum: 2
-      dataHash: "09059dc04951c6bf6dddca11b084e5f641bbadec70523160d26430d4a21c8ef5"
+      dataHash: "8f825a4015b8c573d9706d5b14af4cb06cf08f4896668f6de752aa7c2191c2a8"
     -
       slug: "clusterrole-secretproviderclasses-viewer-role"
       headRevisionNum: 2
-      dataHash: "67e741129ec19efd5db480055fd667aced94afd3509846b449e8ca1f89e596f2"
+      dataHash: "f5ae5be64f7d70979d9e54d784a58466bed996e31fa7b810e5eea427b0440495"
     -
       slug: "clusterrole-secretproviderclasspodstatuses-viewer-role"
       headRevisionNum: 2
-      dataHash: "0951aefa19e30fe426e2fc17e2caad62afdac90f2d72d3993b3eaa70cb3a6530"
+      dataHash: "5f3b26f1f259426015478b7a8fac43ea6c7bcb57c91f09e0347889195a1cc574"
     -
       slug: "csidriver-secrets-store-csi-k8s-io"
       headRevisionNum: 2
-      dataHash: "048a94e8fc3d068b111a5f0a969438298a80ec655ae487b7c366267cd27803e4"
+      dataHash: "6a0383b6d0944b47014a36903c3285cd00432c50f3e0163fabd2ee0674e2adcd"
     -
       slug: "customresourcedefinition-secretproviderclasses-secrets-store-csi-x-k8s-io"
       headRevisionNum: 2
-      dataHash: "2c54924c2ec04bbf396f9c98434795015cc1faa7415a438aca1c37929da2e48b"
+      dataHash: "214ea6c5dc8988ec19530e3901c7c628d92e8d50ed3d265f737fb9d2f823604a"
     -
       slug: "customresourcedefinition-secretproviderclasspodstatuses-secrets-store-csi-x-k8s-io"
       headRevisionNum: 2
-      dataHash: "a284d6e260ed1957259967685ca38a52360b991ab8ee7b203be477b12ada59c3"
+      dataHash: "00abe31023f3767b237e27a76963cffca7dba0a6aed32e2354040cfb24d5382d"
     -
       slug: "daemonset-kube-system-secrets-store-csi-driver"
       headRevisionNum: 2
-      dataHash: "91cb8e85b97d9b505e052b4616d756ef4cf31cd1e52fa6a21f3788cd547a5fc3"
+      dataHash: "ee89fbcebefd7e064fae5cb4ceadafd15d4ba9ad89479b1294acd963f814021b"
     -
       slug: "namespace-kube-system"
-      headRevisionNum: 2
-      dataHash: "eeba687d789b8016ba7d26efced861b84b6ef3f52a163460b08064add26a71a0"
+      headRevisionNum: 1
+      dataHash: "4484776d2c3d810f7db9de9221ee6e5016f86c3884527327420acf9e833bd251"
     -
       slug: "serviceaccount-kube-system-secrets-store-csi-driver"
-      headRevisionNum: 2
-      dataHash: "d833151adc3ac311bbe132347f57b129934842ca644a6b57052f08351db5726d"
+      headRevisionNum: 1
+      dataHash: "1a7ce00c511888c9116034067a0de53abb10ac833851d44a326c8b3b41cec9b9"
   validations:
     -
       function: "vet-format"

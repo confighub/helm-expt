@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-monitoring-prometheus-server --space helm-prometheus-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-monitoring-prometheus-server"
-    output: "Unit deployment-monitoring-prometheus-server (22d038e5-ea35-4a49-aa7e-e00117643303) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-monitoring-prometheus-server (3969561f-df50-4771-a58b-fc41d000fda6) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-prometheus-confighub-proof --where \"Labels.Proof = 'prometheus-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req VmsJitbTTQBKxqKtDvqBAlCnalBHIiVR: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req wLzujnUkrYxBdCptIaEUdCXIiHgkdGuJ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-prometheus-confighub-proof --where \"Labels.Proof = 'prometheus-confighub-proof'\""
     result: "pass"

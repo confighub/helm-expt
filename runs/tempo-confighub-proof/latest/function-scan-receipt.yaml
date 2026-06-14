@@ -18,24 +18,24 @@ spec:
   unitRevisionBindings:
     -
       slug: "configmap-tempo-tempo"
-      headRevisionNum: 2
-      dataHash: "4456d8f8775c9feb640e106f73d23b350772c8735c216167d2bdcd1a2ebf470b"
+      headRevisionNum: 1
+      dataHash: "3177351e6f77297818824c9a8ae1df55c3f4806c969f6b68b7ac0108f209599b"
     -
       slug: "namespace-tempo"
-      headRevisionNum: 2
-      dataHash: "44e3575bad5a48cb4e1bc38a4a78ad0a5e4ebe25d5d7dfb7148087c4cc9936a3"
+      headRevisionNum: 1
+      dataHash: "29ce4902601df34b153bfedc91dc0792b8c073430fa762c7d3c7b8e1e6f4a33c"
     -
       slug: "serviceaccount-tempo-tempo"
-      headRevisionNum: 2
-      dataHash: "ec44bfce7c8ef18bfce7bb5fd42fa977590852ee86860de446b8703717c9bcca"
+      headRevisionNum: 1
+      dataHash: "7a93f0c56b8e9452603f8d7aa98cbe2e91c4d98d74a013300ca9930f52c18c41"
     -
       slug: "service-tempo-tempo"
       headRevisionNum: 2
-      dataHash: "adf1217c0fc46f5710b9df160901803e5981db26b5319414cff80ed9bd63d95a"
+      dataHash: "9178f992e0b2c3e5ec9dcfcb995020026b807dc47c88aad3e13117d6a1c8bc64"
     -
       slug: "statefulset-tempo-tempo"
       headRevisionNum: 2
-      dataHash: "8c23712d0a732d5f4b9fbdf9693d773ab5f0b4e2f2310ffec2d3f42acdd86803"
+      dataHash: "bada184440c9ba04f49ac817545221bcd8dd1b677ba01c7f9d625b7a91fd6467"
   validations:
     -
       function: "vet-format"
