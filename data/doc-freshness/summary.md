@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-13 (commit `0f23ab50`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-13 (commit `d9a283e5`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 163 |
-| Fresh (no linked source newer than the doc) | 14 |
+| Authored docs tracked | 166 |
+| Fresh (no linked source newer than the doc) | 16 |
 | **Review-due** | 33 |
-| No linked evidence sources (cannot auto-trigger) | 116 |
+| No linked evidence sources (cannot auto-trigger) | 117 |
 
 ## Review queue
 
@@ -177,6 +177,7 @@ into this freshness model.
 - [docs/user/creating-variants.md](../../docs/user/creating-variants.md)
 - [docs/user/cub-variant-command-surface.md](../../docs/user/cub-variant-command-surface.md)
 - [docs/user/custom-overlays.md](../../docs/user/custom-overlays.md)
+- [docs/user/derived-variant-walkthrough.md](../../docs/user/derived-variant-walkthrough.md)
 - [docs/user/first-run-walkthrough.md](../../docs/user/first-run-walkthrough.md)
 - [docs/user/how-the-harness-works.md](../../docs/user/how-the-harness-works.md)
 - [docs/user/introduction-to-the-harness.md](../../docs/user/introduction-to-the-harness.md)
