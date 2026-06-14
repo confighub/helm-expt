@@ -1,0 +1,1094 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: fairwinds-stable-goldilocks-10.3.0-default-live-parity-20260605
+spec:
+  chart: fairwinds-stable/goldilocks
+  version: 10.3.0
+  base: default
+  result: pass
+  observedAt: '2026-06-14T15:55:27Z'
+  package:
+    path: packages/fairwinds-stable/goldilocks/10.3.0
+  recipe:
+    path: recipes/fairwinds-stable/goldilocks/10.3.0
+  variantRevision: recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-goldilocks-mqdyu7qh-cae
+    kubeContext: kind-helm-expt-parity-goldilocks-mqdyu7qh-cae
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-goldilocks-mqdyu7qh-cae --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-goldilocks-mqdyu7qh-cae"...
+
+        Deleting cluster "helm-expt-parity-goldilocks-mqdyu7qh-cae" ...
+
+        Deleted nodes: ["helm-expt-parity-goldilocks-mqdyu7qh-cae-control-plane"]
+
+        Deleting Space "helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install goldilocks goldilocks --repo https://charts.fairwinds.com/stable
+        --version 10.3.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fairwinds-stable-goldilocks-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5
+      objectCount: 9
+      liveHelmManifestSHA256: 816523a7e31d7d72f9100d05981039f02b7396ca0ebf6f3d40c9f615c7403a12
+      liveHelmManifestObjectCount: 9
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/goldilocks-controller   1/1   1     1     8s
+
+          deployment.apps/goldilocks-dashboard    2/2   2     2     8s'
+        pods: 'goldilocks-controller-6cb5d68986-rqkhf   1/1   Running   0     8s
+
+          goldilocks-dashboard-fcf885596-hc5gw     1/1   Running   0     8s
+
+          goldilocks-dashboard-fcf885596-n4shj     1/1   Running   0     8s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fairwinds-stable/goldilocks/10.3.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: a4b72a5a3e6cd007189ddeecc9e5b0902f6c9580d2572794a78134dade49c211
+      objectCount: 10
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/goldilocks-controller   1/1   1     1     10s
+
+          deployment.apps/goldilocks-dashboard    2/2   2     2     10s'
+        pods: '# default
+
+          goldilocks-controller-6cb5d68986-25kn7   1/1   Running   0     10s
+
+          goldilocks-dashboard-fcf885596-kt7lq     1/1   Running   0     10s
+
+          goldilocks-dashboard-fcf885596-ln67d     1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 4
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "goldilocks-controller" deleted
+
+            clusterrole.rbac.authorization.k8s.io "goldilocks-dashboard" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "goldilocks-controller" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "goldilocks-dashboard" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|goldilocks-controller
+          - apps/v1|Deployment|default|goldilocks-dashboard
+          - v1|ServiceAccount|default|goldilocks-controller
+          - v1|ServiceAccount|default|goldilocks-dashboard
+          - v1|Service|default|goldilocks-dashboard
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks
+      controller: Argo CD OCI
+      app: goldilocks-parity
+      manifestSHA256: 401e64d4348f86330d98691114c43978369a2900926ef07bd67cd3b67c9d28e9
+      objectCount: 10
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci
+              targetRevision: latest
+          revision: sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T15:58:26Z'
+          status: Healthy
+        summary:
+          images:
+          - us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T15:58:26Z'
+          finishedAt: '2026-06-14T15:58:28Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 10
+          syncResultStatusCounts:
+            Synced: 10
+        history:
+        - id: 0
+          revision: sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa
+          deployedAt: '2026-06-14T15:58:28Z'
+          deployStartedAt: '2026-06-14T15:58:26Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: goldilocks-dashboard
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: goldilocks-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: goldilocks-dashboard
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: goldilocks-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: goldilocks-dashboard
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: goldilocks-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: goldilocks-dashboard
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: goldilocks-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: goldilocks-dashboard
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         goldilocks-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster:argoproj.io/Application:argocd/goldilocks-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 4ec7e10f-d75e-4342-bbf5-f448f202a1e4\n              confighub.com/UnitSlug:\
+              \ goldilocks-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind: \
+              \        Application\nMetadata:\n  Creation Timestamp:  2026-06-14T15:58:24Z\n\
+              \  Generation:          8\n  Resource Version:    1231\n  UID:     \
+              \            5e435bd2-3b55-4a6d-9961-0923b0178d69\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T15:58:26Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T15:58:26Z\n    Deployed At:        2026-06-14T15:58:28Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\n\
+              \    Source:\n      Path:             ./helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T15:58:28Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\n\
+              \        Source:\n          Path:             ./helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T15:58:26Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/goldilocks-dashboard serverside-applied\n       \
+              \ Name:        goldilocks-dashboard\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/goldilocks-controller\
+              \ serverside-applied\n        Name:        goldilocks-controller\n \
+              \       Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/goldilocks-dashboard\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get list] APIGroups:[autoscaling.k8s.io]\
+              \ Resources:[verticalpodautoscalers] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list] APIGroups:[apps] Resources:[*]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list] APIGroups:[] Resources:[namespaces pods] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list] APIGroups:[argoproj.io] Resources:[rollouts]\
+              \ ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/goldilocks-dashboard\
+              \ serverside-applied\n        Name:        goldilocks-dashboard\n  \
+              \      Namespace:   default-oci\n        Status:      Synced\n     \
+              \   Sync Phase:  Sync\n        Version:     v1\n        Group:     \
+              \  rbac.authorization.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/goldilocks-controller\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get list watch] APIGroups:[apps]\
+              \ Resources:[*] ResourceNames:[] NonResourceURLs:[]}\n             \
+              \          {Verbs:[get list watch] APIGroups:[batch] Resources:[cronjobs\
+              \ jobs] ResourceNames:[] NonResourceURLs:[]}\n                     \
+              \  {Verbs:[get list watch] APIGroups:[] Resources:[namespaces pods]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list create delete update] APIGroups:[autoscaling.k8s.io] Resources:[verticalpodautoscalers]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list watch] APIGroups:[argoproj.io] Resources:[rollouts] ResourceNames:[]\
+              \ NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/goldilocks-controller\
+              \ serverside-applied\n        Name:        goldilocks-controller\n \
+              \       Namespace:   default-oci\n        Status:      Synced\n    \
+              \    Sync Phase:  Sync\n        Version:     v1\n        Group:    \
+              \   rbac.authorization.k8s.io\n        Hook Phase:  Running\n      \
+              \  Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/goldilocks-controller\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:goldilocks-controller Namespace:default}. cluster"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                          MESSAGE
+
+              7s          Normal   OperationStarted     application/goldilocks-parity   Initiated
+              automated sync to ''sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa''
+
+              7s          Normal   ResourceUpdated      application/goldilocks-parity   Updated
+              sync status:  -> OutOfSync
+
+              7s          Normal   ResourceUpdated      application/goldilocks-parity   Updated
+              health status:  -> Healthy
+
+              5s          Normal   OperationCompleted   application/goldilocks-parity   Sync
+              operation to sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa
+              succeeded
+
+              3s          Normal   ResourceUpdated      application/goldilocks-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 10
+              artifact:
+                path: argocd-core-child.json
+                sha256: cd995263c0f2686658f2343a90bdb7479d962ed5177ac516a6c268a4228bcd31
+                bytes: 15436
+              output: "{\n  \"metadata\": {\n    \"name\": \"goldilocks-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"5e435bd2-3b55-4a6d-9961-0923b0178d69\"\
+                ,\n    \"resourceVersion\": \"1249\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T15:58:24Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster:argoproj.io/Application:argocd/goldilocks-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"4ec7e10f-d75e-4342-bbf5-f448f202a1e4\",\n      \"confighub.com/UnitSlug\"\
+                : \"goldilocks-parity-app\"\n    },\n    \"managedFields\": [\n  \
+                \    {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T15:58:24Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T15:58:45Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"goldilocks-dashboard\",\n        \"status\": \"Synced\",\n   \
+                \     \"health\": {\n          \"status\": \"Healthy\"\n        }\n\
+                \      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"goldilocks-controller\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"goldilocks-dashboard\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Deployment\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"goldilocks-controller\",\n   \
+                \     \"status\": \"Synced\",\n        \"health\": {\n          \"\
+                status\": \"Healthy\"\n        }\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"goldilocks-dashboard\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"rba"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 56066c2b9375ff1b1c2b249e5cda0d23b0219a274c4fe99bb2b38236a14c333e
+                bytes: 2075
+              output: "Name:               argocd/goldilocks-parity\nProject:    \
+                \        default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:62462/applications/goldilocks-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                       STATUS\
+                \  HEALTH   AGE   MESSAGE                                        \
+                \           REASON\nNamespace/default-oci                        \
+                \   Synced           88s                                         \
+                \                    \nService/goldilocks-dashboard              \
+                \      Synced  Healthy  104s  service/goldilocks-dashboard serverside-applied\
+                \           \nServiceAccount/goldilocks-controller            Synced\
+                \           104s  serviceaccount/goldilocks-controller serverside-applied\
+                \   \nDeployment/goldilocks-controller                Synced  Healthy\
+                \  104s  deployment.apps/goldilocks-controller serverside-applied\
+                \  \n\u2514\u2500ReplicaSet/goldilocks-controller-6cb5d68986     \
+                \      Healthy  104s                                             \
+                \               \n  \u2514\u2500Pod/goldilocks-controller-6cb5d68986-25kn7\
+                \          Healthy  104s                                         \
+                \                   \nClusterRole/goldilocks-controller          \
+                \     Synced           32s                                       \
+                \                      \nClusterRoleBinding/goldilocks-controller\
+                \        Synced           32s                                    \
+                \                         \nClusterRoleBinding/goldilocks-dashboard\
+                \         Synced           32s                                   \
+                \                          \nServiceAccount/goldilocks-dashboard \
+                \            Synced           104s  serviceaccount/goldilocks-dashboard\
+                \ serverside-applied    \nDeployment/goldilocks-dashboard        \
+                \         Synced  Healthy  104s  deployment.apps/goldilocks-dashboard\
+                \ serverside-applied   \n\u2514\u2500ReplicaSet/goldilocks-dashboard-fcf885596\
+                \             Healthy  104s                                      \
+                \                      \n  \u251C\u2500Pod/goldilocks-dashboard-fcf885596-kt7lq\
+                \            Healthy  104s                                       \
+                \                     \n  \u2514\u2500Pod/goldilocks-dashboard-fcf885596-ln67d\
+                \            Healthy  104s                                       \
+                \                     \nClusterRole/goldilocks-dashboard         \
+                \       Synced           32s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"goldilocks-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/goldilocks-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"goldilocks-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci
+              targetRevision: latest
+          revision: sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T15:57:09Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T15:58:22Z'
+          finishedAt: '2026-06-14T15:58:24Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa
+          deployedAt: '2026-06-14T15:58:24Z'
+          deployStartedAt: '2026-06-14T15:58:22Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: goldilocks-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T15:57:00Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1193\n  UID:         \
+              \      063d5fdb-3fda-46de-a8cc-6dca75c25bba\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T15:57:09Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T15:58:22Z\n\
+              \    Deployed At:        2026-06-14T15:58:24Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\n\
+              \    Source:\n      Path:             ./helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T15:58:24Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\n\
+              \        Source:\n          Path:             ./helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T15:58:22Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/goldilocks-parity serverside-applied\n\
+              \        Name:        goldilocks-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\n\
+              \      Source:\n        Path:              ./helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T15:58:24Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       goldilocks-parity\n  \
+              \  Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n  Source\
+              \ Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared\
+              \ To:\n      Destination:\n        Namespace:  argocd\n        Server:\
+              \     https://kubernetes.default.svc\n      Source:\n        Path: \
+              \            ./helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n  \
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     112s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     112s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  39s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa'\n\
+              \  Normal  ResourceUpdated     39s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  37s   argocd-application-controller  Sync operation to sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\
+              \ succeeded\n  Normal  ResourceUpdated     35s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                         MESSAGE
+
+              112s        Normal   ResourceUpdated      application/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster   Updated
+              sync status:  -> Synced
+
+              112s        Normal   ResourceUpdated      application/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster   Updated
+              health status:  -> Healthy
+
+              39s         Normal   OperationStarted     application/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster   Initiated
+              automated sync to ''sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa''
+
+              39s         Normal   ResourceUpdated      application/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              37s         Normal   OperationCompleted   application/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster   Sync
+              operation to sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa
+              succeeded
+
+              35s         Normal   ResourceUpdated      application/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 162f281d85aaa46a10016e140e0fc29ccf13d8768d523b6610a794c12e0268e9
+                bytes: 10690
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"063d5fdb-3fda-46de-a8cc-6dca75c25bba\"\
+                ,\n    \"resourceVersion\": \"1287\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T15:57:00Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T15:57:00Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T15:59:10Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confi"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 20cc99f9f2bb4e395503926a056e8fed1455da2c5aafa631de983a27ddb7f5c9
+                bytes: 1151
+              output: "Name:               argocd/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:62580/applications/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \            STATUS  HEALTH  AGE    MESSAGE                      \
+                \                                                                REASON\n\
+                Application/goldilocks-parity                                 Synced\
+                \          55s    application.argoproj.io/goldilocks-parity serverside-applied\
+                \                                 \nApplication/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\
+                \  Synced          2m19s  application.argoproj.io/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"goldilocks-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/goldilocks-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c726bf070d7ab8efefdf173c82dda993381927c64e7f8250723c8407771ab3aa\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"goldilocks-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/goldilocks-controller   1/1   1     1     2m3s
+
+          deployment.apps/goldilocks-dashboard    2/2   2     2     2m3s'
+        pods: '# default
+
+          goldilocks-controller-6cb5d68986-25kn7   1/1   Running   0     2m3s
+
+          goldilocks-dashboard-fcf885596-kt7lq     1/1   Running   0     2m3s
+
+          goldilocks-dashboard-fcf885596-ln67d     1/1   Running   0     2m3s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T15:57:00Z'
+    finishedAt: '2026-06-14T15:57:10Z'
+    elapsedSeconds: 10.131
+    timeoutSeconds: 900
+    command: helm upgrade --install goldilocks goldilocks --repo https://charts.fairwinds.com/stable
+      --version 10.3.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fairwinds-stable-goldilocks-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T15:57:15Z'
+    finishedAt: '2026-06-14T15:57:16Z'
+    elapsedSeconds: 0.367
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fairwinds-stable/goldilocks/10.3.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T15:57:16Z'
+    finishedAt: '2026-06-14T15:57:16Z'
+    elapsedSeconds: 0.119
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-goldilocks-mqdyu7qh-cae.kubeconfig
+      --context kind-helm-expt-parity-goldilocks-mqdyu7qh-cae apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fairwinds-stable-goldilocks-default/direct-apply-manifest.yaml
+    objectCount: 9
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T15:57:16Z'
+    finishedAt: '2026-06-14T15:57:26Z'
+    elapsedSeconds: 10.225
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T15:57:31Z'
+    finishedAt: '2026-06-14T15:57:32Z'
+    elapsedSeconds: 0.257
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fairwinds-stable/goldilocks/10.3.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T15:57:32Z'
+    finishedAt: '2026-06-14T15:58:01Z'
+    elapsedSeconds: 29.146
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks
+      --space helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks --target helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci
+    objectCount: 10
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T15:58:01Z'
+    finishedAt: '2026-06-14T15:58:02Z'
+    elapsedSeconds: 0.565
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T15:58:02Z'
+    finishedAt: '2026-06-14T15:58:11Z'
+    elapsedSeconds: 9.278
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-goldilocks-mqdyu7qh-cae-goldilocks
+      --unit <10 unit(s)> --wait --timeout 5m
+    unitCount: 10
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T15:58:11Z'
+    finishedAt: '2026-06-14T15:58:12Z'
+    elapsedSeconds: 0.971
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster
+      goldilocks-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fairwinds-stable-goldilocks-default/argo-application.json
+      --target helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T15:58:12Z'
+    finishedAt: '2026-06-14T15:58:13Z'
+    elapsedSeconds: 0.969
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-goldilocks-mqdyu7qh-cae-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T15:58:13Z'
+    finishedAt: '2026-06-14T15:58:33Z'
+    elapsedSeconds: 20.146
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T15:59:19Z'
+    finishedAt: '2026-06-14T15:59:19Z'
+    elapsedSeconds: 0.105
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-goldilocks-mqdyu7qh-cae\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-goldilocks-mqdyu7qh-cae.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-goldilocks-mqdyu7qh-cae\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-goldilocks-mqdyu7qh-cae\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-goldilocks-mqdyu7qh-cae\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-goldilocks-mqdyu7qh-cae.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"goldilocks\" does not exist. Installing it now.\nNAME: goldilocks\n\
+      LAST DEPLOYED: Sun Jun 14 16:57:02 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Get\
+      \ the application URL by running these commands:\n  kubectl -n goldilocks port-forward\
+      \ svc/goldilocks-dashboard 8080:80\n  echo \"Visit http://127.0.0.1:8080 to\
+      \ use your application\""
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/goldilocks-controller   1/1   1     1     10s
+
+      deployment.apps/goldilocks-dashboard    2/2   2     2     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=4
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
