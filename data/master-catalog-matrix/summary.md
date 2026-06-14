@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 802 / 19 / 53 / 348 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 804 / 19 / 53 / 346 / 122 |
 | Variants with the complete core lane set | 91 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -102,6 +102,8 @@ duplicates of this one.
 | [lifecycle-routes/routes.csv](../lifecycle-routes/routes.csv) | route-contract status, route count, disposition summary, execution-mode summary, safe-as-automatic count, and chart-family evidence version when needed | per-route alternatives, requirements, exact evidence/next-action text; follow the JSON/CSV route contract for agent-readable detail |
 | [production-support-decisions/decisions.csv](../production-support-decisions/decisions.csv) | decision, target scope | delivery_path, image/scan/lifecycle/target-fact/live-evidence sub-decisions, evidence_count, remaining_final_requirements, next_action |
 | [variant-promotion/status.csv](../variant-promotion/status.csv) | server-side ConfigHub promotion status, matrix value, evidence path, reason, and next action | none; follow the source when you need the full per-row promotion route |
+| [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) | exact chart/version/base live GitOps/OCI and live Helm-vs-ConfigHub parity result, overriding older aggregate outcome rows when a newer receipt exists | receipt reason and path; follow the source when diagnosing the run itself |
+| [live-kind-parity/summary.csv](../live-kind-parity/summary.csv) | exact chart/version/base two-cluster kind parity result, overriding older aggregate outcome rows when a newer receipt exists | semantic parity details, reason, related lifecycle evidence, and receipt path |
 | [live-parity-rerun-plan/rerun-plan.csv](../live-parity-rerun-plan/rerun-plan.csv) | active non-pass live parity rows: next step, rerun readiness, reason, support artifact, rerun command | priority, lane, current result, receipt path; follow the source when diagnosing the run itself |
 
 The CSV and HTML carry adoption bucket, hard gap, strongest evidence, next
@@ -126,7 +128,7 @@ when you want the user/product view with those columns visible.
 | `argo-cd/argo-workflows@1.0.14` | default | next80 | — | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | controller-default-reviewed | next80 | — | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | minimal-crds | next80 | — | 1 observed ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
+| `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⚠️ | ⬜ | local-live | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
