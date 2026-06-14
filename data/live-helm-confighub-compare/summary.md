@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 100
+pass: 101
 watch: 9
 blocked: 0
 not-started: 0
@@ -77,6 +77,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `argo-cd/argo-workflows@1.0.14` | minimal-crds | pass | - | runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml |
 |  | `argo-cd/argocd-image-updater@1.2.2` | default | pass | - | runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/receipt.yaml |
 |  | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | pass | - | runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml |
+|  | `autoscaler/cluster-autoscaler@9.57.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |

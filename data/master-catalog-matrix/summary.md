@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 804 / 19 / 53 / 346 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 806 / 19 / 53 / 344 / 122 |
 | Variants with the complete core lane set | 91 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -129,7 +129,7 @@ when you want the user/product view with those columns visible.
 |  | controller-default-reviewed | next80 | — | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | minimal-crds | next80 | — | 1 observed ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
-| `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⚠️ | ⬜ | local-live | ⬜ |
+| `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⚠️ | ⬜ | local-live | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
