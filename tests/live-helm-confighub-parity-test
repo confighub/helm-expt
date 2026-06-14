@@ -50,6 +50,10 @@ def sh(cmd: list[str], timeout: int = 120, env: dict[str, str] | None = None) ->
         return 124, "", f"timeout after {timeout}s"
 
 
+def timestamp_utc() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
 def helm_chart_command_args(chart: str, repo_url: str) -> list[str]:
     chart_name = chart.split("/", 1)[1] if "/" in chart else chart
     if repo_url.startswith("oci://"):
@@ -2233,6 +2237,7 @@ def main() -> int:
             },
             "legs": {},
             "semanticComparison": {"allowedExtraConfigHubObjects": [f"v1|Namespace||{args.namespace}"]},
+            "operationTimings": [],
             "checks": [],
         },
     }
@@ -2244,7 +2249,82 @@ def main() -> int:
         receipt["spec"]["legs"][name] = fields
 
     def mark_stage(name: str) -> None:
-        write_text(run_root / "stage.txt", f"{datetime.now(timezone.utc).replace(microsecond=0).isoformat()} {name}\n")
+        write_text(run_root / "stage.txt", f"{timestamp_utc()} {name}\n")
+
+    def command_for_receipt(cmd: list[str], unit_count: int | None = None) -> str:
+        redacted = []
+        skip = False
+        for index, part in enumerate(cmd):
+            if skip:
+                skip = False
+                continue
+            if part == "--unit" and index + 1 < len(cmd):
+                count = unit_count
+                if count is None:
+                    count = len([item for item in cmd[index + 1].split(",") if item])
+                redacted.extend([part, f"<{count} unit(s)>"])
+                skip = True
+            else:
+                redacted.append(part)
+        return " ".join(redacted)
+
+    def record_operation_timing(
+        name: str,
+        started_at: str,
+        started_mono: float,
+        result: str,
+        timeout_seconds: int | None = None,
+        **fields,
+    ) -> None:
+        entry = {
+            "name": name,
+            "result": result,
+            "startedAt": started_at,
+            "finishedAt": timestamp_utc(),
+            "elapsedSeconds": round(time.monotonic() - started_mono, 3),
+        }
+        if timeout_seconds is not None:
+            entry["timeoutSeconds"] = timeout_seconds
+        for key, value in fields.items():
+            if value not in (None, ""):
+                entry[key] = value
+        receipt["spec"]["operationTimings"].append(entry)
+
+    def timed_command(
+        name: str,
+        cmd: list[str],
+        timeout: int = 120,
+        env: dict[str, str] | None = None,
+        result_for_rc=None,
+        **fields,
+    ) -> tuple[int, str, str]:
+        started_at = timestamp_utc()
+        started_mono = time.monotonic()
+        rc, out, err = sh(cmd, timeout=timeout, env=env)
+        result = result_for_rc(rc, out, err) if result_for_rc else ("pass" if rc == 0 else "blocked")
+        record_operation_timing(
+            name,
+            started_at,
+            started_mono,
+            result,
+            timeout_seconds=timeout,
+            command=command_for_receipt(cmd, fields.get("unitCount")),
+            **fields,
+        )
+        return rc, out, err
+
+    def timed_kubectl_must(
+        name: str,
+        kubectl_args: list[str],
+        step: str,
+        timeout: int = 120,
+        **fields,
+    ) -> str:
+        cmd = ["kubectl", "--kubeconfig", str(kubeconfig), "--context", context, *kubectl_args]
+        rc, out, err = timed_command(name, cmd, timeout=timeout, **fields)
+        if rc != 0:
+            raise RuntimeError(f"{step} failed: {(err or out)[:1000]}")
+        return out
 
     cleanup_ok = True
     lock_path = None
@@ -2345,7 +2425,7 @@ def main() -> int:
         ]
         env = {**os.environ, "KUBECONFIG": str(kubeconfig)}
         mark_stage("regular-helm-install")
-        rc, helm_out, helm_err = sh(helm_cmd, timeout=900, env=env)
+        rc, helm_out, helm_err = timed_command("regular-helm-install", helm_cmd, timeout=900, env=env)
         helm_live_manifest = ""
         get_rc, get_out, get_err = sh(["helm", "get", "manifest", args.release, "--namespace", helm_namespace], timeout=120, env=env)
         if get_rc == 0:
@@ -2391,7 +2471,7 @@ def main() -> int:
             "cub", "installer", "setup", "--pull", str(package_path), "--base", args.base,
             "--work-dir", str(workdir), "--non-interactive", "--namespace", apply_namespace,
         ]
-        rc, setup_out, setup_err = sh(setup_cmd, timeout=360)
+        rc, setup_out, setup_err = timed_command("configHub-direct-render", setup_cmd, timeout=360)
         if rc != 0:
             raise RuntimeError(f"installer setup failed: {(setup_err or setup_out)[:1000]}")
         manifests_dir = workdir / "out" / "manifests"
@@ -2444,7 +2524,13 @@ def main() -> int:
             if crds:
                 crd_path = run_root / "confighub-rendered-crds.yaml"
                 write_text(crd_path, render_docs_to_yaml(crds))
-                kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(crd_path)], kubeconfig, context, "crd apply", timeout=300)
+                timed_kubectl_must(
+                    "configHub-direct-crd-apply",
+                    ["apply", "--server-side", "--force-conflicts", "-f", str(crd_path)],
+                    "crd apply",
+                    timeout=300,
+                    objectCount=len(crds),
+                )
                 for crd in crds:
                     name = crd.get("metadata", {}).get("name")
                     if name:
@@ -2466,8 +2552,16 @@ def main() -> int:
             if direct_apply_docs:
                 direct_apply_path = run_root / "direct-apply-manifest.yaml"
                 write_text(direct_apply_path, render_docs_to_yaml(direct_apply_docs))
-                kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(direct_apply_path)], kubeconfig, context, "manifest apply", timeout=300)
+                timed_kubectl_must(
+                    "configHub-direct-apply",
+                    ["apply", "--server-side", "--force-conflicts", "-f", str(direct_apply_path)],
+                    "manifest apply",
+                    timeout=300,
+                    objectCount=len(direct_apply_docs),
+                )
         mark_stage("configHub-direct-readiness")
+        direct_readiness_started_at = timestamp_utc()
+        direct_readiness_started_mono = time.monotonic()
         apply_operation_namespace = operation_namespace(apply_runtime_namespaces, apply_namespace)
         apply_operations = post_apply_operations(args.chart, args.base, kubeconfig, context, apply_operation_namespace)
         apply_operations["namespace"] = apply_operation_namespace
@@ -2475,6 +2569,14 @@ def main() -> int:
         if apply_operations.get("operation") != "none":
             check_item("confighub-kubectl-apply-operating-policy", apply_operations["result"], apply_operations.get("operation", "none"))
         apply_runtime = wait_ready_many(kubeconfig, context, apply_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 300))
+        record_operation_timing(
+            "configHub-direct-readiness",
+            direct_readiness_started_at,
+            direct_readiness_started_mono,
+            apply_runtime.get("result", "watch"),
+            timeout_seconds=readiness_timeout(args.chart, args.base, 300),
+            namespaces=",".join(apply_runtime_namespaces),
+        )
         apply_result = "pass" if apply_operations["result"] == "pass" and apply_runtime["result"] == "pass" else "watch"
         apply_cleanup_candidates = [
             namespace for namespace in sorted(set(apply_manifest_namespaces + apply_runtime_namespaces))
@@ -2583,7 +2685,7 @@ def main() -> int:
             "cub", "installer", "setup", "--pull", str(package_path), "--base", args.base,
             "--work-dir", str(workdir), "--non-interactive", "--namespace", oci_namespace,
         ]
-        rc, setup_out, setup_err = sh(setup_cmd_oci, timeout=360)
+        rc, setup_out, setup_err = timed_command("configHub-oci-render", setup_cmd_oci, timeout=360)
         if rc != 0:
             raise RuntimeError(f"installer setup for oci failed: {(setup_err or setup_out)[:1000]}")
         manifests_dir = workdir / "out" / "manifests"
@@ -2653,15 +2755,15 @@ def main() -> int:
                 f"secrets={len(lifecycle_secrets.get('secrets', []))}",
             )
 
-        rc, upload_out, upload_err = sh([
+        rc, upload_out, upload_err = timed_command("configHub-oci-upload", [
             "cub", "installer", "upload", "--work-dir", str(workdir),
             "--space", wspace, "--target", target,
-        ], timeout=600)
+        ], timeout=600, objectCount=len(object_map(cub_manifest_oci)))
         if rc != 0:
             raise RuntimeError(f"installer upload failed: {(upload_err or upload_out)[:1000]}")
         workload_space_created = True
 
-        rc, units_out, units_err = sh(["cub", "unit", "list", "--space", wspace], timeout=120)
+        rc, units_out, units_err = timed_command("configHub-oci-unit-list", ["cub", "unit", "list", "--space", wspace], timeout=120)
         if rc != 0:
             raise RuntimeError(f"unit list failed: {(units_err or units_out)[:1000]}")
         units = []
@@ -2675,7 +2777,12 @@ def main() -> int:
         if not units:
             raise RuntimeError(f"no workload units found in {wspace}")
         mark_stage("configHub-oci-apply")
-        rc, apply_out, apply_err = sh(["cub", "unit", "apply", "--space", wspace, "--unit", ",".join(units), "--wait", "--timeout", "5m"], timeout=360)
+        rc, apply_out, apply_err = timed_command(
+            "configHub-oci-unit-apply",
+            ["cub", "unit", "apply", "--space", wspace, "--unit", ",".join(units), "--wait", "--timeout", "5m"],
+            timeout=360,
+            unitCount=len(units),
+        )
         if rc != 0:
             raise RuntimeError(f"unit apply failed: {(apply_err or apply_out)[:1000]}")
 
@@ -2700,14 +2807,19 @@ def main() -> int:
         }
         app_path = run_root / "argo-application.json"
         app_path.write_text(json.dumps(app, indent=2))
-        rc, app_create_out, app_create_err = sh([
+        rc, app_create_out, app_create_err = timed_command("configHub-oci-app-create", [
             "cub", "unit", "create", "--space", cluster_space, f"{child_app}-app",
             str(app_path), "--target", target, "--allow-exists",
         ], timeout=180)
         if rc != 0:
             raise RuntimeError(f"application unit create failed: {(app_create_err or app_create_out)[:1000]}")
         child_app_unit_created = True
-        rc, app_apply_out, app_apply_err = sh(["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{child_app}-app", "--wait", "--timeout", "5m"], timeout=360)
+        rc, app_apply_out, app_apply_err = timed_command(
+            "configHub-oci-app-apply",
+            ["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{child_app}-app", "--wait", "--timeout", "5m"],
+            timeout=360,
+            unitCount=1,
+        )
         if rc != 0:
             raise RuntimeError(f"application apply failed: {(app_apply_err or app_apply_out)[:1000]}")
         kubectl([
@@ -2719,6 +2831,8 @@ def main() -> int:
         max_argo_wait = readiness_timeout(args.chart, args.base, 420)
         waited = 0
         needs_oci_operations = needs_post_apply_operations(args.chart, args.base)
+        argo_wait_started_at = timestamp_utc()
+        argo_wait_started_mono = time.monotonic()
         while waited < max_argo_wait:
             rc, status, _ = kubectl([
                 "get", "application", child_app, "-n", "argocd",
@@ -2752,6 +2866,16 @@ def main() -> int:
                         break
                 time.sleep(10)
                 waited += 10
+        record_operation_timing(
+            "configHub-oci-argo-wait",
+            argo_wait_started_at,
+            argo_wait_started_mono,
+            "pass" if sync == "Synced" and health == "Healthy" else "watch",
+            timeout_seconds=max_argo_wait,
+            waitedSeconds=waited,
+            sync=sync or "unknown",
+            health=health or "unknown",
+        )
         child_argo_status = argo_application_status(kubeconfig, context, child_app, run_root, "child")
         root_argo_status = argo_application_status(kubeconfig, context, cluster_space, run_root, "root")
         mark_stage("configHub-oci-readiness")
@@ -2765,7 +2889,17 @@ def main() -> int:
                 "reason": "child Argo Application was not materialized by the root ConfigHub OCI Application",
             }
         else:
+            oci_readiness_started_at = timestamp_utc()
+            oci_readiness_started_mono = time.monotonic()
             oci_runtime = wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 180))
+            record_operation_timing(
+                "configHub-oci-readiness",
+                oci_readiness_started_at,
+                oci_readiness_started_mono,
+                oci_runtime.get("result", "watch"),
+                timeout_seconds=readiness_timeout(args.chart, args.base, 180),
+                namespaces=",".join(oci_runtime_namespaces),
+            )
         oci_result = "pass" if oci_operations["result"] == "pass" and sync == "Synced" and health == "Healthy" and oci_runtime["result"] == "pass" else "watch"
         leg("configHubOciArgo",
             result=oci_result,

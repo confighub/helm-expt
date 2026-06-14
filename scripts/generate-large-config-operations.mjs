@@ -52,6 +52,12 @@ function rowForReceipt(path) {
 
   const argoStatus = oci.argoStatus ?? {};
   const operationState = argoStatus.operationState ?? {};
+  const timings = operationTimings(spec);
+  const uploadTiming = timingByName(timings, "configHub-oci-upload");
+  const directApplyTiming = timingByName(timings, "configHub-direct-apply");
+  const unitApplyTiming = timingByName(timings, "configHub-oci-unit-apply");
+  const appApplyTiming = timingByName(timings, "configHub-oci-app-apply");
+  const argoWaitTiming = timingByName(timings, "configHub-oci-argo-wait");
   const elapsedSeconds = elapsed(operationState.startedAt, operationState.finishedAt);
   const gitopsHealth = argoStatus.health?.status ?? oci.health ?? "";
   const gitopsSync = argoStatus.sync?.status ?? oci.sync ?? "";
@@ -70,7 +76,7 @@ function rowForReceipt(path) {
     workloadResult,
   });
   const residue = residueFor({ receiptPath: path, spec, oci, argoStatus });
-  const missingProgress = missingProgressFields({ operationState, spec });
+  const missingProgress = missingProgressFields({ operationState, spec, timings });
 
   return {
     chart: spec.chart ?? "",
@@ -90,6 +96,11 @@ function rowForReceipt(path) {
     gitops_health: gitopsHealth,
     operation_phase: operationState.phase ?? "",
     operation_elapsed_seconds: elapsedSeconds ?? "",
+    confighub_upload_elapsed_seconds: timingElapsed(uploadTiming),
+    direct_apply_elapsed_seconds: timingElapsed(directApplyTiming),
+    unit_apply_wait_elapsed_seconds: timingElapsed(unitApplyTiming),
+    app_apply_wait_elapsed_seconds: timingElapsed(appApplyTiming),
+    argo_wait_elapsed_seconds: timingElapsed(argoWaitTiming),
     target_profile: targetProfile.name ?? "",
     target_profile_result: targetProfile.result ?? "",
     schedulable_nodes: targetProfile.observedSchedulableNodes ?? "",
@@ -164,12 +175,20 @@ function resourceHealth(resource) {
   return "";
 }
 
-function missingProgressFields({ operationState, spec }) {
+function missingProgressFields({ operationState, spec, timings }) {
   const missing = [];
-  if (!operationState.startedAt || !operationState.finishedAt) missing.push("gitops-operation-elapsed");
-  if (!hasElapsedCheck(spec, "confighub-upload")) missing.push("confighub-upload-elapsed");
-  if (!hasElapsedCheck(spec, "direct-apply") && !hasElapsedCheck(spec, "kubectl-apply")) missing.push("direct-apply-elapsed");
-  if (mentionsUnitApply(spec) && !hasElapsedCheck(spec, "unit apply")) missing.push("unit-apply-wait-elapsed");
+  if ((!operationState.startedAt || !operationState.finishedAt) && !hasTiming(timings, "configHub-oci-argo-wait")) {
+    missing.push("gitops-operation-elapsed");
+  }
+  if (!hasTiming(timings, "configHub-oci-upload") && !hasElapsedCheck(spec, "confighub-upload")) missing.push("confighub-upload-elapsed");
+  if (
+    !hasTiming(timings, "configHub-direct-apply")
+    && !hasElapsedCheck(spec, "direct-apply")
+    && !hasElapsedCheck(spec, "kubectl-apply")
+  ) missing.push("direct-apply-elapsed");
+  if (mentionsUnitApply(spec) && !hasTiming(timings, "configHub-oci-unit-apply") && !hasElapsedCheck(spec, "unit apply")) {
+    missing.push("unit-apply-wait-elapsed");
+  }
   return missing;
 }
 
@@ -188,6 +207,24 @@ function elapsed(startedAt, finishedAt) {
   const finish = Date.parse(finishedAt);
   if (!Number.isFinite(start) || !Number.isFinite(finish) || finish < start) return null;
   return Math.round((finish - start) / 1000);
+}
+
+function operationTimings(spec) {
+  return Array.isArray(spec.operationTimings) ? spec.operationTimings : [];
+}
+
+function timingByName(timings, name) {
+  return timings.find((timing) => timing?.name === name) ?? {};
+}
+
+function hasTiming(timings, name) {
+  const timing = timingByName(timings, name);
+  return Number.isFinite(Number(timing.elapsedSeconds));
+}
+
+function timingElapsed(timing) {
+  const value = Number(timing?.elapsedSeconds);
+  return Number.isFinite(value) ? value : "";
 }
 
 function nextAction({ stage, residue, missingProgress, result, gitopsHealth }) {
@@ -229,9 +266,9 @@ ${Object.entries(counts)
 
 ## Rows
 
-| Chart | Base | Result | OCI objects | Units | Stage | GitOps | Workload | Target profile | Residue | Missing progress | Receipt | Next action |
-| --- | --- | --- | ---: | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart}@${row.version}\` | \`${row.base}\` | ${row.result} | ${row.oci_object_count} | ${row.confighub_unit_count || ""} | ${row.current_stage} | ${row.gitops_sync}/${row.gitops_health} | ${row.oci_runtime} | ${targetProfile(row)} | ${md(row.residue || "")} | ${md(row.missing_progress_fields || "")} | [receipt](../../${row.receipt}) | ${md(row.next_action)} |`).join("\n")}
+| Chart | Base | Result | OCI objects | Units | Stage | GitOps | Workload | Timings | Target profile | Residue | Missing progress | Receipt | Next action |
+| --- | --- | --- | ---: | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | \`${row.base}\` | ${row.result} | ${row.oci_object_count} | ${row.confighub_unit_count || ""} | ${row.current_stage} | ${row.gitops_sync}/${row.gitops_health} | ${row.oci_runtime} | ${operationTimingSummary(row)} | ${targetProfile(row)} | ${md(row.residue || "")} | ${md(row.missing_progress_fields || "")} | [receipt](../../${row.receipt}) | ${md(row.next_action)} |`).join("\n")}
 
 ## Reading Rule
 
@@ -251,6 +288,15 @@ progress evidence if upload/apply elapsed time is not recorded.
 
 The machine-readable table is [operations.csv](./operations.csv).
 `;
+}
+
+function operationTimingSummary(row) {
+  const parts = [];
+  if (row.confighub_upload_elapsed_seconds !== "") parts.push(`upload ${row.confighub_upload_elapsed_seconds}s`);
+  if (row.unit_apply_wait_elapsed_seconds !== "") parts.push(`unit apply ${row.unit_apply_wait_elapsed_seconds}s`);
+  if (row.app_apply_wait_elapsed_seconds !== "") parts.push(`app apply ${row.app_apply_wait_elapsed_seconds}s`);
+  if (row.argo_wait_elapsed_seconds !== "") parts.push(`argo wait ${row.argo_wait_elapsed_seconds}s`);
+  return md(parts.join("; "));
 }
 
 function targetProfile(row) {
@@ -293,6 +339,11 @@ function toCsv(rows) {
     "gitops_health",
     "operation_phase",
     "operation_elapsed_seconds",
+    "confighub_upload_elapsed_seconds",
+    "direct_apply_elapsed_seconds",
+    "unit_apply_wait_elapsed_seconds",
+    "app_apply_wait_elapsed_seconds",
+    "argo_wait_elapsed_seconds",
     "target_profile",
     "target_profile_result",
     "schedulable_nodes",
