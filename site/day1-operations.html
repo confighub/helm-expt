@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day-1 operations · ConfigHub Helm Catalog</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0 auto; padding: 12px 20px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .topbar .brand::before { content: "▣ "; color: var(--good); }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .topbar { flex-wrap: wrap; }
+      .navlinks { margin-left: 0; }
+    }
+
+    .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
+    .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .ophead h3 { margin: 0; font-size: 1.08rem; }
+    .opmeta { margin: 6px 0 8px; }
+    .op .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); white-space: nowrap; }
+    .op .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .op .badge.watch { color: #2d2300; background: #f9ab00; border-color: #f9ab00; }
+    .op .badge.planned { color: var(--muted); background: var(--panel); }
+    .muted { color: var(--muted); }
+    @media (max-width: 600px) { .ophead { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <h1>Day-1 operations — the work between a first variant and a running estate.</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-14T05:40:49.968Z UTC · source: committed helm-expt evidence for this day-1 operations.</p>
+    <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs — each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
+  </header>
+  <main>
+    <section aria-labelledby="ops">
+      <h2 id="ops">The operations</h2>
+      <div class="op">
+        <div class="ophead">
+          <h3>Create a derived variant</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>cub variant create &lt;name&gt; &lt;upstream-space&gt;</code> · <span class="muted">ConfigHub · free tier</span></p>
+        <pre><code>cub variant create redis-prod-us-east redis-base</code></pre>
+        <p>A derived ConfigHub variant refines an uploaded base for a target, environment, region, or customer — without running Helm again and without a new installer base. This is the day-1 customization most teams need first.</p>
+        <p class="muted">See: <a href="../docs/user/creating-variants.md">creating-variants</a> · <a href="../docs/user/cub-variant-command-surface.md">cub-variant-command-surface</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Diff before you ship</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>review the variant's object diff vs its base</code> · <span class="muted">ConfigHub · free tier</span></p>
+        
+        <p>Every derived variant carries an exact, reviewable object diff against the base it came from — so a reviewer sees precisely which objects and fields a change touches before anything is delivered. This is the opposite of a values file you have to mentally render.</p>
+        <p class="muted">See: <a href="../docs/user/change-routing-before-oci.md">change-routing-before-oci</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Scan and gate</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>function scans + safe-ops over rendered objects</code> · <span class="muted">free locally · paid for managed policy</span></p>
+        
+        <p>Run policy/function scans over the rendered objects (privilege, capabilities, exposure, deprecated APIs) and safe operations, and hold delivery behind a gate until findings are accepted or waived with a named reason. The scan receipts carry the safety-relevant findings; signing proves origin, not safety.</p>
+        <p class="muted">See: <a href="../data/external-scan-lane/summary.md">data/external-scan-lane</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Stage and promote across environments</h3>
+          <span class="badge watch">watch</span>
+        </div>
+        <p class="opmeta"><code>cub variant promote &lt;space&gt;</code> · <span class="muted">ConfigHub Server</span></p>
+        <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
+cub variant promote &lt;space&gt;</code></pre>
+        <p>Promotion moves a downstream variant toward its upstream Space as a first-class ConfigHub operation. The current receipts prove the core mechanics on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning. The status is watch because the changeset-bound path currently hits a server error; use the matrix V column and variant-promotion status before treating it as a production gate.</p>
+        <p class="muted">See: <a href="../data/variant-promotion/summary.md">data/variant-promotion</a> · <a href="../docs/user/prometheus-overlay-promotion-example.md">prometheus-overlay-promotion-example</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Deliver via OCI + GitOps</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>publish content-addressed OCI; a controller reconciles</code> · <span class="muted">free to run · standard Argo/Flux</span></p>
+        
+        <p>Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it — pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
+        <p class="muted">See: <a href="../docs/user/chain-of-proof.md">chain-of-proof</a> · <a href="../data/runtime-gitops/summary.md">data/runtime-gitops</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Adopt an app you already run</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>cub gitops discover  /  cub gitops import</code> · <span class="muted">ConfigHub · free tier</span></p>
+        <pre><code>cub gitops discover
+cub gitops import &lt;app&gt;</code></pre>
+        <p>Existing Argo, Flux, KRM, rendered-manifest, and live-resource apps enter the model without a rewrite: discover what is running, import it to ConfigHub Units, and from there it gains the same variants, diffs, scans, and observation as a catalog chart.</p>
+        <p class="muted">See: <a href="../docs/user/adopting-existing-apps.md">adopting-existing-apps</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Bring a custom or private app</h3>
+          <span class="badge now">available locally · private catalog is paid</span>
+        </div>
+        <p class="opmeta"><code>wrapper charts, platform values, customer overlays, internal charts</code> · <span class="muted">free for your own charts · paid for managed private catalog</span></p>
+        
+        <p>Your own charts — wrapper charts, platform values, customer overlay values, internal-only charts — run through the same render → scan → sign pipeline as the public catalog. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.</p>
+        <p class="muted">See: <a href="../docs/user/custom-overlays.md">custom-overlays</a> · <a href="../docs/user/product-support-tiers.md">product-support-tiers</a></p>
+      </div>
+    </section>
+    <section aria-labelledby="next">
+      <h2 id="next">Then: day-2 and beyond</h2>
+      <p>When these are routine, the work becomes day-2 and estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of the journey</a>; where it carries production responsibility, the <a href="./tiers.html">paid tiers</a> take over.</p>
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. Available operations run today; watch operations have evidence plus a named limitation; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
+</body>
+</html>
