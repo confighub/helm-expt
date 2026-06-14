@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 207 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 88 |
+| Live commands remaining | 206 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 87 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 13 |
-| Ready-to-run todo rows | 194 |
+| Ready-to-run todo rows | 193 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 88 |
+| `live-parity` | 87 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 194 |
+| `todo` | 193 |
 | `watch` | 13 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 194 |
+| `ready-to-run` | 193 |
 | `review-target-first` | 12 |
 
 ## Active Watch Rows
@@ -72,7 +72,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/nginx | 24.0.4 | http-clusterip | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.4 --base http-clusterip |
 | bitnami/nginx | 25.0.0 | existing-tls-ingress | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.0.0 --base existing-tls-ingress |
 | bitnami/nginx | 25.0.0 | http-clusterip | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.0.0 --base http-clusterip |
 | bitnami/postgresql | 18.6.10 | existing-secret | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/postgresql/18.6.10 --base existing-secret |
@@ -92,6 +91,7 @@ generated priority. They are good candidates for a serial live block.
 | kyverno/kyverno-policies | 3.8.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/kyverno/kyverno-policies/3.8.0 --base default |
 | minio-operator/operator | 7.1.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/minio-operator/operator/7.1.1 --base default |
 | minio-operator/tenant | 7.1.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/minio-operator/tenant/7.1.1 --base default |
+| nats/nack | 0.34.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/nack/0.34.0 --base default |
 
 ## Full Queue
 
