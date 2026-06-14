@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 90
+pass: 91
 watch: 5
 blocked: 0
 not-started: 0
@@ -103,6 +103,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `percona/pg-operator@3.0.0` | default | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | no-crds | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-no-crds/receipt.yaml |
 |  | `percona/psmdb-operator@1.22.0` | default | pass | - | runs/live-helm-confighub-compare/percona-psmdb-operator-default/receipt.yaml |
+|  | `percona/psmdb-operator@1.22.0` | no-crds | pass | - | runs/live-helm-confighub-compare/percona-psmdb-operator-no-crds/receipt.yaml |
 |  | `percona/pxc-operator@1.19.1` | default | pass | - | runs/live-helm-confighub-compare/percona-pxc-operator-default/receipt.yaml |
 |  | `prometheus-community/alertmanager@1.37.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/receipt.yaml |
 |  | `prometheus-community/alertmanager@1.37.0` | ha | pass | - | runs/live-helm-confighub-compare/prometheus-community-alertmanager-ha/receipt.yaml |
