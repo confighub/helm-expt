@@ -1,0 +1,1084 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-prometheus-operator-crds-29.0.0-default-live-parity-20260605
+spec:
+  chart: prometheus-community/prometheus-operator-crds
+  version: 29.0.0
+  base: default
+  result: pass
+  observedAt: '2026-06-14T19:49:47Z'
+  package:
+    path: packages/prometheus-community/prometheus-operator-crds/29.0.0
+  recipe:
+    path: recipes/prometheus-community/prometheus-operator-crds/29.0.0
+  variantRevision: recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6
+    kubeContext: kind-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6"...
+
+        Deleting cluster "helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6" ...
+
+        Deleted nodes: ["helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-control-plane"]
+
+        Deleting Space "helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install prometheus-operator-crds prometheus-operator-crds
+        --repo https://prometheus-community.github.io/helm-charts --version 29.0.0
+        --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4
+      objectCount: 10
+      liveHelmManifestSHA256: 32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4
+      liveHelmManifestObjectCount: 10
+      namespace: default-helm
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          CustomResourceDefinition: 10
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 2b880f1375f403694b8a51b9268c17f1c888630dbf59e15dc87cbd163f94c50a
+      objectCount: 11
+      namespace: default-apply
+      manifestNamespaces:
+      - default-apply
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          CustomResourceDefinition: 10
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 10
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'customresourcedefinition.apiextensions.k8s.io "alertmanagerconfigs.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "alertmanagers.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "podmonitors.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "probes.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "prometheusagents.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "prometheuses.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "prometheusrules.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "scrapeconfigs.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "servicemonitors.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "thanosrulers.monitoring.coreos.com"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+      controller: Argo CD OCI
+      app: prometheus-operator-crds-parity
+      manifestSHA256: a57d998d0d4942d28d50467b2dcda08718f9fe2494a8f31e689fa3ed0036d56f
+      objectCount: 11
+      namespace: default-oci
+      manifestNamespaces:
+      - default-oci
+      runtimeNamespaces: []
+      ociRevision: sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci
+              targetRevision: latest
+          revision: sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T19:53:23Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T19:53:23Z'
+          finishedAt: '2026-06-14T19:53:25Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 11
+          syncResultStatusCounts:
+            Synced: 11
+        history:
+        - id: 0
+          revision: sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3
+          deployedAt: '2026-06-14T19:53:25Z'
+          deployStartedAt: '2026-06-14T19:53:23Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: alertmanagerconfigs.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: alertmanagers.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: podmonitors.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: probes.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: prometheusagents.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: prometheuses.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: prometheusrules.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: scrapeconfigs.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: servicemonitors.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: thanosrulers.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         prometheus-operator-crds-parity\nNamespace:   \
+              \ argocd\nLabels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster:argoproj.io/Application:argocd/prometheus-operator-crds-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ a63bb532-7fa8-40e2-8a24-c25e95854713\n              confighub.com/UnitSlug:\
+              \ prometheus-operator-crds-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T19:53:20Z\n\
+              \  Generation:          8\n  Resource Version:    1231\n  UID:     \
+              \            c37ec056-a83a-43b0-b0be-aacd117a9b8b\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T19:53:23Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T19:53:23Z\n    Deployed At:        2026-06-14T19:53:25Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\n\
+              \    Source:\n      Path:             ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T19:53:25Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\n\
+              \        Source:\n          Path:             ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T19:53:23Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apiextensions.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        CustomResourceDefinition\n\
+              \        Message:     customresourcedefinition.apiextensions.k8s.io/prometheusrules.monitoring.coreos.com\
+              \ serverside-applied\n        Name:        prometheusrules.monitoring.coreos.com\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/servicemonitors.monitoring.coreos.com\
+              \ serverside-applied\n        Name:        servicemonitors.monitoring.coreos.com\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/podmonitors.monitoring.coreos.com\
+              \ serverside-applied\n        Name:        podmonitors.monitoring.coreos.com\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/probes.monitoring.coreos.com\
+              \ serverside-applied\n        Name:        probes.monitoring.coreos.com\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/alertmanagers.monitoring.coreos.com\
+              \ serverside-applied\n        Name:        alertmanagers.monitoring.coreos.com\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/alertmanagerconfigs.monitoring.coreos.com\
+              \ serverside-applied\n        Name:        alertmanagerconfigs.monitoring.coreos.com\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/scrapeconfigs.monitoring.coreos.com\
+              \ serverside-applied\n        Name:        scrapeconfigs.monitoring.coreos.com\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/thanosr"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                        MESSAGE
+
+              16s         Normal   OperationStarted     application/prometheus-operator-crds-parity   Initiated
+              automated sync to ''sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3''
+
+              16s         Normal   ResourceUpdated      application/prometheus-operator-crds-parity   Updated
+              sync status:  -> OutOfSync
+
+              16s         Normal   ResourceUpdated      application/prometheus-operator-crds-parity   Updated
+              health status:  -> Healthy
+
+              14s         Normal   OperationCompleted   application/prometheus-operator-crds-parity   Sync
+              operation to sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3
+              succeeded
+
+              9s          Normal   ResourceUpdated      application/prometheus-operator-crds-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 11
+              artifact:
+                path: argocd-core-child.json
+                sha256: 45692bda32969dfb43993abec5b3bcbd53ae1707436c45c988bd9a763427a55f
+                bytes: 15916
+              output: "{\n  \"metadata\": {\n    \"name\": \"prometheus-operator-crds-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"c37ec056-a83a-43b0-b0be-aacd117a9b8b\"\
+                ,\n    \"resourceVersion\": \"1264\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T19:53:20Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster:argoproj.io/Application:argocd/prometheus-operator-crds-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"a63bb532-7fa8-40e2-8a24-c25e95854713\",\n      \"confighub.com/UnitSlug\"\
+                : \"prometheus-operator-crds-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T19:53:20Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T19:53:55Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"apiextensions.k8s.io\",\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"alertmanagerconfigs.monitoring.coreos.com\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\",\n          \"message\": \"CRD is healthy\"\
+                \n        }\n      },\n      {\n        \"group\": \"apiextensions.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"alertmanagers.monitoring.coreos.com\",\n  \
+                \      \"status\": \"Synced\",\n        \"health\": {\n          \"\
+                status\": \"Healthy\",\n          \"message\": \"CRD is healthy\"\n\
+                \        }\n      },\n      {\n        \"group\": \"apiextensions.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"podmonitors.monitoring.coreos.com\",\n    \
+                \    \"status\": \"Synced\",\n        \"health\": {\n          \"\
+                status\": \"Healthy\",\n          \"message\": \"CRD is healthy\"\n\
+                \        }\n      },\n      {\n        \"group\": \"apiextensions.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"probes.monitoring.coreos.com\",\n        \"\
+                sta"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: c1afddde3060439325bfa775e430a98271901b9ad920ad6558eefb1948747a26
+                bytes: 2002
+              output: "Name:               argocd/prometheus-operator-crds-parity\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:58985/applications/prometheus-operator-crds-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                  STATUS  HEALTH   AGE   MESSAGE  REASON\nCustomResourceDefinition/probes.monitoring.coreos.com\
+                \               Synced  Healthy  43s            CRD is healthy\nCustomResourceDefinition/prometheusagents.monitoring.coreos.com\
+                \     Synced  Healthy  43s            CRD is healthy\nCustomResourceDefinition/prometheusrules.monitoring.coreos.com\
+                \      Synced  Healthy  43s            CRD is healthy\nCustomResourceDefinition/servicemonitors.monitoring.coreos.com\
+                \      Synced  Healthy  43s            CRD is healthy\nCustomResourceDefinition/alertmanagerconfigs.monitoring.coreos.com\
+                \  Synced  Healthy  43s            CRD is healthy\nCustomResourceDefinition/alertmanagers.monitoring.coreos.com\
+                \        Synced  Healthy  43s            CRD is healthy\nCustomResourceDefinition/podmonitors.monitoring.coreos.com\
+                \          Synced  Healthy  43s            CRD is healthy\nCustomResourceDefinition/prometheuses.monitoring.coreos.com\
+                \         Synced  Healthy  43s            CRD is healthy\nCustomResourceDefinition/scrapeconfigs.monitoring.coreos.com\
+                \        Synced  Healthy  43s            CRD is healthy\nCustomResourceDefinition/thanosrulers.monitoring.coreos.com\
+                \         Synced  Healthy  43s            CRD is healthy\nNamespace/default-oci\
+                \                                               Synced           2m8s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\",\n  \
+              \    \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              prometheus-operator-crds-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/prometheus-operator-crds-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"prometheus-operator-crds-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci
+              targetRevision: latest
+          revision: sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T19:51:22Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T19:53:18Z'
+          finishedAt: '2026-06-14T19:53:20Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3
+          deployedAt: '2026-06-14T19:53:20Z'
+          deployStartedAt: '2026-06-14T19:53:18Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: prometheus-operator-crds-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T19:51:14Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1174\n  UID:         \
+              \      18aacb25-1950-467a-b260-5159198ecc01\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T19:51:22Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T19:53:18Z\n\
+              \    Deployed At:        2026-06-14T19:53:20Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\n\
+              \    Source:\n      Path:             ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T19:53:20Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\n\
+              \        Source:\n          Path:             ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T19:53:18Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/prometheus-operator-crds-parity\
+              \ serverside-applied\n        Name:        prometheus-operator-crds-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\n\
+              \      Source:\n        Path:              ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T19:53:20Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       prometheus-operator-crds-parity\n    Namespace:  argocd\n  \
+              \  Status:     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n\
+              \  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n\
+              \      Destination:\n        Namespace:  argocd\n        Server:   \
+              \  https://kubernetes.default.svc\n      Source:\n        Path:    \
+              \         ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     2m47s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     2m47s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  51s    argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3'\n\
+              \  Normal  ResourceUpdated     51s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  49s    argocd-application-controller  Sync operation to sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\
+              \ succeeded\n  Normal  ResourceUpdated     47s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                 MESSAGE
+
+              2m47s       Normal   ResourceUpdated      application/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster   Updated
+              sync status:  -> Synced
+
+              2m47s       Normal   ResourceUpdated      application/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster   Updated
+              health status:  -> Healthy
+
+              51s         Normal   OperationStarted     application/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster   Initiated
+              automated sync to ''sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3''
+
+              51s         Normal   ResourceUpdated      application/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              49s         Normal   OperationCompleted   application/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster   Sync
+              operation to sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3
+              succeeded
+
+              47s         Normal   ResourceUpdated      application/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 3c604579035a1cba760cd53966e6fd363eae55fb99f21dd6a9f2f8d8c0d5dc46
+                bytes: 10868
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"18aacb25-1950-467a-b260-5159198ecc01\"\
+                ,\n    \"resourceVersion\": \"1304\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T19:51:14Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\\\",\\\
+                \"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T19:51:14Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T19:54:22Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \     "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 711e10fb1335951678d9376625ef064453496fa2a04048cfa0890f497c13a194
+                bytes: 1237
+              output: "Name:               argocd/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:59106/applications/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                    STATUS  HEALTH  AGE    MESSAGE              \
+                \                                                                \
+                \                REASON\nApplication/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\
+                \  Synced          3m25s  application.argoproj.io/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\
+                \ serverside-applied  \nApplication/prometheus-operator-crds-parity\
+                \                           Synced          79s    application.argoproj.io/prometheus-operator-crds-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\",\n  \
+              \    \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              prometheus-operator-crds-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/prometheus-operator-crds-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:e24f9b5ccf98dd62956881666f3dddb32579324b58188093a2931289230fcce3\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"prometheus-operator-crds-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          CustomResourceDefinition: 10
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id001
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T19:51:17Z'
+    finishedAt: '2026-06-14T19:51:20Z'
+    elapsedSeconds: 3.12
+    timeoutSeconds: 900
+    command: helm upgrade --install prometheus-operator-crds prometheus-operator-crds
+      --repo https://prometheus-community.github.io/helm-charts --version 29.0.0 --namespace
+      default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T19:51:31Z'
+    finishedAt: '2026-06-14T19:51:33Z'
+    elapsedSeconds: 1.78
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-14T19:51:38Z'
+    finishedAt: '2026-06-14T19:51:38Z'
+    elapsedSeconds: 0.659
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6.kubeconfig
+      --context kind-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/confighub-rendered-crds.yaml
+    objectCount: 10
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T19:51:45Z'
+    finishedAt: '2026-06-14T19:51:46Z'
+    elapsedSeconds: 1.239
+    timeoutSeconds: 300
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T19:51:56Z'
+    finishedAt: '2026-06-14T19:51:58Z'
+    elapsedSeconds: 1.596
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T19:52:03Z'
+    finishedAt: '2026-06-14T19:52:57Z'
+    elapsedSeconds: 54.706
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+      --space helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+      --target helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci
+    objectCount: 11
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T19:52:57Z'
+    finishedAt: '2026-06-14T19:52:58Z'
+    elapsedSeconds: 0.559
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T19:52:58Z'
+    finishedAt: '2026-06-14T19:53:06Z'
+    elapsedSeconds: 7.919
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
+      --unit <11 unit(s)> --wait --timeout 5m
+    unitCount: 11
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T19:53:06Z'
+    finishedAt: '2026-06-14T19:53:07Z'
+    elapsedSeconds: 1.101
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster
+      prometheus-operator-crds-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/argo-application.json
+      --target helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T19:53:07Z'
+    finishedAt: '2026-06-14T19:53:08Z'
+    elapsedSeconds: 1.485
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T19:53:09Z'
+    finishedAt: '2026-06-14T19:53:39Z'
+    elapsedSeconds: 30.214
+    timeoutSeconds: 420
+    waitedSeconds: 30
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T19:54:40Z'
+    finishedAt: '2026-06-14T19:54:41Z'
+    elapsedSeconds: 1.21
+    timeoutSeconds: 180
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind."
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "prometheus-operator-crds" does not exist. Installing it now.
+
+      NAME: prometheus-operator-crds
+
+      LAST DEPLOYED: Sun Jun 14 20:51:19 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: ''
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=10
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
