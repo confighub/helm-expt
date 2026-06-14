@@ -48,6 +48,7 @@ for exact base-variant evidence.
 | Control points | [recipes/hashicorp/vault/0.32.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/hashicorp/vault/0.32.0/value-model.yaml](value-model.yaml) |
 | Operating policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](operating-policy.yaml) |
+| Runtime review | [recipes/hashicorp/vault/0.32.0/runtime-review.yaml](runtime-review.yaml) |
 | Weirdness and mitigations | [recipes/hashicorp/vault/0.32.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/hashicorp/vault/0.32.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml](helm-pain-report.yaml) |

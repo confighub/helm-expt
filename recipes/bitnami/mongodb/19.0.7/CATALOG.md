@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/bitnami/mongodb/19.0.7/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/mongodb/19.0.7/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/mongodb/19.0.7/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/bitnami/mongodb/19.0.7/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Weirdness and mitigations | [recipes/bitnami/mongodb/19.0.7/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/mongodb/19.0.7/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml](helm-pain-report.yaml) |

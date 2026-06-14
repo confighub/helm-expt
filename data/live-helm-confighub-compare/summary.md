@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 85
-watch: 3
+watch: 4
 blocked: 0
 not-started: 0
 ```
@@ -89,6 +89,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `grafana/alloy@1.8.2` | default | pass | - | runs/live-helm-confighub-compare/grafana-alloy-default/receipt.yaml |
 |  | `grafana/alloy@1.8.2` | no-crds | pass | - | runs/live-helm-confighub-compare/grafana-alloy-no-crds/receipt.yaml |
 |  | `grafana/promtail@6.17.1` | default | pass | - | runs/live-helm-confighub-compare/grafana-promtail-default/receipt.yaml |
+|  | `grafana/pyroscope@2.0.2` | default | watch | target-runtime: ConfigHub workload not ready (parity passed) | runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | no-crds | pass | - | runs/live-helm-confighub-compare/kedacore-keda-no-crds/receipt.yaml |
 |  | `kyverno/kyverno@3.8.1` | default | pass | - | runs/live-helm-confighub-compare/kyverno-kyverno-default/receipt.yaml |

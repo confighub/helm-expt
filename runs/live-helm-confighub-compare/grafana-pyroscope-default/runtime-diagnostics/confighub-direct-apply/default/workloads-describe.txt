@@ -1,0 +1,153 @@
+Name:               pyroscope
+Namespace:          default
+CreationTimestamp:  Sun, 14 Jun 2026 17:25:53 +0100
+Selector:           app.kubernetes.io/component=all,app.kubernetes.io/instance=pyroscope,app.kubernetes.io/name=pyroscope
+Labels:             app.kubernetes.io/component=all
+                    app.kubernetes.io/instance=pyroscope
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=pyroscope
+                    app.kubernetes.io/version=2.0.2
+                    helm.sh/chart=pyroscope-2.0.2
+Annotations:        <none>
+Replicas:           1 desired | 1 total
+Update Strategy:    RollingUpdate
+  Partition:        0
+  MaxUnavailable:   1
+Pods Status:        1 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app.kubernetes.io/component=all
+                    app.kubernetes.io/instance=pyroscope
+                    app.kubernetes.io/name=pyroscope
+                    name=pyroscope
+  Annotations:      checksum/config: 8a4f819897979ed0bc3d732a2380b919c0688ecafd39ceb238856b74223db8ab
+                    profiles.grafana.com/cpu.port_name: http2
+                    profiles.grafana.com/cpu.scrape: true
+                    profiles.grafana.com/goroutine.port_name: http2
+                    profiles.grafana.com/goroutine.scrape: true
+                    profiles.grafana.com/memory.port_name: http2
+                    profiles.grafana.com/memory.scrape: true
+                    profiles.grafana.com/service_git_ref: v2.0.2
+                    profiles.grafana.com/service_repository: https://github.com/grafana/pyroscope
+  Service Account:  pyroscope
+  Containers:
+   pyroscope:
+    Image:       grafana/pyroscope:2.0.2
+    Ports:       4040/TCP (http2), 7946/TCP (memberlist), 9095/TCP (grpc), 9099/TCP (raft)
+    Host Ports:  0/TCP (http2), 0/TCP (memberlist), 0/TCP (grpc), 0/TCP (raft)
+    Args:
+      -target=all
+      -self-profiling.disable-push=true
+      -server.http-listen-port=4040
+      -memberlist.cluster-label=default-pyroscope
+      -memberlist.join=dns+pyroscope-memberlist.default.svc.cluster.local.:7946
+      -config.file=/etc/pyroscope/config.yaml
+      -runtime-config.file=/etc/pyroscope/overrides/overrides.yaml
+      -log.level=debug
+      -query-backend.address=dns:///_grpc._tcp.pyroscope-headless.$(NAMESPACE_FQDN):9095
+      -metastore.address=kubernetes:///pyroscope-headless.$(NAMESPACE_FQDN):9095
+      -metastore.data-dir=./data-metastore/data
+      -metastore.raft.dir=./data-metastore/raft
+      -metastore.raft.snapshots-dir=./data-metastore/raft
+      -metastore.raft.bind-address=:9099
+      -metastore.raft.server-id=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)
+      -metastore.raft.advertise-address=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)
+      -metastore.raft.bootstrap-peers=dnssrvnoa+_raft._tcp.$(PYROSCOPE_METASTORE_SERVICE)
+      -architecture.storage=v2
+    Readiness:  http-get http://:http2/ready delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAME:                      (v1:metadata.name)
+      NAMESPACE_FQDN:               default.svc.cluster.local.
+      PYROSCOPE_METASTORE_SERVICE:  pyroscope-headless.default.svc.cluster.local.:9099
+    Mounts:
+      /data from data (rw)
+      /data-metastore from data (rw,path=".metastore")
+      /etc/pyroscope/config.yaml from config (rw,path="config.yaml")
+      /etc/pyroscope/overrides/ from overrides-config (rw)
+  Volumes:
+   config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      pyroscope-config
+    Optional:  false
+   overrides-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      pyroscope-overrides-config
+    Optional:  false
+   data:
+    Type:          EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:     <unset>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Volume Claims:     <none>
+
+
+Name:               pyroscope-alloy
+Namespace:          default
+CreationTimestamp:  Sun, 14 Jun 2026 17:25:53 +0100
+Selector:           app.kubernetes.io/instance=pyroscope,app.kubernetes.io/name=alloy
+Labels:             app.kubernetes.io/instance=pyroscope
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=alloy
+                    app.kubernetes.io/part-of=alloy
+                    app.kubernetes.io/version=v1.12.2
+                    helm.sh/chart=alloy-1.5.2
+Annotations:        <none>
+Replicas:           1 desired | 1 total
+Update Strategy:    RollingUpdate
+  Partition:        0
+  MaxUnavailable:   1
+Pods Status:        1 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app.kubernetes.io/instance=pyroscope
+                    app.kubernetes.io/name=alloy
+  Annotations:      kubectl.kubernetes.io/default-container: alloy
+                    profiles.grafana.com/cpu.port_name: http-metrics
+                    profiles.grafana.com/cpu.scrape: true
+                    profiles.grafana.com/goroutine.port_name: http-metrics
+                    profiles.grafana.com/goroutine.scrape: true
+                    profiles.grafana.com/memory.port_name: http-metrics
+                    profiles.grafana.com/memory.scrape: true
+                    profiles.grafana.com/service_git_ref: v1.8.1
+                    profiles.grafana.com/service_repository: https://github.com/grafana/alloy
+  Service Account:  pyroscope-alloy
+  Containers:
+   alloy:
+    Image:      docker.io/grafana/alloy:v1.12.2
+    Port:       12345/TCP (http-metrics)
+    Host Port:  0/TCP (http-metrics)
+    Args:
+      run
+      /etc/alloy/config.alloy
+      --storage.path=/tmp/alloy
+      --server.http.listen-addr=0.0.0.0:12345
+      --server.http.ui-path-prefix=/
+      --cluster.enabled=true
+      --cluster.join-addresses=pyroscope-alloy-cluster
+      --stability.level=public-preview
+    Readiness:  http-get http://:12345/-/ready delay=10s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      ALLOY_DEPLOY_MODE:  helm
+      HOSTNAME:            (v1:spec.nodeName)
+    Mounts:
+      /etc/alloy from config (rw)
+   config-reloader:
+    Image:      quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0
+    Port:       <none>
+    Host Port:  <none>
+    Args:
+      --watched-dir=/etc/alloy
+      --reload-url=http://localhost:12345/-/reload
+    Requests:
+      cpu:        10m
+      memory:     50Mi
+    Environment:  <none>
+    Mounts:
+      /etc/alloy from config (rw)
+  Volumes:
+   config:
+    Type:          ConfigMap (a volume populated by a ConfigMap)
+    Name:          alloy-config-pyroscope
+    Optional:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Volume Claims:     <none>

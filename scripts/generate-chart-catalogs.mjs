@@ -318,6 +318,8 @@ function receiptIndex(path, receipt, extra) {
 function optionalArtifactRows(root) {
   const artifacts = [
     { label: "Operating policy", path: "operating-policy.yaml" },
+    { label: "Runtime review", path: "runtime-review.yaml" },
+    { label: "GitOps runtime review", path: "gitops-runtime-review.yaml" },
     { label: "Target topology", path: "target-topology.yaml" },
     { label: "Lifecycle policy", path: "lifecycle-policy.yaml" },
     { label: "Target prerequisite plan", path: "target-prerequisite-plan.yaml" },

@@ -55,10 +55,10 @@ spec:
   proofSummary:
     adoptionBucket: "limitation-decision-first"
     userStatus: "proof-grade-with-named-limitation"
-    strongestEvidence: "render-parity"
+    strongestEvidence: "in-confighub-proof"
     proofLanes:
       renderParity: "2/2"
-      inConfigHub: "0/2"
+      inConfigHub: "2/2"
       localLive: "0/2"
       gitopsLive: "0/2"
       liveParity: "0/2"

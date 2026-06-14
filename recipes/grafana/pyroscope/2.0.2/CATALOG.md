@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/grafana/pyroscope/2.0.2/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/grafana/pyroscope/2.0.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/grafana/pyroscope/2.0.2/value-model.yaml](value-model.yaml) |
+| Runtime review | [recipes/grafana/pyroscope/2.0.2/runtime-review.yaml](runtime-review.yaml) |
 | Catalog status | [recipes/grafana/pyroscope/2.0.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/grafana/pyroscope/2.0.2](../../../../packages/grafana/pyroscope/2.0.2) |

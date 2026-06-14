@@ -513,6 +513,18 @@ function classifyWatch(spec, target) {
     return "target-runtime: pod config/runtime errors (parity passed)";
   }
   if (text.includes("containercreating")) return "target-runtime: pod ContainerCreating (parity passed)";
+  const regularRuntime = spec.legs?.regularHelm?.runtime ?? {};
+  const directRuntime = spec.legs?.configHubKubectlApply?.runtime ?? {};
+  const ociRuntime = spec.legs?.configHubOciArgo?.runtime ?? {};
+  if (
+    regularRuntime.result === "pass" &&
+    (directRuntime.result === "watch" || ociRuntime.result === "watch")
+  ) {
+    if (text.includes("metastore not ready")) {
+      return "target-runtime: ConfigHub workload not ready; Pyroscope metastore unavailable (parity passed)";
+    }
+    return "target-runtime: ConfigHub workload not ready (parity passed)";
+  }
   const gitops = spec.legs?.configHubOciArgo ?? {};
   if (gitops.sync === "OutOfSync" && gitops.health === "Healthy") {
     const outOfSyncResources = (gitops.argoStatus?.resources ?? [])

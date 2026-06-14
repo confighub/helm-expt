@@ -47,6 +47,8 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/hashicorp/consul/2.0.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/hashicorp/consul/2.0.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/hashicorp/consul/2.0.0/value-model.yaml](value-model.yaml) |
+| Runtime review | [recipes/hashicorp/consul/2.0.0/runtime-review.yaml](runtime-review.yaml) |
+| GitOps runtime review | [recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Target topology | [recipes/hashicorp/consul/2.0.0/target-topology.yaml](target-topology.yaml) |
 | Target prerequisite plan | [recipes/hashicorp/consul/2.0.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Weirdness and mitigations | [recipes/hashicorp/consul/2.0.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
