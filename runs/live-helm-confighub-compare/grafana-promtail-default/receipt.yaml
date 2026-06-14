@@ -1,0 +1,1004 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: grafana-promtail-6.17.1-default-live-parity-20260605
+spec:
+  chart: grafana/promtail
+  version: 6.17.1
+  base: default
+  result: pass
+  observedAt: '2026-06-14T15:46:03Z'
+  package:
+    path: packages/grafana/promtail/6.17.1
+  recipe:
+    path: recipes/grafana/promtail/6.17.1
+  variantRevision: recipes/grafana/promtail/6.17.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-promtail-mqdyi4k3-1tv9
+    kubeContext: kind-helm-expt-parity-promtail-mqdyi4k3-1tv9
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-promtail-mqdyi4k3-1tv9 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-promtail-mqdyi4k3-1tv9"...
+
+        Deleting cluster "helm-expt-parity-promtail-mqdyi4k3-1tv9" ...
+
+        Deleted nodes: ["helm-expt-parity-promtail-mqdyi4k3-1tv9-control-plane"]
+
+        Deleting Space "helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install promtail promtail --repo https://grafana.github.io/helm-charts
+        --version 6.17.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-promtail-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35
+      objectCount: 5
+      liveHelmManifestSHA256: efe44d240bd285f68ad7ddee140f35e2027d043db7d51b4839495f079edaa008
+      liveHelmManifestObjectCount: 5
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: daemonset.apps/promtail   1     1     1     1     1     <none>   30s
+        pods: promtail-rqp9r   1/1   Running   0     30s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/promtail/6.17.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 8f29cd124d353d6d30026f89ae72cdf69ffd8361a816bdb72f041a35ab91c3fe
+      objectCount: 6
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          daemonset.apps/promtail   1     1     1     1     1     <none>   20s'
+        pods: '# default
+
+          promtail-bx97c   1/1   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "promtail" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "promtail" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|DaemonSet|default|promtail
+          - v1|Secret|default|promtail
+          - v1|ServiceAccount|default|promtail
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail
+      controller: Argo CD OCI
+      app: promtail-parity
+      manifestSHA256: 96f531b53dc6a96e09f219e6d7b366683fe32a7ab4a497c964348b7560f70b5f
+      objectCount: 6
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-default-promtail.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci
+              targetRevision: latest
+          revision: sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T15:49:17Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/grafana/promtail:3.5.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T15:49:17Z'
+          finishedAt: '2026-06-14T15:49:19Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 5
+          syncResultStatusCounts:
+            Synced: 5
+        history:
+        - id: 0
+          revision: sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5
+          deployedAt: '2026-06-14T15:49:19Z'
+          deployStartedAt: '2026-06-14T15:49:17Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: promtail
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default
+          name: promtail
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: promtail
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: promtail
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         promtail-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster:argoproj.io/Application:argocd/promtail-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ c4c61e94-e79a-4542-ac1b-dc9dba6f950e\n              confighub.com/UnitSlug:\
+              \ promtail-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:   \
+              \      Application\nMetadata:\n  Creation Timestamp:  2026-06-14T15:49:16Z\n\
+              \  Generation:          8\n  Resource Version:    1107\n  UID:     \
+              \            61cff305-9a33-436e-be10-c807b7fd4503\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T15:49:17Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T15:49:17Z\n    Deployed At:        2026-06-14T15:49:19Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\n\
+              \    Source:\n      Path:             ./helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T15:49:19Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\n\
+              \        Source:\n          Path:             ./helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T15:49:17Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/promtail serverside-applied\n        Name:      \
+              \  promtail\n        Namespace:   default\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       rbac.authorization.k8s.io\n        Hook Phase:  Running\n  \
+              \      Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/promtail\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get watch list] APIGroups:[]\
+              \ Resources:[nodes nodes/proxy services endpoints pods] ResourceNames:[]\
+              \ NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/promtail\
+              \ serverside-applied\n        Name:        promtail\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRoleBinding\n\
+              \        Message:     clusterrolebinding.rbac.authorization.k8s.io/promtail\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:promtail Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/promtail\
+              \ serverside-applied\n        Name:        promtail\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          docker.io/grafana/promtail:3.5.1\n\
+              \        Kind:        DaemonSet\n        Message:     daemonset.apps/promtail\
+              \ serverside-applied\n        Name:        promtail\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\n\
+              \      Source:\n        Path:              ./helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T15:49:20Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       ServiceAccount\n    Name:       promtail\n \
+              \   Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      apps\n    Kind:       DaemonSet\n    Name:       promtail\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      rbac.authorization.k8s.io\n    Kind:       ClusterRole\n\
+              \    Name:       promtail\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      rbac.authorization.k8s.io\n    Kind:       ClusterRoleBinding\n\
+              \    Name:       promtail\n    Status:     Synced\n    Version:    v1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n    Images:\n\
+              \      docker.io/grafana/promtail:3.5.1\n  Sync:\n    Compared To:\n\
+              \      Destination:\n        Namespace:  default-oci\n        Server:\
+              \     https://kubernetes.default.svc\n      Source:\n        Path: \
+              \            ./helm-expt-parity-promtail-mqdyi4k3-"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                        MESSAGE
+
+              9s          Normal   OperationStarted     application/promtail-parity   Initiated
+              automated sync to ''sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5''
+
+              9s          Normal   ResourceUpdated      application/promtail-parity   Updated
+              sync status:  -> OutOfSync
+
+              9s          Normal   ResourceUpdated      application/promtail-parity   Updated
+              health status:  -> Healthy
+
+              7s          Normal   OperationCompleted   application/promtail-parity   Sync
+              operation to sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/promtail-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 5
+              artifact:
+                path: argocd-core-child.json
+                sha256: 6ddb20ef9b1e0de3aada3ea96855d7a7bb422f8b845efac0bcc6d1e56523b3c6
+                bytes: 10821
+              output: "{\n  \"metadata\": {\n    \"name\": \"promtail-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"61cff305-9a33-436e-be10-c807b7fd4503\"\
+                ,\n    \"resourceVersion\": \"1123\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T15:49:16Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster:argoproj.io/Application:argocd/promtail-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"c4c61e94-e79a-4542-ac1b-dc9dba6f950e\",\n      \"confighub.com/UnitSlug\"\
+                : \"promtail-parity-app\"\n    },\n    \"managedFields\": [\n    \
+                \  {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T15:49:16Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T15:49:34Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"promtail\",\n        \"status\": \"Synced\"\n    \
+                \  },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"DaemonSet\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"promtail\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                \n        }\n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterRole\"\
+                ,\n        \"name\": \"promtail\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterRoleBinding\"\
+                ,\n        \"name\": \"promtail\",\n        \"status\": \"Synced\"\
+                \n      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\",\n\
+                \      \"comparedTo\": {\n        \"source\": {\n          \"repoURL\"\
+                : \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail\"\
+                ,\n          \"targetRevision\": \"latest\"\n        },\n        \"\
+                destination\": {\n          \"server\": \"http"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 8f3132f6e724ea61f69eb715d6ca7ce350f9518b0857fe1b5246c1ed4f26871b
+                bytes: 1233
+              output: "Name:               argocd/promtail-parity\nProject:      \
+                \      default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:61860/applications/promtail-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                STATUS  HEALTH\
+                \   AGE  MESSAGE                                     REASON\nDaemonSet/promtail\
+                \                       Synced  Healthy  86s  daemonset.apps/promtail\
+                \ serverside-applied  \n\u251C\u2500Pod/promtail-bx97c           \
+                \                  Healthy  86s                                  \
+                \            \n\u2514\u2500ControllerRevision/promtail-d887bb9bc \
+                \                  86s                                           \
+                \   \nClusterRole/promtail                     Synced           23s\
+                \                                              \nClusterRoleBinding/promtail\
+                \              Synced           23s                              \
+                \                \nNamespace/default-oci                    Synced\
+                \           60s                                              \nServiceAccount/promtail\
+                \                  Synced           86s  serviceaccount/promtail serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              promtail-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/promtail-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"promtail-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci
+              targetRevision: latest
+          revision: sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T15:47:05Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T15:49:14Z'
+          finishedAt: '2026-06-14T15:49:16Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5
+          deployedAt: '2026-06-14T15:49:16Z'
+          deployStartedAt: '2026-06-14T15:49:14Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: promtail-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T15:47:00Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1080\n  UID:         \
+              \      2daa41b0-32cb-4de4-9905-b4f7713df71f\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T15:47:05Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T15:49:14Z\n\
+              \    Deployed At:        2026-06-14T15:49:16Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\n\
+              \    Source:\n      Path:             ./helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T15:49:16Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\n\
+              \        Source:\n          Path:             ./helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T15:49:14Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/promtail-parity serverside-applied\n\
+              \        Name:        promtail-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n      Revision:      sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\n\
+              \      Source:\n        Path:              ./helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T15:49:16Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       promtail-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     2m37s  argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     2m37s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  28s    argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5'\n\
+              \  Normal  ResourceUpdated     28s    argocd-application-controller\
+              \  Updated sync status: Unknown -> OutOfSync\n  Normal  OperationCompleted\
+              \  26s    argocd-application-controller  Sync operation to sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\
+              \ succeeded\n  Normal  ResourceUpdated     25s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                        MESSAGE
+
+              2m37s       Normal   ResourceUpdated      application/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster   Updated
+              sync status:  -> Unknown
+
+              2m37s       Normal   ResourceUpdated      application/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster   Updated
+              health status:  -> Healthy
+
+              28s         Normal   OperationStarted     application/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster   Initiated
+              automated sync to ''sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5''
+
+              28s         Normal   ResourceUpdated      application/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster   Updated
+              sync status: Unknown -> OutOfSync
+
+              26s         Normal   OperationCompleted   application/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster   Sync
+              operation to sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5
+              succeeded
+
+              25s         Normal   ResourceUpdated      application/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 25c6efbcd8961f6720eaeedc0b964a359fd052cbc2bab48189a2f8a8ef6e0973
+                bytes: 10667
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"2daa41b0-32cb-4de4-9905-b4f7713df71f\"\
+                ,\n    \"resourceVersion\": \"1149\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T15:47:00Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T15:47:00Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T15:49:50Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: a732fbe6effbcd98f31cdfa1745fb56b5b698fc22e2c736e19b5d3e4d0d6701d
+                bytes: 1140
+              output: "Name:               argocd/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:61977/applications/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \           STATUS  HEALTH  AGE    MESSAGE                       \
+                \                                                              REASON\n\
+                Application/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster  Synced\
+                \          2m59s  application.argoproj.io/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\
+                \ serverside-applied  \nApplication/promtail-parity              \
+                \                    Synced          43s    application.argoproj.io/promtail-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              promtail-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/promtail-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:2a30c07dc0db1a4da3b73ec5ce46b2a779d2b7ae0749d6496b3087fc8761d5b5\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"promtail-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          daemonset.apps/promtail   1     1     1     1     1     <none>   104s'
+        pods: '# default
+
+          promtail-bx97c   1/1   Running   0     104s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T15:47:00Z'
+    finishedAt: '2026-06-14T15:47:33Z'
+    elapsedSeconds: 32.961
+    timeoutSeconds: 900
+    command: helm upgrade --install promtail promtail --repo https://grafana.github.io/helm-charts
+      --version 6.17.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-promtail-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T15:48:15Z'
+    finishedAt: '2026-06-14T15:48:16Z'
+    elapsedSeconds: 0.368
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/promtail/6.17.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T15:48:16Z'
+    finishedAt: '2026-06-14T15:48:16Z'
+    elapsedSeconds: 0.115
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-promtail-mqdyi4k3-1tv9.kubeconfig
+      --context kind-helm-expt-parity-promtail-mqdyi4k3-1tv9 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-promtail-default/direct-apply-manifest.yaml
+    objectCount: 5
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T15:48:16Z'
+    finishedAt: '2026-06-14T15:48:36Z'
+    elapsedSeconds: 20.37
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T15:48:42Z'
+    finishedAt: '2026-06-14T15:48:42Z'
+    elapsedSeconds: 0.251
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/promtail/6.17.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T15:48:42Z'
+    finishedAt: '2026-06-14T15:49:00Z'
+    elapsedSeconds: 17.658
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail
+      --space helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail --target helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci
+    objectCount: 6
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T15:49:00Z'
+    finishedAt: '2026-06-14T15:49:00Z'
+    elapsedSeconds: 0.544
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T15:49:00Z'
+    finishedAt: '2026-06-14T15:49:03Z'
+    elapsedSeconds: 3.087
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-promtail-mqdyi4k3-1tv9-promtail
+      --unit <5 unit(s)> --wait --timeout 5m
+    unitCount: 5
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T15:49:03Z'
+    finishedAt: '2026-06-14T15:49:04Z'
+    elapsedSeconds: 1.177
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster
+      promtail-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-promtail-default/argo-application.json
+      --target helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T15:49:04Z'
+    finishedAt: '2026-06-14T15:49:06Z'
+    elapsedSeconds: 1.126
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-promtail-mqdyi4k3-1tv9-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T15:49:06Z'
+    finishedAt: '2026-06-14T15:49:26Z'
+    elapsedSeconds: 20.15
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T15:50:00Z'
+    finishedAt: '2026-06-14T15:50:00Z'
+    elapsedSeconds: 0.107
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-promtail-mqdyi4k3-1tv9\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-promtail-mqdyi4k3-1tv9.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-promtail-mqdyi4k3-1tv9\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-promtail-mqdyi4k3-1tv9\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-promtail-mqdyi4k3-1tv9\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-promtail-mqdyi4k3-1tv9.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: level=WARN msg="this chart is deprecated"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      daemonset.apps/promtail   1     1     1     1     1     <none>   20s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
