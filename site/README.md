@@ -10,6 +10,7 @@ npm run site:verify
 Open `site/index.html` first for the public launch front door.
 Open `site/try.html` for the short try-now page.
 Open `site/proof.html` for the proof lanes, sceptic tests, and refusal boundary.
+Open `site/hooks.html` for hook and lifecycle route dispositions.
 Open `site/tiers.html` for the free, authenticated, managed, and enterprise tier shape.
 Open `site/offering.html` for the longer public offering page.
 Open `docs/user/choose-your-path.md` for the direct render, one-shot upload,

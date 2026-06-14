@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hooks & Lifecycle · ConfigHub Helm Catalog</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0 auto; padding: 12px 20px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .topbar .brand::before { content: "▣ "; color: var(--good); }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .topbar { flex-wrap: wrap; }
+      .navlinks { margin-left: 0; }
+    }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <h1>Where do Helm hooks and lifecycle behavior go?</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-14T09:11:38.712Z UTC · source: committed helm-expt evidence for this hooks and lifecycle page.</p>
+    <p class="tagline">The catalog does not pretend Helm hooks are ordinary static YAML. It names the lifecycle behavior, the route, who executes it, and whether the product executes it automatically.</p>
+    <p>Today a routed behavior means the route and off-ramp are visible. It does not mean universal automatic hook execution. A row becomes automatic only when the execution mode is product-owned and evidence proves that path.</p>
+  </header>
+  <main>
+    <section aria-labelledby="headline">
+      <h2 id="headline">Current Lifecycle Route Contract</h2>
+      <div class="grid">
+        <div class="metric"><strong>25</strong><span>route rows from committed lifecycle data</span></div>
+        <div class="metric"><strong>13</strong><span>chart/version lifecycle behaviors represented</span></div>
+        <div class="metric"><strong>0</strong><span>rows safe to present as automatic</span></div>
+        <div class="metric"><strong><a href="../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
+        <div class="metric"><strong><a href="./matrix.html">matrix</a></strong><span>route signal beside each catalog row</span></div>
+      </div>
+      <p>The low automatic count is deliberate. It keeps the public claim honest while still making the route useful to humans and agents.</p>
+    </section>
+
+    <section aria-labelledby="meanings">
+      <h2 id="meanings">Disposition Means Claim</h2>
+      <div class="card"><table>
+        <thead><tr><th>Disposition</th><th>Rows</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>observed</td><td>15</td><td>The selected lifecycle behavior has committed evidence.</td></tr><tr><td>per-target</td><td>1</td><td>The target class must choose or approve the route before a stronger claim.</td></tr><tr><td>routed</td><td>5</td><td>The route, executor, and off-ramp are named; automatic execution is not implied.</td></tr><tr><td>todo</td><td>4</td><td>The behavior is known, but the route or evidence still needs work.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../docs/reference/what-hook-support-means.md">Read the reference vocabulary</a> for the exact claim and refusal attached to each word.</p>
+    </section>
+
+    <section aria-labelledby="execution">
+      <h2 id="execution">Execution Mode Means Who Runs It</h2>
+      <div class="card"><table>
+        <thead><tr><th>Execution mode</th><th>Rows</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>not-yet-executable</td><td>7</td><td>The route is modeled, but no executable product path is claimed yet.</td></tr><tr><td>target-owned</td><td>7</td><td>The Kubernetes target, GitOps controller, or another controller owns the behavior.</td></tr><tr><td>user-executes</td><td>11</td><td>The user runs the lifecycle action explicitly, with receipts or checks where available.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>This is the important split for Helm users. Helm may run a hook implicitly. The catalog must say whether ConfigHub runs it, the target owns it, the user runs it as an explicit lifecycle action, or the route is not executable yet.</p>
+    </section>
+
+    <section aria-labelledby="route">
+      <h2 id="route">How To Read A Route</h2>
+      <ul><li><strong>Quirk:</strong> What kind of lifecycle behavior was found: hook phase, CRD install, target fact, webhook readiness, or a related class.</li><li><strong>Route:</strong> Where the behavior belongs: preflight, presync, managed action, target-owned controller behavior, post-apply observation, or refusal.</li><li><strong>Off-ramp:</strong> How a human or agent chooses an alternative route when the default is not right for the target.</li><li><strong>Evidence:</strong> A receipt path when observed, or the next action when the route is still todo, per-target, or blocked by prerequisite work.</li></ul>
+    </section>
+
+    <section aria-labelledby="rows">
+      <h2 id="rows">Route Rows</h2>
+      <div class="card"><table>
+        <thead><tr><th>Chart</th><th>Quirk</th><th>Disposition</th><th>Route</th><th>Execution</th><th>Auto</th><th>Evidence or next action</th></tr></thead>
+        <tbody><tr><td>airflow-helm/airflow@8.9.0</td><td>hook-phase</td><td>routed</td><td>explicit-managed-action</td><td>not-yet-executable</td><td>no</td><td>decide the supported migration mode (Deployment vs hook Job) at recipe time; rehearse after image preconditions clear</td></tr><tr><td>apache-airflow/airflow@1.21.0</td><td>hook-phase</td><td>todo</td><td>recipe-time-lifecycle-verification</td><td>not-yet-executable</td><td>no</td><td>verify values-conditional lifecycle Jobs before claiming hook-free; route rendered migration Jobs as managed actions ...</td></tr><tr><td>argo-cd/argo-workflows@1.0.14</td><td>crd-install</td><td>todo</td><td>preflight-or-presync-crd-apply</td><td>not-yet-executable</td><td>no</td><td>choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base</td></tr><tr><td>bitnami/kafka@32.4.3</td><td>hook-phase</td><td>routed</td><td>explicit-managed-action</td><td>not-yet-executable</td><td>no</td><td>create an image-override or digest-pinned base, then re-run the provisioning-Job route rehearsal</td></tr><tr><td>bitnami/minio@17.0.21</td><td>hook-phase</td><td>routed</td><td>explicit-managed-action</td><td>not-yet-executable</td><td>no</td><td>choose a supported image override or newer chart version, then re-run the provisioning-Job managed-action rehearsal</td></tr><tr><td>bitnami/thanos@17.3.1</td><td>hook-phase</td><td>todo</td><td>explicit-managed-action</td><td>not-yet-executable</td><td>no</td><td>create Thanos recipe; distinguish provisioning-off and provisioning-enabled bases; reuse MinIO provisioning receipt s...</td></tr><tr><td>datadog/datadog@3.214.0</td><td>per-target-hook</td><td>per-target</td><td>target-class-preflight-and-upgrade-action</td><td>user-executes</td><td>no</td><td>split normal and GKE Autopilot target scopes; route allowlist hooks as preflight and migration Job as lifecycle actio...</td></tr><tr><td>fluent/fluent-bit@0.57.6</td><td>hook-delete-policy</td><td>observed</td><td>preserve-cleanup-policy</td><td>target-owned</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml</td></tr><tr><td>fluent/fluent-bit@0.57.6</td><td>hook-test</td><td>observed</td><td>explicit-test-check</td><td>user-executes</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml</td></tr><tr><td>gitlab/gitlab@10.0.0</td><td>hook-phase</td><td>todo</td><td>argocd-or-flux-lifecycle-hook</td><td>not-yet-executable</td><td>no</td><td>treat as a serious-chart review; choose a supported base; confirm whether the vendored hook renders; then write maint...</td></tr><tr><td>k8s-dashboard/kubernetes-dashboard@7.14.0</td><td>hook-phase</td><td>routed</td><td>upgrade-action-with-receipt</td><td>user-executes</td><td>no</td><td>record hook-inert-under-default-values for the default base at recipe time; keep the route plan for postgres-mode bases</td></tr><tr><td>kong/kong@3.2.0</td><td>hook-phase</td><td>routed</td><td>upgrade-action-with-receipt</td><td>user-executes</td><td>no</td><td>create the recipe with DB-less and postgres bases; rehearse the migration pair against a database</td></tr><tr><td>kyverno/kyverno@3.8.1</td><td>hook-delete-policy</td><td>observed</td><td>delete-cleanup-policy</td><td>target-owned</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml</td></tr><tr><td>kyverno/kyverno@3.8.1</td><td>hook-delete-policy</td><td>observed</td><td>preserve-cleanup-policy</td><td>target-owned</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml</td></tr><tr><td>kyverno/kyverno@3.8.1</td><td>hook-phase</td><td>observed</td><td>upgrade-action-with-receipt</td><td>user-executes</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml</td></tr><tr><td>kyverno/kyverno@3.8.1</td><td>hook-test</td><td>observed</td><td>explicit-test-check</td><td>user-executes</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml</td></tr><tr><td>kyverno/kyverno@3.8.1</td><td>hook-weight-ordering</td><td>observed</td><td>preserve-ordering</td><td>target-owned</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml</td></tr><tr><td>kyverno/kyverno@3.8.1</td><td>target-facts</td><td>observed</td><td>target-facts-or-preflight</td><td>user-executes</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-delete-policy</td><td>observed</td><td>preserve-cleanup-policy</td><td>target-owned</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default...</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-phase</td><td>observed</td><td>postsync-check-or-observation</td><td>user-executes</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default...</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-phase</td><td>observed</td><td>preflight-or-presync</td><td>user-executes</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default...</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-phase</td><td>observed</td><td>upgrade-action-with-receipt</td><td>user-executes</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default...</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-weight-ordering</td><td>observed</td><td>preserve-ordering</td><td>target-owned</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default...</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>target-facts</td><td>observed</td><td>target-facts-or-preflight</td><td>user-executes</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default...</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>webhook-readiness</td><td>observed</td><td>webhook-readiness-observation</td><td>target-owned</td><td>no</td><td>data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default...</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="next">
+      <h2 id="next">What To Do With This</h2>
+      <div class="grid">
+        <div class="card"><h3>Trying a chart</h3><p>Open the chart page or matrix row. If lifecycle behavior exists, check the route and executor before treating a green render as a live install claim.</p></div>
+        <div class="card"><h3>Creating a base</h3><p>If the behavior changes rendered objects or Helm values, create a recipe/base variant. If it is post-render operation, route it through ConfigHub or a target-owned controller.</p></div>
+        <div class="card"><h3>Using GitOps</h3><p>Use Argo or Flux only when the route says the controller owns that lifecycle step or the receipt proves the selected sync path.</p></div>
+        <div class="card"><h3>Automating later</h3><p>Do not mark a route automatic until product execution and evidence exist. Until then, keep the explicit route and off-ramp visible.</p></div>
+        <div class="card"><h3>Finding evidence</h3><p>Use <a href="../data/lifecycle-routes/routes.json">routes.json</a>, <a href="../data/lifecycle-routes/summary.md">summary.md</a>, and the chart page's Hooks &amp; Lifecycle section.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer>Generated from helm-expt lifecycle route data. Route visibility is not an automatic execution claim.</footer>
+</body>
+</html>
