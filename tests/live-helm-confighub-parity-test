@@ -1011,6 +1011,14 @@ def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
         context,
         timeout=60,
     )
+    argocd_core = argocd_core_status(kubeconfig, context, app)
+    cub_scout = cub_scout_gitops_status(kubeconfig)
+    operation_state = status.get("operationState") or {}
+    operation = operation_state.get("operation") or {}
+    operation_sync = operation.get("sync") or {}
+    sync_result = operation_state.get("syncResult") or {}
+    operation_sync_resources = argo_resource_refs(operation_sync.get("resources") or [])
+    sync_result_resources = argo_sync_result_resources(sync_result.get("resources") or [])
     health_residue = [
         {
             "group": item["group"],
@@ -1028,10 +1036,18 @@ def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
         "result": "recorded",
         "sync": status.get("sync") or {},
         "health": status.get("health") or {},
+        "summary": status.get("summary") or {},
         "operationState": {
-            "phase": (status.get("operationState") or {}).get("phase", ""),
-            "message": (status.get("operationState") or {}).get("message", ""),
+            "phase": operation_state.get("phase", ""),
+            "message": operation_state.get("message", ""),
+            "startedAt": operation_state.get("startedAt", ""),
+            "finishedAt": operation_state.get("finishedAt", ""),
+            "operationSyncResourceCount": len(operation_sync_resources),
+            "operationSyncResources": operation_sync_resources[:20],
+            "syncResultResourceCount": len(sync_result_resources),
+            "syncResultStatusCounts": count_by(sync_result_resources, lambda item: item.get("status") or "blank"),
         },
+        "history": argo_history(status.get("history") or []),
         "conditions": status.get("conditions") or [],
         "resources": resources,
         "diagnostics": {
@@ -1044,7 +1060,130 @@ def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
                 "result": "pass" if rc_events == 0 else "blocked",
                 "output": (events_out or events_err)[:3000],
             },
+            "argocdCore": argocd_core,
+            "cubScoutGitOpsStatus": cub_scout,
         },
+    }
+
+
+def argo_resource_refs(items: list[dict]) -> list[dict]:
+    refs = []
+    for item in items:
+        refs.append({
+            "group": item.get("group", ""),
+            "kind": item.get("kind", ""),
+            "namespace": item.get("namespace", ""),
+            "name": item.get("name", ""),
+        })
+    return refs
+
+
+def argo_sync_result_resources(items: list[dict]) -> list[dict]:
+    resources = []
+    for item in items:
+        resources.append({
+            "group": item.get("group", ""),
+            "kind": item.get("kind", ""),
+            "namespace": item.get("namespace", ""),
+            "name": item.get("name", ""),
+            "status": item.get("status", ""),
+            "syncPhase": item.get("syncPhase", ""),
+            "hookPhase": item.get("hookPhase", ""),
+            "message": item.get("message", ""),
+        })
+    return resources
+
+
+def argo_history(items: list[dict]) -> list[dict]:
+    history = []
+    for item in items[-5:]:
+        source = item.get("source") or {}
+        history.append({
+            "id": item.get("id", ""),
+            "revision": item.get("revision", ""),
+            "deployedAt": item.get("deployedAt", ""),
+            "deployStartedAt": item.get("deployStartedAt", ""),
+            "source": {
+                "repoURL": source.get("repoURL", ""),
+                "targetRevision": source.get("targetRevision", ""),
+                "path": source.get("path", ""),
+            },
+        })
+    return history
+
+
+def count_by(items: list[dict], key_fn) -> dict:
+    counts = {}
+    for item in items:
+        key = key_fn(item)
+        counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
+def argocd_core_status(kubeconfig: Path, context: str, app: str) -> dict:
+    if shutil.which("argocd") is None:
+        return {"result": "unavailable", "reason": "argocd CLI not found on PATH"}
+    env = {**os.environ, "KUBECONFIG": str(kubeconfig)}
+    base_command = [
+        "argocd", "app", "get", app,
+        "--core",
+        "--kube-context", context,
+        "--app-namespace", "argocd",
+        "--hard-refresh",
+    ]
+    rc_json, json_out, json_err = sh([*base_command, "-o", "json"], timeout=120, env=env)
+    rc_tree, tree_out, tree_err = sh([*base_command, "-o", "tree=detailed"], timeout=120, env=env)
+    result = "pass" if rc_json == 0 or rc_tree == 0 else "blocked"
+    summary = {}
+    if rc_json == 0 and json_out:
+        try:
+            payload = json.loads(json_out)
+            status = payload.get("status") or {}
+            summary = {
+                "sync": (status.get("sync") or {}).get("status", ""),
+                "health": (status.get("health") or {}).get("status", ""),
+                "operationPhase": ((status.get("operationState") or {}).get("phase") or ""),
+                "conditions": len(status.get("conditions") or []),
+                "resources": len(status.get("resources") or []),
+            }
+        except json.JSONDecodeError as exc:
+            summary = {"jsonError": str(exc)}
+    return {
+        "result": result,
+        "json": {
+            "result": "pass" if rc_json == 0 else "blocked",
+            "summary": summary,
+            "output": json_out[:6000] if rc_json == 0 else (json_err or json_out)[:2000],
+        },
+        "tree": {
+            "result": "pass" if rc_tree == 0 else "blocked",
+            "output": (tree_out if rc_tree == 0 else (tree_err or tree_out))[:8000],
+        },
+    }
+
+
+def cub_scout_gitops_status(kubeconfig: Path) -> dict:
+    if shutil.which("cub-scout") is None:
+        return {"result": "unavailable", "reason": "cub-scout not found on PATH"}
+    env = {**os.environ, "KUBECONFIG": str(kubeconfig)}
+    rc, out, err = sh(["cub-scout", "gitops", "status", "--json"], timeout=120, env=env)
+    result = "pass" if rc == 0 else "blocked"
+    summary = {}
+    if rc == 0 and out:
+        try:
+            payload = json.loads(out)
+            summary = {
+                "backendCount": len(payload.get("backends") or []),
+                "applicationCount": len(payload.get("applications") or []),
+                "sourceCount": len(payload.get("sources") or []),
+                "resourceCount": len(payload.get("resources") or []),
+            }
+        except json.JSONDecodeError as exc:
+            summary = {"jsonError": str(exc)}
+    return {
+        "result": result,
+        "summary": summary,
+        "output": (out if rc == 0 else (err or out))[:8000],
     }
 
 
