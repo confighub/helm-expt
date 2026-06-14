@@ -79,6 +79,7 @@ function readme(rows) {
     ["I want candidate routes for hook-bearing source charts.", "data/hook-route-candidates/summary.md; data/hook-route-candidates/candidates.csv; data/hook-route-candidates/work-orders.md"],
     ["I want the machine-readable lifecycle route contract: where a hook or hidden behavior goes, who executes it, the default, and the off-ramps.", "data/lifecycle-routes/summary.md; data/lifecycle-routes/routes.csv; data/lifecycle-routes/routes.json"],
     ["I want to know which operating skill/playbook applies to a chart.", "data/chart-skills/summary.md; data/chart-skills/skills.csv; data/chart-skills/skills.json"],
+    ["I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically.", "data/lifecycle-route-actions/summary.md; data/lifecycle-route-actions/actions.csv; data/lifecycle-route-actions/actions.json"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv; data/hard-chart-production-packets/summary.md"],
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
@@ -339,6 +340,7 @@ function audienceFor(path) {
   if (path.startsWith("data/lifecycle-boundary/")) return "user/front-door";
   if (path.startsWith("data/lifecycle-routes/")) return "user/front-door";
   if (path.startsWith("data/chart-skills/")) return "user/front-door";
+  if (path.startsWith("data/lifecycle-route-actions/")) return "user/front-door";
   if (path.startsWith("data/webhook-cert-lifecycle/")) return "user/front-door";
   if (path.startsWith("data/high-fanout-demo/")) return "user/front-door";
   if (path.startsWith("data/edge-recovery/")) return "corpus";
@@ -407,6 +409,7 @@ function roleFor(path) {
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
   if (path === "data/lifecycle-routes/routes.csv") return "one row per hook/lifecycle route: disposition, route, execution mode, default, alternatives, human/agent off-ramps, and whether it is safe to show as automatic";
   if (path === "data/chart-skills/skills.csv") return "one row per chart: which docs/skills/ operating playbooks apply (advisory), the top skill, and the matched chart-fact signals";
+  if (path === "data/lifecycle-route-actions/actions.csv") return "one row per hook/lifecycle route projected into an action packet: lifecycle phase, action kind, disposition, required target facts, evidence required, and whether the product runs it automatically (false today)";
   if (path === "data/webhook-cert-lifecycle/evidence.csv") return "one row per staged webhook certificate route: Secret, paired live observation, and proof boundary";
   if (path === "data/hook-coverage/top100-hook-coverage.csv") return "one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage";
   if (path === "data/apiservice-coverage/top100-apiservice-coverage.csv") return "one row per source top-100 APIService chart: source signal, modeled status, object/workload evidence, parity evidence, aggregation evidence, and next action";
@@ -471,6 +474,7 @@ function familyRole(family) {
     "lifecycle-boundary": "hook queue and hook-like lifecycle observation boundary",
     "lifecycle-routes": "machine-readable lifecycle route contract: disposition, route, execution mode, default, alternatives, and human/agent off-ramps",
     "chart-skills": "advisory chart-to-skill mapping: which docs/skills/ playbooks apply to each chart and why",
+    "lifecycle-route-actions": "hook/lifecycle routes projected into machine-readable action packets: phase, action kind, required facts, evidence required, and an explicit automatic flag",
     "webhook-cert-lifecycle": "webhook serving certificate lifecycle evidence and proof boundaries",
     "secret-lifecycle": "front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state",
     "hook-coverage": "top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans",
@@ -579,6 +583,7 @@ function commandMap() {
     "lifecycle-boundary": { generate: "npm run lifecycle:boundary", verify: "npm run lifecycle:boundary:verify" },
     "lifecycle-routes": { generate: "npm run lifecycle:routes", verify: "npm run lifecycle:routes:verify" },
     "chart-skills": { generate: "npm run chart-skills", verify: "npm run chart-skills:verify" },
+    "lifecycle-route-actions": { generate: "npm run lifecycle:route-actions", verify: "npm run lifecycle:route-actions:verify" },
     "webhook-cert-lifecycle": { generate: "npm run webhook-cert:lifecycle", verify: "npm run webhook-cert:lifecycle:verify" },
     "high-fanout-demo": { generate: "npm run high-fanout:generate", verify: "npm run high-fanout:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },
