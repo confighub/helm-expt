@@ -30,7 +30,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Chart | Base | Current | Meaning | Next action |
 | --- | --- | --- | --- | --- |
-| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 
 
 ## Lane Breakdown
@@ -62,7 +62,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-| runtime-review | 1 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| gitops-runtime-review | 1 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -113,7 +113,7 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | target-runtime: pod config/runtime errors (parity passed) | [`recipes/hashicorp/consul/2.0.0/runtime-review.yaml`](../../recipes/hashicorp/consul/2.0.0/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node` |
+| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml`](../../recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node` |
 
 
 

@@ -13,9 +13,9 @@ that path is the operation under review.
 ```text
 large rows: 6
 minimum ConfigHub OCI objects: 50
-latest observed receipt: 2026-06-14T13:11:10Z
+latest observed receipt: 2026-06-14T14:36:32Z
 complete: 5
-workload-convergence: 1
+controller-health-watch: 1
 ```
 
 ## Rows
@@ -24,7 +24,7 @@ workload-convergence: 1
 | --- | --- | --- | ---: | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | `default` | pass | 50 |  | complete | Synced/Healthy | pass |  |  |  | gitops-operation-elapsed; confighub-upload-elapsed | [receipt](../../runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml) | Add upload/apply elapsed-time evidence in the next live run so this pass also proves progress visibility. |
 | `hashicorp/consul@2.0.0` | `default-control-plane` | pass | 69 |  | complete | Synced/Healthy | pass |  |  |  | gitops-operation-elapsed; confighub-upload-elapsed | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml) | Add upload/apply elapsed-time evidence in the next live run so this pass also proves progress visibility. |
-| `hashicorp/consul@2.0.0` | `secure-mesh-existing-secrets` | watch | 98 | 98 | workload-convergence | Synced/Progressing | watch | upload 310.744s; unit apply 322.912s; app apply 1.504s; argo wait 422.712s | kind-three-node; 3 nodes; pass | Deployment/consul/consul-consul-connect-injector:Synced/Progressing; Deployment/consul/consul-consul-ingress-gateway:Synced/Progressing; Deployment/consul/consul-consul-mesh-gateway:Synced/Progressing; Deployment/consul/consul-consul-terminating-gateway:Synced/Progressing; Ingress/consul/consul-consul-ui:Synced/Progressing; Job/consul/consul-consul-server-acl-init:Synced/Progressing; StatefulSet/consul/consul-consul-server:Synced/Progressing |  | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | Preserve the row as watch, name the first non-green stage, and rerun only after the target/controller policy is explicit. |
+| `hashicorp/consul@2.0.0` | `secure-mesh-existing-secrets` | watch | 98 | 98 | controller-health-watch | Synced/Progressing | pass | upload 302.519s; unit apply 326.841s; app apply 1.038s; argo wait 422.615s | kind-three-node; 3 nodes; pass | Ingress/consul/consul-consul-ui:Synced/Progressing |  | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | Keep as watch until the controller-health residue is explained or accepted for the target scope (Ingress/consul/consul-consul-ui:Synced/Progressing); add upload/apply elapsed-time evidence on rerun. |
 | `kyverno/kyverno@3.8.1` | `default` | pass | 70 |  | complete | Synced/Healthy | pass |  | none; pass |  | gitops-operation-elapsed; confighub-upload-elapsed | [receipt](../../runs/live-helm-confighub-compare/kyverno-kyverno-default/receipt.yaml) | Add upload/apply elapsed-time evidence in the next live run so this pass also proves progress visibility. |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `default` | pass | 125 |  | complete | Synced/Healthy | pass |  |  |  | gitops-operation-elapsed; confighub-upload-elapsed | [receipt](../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml) | Add upload/apply elapsed-time evidence in the next live run so this pass also proves progress visibility. |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `no-crds` | pass | 115 |  | complete | Synced/Healthy | pass | upload 234.236s; unit apply 61.145s; app apply 0.992s; argo wait 40.266s | none; pass |  |  | [receipt](../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml) | Keep the evidence fresh before using as a large-operation example. |

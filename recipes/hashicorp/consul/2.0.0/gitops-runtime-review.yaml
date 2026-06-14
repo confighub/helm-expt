@@ -10,15 +10,39 @@ spec:
   targetShape: "kind proof rig with target profile kind-three-node"
   receipt: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml"
   observedResult: "watch"
-  supersededBy: "recipes/hashicorp/consul/2.0.0/runtime-review.yaml"
-  note: "The latest live rerun moved this row from a narrow UI Ingress controller-health watch to a broader target runtime watch. Use runtime-review.yaml as the current support artifact."
   currentSummary:
     sync: "Synced"
     health: "Progressing"
     semanticParity: "pass"
     targetProfile: "pass"
-    runtime: "watch"
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciRuntime: "pass"
+    controllerResidue: "Ingress/consul/consul-consul-ui: Synced/Progressing"
+  passed:
+    - "regular Helm live leg reached readiness on a three-node kind target"
+    - "ConfigHub direct apply reached readiness on the same target"
+    - "ConfigHub OCI/Argo synced the uploaded Units"
+    - "ConfigHub OCI/Argo workloads reached readiness"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+    - "target facts were present and fresh enough for all live legs"
+  watch:
+    summary: "Argo aggregate health remains Progressing after the Consul workloads are ready."
+    likelyResidue:
+      - "Ingress/consul/consul-consul-ui: Synced/Progressing"
+    nextAction:
+      - "Inspect whether this target needs an ingress controller/load-balancer prerequisite for UI health."
+      - "If the UI Ingress is not required for the secure-mesh proof scope, split or mark it as a target-scoped limitation."
+      - "If Argo health should become Healthy on this target, rerun after modeling the missing ingress prerequisite."
+  targetFactFreshness:
+    lesson: "Target facts can expire. The failed pre-fix rerun reused generated TLS material after expiry and created a false runtime failure."
+    harnessFix: "The live harness now regenerates target-fact TLS material when the certificate is missing or within 12 hours of expiry."
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-root-tree.txt"
   notClaimed:
-    - "This file is no longer the current support artifact for the active Consul row."
-    - "The current receipt does not prove ConfigHub OCI/Argo workload convergence for Consul secure mesh on the proof target."
-    - "The current receipt does not prove that only the UI Ingress remains as controller-health residue."
+    - "This row does not prove Consul secure mesh production support for arbitrary clusters."
+    - "This row does not prove that Argo CD aggregate health should be ignored in production."
+    - "This row does not prove external gateway, ingress, ACL, backup, upgrade, or certificate rotation policy."
