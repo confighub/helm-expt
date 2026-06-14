@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 209 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 90 |
+| Live commands remaining | 208 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 89 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 11 |
-| Ready-to-run todo rows | 198 |
+| Ready-to-run todo rows | 197 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 90 |
+| `live-parity` | 89 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 198 |
+| `todo` | 197 |
 | `watch` | 11 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 198 |
+| `ready-to-run` | 197 |
 | `review-target-first` | 10 |
 
 ## Active Watch Rows
@@ -70,7 +70,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/mongodb | 19.0.9 | generated-passwords | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.0.9 --base generated-passwords |
 | bitnami/mongodb | 19.1.0 | existing-secret-replicaset | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.1.0 --base existing-secret-replicaset |
 | bitnami/mongodb | 19.1.0 | generated-passwords | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.1.0 --base generated-passwords |
 | bitnami/nginx | 24.0.4 | existing-tls-ingress | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.4 --base existing-tls-ingress |
@@ -90,6 +89,7 @@ generated priority. They are good candidates for a serial live block.
 | grafana/rollout-operator | 0.49.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/rollout-operator/0.49.0 --base default |
 | haproxytech/kubernetes-ingress | 1.52.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/haproxytech/kubernetes-ingress/1.52.0 --base default |
 | jaegertracing/jaeger | 4.8.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger/4.8.0 --base default |
+| jetstack/cert-manager-csi-driver | v0.14.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/cert-manager-csi-driver/v0.14.0 --base default |
 
 ## Full Queue
 
