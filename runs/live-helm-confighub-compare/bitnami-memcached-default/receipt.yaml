@@ -1,0 +1,1026 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-memcached-8.5.5-default-live-parity-20260605
+spec:
+  chart: bitnami/memcached
+  version: 8.5.5
+  base: default
+  result: pass
+  observedAt: '2026-06-14T22:04:57Z'
+  package:
+    path: packages/bitnami/memcached/8.5.5
+  recipe:
+    path: recipes/bitnami/memcached/8.5.5
+  variantRevision: recipes/bitnami/memcached/8.5.5/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-memcached-mqec1ec7-dfo
+    kubeContext: kind-helm-expt-parity-memcached-mqec1ec7-dfo
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-memcached-mqec1ec7-dfo --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-memcached-mqec1ec7-dfo"...
+
+        Deleting cluster "helm-expt-parity-memcached-mqec1ec7-dfo" ...
+
+        Deleted nodes: ["helm-expt-parity-memcached-mqec1ec7-dfo-control-plane"]
+
+        Deleting Space "helm-expt-parity-memcached-mqec1ec7-dfo-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install memcached memcached --repo https://charts.bitnami.com/bitnami
+        --version 8.5.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558
+      objectCount: 5
+      liveHelmManifestSHA256: a82019ba747ffcd83d67ec46fb62c4b02893f2d8524c27e2f84d250840d13cad
+      liveHelmManifestObjectCount: 5
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/memcached   1/1   1     1     17s
+        pods: memcached-9577b685d-mk6rk   1/1   Running   0     17s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/memcached/8.5.5
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-memcached-mqec1ec7-dfo-memcached
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 202eaaaee04702b8e35e8a92ec74c8ef2144d613f5f8dace5a73f3462ae49db3
+      objectCount: 6
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/memcached   1/1   1     1     10s'
+        pods: '# default
+
+          memcached-9577b685d-nqkkk   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|memcached
+          - networking.k8s.io/v1|NetworkPolicy|default|memcached
+          - policy/v1|PodDisruptionBudget|default|memcached
+          - v1|ServiceAccount|default|memcached
+          - v1|Service|default|memcached
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-memcached-mqec1ec7-dfo-memcached
+      controller: Argo CD OCI
+      app: memcached-parity
+      manifestSHA256: 06af4b1de23c3bd67b4b8f8588c1b5a36ad60d95b15408c915765c9d03657f6c
+      objectCount: 6
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-memcached-mqec1ec7-dfo-memcached
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci
+              targetRevision: latest
+          revision: sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T22:07:43Z'
+          status: Healthy
+        summary:
+          images:
+          - registry-1.docker.io/bitnami/memcached:latest
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T22:07:43Z'
+          finishedAt: '2026-06-14T22:07:45Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 6
+          syncResultStatusCounts:
+            Synced: 6
+        history:
+        - id: 0
+          revision: sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7
+          deployedAt: '2026-06-14T22:07:45Z'
+          deployStartedAt: '2026-06-14T22:07:43Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-memcached-mqec1ec7-dfo-memcached
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: memcached
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: memcached
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: memcached
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: memcached
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: memcached
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         memcached-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-memcached-mqec1ec7-dfo-cluster:argoproj.io/Application:argocd/memcached-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ a4c4aef6-232e-4644-ab44-5aa753d773aa\n              confighub.com/UnitSlug:\
+              \ memcached-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:  \
+              \       Application\nMetadata:\n  Creation Timestamp:  2026-06-14T22:07:42Z\n\
+              \  Generation:          8\n  Resource Version:    1111\n  UID:     \
+              \            1f7f76bd-4510-44bb-966a-690b035cfd8c\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-memcached\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T22:07:43Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T22:07:43Z\n    Deployed At:        2026-06-14T22:07:45Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\n\
+              \    Source:\n      Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-memcached\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T22:07:45Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\n\
+              \        Source:\n          Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-memcached\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T22:07:43Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/memcached serverside-applied\n\
+              \        Name:        memcached\n        Namespace:   default\n    \
+              \    Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       policy\n        Hook Phase:  Running\n\
+              \        Kind:        PodDisruptionBudget\n        Message:     poddisruptionbudget.policy/memcached\
+              \ serverside-applied\n        Name:        memcached\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/memcached serverside-applied\n        Name:     \
+              \   memcached\n        Namespace:   default\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       \n        Hook Phase:  Running\n        Kind:        Service\n\
+              \        Message:     service/memcached serverside-applied\n       \
+              \ Name:        memcached\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       apps\n        Hook Phase:  Running\n        Images:\n\
+              \          registry-1.docker.io/bitnami/memcached:latest\n        Kind:\
+              \        Deployment\n        Message:     deployment.apps/memcached\
+              \ serverside-applied\n        Name:        memcached\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\n\
+              \      Source:\n        Path:              ./helm-expt-parity-memcached-mqec1ec7-dfo-memcached\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T22:07:46Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       Service\n    Name:       memcached\n    Namespace:\
+              \  default\n    Status:     Synced\n    Version:    v1\n    Kind:  \
+              \     ServiceAccount\n    Name:       memcached\n    Namespace:  default\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apps\n\
+              \    Kind:       Deployment\n    Name:       memcached\n    Namespace:\
+              \  default\n    Status:     Synced\n    Version:    v1\n    Group: \
+              \     networking.k8s.io\n    Kind:       NetworkPolicy\n    Name:  \
+              \     memcached\n    Namespace:  default\n    Status:     Synced\n \
+              \   Version:    v1\n    Group:      policy\n    Kind:       PodDisruptionBudget\n\
+              \    Name:       memcached\n    Namespace:  default\n    Status:   \
+              \  Synced\n    Version:    v1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n    Images:\n      registry-1.docker.io/bitnami/memcached:latest\n\
+              \  Sync:\n    Compared To:\n      Destination:\n        Namespace: \
+              \ default-oci\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-memcached\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                         MESSAGE
+
+              10s         Normal   OperationStarted     application/memcached-parity   Initiated
+              automated sync to ''sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7''
+
+              10s         Normal   ResourceUpdated      application/memcached-parity   Updated
+              sync status:  -> OutOfSync
+
+              10s         Normal   ResourceUpdated      application/memcached-parity   Updated
+              health status:  -> Healthy
+
+              8s          Normal   OperationCompleted   application/memcached-parity   Sync
+              operation to sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7
+              succeeded
+
+              7s          Normal   ResourceUpdated      application/memcached-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 6
+              artifact:
+                path: argocd-core-child.json
+                sha256: 0fb93c5c55146f1f66ac414ea11cba13156c791a3ad1149619ec20e7ab900823
+                bytes: 11096
+              output: "{\n  \"metadata\": {\n    \"name\": \"memcached-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"1f7f76bd-4510-44bb-966a-690b035cfd8c\"\
+                ,\n    \"resourceVersion\": \"1131\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T22:07:42Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-memcached-mqec1ec7-dfo-cluster:argoproj.io/Application:argocd/memcached-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"a4c4aef6-232e-4644-ab44-5aa753d773aa\",\n      \"confighub.com/UnitSlug\"\
+                : \"memcached-parity-app\"\n    },\n    \"managedFields\": [\n   \
+                \   {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T22:07:42Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T22:08:02Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-memcached-mqec1ec7-dfo-memcached\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"memcached\",\n        \"status\": \"Synced\",\n        \"health\"\
+                : {\n          \"status\": \"Healthy\"\n        }\n      },\n    \
+                \  {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"memcached\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"memcached\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"networking.k8s.io\",\n        \"version\": \"v1\"\
+                ,\n        \"kind\": \"NetworkPolicy\",\n        \"namespace\": \"\
+                default\",\n        \"name\": \"memcached\",\n        \"status\":\
+                \ \"Synced\"\n      },\n      {\n        \"group\": \"policy\",\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"PodDisruptionBudget\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"memcached\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\",\n          \"message\": \"PodDisruptionBudget\
+                \ has SufficientPods\"\n "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: b5cca28246868b99f6e97a7bd3c6feabc00b98f6fb2bcf5d199d14c35af9392c
+                bytes: 1467
+              output: "Name:               argocd/memcached-parity\nProject:     \
+                \       default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:50730/applications/memcached-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-memcached\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                          STATUS  HEALTH \
+                \  AGE  MESSAGE                                                  \
+                \     REASON\nPodDisruptionBudget/memcached      Synced  Healthy \
+                \ 79s  poddisruptionbudget.policy/memcached serverside-applied   \
+                \    PodDisruptionBudget has SufficientPods\nNamespace/default-oci\
+                \              Synced           63s                              \
+                \                                  \nService/memcached           \
+                \       Synced  Healthy  79s  service/memcached serverside-applied\
+                \                          \nServiceAccount/memcached           Synced\
+                \           79s  serviceaccount/memcached serverside-applied     \
+                \              \nDeployment/memcached               Synced  Healthy\
+                \  79s  deployment.apps/memcached serverside-applied             \
+                \     \n\u2514\u2500ReplicaSet/memcached-9577b685d           Healthy\
+                \  79s                                                           \
+                \     \n  \u2514\u2500Pod/memcached-9577b685d-nqkkk          Healthy\
+                \  79s                                                           \
+                \     \nNetworkPolicy/memcached            Synced           79s  networkpolicy.networking.k8s.io/memcached\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-memcached-mqec1ec7-dfo-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-memcached-mqec1ec7-dfo-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              memcached-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/memcached-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-memcached-mqec1ec7-dfo-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"memcached-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-memcached-mqec1ec7-dfo-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci
+              targetRevision: latest
+          revision: sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T22:06:33Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T22:07:40Z'
+          finishedAt: '2026-06-14T22:07:42Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7
+          deployedAt: '2026-06-14T22:07:42Z'
+          deployStartedAt: '2026-06-14T22:07:40Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-memcached-mqec1ec7-dfo-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-memcached-mqec1ec7-dfo-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: memcached-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T22:06:22Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1085\n  UID:         \
+              \      a4a43656-2c39-4577-9964-51efb13edc1e\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T22:06:33Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T22:07:40Z\n\
+              \    Deployed At:        2026-06-14T22:07:42Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\n\
+              \    Source:\n      Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T22:07:42Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\n\
+              \        Source:\n          Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T22:07:40Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/memcached-parity serverside-applied\n\
+              \        Name:        memcached-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-memcached-mqec1ec7-dfo-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\n\
+              \      Source:\n        Path:              ./helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T22:07:42Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       memcached-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     99s   argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     99s   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  32s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7'\n\
+              \  Normal  ResourceUpdated     32s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  30s   argocd-application-controller  Sync operation to sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\
+              \ succeeded\n  Normal  ResourceUpdated     29s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                        MESSAGE
+
+              99s         Normal   ResourceUpdated      application/helm-expt-parity-memcached-mqec1ec7-dfo-cluster   Updated
+              sync status:  -> Synced
+
+              99s         Normal   ResourceUpdated      application/helm-expt-parity-memcached-mqec1ec7-dfo-cluster   Updated
+              health status:  -> Healthy
+
+              32s         Normal   OperationStarted     application/helm-expt-parity-memcached-mqec1ec7-dfo-cluster   Initiated
+              automated sync to ''sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7''
+
+              32s         Normal   ResourceUpdated      application/helm-expt-parity-memcached-mqec1ec7-dfo-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              30s         Normal   OperationCompleted   application/helm-expt-parity-memcached-mqec1ec7-dfo-cluster   Sync
+              operation to sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7
+              succeeded
+
+              29s         Normal   ResourceUpdated      application/helm-expt-parity-memcached-mqec1ec7-dfo-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: e1be3c74b655f4f4b3df7d90196a379a11b56582845a4f796c3afaaba73cc487
+                bytes: 10670
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-memcached-mqec1ec7-dfo-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"a4a43656-2c39-4577-9964-51efb13edc1e\"\
+                ,\n    \"resourceVersion\": \"1161\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T22:06:22Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-memcached-mqec1ec7-dfo-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-memcached-mqec1ec7-dfo-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T22:06:22Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T22:08:22Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: b6a7ef2476c044469d767645af0d4f608aeb0e89e139762dccebb1b23ca7ca11
+                bytes: 1138
+              output: "Name:               argocd/helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:50849/applications/helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-memcached-mqec1ec7-dfo-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \           STATUS  HEALTH  AGE   MESSAGE                        \
+                \                                                             REASON\n\
+                Application/helm-expt-parity-memcached-mqec1ec7-dfo-cluster  Synced\
+                \          2m8s  application.argoproj.io/helm-expt-parity-memcached-mqec1ec7-dfo-cluster\
+                \ serverside-applied  \nApplication/memcached-parity             \
+                \                    Synced          48s   application.argoproj.io/memcached-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-memcached-mqec1ec7-dfo-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-memcached-mqec1ec7-dfo-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              memcached-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/memcached-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:71f54a2c26c4d6ac9e65cd3f6baa2de0f56fe7ee5a595df5076e41e8906e9ce7\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-memcached-mqec1ec7-dfo-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"memcached-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/memcached   1/1   1     1     99s'
+        pods: '# default
+
+          memcached-9577b685d-nqkkk   1/1   Running   0     99s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T22:06:22Z'
+    finishedAt: '2026-06-14T22:06:46Z'
+    elapsedSeconds: 23.229
+    timeoutSeconds: 900
+    command: helm upgrade --install memcached memcached --repo https://charts.bitnami.com/bitnami
+      --version 8.5.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T22:06:51Z'
+    finishedAt: '2026-06-14T22:06:52Z'
+    elapsedSeconds: 0.344
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/memcached/8.5.5
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-memcached-mqec1ec7-dfo-memcached
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T22:06:52Z'
+    finishedAt: '2026-06-14T22:06:52Z'
+    elapsedSeconds: 0.124
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-memcached-mqec1ec7-dfo.kubeconfig
+      --context kind-helm-expt-parity-memcached-mqec1ec7-dfo apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/direct-apply-manifest.yaml
+    objectCount: 5
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T22:06:52Z'
+    finishedAt: '2026-06-14T22:07:02Z'
+    elapsedSeconds: 10.224
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T22:07:07Z'
+    finishedAt: '2026-06-14T22:07:08Z'
+    elapsedSeconds: 0.247
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/memcached/8.5.5
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-memcached-mqec1ec7-dfo-memcached
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T22:07:08Z'
+    finishedAt: '2026-06-14T22:07:27Z'
+    elapsedSeconds: 19.361
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-memcached-mqec1ec7-dfo-memcached
+      --space helm-expt-parity-memcached-mqec1ec7-dfo-memcached --target helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci
+    objectCount: 6
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T22:07:27Z'
+    finishedAt: '2026-06-14T22:07:28Z'
+    elapsedSeconds: 0.578
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-memcached-mqec1ec7-dfo-memcached
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T22:07:28Z'
+    finishedAt: '2026-06-14T22:07:31Z'
+    elapsedSeconds: 3.346
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-memcached-mqec1ec7-dfo-memcached
+      --unit <6 unit(s)> --wait --timeout 5m
+    unitCount: 6
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T22:07:31Z'
+    finishedAt: '2026-06-14T22:07:32Z'
+    elapsedSeconds: 0.968
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-memcached-mqec1ec7-dfo-cluster
+      memcached-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/argo-application.json
+      --target helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T22:07:32Z'
+    finishedAt: '2026-06-14T22:07:33Z'
+    elapsedSeconds: 1.134
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-memcached-mqec1ec7-dfo-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T22:07:33Z'
+    finishedAt: '2026-06-14T22:07:53Z'
+    elapsedSeconds: 20.129
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T22:08:31Z'
+    finishedAt: '2026-06-14T22:08:31Z'
+    elapsedSeconds: 0.099
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-memcached-mqec1ec7-dfo\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-memcached-mqec1ec7-dfo.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-memcached-mqec1ec7-dfo\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-memcached-mqec1ec7-dfo\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-memcached-mqec1ec7-dfo\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-memcached-mqec1ec7-dfo.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"memcached\" does not exist. Installing it now.\nNAME: memcached\n\
+      LAST DEPLOYED: Sun Jun 14 23:06:29 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: memcached\nCHART VERSION: 8.5.5\nAPP VERSION: 1.6.42\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nMemcached can\
+      \ be accessed via port 11211 on the following DNS name from within your cluster:\n\
+      \n    memcached.default-helm.svc.cluster.local\nWARNING: Rolling tag detected\
+      \ (bitnami/memcached:latest), please note that it is strongly recommended to\
+      \ avoid using rolling tags in a production environment.\n+info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bi"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/memcached   1/1   1     1     10s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

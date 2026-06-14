@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 101
+pass: 102
 watch: 9
 blocked: 0
 not-started: 0
@@ -80,6 +80,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `autoscaler/cluster-autoscaler@9.57.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
+|  | `bitnami/memcached@8.5.5` | default | pass | - | runs/live-helm-confighub-compare/bitnami-memcached-default/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
 |  | `coredns/coredns@1.45.2` | default | pass | - | runs/live-helm-confighub-compare/coredns-coredns-default/receipt.yaml |

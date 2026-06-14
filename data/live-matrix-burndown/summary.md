@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 210 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 91 |
+| Live commands remaining | 209 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 90 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 10 |
-| Ready-to-run todo rows | 200 |
+| Ready-to-run todo rows | 199 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 91 |
+| `live-parity` | 90 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 200 |
+| `todo` | 199 |
 | `watch` | 10 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 200 |
+| `ready-to-run` | 199 |
 | `review-target-first` | 9 |
 
 ## Active Watch Rows
@@ -69,7 +69,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/memcached | 8.5.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/memcached/8.5.5 --base default |
 | bitnami/mongodb | 19.0.9 | existing-secret-replicaset | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.0.9 --base existing-secret-replicaset |
 | bitnami/mongodb | 19.0.9 | generated-passwords | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.0.9 --base generated-passwords |
 | bitnami/mongodb | 19.1.0 | existing-secret-replicaset | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.1.0 --base existing-secret-replicaset |
@@ -89,6 +88,7 @@ generated priority. They are good candidates for a serial live block.
 | fluent/fluentd | 0.5.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default |
 | grafana/pyroscope | 2.0.2 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base no-crds |
 | grafana/rollout-operator | 0.49.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/rollout-operator/0.49.0 --base default |
+| haproxytech/kubernetes-ingress | 1.52.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/haproxytech/kubernetes-ingress/1.52.0 --base default |
 
 ## Full Queue
 
