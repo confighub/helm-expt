@@ -146,7 +146,7 @@
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>hashicorp/consul</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-14T09:11:38.712Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-14T09:17:49.398Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=consul&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for hashicorp/consul@2.0.0.</p>
     <pre>cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir &lt;tmp&gt; --non-interactive --namespace consul</pre>
@@ -171,6 +171,32 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
+    </section>
+
+    <section aria-labelledby="playbooks">
+      <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
+      <p>This is the quick route for a human or agent: which operating playbook applies, what the current user-facing answer is, and what the next proof or product action would add.</p>
+      <div class="card"><table>
+        <thead><tr><th>Playbook</th><th>Why it applies</th></tr></thead>
+        <tbody><tr><td><a href="../../docs/skills/serious-chart-playbooks.md">Serious Chart Playbooks</a></td><td>a named hard chart, or one that combines CRDs and admission webhooks</td></tr><tr><td><a href="../../docs/skills/hook-and-secret-lifecycle.md">Hook And Secret Lifecycle</a></td><td>uses Helm hooks, generated Secret material, or webhook certificates</td></tr><tr><td><a href="../../docs/skills/target-facts-and-lifecycle.md">Target Facts And Lifecycle</a></td><td>needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply</td></tr><tr><td><a href="../../docs/skills/large-app-evidence-funnel.md">Large App Evidence Funnel</a></td><td>renders many Units, so a single pass/fail can hide where an operation is stuck</td></tr><tr><td><a href="../../docs/skills/live-parity.md">Live Parity</a></td><td>has live, GitOps/OCI, or two-cluster parity work</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <div class="card"><table>
+        <thead><tr><th>Fact</th><th>Current chart-level route</th></tr></thead>
+        <tbody><tr><td>User status</td><td>ready-to-try</td></tr><tr><td>Can I use it?</td><td>yes-public-catalog</td></tr><tr><td>First base</td><td>default-control-plane</td></tr><tr><td>Current proof</td><td>catalog-supported-with-live-evidence (render parity 2/2, local live 1/2, live parity 1/2)</td></tr><tr><td>Coverage</td><td>covered</td></tr><tr><td>User must provide</td><td>a StorageClass / storage decision; webhook/cert readiness at delivery time; mandatory chart inputs</td></tr><tr><td>ConfigHub/installer absorbs</td><td>exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision</td></tr><tr><td>Next action</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Source data: <a href="../../data/chart-skills/summary.md">chart skills</a> and <a href="../../data/chart-evidence-router/summary.md">chart evidence router</a>.</p>
     </section>
 
     <section aria-labelledby="proof">
@@ -239,7 +265,7 @@
       <h2 id="files">Files To Inspect</h2>
       <div class="card"><table>
         <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/hashicorp/consul/2.0.0/CATALOG.md">recipes/hashicorp/consul/2.0.0/CATALOG.md</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/hashicorp/consul/2.0.0/recipe.yaml">recipes/hashicorp/consul/2.0.0/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/hashicorp/consul/2.0.0">packages/hashicorp/consul/2.0.0</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml">recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Support decision</td><td><a href="../../data/production-support-decisions/hashicorp-consul/support-decision.yaml">data/production-support-decisions/hashicorp-consul/support-decision.yaml</a></td></tr><tr><td>Top-20 base readiness</td><td><a href="../../data/top20-base-readiness/summary.md">data/top20-base-readiness/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
+        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/hashicorp/consul/2.0.0/CATALOG.md">recipes/hashicorp/consul/2.0.0/CATALOG.md</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/hashicorp/consul/2.0.0/recipe.yaml">recipes/hashicorp/consul/2.0.0/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/hashicorp/consul/2.0.0">packages/hashicorp/consul/2.0.0</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml">recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Support decision</td><td><a href="../../data/production-support-decisions/hashicorp-consul/support-decision.yaml">data/production-support-decisions/hashicorp-consul/support-decision.yaml</a></td></tr><tr><td>Top-20 base readiness</td><td><a href="../../data/top20-base-readiness/summary.md">data/top20-base-readiness/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
