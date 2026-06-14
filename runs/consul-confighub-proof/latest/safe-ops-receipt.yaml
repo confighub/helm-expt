@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-consul-consul-consul-server --space helm-consul-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-consul-consul-consul-server"
-    output: "Unit statefulset-consul-consul-consul-server (f905c29f-ce34-40ee-9f29-9b1697edafe8) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-consul-consul-consul-server (59110bf0-8086-4976-9f93-a5494f69275f) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-consul-confighub-proof --where \"Labels.Proof = 'consul-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req hJqRhXEdrjNfZxWOTldkRXfOKooJYJFt: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req HkWMWDTsGMqWtMgVnFtfzlHNivJAPasC: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-consul-confighub-proof --where \"Labels.Proof = 'consul-confighub-proof'\""
     result: "pass"

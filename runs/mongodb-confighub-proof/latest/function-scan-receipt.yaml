@@ -18,36 +18,36 @@ spec:
   unitRevisionBindings:
     -
       slug: "configmap-mongodb-mongodb-common-scripts"
-      headRevisionNum: 2
-      dataHash: "94003cff34517d7cb25be2d201777e4a8c2ddf40992282efa2ca0e859ef41583"
+      headRevisionNum: 1
+      dataHash: "a5ea8dba853990c2fa38037a78aa2921fb1e8cbfe0b64974c287594ae56a7508"
     -
       slug: "deployment-mongodb-mongodb"
       headRevisionNum: 2
-      dataHash: "f5712389237a355bfa44d59627e86885f8045947d3ad2d1bd79ac7c97d446109"
+      dataHash: "85bd060dc670173c9ba934dcfb8062033184ee34f46f8a231c1f425bd4a85855"
     -
       slug: "namespace-mongodb"
-      headRevisionNum: 2
-      dataHash: "c72466458cb74726c7bf6b8ec9768ab9ad916ba5becb5d2d28bb82ec177d5472"
+      headRevisionNum: 1
+      dataHash: "c751a44455ca0060ed8f90690a55d232c3dde2253ce3d755b5aa678ccfebfd90"
     -
       slug: "networkpolicy-mongodb-mongodb"
       headRevisionNum: 2
-      dataHash: "98c6fb0b96f15033b720f383fc4eacd0dfb68bc31c85d13128356ad1f2c14342"
-    -
-      slug: "persistentvolumeclaim-mongodb-mongodb"
-      headRevisionNum: 2
-      dataHash: "4f3b19a7d0b9f33cd3464b94842c4edb668283f8fbdfd6b3ad350892a018d1aa"
-    -
-      slug: "poddisruptionbudget-mongodb-mongodb"
-      headRevisionNum: 2
-      dataHash: "9249929e78225b5b2c8c50026dae051ac30b33fdcead49c7c368def83d0a227f"
-    -
-      slug: "serviceaccount-mongodb-mongodb"
-      headRevisionNum: 2
-      dataHash: "cf205980b97d4636675278e17a30acf0a240536cf041d9e548aaef4634ecd4d4"
+      dataHash: "1e6e9a28816e20e223ae381902ebf487c34a82170674c3a0346eb23bfa080677"
     -
       slug: "service-mongodb-mongodb"
       headRevisionNum: 2
-      dataHash: "dca72ae7ca604ed1d037d8f6f70c7a5615dccc89e8c150df75f8c23550000752"
+      dataHash: "e99d16b8dc060ea96677605dc6c169427afdbc4e6c27fa0da5cd173a1170ce8d"
+    -
+      slug: "serviceaccount-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "94325236cd62e7fa50cb451463e7c28741c82fc8bdf36c8da13f18b9fcfd92da"
+    -
+      slug: "persistentvolumeclaim-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "77aeb8ee19aef25b42b514a8c0eba5f7b7472fbcce888df88b4ae0c13db0ff0b"
+    -
+      slug: "poddisruptionbudget-mongodb-mongodb"
+      headRevisionNum: 1
+      dataHash: "92d4aaceea7ac44216330f9f1ef1125a9a944c749d1fb8bc3f83a4abb91028eb"
   validations:
     -
       function: "vet-format"

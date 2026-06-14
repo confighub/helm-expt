@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-loki-loki --space helm-loki-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-loki-loki"
-    output: "Unit statefulset-loki-loki (25a4c68a-cfb2-4a81-957e-28546f8b5f90) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-loki-loki (acf8269b-8e0c-4122-a282-c8f9e05d930e) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-loki-confighub-proof --where \"Labels.Proof = 'loki-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req pajxqxMeKBMsHaRGxQiOhmKAXZjmnheE: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req FkkgYKNZZxTJuhWvMModDCRlIALpDnWs: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-loki-confighub-proof --where \"Labels.Proof = 'loki-confighub-proof'\""
     result: "pass"

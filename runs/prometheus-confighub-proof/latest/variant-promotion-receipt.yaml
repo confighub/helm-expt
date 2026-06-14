@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "prometheus-server-only-ephemeral-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.8.0"
+    packagePath: "packages/prometheus-community/prometheus/29.8.0"
+    variant: "server-only-ephemeral"
+    upstreamSpace: "helm-prometheus-confighub-proof"
+    downstreamSpace: "Prometheus-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-monitoring-prometheus-server runs/prometheus-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-prometheus-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-prometheus-server-only-ephemeral runs/prometheus-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-prometheus-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Prometheus-staging --dry-run -o mutations"
+    changeset: "cub changeset create prometheus-server-only-ephemeral-variant-promote-20260527 --space Prometheus-staging --description ... --allow-exists"
+    promote: "cub variant promote Prometheus-staging --changeset Prometheus-staging/prometheus-server-only-ephemeral-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Prometheus-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-monitoring-prometheus-server"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=prometheus-server-only-ephemeral-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-prometheus-server-only-ephemeral"
+    upstreamUnitID: "b7de7660-76e0-4b1d-bb84-ae892bc71654"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-prometheus-server-only-ephemeral"
+  changeset:
+    slug: "prometheus-server-only-ephemeral-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset prometheus-server-only-ephemeral-variant-promote-20260527 (9d80bb8a-fff3-43d3-9d92-6af9ac066c84)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-monitoring-prometheus-server\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-prometheus-server-only-ephemeral\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-prometheus-server-only-ephemeral"
+    addedUnitDownstreamUpstreamUnitID: "b7de7660-76e0-4b1d-bb84-ae892bc71654"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

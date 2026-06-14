@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "secrets-store-csi-driver-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+    chartVersion: "1.6.0"
+    packagePath: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+    variant: "default"
+    upstreamSpace: "helm-secrets-store-csi-driver-confighub-proof"
+    downstreamSpace: "SecretsStoreCSIDriver-staging"
+  commands:
+    upstreamUpdate: "cub unit update daemonset-kube-system-secrets-store-csi-driver runs/secrets-store-csi-driver-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-secrets-store-csi-driver-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-secrets-store-csi-driver-default runs/secrets-store-csi-driver-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-secrets-store-csi-driver-confighub-proof --allow-exists"
+    dryRun: "cub variant promote SecretsStoreCSIDriver-staging --dry-run -o mutations"
+    changeset: "cub changeset create secrets-store-csi-driver-default-variant-promote-20260527 --space SecretsStoreCSIDriver-staging --description ... --allow-exists"
+    promote: "cub variant promote SecretsStoreCSIDriver-staging --changeset SecretsStoreCSIDriver-staging/secrets-store-csi-driver-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote SecretsStoreCSIDriver-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "daemonset-kube-system-secrets-store-csi-driver"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=secrets-store-csi-driver-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-secrets-store-csi-driver-default"
+    upstreamUnitID: "767f77e0-4c09-4fd9-95a5-a326a03bf351"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-secrets-store-csi-driver-default"
+  changeset:
+    slug: "secrets-store-csi-driver-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset secrets-store-csi-driver-default-variant-promote-20260527 (65a4a5d9-b4e6-4288-b6ac-fd7b14a1741e)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: daemonset-kube-system-secrets-store-csi-driver\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-secrets-store-csi-driver-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-secrets-store-csi-driver-default"
+    addedUnitDownstreamUpstreamUnitID: "767f77e0-4c09-4fd9-95a5-a326a03bf351"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

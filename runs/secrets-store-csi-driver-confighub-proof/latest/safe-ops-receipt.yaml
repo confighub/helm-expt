@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve daemonset-kube-system-secrets-store-csi-driver --space helm-secrets-store-csi-driver-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "daemonset-kube-system-secrets-store-csi-driver"
-    output: "Unit daemonset-kube-system-secrets-store-csi-driver (4388f148-41f6-4bd7-94b4-e5945dbc1ff1) has been approved\nAwaiting triggers..."
+    output: "Unit daemonset-kube-system-secrets-store-csi-driver (b9f9a29e-c85e-4d83-8549-7ad4664b5185) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-secrets-store-csi-driver-confighub-proof --where \"Labels.Proof = 'secrets-store-csi-driver-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req zjLUxSoFsoltcyrrPcgTgHdVeOiBdhmM: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req iPAlUojPjDVgtkiGTXLypjRHiDFenBnk: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-secrets-store-csi-driver-confighub-proof --where \"Labels.Proof = 'secrets-store-csi-driver-confighub-proof'\""
     result: "pass"

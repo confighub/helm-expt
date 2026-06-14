@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-longhorn-system-longhorn-driver-deployer --space helm-longhorn-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-longhorn-system-longhorn-driver-deployer"
-    output: "Unit deployment-longhorn-system-longhorn-driver-deployer (f2d4bc6b-00e8-4a87-a1e4-ab9706087263) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-longhorn-system-longhorn-driver-deployer (c555eeb6-c615-4ec6-b92c-9c99a6a3c62f) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-longhorn-confighub-proof --where \"Labels.Proof = 'longhorn-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req dNhRfPUlNUVQXoaoWMRaIzMIJqMptgGx: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req bWKOAcxcLCdSLMuignMZVtqxqTZjKoPB: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-longhorn-confighub-proof --where \"Labels.Proof = 'longhorn-confighub-proof'\""
     result: "pass"

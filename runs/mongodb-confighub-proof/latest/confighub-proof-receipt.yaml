@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.49"
+      cubServerVersion: "v0.1.79"
   package:
     path: "packages/bitnami/mongodb/19.0.7"
     name: "bitnami-mongodb"
@@ -40,7 +40,14 @@ spec:
         mode: "not-required"
         result: "pass"
       targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
         requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
           []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/mongodb-generated-passwords"
@@ -49,7 +56,7 @@ spec:
     separatedSecretCount: 1
   deterministicPackage:
     command: "cub installer package packages/bitnami/mongodb/19.0.7 -o .tmp/confighub-proof/mongodb-archives/mongodb-a.tgz"
-    sha256: "1141401fc1491b494dbc9c41a87864b0be6fb27f0e6ae28d95555bcd1fa0917f"
+    sha256: "8898fd34364167b0b8bb70c7c7b9b7a9ed078ed818f2b411af6f170427996662"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/mongodb-generated-passwords"
@@ -71,13 +78,21 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/mongodb-generated-passwords"
     result: "pass"
-    summary: "No changes.\nImages in helm-mongodb-confighub-proof (post-render):\n  init  Deployment/mongodb [log-dir] registry-1.docker.io/bitnami/mongodb:latest\n      Deployment/mongodb [mongodb] registry-1.docker.io/bitnami/mongodb:latest"
+    summary: "No changes.\nImages in helm-mongodb-confighub-proof (post-render):\n  init  Deployment/mongodb [log-dir] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\n      Deployment/mongodb [mongodb] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
   serverSideVariant:
-    command: "cub variant create staging helm-mongodb-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-mongodb-confighub-proof --environment Staging --region local --namespace mongodb --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-mongodb-confighub-proof"
-    downstreamSpace: "helm-mongodb-confighub-proof-staging"
+    downstreamSpace: "MongoDB-staging"
     clonedUnitCount: 9
+    namespace: "mongodb"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "watch"
+    reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
@@ -89,7 +104,7 @@ spec:
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
     spaces:
       - "helm-mongodb-confighub-proof"
-      - "helm-mongodb-confighub-proof-staging"
+      - "MongoDB-staging"
   observedFriction:
     - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
