@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 92
+pass: 93
 watch: 7
 blocked: 0
 not-started: 0
@@ -48,6 +48,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 5 | `external-secrets/external-secrets@2.5.0` | no-crds | pass | - | runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/receipt.yaml |
 | 6 | `argo-cd/argo-cd@9.5.17` | default | watch | gitops-runtime: child Argo Application not materialized (parity passed) | runs/live-helm-confighub-compare/argo-cd-argo-cd-default-9-5-17/receipt.yaml |
 | 6 | `argo-cd/argo-cd@9.5.15` | no-crds | pass | - | runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/receipt.yaml |
+| 6 | `argo-cd/argo-cd@9.5.17` | no-crds | pass | - | runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds-9-5-17/receipt.yaml |
 | 7 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | pass | - | runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
 | 8 | `bitnami/postgresql@18.6.7` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/receipt.yaml |
 | 9 | `bitnami/rabbitmq@16.0.14` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-rabbitmq-existing-secret/receipt.yaml |
