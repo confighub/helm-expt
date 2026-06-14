@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-14T08:56:17.800Z",
+  "generatedAt": "2026-06-14T09:11:38.712Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -27,7 +27,8 @@
     "productionSupportDecisions": "data/production-support-decisions/decisions.csv",
     "hardChartProductionPackets": "data/hard-chart-production-packets/summary.md",
     "scanDisposition": "data/scan-disposition-workdown/workdown.csv",
-    "highFanout": "data/high-fanout-demo/prometheus-kps.csv"
+    "highFanout": "data/high-fanout-demo/prometheus-kps.csv",
+    "lifecycleRoutes": "data/lifecycle-routes/routes.json"
   },
   "commandRoutes": [
     {

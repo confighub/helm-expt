@@ -9,6 +9,7 @@ const indexPath = join(siteRoot, "index.html");
 const offeringPath = join(siteRoot, "offering.html");
 const tryPath = join(siteRoot, "try.html");
 const proofPath = join(siteRoot, "proof.html");
+const hooksPath = join(siteRoot, "hooks.html");
 const tiersPath = join(siteRoot, "tiers.html");
 const journeyPath = join(siteRoot, "journey.html");
 const day1OperationsPath = join(siteRoot, "day1-operations.html");
@@ -53,6 +54,7 @@ if (mode === "--generate") {
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
   write(proofPath, site.proofHtml);
+  write(hooksPath, site.hooksHtml);
   write(tiersPath, site.tiersHtml);
   write(journeyPath, site.journeyHtml);
   write(day1OperationsPath, site.day1OperationsHtml);
@@ -70,6 +72,7 @@ if (mode === "--generate") {
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
   check(existsSync(proofPath), "site/proof.html is missing; run npm run site:generate");
+  check(existsSync(hooksPath), "site/hooks.html is missing; run npm run site:generate");
   check(existsSync(tiersPath), "site/tiers.html is missing; run npm run site:generate");
   check(existsSync(journeyPath), "site/journey.html is missing; run npm run site:generate");
   check(existsSync(day1OperationsPath), "site/day1-operations.html is missing; run npm run site:generate");
@@ -81,6 +84,7 @@ if (mode === "--generate") {
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
   check(readFileSync(proofPath, "utf8") === site.proofHtml, "site/proof.html is stale");
+  check(readFileSync(hooksPath, "utf8") === site.hooksHtml, "site/hooks.html is stale");
   check(readFileSync(tiersPath, "utf8") === site.tiersHtml, "site/tiers.html is stale");
   check(readFileSync(journeyPath, "utf8") === site.journeyHtml, "site/journey.html is stale");
   check(readFileSync(day1OperationsPath, "utf8") === site.day1OperationsHtml, "site/day1-operations.html is stale");
@@ -210,6 +214,7 @@ function buildSite(generatedAt) {
       hardChartProductionPackets: "data/hard-chart-production-packets/summary.md",
       scanDisposition: "data/scan-disposition-workdown/workdown.csv",
       highFanout: "data/high-fanout-demo/prometheus-kps.csv",
+      lifecycleRoutes: "data/lifecycle-routes/routes.json",
     },
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
@@ -280,6 +285,7 @@ function buildSite(generatedAt) {
     offeringHtml: offeringHtml(catalog),
     tryHtml: tryHtml(catalog),
     proofHtml: proofHtml(catalog),
+    hooksHtml: hooksHtml(catalog),
     tiersHtml: tiersHtml(catalog),
     journeyHtml: journeyHtml(catalog),
     day1OperationsHtml: day1OperationsHtml(catalog),
@@ -448,7 +454,7 @@ function html(catalog) {
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     ${generatedStamp(catalog, "public catalog dashboard")}
     <p class="tagline">helm-expt ports popular public Helm charts to reviewed <code>cub installer</code> packages without changing the supported end-to-end semantics. The result is explicit config: named base variants, rendered objects, target prerequisites, scans, gates, live evidence, and a receipt behind every claim.</p>
@@ -876,7 +882,7 @@ function offeringHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
     ${generatedStamp(catalog, "offering page")}
     <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
@@ -1066,7 +1072,7 @@ function tryHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Try the catalog in three short paths.</h1>
     ${generatedStamp(catalog, "try-now page")}
     <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
@@ -1251,7 +1257,7 @@ function proofHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>Proof, not promises.</h1>
     ${generatedStamp(catalog, "proof page")}
     <p class="tagline">This page explains what the catalog proves, what each lane means, and where the proof stops. It is intentionally narrower than a marketing claim.</p>
@@ -1313,6 +1319,105 @@ function proofHtml(catalog) {
 `;
 }
 
+function hooksHtml(catalog) {
+  const routes = catalog.lifecycleRoutes;
+  const dispositionCounts = countBy(routes, "disposition");
+  const executionCounts = countBy(routes, "execution_mode");
+  const autoCount = routes.filter((row) => isTruthyRouteFlag(row.safe_as_automatic)).length;
+  const chartCount = new Set(routes.map((row) => `${row.chart}@${row.version}`)).size;
+  const dispositionRows = Object.entries(dispositionCounts).map(([label, count]) => [label, String(count), dispositionMeaning(label)]);
+  const executionRows = Object.entries(executionCounts).map(([label, count]) => [label, String(count), executionModeMeaning(label)]);
+  const routeRows = routes.map((row) => [
+    `${row.chart}@${row.version}`,
+    row.quirk_class,
+    row.disposition,
+    row.route_name,
+    row.execution_mode,
+    isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
+    shortLifecycleEvidence(row.evidence_or_next_action),
+  ]);
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hooks & Lifecycle · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <h1>Where do Helm hooks and lifecycle behavior go?</h1>
+    ${generatedStamp(catalog, "hooks and lifecycle page")}
+    <p class="tagline">The catalog does not pretend Helm hooks are ordinary static YAML. It names the lifecycle behavior, the route, who executes it, and whether the product executes it automatically.</p>
+    <p>Today a routed behavior means the route and off-ramp are visible. It does not mean universal automatic hook execution. A row becomes automatic only when the execution mode is product-owned and evidence proves that path.</p>
+  </header>
+  <main>
+    <section aria-labelledby="headline">
+      <h2 id="headline">Current Lifecycle Route Contract</h2>
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(routes.length)}</strong><span>route rows from committed lifecycle data</span></div>
+        <div class="metric"><strong>${escapeHtml(chartCount)}</strong><span>chart/version lifecycle behaviors represented</span></div>
+        <div class="metric"><strong>${escapeHtml(autoCount)}</strong><span>rows safe to present as automatic</span></div>
+        <div class="metric"><strong><a href="../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
+        <div class="metric"><strong><a href="./matrix.html">matrix</a></strong><span>route signal beside each catalog row</span></div>
+      </div>
+      <p>The low automatic count is deliberate. It keeps the public claim honest while still making the route useful to humans and agents.</p>
+    </section>
+
+    <section aria-labelledby="meanings">
+      <h2 id="meanings">Disposition Means Claim</h2>
+      ${markdownLikeTable([
+        ["Disposition", "Rows", "Meaning"],
+        ...dispositionRows,
+      ])}
+      <p><a href="../docs/reference/what-hook-support-means.md">Read the reference vocabulary</a> for the exact claim and refusal attached to each word.</p>
+    </section>
+
+    <section aria-labelledby="execution">
+      <h2 id="execution">Execution Mode Means Who Runs It</h2>
+      ${markdownLikeTable([
+        ["Execution mode", "Rows", "Meaning"],
+        ...executionRows,
+      ])}
+      <p>This is the important split for Helm users. Helm may run a hook implicitly. The catalog must say whether ConfigHub runs it, the target owns it, the user runs it as an explicit lifecycle action, or the route is not executable yet.</p>
+    </section>
+
+    <section aria-labelledby="route">
+      <h2 id="route">How To Read A Route</h2>
+      ${simpleList([
+        ["Quirk", "What kind of lifecycle behavior was found: hook phase, CRD install, target fact, webhook readiness, or a related class."],
+        ["Route", "Where the behavior belongs: preflight, presync, managed action, target-owned controller behavior, post-apply observation, or refusal."],
+        ["Off-ramp", "How a human or agent chooses an alternative route when the default is not right for the target."],
+        ["Evidence", "A receipt path when observed, or the next action when the route is still todo, per-target, or blocked by prerequisite work."],
+      ])}
+    </section>
+
+    <section aria-labelledby="rows">
+      <h2 id="rows">Route Rows</h2>
+      ${markdownLikeTable([
+        ["Chart", "Quirk", "Disposition", "Route", "Execution", "Auto", "Evidence or next action"],
+        ...routeRows,
+      ])}
+    </section>
+
+    <section aria-labelledby="next">
+      <h2 id="next">What To Do With This</h2>
+      <div class="grid">
+        <div class="card"><h3>Trying a chart</h3><p>Open the chart page or matrix row. If lifecycle behavior exists, check the route and executor before treating a green render as a live install claim.</p></div>
+        <div class="card"><h3>Creating a base</h3><p>If the behavior changes rendered objects or Helm values, create a recipe/base variant. If it is post-render operation, route it through ConfigHub or a target-owned controller.</p></div>
+        <div class="card"><h3>Using GitOps</h3><p>Use Argo or Flux only when the route says the controller owns that lifecycle step or the receipt proves the selected sync path.</p></div>
+        <div class="card"><h3>Automating later</h3><p>Do not mark a route automatic until product execution and evidence exist. Until then, keep the explicit route and off-ramp visible.</p></div>
+        <div class="card"><h3>Finding evidence</h3><p>Use <a href="../data/lifecycle-routes/routes.json">routes.json</a>, <a href="../data/lifecycle-routes/summary.md">summary.md</a>, and the chart page's Hooks &amp; Lifecycle section.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer>Generated from helm-expt lifecycle route data. Route visibility is not an automatic execution claim.</footer>
+</body>
+</html>
+`;
+}
+
 function tiersHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const tierRows = [
@@ -1353,7 +1458,7 @@ function tiersHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>Free to inspect. Managed when it becomes your estate.</h1>
     ${generatedStamp(catalog, "tiers page")}
     <p class="tagline">The free path must be genuinely useful: browse public charts, inspect variants, pull public artifacts where available, and verify proof locally. Paid starts when the service stores private inputs, creates private variants, runs managed workflows, or carries production responsibility.</p>
@@ -1517,7 +1622,7 @@ function journeyHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>From a one-line try-out to a managed estate.</h1>
     ${generatedStamp(catalog, "user journey")}
     <p class="tagline">One path, six stages. Each stage names the exact action, what you get, and whether it is free, needs an account, or is paid — so you always know where the proof boundary and the price boundary are. The free stages are genuinely useful on their own; nothing here is a teaser that stops working until you pay.</p>
@@ -1668,7 +1773,7 @@ function day1OperationsHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>Day-1 operations — the work between a first variant and a running estate.</h1>
     ${generatedStamp(catalog, "day-1 operations")}
     <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs — each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
@@ -1708,7 +1813,7 @@ function chartIndexHtml(catalog) {
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>Catalog Chart Pages</h1>
     ${generatedStamp(catalog, "chart index")}
     <p class="tagline">One public page per catalog-supported chart: base variants, proof lanes, production boundary, quirks, and artifact links.</p>
@@ -1806,7 +1911,7 @@ function chartPageHtml(catalog, entry) {
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>${escapeHtml(entry.chart)}</h1>
     ${generatedStamp(catalog, "chart status page")}
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
@@ -2054,6 +2159,36 @@ function commandRoutes() {
       path: "post-render-configHub-variant",
     },
   ];
+}
+
+function dispositionMeaning(value) {
+  return {
+    observed: "The selected lifecycle behavior has committed evidence.",
+    routed: "The route, executor, and off-ramp are named; automatic execution is not implied.",
+    "per-target": "The target class must choose or approve the route before a stronger claim.",
+    refused: "The catalog deliberately does not support this behavior through the current path.",
+    todo: "The behavior is known, but the route or evidence still needs work.",
+  }[value] ?? "Review the lifecycle route contract before using this row.";
+}
+
+function executionModeMeaning(value) {
+  return {
+    "product-executes": "The product owns the lifecycle action and evidence must prove it.",
+    "user-executes": "The user runs the lifecycle action explicitly, with receipts or checks where available.",
+    "target-owned": "The Kubernetes target, GitOps controller, or another controller owns the behavior.",
+    "not-yet-executable": "The route is modeled, but no executable product path is claimed yet.",
+  }[value] ?? "Review the route contract before using this mode.";
+}
+
+function isTruthyRouteFlag(value) {
+  return value === true || String(value).toLowerCase() === "yes";
+}
+
+function shortLifecycleEvidence(value) {
+  const text = String(value ?? "");
+  if (!text) return "";
+  const first = text.split("|")[0].trim();
+  return first.length > 120 ? `${first.slice(0, 117)}...` : first;
 }
 
 function metricValue(row) {
@@ -2332,6 +2467,7 @@ npm run site:verify
 Open \`site/index.html\` first for the public launch front door.
 Open \`site/try.html\` for the short try-now page.
 Open \`site/proof.html\` for the proof lanes, sceptic tests, and refusal boundary.
+Open \`site/hooks.html\` for hook and lifecycle route dispositions.
 Open \`site/tiers.html\` for the free, authenticated, managed, and enterprise tier shape.
 Open \`site/offering.html\` for the longer public offering page.
 Open \`docs/user/choose-your-path.md\` for the direct render, one-shot upload,
