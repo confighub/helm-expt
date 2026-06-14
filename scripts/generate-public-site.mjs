@@ -1728,6 +1728,27 @@ function chartIndexHtml(catalog) {
 `;
 }
 
+function executionModePlain(mode) {
+  return {
+    "product-executes": "Runs automatically",
+    "user-executes": "You run it",
+    "target-owned": "Your cluster runs it",
+    "not-yet-executable": "Not automated yet",
+  }[mode] ?? mode;
+}
+
+function evidenceDepthSummary(lanes) {
+  const fullyPass = (status) => /^pass: \d+\/\d+$/.test(status);
+  const proven = lanes.filter(([, status]) => fullyPass(status)).map(([name]) => name);
+  const partial = lanes.filter(([, status]) => status.includes("pass:") && !fullyPass(status)).map(([name]) => name);
+  const notYet = lanes.filter(([, status]) => !status.includes("pass:") && !/^n\/a: \d+\/\d+$/.test(status)).map(([name]) => name);
+  const parts = [];
+  if (proven.length) parts.push(`Fully proven: ${proven.join(", ")}.`);
+  if (partial.length) parts.push(`Proven on some bases: ${partial.join(", ")}.`);
+  if (notYet.length) parts.push(`Not yet tested: ${notYet.join(", ")} — a fresh cluster run would prove these.`);
+  return parts.join(" ") || "No lane evidence recorded yet.";
+}
+
 function chartPageHtml(catalog, entry) {
   const chartKey = `${entry.chart}@${entry.version}`;
   const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
@@ -1771,7 +1792,7 @@ function chartPageHtml(catalog, entry) {
   const lifecycleRows = lifecycleRoutes.map((row) => [
     row.quirk_class,
     row.route_name,
-    row.execution_mode,
+    executionModePlain(row.execution_mode),
     (row.alternatives ?? []).map((alt) => alt.route).join(", ") || "—",
     row.safe_as_automatic ? "yes" : "no",
   ]);
@@ -1815,6 +1836,7 @@ function chartPageHtml(catalog, entry) {
     <section aria-labelledby="proof">
       <h2 id="proof">Proof Lanes</h2>
       <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
+      <p><strong>How much is proven, and what more testing would add:</strong> ${evidenceDepthSummary(lanes)}</p>
       ${markdownLikeTable([
         ["Lane", "Status across bases"],
         ...lanes,
@@ -1840,7 +1862,7 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks &amp; Lifecycle Routes</h2>
-      <p>Where each hook or hook-like behavior goes, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Full contract: <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
+      <p>Where each hook or hook-like behavior goes, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Details (optional): <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
       ${lifecycleRows.length
         ? markdownLikeTable([
             ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],

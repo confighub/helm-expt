@@ -146,7 +146,7 @@
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>ingress-nginx/ingress-nginx</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-14T08:20:05.279Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-14T08:35:56.056Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=ingress-nginx&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for ingress-nginx/ingress-nginx@4.15.1.</p>
     <pre>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</pre>
@@ -176,6 +176,7 @@
     <section aria-labelledby="proof">
       <h2 id="proof">Proof Lanes</h2>
       <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
+      <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind.</p>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
         <tbody><tr><td>Render parity</td><td>pass: 3/3</td></tr><tr><td>ConfigHub proof</td><td>pass: 3/3</td></tr><tr><td>Local live</td><td>pass: 3/3</td></tr><tr><td>GitOps/OCI live</td><td>pass: 3/3</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>pass: 3/3</td></tr><tr><td>Two-cluster kind</td><td>pass: 3/3</td></tr></tbody>
@@ -215,7 +216,7 @@
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks &amp; Lifecycle Routes</h2>
-      <p>Where each hook or hook-like behavior goes, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Full contract: <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
+      <p>Where each hook or hook-like behavior goes, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Details (optional): <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
       <p>No hook or hook-like lifecycle behavior is recorded for this chart.</p>
     </section>
 
