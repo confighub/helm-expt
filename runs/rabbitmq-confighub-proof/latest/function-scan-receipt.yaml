@@ -18,40 +18,40 @@ spec:
   unitRevisionBindings:
     -
       slug: "namespace-rabbitmq"
-      headRevisionNum: 2
-      dataHash: "7c22abf3932b0b578c6e929129f604bde18f491a2481dde560e80d31b1eba511"
+      headRevisionNum: 1
+      dataHash: "ae660b00ac7299eccaeef36d46f5c29eaa0065127b854b20423f4881331d0742"
     -
       slug: "networkpolicy-rabbitmq-rabbitmq"
       headRevisionNum: 2
-      dataHash: "49ae07425aaf54fe7d1e38a40842d8c13bfe57c18445751a651ec664b9f3a5fd"
+      dataHash: "4d1960c8140e6b61027c11fbe092de45c986bcb33d6bfae3f51808263bb56802"
     -
       slug: "poddisruptionbudget-rabbitmq-rabbitmq"
-      headRevisionNum: 2
-      dataHash: "afa931f2824fa578b3669e4a03aa63b3b53275aedb818356f290148e1679b047"
-    -
-      slug: "rolebinding-rabbitmq-rabbitmq-endpoint-reader"
-      headRevisionNum: 2
-      dataHash: "621c0e3d8dfc009a9f2d4663364941e65b959db40337cc2990d204fae8881929"
-    -
-      slug: "role-rabbitmq-rabbitmq-endpoint-reader"
-      headRevisionNum: 2
-      dataHash: "824cb0d2c3562791b4f99f2e339998da358e49eb66eef10307248d9985e12687"
-    -
-      slug: "serviceaccount-rabbitmq-rabbitmq"
-      headRevisionNum: 2
-      dataHash: "87e4fdd004de0bcd6ac4a39b909c51fb9f315dc4d06fae0027007a3fe30b262b"
-    -
-      slug: "service-rabbitmq-rabbitmq"
-      headRevisionNum: 2
-      dataHash: "23a030fcf57b87c066bc161ca844c84a4d614efa29f7f02fb5688ce918e24414"
+      headRevisionNum: 1
+      dataHash: "4a8cd7ccf4ca8679a30d299e6b3b10907cd6ffbb42b22aac9593072c17f123ca"
     -
       slug: "service-rabbitmq-rabbitmq-headless"
       headRevisionNum: 2
-      dataHash: "bf4c9b2d124ddc34797db295d408078efe6e1643ee3ada6009e463c480b35520"
+      dataHash: "f324e69e187bc419f4cedd9fee4f001066215915efa3475bf5bd0c3c59f28883"
+    -
+      slug: "serviceaccount-rabbitmq-rabbitmq"
+      headRevisionNum: 2
+      dataHash: "94c88af0ae3b9c72a8c89379165a18e4a764ae71a24656b199b479f36c67c4e2"
     -
       slug: "statefulset-rabbitmq-rabbitmq"
       headRevisionNum: 2
-      dataHash: "de0eb51373f9db680da630df64bc5d6f818f934c0f12c6e63060bf806e9f4b23"
+      dataHash: "25abde847aadcff5985a9ab7a15698d2c5456826e130016985e782c08d0a6f71"
+    -
+      slug: "role-rabbitmq-rabbitmq-endpoint-reader"
+      headRevisionNum: 2
+      dataHash: "b4fcf3983a0f45e5a2f20f0add43cea6251019f61db7e5eb97625b72e05d0dd4"
+    -
+      slug: "rolebinding-rabbitmq-rabbitmq-endpoint-reader"
+      headRevisionNum: 2
+      dataHash: "1d0e442cf57e26620294b638b37e147b44435413d697dbe0f1348cdd769008e2"
+    -
+      slug: "service-rabbitmq-rabbitmq"
+      headRevisionNum: 2
+      dataHash: "a02c12adc99296712fea68879e05f62379d1d853c7726d403eda893efbf591cf"
   validations:
     -
       function: "vet-format"

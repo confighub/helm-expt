@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/argo-cd-default
 cub installer package packages/argo-cd/argo-cd/9.5.15 -o .tmp/confighub-proof/argo-cd-archives/argo-cd-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/argo-cd-default --space helm-argo-cd-confighub-proof --component ArgoCD --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ArgoCD --unit-label HelmChart=argo-cd-argo-cd --unit-label HelmChartVersion=9.5.15 --unit-label Variant=default --unit-label Proof=argo-cd-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/argo-cd-default
-cub variant create staging helm-argo-cd-confighub-proof --environment Staging --region local --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-argo-cd-confighub-proof --environment Staging --region local --namespace argocd --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m
 cub unit list --space helm-argo-cd-confighub-proof --where "Labels.Proof = 'argo-cd-confighub-proof'"
 cub function vet vet-format --space helm-argo-cd-confighub-proof --where "Labels.Proof = 'argo-cd-confighub-proof'"
 cub unit apply --space helm-argo-cd-confighub-proof --where "Labels.Proof = 'argo-cd-confighub-proof'" --dry-run

@@ -17,37 +17,37 @@ spec:
     configHubUnitCount: 8
   unitRevisionBindings:
     -
-      slug: "configmap-mysql-mysql"
-      headRevisionNum: 2
-      dataHash: "608877da7b623c5bb03a8c200503bca2523bef2fceb8618027b66c8c9b036c78"
-    -
       slug: "namespace-mysql"
-      headRevisionNum: 2
-      dataHash: "6f575c881f006605369170c33db5d1001ab04978687c0b5556c663cb508e0be9"
+      headRevisionNum: 1
+      dataHash: "cb35dc7d946b356beeee0973512ef4e744b2ce7eb576d7f56e5ee29507a4f551"
+    -
+      slug: "poddisruptionbudget-mysql-mysql"
+      headRevisionNum: 1
+      dataHash: "76196bc0147c92bf390586f8870e38b8204671ffc37299e7bfa5d2075454b52e"
     -
       slug: "networkpolicy-mysql-mysql"
       headRevisionNum: 2
-      dataHash: "cfa403695533d0614a8ee6754eb2db46e8d6bca97dae7244878b4fc5c6e15228"
+      dataHash: "a2091446a45e8937c9483e80dea3ff725d60d47330177518e3805551ce2aba13"
     -
-      slug: "poddisruptionbudget-mysql-mysql"
-      headRevisionNum: 2
-      dataHash: "9e7cfbed4f216056954a68fe4d70aef2ce58b85dd0f49e9de9e329e0ad9e73e7"
-    -
-      slug: "serviceaccount-mysql-mysql"
-      headRevisionNum: 2
-      dataHash: "d23cc596200aad6b90a58c5706dda927cdec8c910efce640d2bb60c8e28e2451"
+      slug: "configmap-mysql-mysql"
+      headRevisionNum: 1
+      dataHash: "41612625b4d4af70a22317e66601dba0b59a06012aa16fa0ad3b9af2be41c427"
     -
       slug: "service-mysql-mysql"
       headRevisionNum: 2
-      dataHash: "492784f54b5e33b0c8d6aa5ea4101c030e4b4228ba75f51cf6e20d091918c9ce"
+      dataHash: "eb4209788d35a6595b85d1c0996b04247e1b005b441acbe8b6e7e30c2064233e"
     -
       slug: "service-mysql-mysql-headless"
       headRevisionNum: 2
-      dataHash: "ba202c769e99b5e5b02e7bff585435080f0f0bd1b0d65a1f65851bdba17759f8"
+      dataHash: "ba975cc8062511bd51dc999295ff924eed0bd5b943efa15a0f6012ab0fe5a221"
+    -
+      slug: "serviceaccount-mysql-mysql"
+      headRevisionNum: 2
+      dataHash: "2a6b5c4b5d2b1199cc7092dcfea5af5eb2f8694c7cf8f44abd371b0ba38617c0"
     -
       slug: "statefulset-mysql-mysql"
       headRevisionNum: 2
-      dataHash: "cf7c8b7adaad8b027fd3893ea06682432d6ec34ea9a0e55997f2c15b72703534"
+      dataHash: "5f86004599c72ddde8cd1d4bfd7141f4d8dd9f555600c9ac57f16f235bfa5535"
   validations:
     -
       function: "vet-format"
