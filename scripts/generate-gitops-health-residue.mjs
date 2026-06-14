@@ -51,6 +51,7 @@ function receiptRow(path) {
   const sync = appStatus.sync?.status ?? leg.sync ?? "";
   const health = appStatus.health?.status ?? leg.health ?? "";
   const operationPhase = appStatus.operationState?.phase ?? "";
+  const syncResultStatusCounts = appStatus.operationState?.syncResultStatusCounts ?? {};
   const resources = Array.isArray(appStatus.resources) ? appStatus.resources : [];
   const conditions = Array.isArray(appStatus.conditions) ? appStatus.conditions : [];
   const resourceHealthCounts = countBy(resources, (resource) => resource.health || "blank");
@@ -63,6 +64,8 @@ function receiptRow(path) {
   if (result === "pass" && health === "Healthy" && sync === "Synced" && healthResidueCount === 0) return null;
 
   const classification = classify({ result, sync, health, operationPhase, resources, healthResidueCount, resourceHealthCounts });
+  const allSyncResultResourcesSynced =
+    Object.keys(syncResultStatusCounts).length === 1 && Number(syncResultStatusCounts.Synced ?? 0) > 0;
   return {
     chart: spec.chart ?? "",
     version: spec.version ?? "",
@@ -86,7 +89,7 @@ function receiptRow(path) {
     resource_health_unknown: resourceHealthCounts.Unknown ?? 0,
     resource_health_blank: resourceHealthCounts.blank ?? 0,
     residue_count: healthResidueCount,
-    next_action: nextAction(classification),
+    next_action: nextAction(classification, { allSyncResultResourcesSynced }),
   };
 }
 
@@ -103,10 +106,12 @@ function classify({ result, sync, health, operationPhase, resources, healthResid
   return "controller-health-review";
 }
 
-function nextAction(classification) {
+function nextAction(classification, evidence = {}) {
   const actions = {
     "aggregate-progressing-with-blank-resource-health":
-      "Capture Argo resource tree/controller-health detail on rerun, or record a target-scoped policy explaining why blank per-resource health can leave aggregate health Progressing.",
+      evidence.allSyncResultResourcesSynced
+        ? "Record the target-scoped controller-health policy: Argo sync succeeded for all resources and workloads converged, but aggregate health remains Progressing because per-resource health is blank."
+        : "Capture Argo resource tree/controller-health detail on rerun, or record a target-scoped policy explaining why blank per-resource health can leave aggregate health Progressing.",
     "aggregate-progressing":
       "Inspect Argo controller health logic and resource tree; keep the row watch until the aggregate health reason is explained.",
     "resource-or-condition-residue":
