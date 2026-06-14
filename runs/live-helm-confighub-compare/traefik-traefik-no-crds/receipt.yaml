@@ -1,0 +1,1046 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: traefik-traefik-40.2.0-no-crds-live-parity-20260605
+spec:
+  chart: traefik/traefik
+  version: 40.2.0
+  base: no-crds
+  result: watch
+  observedAt: '2026-06-14T16:03:17Z'
+  package:
+    path: packages/traefik/traefik/40.2.0
+  recipe:
+    path: recipes/traefik/traefik/40.2.0
+  variantRevision: recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-traefik-mqdz49yz-v5p
+    kubeContext: kind-helm-expt-parity-traefik-mqdz49yz-v5p
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-traefik-mqdz49yz-v5p --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-traefik-mqdz49yz-v5p"...
+
+        Deleting cluster "helm-expt-parity-traefik-mqdz49yz-v5p" ...
+
+        Deleted nodes: ["helm-expt-parity-traefik-mqdz49yz-v5p-control-plane"]
+
+        Deleting Space "helm-expt-parity-traefik-mqdz49yz-v5p-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install traefik traefik --repo https://traefik.github.io/charts
+        --version 40.2.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/traefik-traefik-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce
+      objectCount: 6
+      liveHelmManifestSHA256: 51a59c67584e6f30a26b382bfe51fe0ad9e5660222acc718c53e23e64ef70f31
+      liveHelmManifestObjectCount: 6
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/traefik   1/1   1     1     22s
+        pods: traefik-56d8b8c957-fswqf   1/1   Running   0     23s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/traefik/traefik/40.2.0
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: ad74f31ff4c5fc832c67b1e89e125acffe97ea965bb681e2469236bd6c11069a
+      objectCount: 7
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/traefik   1/1   1     1     20s'
+        pods: '# default
+
+          traefik-5f694f77f5-w8fbn   1/1   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "traefik-default" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "traefik-default" deleted
+
+            ingressclass.networking.k8s.io "traefik" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|traefik
+          - v1|ServiceAccount|default|traefik
+          - v1|Service|default|traefik
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+      controller: Argo CD OCI
+      app: traefik-parity
+      manifestSHA256: 6a3064e32bd768f78cac3f640965fbc83aa9954122e0785541e8f1e49b595c0f
+      objectCount: 7
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci
+              targetRevision: latest
+          revision: sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T16:06:25Z'
+          status: Progressing
+        summary:
+          images:
+          - docker.io/traefik:v3.7.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T16:06:25Z'
+          finishedAt: '2026-06-14T16:06:28Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 7
+          syncResultStatusCounts:
+            Synced: 7
+        history:
+        - id: 0
+          revision: sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5
+          deployedAt: '2026-06-14T16:06:28Z'
+          deployStartedAt: '2026-06-14T16:06:25Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: IngressClass
+          namespace: ''
+          name: traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: traefik-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: traefik-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         traefik-parity\nNamespace:    argocd\nLabels: \
+              \      <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-traefik-mqdz49yz-v5p-cluster:argoproj.io/Application:argocd/traefik-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ f7ba412b-09cd-4828-ba94-736b4219ed7c\n              confighub.com/UnitSlug:\
+              \ traefik-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:    \
+              \     Application\nMetadata:\n  Creation Timestamp:  2026-06-14T16:06:24Z\n\
+              \  Generation:          10\n  Resource Version:    1709\n  UID:    \
+              \             da4af662-659a-408e-953b-e07d81e6f1a4\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-traefik\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T16:06:25Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T16:06:25Z\n    Deployed At:        2026-06-14T16:06:28Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\n\
+              \    Source:\n      Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-traefik\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T16:06:28Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\n\
+              \        Source:\n          Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-traefik\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T16:06:25Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/traefik serverside-applied\n        Name:       \
+              \ traefik\n        Namespace:   default\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       rbac.authorization.k8s.io\n        Hook Phase:  Running\n  \
+              \      Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/traefik-default\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get list watch] APIGroups:[]\
+              \ Resources:[configmaps nodes services] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[discovery.k8s.io]\
+              \ Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get] APIGroups:[] Resources:[pods] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[get list watch]\
+              \ APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[extensions\
+              \ networking.k8s.io] Resources:[ingressclasses ingresses] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[update] APIGroups:[extensions\
+              \ networking.k8s.io] Resources:[ingresses/status] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[] Resources:[namespaces]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list watch] APIGroups:[traefik.io] Resources:[ingressroutes ingressroutetcps\
+              \ ingressrouteudps middlewares middlewaretcps serverstransports serverstransporttcps\
+              \ tlsoptions tlsstores traefikservices] ResourceNames:[] NonResourceURLs:[]}.\
+              \ clusterrole.rbac.authorization.k8s.io/traefik-default serverside-applied\n\
+              \        Name:        traefik-default\n        Namespace:   default-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        ClusterRoleBinding\n       \
+              \ Message:     clusterrolebinding.rbac.authorization.k8s.io/traefik-default\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:traefik Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/traefik-default\
+              \ serverside-applied\n        Name:        traefik-default\n       \
+              \ Namespace:   default-oci\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
+              \     Hook Phase:  Running\n        Kind:        Service\n        Message:\
+              \     service/traefik serverside-applied\n        Name:        traefik\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       apps\n\
+              \        Hook Phase:  Running\n        Images:\n          docker.io/traefik:v3.7.1\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/traefik\
+              \ serverside-applied\n        Name:        traefik\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase: "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                       MESSAGE
+
+              6m50s       Normal   OperationStarted     application/traefik-parity   Initiated
+              automated sync to ''sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5''
+
+              6m50s       Normal   ResourceUpdated      application/traefik-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m50s       Normal   ResourceUpdated      application/traefik-parity   Updated
+              health status:  -> Progressing
+
+              6m47s       Normal   OperationCompleted   application/traefik-parity   Sync
+              operation to sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5
+              succeeded
+
+              6m45s       Normal   ResourceUpdated      application/traefik-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 7
+              artifact:
+                path: argocd-core-child.json
+                sha256: 862fb03c01a0671cb5ae0b6341002ecc03554510425d5cb57d3fe989f456e054
+                bytes: 12851
+              output: "{\n  \"metadata\": {\n    \"name\": \"traefik-parity\",\n \
+                \   \"namespace\": \"argocd\",\n    \"uid\": \"da4af662-659a-408e-953b-e07d81e6f1a4\"\
+                ,\n    \"resourceVersion\": \"1765\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-14T16:06:24Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-traefik-mqdz49yz-v5p-cluster:argoproj.io/Application:argocd/traefik-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"f7ba412b-09cd-4828-ba94-736b4219ed7c\",\n      \"confighub.com/UnitSlug\"\
+                : \"traefik-parity-app\"\n    },\n    \"managedFields\": [\n     \
+                \ {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T16:06:24Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T16:13:23Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-traefik-mqdz49yz-v5p-traefik\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"traefik\",\n        \"status\": \"Synced\",\n        \"health\"\
+                : {\n          \"status\": \"Progressing\"\n        }\n      },\n\
+                \      {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"traefik\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"traefik\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"networking.k8s.io\",\n        \"version\": \"v1\"\
+                ,\n        \"kind\": \"IngressClass\",\n        \"name\": \"traefik\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"rbac.authorization.k8s.io\",\n        \"version\": \"v1\",\n \
+                \       \"kind\": \"ClusterRole\",\n        \"name\": \"traefik-default\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"rbac.authorization.k8s.io\",\n        \"version\": \"v1\",\n \
+                \       \"kind\": \"ClusterRoleBinding\",\n        \"name\": \"traefik-default\"\
+                ,\n        \"status\": \""
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 0d0f05456d5544a567151473b2fa6a63739a7c39697bfa26fe2cb6046beab6b9
+                bytes: 1396
+              output: "Name:               argocd/traefik-parity\nProject:       \
+                \     default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:63200/applications/traefik-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-traefik\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                           STATUS  HEALTH\
+                \       AGE    MESSAGE                                     REASON\n\
+                Namespace/default-oci               Synced               7m48s   \
+                \                                           \nService/traefik    \
+                \                 Synced  Progressing  8m14s  service/traefik serverside-applied\
+                \          \nServiceAccount/traefik              Synced          \
+                \     8m14s  serviceaccount/traefik serverside-applied   \nDeployment/traefik\
+                \                  Synced  Healthy      8m14s  deployment.apps/traefik\
+                \ serverside-applied  \n\u2514\u2500ReplicaSet/traefik-5f694f77f5\
+                \             Healthy      8m14s                                 \
+                \             \n  \u2514\u2500Pod/traefik-5f694f77f5-w8fbn       \
+                \     Healthy      8m14s                                         \
+                \     \nIngressClass/traefik                Synced               7m4s\
+                \                                               \nClusterRole/traefik-default\
+                \         Synced               7m4s                              \
+                \                 \nClusterRoleBinding/traefik-default  Synced   \
+                \            7m4s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-traefik-mqdz49yz-v5p-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-traefik-mqdz49yz-v5p-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              traefik-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/traefik-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-traefik-mqdz49yz-v5p-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"traefik-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-traefik-mqdz49yz-v5p-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci
+              targetRevision: latest
+          revision: sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T16:04:55Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T16:06:22Z'
+          finishedAt: '2026-06-14T16:06:24Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5
+          deployedAt: '2026-06-14T16:06:24Z'
+          deployStartedAt: '2026-06-14T16:06:22Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-traefik-mqdz49yz-v5p-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-traefik-mqdz49yz-v5p-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: traefik-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T16:04:47Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        10\n  Resource Version:  1732\n  UID:        \
+              \       0c8bcfc8-896c-4c7f-b3ea-ab7356536a81\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T16:04:55Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T16:06:22Z\n\
+              \    Deployed At:        2026-06-14T16:06:24Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\n\
+              \    Source:\n      Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T16:06:24Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\n\
+              \        Source:\n          Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T16:06:22Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/traefik-parity serverside-applied\n\
+              \        Name:        traefik-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-traefik-mqdz49yz-v5p-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\n\
+              \      Source:\n        Path:              ./helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T16:12:58Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       traefik-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     8m37s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     8m37s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m10s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5'\n\
+              \  Normal  ResourceUpdated     7m10s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m8s   argocd-application-controller  Sync operation to sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\
+              \ succeeded\n  Normal  ResourceUpdated     7m7s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                      MESSAGE
+
+              8m37s       Normal   ResourceUpdated      application/helm-expt-parity-traefik-mqdz49yz-v5p-cluster   Updated
+              sync status:  -> Synced
+
+              8m37s       Normal   ResourceUpdated      application/helm-expt-parity-traefik-mqdz49yz-v5p-cluster   Updated
+              health status:  -> Healthy
+
+              7m10s       Normal   OperationStarted     application/helm-expt-parity-traefik-mqdz49yz-v5p-cluster   Initiated
+              automated sync to ''sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5''
+
+              7m10s       Normal   ResourceUpdated      application/helm-expt-parity-traefik-mqdz49yz-v5p-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m8s        Normal   OperationCompleted   application/helm-expt-parity-traefik-mqdz49yz-v5p-cluster   Sync
+              operation to sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5
+              succeeded
+
+              7m7s        Normal   ResourceUpdated      application/helm-expt-parity-traefik-mqdz49yz-v5p-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: ebd17dbc0dc29f95201d0f9df288234e69323d4daa436ad02650412574fbf65e
+                bytes: 10631
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-traefik-mqdz49yz-v5p-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"0c8bcfc8-896c-4c7f-b3ea-ab7356536a81\"\
+                ,\n    \"resourceVersion\": \"1792\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-14T16:04:47Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-traefik-mqdz49yz-v5p-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-traefik-mqdz49yz-v5p-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T16:04:47Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T16:13:40Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:44"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 2b95ce35dc6288ee5b6a9f9cb6028ca3c90e92d03738cca03f8b109fded6e5cb
+                bytes: 1121
+              output: "Name:               argocd/helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:63314/applications/helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \         STATUS  HEALTH  AGE    MESSAGE                         \
+                \                                                          REASON\n\
+                Application/helm-expt-parity-traefik-mqdz49yz-v5p-cluster  Synced\
+                \          9m2s   application.argoproj.io/helm-expt-parity-traefik-mqdz49yz-v5p-cluster\
+                \ serverside-applied  \nApplication/traefik-parity               \
+                \                  Synced          7m25s  application.argoproj.io/traefik-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-traefik-mqdz49yz-v5p-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-traefik-mqdz49yz-v5p-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              traefik-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/traefik-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-traefik-mqdz49yz-v5p-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"traefik-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/traefik   1/1   1     1     8m32s'
+        pods: '# default
+
+          traefik-5f694f77f5-w8fbn   1/1   Running   0     8m32s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T16:04:47Z'
+    finishedAt: '2026-06-14T16:05:11Z'
+    elapsedSeconds: 24.766
+    timeoutSeconds: 900
+    command: helm upgrade --install traefik traefik --repo https://traefik.github.io/charts
+      --version 40.2.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/traefik-traefik-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T16:05:17Z'
+    finishedAt: '2026-06-14T16:05:17Z'
+    elapsedSeconds: 0.355
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/traefik/traefik/40.2.0
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T16:05:18Z'
+    finishedAt: '2026-06-14T16:05:18Z'
+    elapsedSeconds: 0.129
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-traefik-mqdz49yz-v5p.kubeconfig
+      --context kind-helm-expt-parity-traefik-mqdz49yz-v5p apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/traefik-traefik-no-crds/direct-apply-manifest.yaml
+    objectCount: 6
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T16:05:18Z'
+    finishedAt: '2026-06-14T16:05:38Z'
+    elapsedSeconds: 20.373
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T16:05:43Z'
+    finishedAt: '2026-06-14T16:05:44Z'
+    elapsedSeconds: 0.252
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/traefik/traefik/40.2.0
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T16:05:44Z'
+    finishedAt: '2026-06-14T16:06:05Z'
+    elapsedSeconds: 21.102
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+      --space helm-expt-parity-traefik-mqdz49yz-v5p-traefik --target helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci
+    objectCount: 7
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T16:06:05Z'
+    finishedAt: '2026-06-14T16:06:06Z'
+    elapsedSeconds: 0.881
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T16:06:06Z'
+    finishedAt: '2026-06-14T16:06:10Z'
+    elapsedSeconds: 4.206
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+      --unit <7 unit(s)> --wait --timeout 5m
+    unitCount: 7
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T16:06:10Z'
+    finishedAt: '2026-06-14T16:06:11Z'
+    elapsedSeconds: 1.075
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-traefik-mqdz49yz-v5p-cluster
+      traefik-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/traefik-traefik-no-crds/argo-application.json
+      --target helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T16:06:11Z'
+    finishedAt: '2026-06-14T16:06:12Z'
+    elapsedSeconds: 1.246
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-traefik-mqdz49yz-v5p-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-14T16:06:12Z'
+    finishedAt: '2026-06-14T16:13:15Z'
+    elapsedSeconds: 422.456
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T16:13:50Z'
+    finishedAt: '2026-06-14T16:13:50Z'
+    elapsedSeconds: 0.103
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-traefik-mqdz49yz-v5p\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-traefik-mqdz49yz-v5p.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-traefik-mqdz49yz-v5p\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-traefik-mqdz49yz-v5p\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-traefik-mqdz49yz-v5p\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-traefik-mqdz49yz-v5p.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "traefik" does not exist. Installing it now.
+
+      NAME: traefik
+
+      LAST DEPLOYED: Sun Jun 14 17:04:49 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      traefik with docker.io/traefik:v3.7.1 has been deployed successfully on default-helm
+      namespace!'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/traefik   1/1   1     1     20s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
