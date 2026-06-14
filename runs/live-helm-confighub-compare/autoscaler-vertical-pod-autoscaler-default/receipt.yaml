@@ -1,0 +1,1524 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: autoscaler-vertical-pod-autoscaler-0.9.0-default-live-parity-20260605
+spec:
+  chart: autoscaler/vertical-pod-autoscaler
+  version: 0.9.0
+  base: default
+  result: pass
+  observedAt: '2026-06-14T17:38:14Z'
+  package:
+    path: packages/autoscaler/vertical-pod-autoscaler/0.9.0
+  recipe:
+    path: recipes/autoscaler/vertical-pod-autoscaler/0.9.0
+  variantRevision: recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29
+    kubeContext: kind-helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29"...
+
+        Deleting cluster "helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29" ...
+
+        Deleted nodes: ["helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-control-plane"]
+
+        Deleting Space "helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install vertical-pod-autoscaler vertical-pod-autoscaler
+        --repo https://kubernetes.github.io/autoscaler --version 0.9.0 --namespace
+        default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490
+      objectCount: 39
+      liveHelmManifestSHA256: 6a03147a8bfa0b85ea6c05127b8cdd3542b0e9de0d0283e8a64d004363e69924
+      liveHelmManifestObjectCount: 37
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/vertical-pod-autoscaler-admission-controller   2/2   2     2     13s
+
+          deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     13s
+
+          deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     13s'
+        pods: 'vertical-pod-autoscaler-admission-controller-b7787b7f8-4tv8d   1/1   Running   0     13s
+
+          vertical-pod-autoscaler-admission-controller-b7787b7f8-jwlhj   1/1   Running   0     13s
+
+          vertical-pod-autoscaler-recommender-5f6744fdb9-c6bbl           1/1   Running   0     13s
+
+          vertical-pod-autoscaler-recommender-5f6744fdb9-ntpwl           1/1   Running   0     13s
+
+          vertical-pod-autoscaler-updater-bfb665f6b-5bc4d                1/1   Running   0     13s
+
+          vertical-pod-autoscaler-updater-bfb665f6b-c89lw                1/1   Running   0     13s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/vertical-pod-autoscaler/0.9.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: ddb822a1823d072f9274f7177a80572ace0c6ae705dc8450ce5a433de3ff160d
+      objectCount: 40
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/vertical-pod-autoscaler-admission-controller   2/2   2     2     10s
+
+          deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     10s
+
+          deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     10s'
+        pods: '# default
+
+          vertical-pod-autoscaler-admission-controller-b7787b7f8-5ttgj   1/1   Running   0     10s
+
+          vertical-pod-autoscaler-admission-controller-b7787b7f8-v5pwj   1/1   Running   0     10s
+
+          vertical-pod-autoscaler-recommender-65cf99b9bd-9dhzk           1/1   Running   0     10s
+
+          vertical-pod-autoscaler-recommender-65cf99b9bd-lgqc4           1/1   Running   0     10s
+
+          vertical-pod-autoscaler-updater-6bd8467c99-9qjjs               1/1   Running   0     10s
+
+          vertical-pod-autoscaler-updater-6bd8467c99-klm8w               1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 25
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-admission-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-recommender-actor"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-recommender-checkpoint-actor"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-recommender-metrics-reader"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-recommender-status-actor"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-recommender-target-reader"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-updater-actor"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-updater-evictioner"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-updater-in-place"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler-updater-status-reader"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "vertical-pod-autoscaler'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|vertical-pod-autoscaler-admission-controller
+          - apps/v1|Deployment|default|vertical-pod-autoscaler-recommender
+          - apps/v1|Deployment|default|vertical-pod-autoscaler-updater
+          - policy/v1|PodDisruptionBudget|default|vertical-pod-autoscaler-admission-controller
+          - policy/v1|PodDisruptionBudget|default|vertical-pod-autoscaler-recommender
+          - policy/v1|PodDisruptionBudget|default|vertical-pod-autoscaler-updater
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|vertical-pod-autoscaler-recommender-leader-locking
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|vertical-pod-autoscaler-updater-leader-locking-binding
+          - rbac.authorization.k8s.io/v1|Role|default|vertical-pod-autoscaler-recommender-leader-locking
+          - rbac.authorization.k8s.io/v1|Role|default|vertical-pod-autoscaler-updater-leader-locking
+          - v1|ServiceAccount|default|vertical-pod-autoscaler-admission-controller
+          - v1|ServiceAccount|default|vertical-pod-autoscaler-recommender
+          - v1|ServiceAccount|default|vertical-pod-autoscaler-updater
+          - v1|Service|default|vpa-webhook
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+      controller: Argo CD OCI
+      app: vertical-pod-autoscaler-parity
+      manifestSHA256: e1056c9ee2c364c5bbc61cb1930a4728b80340e86f52ccd9850ea578072c5d93
+      objectCount: 40
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci
+              targetRevision: latest
+          revision: sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T17:42:40Z'
+          status: Healthy
+        summary:
+          images:
+          - registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0
+          - registry.k8s.io/autoscaling/vpa-recommender:1.6.0
+          - registry.k8s.io/autoscaling/vpa-updater:1.6.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T17:42:40Z'
+          finishedAt: '2026-06-14T17:42:42Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 40
+          syncResultStatusCounts:
+            Synced: 40
+        history:
+        - id: 0
+          revision: sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37
+          deployedAt: '2026-06-14T17:42:42Z'
+          deployStartedAt: '2026-06-14T17:42:40Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: vpa-webhook
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: vertical-pod-autoscaler-admission-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: vertical-pod-autoscaler-recommender
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: vertical-pod-autoscaler-updater
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: vertical-pod-autoscaler-webhook-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: verticalpodautoscalers.autoscaling.k8s.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: vertical-pod-autoscaler-admission-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: vertical-pod-autoscaler-recommender
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: vertical-pod-autoscaler-updater
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: vertical-pod-autoscaler-admission-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: vertical-pod-autoscaler-recommender
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: vertical-pod-autoscaler-updater
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-admission-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-actor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-checkpoint-actor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-metrics-reader
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-status-actor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-target-reader
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-actor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-evictioner
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-in-place
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-status-reader
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-target-reader
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-admission-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-actor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-checkpoint-actor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-metrics-reader
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-status-actor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-recommender-target-reader
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-actor-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-evictioner-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-in-place-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-status-reader-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vertical-pod-autoscaler-updater-target-reader-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: vertical-pod-autoscaler-recommender-leader-locking
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: vertical-pod-autoscaler-updater-leader-locking
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: vertical-pod-autoscaler-recommender-leader-locking
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: vertical-pod-autoscaler-updater-leader-locking-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         vertical-pod-autoscaler-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster:argoproj.io/Application:argocd/vertical-pod-autoscaler-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ c20870b3-d067-4bae-88f2-18d2b98a2b48\n              confighub.com/UnitSlug:\
+              \ vertical-pod-autoscaler-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T17:42:38Z\n\
+              \  Generation:          8\n  Resource Version:    1993\n  UID:     \
+              \            d67e29c5-46f9-45be-b3d1-2b0d612102db\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T17:42:40Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T17:42:40Z\n    Deployed At:        2026-06-14T17:42:42Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\n\
+              \    Source:\n      Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T17:42:42Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\n\
+              \        Source:\n          Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T17:42:40Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       policy\n        Hook\
+              \ Phase:  Running\n        Kind:        PodDisruptionBudget\n      \
+              \  Message:     poddisruptionbudget.policy/vertical-pod-autoscaler-admission-controller\
+              \ serverside-applied\n        Name:        vertical-pod-autoscaler-admission-controller\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       policy\n\
+              \        Hook Phase:  Running\n        Kind:        PodDisruptionBudget\n\
+              \        Message:     poddisruptionbudget.policy/vertical-pod-autoscaler-updater\
+              \ serverside-applied\n        Name:        vertical-pod-autoscaler-updater\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       policy\n\
+              \        Hook Phase:  Running\n        Kind:        PodDisruptionBudget\n\
+              \        Message:     poddisruptionbudget.policy/vertical-pod-autoscaler-recommender\
+              \ serverside-applied\n        Name:        vertical-pod-autoscaler-recommender\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        ServiceAccount\n\
+              \        Message:     serviceaccount/vertical-pod-autoscaler-recommender\
+              \ serverside-applied\n        Name:        vertical-pod-autoscaler-recommender\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        ServiceAccount\n\
+              \        Message:     serviceaccount/vertical-pod-autoscaler-admission-controller\
+              \ serverside-applied\n        Name:        vertical-pod-autoscaler-admission-controller\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        ServiceAccount\n\
+              \        Message:     serviceaccount/vertical-pod-autoscaler-updater\
+              \ serverside-applied\n        Name:        vertical-pod-autoscaler-updater\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       apiextensions.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        CustomResourceDefinition\n\
+              \        Message:     customresourcedefinition.apiextensions.k8s.io/verticalpodautoscalercheckpoints.autoscaling.k8s.io\
+              \ serverside-applied\n        Name:        verticalpodautoscalercheckpoints.autoscaling.k8s.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/verticalpodautoscalers.autoscaling.k8s.io\
+              \ serverside-applied\n        Name:        verticalpodautoscalers.autoscaling.k8s.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n  "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                       MESSAGE
+
+              7s          Normal   OperationStarted     application/vertical-pod-autoscaler-parity   Initiated
+              automated sync to ''sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37''
+
+              7s          Normal   ResourceUpdated      application/vertical-pod-autoscaler-parity   Updated
+              sync status:  -> OutOfSync
+
+              7s          Normal   ResourceUpdated      application/vertical-pod-autoscaler-parity   Updated
+              health status:  -> Healthy
+
+              5s          Normal   OperationCompleted   application/vertical-pod-autoscaler-parity   Sync
+              operation to sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37
+              succeeded
+
+              4s          Normal   ResourceUpdated      application/vertical-pod-autoscaler-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 40
+              artifact:
+                path: argocd-core-child.json
+                sha256: a439da507ebef84a868e3fe9048ea53122470894cba26efdeb28394a70b5a003
+                bytes: 45024
+              output: "{\n  \"metadata\": {\n    \"name\": \"vertical-pod-autoscaler-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"d67e29c5-46f9-45be-b3d1-2b0d612102db\"\
+                ,\n    \"resourceVersion\": \"2028\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T17:42:38Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster:argoproj.io/Application:argocd/vertical-pod-autoscaler-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"c20870b3-d067-4bae-88f2-18d2b98a2b48\",\n      \"confighub.com/UnitSlug\"\
+                : \"vertical-pod-autoscaler-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T17:42:38Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T17:42:58Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"vpa-webhook\",\n        \"status\": \"Synced\",\n        \"health\"\
+                : {\n          \"status\": \"Healthy\"\n        }\n      },\n    \
+                \  {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"vertical-pod-autoscaler-admission-controller\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ServiceAccount\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"vertical-pod-autoscaler-recommender\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ServiceAccount\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"vertical-pod-autoscaler-updater\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"admissionregistration.k8s.io\",\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"MutatingWebhookConfiguration\",\n        \"name\"\
+                : \"vertical-pod-autoscaler-webhook-config\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"group\": \"api"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: b7cb431614ef09273798859d992e488858a56b4ce448fc6268b7ad773356fd61
+                bytes: 8771
+              output: "Name:               argocd/vertical-pod-autoscaler-parity\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:51257/applications/vertical-pod-autoscaler-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                            STATUS  HEALTH   AGE    MESSAGE     \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                              REASON\nClusterRole/vertical-pod-autoscaler-updater-status-reader\
+                \                     Synced           24s                       \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                       \nClusterRoleBinding/vertical-pod-autoscaler-admission-controller\
+                \               Synced           24s                             \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                 \nClusterRoleBinding/vertical-pod-autoscaler-updater-actor-binding\
+                \              Synced           24s                              \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                \nPodDisruptionBudget/vertical-pod-autoscaler-updater\
+                \                           Synced  Healthy  3m17s  poddisruptionbudget.policy/vertical-pod-autoscaler-updater\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                PodDisruptionBudget\
+                \ has SufficientPods\nServiceAccount/vertical-pod-autoscaler-updater\
+                \                                Synced           3m17s  serviceaccount/vertical-pod-autoscaler-updater\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                \
+                \            \nClusterRole/vertical-pod-autoscaler-recommender-actor\
+                \                         Synced           24s                   \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                           \nClusterRole/vertical-pod-autoscaler-recommender-target-reader\
+                \                 Synced           24s                           \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                   \nClusterRoleBinding/vertical-pod-autoscaler-recommender-checkpoint-actor\
+                \       Synced           24s                                     \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                         \nClusterRoleBinding/vertical-pod-autoscaler-recommender-status-actor\
+                \           Synced           24s                                 \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                             \nRole/vertical-pod-autoscaler-recommender-leader-locking\
+                \                       Synced           3m17s  role.rbac.authorization.k8s.io/vertical-pod-autoscaler-recommender-leader-locking\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/vertical-pod-autoscaler-recommender-leader-locking\
+                \ serverside-applied                        \nServiceAccount/vertical-pod-autoscaler-admission-controller\
+                \                   Synced           3m17s  serviceaccount/vertical-pod-autoscaler-admission-controller\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                               \n\
+                ClusterRole/vertical-pod-autoscaler-admission-controller         \
+                \             Synced           24s                               \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                               \nServiceAccount/vertical-pod-autoscaler-recommender\
+                \                            Synced           3m17s  serviceaccount/vertical-pod-autoscaler-recommender\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                \
+                \        \nDeployment/vertical-pod-autoscaler-admission-controller\
+                \                       Synced  Healthy  3m17s  deployment.apps/vertical-pod-autoscaler-admission-controller\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                              \n\u2514\
+                \u2500ReplicaSet/vertical-pod-autoscaler-admission-controller-b7787b7f8\
+                \                   Healthy  3m17s                               \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                             \n  \u251C\u2500Pod/vertical-pod-autoscaler-admission-controller-b7787b7f8-5ttgj\
+                \                  Healthy  3m17s                                \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                            \n  \u2514\u2500Pod/vertical-pod-autoscaler-admission-controller-b7787b7f8-v5pwj\
+                \                  Healthy  3m17s                                \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                            \nDeployment/vertical-pod-autoscaler-updater\
+                \                                    Synced  Healthy  3m17s  deployment.apps/vertical-pod-autoscaler-updater\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                \
+                \           \n\u2514\u2500ReplicaSet/vertical-pod-autoscaler-updater-6bd8467c99\
+                \                               Healthy  3m17s                   \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                         \n  \u251C\u2500Pod/vertical-pod-autoscaler-updater-6bd8467c99-9qjjs\
+                \                              Healthy  3m17s                    \
+                \                                                                \
+                \                                                           "
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\",\n  \
+              \    \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              vertical-pod-autoscaler-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/vertical-pod-autoscaler-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"vertical-pod-autoscaler-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci
+              targetRevision: latest
+          revision: sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T17:39:15Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T17:42:35Z'
+          finishedAt: '2026-06-14T17:42:38Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37
+          deployedAt: '2026-06-14T17:42:38Z'
+          deployStartedAt: '2026-06-14T17:42:35Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: vertical-pod-autoscaler-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T17:39:11Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        9\n  Resource Version:  1890\n  UID:         \
+              \      1429cd66-5935-4696-8689-b00eca3cfecc\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T17:39:15Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T17:42:35Z\n\
+              \    Deployed At:        2026-06-14T17:42:38Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\n\
+              \    Source:\n      Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T17:42:38Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\n\
+              \        Source:\n          Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T17:42:35Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/vertical-pod-autoscaler-parity\
+              \ serverside-applied\n        Name:        vertical-pod-autoscaler-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\n\
+              \      Source:\n        Path:              ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T17:42:38Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       vertical-pod-autoscaler-parity\n    Namespace:  argocd\n   \
+              \ Status:     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n\
+              \  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n\
+              \      Destination:\n        Namespace:  argocd\n        Server:   \
+              \  https://kubernetes.default.svc\n      Source:\n        Path:    \
+              \         ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     3m52s  argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     3m52s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  ResourceUpdated   \
+              \  53s    argocd-application-controller  Updated sync status: Unknown\
+              \ -> Synced\n  Normal  OperationStarted    32s    argocd-application-controller\
+              \  Initiated automated sync to 'sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37'\n\
+              \  Normal  ResourceUpdated     32s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  29s    argocd-application-controller  Sync operation to sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\
+              \ succeeded\n  Normal  ResourceUpdated     27s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                 MESSAGE
+
+              3m52s       Normal   ResourceUpdated      application/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster   Updated
+              sync status:  -> Unknown
+
+              3m52s       Normal   ResourceUpdated      application/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster   Updated
+              health status:  -> Healthy
+
+              53s         Normal   ResourceUpdated      application/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster   Updated
+              sync status: Unknown -> Synced
+
+              32s         Normal   OperationStarted     application/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster   Initiated
+              automated sync to ''sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37''
+
+              32s         Normal   ResourceUpdated      application/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              29s         Normal   OperationCompleted   application/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster   Sync
+              operation to sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37
+              succeeded
+
+              27s         Normal   ResourceUpdated      application/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 3948055c50b6569447f45c4fd094991ea4d8f18558773a802d5533864b6f686e
+                bytes: 10866
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"1429cd66-5935-4696-8689-b00eca3cfecc\"\
+                ,\n    \"resourceVersion\": \"2072\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-14T17:39:11Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\\\",\\\
+                \"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T17:39:11Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T17:43:15Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \    "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: ea57c2d3131fb9625ac351e889c7a7a6117de18ac41981634cf66a868367884f
+                bytes: 1236
+              output: "Name:               argocd/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:51375/applications/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                    STATUS  HEALTH  AGE    MESSAGE              \
+                \                                                                \
+                \                REASON\nApplication/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\
+                \  Synced          4m13s  application.argoproj.io/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\
+                \ serverside-applied  \nApplication/vertical-pod-autoscaler-parity\
+                \                            Synced          46s    application.argoproj.io/vertical-pod-autoscaler-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\",\n  \
+              \    \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              vertical-pod-autoscaler-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/vertical-pod-autoscaler-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:d492c7e729edc1a36829fc4df6394c4dad2da0ffb2e206abf6d4cf7a87673b37\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"vertical-pod-autoscaler-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/vertical-pod-autoscaler-admission-controller   2/2   2     2     3m36s
+
+          deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     3m36s
+
+          deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     3m36s'
+        pods: '# default
+
+          vertical-pod-autoscaler-admission-controller-b7787b7f8-5ttgj   1/1   Running   0     3m36s
+
+          vertical-pod-autoscaler-admission-controller-b7787b7f8-v5pwj   1/1   Running   0     3m36s
+
+          vertical-pod-autoscaler-recommender-65cf99b9bd-9dhzk           1/1   Running   0     3m36s
+
+          vertical-pod-autoscaler-recommender-65cf99b9bd-lgqc4           1/1   Running   0     3m36s
+
+          vertical-pod-autoscaler-updater-6bd8467c99-9qjjs               1/1   Running   0     3m36s
+
+          vertical-pod-autoscaler-updater-6bd8467c99-klm8w               1/1   Running   0     3m36s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 39
+      configHubObjectCount: 40
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 39
+      configHubObjectCount: 40
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T17:39:11Z'
+    finishedAt: '2026-06-14T17:39:42Z'
+    elapsedSeconds: 30.648
+    timeoutSeconds: 900
+    command: helm upgrade --install vertical-pod-autoscaler vertical-pod-autoscaler
+      --repo https://kubernetes.github.io/autoscaler --version 0.9.0 --namespace default-helm
+      --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T17:39:48Z'
+    finishedAt: '2026-06-14T17:39:48Z'
+    elapsedSeconds: 0.408
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/vertical-pod-autoscaler/0.9.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-14T17:39:48Z'
+    finishedAt: '2026-06-14T17:39:49Z'
+    elapsedSeconds: 0.063
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29.kubeconfig
+      --context kind-helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/confighub-rendered-crds.yaml
+    objectCount: 2
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T17:39:49Z'
+    finishedAt: '2026-06-14T17:39:49Z'
+    elapsedSeconds: 0.214
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29.kubeconfig
+      --context kind-helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/direct-apply-manifest.yaml
+    objectCount: 37
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T17:39:49Z'
+    finishedAt: '2026-06-14T17:39:59Z'
+    elapsedSeconds: 10.227
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T17:40:08Z'
+    finishedAt: '2026-06-14T17:40:09Z'
+    elapsedSeconds: 0.301
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/vertical-pod-autoscaler/0.9.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T17:40:09Z'
+    finishedAt: '2026-06-14T17:41:58Z'
+    elapsedSeconds: 109.077
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+      --space helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+      --target helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci
+    objectCount: 40
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T17:41:58Z'
+    finishedAt: '2026-06-14T17:41:59Z'
+    elapsedSeconds: 0.586
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T17:41:59Z'
+    finishedAt: '2026-06-14T17:42:25Z'
+    elapsedSeconds: 26.405
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-vertical-pod-autoscaler
+      --unit <40 unit(s)> --wait --timeout 5m
+    unitCount: 40
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T17:42:25Z'
+    finishedAt: '2026-06-14T17:42:26Z'
+    elapsedSeconds: 0.921
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster
+      vertical-pod-autoscaler-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/argo-application.json
+      --target helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T17:42:26Z'
+    finishedAt: '2026-06-14T17:42:27Z'
+    elapsedSeconds: 1.094
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T17:42:27Z'
+    finishedAt: '2026-06-14T17:42:47Z'
+    elapsedSeconds: 20.172
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T17:43:24Z'
+    finishedAt: '2026-06-14T17:43:25Z'
+    elapsedSeconds: 0.103
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-verticalpodau1f7ce-mqe2ie8h-y29.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=1 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"vertical-pod-autoscaler\" does not exist. Installing it now.\n\
+      NAME: vertical-pod-autoscaler\nLAST DEPLOYED: Sun Jun 14 18:39:14 2026\nNAMESPACE:\
+      \ default-helm\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nVertical Pod Autoscaler has been installed!\n\nComponents\
+      \ deployed:\n   \u2713 admission-controller\n   \u2713 recommender\n   \u2713\
+      \ updater\n\nNamespace: default-helm\n\nWebhook Configuration:\n   Mode: Helm-managed\
+      \ (recommended)\n   - Webhook registered by: Helm (MutatingWebhookConfiguration)\n\
+      \   - Certificates managed by: certgen job\n\nDocumentation: https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=2 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/vertical-pod-autoscaler-admission-controller   2/2   2     2     10s
+
+      deployment.apps/vertical-pod-autoscaler-recommender            2/2   2     2     10s
+
+      deployment.apps/vertical-pod-autoscaler-updater                2/2   2     2     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=25
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=2 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: default-helm
+        name: vpa-tls-certs
+        keys:
+        - ca
+        - cert
+        - key
+        lane: regularHelm
+        sourceNamespace: default
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: default
+        name: vpa-tls-certs
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubKubectlApply
+      - namespace: default-apply
+        name: vpa-tls-certs
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubKubectlApply
+        sourceNamespace: default
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: default
+        name: vpa-tls-certs
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubOciArgo
+      - namespace: default-oci
+        name: vpa-tls-certs
+        keys:
+        - ca
+        - cert
+        - key
+        lane: configHubOciArgo
+        sourceNamespace: default
+      stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
