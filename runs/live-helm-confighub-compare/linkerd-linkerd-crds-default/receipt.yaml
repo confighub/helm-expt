@@ -1,0 +1,1092 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: linkerd-linkerd-crds-1.8.0-default-live-parity-20260605
+spec:
+  chart: linkerd/linkerd-crds
+  version: 1.8.0
+  base: default
+  result: watch
+  observedAt: '2026-06-14T20:10:42Z'
+  package:
+    path: packages/linkerd/linkerd-crds/1.8.0
+  recipe:
+    path: recipes/linkerd/linkerd-crds/1.8.0
+  variantRevision: recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-linkerdcrds-mqe7ygyi-bm
+    kubeContext: kind-helm-expt-parity-linkerdcrds-mqe7ygyi-bm
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-linkerdcrds-mqe7ygyi-bm --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-linkerdcrds-mqe7ygyi-bm"...
+
+        Deleting cluster "helm-expt-parity-linkerdcrds-mqe7ygyi-bm" ...
+
+        Deleted nodes: ["helm-expt-parity-linkerdcrds-mqe7ygyi-bm-control-plane"]
+
+        Deleting Space "helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install linkerd-crds linkerd-crds --repo https://helm.linkerd.io/stable
+        --version 1.8.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b
+      objectCount: 8
+      liveHelmManifestSHA256: 28edab9c948503147a062a784fc9cdade5b0eb91f6f1b25bd2cee4513b0f839e
+      liveHelmManifestObjectCount: 8
+      namespace: default-helm
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          CustomResourceDefinition: 8
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 8a9fd5eb1187eda5e0b88a64a2008f69e7d8e6e77eb7b335f6dd80cc4b714a84
+      objectCount: 9
+      namespace: default-apply
+      manifestNamespaces:
+      - default-apply
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          CustomResourceDefinition: 8
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 8
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'customresourcedefinition.apiextensions.k8s.io "authorizationpolicies.policy.linkerd.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "httproutes.gateway.networking.k8s.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "httproutes.policy.linkerd.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "meshtlsauthentications.policy.linkerd.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "networkauthentications.policy.linkerd.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "serverauthorizations.policy.linkerd.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "servers.policy.linkerd.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "serviceprofiles.linkerd.io"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+      controller: Argo CD OCI
+      app: linkerd-crds-parity
+      manifestSHA256: 8ae857ca177e9f3105d0fff658b8f251892deb6bd269f0b5fbbf917c4e6e3848
+      objectCount: 9
+      namespace: default-oci
+      manifestNamespaces:
+      - default-oci
+      runtimeNamespaces: []
+      ociRevision: sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+      sync: OutOfSync
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci
+              targetRevision: latest
+          revision: sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+          status: OutOfSync
+        health:
+          lastTransitionTime: '2026-06-14T20:12:56Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T20:17:18Z'
+          finishedAt: '2026-06-14T20:17:20Z'
+          operationSyncResourceCount: 1
+          operationSyncResources:
+          - group: apiextensions.k8s.io
+            kind: CustomResourceDefinition
+            namespace: ''
+            name: serviceprofiles.linkerd.io
+          syncResultResourceCount: 1
+          syncResultStatusCounts:
+            Synced: 1
+        history:
+        - id: 0
+          revision: sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+          deployedAt: '2026-06-14T20:12:58Z'
+          deployStartedAt: '2026-06-14T20:12:56Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: authorizationpolicies.policy.linkerd.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: httproutes.gateway.networking.k8s.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: httproutes.policy.linkerd.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: meshtlsauthentications.policy.linkerd.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: networkauthentications.policy.linkerd.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: serverauthorizations.policy.linkerd.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: servers.policy.linkerd.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: serviceprofiles.linkerd.io
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         linkerd-crds-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster:argoproj.io/Application:argocd/linkerd-crds-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 8c52a0e6-346d-4d9e-9b5c-18be50a41639\n              confighub.com/UnitSlug:\
+              \ linkerd-crds-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T20:12:54Z\n\
+              \  Generation:          38\n  Resource Version:    1528\n  UID:    \
+              \             c20b8210-f06e-4159-aeee-4cd7331a0997\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T20:12:56Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T20:12:56Z\n    Deployed At:        2026-06-14T20:12:58Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\n\
+              \    Source:\n      Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T20:17:20Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Auto\
+              \ Heal Attempts Count:  6\n        Prune:                     true\n\
+              \        Resources:\n          Group:   apiextensions.k8s.io\n     \
+              \     Kind:    CustomResourceDefinition\n          Name:    serviceprofiles.linkerd.io\n\
+              \        Revision:  sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\n\
+              \        Source:\n          Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T20:17:18Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       apiextensions.k8s.io\n     \
+              \   Hook Phase:  Running\n        Kind:        CustomResourceDefinition\n\
+              \        Message:     customresourcedefinition.apiextensions.k8s.io/serviceprofiles.linkerd.io\
+              \ serverside-applied\n        Name:        serviceprofiles.linkerd.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n      Revision:  \
+              \    sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\n\
+              \      Source:\n        Path:              ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T20:17:20Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:     Namespace\n\
+              \    Name:     default-oci\n    Status:   Synced\n    Version:  v1\n\
+              \    Group:    apiextensions.k8s.io\n    Kind:     CustomResourceDefinition\n\
+              \    Name:     authorizationpolicies.policy.linkerd.io\n    Status:\
+              \   Synced\n    Version:  v1\n    Group:    apiextensions.k8s.io\n \
+              \   Kind:     CustomResourceDefinition\n    Name:     httproutes.gateway.networking.k8s.io\n\
+              \    Status:   Synced\n    Version:  v1\n    Group:    apiextensions.k8s.io\n\
+              \    Kind:     CustomResourceDefinition\n    Name:     httproutes.policy.linkerd.io\n\
+              \    Status:   Synced\n    Version:  v1\n    Group:    apiextensions.k8s.io\n\
+              \    Kind:     CustomResourceDefinition\n    Name:     meshtlsauthentications.policy.linkerd.io\n\
+              \    Status:   Synced\n    Version:  v1\n    Group:    apiextensions.k8s.io\n\
+              \    Kind:     CustomResourceDefinition\n    Name:     networkauthentications.policy.linkerd.io\n\
+              \    Status:   Synced\n    Version:  v1\n    Group:    apiextensions.k8s.io\n\
+              \    Kind:     CustomResourceDefinition\n    Name:     serverauthorizations.policy.linkerd.io\n\
+              \    Status:   Synced\n    Version:  v1\n    Group:    apiextensions.k8s.io\n\
+              \    Kind:     CustomResourceDefinition\n    Name:     servers.policy.linkerd.io\n\
+              \    Status:   Synced\n    Version:  v1\n    Group:    apiextensions.k8s.io\n\
+              \    Kind:     CustomResourceDefinition\n    Name:     serviceprofiles.linkerd.io\n\
+              \    Status:   OutOfSync\n    Version:  v1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  default-oci\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\n\
+              \    Status:               OutOfSync\nEvents:\n  Type    Reason    \
+              \          Age    From                           Message\n  ----   \
+              \ ------              ----   ----                           -------\n\
+              \  Normal  OperationStarted    6m50s  argocd-application-controller\
+              \  Initiated automated sync to 'sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207'\n\
+              \  Normal  ResourceUpdated     6m50s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  6m50s  argocd-application-controller "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                            MESSAGE
+
+              6m50s       Normal   OperationStarted     application/linkerd-crds-parity   Initiated
+              automated sync to ''sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207''
+
+              6m50s       Normal   ResourceUpdated      application/linkerd-crds-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m50s       Normal   ResourceUpdated      application/linkerd-crds-parity   Updated
+              health status:  -> Healthy
+
+              6m48s       Normal   OperationCompleted   application/linkerd-crds-parity   Sync
+              operation to sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+              succeeded
+
+              6m45s       Normal   OperationStarted     application/linkerd-crds-parity   Initiated
+              automated sync to ''sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207''
+
+              6m43s       Normal   OperationCompleted   application/linkerd-crds-parity   Partial
+              sync operation to sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+              succeeded
+
+              6m40s       Normal   OperationStarted     application/linkerd-crds-parity   Initiated
+              automated sync to ''sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207''
+
+              6m38s       Normal   OperationCompleted   application/linkerd-crds-parity   Partial
+              sync operation to sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+              succeeded
+
+              6m31s       Normal   OperationStarted     application/linkerd-crds-parity   Initiated
+              automated sync to ''sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207''
+
+              6m29s       Normal   OperationCompleted   application/linkerd-crds-parity   Partial
+              sync operation to sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+              succeeded
+
+              6m10s       Normal   OperationStarted     application/linkerd-crds-parity   Initiated
+              automated sync to ''sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207''
+
+              6m8s        Normal   OperationCompleted   application/linkerd-crds-parity   Partial
+              sync operation to sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+              succeeded
+
+              5m13s       Normal   OperationStarted     application/linkerd-crds-parity   Initiated
+              automated sync to ''sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207''
+
+              5m11s       Normal   OperationCompleted   application/linkerd-crds-parity   Partial
+              sync operation to sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+              succeeded
+
+              2m28s       Normal   OperationStarted     application/linkerd-crds-parity   Initiated
+              automated sync to ''sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207''
+
+              2m26s       Normal   OperationCompleted   application/linkerd-crds-parity   Partial
+              sync operation to sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+              succeeded'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: OutOfSync
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 9
+              artifact:
+                path: argocd-core-child.json
+                sha256: fa39bda5b4819c8b38f80b32b5acf073f3117e128103179c0eccd135b9ca9443
+                bytes: 10816
+              output: "{\n  \"metadata\": {\n    \"name\": \"linkerd-crds-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"c20b8210-f06e-4159-aeee-4cd7331a0997\"\
+                ,\n    \"resourceVersion\": \"1729\",\n    \"generation\": 39,\n \
+                \   \"creationTimestamp\": \"2026-06-14T20:12:54Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster:argoproj.io/Application:argocd/linkerd-crds-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"8c52a0e6-346d-4d9e-9b5c-18be50a41639\",\n      \"confighub.com/UnitSlug\"\
+                : \"linkerd-crds-parity-app\"\n    },\n    \"managedFields\": [\n\
+                \      {\n        \"manager\": \"argocd-controller\",\n        \"\
+                operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T20:12:54Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T20:19:55Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:autoHealAttemptsCount\"\
+                : {},\n                  \"f:prune\": {},\n                  \"f:resources\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"apiextensions.k8s.io\",\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"authorizationpolicies.policy.linkerd.io\",\n\
+                \        \"status\": \"Synced\",\n        \"health\": {\n        \
+                \  \"status\": \"Healthy\",\n          \"message\": \"CRD is healthy\"\
+                \n        }\n      },\n      {\n        \"group\": \"apiextensions.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"httproutes.gateway.networking.k8s.io\",\n \
+                \       \"status\": \"Synced\",\n        \"health\": {\n         \
+                \ \"status\": \"Healthy\",\n          \"message\": \"CRD is healthy\"\
+                \n        }\n      },\n      {\n        \"group\": \"apiextensions.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"httproutes.policy.linkerd.io\",\n        \"\
+                status\": \"Synced\",\n        \"health\": {\n          \"status\"\
+                : \"Healthy\",\n          \"message\": \"CRD is healthy\"\n      \
+                \  }\n      },\n      {\n        \"group\": \"apiextensions.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"meshtlsauthentications.policy.link"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 7922445cfd795d095cd39eb2334a291d009a068b5da2f342a06d7482bbf47e03
+                bytes: 1745
+              output: "Name:               argocd/linkerd-crds-parity\nProject:  \
+                \          default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:60466/applications/linkerd-crds-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        OutOfSync from latest (sha256:)\nHealth Status:\
+                \      Healthy\n\nKIND/NAME                                      \
+                \                    STATUS     HEALTH   AGE   MESSAGE  REASON\nCustomResourceDefinition/serverauthorizations.policy.linkerd.io\
+                \    Synced     Healthy  7m7s           CRD is healthy\nCustomResourceDefinition/servers.policy.linkerd.io\
+                \                 Synced     Healthy  7m7s           CRD is healthy\n\
+                CustomResourceDefinition/serviceprofiles.linkerd.io              \
+                \  OutOfSync  Healthy  7m7s           CRD is healthy\nCustomResourceDefinition/authorizationpolicies.policy.linkerd.io\
+                \   Synced     Healthy  7m7s           CRD is healthy\nCustomResourceDefinition/meshtlsauthentications.policy.linkerd.io\
+                \  Synced     Healthy  7m7s           CRD is healthy\nNamespace/default-oci\
+                \                                              Synced            \
+                \  8m6s           \nCustomResourceDefinition/httproutes.gateway.networking.k8s.io\
+                \      Synced     Healthy  7m7s           CRD is healthy\nCustomResourceDefinition/httproutes.policy.linkerd.io\
+                \              Synced     Healthy  7m7s           CRD is healthy\n\
+                CustomResourceDefinition/networkauthentications.policy.linkerd.io\
+                \  Synced     Healthy  7m7s           CRD is healthy"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              linkerd-crds-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"sync\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/linkerd-crds-parity\"\
+              ,\n      \"syncStatus\": \"OutOfSync\",\n      \"healthStatus\": \"\
+              Healthy\",\n      \"lastAttemptedRevision\": \"sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"linkerd-crds-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci
+              targetRevision: latest
+          revision: sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T20:11:44Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T20:12:52Z'
+          finishedAt: '2026-06-14T20:12:54Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+          deployedAt: '2026-06-14T20:12:54Z'
+          deployStartedAt: '2026-06-14T20:12:52Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: linkerd-crds-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T20:11:40Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        11\n  Resource Version:  1612\n  UID:        \
+              \       b00c9c6d-ce91-4cbe-b9f4-e510ea2c9cfd\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T20:11:44Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T20:12:52Z\n\
+              \    Deployed At:        2026-06-14T20:12:54Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\n\
+              \    Source:\n      Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T20:12:54Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\n\
+              \        Source:\n          Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T20:12:52Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/linkerd-crds-parity serverside-applied\n\
+              \        Name:        linkerd-crds-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\n\
+              \      Source:\n        Path:              ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T20:18:23Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       linkerd-crds-parity\n    Namespace:  argocd\n    Status:   \
+              \  Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:\
+              \  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     8m21s  argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     8m21s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m13s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207'\n\
+              \  Normal  ResourceUpdated     7m13s  argocd-application-controller\
+              \  Updated sync status: Unknown -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m11s  argocd-application-controller  Sync operation to sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\
+              \ succeeded\n  Normal  ResourceUpdated     7m9s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                         MESSAGE
+
+              8m21s       Normal   ResourceUpdated      application/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster   Updated
+              sync status:  -> Unknown
+
+              8m21s       Normal   ResourceUpdated      application/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster   Updated
+              health status:  -> Healthy
+
+              7m13s       Normal   OperationStarted     application/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster   Initiated
+              automated sync to ''sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207''
+
+              7m13s       Normal   ResourceUpdated      application/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster   Updated
+              sync status: Unknown -> OutOfSync
+
+              7m11s       Normal   OperationCompleted   application/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster   Sync
+              operation to sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207
+              succeeded
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 4ea46ddbefb8cbadde872e57516f617e763a619c169df0102a34f46835977ea0
+                bytes: 10697
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"b00c9c6d-ce91-4cbe-b9f4-e510ea2c9cfd\"\
+                ,\n    \"resourceVersion\": \"1759\",\n    \"generation\": 12,\n \
+                \   \"creationTimestamp\": \"2026-06-14T20:11:40Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T20:11:40Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T20:20:14Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.conf"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 93a718f302ad0aec39db22ec44e97c08d62e9b176c585668787995fcc53e7af8
+                bytes: 1153
+              output: "Name:               argocd/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:60583/applications/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \            STATUS  HEALTH  AGE    MESSAGE                      \
+                \                                                                REASON\n\
+                Application/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster  Synced\
+                \          8m44s  application.argoproj.io/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\
+                \ serverside-applied  \nApplication/linkerd-crds-parity          \
+                \                     Synced          7m30s  application.argoproj.io/linkerd-crds-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              linkerd-crds-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"sync\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/linkerd-crds-parity\"\
+              ,\n      \"syncStatus\": \"OutOfSync\",\n      \"healthStatus\": \"\
+              Healthy\",\n      \"lastAttemptedRevision\": \"sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"linkerd-crds-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          CustomResourceDefinition: 8
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id001
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 8
+      configHubObjectCount: 9
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 8
+      configHubObjectCount: 9
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T20:11:40Z'
+    finishedAt: '2026-06-14T20:11:43Z'
+    elapsedSeconds: 2.983
+    timeoutSeconds: 900
+    command: helm upgrade --install linkerd-crds linkerd-crds --repo https://helm.linkerd.io/stable
+      --version 1.8.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T20:11:49Z'
+    finishedAt: '2026-06-14T20:11:50Z'
+    elapsedSeconds: 0.621
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-14T20:11:51Z'
+    finishedAt: '2026-06-14T20:11:51Z'
+    elapsedSeconds: 0.175
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-linkerdcrds-mqe7ygyi-bm.kubeconfig
+      --context kind-helm-expt-parity-linkerdcrds-mqe7ygyi-bm apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/confighub-rendered-crds.yaml
+    objectCount: 8
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T20:11:53Z'
+    finishedAt: '2026-06-14T20:11:53Z'
+    elapsedSeconds: 0.152
+    timeoutSeconds: 300
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T20:11:59Z'
+    finishedAt: '2026-06-14T20:11:59Z'
+    elapsedSeconds: 0.429
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T20:12:00Z'
+    finishedAt: '2026-06-14T20:12:31Z'
+    elapsedSeconds: 31.278
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+      --space helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds --target helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci
+    objectCount: 9
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T20:12:31Z'
+    finishedAt: '2026-06-14T20:12:32Z'
+    elapsedSeconds: 0.597
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T20:12:32Z'
+    finishedAt: '2026-06-14T20:12:42Z'
+    elapsedSeconds: 9.846
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+      --unit <9 unit(s)> --wait --timeout 5m
+    unitCount: 9
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T20:12:42Z'
+    finishedAt: '2026-06-14T20:12:43Z'
+    elapsedSeconds: 0.975
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster
+      linkerd-crds-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/argo-application.json
+      --target helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T20:12:43Z'
+    finishedAt: '2026-06-14T20:12:44Z'
+    elapsedSeconds: 1.077
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-14T20:12:44Z'
+    finishedAt: '2026-06-14T20:19:46Z'
+    elapsedSeconds: 422.542
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: OutOfSync
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T20:20:25Z'
+    finishedAt: '2026-06-14T20:20:25Z'
+    elapsedSeconds: 0.151
+    timeoutSeconds: 180
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-linkerdcrds-mqe7ygyi-bm.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-linkerdcrds-mqe7ygyi-bm\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-linkerdcrds-mqe7ygyi-bm\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-linkerdcrds-mqe7ygyi-bm.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"linkerd-crds\" does not exist. Installing it now.\nNAME: linkerd-crds\n\
+      LAST DEPLOYED: Sun Jun 14 21:11:43 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nThe linkerd-crds\
+      \ chart was successfully installed \U0001F389\n\nTo complete the linkerd core\
+      \ installation, please now proceed to install the\nlinkerd-control-plane chart\
+      \ in the default-helm namespace.\n\nLooking for more? Visit https://linkerd.io/2/getting-started/"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: ''
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=8
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=OutOfSync health=Healthy after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
