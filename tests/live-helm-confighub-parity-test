@@ -942,13 +942,35 @@ def cluster_scoped_cleanup_docs(text: str) -> list[dict]:
 def workload_namespaces(text: str, fallback: str) -> list[str]:
     workload_kinds = {"Deployment", "StatefulSet", "DaemonSet", "CronJob", "Job"}
     namespaces = set()
+    saw_workload = False
     for doc in yaml_docs(text):
         if doc.get("kind") not in workload_kinds:
             continue
+        saw_workload = True
         namespace = (doc.get("metadata") or {}).get("namespace")
         if isinstance(namespace, str) and namespace:
             namespaces.add(namespace)
-    return sorted(namespaces) or [fallback]
+        else:
+            namespaces.add(fallback)
+    return sorted(namespaces) if saw_workload else []
+
+
+def no_workload_runtime(text: str) -> dict:
+    kinds = {}
+    for doc in yaml_docs(text):
+        kind = doc.get("kind")
+        if not kind or kind == "Namespace":
+            continue
+        kinds[kind] = kinds.get(kind, 0) + 1
+    return {
+        "result": "pass",
+        "kind": "no-workload-objects",
+        "workloads": "",
+        "pods": "",
+        "notReady": [],
+        "objectKinds": kinds,
+        "reason": "rendered object set has no Deployment, StatefulSet, DaemonSet, Job, or CronJob to wait for",
+    }
 
 
 def kubectl(args: list[str], kubeconfig: Path, context: str, timeout: int = 120) -> tuple[int, str, str]:
@@ -2730,8 +2752,12 @@ def main() -> int:
         receipt["spec"].setdefault("operatingPolicy", {})["regularHelm"] = helm_operations
         if helm_operations.get("operation") != "none":
             check_item("regular-helm-operating-policy", helm_operations["result"], helm_operations.get("operation", "none"))
-        helm_runtime = wait_ready(kubeconfig, context, helm_namespace, timeout_seconds=180)
-        add_runtime_diagnostics(kubeconfig, context, helm_runtime, run_root, "regular-helm", [helm_namespace])
+        helm_runtime_namespaces = workload_namespaces(helm_live_manifest or canonical_helm_manifest, helm_namespace)
+        if helm_runtime_namespaces:
+            helm_runtime = wait_ready(kubeconfig, context, helm_runtime_namespaces[0], timeout_seconds=180)
+            add_runtime_diagnostics(kubeconfig, context, helm_runtime, run_root, "regular-helm", helm_runtime_namespaces)
+        else:
+            helm_runtime = no_workload_runtime(helm_live_manifest or canonical_helm_manifest)
         if get_rc != 0:
             helm_result = "blocked"
         elif rc != 0 and helm_wait_timeout(f"{helm_out}\n{helm_err}"):
@@ -2864,7 +2890,11 @@ def main() -> int:
         receipt["spec"].setdefault("operatingPolicy", {})["configHubKubectlApply"] = apply_operations
         if apply_operations.get("operation") != "none":
             check_item("confighub-kubectl-apply-operating-policy", apply_operations["result"], apply_operations.get("operation", "none"))
-        apply_runtime = wait_ready_many(kubeconfig, context, apply_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 300))
+        apply_runtime = (
+            wait_ready_many(kubeconfig, context, apply_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 300))
+            if apply_runtime_namespaces
+            else no_workload_runtime(direct_apply_manifest)
+        )
         record_operation_timing(
             "configHub-direct-readiness",
             direct_readiness_started_at,
@@ -2873,7 +2903,8 @@ def main() -> int:
             timeout_seconds=readiness_timeout(args.chart, args.base, 300),
             namespaces=",".join(apply_runtime_namespaces),
         )
-        add_runtime_diagnostics(kubeconfig, context, apply_runtime, run_root, "confighub-direct-apply", apply_runtime_namespaces)
+        if apply_runtime_namespaces:
+            add_runtime_diagnostics(kubeconfig, context, apply_runtime, run_root, "confighub-direct-apply", apply_runtime_namespaces)
         apply_result = "pass" if apply_operations["result"] == "pass" and apply_runtime["result"] == "pass" else "watch"
         apply_cleanup_candidates = [
             namespace for namespace in sorted(set(apply_manifest_namespaces + apply_runtime_namespaces))
@@ -3190,7 +3221,11 @@ def main() -> int:
         else:
             oci_readiness_started_at = timestamp_utc()
             oci_readiness_started_mono = time.monotonic()
-            oci_runtime = wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 180))
+            oci_runtime = (
+                wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 180))
+                if oci_runtime_namespaces
+                else no_workload_runtime(cub_manifest_oci)
+            )
             record_operation_timing(
                 "configHub-oci-readiness",
                 oci_readiness_started_at,
@@ -3199,7 +3234,8 @@ def main() -> int:
                 timeout_seconds=readiness_timeout(args.chart, args.base, 180),
                 namespaces=",".join(oci_runtime_namespaces),
             )
-            add_runtime_diagnostics(kubeconfig, context, oci_runtime, run_root, "confighub-oci-argo", oci_runtime_namespaces)
+            if oci_runtime_namespaces:
+                add_runtime_diagnostics(kubeconfig, context, oci_runtime, run_root, "confighub-oci-argo", oci_runtime_namespaces)
         oci_result = "pass" if oci_operations["result"] == "pass" and sync == "Synced" and health == "Healthy" and oci_runtime["result"] == "pass" else "watch"
         leg("configHubOciArgo",
             result=oci_result,
