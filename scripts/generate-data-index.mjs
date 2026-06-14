@@ -74,6 +74,7 @@ function readme(rows) {
     ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/latest-top20-refresh/action-queue/summary.md; data/latest-top20-refresh/replacement-decisions/summary.md"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md; data/gitops-health-residue/summary.md"],
+    ["I want large ConfigHub upload/apply/GitOps operations split into visible stages.", "data/large-config-operations/summary.md; data/large-config-operations/operations.csv"],
     ["I want to understand local live non-pass rows.", "data/local-live-triage/summary.md; data/local-live-triage/triage.csv"],
     ["I want hook, APIService, CRD, webhook, or lifecycle status.", "data/hook-coverage/summary.md; data/apiservice-coverage/summary.md; data/apiservice-coverage/work-orders.md; data/lifecycle-boundary/summary.md; data/webhook-cert-lifecycle/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want candidate routes for hook-bearing source charts.", "data/hook-route-candidates/summary.md; data/hook-route-candidates/candidates.csv; data/hook-route-candidates/work-orders.md"],
@@ -121,6 +122,7 @@ function readme(rows) {
     ["data/live-helm-confighub-compare/summary.md", "Selected live Helm-vs-ConfigHub parity: regular Helm compared with ConfigHub delivery for selected top-20 rows."],
     ["data/live-parity-rerun-plan/summary.md", "Rerun queue for non-pass live parity rows: next action, current diagnosis, and exact rerun command."],
     ["data/gitops-health-residue/summary.md", "GitOps controller-health residue: rows where sync/workload evidence can pass while aggregate controller health still needs explanation."],
+    ["data/large-config-operations/summary.md", "Large ConfigHub operation funnel: 50+ object live rows split by runtime, GitOps, target facts, workload convergence, controller health, and missing progress evidence."],
     ["data/production-disposition/summary.md", "Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions."],
     ["data/production-disposition/dispositions.md", "Detailed production disposition plan: accepted receipts, open dispositions, owners, required evidence, and unblock rules."],
     ["data/production-disposition/next-actions.csv", "Production decision work queue: recommended base, decision focus, image digest gap, and next action per top-20 chart."],
@@ -313,6 +315,7 @@ function audienceFor(path) {
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
   if (path.startsWith("data/local-live-triage/")) return "user/front-door";
   if (path.startsWith("data/gitops-health-residue/")) return "user/front-door";
+  if (path.startsWith("data/large-config-operations/")) return "user/front-door";
   if (path.startsWith("data/outcome-evidence-contract/")) return "user/front-door";
   if (path.startsWith("data/top20-base-readiness/")) return "user/front-door";
   if (path.startsWith("data/outcome-coverage/")) return "user/front-door";
@@ -371,6 +374,7 @@ function roleFor(path) {
   if (path === "data/outcome-evidence-contract/outcomes.csv") return "one row per user-visible outcome: question, status, evidence, verifier command, scope, and next action";
   if (path === "data/live-e2e/cub-scout-watchlist.csv") return "strict cub-scout live witness gaps where ordinary live checks pass but rendered/live parity needs a target capability or lifecycle decision";
   if (path === "data/gitops-health-residue/residue.csv") return "one row per ConfigHub OCI/GitOps controller-health residue: app sync, aggregate health, resource health breakdown, classification, and next action";
+  if (path === "data/large-config-operations/operations.csv") return "one row per 50+ object live ConfigHub operation: stage, GitOps status, workload result, target profile, controller-health residue, and missing progress evidence";
   if (path === "data/top20-base-readiness/base-readiness.csv") return "one row per top-20 base variant: user readiness, proof status, target facts, command, and next action";
   if (path === "data/outcome-coverage/chart-outcomes.csv") return "one row per chart: model support, lane counts, gaps";
   if (path === "data/outcome-coverage/base-outcomes.csv") return "one row per chart/base: proof lane status";
@@ -493,6 +497,7 @@ function familyRole(family) {
     "live-e2e": "top-20 local kind runtime status",
     "live-kind-parity": "two-cluster kind parity receipts",
     "gitops-health-residue": "ConfigHub OCI/GitOps controller-health residue classification",
+    "large-config-operations": "large ConfigHub upload/apply/GitOps operation funnel and progress-evidence gaps",
     "live-parity-rerun-plan": "rerun queue for non-pass live parity rows",
     "runtime-gitops": "Argo/Flux OCI live proof wave",
     "hook-lifecycle": "hook-bearing charts and required lifecycle receipt paths",
