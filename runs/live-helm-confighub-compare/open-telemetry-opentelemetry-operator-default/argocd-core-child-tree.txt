@@ -1,0 +1,35 @@
+Name:               argocd/opentelemetry-operator-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:49856/applications/opentelemetry-operator-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-opentelemetry-operator
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                                          STATUS  HEALTH       AGE    MESSAGE                                                                                                                                                                                                                   REASON
+RoleBinding/opentelemetry-operator-leader-election                 Synced               9m1s   rolebinding.rbac.authorization.k8s.io/opentelemetry-operator-leader-election reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/opentelemetry-operator-leader-election serverside-applied
+ValidatingWebhookConfiguration/opentelemetry-operator-validation   Synced               7m4s
+CustomResourceDefinition/opampbridges.opentelemetry.io             Synced  Healthy      7m4s                                                                                                                                                                                                                             CRD is healthy
+CustomResourceDefinition/targetallocators.opentelemetry.io         Synced  Healthy      7m4s                                                                                                                                                                                                                             CRD is healthy
+Namespace/default-oci                                              Synced               8m32s
+Service/opentelemetry-operator                                     Synced  Healthy      9m1s   service/opentelemetry-operator serverside-applied
+MutatingWebhookConfiguration/opentelemetry-operator-mutation       Synced               7m4s
+CustomResourceDefinition/instrumentations.opentelemetry.io         Synced  Healthy      7m4s                                                                                                                                                                                                                             CRD is healthy
+CustomResourceDefinition/opentelemetrycollectors.opentelemetry.io  Synced  Healthy      7m4s                                                                                                                                                                                                                             CRD is healthy
+Certificate/opentelemetry-operator-serving-cert                    Synced  Progressing  9m1s   certificate.cert-manager.io/opentelemetry-operator-serving-cert serverside-applied                                                                                                                                        Waiting for certificate
+ClusterRole/opentelemetry-operator-metrics                         Synced               7m4s
+Role/opentelemetry-operator-leader-election                        Synced               9m1s   role.rbac.authorization.k8s.io/opentelemetry-operator-leader-election reconciled. reconciliation required update. role.rbac.authorization.k8s.io/opentelemetry-operator-leader-election serverside-applied
+Service/opentelemetry-operator-webhook                             Synced  Healthy      9m1s   service/opentelemetry-operator-webhook serverside-applied
+ServiceAccount/opentelemetry-operator                              Synced               9m1s   serviceaccount/opentelemetry-operator serverside-applied
+Deployment/opentelemetry-operator                                  Synced  Healthy      9m1s   deployment.apps/opentelemetry-operator serverside-applied
+└─ReplicaSet/opentelemetry-operator-7b79f764b                              Healthy      9m1s
+  └─Pod/opentelemetry-operator-7b79f764b-snt58                             Healthy      9m1s
+Issuer/opentelemetry-operator-selfsigned-issuer                    Synced  Progressing  9m1s   issuer.cert-manager.io/opentelemetry-operator-selfsigned-issuer serverside-applied                                                                                                                                        Initializing issuer
+ClusterRole/opentelemetry-operator-manager                         Synced               7m4s
+ClusterRoleBinding/opentelemetry-operator-manager                  Synced               7m4s

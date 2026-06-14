@@ -1,0 +1,48 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "opentelemetry-operator-default-certificate-health-watch"
+  chart: "open-telemetry/opentelemetry-operator"
+  version: "0.114.0"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with staged target facts, but without a cert-manager controller"
+  receipt: "runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "Synced"
+    configHubOciHealth: "Progressing"
+    semanticParity: "pass"
+  passed:
+    - "regular Helm reached readiness"
+    - "ConfigHub direct apply reached readiness"
+    - "ConfigHub OCI/Argo synced all rendered Units"
+    - "the OpenTelemetry Operator Deployment reached readiness"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+    - "required CRDs and the webhook TLS Secret were staged as target facts"
+  watch:
+    summary: "The workload is running, but Argo aggregate health remains Progressing because the chart-rendered cert-manager Certificate is not Ready."
+    observedResidue:
+      - "Certificate/default/opentelemetry-operator-serving-cert: Synced/Progressing"
+      - "Issuer/default/opentelemetry-operator-selfsigned-issuer: Synced"
+      - "Deployment/default/opentelemetry-operator: ready"
+    interpretation: "Staging the webhook TLS Secret is enough for the operator pod to run, but it does not make the chart-rendered Certificate object healthy unless a cert-manager controller reconciles it."
+  diagnosis:
+    summary: "This is a lifecycle-controller prerequisite watch row, not a render parity defect."
+    productBoundary: "A production claim for this base needs either a target with cert-manager installed and observed, or an explicit route that treats the chart-rendered Certificate/Issuer as lifecycle evidence rather than a health gate."
+    nextInvestigation:
+      - "Rerun this base on a target profile that installs cert-manager before the OpenTelemetry Operator."
+      - "If cert-manager is outside the supported scope, split the webhook certificate path into an explicit target prerequisite and document the Argo health implication."
+      - "Decide whether the no-crds base should be the preferred production base when CRDs and cert-manager ownership already belong to the platform."
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/argocd-core-root-tree.txt"
+  notClaimed:
+    - "This row does not prove OpenTelemetry Operator production support for arbitrary targets."
+    - "This row does not prove that Argo CD aggregate health should be ignored in production."
+    - "This row does not prove cert-manager lifecycle ownership, certificate rotation, or webhook certificate renewal."

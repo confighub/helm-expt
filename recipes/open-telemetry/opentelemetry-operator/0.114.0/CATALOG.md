@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/open-telemetry/opentelemetry-operator/0.114.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/open-telemetry/opentelemetry-operator/0.114.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/open-telemetry/opentelemetry-operator/0.114.0/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/open-telemetry/opentelemetry-operator/0.114.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/open-telemetry/opentelemetry-operator/0.114.0](../../../../packages/open-telemetry/opentelemetry-operator/0.114.0) |

@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 86
-watch: 4
+watch: 5
 blocked: 0
 not-started: 0
 ```
@@ -96,6 +96,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `kyverno/kyverno@3.8.1` | no-crds | pass | - | runs/live-helm-confighub-compare/kyverno-kyverno-no-crds/receipt.yaml |
 |  | `nats/nats@2.14.0` | default | pass | - | runs/live-helm-confighub-compare/nats-nats-default/receipt.yaml |
 |  | `nats/nats@2.14.0` | ha | pass | - | runs/live-helm-confighub-compare/nats-nats-ha/receipt.yaml |
+|  | `open-telemetry/opentelemetry-operator@0.114.0` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | default | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-default/receipt.yaml |
 |  | `percona/psmdb-operator@1.22.0` | default | pass | - | runs/live-helm-confighub-compare/percona-psmdb-operator-default/receipt.yaml |
 |  | `percona/pxc-operator@1.19.1` | default | pass | - | runs/live-helm-confighub-compare/percona-pxc-operator-default/receipt.yaml |

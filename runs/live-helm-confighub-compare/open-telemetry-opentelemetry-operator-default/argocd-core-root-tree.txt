@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:49976/applications/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                              STATUS  HEALTH  AGE    MESSAGE                                                                                               REASON
+Application/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-cluster  Synced          9m55s  application.argoproj.io/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-cluster serverside-applied
+Application/opentelemetry-operator-parity                              Synced          7m29s  application.argoproj.io/opentelemetry-operator-parity serverside-applied
