@@ -26,12 +26,14 @@ delivery through OCI/Argo also matters.
 | Selected live Helm-vs-ConfigHub comparison | [summary](../../data/live-helm-confighub-compare/summary.md) | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. |
 | Two-cluster kind parity | [summary](../../data/live-kind-parity/summary.md) | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
 | Active rerun/review queue | [rerun plan](../../data/live-parity-rerun-plan/summary.md) | Current non-pass rows, next action, support artifact, and rerun command. |
+| Full matrix burn-down | [burn-down](../../data/live-matrix-burndown/summary.md) | One generated work item per remaining live command needed to close the master matrix live cells. |
 
 Use the generated reports for exact rows:
 
 - [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md)
 - [Two-Cluster Kind Parity](../../data/live-kind-parity/summary.md)
 - [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md)
+- [Live Matrix Burn-Down](../../data/live-matrix-burndown/summary.md)
 - [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv)
 
 Rows with missing useful Helm values, target prerequisites, target-fit
@@ -73,6 +75,14 @@ Use the generated rerun plan:
 
 [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md)
 
+Use the generated burn-down when you need the full remaining command count:
+
+[Live Matrix Burn-Down](../../data/live-matrix-burndown/summary.md)
+
+Each row in that file is one command, not one colored cell. A `live-parity`
+row exercises both the G and P columns in the master matrix. A `kind-parity`
+row exercises K.
+
 Run live parity reruns serially. Do not run two live parity commands at the same
 time from different terminals or agents. The harness creates and prunes
 parity-owned kind clusters, so concurrent runs can delete each other's cluster
@@ -94,6 +104,9 @@ npm run kind-parity:run -- --chart <repo/chart> --version <version> --base <base
 
 # Regenerate the rerun queue after receipts change
 npm run live-parity:rerun-plan
+
+# Regenerate the full matrix live burn-down after matrix/lane status changes
+npm run live-matrix:burndown
 ```
 
 Some live rows require a target profile. A target profile describes a capability
