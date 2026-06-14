@@ -45,6 +45,7 @@ smallest generated surface that answers it.
 | I want candidate routes for hook-bearing source charts. | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md)<br>[hook-route-candidates/candidates.csv](./hook-route-candidates/candidates.csv)<br>[hook-route-candidates/work-orders.md](./hook-route-candidates/work-orders.md) |
 | I want the machine-readable lifecycle route contract: where a hook or hidden behavior goes, who executes it, the default, and the off-ramps. | [lifecycle-routes/summary.md](./lifecycle-routes/summary.md)<br>[lifecycle-routes/routes.csv](./lifecycle-routes/routes.csv)<br>[lifecycle-routes/routes.json](./lifecycle-routes/routes.json) |
 | I want to know which operating skill/playbook applies to a chart. | [chart-skills/summary.md](./chart-skills/summary.md)<br>[chart-skills/skills.csv](./chart-skills/skills.csv)<br>[chart-skills/skills.json](./chart-skills/skills.json) |
+| I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically. | [lifecycle-route-actions/summary.md](./lifecycle-route-actions/summary.md)<br>[lifecycle-route-actions/actions.csv](./lifecycle-route-actions/actions.csv)<br>[lifecycle-route-actions/actions.json](./lifecycle-route-actions/actions.json) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
 | I want accepted pre-review production dispositions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
@@ -242,6 +243,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `legacy-patch-review` | [legacy-patch-review/summary.md](./legacy-patch-review/summary.md) | older chart-version patch support review |
 | `lifecycle-boundary` | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md) | hook queue and hook-like lifecycle observation boundary |
 | `lifecycle-observations` | [lifecycle-observations/cert-manager-eso/summary.md](./lifecycle-observations/cert-manager-eso/summary.md) | controller-owned or hook-like lifecycle observations |
+| `lifecycle-route-actions` | [lifecycle-route-actions/summary.md](./lifecycle-route-actions/summary.md) | hook/lifecycle routes projected into machine-readable action packets: phase, action kind, required facts, evidence required, and an explicit automatic flag |
 | `lifecycle-routes` | [lifecycle-routes/summary.md](./lifecycle-routes/summary.md) | machine-readable lifecycle route contract: disposition, route, execution mode, default, alternatives, and human/agent off-ramps |
 | `live-e2e` | [live-e2e/summary.md](./live-e2e/summary.md) | top-20 local kind runtime status |
 | `live-helm-confighub-compare` | [live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) | strict live Helm-vs-ConfigHub parity |
@@ -293,7 +295,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 135 CSV files. Each row records the path, audience,
+It includes 136 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

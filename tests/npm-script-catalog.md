@@ -11,6 +11,7 @@ generator, a live test, or a user-side tutorial check.
 
 ```text
 scripts: 416
+scripts: 417
 ```
 
 ## By Category
@@ -23,6 +24,8 @@ scripts: 416
 | `other` | 42 |
 | `hook-lifecycle` | 25 |
 | `live-parity-gitops` | 21 |
+| `hook-lifecycle` | 27 |
+| `live-parity-gitops` | 20 |
 | `evidence-workdown` | 19 |
 | `latest-version-refresh` | 18 |
 | `repo-integrity` | 14 |
@@ -40,6 +43,7 @@ scripts: 416
 | --- | ---: |
 | `verify` | 207 |
 | `generate-or-run` | 165 |
+| `generate-or-run` | 166 |
 | `run` | 34 |
 | `summary` | 7 |
 | `self-test` | 2 |
@@ -50,6 +54,7 @@ scripts: 416
 | External state | Scripts |
 | --- | ---: |
 | `none-for-verify` | 379 |
+| `none-for-verify` | 380 |
 | `local-kubernetes` | 13 |
 | `confighub-or-live-cluster` | 12 |
 | `network-or-helm-repo` | 7 |
