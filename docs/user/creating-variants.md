@@ -270,6 +270,12 @@ cub unit set-predicates <unit> --space <downstream-space> \
 That makes promotion safer because local ownership is represented as ConfigHub
 data, not as an undocumented patch.
 
+The consolidated promotion model is in
+[Variant Promotion Model](../reference/variant-promotion-model.md). Current
+evidence shows server-side promotion mechanics for the primary top-20 rows, but
+those rows remain watch-grade until the changeset-bound path tracked in
+[#682](https://github.com/confighub/helm-expt/issues/682) is fixed and rerun.
+
 ## Delivery Prerequisites
 
 Before OCI publication or GitOps sync, the artifact should already represent
@@ -480,3 +486,4 @@ making the human flow complicated.
 - [Prometheus Overlay And Promotion Example](./prometheus-overlay-promotion-example.md)
 - [Product Support Tiers For Helm Scenarios](./product-support-tiers.md)
 - [Variant Creator Reference](../reference/variant-creation-artifact.md)
+- [Variant Promotion Model](../reference/variant-promotion-model.md)

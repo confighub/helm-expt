@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-14 (commit `2c81657c`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-14 (commit `767ff8b4`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,9 +23,9 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 165 |
-| Fresh (no linked source newer than the doc) | 14 |
-| **Review-due** | 33 |
+| Authored docs tracked | 166 |
+| Fresh (no linked source newer than the doc) | 16 |
+| **Review-due** | 32 |
 | No linked evidence sources (cannot auto-trigger) | 118 |
 
 ## Review queue
@@ -53,7 +53,6 @@ most recently changed triggers.
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 2 | `data/production-disposition/next-actions.csv (2026-06-13)`<br>`data/production-disposition/support-decision-contract.md (2026-06-13)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 2 | `data/hard-chart-production-packets/summary.md (2026-06-13)` |
 | [README.md](../../README.md) | root | 2026-06-13 | 1 | `data/status-dashboard/summary.md (2026-06-13)`<br>`CATALOG.md (2026-06-13)`<br>`data/chart-use-guide/summary.md (2026-06-13)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-06-14 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-14)` |
 | [docs/planning/next-execution-plan.md](../../docs/planning/next-execution-plan.md) | planning | 2026-06-13 | 1 | `data/outcome-coverage/summary.md (2026-06-13)`<br>`data/status-dashboard/summary.md (2026-06-13)`<br>`data/top20-base-readiness/summary.md (2026-06-13)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 1 | `data/secret-lifecycle/summary.md (2026-06-13)`<br>`data/secret-lifecycle/variant-summary.csv (2026-06-13)` |
