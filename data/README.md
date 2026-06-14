@@ -39,7 +39,7 @@ smallest generated surface that answers it.
 | I want the first strict top-100 promotion wave. | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md)<br>[top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv)<br>[top100-promotion-wave/fast-track.md](./top100-promotion-wave/fast-track.md)<br>[top100-promotion-wave/fast-track-reviews/README.md](./top100-promotion-wave/fast-track-reviews/README.md)<br>[top100-promotion-wave/fast-track-reviews/storage-rollback/README.md](./top100-promotion-wave/fast-track-reviews/storage-rollback/README.md)<br>[top100-promotion-wave/fast-track-reviews/target-scope/README.md](./top100-promotion-wave/fast-track-reviews/target-scope/README.md)<br>[top100-promotion-wave/work-orders.md](./top100-promotion-wave/work-orders.md) |
 | I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md)<br>[latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
-| I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md)<br>[gitops-health-residue/summary.md](./gitops-health-residue/summary.md) |
+| I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md)<br>[live-matrix-burndown/summary.md](./live-matrix-burndown/summary.md)<br>[gitops-health-residue/summary.md](./gitops-health-residue/summary.md) |
 | I want large ConfigHub upload/apply/GitOps operations split into visible stages. | [large-config-operations/summary.md](./large-config-operations/summary.md)<br>[large-config-operations/operations.csv](./large-config-operations/operations.csv) |
 | I want to understand local live non-pass rows. | [local-live-triage/summary.md](./local-live-triage/summary.md)<br>[local-live-triage/triage.csv](./local-live-triage/triage.csv) |
 | I want hook, APIService, CRD, webhook, or lifecycle status. | [hook-coverage/summary.md](./hook-coverage/summary.md)<br>[apiservice-coverage/summary.md](./apiservice-coverage/summary.md)<br>[apiservice-coverage/work-orders.md](./apiservice-coverage/work-orders.md)<br>[lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
@@ -87,6 +87,7 @@ smallest generated surface that answers it.
 | [hook-route-candidates/work-orders.md](./hook-route-candidates/work-orders.md) | Generated work orders for turning hook route candidates into maintained route receipts, observations, or explicit blockers. |
 | [lifecycle-observations/cert-manager-eso/summary.md](./lifecycle-observations/cert-manager-eso/summary.md) | Concrete lifecycle observations for cert-manager and External Secrets: CRD policy, post-apply API readiness, webhook CA injection, and controller-populated Secret data. |
 | [live-kind-parity/summary.md](./live-kind-parity/summary.md) | Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another. |
+| [live-matrix-burndown/summary.md](./live-matrix-burndown/summary.md) | Generated live burn-down plan: one row per remaining live-parity or two-cluster kind-parity command needed to close the master matrix live cells. |
 | [local-live-triage/summary.md](./local-live-triage/summary.md) | Local Kubernetes non-pass triage: every local live fail/block row mapped to a route class, next action, and receipt. |
 | [live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) | Selected live Helm-vs-ConfigHub parity: regular Helm compared with ConfigHub delivery for selected top-20 rows. |
 | [live-parity-rerun-plan/summary.md](./live-parity-rerun-plan/summary.md) | Rerun queue for non-pass live parity rows: next action, current diagnosis, and exact rerun command. |
@@ -251,6 +252,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `live-e2e` | [live-e2e/summary.md](./live-e2e/summary.md) | top-20 local kind runtime status |
 | `live-helm-confighub-compare` | [live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) | strict live Helm-vs-ConfigHub parity |
 | `live-kind-parity` | [live-kind-parity/summary.md](./live-kind-parity/summary.md) | two-cluster kind parity receipts |
+| `live-matrix-burndown` | [live-matrix-burndown/summary.md](./live-matrix-burndown/summary.md) | supporting generated evidence |
 | `live-parity-rerun-plan` | [live-parity-rerun-plan/summary.md](./live-parity-rerun-plan/summary.md) | rerun queue for non-pass live parity rows |
 | `local-live-triage` | [local-live-triage/summary.md](./local-live-triage/summary.md) | front-door local live non-pass route classes and next actions |
 | `master-catalog-matrix` | [master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md) | supporting generated evidence |
@@ -298,7 +300,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 137 CSV files. Each row records the path, audience,
+It includes 138 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

@@ -73,7 +73,7 @@ function readme(rows) {
     ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv; data/top100-promotion-wave/fast-track.md; data/top100-promotion-wave/fast-track-reviews/README.md; data/top100-promotion-wave/fast-track-reviews/storage-rollback/README.md; data/top100-promotion-wave/fast-track-reviews/target-scope/README.md; data/top100-promotion-wave/work-orders.md"],
     ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/latest-top20-refresh/action-queue/summary.md; data/latest-top20-refresh/replacement-decisions/summary.md"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
-    ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md; data/gitops-health-residue/summary.md"],
+    ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md; data/live-matrix-burndown/summary.md; data/gitops-health-residue/summary.md"],
     ["I want large ConfigHub upload/apply/GitOps operations split into visible stages.", "data/large-config-operations/summary.md; data/large-config-operations/operations.csv"],
     ["I want to understand local live non-pass rows.", "data/local-live-triage/summary.md; data/local-live-triage/triage.csv"],
     ["I want hook, APIService, CRD, webhook, or lifecycle status.", "data/hook-coverage/summary.md; data/apiservice-coverage/summary.md; data/apiservice-coverage/work-orders.md; data/lifecycle-boundary/summary.md; data/webhook-cert-lifecycle/summary.md; data/outcome-coverage/feature-outcomes.csv"],
@@ -118,6 +118,7 @@ function readme(rows) {
     ["data/hook-route-candidates/work-orders.md", "Generated work orders for turning hook route candidates into maintained route receipts, observations, or explicit blockers."],
     ["data/lifecycle-observations/cert-manager-eso/summary.md", "Concrete lifecycle observations for cert-manager and External Secrets: CRD policy, post-apply API readiness, webhook CA injection, and controller-populated Secret data."],
     ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
+    ["data/live-matrix-burndown/summary.md", "Generated live burn-down plan: one row per remaining live-parity or two-cluster kind-parity command needed to close the master matrix live cells."],
     ["data/local-live-triage/summary.md", "Local Kubernetes non-pass triage: every local live fail/block row mapped to a route class, next action, and receipt."],
     ["data/live-helm-confighub-compare/summary.md", "Selected live Helm-vs-ConfigHub parity: regular Helm compared with ConfigHub delivery for selected top-20 rows."],
     ["data/live-parity-rerun-plan/summary.md", "Rerun queue for non-pass live parity rows: next action, current diagnosis, and exact rerun command."],
@@ -314,6 +315,7 @@ function audienceFor(path) {
   if (path.startsWith("data/chart-evidence-router/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
   if (path.startsWith("data/local-live-triage/")) return "user/front-door";
+  if (path.startsWith("data/live-matrix-burndown/")) return "user/front-door";
   if (path.startsWith("data/gitops-health-residue/")) return "user/front-door";
   if (path.startsWith("data/large-config-operations/")) return "user/front-door";
   if (path.startsWith("data/outcome-evidence-contract/")) return "user/front-door";
@@ -371,6 +373,7 @@ function roleFor(path) {
   if (path === "data/status-dashboard/top20-status.csv") return "one row per top-20 catalog chart: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action";
   if (path === "data/local-live-triage/triage.csv") return "one row per local live non-pass chart/base: route class, user meaning, next action, and receipt";
   if (path === "data/local-live-triage/classes.csv") return "route-class summary for local live non-pass rows";
+  if (path === "data/live-matrix-burndown/work-items.csv") return "one row per remaining live command needed to close master-matrix G/P or K cells; live-parity rows exercise G and P together, kind-parity rows exercise K";
   if (path === "data/outcome-evidence-contract/outcomes.csv") return "one row per user-visible outcome: question, status, evidence, verifier command, scope, and next action";
   if (path === "data/live-e2e/cub-scout-watchlist.csv") return "strict cub-scout live witness gaps where ordinary live checks pass but rendered/live parity needs a target capability or lifecycle decision";
   if (path === "data/gitops-health-residue/residue.csv") return "one row per ConfigHub OCI/GitOps controller-health residue: app sync, aggregate health, resource health breakdown, classification, and next action";
@@ -604,6 +607,7 @@ function commandMap() {
     "live-e2e": { generate: "npm run top20:local-e2e:summary", verify: "npm run top20:verify-local-e2e" },
     "live-helm-confighub-compare": { generate: "npm run live-parity:top20:summary", verify: "npm run live-parity:top20:verify-slots" },
     "live-parity-rerun-plan": { generate: "npm run live-parity:rerun-plan", verify: "npm run live-parity:rerun-plan:verify" },
+    "live-matrix-burndown": { generate: "npm run live-matrix:burndown", verify: "npm run live-matrix:burndown:verify" },
     "gitops-health-residue": { generate: "npm run gitops:health-residue", verify: "npm run gitops:health-residue:verify" },
     "live-kind-parity": { generate: "npm run kind-parity:summary", verify: "npm run kind-parity:verify" },
     "runtime-gitops": { generate: "npm run runtime-gitops:wave", verify: "npm run runtime-gitops:wave:verify" },
