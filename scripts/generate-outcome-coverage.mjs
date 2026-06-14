@@ -34,7 +34,7 @@ if (mode === "--generate") {
 
 function buildReport() {
   const modelRows = parseCsvFile("data/model-completeness/report.csv");
-  const laneRows = parseCsvFile("data/lane-test-matrix/variant-lanes.csv");
+  const rawLaneRows = parseCsvFile("data/lane-test-matrix/variant-lanes.csv");
   const chartFacts = parseCsvFile("data/chart-facts/chart-facts.csv");
   const productionRows = parseCsvFile("data/production-disposition/top20.csv");
   const derivedTargetRows = parseCsvFile("data/derived-variant-target-bound/summary.csv");
@@ -44,6 +44,7 @@ function buildReport() {
   const webhookCertLifecycleRows = parseCsvFile("data/webhook-cert-lifecycle/evidence.csv");
   const liveParityRows = parseCsvFile("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = parseCsvFile("data/live-kind-parity/summary.csv");
+  const laneRows = applyExactLiveLanes(rawLaneRows, liveParityRows);
 
   const modelByChart = new Map(modelRows.map((row) => [row.chart, row]));
   const factsByChart = new Map(chartFacts.map((row) => [`${row.chart}@${row.version}`, row]));
@@ -117,6 +118,7 @@ function buildReport() {
       variant_revision: row.variant_revision,
       evidence_notes: [
         row.lane_notes,
+        row.exact_live_receipt ? `exact live parity receipt: ${row.exact_live_receipt}` : "",
         lifecycle ? `lifecycle observation: ${lifecycle.receipt}` : "",
         kindParity ? kindParity.receipt : "no two-cluster kind parity receipt in this repo",
       ].filter(Boolean).join(" | "),
@@ -175,6 +177,21 @@ function buildReport() {
     derived: toCsv(derivedRows),
     features: toCsv(featureRows),
   };
+}
+
+function applyExactLiveLanes(laneRows, liveParityRows) {
+  const liveByBase = new Map(liveParityRows.map((row) => [`${row.chart}@${row.version}|${row.variant}`, row]));
+  return laneRows.map((row) => {
+    const exact = liveByBase.get(`${row.chart}@${row.version}|${row.variant}`);
+    if (!exact) return row;
+    return {
+      ...row,
+      confighub_oci_argo_live: exact.result,
+      live_helm_vs_confighub_dual_compare: exact.result,
+      exact_live_receipt: exact.receipt,
+      exact_live_reason: exact.reason,
+    };
+  });
 }
 
 function derivedVariantRows(targetRows) {
