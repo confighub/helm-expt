@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-14 (commit `d9aadc84`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-14 (commit `f6c0c950`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 166 |
-| Fresh (no linked source newer than the doc) | 16 |
-| **Review-due** | 33 |
-| No linked evidence sources (cannot auto-trigger) | 117 |
+| Authored docs tracked | 168 |
+| Fresh (no linked source newer than the doc) | 17 |
+| **Review-due** | 32 |
+| No linked evidence sources (cannot auto-trigger) | 119 |
 
 ## Review queue
 
@@ -53,7 +53,6 @@ most recently changed triggers.
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 2 | `data/production-disposition/next-actions.csv (2026-06-13)`<br>`data/production-disposition/support-decision-contract.md (2026-06-13)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 2 | `data/hard-chart-production-packets/summary.md (2026-06-13)` |
 | [README.md](../../README.md) | root | 2026-06-13 | 1 | `data/status-dashboard/summary.md (2026-06-13)`<br>`CATALOG.md (2026-06-13)`<br>`data/chart-use-guide/summary.md (2026-06-13)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-06-14 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-14)` |
 | [docs/planning/next-execution-plan.md](../../docs/planning/next-execution-plan.md) | planning | 2026-06-13 | 1 | `data/outcome-coverage/summary.md (2026-06-13)`<br>`data/status-dashboard/summary.md (2026-06-13)`<br>`data/top20-base-readiness/summary.md (2026-06-13)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 1 | `data/secret-lifecycle/summary.md (2026-06-13)`<br>`data/secret-lifecycle/variant-summary.csv (2026-06-13)` |
@@ -132,6 +131,8 @@ into this freshness model.
 - [docs/planning/issue-backlog.md](../../docs/planning/issue-backlog.md)
 - [docs/planning/latest-top20-refresh-plan.md](../../docs/planning/latest-top20-refresh-plan.md)
 - [docs/planning/legacy-patch-review.md](../../docs/planning/legacy-patch-review.md)
+- [docs/planning/maintenance-strategy.md](../../docs/planning/maintenance-strategy.md)
+- [docs/planning/per-chart-fact-sheet-spec.md](../../docs/planning/per-chart-fact-sheet-spec.md)
 - [docs/planning/pilot-adversarial-testing.md](../../docs/planning/pilot-adversarial-testing.md)
 - [docs/planning/review-prompts.md](../../docs/planning/review-prompts.md)
 - [docs/planning/robust-sceptic-plan.md](../../docs/planning/robust-sceptic-plan.md)
