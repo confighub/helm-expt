@@ -1,0 +1,24 @@
+Name:               argocd/traefik-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:63200/applications/traefik-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-traefik-mqdz49yz-v5p-traefik
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                           STATUS  HEALTH       AGE    MESSAGE                                     REASON
+Namespace/default-oci               Synced               7m48s
+Service/traefik                     Synced  Progressing  8m14s  service/traefik serverside-applied
+ServiceAccount/traefik              Synced               8m14s  serviceaccount/traefik serverside-applied
+Deployment/traefik                  Synced  Healthy      8m14s  deployment.apps/traefik serverside-applied
+└─ReplicaSet/traefik-5f694f77f5             Healthy      8m14s
+  └─Pod/traefik-5f694f77f5-w8fbn            Healthy      8m14s
+IngressClass/traefik                Synced               7m4s
+ClusterRole/traefik-default         Synced               7m4s
+ClusterRoleBinding/traefik-default  Synced               7m4s

@@ -1,0 +1,385 @@
+{
+  "metadata": {
+    "name": "traefik-parity",
+    "namespace": "argocd",
+    "uid": "da4af662-659a-408e-953b-e07d81e6f1a4",
+    "resourceVersion": "1765",
+    "generation": 11,
+    "creationTimestamp": "2026-06-14T16:06:24Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-traefik-mqdz49yz-v5p-cluster:argoproj.io/Application:argocd/traefik-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "f7ba412b-09cd-4828-ba94-736b4219ed7c",
+      "confighub.com/UnitSlug": "traefik-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T16:06:24Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T16:13:23Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci",
+      "path": "./helm-expt-parity-traefik-mqdz49yz-v5p-traefik",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "traefik",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "traefik",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "traefik",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "IngressClass",
+        "name": "traefik",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "traefik-default",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "traefik-default",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci",
+          "path": "./helm-expt-parity-traefik-mqdz49yz-v5p-traefik",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-14T16:06:25Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5",
+        "deployedAt": "2026-06-14T16:06:28Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci",
+          "path": "./helm-expt-parity-traefik-mqdz49yz-v5p-traefik",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-14T16:06:25Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-14T16:13:15Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci",
+            "path": "./helm-expt-parity-traefik-mqdz49yz-v5p-traefik",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "traefik",
+            "status": "Synced",
+            "message": "serviceaccount/traefik serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "traefik-default",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/traefik-default reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[configmaps nodes services] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[discovery.k8s.io] Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[] Resources:[pods] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[extensions networking.k8s.io] Resources:[ingressclasses ingresses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update] APIGroups:[extensions networking.k8s.io] Resources:[ingresses/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[namespaces] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[traefik.io] Resources:[ingressroutes ingressroutetcps ingressrouteudps middlewares middlewaretcps serverstransports serverstransporttcps tlsoptions tlsstores traefikservices] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/traefik-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "traefik-default",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/traefik-default reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:traefik Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/traefik-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "traefik",
+            "status": "Synced",
+            "message": "service/traefik serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "traefik",
+            "status": "Synced",
+            "message": "deployment.apps/traefik serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/traefik:v3.7.1"
+            ]
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "IngressClass",
+            "namespace": "default-oci",
+            "name": "traefik",
+            "status": "Synced",
+            "message": "ingressclass.networking.k8s.io/traefik serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:f40f385211cfc80d56f847b15976a174fc5c315238fb677ed80f26ba14fb39a5",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-traefik-mqdz49yz-v5p-cluster/oci",
+          "path": "./helm-expt-parity-traefik-mqdz49yz-v5p-traefik",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-14T16:06:25Z",
+      "finishedAt": "2026-06-14T16:06:28Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.io/traefik:v3.7.1"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
