@@ -45,6 +45,7 @@ const SOURCES = {
   maintainedHooks: "data/hook-lifecycle/maintained-hook-queue.csv",
   hookCandidates: "data/hook-route-candidates/candidates.csv",
   selectedHookRoutes: "data/lifecycle-boundary/selected-routes.csv",
+  lifecycleRoutes: "data/lifecycle-routes/routes.csv",
   decisions: "data/production-support-decisions/decisions.csv",
   activeProof: "data/live-parity-rerun-plan/rerun-plan.csv",
   variantPromotion: "data/variant-promotion/status.csv",
@@ -94,6 +95,11 @@ const COLUMN_PROVENANCE = [
     source: "lifecycle-boundary/selected-routes.csv",
     carried: "base-specific hook candidate routes that have a selected route receipt",
     dropped: "receipt evidence list, non-claim boundaries, remaining work",
+  },
+  {
+    source: "lifecycle-routes/routes.csv",
+    carried: "route-contract status, route count, disposition summary, execution-mode summary, safe-as-automatic count, and chart-family evidence version when needed",
+    dropped: "per-route alternatives, requirements, exact evidence/next-action text; follow the JSON/CSV route contract for agent-readable detail",
   },
   {
     source: "production-support-decisions/decisions.csv",
@@ -168,6 +174,10 @@ function buildReport(generatedAt) {
   const hookCandidatesExact = indexBy(hookCandidateRows, (row) => `${row.chart}@${row.version}`);
   const hookCandidatesByChart = indexBy(hookCandidateRows, (row) => row.chart);
   const selectedHookRoutesExactBase = indexBy(selectedHookRouteRows, (row) => `${row.chart}@${row.version}|${row.base}`);
+  const lifecycleRoutes = aggregateLifecycleRoutes(readCsv(SOURCES.lifecycleRoutes));
+  const lifecycleRoutesExactBase = indexBy(lifecycleRoutes.filter((row) => row.base_or_variant), (row) => `${row.chart}@${row.version}|${row.base_or_variant}`);
+  const lifecycleRoutesExact = indexBy(lifecycleRoutes.filter((row) => !row.base_or_variant), (row) => `${row.chart}@${row.version}`);
+  const lifecycleRoutesByChart = indexBy(lifecycleRoutes.filter((row) => !row.base_or_variant), (row) => row.chart);
   const decisions = indexBy(readCsv(SOURCES.decisions), (row) => `${row.chart}|${row.version}|${row.supported_base}`);
   const variantPromotion = indexBy(readCsv(SOURCES.variantPromotion), (row) => `${row.chart}|${row.version}|${row.variant}`);
   const activeProofRows = readCsv(SOURCES.activeProof);
@@ -206,6 +216,11 @@ function buildReport(generatedAt) {
       const hookCandidateFamily = hookCandidatesByChart.get(chartName);
       const hook = selectedHookRouteExactBase ?? hookExact ?? maintainedHookExact ?? hookCandidateExact ?? hookFamily ?? maintainedHookFamily ?? hookCandidateFamily;
       const exactHook = selectedHookRouteExactBase ?? hookExact ?? maintainedHookExact ?? hookCandidateExact;
+      const lifecycleRouteExactBase = lifecycleRoutesExactBase.get(`${chartAtVersion}|${variant}`);
+      const lifecycleRouteExact = lifecycleRoutesExact.get(chartAtVersion);
+      const lifecycleRouteFamily = lifecycleRoutesByChart.get(chartName);
+      const lifecycleRoute = lifecycleRouteExactBase ?? lifecycleRouteExact ?? lifecycleRouteFamily;
+      const lifecycleRouteEvidenceVersion = lifecycleRouteExactBase || lifecycleRouteExact || !lifecycleRoute ? "" : lifecycleRoute.version;
       const hookEvidenceVersion = exactHook || !hook ? "" : hook.version;
       const decision = decisions.get(`${chartName}|${version}|${variant}`);
       const promotion = variantPromotion.get(`${chartName}|${version}|${variant}`);
@@ -229,6 +244,14 @@ function buildReport(generatedAt) {
         hook_disposition: hook ? (hookCount === 0 ? "n/a" : hook.disposition) : hookFlagged ? "unrouted" : "",
         hook_evidence_version: hookEvidenceVersion,
         hook_live_status: hook && hookCount > 0 ? (hook.live_status === "observed" ? "yes" : hook.live_status === "none" ? "todo" : hook.live_status.startsWith("none (") ? "n/a" : "no") : hook ? "n/a" : "",
+        lifecycle_route_contract: lifecycleRoute?.contract_status ?? "n/a",
+        lifecycle_route_count: lifecycleRoute?.route_count ?? "",
+        lifecycle_route_dispositions: lifecycleRoute?.dispositions ?? "",
+        lifecycle_route_execution_modes: lifecycleRoute?.execution_modes ?? "",
+        lifecycle_route_safe_automatic: lifecycleRoute?.safe_as_automatic ?? "",
+        lifecycle_route_evidence_version: lifecycleRouteEvidenceVersion,
+        lifecycle_route_contract_path: lifecycleRoute ? "data/lifecycle-routes/summary.md" : "",
+        lifecycle_route_json_path: lifecycleRoute ? "data/lifecycle-routes/routes.json" : "",
         ...Object.fromEntries(LANE_COLUMNS.map(([target, source]) => [target, normalizeLane(outcome[source])])),
         lane_two_cluster_kind: normalizeLane(outcome.two_cluster_kind_parity),
         core_lanes_complete: outcome.complete_core_lane_set === "yes" ? "yes" : "no",
@@ -314,6 +337,54 @@ function hookCandidateCount(row) {
   return row.source_hook_count || "1";
 }
 
+function aggregateLifecycleRoutes(rows) {
+  const groups = new Map();
+  for (const row of rows) {
+    const key = `${row.chart}@${row.version}|${row.base_or_variant ?? ""}`;
+    if (!groups.has(key)) {
+      groups.set(key, {
+        chart: row.chart,
+        version: row.version,
+        base_or_variant: row.base_or_variant ?? "",
+        rows: [],
+      });
+    }
+    groups.get(key).rows.push(row);
+  }
+  return [...groups.values()].map((group) => {
+    const dispositions = countValues(group.rows.map((row) => row.disposition));
+    const executionModes = countValues(group.rows.map((row) => row.execution_mode));
+    const routeCount = group.rows.length;
+    const automaticCount = group.rows.filter((row) => row.safe_as_automatic === "yes").length;
+    const hasTodo = group.rows.some((row) => row.disposition === "todo");
+    const allObserved = group.rows.every((row) => row.disposition === "observed");
+    const contractStatus = hasTodo ? "todo" : allObserved ? "yes" : "watch";
+    return {
+      chart: group.chart,
+      version: group.version,
+      base_or_variant: group.base_or_variant,
+      route_count: String(routeCount),
+      contract_status: contractStatus,
+      dispositions: summarizeCounts(dispositions),
+      execution_modes: summarizeCounts(executionModes),
+      safe_as_automatic: `${automaticCount}/${routeCount}`,
+    };
+  });
+}
+
+function countValues(values) {
+  const counts = new Map();
+  for (const value of values.filter(Boolean)) counts.set(value, (counts.get(value) ?? 0) + 1);
+  return counts;
+}
+
+function summarizeCounts(counts) {
+  return [...counts.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([value, count]) => `${value}:${count}`)
+    .join("; ");
+}
+
 function needsLifecycleLane(row) {
   if (row.hook_disposition && row.hook_disposition !== "n/a") return true;
   const features = splitList(row.quirk_features);
@@ -340,6 +411,10 @@ function summary(rows, charts, unmatchedReadiness) {
   const promotionTodo = rows.filter((row) => row.variant_promotion === "todo").length;
   const promotionBlocked = rows.filter((row) => row.variant_promotion === "no").length;
   const promotionNa = rows.filter((row) => row.variant_promotion === "n/a").length;
+  const routeContractYes = rows.filter((row) => row.lifecycle_route_contract === "yes").length;
+  const routeContractWatch = rows.filter((row) => row.lifecycle_route_contract === "watch").length;
+  const routeContractTodo = rows.filter((row) => row.lifecycle_route_contract === "todo").length;
+  const routeContractNa = rows.filter((row) => row.lifecycle_route_contract === "n/a").length;
   const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
   const activeProofRows = rows.filter((row) => row.active_proof_next_step);
   const queues = productQueues(rows);
@@ -358,8 +433,9 @@ function summary(rows, charts, unmatchedReadiness) {
             : row.hook_count === "0"
               ? "0 —"
               : `${row.hook_count} ${row.hook_disposition} ${icon(row.hook_live_status)}${row.hook_evidence_version ? ` (from @${row.hook_evidence_version})` : ""}`;
+      const route = row.lifecycle_route_contract === "n/a" ? "—" : icon(row.lifecycle_route_contract);
       const quirks = row.quirk_features ? `\`${row.quirk_features}\`` : "—";
-      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${icon(row.variant_promotion)} | ${row.outcome_level || "—"} | ${icon(row.production_decision)} |`;
+      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${route} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${icon(row.variant_promotion)} | ${row.outcome_level || "—"} | ${icon(row.production_decision)} |`;
     })
     .join("\n");
 
@@ -393,6 +469,9 @@ Lane columns: **R** render parity (helm template vs installer setup) ·
 **G** ConfigHub OCI + Argo live · **P** live Helm-vs-ConfigHub dual parity ·
 **K** two-cluster kind parity · **V** server-side ConfigHub variant promotion.
 Hooks column: source hook count, disposition route, live-rehearsal status.
+**Route** is the generated lifecycle route/off-ramp contract: ✅ all route rows
+observed, ⚠️ route/executor named with cautions, ⬜ route work still todo, —
+no route row applies.
 \`unrouted ⚠️\` marks a chart whose source scan flags hooks but that has no
 hook-disposition row yet; \`(from @x.y.z)\` marks chart-family evidence taken
 from a different chart version's disposition row.
@@ -408,6 +487,7 @@ from a different chart version's disposition row.
 | Variants with a SUPPORTED production decision | ${supported} |
 | Recorded production decisions (supported / superseded / rejected) | ${supported} / ${superseded} / ${rejected} |
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | ${promotionProven} / ${promotionWatch} / ${promotionTodo} / ${promotionBlocked} / ${promotionNa} |
+| Lifecycle route contracts (observed / watch / todo / n/a) | ${routeContractYes} / ${routeContractWatch} / ${routeContractTodo} / ${routeContractNa} |
 | Hook-flagged variants with no disposition row (unrouted) | ${unrouted} |
 | Variants currently in the active proof queue | ${activeProofRows.length} |
 
@@ -423,6 +503,7 @@ questions before deciding what to do next:
 | What is the strongest evidence currently available? | Evidence, R/C/L/G/P/K, Core |
 | What prevents a stronger claim? | Prod, Scope, Gap, Next action |
 | Can downstream ConfigHub variants be promoted from this base? | V, Promotion status |
+| If a hook or lifecycle behavior exists, where does it go? | Route, Hooks, lifecycle route contract |
 | Which non-pass live row should be rerun or reviewed now? | Active proof |
 
 The HTML view carries these user/product columns directly:
@@ -456,8 +537,8 @@ when you want the user/product view with those columns visible.
 
 ## Matrix
 
-| Chart | Variant | Tier | Quirks | Hooks | R | C | L | Y | G | P | K | V | Outcome | Prod |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Chart | Variant | Tier | Quirks | Hooks | Route | R | C | L | Y | G | P | K | V | Outcome | Prod |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${table}
 
 ## Regenerate
@@ -486,6 +567,10 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
   const promotionTodo = rows.filter((row) => row.variant_promotion === "todo").length;
   const promotionBlocked = rows.filter((row) => row.variant_promotion === "no").length;
   const promotionNa = rows.filter((row) => row.variant_promotion === "n/a").length;
+  const routeContractYes = rows.filter((row) => row.lifecycle_route_contract === "yes").length;
+  const routeContractWatch = rows.filter((row) => row.lifecycle_route_contract === "watch").length;
+  const routeContractTodo = rows.filter((row) => row.lifecycle_route_contract === "todo").length;
+  const routeContractNa = rows.filter((row) => row.lifecycle_route_contract === "n/a").length;
   const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
   const activeProofRows = rows.filter((row) => row.active_proof_next_step);
   const queues = productQueues(rows);
@@ -510,6 +595,8 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
             : row.hook_count === "0"
               ? `<td class="s na" title="no source hooks">0</td>`
               : statusCell(row.hook_live_status, `${row.hook_count} hook(s), disposition: ${row.hook_disposition}${row.hook_evidence_version ? ` — evidence from @${row.hook_evidence_version} (chart-family, not this version)` : ""}`, row.hook_count);
+      const routeText = lifecycleRouteSummary(row);
+      const routeCell = statusCell(row.lifecycle_route_contract, routeText.title, routeText.label);
       const nextAction = row.next_action ? `<td class="note" title="${escapeHtml(row.next_action)}">${escapeHtml(row.next_action.length > 70 ? `${row.next_action.slice(0, 67)}...` : row.next_action)}</td>` : `<td class="note"></td>`;
       const hardGap = row.hard_gap || "not applicable";
       const scope = row.production_target_scope || "not applicable";
@@ -521,8 +608,9 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
         ["variant", row.variant_path],
         ["package", row.package_base_path],
         ["revision", row.variant_revision_path],
-      ].map(([label, path]) => linkFor(label, path, row)).join(" · ");
-      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td class="links">${links}<br><a href="${escapeHtml(row.github_recipe_url)}">GitHub folder</a></td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note route" title="${escapeHtml(row.adoption_bucket)}">${escapeHtml(useShort(row.adoption_bucket))}</td><td class="note evidence" title="${escapeHtml(row.strongest_evidence)}">${escapeHtml(evidenceShort(row.strongest_evidence))}</td>${statusCell(row.core_lanes_complete, row.core_lanes_complete === "yes" ? "complete core lane set" : "one or more core lanes still missing")}<td class="note" title="${escapeHtml(row.quirk_features)}">${escapeHtml(row.quirk_features || "–")}</td>${hooks}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_lifecycle_observed, row.lane_lifecycle_observed === "n/a" ? "no explicit lifecycle route expected for this base" : "")}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}${statusCell(row.variant_promotion, promotionText.title, promotionText.label)}<td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}<td class="note scope" title="${escapeHtml(scope)}">${escapeHtml(row.production_target_scope ? compactText(row.production_target_scope, 54) : "–")}</td><td class="note gap" title="${escapeHtml(hardGap)}">${escapeHtml(row.hard_gap ? compactText(row.hard_gap, 58) : "–")}</td><td class="note active" title="${escapeHtml(activeProofText.title)}">${escapeHtml(activeProofText.label)}</td>${nextAction}</tr>`;
+        ["routes", row.lifecycle_route_contract_path],
+      ].filter(([label, path]) => label !== "routes" || path).map(([label, path]) => linkFor(label, path, row)).join(" · ");
+      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td class="links">${links}<br><a href="${escapeHtml(row.github_recipe_url)}">GitHub folder</a></td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note route" title="${escapeHtml(row.adoption_bucket)}">${escapeHtml(useShort(row.adoption_bucket))}</td><td class="note evidence" title="${escapeHtml(row.strongest_evidence)}">${escapeHtml(evidenceShort(row.strongest_evidence))}</td>${statusCell(row.core_lanes_complete, row.core_lanes_complete === "yes" ? "complete core lane set" : "one or more core lanes still missing")}<td class="note" title="${escapeHtml(row.quirk_features)}">${escapeHtml(row.quirk_features || "–")}</td>${hooks}${routeCell}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_lifecycle_observed, row.lane_lifecycle_observed === "n/a" ? "no explicit lifecycle route expected for this base" : "")}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}${statusCell(row.variant_promotion, promotionText.title, promotionText.label)}<td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}<td class="note scope" title="${escapeHtml(scope)}">${escapeHtml(row.production_target_scope ? compactText(row.production_target_scope, 54) : "–")}</td><td class="note gap" title="${escapeHtml(hardGap)}">${escapeHtml(row.hard_gap ? compactText(row.hard_gap, 58) : "–")}</td><td class="note active" title="${escapeHtml(activeProofText.title)}">${escapeHtml(activeProofText.label)}</td>${nextAction}</tr>`;
     })
     .join("\n");
 
@@ -560,9 +648,9 @@ td.gap{max-width:220px;color:#7a4f00}
 <body>
 <h1>Master Catalog Matrix</h1>
 <p class="sub"><b>Generated at:</b> ${escapeHtml(generatedAt)} UTC · source: committed catalog, proof, live, and production-status data.</p>
-<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · variant promotion: ${promotionProven} proven / ${promotionWatch} watch / ${promotionTodo} todo / ${promotionBlocked} blocked / ${promotionNa} n/a · ${activeProofRows.length} active proof queue row(s) · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
+<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · variant promotion: ${promotionProven} proven / ${promotionWatch} watch / ${promotionTodo} todo / ${promotionBlocked} blocked / ${promotionNa} n/a · lifecycle routes: ${routeContractYes} observed / ${routeContractWatch} watch / ${routeContractTodo} todo / ${routeContractNa} n/a · ${activeProofRows.length} active proof queue row(s) · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
 <p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– n/a</span></p>
-<p class="sub">This is the user/product front door: Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where production support is bounded, Gap names the main product or chart gap, and Active proof shows the exact current non-pass live row action when a row is in the rerun plan. The Links column jumps to the chart catalog, variant definition, package base, variant revision, and GitHub folder. Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · Y explicit lifecycle observation · G OCI+Argo live · P live dual parity · K two-cluster kind parity · V server-side variant promotion. Hover cells for detail (hooks, quirks, production target scope, variant promotion status, active proof command, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
+<p class="sub">This is the user/product front door: Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where production support is bounded, Gap names the main product or chart gap, and Active proof shows the exact current non-pass live row action when a row is in the rerun plan. The Links column jumps to the chart catalog, variant definition, package base, variant revision, lifecycle route contract, and GitHub folder. Lanes: Route lifecycle route/off-ramp contract · R render parity · C ConfigHub upload+scan+ops · L local kind apply · Y explicit lifecycle observation · G OCI+Argo live · P live dual parity · K two-cluster kind parity · V server-side variant promotion. Hover cells for detail (hooks, route execution modes, quirks, production target scope, variant promotion status, active proof command, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
 <table class="queues">
 <thead><tr><th>Current product queue</th><th>Rows</th><th>Meaning</th><th>Examples</th></tr></thead>
 <tbody>
@@ -570,7 +658,7 @@ ${queues.map((queue) => `<tr><td>${escapeHtml(queue.label)}</td><td>${queue.rows
 </tbody>
 </table>
 <table>
-<thead><tr><th>Chart</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>V</th><th>Outcome</th><th>Prod</th><th>Scope</th><th>Gap</th><th>Active proof</th><th>Next action</th></tr></thead>
+<thead><tr><th>Chart</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>Route</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>V</th><th>Outcome</th><th>Prod</th><th>Scope</th><th>Gap</th><th>Active proof</th><th>Next action</th></tr></thead>
 <tbody>
 ${bodyRows}
 </tbody>
@@ -701,6 +789,32 @@ function variantPromotionSummary(row) {
             : row.variant_promotion === "todo"
               ? "·"
               : "–",
+    title: parts.join(" | "),
+  };
+}
+
+function lifecycleRouteSummary(row) {
+  if (row.lifecycle_route_contract === "n/a") {
+    return { label: "–", title: "no lifecycle route contract applies to this row" };
+  }
+  const parts = [
+    `route rows: ${row.lifecycle_route_count}`,
+    `dispositions: ${row.lifecycle_route_dispositions}`,
+    `execution modes: ${row.lifecycle_route_execution_modes}`,
+    `safe as automatic: ${row.lifecycle_route_safe_automatic}`,
+    row.lifecycle_route_evidence_version ? `evidence from chart family @${row.lifecycle_route_evidence_version}, not this exact version` : "",
+    `contract: ${row.lifecycle_route_contract_path}`,
+    `agent data: ${row.lifecycle_route_json_path}`,
+  ].filter(Boolean);
+  return {
+    label:
+      row.lifecycle_route_contract === "yes"
+        ? "✓"
+        : row.lifecycle_route_contract === "watch"
+          ? "!"
+          : row.lifecycle_route_contract === "todo"
+            ? "·"
+            : "–",
     title: parts.join(" | "),
   };
 }
