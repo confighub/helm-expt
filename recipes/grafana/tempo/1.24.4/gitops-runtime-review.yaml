@@ -1,0 +1,54 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "tempo-s3-query-observability-argocd-health-watch"
+  chart: "grafana/tempo"
+  version: "1.24.4"
+spec:
+  base: "s3-query-observability"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with staged S3-compatible object store, credential Secret, and ServiceMonitor CRD target facts"
+  receipt: "runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    sync: "Synced"
+    health: "Progressing"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciRuntime: "pass"
+    targetFacts: "pass"
+    objectStoresStagedPerLane: 1
+  passed:
+    - "regular Helm reached readiness after staging the S3-compatible object store, credential Secret, and ServiceMonitor CRD"
+    - "ConfigHub direct apply reached readiness with the same target facts staged"
+    - "ConfigHub OCI/Argo synced all uploaded Units"
+    - "ConfigHub OCI/Argo workloads reached readiness"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+    - "the live harness now stages requiredObjectStores target facts for all three live legs"
+  watch:
+    summary: "Argo aggregate health remains Progressing even though the synced resources and workload readiness passed."
+    observedResidue:
+      - "Application/argocd/tempo-parity: Synced/Progressing"
+      - "StatefulSet/tempo/tempo: workload ready"
+      - "ServiceMonitor/tempo/tempo: synced after its CRD was staged"
+      - "Ingress/tempo/tempo: synced, but no ingress controller target profile is installed"
+    interpretation: "This is a GitOps/controller-health watch row, not a render parity, target-fact, or workload readiness defect."
+  diagnosis:
+    summary: "The S3 target prerequisite is now live-proven. The remaining product question is which target profile should make Argo aggregate health become Healthy for the query Ingress and ServiceMonitor shape."
+    productBoundary: "A production claim for this base needs a target decision for object storage, S3 credentials, ServiceMonitor ownership, and query ingress/controller health."
+    nextInvestigation:
+      - "Rerun with a target profile that installs an ingress controller if query ingress health is part of the supported scope."
+      - "If query ingress is optional for the proof target, split it into a derived base or mark it as a target-scoped limitation."
+      - "Decide whether the ServiceMonitor CRD alone is enough for this proof target, or whether a Prometheus Operator controller must also be observed."
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/argocd-core-root-tree.txt"
+    targetFactObjectStoreManifest: "runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/target-facts-confighub-oci-object-stores.yaml"
+  notClaimed:
+    - "This row does not prove Tempo S3 production support for arbitrary object stores."
+    - "This row does not prove query ingress is production-ready without an ingress controller and DNS/TLS policy."
+    - "This row does not prove ServiceMonitor scraping without a Prometheus Operator runtime decision."
+    - "This row does not prove that Argo CD aggregate health should be ignored in production."

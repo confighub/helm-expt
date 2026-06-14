@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: tempo-object-store
+    namespace: tempo
+  spec:
+    replicas: 1
+    selector:
+      matchLabels: &id001
+        app.kubernetes.io/name: tempo-object-store
+        app.kubernetes.io/component: object-store
+    template:
+      metadata:
+        labels: *id001
+      spec:
+        containers:
+        - name: minio
+          image: quay.io/minio/minio:RELEASE.2025-04-08T15-41-24Z
+          args:
+          - server
+          - /data
+          env:
+          - name: MINIO_ROOT_USER
+            valueFrom:
+              secretKeyRef:
+                name: tempo-s3-credentials
+                key: access_key
+          - name: MINIO_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: tempo-s3-credentials
+                key: secret_key
+          ports:
+          - name: s3
+            containerPort: 9000
+          volumeMounts:
+          - name: data
+            mountPath: /data
+        volumes:
+        - name: data
+          emptyDir: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: tempo-object-store
+    namespace: tempo
+  spec:
+    selector: *id001
+    ports:
+    - name: s3
+      port: 9000
+      targetPort: s3
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    name: tempo-object-store-create-bucket
+    namespace: tempo
+  spec:
+    backoffLimit: 6
+    template:
+      spec:
+        restartPolicy: OnFailure
+        containers:
+        - name: mc
+          image: quay.io/minio/mc:RELEASE.2025-04-08T15-39-49Z
+          env:
+          - name: MINIO_ROOT_USER
+            valueFrom:
+              secretKeyRef:
+                name: tempo-s3-credentials
+                key: access_key
+          - name: MINIO_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: tempo-s3-credentials
+                key: secret_key
+          command:
+          - /bin/sh
+          - -ec
+          args:
+          - 'until mc alias set target http://tempo-object-store.tempo.svc.cluster.local:9000
+            "$MINIO_ROOT_USER" "$MINIO_ROOT_PASSWORD"; do sleep 2; done
+
+            mc mb -p target/tempo-traces
+
+            '

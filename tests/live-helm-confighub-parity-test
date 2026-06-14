@@ -1340,6 +1340,15 @@ def target_fact_value(secret_name: str, key: str, run_root: Path, secret: dict |
     return "helm-expt-password"
 
 
+def target_fact_env(secret_name: str, key: str) -> dict:
+    return {
+        "secretKeyRef": {
+            "name": secret_name,
+            "key": key,
+        }
+    }
+
+
 def target_fact_applies(item: dict, lane: str) -> bool:
     delivery_lanes = item.get("deliveryLanes") or item.get("stageFor") or []
     if not delivery_lanes:
@@ -1379,6 +1388,94 @@ def target_fact_crd_docs(variant: dict, recipe_path: Path, lane: str) -> tuple[l
         docs.append(matches[0])
         staged.append({"name": name, "sourceVariant": source_variant, "lane": lane})
     return docs, staged
+
+
+def target_fact_object_stores(variant: dict, lane: str) -> list[dict]:
+    return [
+        store
+        for store in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredObjectStores") or [])
+        if target_fact_applies(store, lane)
+    ]
+
+
+def minio_object_store_docs(store: dict, fallback_namespace: str) -> list[dict]:
+    namespace = store.get("namespace") or fallback_namespace
+    name = store.get("name") or "object-store"
+    service_name = store.get("serviceName") or name
+    secret = store.get("credentialsSecret") or {}
+    secret_name = secret.get("name")
+    access_key = secret.get("accessKey") or "access_key"
+    secret_key = secret.get("secretKey") or "secret_key"
+    bucket = store.get("bucket") or "tempo-traces"
+    image = store.get("image") or "quay.io/minio/minio:RELEASE.2025-04-08T15-41-24Z"
+    mc_image = store.get("mcImage") or "quay.io/minio/mc:RELEASE.2025-04-08T15-39-49Z"
+    labels = {"app.kubernetes.io/name": name, "app.kubernetes.io/component": "object-store"}
+    return [
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {"name": name, "namespace": namespace},
+            "spec": {
+                "replicas": 1,
+                "selector": {"matchLabels": labels},
+                "template": {
+                    "metadata": {"labels": labels},
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "minio",
+                                "image": image,
+                                "args": ["server", "/data"],
+                                "env": [
+                                    {"name": "MINIO_ROOT_USER", "valueFrom": target_fact_env(secret_name, access_key)},
+                                    {"name": "MINIO_ROOT_PASSWORD", "valueFrom": target_fact_env(secret_name, secret_key)},
+                                ],
+                                "ports": [{"name": "s3", "containerPort": 9000}],
+                                "volumeMounts": [{"name": "data", "mountPath": "/data"}],
+                            }
+                        ],
+                        "volumes": [{"name": "data", "emptyDir": {}}],
+                    },
+                },
+            },
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {"name": service_name, "namespace": namespace},
+            "spec": {
+                "selector": labels,
+                "ports": [{"name": "s3", "port": 9000, "targetPort": "s3"}],
+            },
+        },
+        {
+            "apiVersion": "batch/v1",
+            "kind": "Job",
+            "metadata": {"name": f"{name}-create-bucket", "namespace": namespace},
+            "spec": {
+                "backoffLimit": 6,
+                "template": {
+                    "spec": {
+                        "restartPolicy": "OnFailure",
+                        "containers": [
+                            {
+                                "name": "mc",
+                                "image": mc_image,
+                                "env": [
+                                    {"name": "MINIO_ROOT_USER", "valueFrom": target_fact_env(secret_name, access_key)},
+                                    {"name": "MINIO_ROOT_PASSWORD", "valueFrom": target_fact_env(secret_name, secret_key)},
+                                ],
+                                "command": ["/bin/sh", "-ec"],
+                                "args": [
+                                    f"until mc alias set target http://{service_name}.{namespace}.svc.cluster.local:9000 \"$MINIO_ROOT_USER\" \"$MINIO_ROOT_PASSWORD\"; do sleep 2; done\nmc mb -p target/{bucket}\n",
+                                ],
+                            }
+                        ],
+                    }
+                },
+            },
+        },
+    ]
 
 
 def target_fact_secret_doc(secret: dict, recipe_path: Path, target_namespace: str) -> dict:
@@ -1442,14 +1539,18 @@ def stage_target_facts(
     ]
     tls_material = target_fact_tls_material(required_secrets, run_root)
     crd_docs, staged_crds = target_fact_crd_docs(variant, recipe_path, lane)
-    if not required_secrets and not crd_docs:
-        result = {"result": "pass", "stagedSecrets": [], "stagedCRDs": []}
+    required_object_stores = target_fact_object_stores(variant, lane)
+    if not required_secrets and not crd_docs and not required_object_stores:
+        result = {"result": "pass", "stagedSecrets": [], "stagedCRDs": [], "stagedObjectStores": []}
         if topology_result:
             result["requiredTopology"] = topology_result
         return result
     secret_docs = []
+    secret_doc_ids = set()
     namespaces = set()
     staged_secrets = []
+    staged_object_stores = []
+    object_store_docs = []
     for secret in required_secrets:
         source_namespace = secret.get("namespace")
         if source_namespace and variant_namespace and source_namespace == variant_namespace:
@@ -1476,14 +1577,49 @@ def stage_target_facts(
                     "type": secret_type,
                     "stringData": string_data,
                 })
+                secret_doc_ids.add((namespace, name))
             else:
                 secret_docs.append(target_fact_secret_doc(secret, recipe_path, namespace))
+                secret_doc_ids.add((namespace, name))
             staged = {"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane}
             if not keys:
                 staged["sourceVariant"] = secret.get("sourceVariant") or "default"
             if source_namespace and source_namespace != namespace:
                 staged["sourceNamespace"] = source_namespace
             staged_secrets.append(staged)
+    for store in required_object_stores:
+        namespace = store.get("namespace") or fallback_namespace
+        name = store.get("name")
+        service_name = store.get("serviceName") or name
+        bucket = store.get("bucket")
+        credentials_secret = store.get("credentialsSecret") or {}
+        secret_name = credentials_secret.get("name")
+        access_key = credentials_secret.get("accessKey") or "access_key"
+        secret_key = credentials_secret.get("secretKey") or "secret_key"
+        if not name or not service_name or not bucket or not secret_name:
+            raise RuntimeError(f"invalid required object store target fact: {store}")
+        namespaces.add(namespace)
+        if (namespace, secret_name) not in secret_doc_ids:
+            secret_docs.append({
+                "apiVersion": "v1",
+                "kind": "Secret",
+                "metadata": {"name": secret_name, "namespace": namespace},
+                "type": "Opaque",
+                "stringData": {
+                    access_key: target_fact_value(secret_name, access_key, run_root),
+                    secret_key: target_fact_value(secret_name, secret_key, run_root),
+                },
+            })
+            secret_doc_ids.add((namespace, secret_name))
+            staged_secrets.append({"namespace": namespace, "name": secret_name, "keys": sorted([access_key, secret_key]), "lane": lane, "source": "requiredObjectStore"})
+        object_store_docs.extend(minio_object_store_docs(store, fallback_namespace))
+        staged_object_stores.append({
+            "namespace": namespace,
+            "name": name,
+            "serviceName": service_name,
+            "bucket": bucket,
+            "lane": lane,
+        })
     if crd_docs:
         crd_path = run_root / f"target-facts-{label}-crds.yaml"
         write_yaml(crd_path, {"apiVersion": "v1", "kind": "List", "items": crd_docs})
@@ -1506,11 +1642,33 @@ def stage_target_facts(
     if secret_docs:
         write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": secret_docs})
         kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
-    result = {"result": "pass", "stagedSecrets": staged_secrets, "stagedCRDs": staged_crds}
+    object_store_path = None
+    if object_store_docs:
+        object_store_path = run_root / f"target-facts-{label}-object-stores.yaml"
+        write_yaml(object_store_path, {"apiVersion": "v1", "kind": "List", "items": object_store_docs})
+        kubectl_must(["apply", "-f", str(object_store_path)], kubeconfig, context, f"target fact object store apply {label}", timeout=300)
+        for store in staged_object_stores:
+            kubectl_must(
+                ["-n", store["namespace"], "rollout", "status", f"deployment/{store['name']}", "--timeout=180s"],
+                kubeconfig,
+                context,
+                f"target fact object store rollout {label}",
+                timeout=210,
+            )
+            kubectl_must(
+                ["-n", store["namespace"], "wait", "--for=condition=complete", f"job/{store['name']}-create-bucket", "--timeout=180s"],
+                kubeconfig,
+                context,
+                f"target fact object store bucket {label}",
+                timeout=210,
+            )
+    result = {"result": "pass", "stagedSecrets": staged_secrets, "stagedCRDs": staged_crds, "stagedObjectStores": staged_object_stores}
     if topology_result:
         result["requiredTopology"] = topology_result
     if secret_docs:
         result["path"] = str(target_facts_path)
+    if object_store_path:
+        result["objectStorePath"] = str(object_store_path)
     return result
 
 
@@ -2536,9 +2694,19 @@ def main() -> int:
                 kubeconfig, context, timeout=60,
             )
 
-        helm_target_facts = stage_target_facts(variant, recipe_path, kubeconfig, context, helm_namespace, run_root, "regular-helm", "regularHelm")
+        helm_target_facts = stage_target_facts(
+            variant,
+            recipe_path,
+            kubeconfig,
+            context,
+            helm_namespace,
+            run_root,
+            "regular-helm",
+            "regularHelm",
+            manifest_namespaces(canonical_helm_manifest),
+        )
         receipt["spec"]["targetFacts"] = {"regularHelm": helm_target_facts}
-        check_item("target-facts-regular-helm", helm_target_facts["result"], f"secrets={len(helm_target_facts.get('stagedSecrets', []))} crds={len(helm_target_facts.get('stagedCRDs', []))}")
+        check_item("target-facts-regular-helm", helm_target_facts["result"], f"secrets={len(helm_target_facts.get('stagedSecrets', []))} crds={len(helm_target_facts.get('stagedCRDs', []))} objectStores={len(helm_target_facts.get('stagedObjectStores', []))}")
 
         helm_cmd = [
             "helm", "upgrade", "--install", args.release,
@@ -2637,7 +2805,7 @@ def main() -> int:
             apply_manifest_namespaces,
         )
         receipt["spec"]["targetFacts"]["configHubKubectlApply"] = apply_target_facts
-        check_item("target-facts-confighub-apply", apply_target_facts["result"], f"secrets={len(apply_target_facts.get('stagedSecrets', []))} crds={len(apply_target_facts.get('stagedCRDs', []))}")
+        check_item("target-facts-confighub-apply", apply_target_facts["result"], f"secrets={len(apply_target_facts.get('stagedSecrets', []))} crds={len(apply_target_facts.get('stagedCRDs', []))} objectStores={len(apply_target_facts.get('stagedObjectStores', []))}")
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):
                 apply_secret_path = namespace_secret_for_destination(
@@ -2858,7 +3026,7 @@ def main() -> int:
             oci_manifest_namespaces,
         )
         receipt["spec"]["targetFacts"]["configHubOciArgo"] = oci_target_facts
-        check_item("target-facts-confighub-oci", oci_target_facts["result"], f"secrets={len(oci_target_facts.get('stagedSecrets', []))} crds={len(oci_target_facts.get('stagedCRDs', []))}")
+        check_item("target-facts-confighub-oci", oci_target_facts["result"], f"secrets={len(oci_target_facts.get('stagedSecrets', []))} crds={len(oci_target_facts.get('stagedCRDs', []))} objectStores={len(oci_target_facts.get('stagedObjectStores', []))}")
         staged_secrets = []
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):
