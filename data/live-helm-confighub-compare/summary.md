@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 93
+pass: 94
 watch: 7
 blocked: 0
 not-started: 0
@@ -76,6 +76,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
+|  | `coredns/coredns@1.45.2` | default | pass | - | runs/live-helm-confighub-compare/coredns-coredns-default/receipt.yaml |
 |  | `crossplane-stable/crossplane@2.3.1` | default | pass | - | runs/live-helm-confighub-compare/crossplane-stable-crossplane-default/receipt.yaml |
 |  | `descheduler/descheduler@0.36.0` | default | pass | - | runs/live-helm-confighub-compare/descheduler-descheduler-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | default | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-default/receipt.yaml |
