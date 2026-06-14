@@ -1,0 +1,126 @@
+{
+  "schema": "helm-expt.enterprise-parity-packet.v1",
+  "fixture": "synthetic-private-observability-estate",
+  "privacyMode": "customer-safe-aggregate",
+  "status": "repo-only-contract-fixture",
+  "sourceShapeSummary": {
+    "firstPartyHelmCharts": 1,
+    "valuesOnlySources": 1,
+    "argoApplications": 0,
+    "argoApplicationSets": 1,
+    "renderedYamlSources": 0,
+    "mixedSources": 1
+  },
+  "sourceShapes": [
+    {
+      "id": "chart-001",
+      "kind": "first-party-helm-chart",
+      "count": 1,
+      "digestRef": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "id": "values-001",
+      "kind": "helm-values-repo",
+      "files": 6,
+      "leafFields": 48,
+      "digestRef": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    {
+      "id": "appset-001",
+      "kind": "argo-applicationset",
+      "generator": "list",
+      "generatedTargets": [
+        "target-a",
+        "target-b",
+        "target-c",
+        "target-d",
+        "target-e",
+        "target-f"
+      ],
+      "sourceReferenceShape": "ApplicationSet list generator supplies chart and values inputs to Argo CD"
+    }
+  ],
+  "routeDecision": {
+    "slice": "observability-control-plane",
+    "currentPath": "ApplicationSet -> first-party Helm chart -> layered values",
+    "candidatePath": "ConfigHub installer or imported rendered Units -> derived variants -> GitOps handoff",
+    "decision": "start-with-render-parity-then-target-facts"
+  },
+  "renderedObjectCount": 12,
+  "semanticDiffResult": "fixture-pass-identical-object-identities",
+  "metrics": {
+    "density": 48,
+    "densityUnit": "leaf values in the selected values layers",
+    "fanOut": 6,
+    "fanOutUnit": "generated target entries",
+    "blastRadius": 288,
+    "blastRadiusFormula": "density x fanOut"
+  },
+  "targetFacts": [
+    {
+      "name": "monitoring-crds",
+      "status": "required-before-live-proof"
+    },
+    {
+      "name": "admission-webhook-secret",
+      "status": "target-fact-or-generated-fact"
+    },
+    {
+      "name": "remote-write-egress",
+      "status": "must-be-reviewed-before-runtime-claim"
+    }
+  ],
+  "proofBoundaryReached": "repo-only-enterprise-parity-design",
+  "proofStages": [
+    {
+      "stage": "source-shape-classification",
+      "status": "pass"
+    },
+    {
+      "stage": "semantic-render-parity",
+      "status": "fixture-pass"
+    },
+    {
+      "stage": "local-live-proof",
+      "status": "not-run"
+    },
+    {
+      "stage": "gitops-or-oci-delivery",
+      "status": "not-run"
+    },
+    {
+      "stage": "runtime-observation",
+      "status": "not-run"
+    }
+  ],
+  "requiredOutputs": [
+    "source shape summary",
+    "privacy mode",
+    "chart and values input digests",
+    "Argo source reference shape",
+    "base or variant route decision",
+    "rendered object count",
+    "semantic diff result",
+    "fan-out",
+    "density",
+    "blast radius",
+    "target facts",
+    "proof boundary reached",
+    "proof gaps",
+    "non-claims",
+    "next safe action"
+  ],
+  "proofGaps": [
+    "no live ConfigHub space has been created for this fixture",
+    "no Argo or Flux controller has reconciled this fixture",
+    "no Kubernetes runtime observation has been collected",
+    "field-complete provenance is not claimed"
+  ],
+  "nonClaims": [
+    "does not claim production support",
+    "does not claim fleet-wide bounded propagation",
+    "does not claim field-complete provenance",
+    "does not publish customer-identifying evidence"
+  ],
+  "nextSafeAction": "Run repo-only source-shape intake on the private estate, select one slice, and compare the current rendered object set with the ConfigHub candidate render before any live apply."
+}
