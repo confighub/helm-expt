@@ -1,0 +1,45 @@
+LAST SEEN   TYPE      REASON                  OBJECT                                       MESSAGE
+3m18s       Normal    Scheduled               pod/vault-agent-injector-56474b787f-j76fq    Successfully assigned vault-helm/vault-agent-injector-56474b787f-j76fq to helm-expt-parity-vault-mqdxae1t-1fwo-worker2
+3m18s       Normal    Pulling                 pod/vault-agent-injector-56474b787f-j76fq    Pulling image "hashicorp/vault-k8s:1.7.2"
+3m18s       Normal    WaitForFirstConsumer    persistentvolumeclaim/data-vault-0           waiting for first consumer to be created before binding
+3m18s       Normal    SuccessfulCreate        replicaset/vault-agent-injector-56474b787f   Created pod: vault-agent-injector-56474b787f-j76fq
+3m18s       Normal    ScalingReplicaSet       deployment/vault-agent-injector              Scaled up replica set vault-agent-injector-56474b787f from 0 to 1
+3m18s       Normal    NoPods                  poddisruptionbudget/vault                    No matching pods found
+3m18s       Normal    SuccessfulCreate        statefulset/vault                            Create Claim data-vault-0 Pod vault-0 in StatefulSet vault success
+3m17s       Normal    SuccessfulCreate        statefulset/vault                            Create Pod vault-2 in StatefulSet vault successful
+3m17s       Normal    SuccessfulCreate        statefulset/vault                            Create Claim data-vault-1 Pod vault-1 in StatefulSet vault success
+3m17s       Normal    ExternalProvisioning    persistentvolumeclaim/data-vault-2           Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+3m17s       Normal    Provisioning            persistentvolumeclaim/data-vault-2           External provisioner is provisioning volume for claim "vault-helm/data-vault-2"
+3m17s       Normal    Provisioning            persistentvolumeclaim/data-vault-1           External provisioner is provisioning volume for claim "vault-helm/data-vault-1"
+3m17s       Normal    ExternalProvisioning    persistentvolumeclaim/data-vault-0           Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+3m17s       Normal    WaitForFirstConsumer    persistentvolumeclaim/data-vault-2           waiting for first consumer to be created before binding
+3m17s       Normal    Provisioning            persistentvolumeclaim/data-vault-0           External provisioner is provisioning volume for claim "vault-helm/data-vault-0"
+3m17s       Normal    SuccessfulCreate        statefulset/vault                            Create Pod vault-1 in StatefulSet vault successful
+3m17s       Normal    SuccessfulCreate        statefulset/vault                            Create Claim data-vault-2 Pod vault-2 in StatefulSet vault success
+3m17s       Normal    ExternalProvisioning    persistentvolumeclaim/data-vault-1           Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+3m17s       Normal    SuccessfulCreate        statefulset/vault                            Create Pod vault-0 in StatefulSet vault successful
+3m17s       Normal    WaitForFirstConsumer    persistentvolumeclaim/data-vault-1           waiting for first consumer to be created before binding
+3m14s       Normal    ProvisioningSucceeded   persistentvolumeclaim/data-vault-0           Successfully provisioned volume pvc-b2ea7bad-02e0-4191-9026-915f2cf7d72b
+3m14s       Normal    ProvisioningSucceeded   persistentvolumeclaim/data-vault-2           Successfully provisioned volume pvc-eb6a7b54-949e-43d1-be83-cccbae902b45
+3m13s       Normal    Pulling                 pod/vault-0                                  Pulling image "hashicorp/vault:1.21.2"
+3m13s       Normal    Scheduled               pod/vault-2                                  Successfully assigned vault-helm/vault-2 to helm-expt-parity-vault-mqdxae1t-1fwo-worker
+3m13s       Normal    Pulling                 pod/vault-2                                  Pulling image "hashicorp/vault:1.21.2"
+3m13s       Normal    ProvisioningSucceeded   persistentvolumeclaim/data-vault-1           Successfully provisioned volume pvc-f6990afa-1b82-489f-ad89-dded3cf0fe7d
+3m13s       Normal    Scheduled               pod/vault-0                                  Successfully assigned vault-helm/vault-0 to helm-expt-parity-vault-mqdxae1t-1fwo-worker3
+3m12s       Normal    Pulling                 pod/vault-1                                  Pulling image "hashicorp/vault:1.21.2"
+3m12s       Normal    Scheduled               pod/vault-1                                  Successfully assigned vault-helm/vault-1 to helm-expt-parity-vault-mqdxae1t-1fwo-worker2
+3m11s       Normal    Created                 pod/vault-agent-injector-56474b787f-j76fq    Container created
+3m11s       Normal    Pulled                  pod/vault-agent-injector-56474b787f-j76fq    Successfully pulled image "hashicorp/vault-k8s:1.7.2" in 6.993s (6.993s including waiting). Image size: 35773785 bytes.
+3m11s       Normal    Started                 pod/vault-agent-injector-56474b787f-j76fq    Container started
+2m14s       Normal    Pulled                  pod/vault-0                                  Successfully pulled image "hashicorp/vault:1.21.2" in 58.526s (58.526s including waiting). Image size: 167253745 bytes.
+2m14s       Normal    Created                 pod/vault-0                                  Container created
+2m14s       Normal    Started                 pod/vault-0                                  Container started
+2m6s        Normal    Created                 pod/vault-1                                  Container created
+2m6s        Normal    Pulled                  pod/vault-1                                  Successfully pulled image "hashicorp/vault:1.21.2" in 1m5.112s (1m6.202s including waiting). Image size: 167253745 bytes.
+2m6s        Normal    Started                 pod/vault-1                                  Container started
+2m5s        Normal    Created                 pod/vault-2                                  Container created
+2m5s        Normal    Pulled                  pod/vault-2                                  Successfully pulled image "hashicorp/vault:1.21.2" in 1m7.384s (1m7.384s including waiting). Image size: 167253745 bytes.
+2m5s        Normal    Started                 pod/vault-2                                  Container started
+10s         Warning   Unhealthy               pod/vault-0                                  Readiness probe failed: Key                     Value...
+3s          Warning   Unhealthy               pod/vault-2                                  Readiness probe failed: Key                     Value...
+1s          Warning   Unhealthy               pod/vault-1                                  Readiness probe failed: Key                     Value...

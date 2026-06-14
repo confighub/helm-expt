@@ -1,0 +1,136 @@
+Name:                   vault-agent-injector
+Namespace:              vault
+CreationTimestamp:      Sun, 14 Jun 2026 16:29:04 +0100
+Labels:                 app.kubernetes.io/instance=vault
+                        app.kubernetes.io/managed-by=Helm
+                        app.kubernetes.io/name=vault-agent-injector
+                        component=webhook
+Annotations:            argocd.argoproj.io/tracking-id: vault-parity:apps/Deployment:vault/vault-agent-injector
+                        confighub.com/RevisionNum: 2
+                        confighub.com/SpaceID: e138284e-6129-4304-bca3-223bc93d77ed
+                        confighub.com/UnitSlug: deployment-vault-vault-agent-injector
+                        deployment.kubernetes.io/revision: 1
+Selector:               app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault-agent-injector,component=webhook
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:           app.kubernetes.io/instance=vault
+                    app.kubernetes.io/name=vault-agent-injector
+                    component=webhook
+  Service Account:  vault-agent-injector
+  Containers:
+   sidecar-injector:
+    Image:      hashicorp/vault-k8s:1.7.2
+    Port:       <none>
+    Host Port:  <none>
+    Args:
+      agent-inject
+      2>&1
+    Liveness:   http-get https://:8080/health/ready delay=5s timeout=5s period=2s #success=1 #failure=2
+    Readiness:  http-get https://:8080/health/ready delay=5s timeout=5s period=2s #success=1 #failure=2
+    Startup:    http-get https://:8080/health/ready delay=5s timeout=5s period=5s #success=1 #failure=12
+    Environment:
+      AGENT_INJECT_LISTEN:                                 :8080
+      AGENT_INJECT_LOG_LEVEL:                              info
+      AGENT_INJECT_VAULT_ADDR:                             http://vault.vault.svc:8200
+      AGENT_INJECT_VAULT_AUTH_PATH:                        auth/kubernetes
+      AGENT_INJECT_VAULT_IMAGE:                            hashicorp/vault:1.21.2
+      AGENT_INJECT_TLS_AUTO:                               vault-agent-injector-cfg
+      AGENT_INJECT_TLS_AUTO_HOSTS:                         vault-agent-injector-svc,vault-agent-injector-svc.vault,vault-agent-injector-svc.vault.svc
+      AGENT_INJECT_LOG_FORMAT:                             standard
+      AGENT_INJECT_REVOKE_ON_SHUTDOWN:                     false
+      AGENT_INJECT_CPU_REQUEST:                            250m
+      AGENT_INJECT_CPU_LIMIT:                              500m
+      AGENT_INJECT_MEM_REQUEST:                            64Mi
+      AGENT_INJECT_MEM_LIMIT:                              128Mi
+      AGENT_INJECT_DEFAULT_TEMPLATE:                       map
+      AGENT_INJECT_TEMPLATE_CONFIG_EXIT_ON_RETRY_FAILURE:  true
+      POD_NAME:                                             (v1:metadata.name)
+    Mounts:                                                <none>
+  Volumes:                                                 <none>
+  Node-Selectors:                                          <none>
+  Tolerations:                                             <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   vault-agent-injector-8c76487db (1/1 replicas created)
+
+
+Name:               vault
+Namespace:          vault
+CreationTimestamp:  Sun, 14 Jun 2026 16:29:04 +0100
+Selector:           app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault,component=server
+Labels:             app.kubernetes.io/instance=vault
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=vault
+Annotations:        argocd.argoproj.io/tracking-id: vault-parity:apps/StatefulSet:vault/vault
+                    confighub.com/RevisionNum: 2
+                    confighub.com/SpaceID: e138284e-6129-4304-bca3-223bc93d77ed
+                    confighub.com/UnitSlug: statefulset-vault-vault
+Replicas:           3 desired | 3 total
+Update Strategy:    OnDelete
+Pods Status:        3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app.kubernetes.io/instance=vault
+                    app.kubernetes.io/name=vault
+                    component=server
+                    helm.sh/chart=vault-0.32.0
+  Service Account:  vault
+  Containers:
+   vault:
+    Image:       hashicorp/vault:1.21.2
+    Ports:       8200/TCP (http), 8201/TCP (https-internal), 8202/TCP (http-rep)
+    Host Ports:  0/TCP (http), 0/TCP (https-internal), 0/TCP (http-rep)
+    Command:
+      /bin/sh
+      -ec
+    Args:
+      cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;
+      [ -n "${HOST_IP}" ] && sed -Ei "s|HOST_IP|${HOST_IP?}|g" /tmp/storageconfig.hcl;
+      [ -n "${POD_IP}" ] && sed -Ei "s|POD_IP|${POD_IP?}|g" /tmp/storageconfig.hcl;
+      [ -n "${HOSTNAME}" ] && sed -Ei "s|HOSTNAME|${HOSTNAME?}|g" /tmp/storageconfig.hcl;
+      [ -n "${API_ADDR}" ] && sed -Ei "s|API_ADDR|${API_ADDR?}|g" /tmp/storageconfig.hcl;
+      [ -n "${TRANSIT_ADDR}" ] && sed -Ei "s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g" /tmp/storageconfig.hcl;
+      [ -n "${RAFT_ADDR}" ] && sed -Ei "s|RAFT_ADDR|${RAFT_ADDR?}|g" /tmp/storageconfig.hcl;
+      /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl
+
+    Readiness:  exec [/bin/sh -ec vault status -tls-skip-verify] delay=5s timeout=3s period=5s #success=1 #failure=2
+    Environment:
+      HOST_IP:               (v1:status.hostIP)
+      POD_IP:                (v1:status.podIP)
+      VAULT_K8S_POD_NAME:    (v1:metadata.name)
+      VAULT_K8S_NAMESPACE:   (v1:metadata.namespace)
+      VAULT_ADDR:           http://127.0.0.1:8200
+      VAULT_API_ADDR:       http://$(POD_IP):8200
+      SKIP_CHOWN:           true
+      SKIP_SETCAP:          true
+      HOSTNAME:              (v1:metadata.name)
+      VAULT_CLUSTER_ADDR:   https://$(HOSTNAME).vault-internal:8201
+      HOME:                 /home/vault
+    Mounts:
+      /home/vault from home (rw)
+      /vault/config from config (rw)
+      /vault/data from data (rw)
+  Volumes:
+   config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      vault-config
+    Optional:  false
+   home:
+    Type:          EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:     <unset>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Volume Claims:
+  Name:          data
+  StorageClass:
+  Labels:        <none>
+  Annotations:   <none>
+  Capacity:      10Gi
+  Access Modes:  [ReadWriteOnce]

@@ -1,0 +1,142 @@
+==> Vault server configuration:
+
+Administrative Namespace:
+             Api Address: http://10.244.2.8:8200
+                     Cgo: disabled
+         Cluster Address: https://vault-2.vault-internal:8201
+   Environment Variables: HOME, HOSTNAME, HOST_IP, KUBERNETES_PORT, KUBERNETES_PORT_443_TCP, KUBERNETES_PORT_443_TCP_ADDR, KUBERNETES_PORT_443_TCP_PORT, KUBERNETES_PORT_443_TCP_PROTO, KUBERNETES_SERVICE_HOST, KUBERNETES_SERVICE_PORT, KUBERNETES_SERVICE_PORT_HTTPS, NAME, PATH, POD_IP, PWD, SHLVL, SKIP_CHOWN, SKIP_SETCAP, VAULT_ACTIVE_PORT, VAULT_ACTIVE_PORT_8200_TCP, VAULT_ACTIVE_PORT_8200_TCP_ADDR, VAULT_ACTIVE_PORT_8200_TCP_PORT, VAULT_ACTIVE_PORT_8200_TCP_PROTO, VAULT_ACTIVE_PORT_8201_TCP, VAULT_ACTIVE_PORT_8201_TCP_ADDR, VAULT_ACTIVE_PORT_8201_TCP_PORT, VAULT_ACTIVE_PORT_8201_TCP_PROTO, VAULT_ACTIVE_SERVICE_HOST, VAULT_ACTIVE_SERVICE_PORT, VAULT_ACTIVE_SERVICE_PORT_HTTP, VAULT_ACTIVE_SERVICE_PORT_HTTPS_INTERNAL, VAULT_ADDR, VAULT_AGENT_INJECTOR_SVC_PORT, VAULT_AGENT_INJECTOR_SVC_PORT_443_TCP, VAULT_AGENT_INJECTOR_SVC_PORT_443_TCP_ADDR, VAULT_AGENT_INJECTOR_SVC_PORT_443_TCP_PORT, VAULT_AGENT_INJECTOR_SVC_PORT_443_TCP_PROTO, VAULT_AGENT_INJECTOR_SVC_SERVICE_HOST, VAULT_AGENT_INJECTOR_SVC_SERVICE_PORT, VAULT_AGENT_INJECTOR_SVC_SERVICE_PORT_HTTPS, VAULT_API_ADDR, VAULT_CLUSTER_ADDR, VAULT_K8S_NAMESPACE, VAULT_K8S_POD_NAME, VAULT_PORT, VAULT_PORT_8200_TCP, VAULT_PORT_8200_TCP_ADDR, VAULT_PORT_8200_TCP_PORT, VAULT_PORT_8200_TCP_PROTO, VAULT_PORT_8201_TCP, VAULT_PORT_8201_TCP_ADDR, VAULT_PORT_8201_TCP_PORT, VAULT_PORT_8201_TCP_PROTO, VAULT_SERVICE_HOST, VAULT_SERVICE_PORT, VAULT_SERVICE_PORT_HTTP, VAULT_SERVICE_PORT_HTTPS_INTERNAL, VAULT_STANDBY_PORT, VAULT_STANDBY_PORT_8200_TCP, VAULT_STANDBY_PORT_8200_TCP_ADDR, VAULT_STANDBY_PORT_8200_TCP_PORT, VAULT_STANDBY_PORT_8200_TCP_PROTO, VAULT_STANDBY_PORT_8201_TCP, VAULT_STANDBY_PORT_8201_TCP_ADDR, VAULT_STANDBY_PORT_8201_TCP_PORT, VAULT_STANDBY_PORT_8201_TCP_PROTO, VAULT_STANDBY_SERVICE_HOST, VAULT_STANDBY_SERVICE_PORT, VAULT_STANDBY_SERVICE_PORT_HTTP, VAULT_STANDBY_SERVICE_PORT_HTTPS_INTERNAL, VAULT_UI_PORT, VAULT_UI_PORT_8200_TCP, VAULT_UI_PORT_8200_TCP_ADDR, VAULT_UI_PORT_8200_TCP_PORT, VAULT_UI_PORT_8200_TCP_PROTO, VAULT_UI_SERVICE_HOST, VAULT_UI_SERVICE_PORT, VAULT_UI_SERVICE_PORT_HTTP
+              Go Version: go1.25.5
+              Listener 1: tcp (addr: "[::]:8200", cluster address: "[::]:8201", disable_request_limiter: "false", max_json_array_element_count: "10000", max_json_depth: "300", max_json_object_entry_count: "10000", max_json_string_value_length: "1048576", max_request_duration: "1m30s", max_request_size: "33554432", tls: "disabled")
+               Log Level:
+                   Mlock: supported: true, enabled: false
+           Recovery Mode: false
+                 Storage: raft (HA available)
+                 Version: Vault v1.21.2, built 2026-01-06T08:33:05Z
+             Version Sha: 781ba452d731fe2d59ccbc1b37ca7c5a18edb998
+
+2026-06-14T15:17:29.049Z [INFO]  proxy environment: http_proxy="" https_proxy="" no_proxy=""
+2026-06-14T15:17:29.063Z [INFO]  incrementing seal generation: generation=1
+2026-06-14T15:17:29.063Z [INFO]  core: Initializing version history cache for core
+2026-06-14T15:17:29.064Z [INFO]  events: Starting event system
+==> Vault server started! Log data will stream in below:
+
+2026-06-14T15:17:37.054Z [INFO]  core: security barrier not initialized
+2026-06-14T15:17:37.054Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:17:42.043Z [INFO]  core: security barrier not initialized
+2026-06-14T15:17:42.043Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:17:47.041Z [INFO]  core: security barrier not initialized
+2026-06-14T15:17:47.041Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:17:52.043Z [INFO]  core: security barrier not initialized
+2026-06-14T15:17:52.043Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:17:57.041Z [INFO]  core: security barrier not initialized
+2026-06-14T15:17:57.041Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:02.043Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:02.043Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:07.042Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:07.042Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:12.042Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:12.042Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:17.048Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:17.048Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:22.034Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:22.034Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:27.040Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:27.040Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:32.049Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:32.049Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:37.048Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:37.048Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:42.033Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:42.033Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:47.051Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:47.051Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:50.886Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:50.886Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:18:55.887Z [INFO]  core: security barrier not initialized
+2026-06-14T15:18:55.887Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:00.897Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:00.897Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:05.907Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:05.907Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:10.892Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:10.892Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:15.895Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:15.895Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:20.891Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:20.891Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:25.895Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:25.895Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:30.895Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:30.895Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:35.892Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:35.892Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:40.895Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:40.895Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:45.887Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:45.887Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:50.896Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:50.896Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:19:55.893Z [INFO]  core: security barrier not initialized
+2026-06-14T15:19:55.893Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:00.898Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:00.898Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:05.893Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:05.893Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:10.891Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:10.892Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:15.891Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:15.891Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:20.893Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:20.893Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:25.895Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:25.895Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:30.895Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:30.895Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:35.899Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:35.899Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:40.898Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:40.898Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:45.902Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:45.902Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:50.894Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:50.894Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:20:55.894Z [INFO]  core: security barrier not initialized
+2026-06-14T15:20:55.894Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:00.894Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:00.894Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:05.893Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:05.893Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:10.892Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:10.892Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:15.896Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:15.896Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:20.900Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:20.900Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:21.889Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:21.889Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:26.886Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:26.887Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:31.889Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:31.889Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:36.890Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:36.890Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:41.890Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:41.890Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:46.891Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:46.891Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:51.892Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:51.892Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:21:56.892Z [INFO]  core: security barrier not initialized
+2026-06-14T15:21:56.892Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:22:01.889Z [INFO]  core: security barrier not initialized
+2026-06-14T15:22:01.889Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:22:06.897Z [INFO]  core: security barrier not initialized
+2026-06-14T15:22:06.897Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:22:11.896Z [INFO]  core: security barrier not initialized
+2026-06-14T15:22:11.896Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:22:16.873Z [INFO]  core: security barrier not initialized
+2026-06-14T15:22:16.873Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:22:21.895Z [INFO]  core: security barrier not initialized
+2026-06-14T15:22:21.895Z [INFO]  core: seal configuration missing, not initialized
+2026-06-14T15:22:26.868Z [INFO]  core: security barrier not initialized
+2026-06-14T15:22:26.868Z [INFO]  core: seal configuration missing, not initialized

@@ -36,11 +36,18 @@ spec:
         - "StatefulSet vault has ready replicas for the selected base"
     haRaftUi:
       variant: "ha-raft-ui"
-      status: "target-topology-and-operating-policy-required"
+      status: "operating-policy-live-watch"
+      evidence:
+        receipt: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
+        runtimeReview: "recipes/hashicorp/vault/0.32.0/runtime-review.yaml"
+        scope: "regular Helm, cub installer direct apply, and ConfigHub OCI/Argo on a three-node kind proof target"
+        result: "object parity passed and all three delivery legs reached Running Vault server Pods, but the Pods stayed NotReady because Vault was not initialized/unsealed"
       targetTopology:
         minimumServerReplicas: 3
+        observedSchedulableNodes: 3
+        latestTargetProfile: "kind-three-node"
         requiresPersistentStorage: true
-        reason: "integrated Raft HA is a target-topology decision; one-node kind is useful for object parity but not HA readiness"
+        reason: "integrated Raft HA needs a target with enough schedulable nodes for the server replicas; one-node kind is not a valid readiness target for this base"
       requiredOperations:
         -
           operation: "initialize first Vault server"

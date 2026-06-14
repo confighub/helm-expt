@@ -1,0 +1,632 @@
+{
+  "metadata": {
+    "name": "vault-parity",
+    "namespace": "argocd",
+    "uid": "0288b38b-190c-4ebd-9b61-623c62d3fb88",
+    "resourceVersion": "4489",
+    "generation": 10,
+    "creationTimestamp": "2026-06-14T15:29:00Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-vault-mqdxae1t-1fwo-cluster:argoproj.io/Application:argocd/vault-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "480d4ea9-e92e-4fea-8d0c-ab65f54d2213",
+      "confighub.com/UnitSlug": "vault-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T15:29:00Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T15:36:03Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci",
+      "path": "./helm-expt-parity-vault-mqdxae1t-1fwo-vault",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "vault-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "vault",
+        "name": "vault-config",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "vault-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "vault",
+        "name": "vault",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "vault",
+        "name": "vault-active",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "vault",
+        "name": "vault-agent-injector-svc",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "vault",
+        "name": "vault-internal",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "vault",
+        "name": "vault-standby",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "vault",
+        "name": "vault-ui",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "vault",
+        "name": "vault",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "vault",
+        "name": "vault-agent-injector",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "MutatingWebhookConfiguration",
+        "name": "vault-agent-injector-cfg",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "vault",
+        "name": "vault-agent-injector",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "vault",
+        "name": "vault",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 3 pods to be ready..."
+        }
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "vault",
+        "name": "vault",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "vault-agent-injector-clusterrole",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "vault-agent-injector-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "vault-server-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "vault",
+        "name": "vault-discovery-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "vault",
+        "name": "vault-discovery-rolebinding",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci",
+          "path": "./helm-expt-parity-vault-mqdxae1t-1fwo-vault",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "vault-oci"
+        }
+      },
+      "revision": "sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-14T15:29:06Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52",
+        "deployedAt": "2026-06-14T15:29:04Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci",
+          "path": "./helm-expt-parity-vault-mqdxae1t-1fwo-vault",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-14T15:29:02Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-14T15:35:53Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci",
+            "path": "./helm-expt-parity-vault-mqdxae1t-1fwo-vault",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "vault-oci",
+            "name": "vault-oci",
+            "status": "Synced",
+            "message": "namespace/vault-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "vault",
+            "name": "vault",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/vault serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "vault",
+            "name": "vault-agent-injector",
+            "status": "Synced",
+            "message": "serviceaccount/vault-agent-injector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "vault",
+            "name": "vault",
+            "status": "Synced",
+            "message": "serviceaccount/vault serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "vault",
+            "name": "vault-config",
+            "status": "Synced",
+            "message": "configmap/vault-config serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "vault-oci",
+            "name": "vault-agent-injector-clusterrole",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/vault-agent-injector-clusterrole reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch patch] APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/vault-agent-injector-clusterrole serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "vault-oci",
+            "name": "vault-agent-injector-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/vault-agent-injector-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:vault-agent-injector Namespace:vault}. clusterrolebinding.rbac.authorization.k8s.io/vault-agent-injector-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "vault-oci",
+            "name": "vault-server-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/vault-server-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:vault Namespace:vault}. clusterrolebinding.rbac.authorization.k8s.io/vault-server-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "vault",
+            "name": "vault-discovery-role",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/vault-discovery-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get watch list update patch] APIGroups:[] Resources:[pods] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/vault-discovery-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "vault",
+            "name": "vault-discovery-rolebinding",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/vault-discovery-rolebinding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:vault Namespace:vault}. rolebinding.rbac.authorization.k8s.io/vault-discovery-rolebinding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "vault",
+            "name": "vault-standby",
+            "status": "Synced",
+            "message": "service/vault-standby serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "vault",
+            "name": "vault-internal",
+            "status": "Synced",
+            "message": "service/vault-internal serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "vault",
+            "name": "vault-active",
+            "status": "Synced",
+            "message": "service/vault-active serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "vault",
+            "name": "vault",
+            "status": "Synced",
+            "message": "service/vault serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "vault",
+            "name": "vault-agent-injector-svc",
+            "status": "Synced",
+            "message": "service/vault-agent-injector-svc serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "vault",
+            "name": "vault-ui",
+            "status": "Synced",
+            "message": "service/vault-ui serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "vault",
+            "name": "vault-agent-injector",
+            "status": "Synced",
+            "message": "deployment.apps/vault-agent-injector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "hashicorp/vault-k8s:1.7.2"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "vault",
+            "name": "vault",
+            "status": "Synced",
+            "message": "statefulset.apps/vault serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "hashicorp/vault:1.21.2"
+            ]
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "MutatingWebhookConfiguration",
+            "namespace": "vault-oci",
+            "name": "vault-agent-injector-cfg",
+            "status": "Synced",
+            "message": "mutatingwebhookconfiguration.admissionregistration.k8s.io/vault-agent-injector-cfg serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci",
+          "path": "./helm-expt-parity-vault-mqdxae1t-1fwo-vault",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-14T15:29:02Z",
+      "finishedAt": "2026-06-14T15:29:04Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "hashicorp/vault-k8s:1.7.2",
+        "hashicorp/vault:1.21.2"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
