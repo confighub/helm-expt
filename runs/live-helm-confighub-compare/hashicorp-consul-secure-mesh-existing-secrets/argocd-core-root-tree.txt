@@ -1,17 +1,17 @@
-Name:               argocd/helm-expt-parity-consul-mqdmhwbs-1o28-cluster
+Name:               argocd/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster
 Project:            default
 Server:             https://kubernetes.default.svc
 Namespace:          argocd
-URL:                http://localhost:64629/applications/helm-expt-parity-consul-mqdmhwbs-1o28-cluster
+URL:                http://localhost:55895/applications/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster
 Source:
-- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-consul-mqdmhwbs-1o28-cluster/oci
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster/oci
   Target:           latest
-  Path:             ./helm-expt-parity-consul-mqdmhwbs-1o28-cluster
+  Path:             ./helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster
 SyncWindow:         Sync Allowed
 Sync Policy:        Automated
 Sync Status:        Synced to latest (sha256:)
 Health Status:      Healthy
 
-KIND/NAME                                                  STATUS  HEALTH  AGE    MESSAGE                                                                                   REASON
-Application/consul-parity                                  Synced          7m35s  application.argoproj.io/consul-parity serverside-applied
-Application/helm-expt-parity-consul-mqdmhwbs-1o28-cluster  Synced          23m    application.argoproj.io/helm-expt-parity-consul-mqdmhwbs-1o28-cluster serverside-applied
+KIND/NAME                                                              STATUS  HEALTH  AGE    MESSAGE                                                                                               REASON
+Application/hashicorp-consul-secure-mesh-existing-secrets-parity       Synced          7m34s  application.argoproj.io/hashicorp-consul-secure-mesh-existing-secrets-parity serverside-applied
+Application/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster  Synced          23m    application.argoproj.io/helm-expt-parity-hashicorpconsce7c0-mqdsyxyn-23oo-cluster serverside-applied

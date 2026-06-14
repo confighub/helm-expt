@@ -1,0 +1,68 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RuntimeReview"
+metadata:
+  name: "consul-secure-mesh-existing-secrets-runtime-watch"
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+spec:
+  base: "secure-mesh-existing-secrets"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with target profile kind-three-node"
+  receipt: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml"
+  observedResult: "watch"
+  targetProfile:
+    name: "kind-three-node"
+    result: "pass"
+    observedSchedulableNodes: 3
+    provides:
+      - "three schedulable Kubernetes nodes for Consul server anti-affinity"
+      - "target topology for the HA/quorum shape exercised by this base"
+  passed:
+    - "regular Helm live leg reached the expected workload runtime state"
+    - "ConfigHub direct-apply leg reached the expected workload runtime state"
+    - "ConfigHub OCI/Argo leg synced successfully"
+    - "Helm-vs-ConfigHub semantic parity passed for the direct-apply leg"
+    - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
+    - "target Secret prerequisites were staged for every live leg"
+    - "the proof target provided the required three schedulable nodes"
+  watch:
+    summary: "The ConfigHub OCI/Argo leg is Synced but remains Progressing because several Consul workloads did not converge before the observation cutoff."
+    gitOpsCondition:
+      sync: "Synced"
+      health: "Progressing"
+      operationState: "Succeeded"
+      message: "successfully synced (all tasks run)"
+    runtimeResidue:
+      - "Deployment/consul/consul-consul-connect-injector: 0/1, pod CrashLoopBackOff"
+      - "Deployment/consul/consul-consul-ingress-gateway: 0/1, pod Init:0/1"
+      - "Deployment/consul/consul-consul-mesh-gateway: 0/1, pod Init:0/1"
+      - "Deployment/consul/consul-consul-terminating-gateway: 0/1, pod Init:0/1"
+      - "StatefulSet/consul/consul-consul-server: 0/3 ready"
+      - "Job/consul/consul-consul-server-acl-init: Progressing in Argo core tree"
+      - "Ingress/consul/consul-consul-ui: Synced/Progressing"
+  operationTimings:
+    regularHelmInstallSeconds: 138.943
+    configHubOciUploadSeconds: 310.744
+    configHubOciUnitApplySeconds: 322.912
+    configHubOciUnitApplyUnitCount: 97
+    configHubOciArgoWaitSeconds: 422.712
+    configHubOciReadinessSeconds: 182.649
+  diagnosis:
+    summary: "This is a target runtime watch row, not a render parity defect and not a ConfigHub worker requirement."
+    interpretation: "The desired object set matched Helm semantically, the target topology was adequate, and the server accepted and synced the ConfigHub OCI objects. The remaining question is whether this target shape and wait policy are sufficient for Consul secure mesh runtime convergence."
+    targetShapeBoundary: "The base needs a Kubernetes target with enough schedulable nodes for Consul server anti-affinity and quorum. ConfigHub remains workerless from the target cluster's point of view."
+    nextInvestigation:
+      - "Inspect Consul pod logs for the injector CrashLoopBackOff and gateway init containers."
+      - "Decide whether the proof target needs additional Consul-specific runtime prerequisites beyond node count and staged Secrets."
+      - "Decide whether the base should be split into a smaller secure-mesh proof base and a fuller production base."
+      - "Keep the row as watch until the OCI/Argo leg reaches workload convergence or the target limitation is explicitly accepted."
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-root-tree.txt"
+  notClaimed:
+    - "This row does not prove Consul secure mesh production support for arbitrary clusters."
+    - "This row does not prove that Consul gateways, ACL initialization, or connect injection are healthy through ConfigHub OCI/Argo on this proof target."
+    - "This row does not prove external gateway, ingress, ACL, backup, upgrade, or certificate rotation policy."
+    - "This row does not prove that Argo CD aggregate health should be ignored in production."

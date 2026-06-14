@@ -10,80 +10,15 @@ spec:
   targetShape: "kind proof rig with target profile kind-three-node"
   receipt: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml"
   observedResult: "watch"
-  targetProfile:
-    name: "kind-three-node"
-    provides:
-      - "three schedulable Kubernetes nodes for Consul server anti-affinity"
-      - "target topology for the HA/quorum shape exercised by this base"
-  passed:
-    - "regular Helm live leg reached the expected workload runtime state"
-    - "ConfigHub direct-apply leg reached the expected workload runtime state"
-    - "ConfigHub OCI/Argo leg synced successfully"
-    - "ConfigHub OCI/Argo leg reached the expected workload runtime state"
-    - "Helm-vs-ConfigHub semantic parity passed for the direct-apply leg"
-    - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
-    - "target Secret prerequisites were staged for the OCI/Argo leg"
-    - "Consul server StatefulSet reached 3/3 ready"
-    - "Consul injector, mesh gateway, ingress gateway, terminating gateway, UI, and webhook certificate manager workloads became ready"
-  gitOpsCondition:
+  supersededBy: "recipes/hashicorp/consul/2.0.0/runtime-review.yaml"
+  note: "The latest live rerun moved this row from a narrow UI Ingress controller-health watch to a broader target runtime watch. Use runtime-review.yaml as the current support artifact."
+  currentSummary:
     sync: "Synced"
     health: "Progressing"
-    operationState:
-      phase: "Succeeded"
-      message: "successfully synced (all tasks run)"
-    applicationConditions: []
-    healthResidue:
-      - "Ingress/consul/consul-consul-ui: Synced/Progressing"
-  diagnosis:
-    summary: "The Consul secure-mesh base now proves target topology, lifecycle Secret staging, workload convergence, and semantic parity. The remaining watch condition is the Consul UI Ingress staying Progressing in Argo CD after sync success and workload readiness."
-    interpretation: "This is a GitOps/controller-health review row, not a render parity defect and not a ConfigHub worker requirement."
-    targetShapeBoundary: "The base needs a Kubernetes target with enough schedulable nodes for Consul server anti-affinity and quorum. ConfigHub remains workerless from the target cluster's point of view."
-    controllerHealthDecision:
-      decision: "keep-watch-for-target-without-ui-ingress-health"
-      reason: "The captured Argo core tree identifies exactly one Progressing child resource: Ingress/consul/consul-consul-ui. Regular Helm, ConfigHub direct apply, ConfigHub OCI/Argo sync, workload readiness, lifecycle Secret staging, and semantic parity all passed. The remaining issue is target/controller handling of the optional UI Ingress health signal."
-      currentTargetPolicy: "The proof target is acceptable for proving render parity, target topology, lifecycle staging, and workload convergence. It is not sufficient to turn the secure-mesh UI Ingress path into a full pass because the target does not prove an ingress-capable health policy for that Ingress."
-      passRoutes:
-        - "rerun on a target with an ingress controller and DNS/host policy that makes consul-consul-ui Healthy in Argo"
-        - "create and prove a secure-mesh base that disables or replaces the UI Ingress when the target has no ingress capability"
-        - "record a stricter target-scoped policy that explicitly accepts Argo Ingress Progressing for this UI surface, with the risk and operator check documented"
-      userMeaning: "A user can trust that the desired object set and workloads reached the expected state for this proof target. They should not treat this row as production-ready for UI ingress exposure until one of the pass routes is completed."
-    argoEvidence:
-      sync: "Synced"
-      health: "Progressing"
-      operationState: "Succeeded"
-      conditions: "none"
-      residueClassification: "resource-or-condition-residue"
-      resourceTree: "captured with argocd --core using the argocd control-plane namespace"
-      rootApplication: "Synced and Healthy"
-      childApplication: "Synced and Progressing"
-      perResourceHealthResidue: "Ingress/consul/consul-consul-ui is Synced/Progressing"
-      fullEvidence:
-        json: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-child.json"
-        tree: "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-child-tree.txt"
-      resourceHealthBreakdown:
-        source: "data/gitops-health-residue/residue.csv"
-        resourceCount: 97
-        syncedResources: 97
-        healthyResources: 42
-        blankResourceHealth: 54
-        progressingResources: 1
-        explicitUnhealthyOrUnsyncedResources: 1
-    semanticEvidence:
-      directApply: "pass"
-      ociArgo: "pass"
-      allowedExtraConfigHubObjects:
-        - "v1|Namespace||consul"
-      normalizations:
-        - "prune-null-fields"
-        - "trim-leading-command-block-newline"
-        - "consul-namespace-reference-normalization"
-        - "consul-statefulset-gitops-defaults"
-  nextActions:
-    - "Keep the row as watch for the current proof target because the Consul UI Ingress remains Synced/Progressing."
-    - "Pick one pass route before changing this row to pass: ingress-capable target, no-UI-Ingress/replaced-UI base, or explicit target-scoped acceptance policy for this UI Ingress health residue."
-    - "Use data/gitops-health-residue/summary.md to distinguish aggregate controller-health residue from resource-level health residue."
-    - "Do not change the recipe unless semantic parity, target facts, or workload readiness starts failing."
+    semanticParity: "pass"
+    targetProfile: "pass"
+    runtime: "watch"
   notClaimed:
-    - "This row does not prove Consul secure mesh production support for arbitrary clusters."
-    - "This row does not prove external gateway, ingress, ACL, backup, upgrade, or certificate rotation policy."
-    - "This row does not prove that Argo CD aggregate health should be ignored in production."
+    - "This file is no longer the current support artifact for the active Consul row."
+    - "The current receipt does not prove ConfigHub OCI/Argo workload convergence for Consul secure mesh on the proof target."
+    - "The current receipt does not prove that only the UI Ingress remains as controller-health residue."
