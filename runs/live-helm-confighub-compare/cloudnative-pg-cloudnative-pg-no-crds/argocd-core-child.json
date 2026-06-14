@@ -1,0 +1,475 @@
+{
+  "metadata": {
+    "name": "cloudnative-pg-parity",
+    "namespace": "argocd",
+    "uid": "58a6bfb4-cc69-43d0-82d0-8102d1324637",
+    "resourceVersion": "1365",
+    "generation": 10,
+    "creationTimestamp": "2026-06-14T17:31:44Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster:argoproj.io/Application:argocd/cloudnative-pg-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "52444def-9639-4ec3-9475-b097a5f11f02",
+      "confighub.com/UnitSlug": "cloudnative-pg-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T17:31:44Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T17:32:45Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci",
+      "path": "./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "cnpg-controller-manager-config",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "cnpg-default-monitoring",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "cnpg-webhook-service",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "cloudnative-pg",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "MutatingWebhookConfiguration",
+        "name": "cnpg-mutating-webhook-configuration",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "ValidatingWebhookConfiguration",
+        "name": "cnpg-validating-webhook-configuration",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "cloudnative-pg",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cloudnative-pg",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cloudnative-pg-edit",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cloudnative-pg-view",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cloudnative-pg",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci",
+          "path": "./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-14T17:32:27Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15",
+        "deployedAt": "2026-06-14T17:31:48Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci",
+          "path": "./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-14T17:31:46Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-14T17:32:36Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci",
+            "path": "./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "cloudnative-pg",
+            "status": "Synced",
+            "message": "serviceaccount/cloudnative-pg serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default",
+            "name": "cnpg-default-monitoring",
+            "status": "Synced",
+            "message": "configmap/cnpg-default-monitoring serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default",
+            "name": "cnpg-controller-manager-config",
+            "status": "Synced",
+            "message": "configmap/cnpg-controller-manager-config serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "cloudnative-pg",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cloudnative-pg reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch] APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations validatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[postgresql.cnpg.io] Resources:[clusterimagecatalogs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[] Resources:[configmaps secrets services] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[] Resources:[configmaps/status secrets/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch watch] APIGroups:[] Resources:[persistentvolumeclaims pods pods/exec] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[] Resources:[pods/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get list patch update watch] APIGroups:[] Resources:[serviceaccounts] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[apps] Resources:[deployments] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch watch] APIGroups:[batch] Resources:[jobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get update] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch watch] APIGroups:[monitoring.coreos.com] Resources:[podmonitors] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[policy] Resources:[poddisruptionbudgets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[postgresql.cnpg.io] Resources:[backups clusters databases poolers publications scheduledbackups subscriptions] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list watch] APIGroups:[postgresql.cnpg.io] Resources:[failoverquorums] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[postgresql.cnpg.io] Resources:[backups/status databases/status publications/status scheduledbackups/status subscriptions/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[postgresql.cnpg.io] Resources:[imagecatalogs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update] APIGroups:[postgresql.cnpg.io] Resources:[clusters/finalizers poolers/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update watch] APIGroups:[postgresql.cnpg.io] Resources:[clusters/status poolers/status failoverquorums/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get list patch update watch] APIGroups:[rbac.authorization.k8s.io] Resources:[rolebindings roles] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get list patch watch] APIGroups:[snapshot.storage.k8s.io] Resources:[volumesnapshots] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/cloudnative-pg serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "cloudnative-pg-edit",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cloudnative-pg-edit reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[create delete deletecollection patch update] APIGroups:[postgresql.cnpg.io] Resources:[backups clusters clusters/status databases failoverquorums poolers publications scheduledbackups imagecatalogs clusterimagecatalogs subscriptions] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/cloudnative-pg-edit serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "cloudnative-pg-view",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cloudnative-pg-view reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[postgresql.cnpg.io] Resources:[backups clusters clusters/status databases failoverquorums poolers publications scheduledbackups imagecatalogs clusterimagecatalogs subscriptions] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/cloudnative-pg-view serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "cloudnative-pg",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cloudnative-pg reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:cloudnative-pg Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/cloudnative-pg serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "cnpg-webhook-service",
+            "status": "Synced",
+            "message": "service/cnpg-webhook-service serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "cloudnative-pg",
+            "status": "Synced",
+            "message": "deployment.apps/cloudnative-pg serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1"
+            ]
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "MutatingWebhookConfiguration",
+            "namespace": "default-oci",
+            "name": "cnpg-mutating-webhook-configuration",
+            "status": "Synced",
+            "message": "mutatingwebhookconfiguration.admissionregistration.k8s.io/cnpg-mutating-webhook-configuration serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "ValidatingWebhookConfiguration",
+            "namespace": "default-oci",
+            "name": "cnpg-validating-webhook-configuration",
+            "status": "Synced",
+            "message": "validatingwebhookconfiguration.admissionregistration.k8s.io/cnpg-validating-webhook-configuration serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci",
+          "path": "./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-14T17:31:46Z",
+      "finishedAt": "2026-06-14T17:31:48Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

@@ -1,0 +1,31 @@
+Name:               argocd/cloudnative-pg-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:50527/applications/cloudnative-pg-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                             STATUS  HEALTH   AGE    MESSAGE                                                      REASON
+Service/cnpg-webhook-service                                          Synced  Healthy  2m15s  service/cnpg-webhook-service serverside-applied
+ValidatingWebhookConfiguration/cnpg-validating-webhook-configuration  Synced           66s
+ClusterRoleBinding/cloudnative-pg                                     Synced           66s
+ConfigMap/cnpg-controller-manager-config                              Synced           2m15s  configmap/cnpg-controller-manager-config serverside-applied
+ConfigMap/cnpg-default-monitoring                                     Synced           2m15s  configmap/cnpg-default-monitoring serverside-applied
+ServiceAccount/cloudnative-pg                                         Synced           2m15s  serviceaccount/cloudnative-pg serverside-applied
+MutatingWebhookConfiguration/cnpg-mutating-webhook-configuration      Synced           66s
+Deployment/cloudnative-pg                                             Synced  Healthy  2m15s  deployment.apps/cloudnative-pg serverside-applied
+├─Secret/cnpg-ca-secret                                                                2m14s
+├─Secret/cnpg-webhook-cert                                                             2m14s
+└─ReplicaSet/cloudnative-pg-d8f4779dd                                         Healthy  2m15s
+  └─Pod/cloudnative-pg-d8f4779dd-gdvfn                                        Healthy  2m15s
+ClusterRole/cloudnative-pg                                            Synced           66s
+ClusterRole/cloudnative-pg-edit                                       Synced           66s
+ClusterRole/cloudnative-pg-view                                       Synced           66s
+Namespace/default-oci                                                 Synced           119s

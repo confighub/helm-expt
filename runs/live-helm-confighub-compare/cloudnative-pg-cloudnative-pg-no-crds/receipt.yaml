@@ -1,0 +1,1108 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: cloudnative-pg-cloudnative-pg-0.28.2-no-crds-live-parity-20260605
+spec:
+  chart: cloudnative-pg/cloudnative-pg
+  version: 0.28.2
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-14T17:28:48Z'
+  package:
+    path: packages/cloudnative-pg/cloudnative-pg/0.28.2
+  recipe:
+    path: recipes/cloudnative-pg/cloudnative-pg/0.28.2
+  variantRevision: recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-cloudnativepg-mqe269k5-c7x
+    kubeContext: kind-helm-expt-parity-cloudnativepg-mqe269k5-c7x
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-cloudnativepg-mqe269k5-c7x --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-cloudnativepg-mqe269k5-c7x"...
+
+        Deleting cluster "helm-expt-parity-cloudnativepg-mqe269k5-c7x" ...
+
+        Deleted nodes: ["helm-expt-parity-cloudnativepg-mqe269k5-c7x-control-plane"]
+
+        Deleting Space "helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install cloudnative-pg cloudnative-pg --repo https://cloudnative-pg.github.io/charts
+        --version 0.28.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d
+      objectCount: 11
+      liveHelmManifestSHA256: 765f8c2ed2e4b9fe503536bdbccef9fa4eba371021bd0d40bf13a92feda57d6f
+      liveHelmManifestObjectCount: 21
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/cloudnative-pg   1/1   1     1     11s
+        pods: cloudnative-pg-5fdcd44c9c-2jhl7   1/1   Running   0     11s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: db29155ea61bd9e126207fc09ebbcbe7c0cb6e8223bf9208c3079ae8ddce9e6a
+      objectCount: 12
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/cloudnative-pg   1/1   1     1     10s'
+        pods: '# default
+
+          cloudnative-pg-d8f4779dd-gdvfn   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 6
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "cloudnative-pg-edit" deleted
+
+            clusterrole.rbac.authorization.k8s.io "cloudnative-pg-view" deleted
+
+            clusterrole.rbac.authorization.k8s.io "cloudnative-pg" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "cloudnative-pg" deleted
+
+            mutatingwebhookconfiguration.admissionregistration.k8s.io "cnpg-mutating-webhook-configuration"
+            deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "cnpg-validating-webhook-configuration"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|cloudnative-pg
+          - v1|ConfigMap|default|cnpg-controller-manager-config
+          - v1|ConfigMap|default|cnpg-default-monitoring
+          - v1|ServiceAccount|default|cloudnative-pg
+          - v1|Service|default|cnpg-webhook-service
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+      controller: Argo CD OCI
+      app: cloudnative-pg-parity
+      manifestSHA256: 70de3ed5f4de6d953c0678cdd5935848a1111728b7ba6f688904d59734148b3f
+      objectCount: 12
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci
+              targetRevision: latest
+          revision: sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T17:32:27Z'
+          status: Healthy
+        summary:
+          images:
+          - ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T17:31:46Z'
+          finishedAt: '2026-06-14T17:31:48Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 12
+          syncResultStatusCounts:
+            Synced: 12
+        history:
+        - id: 0
+          revision: sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15
+          deployedAt: '2026-06-14T17:31:48Z'
+          deployStartedAt: '2026-06-14T17:31:46Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: cnpg-controller-manager-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: cnpg-default-monitoring
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: cnpg-webhook-service
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: cloudnative-pg
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: cnpg-mutating-webhook-configuration
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: cnpg-validating-webhook-configuration
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: cloudnative-pg
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cloudnative-pg
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cloudnative-pg-edit
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cloudnative-pg-view
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cloudnative-pg
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         cloudnative-pg-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster:argoproj.io/Application:argocd/cloudnative-pg-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 52444def-9639-4ec3-9475-b097a5f11f02\n              confighub.com/UnitSlug:\
+              \ cloudnative-pg-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T17:31:44Z\n\
+              \  Generation:          9\n  Resource Version:    1334\n  UID:     \
+              \            58a6bfb4-cc69-43d0-82d0-8102d1324637\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T17:32:27Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T17:31:46Z\n    Deployed At:        2026-06-14T17:31:48Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\n\
+              \    Source:\n      Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T17:31:48Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\n\
+              \        Source:\n          Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T17:31:46Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/cloudnative-pg serverside-applied\n        Name:\
+              \        cloudnative-pg\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        ConfigMap\n        Message:     configmap/cnpg-default-monitoring\
+              \ serverside-applied\n        Name:        cnpg-default-monitoring\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        ConfigMap\n    \
+              \    Message:     configmap/cnpg-controller-manager-config serverside-applied\n\
+              \        Name:        cnpg-controller-manager-config\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/cloudnative-pg\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get list watch] APIGroups:[]\
+              \ Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n         \
+              \              {Verbs:[get patch] APIGroups:[admissionregistration.k8s.io]\
+              \ Resources:[mutatingwebhookconfigurations validatingwebhookconfigurations]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list watch] APIGroups:[postgresql.cnpg.io] Resources:[clusterimagecatalogs]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[create\
+              \ delete get list patch update watch] APIGroups:[] Resources:[configmaps\
+              \ secrets services] ResourceNames:[] NonResourceURLs:[]}\n         \
+              \              {Verbs:[get patch update] APIGroups:[] Resources:[configmaps/status\
+              \ secrets/status] ResourceNames:[] NonResourceURLs:[]}\n           \
+              \            {Verbs:[create patch] APIGroups:[] Resources:[events] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[create delete\
+              \ get list patch watch] APIGroups:[] Resources:[persistentvolumeclaims\
+              \ pods pods/exec] ResourceNames:[] NonResourceURLs:[]}\n           \
+              \            {Verbs:[get] APIGroups:[] Resources:[pods/status] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[create get list\
+              \ patch update watch] APIGroups:[] Resources:[serviceaccounts] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[create delete\
+              \ get list patch update watch] APIGroups:[apps] Resources:[deployments]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[create\
+              \ delete get list patch watch] APIGroups:[batch] Resources:[jobs] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[create get update]\
+              \ APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[create delete\
+              \ get list patch watch] APIGroups:[monitoring.coreos.com] Resources:[podmonitors]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[create\
+              \ delete get list patch upd"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                              MESSAGE
+
+              50s         Normal   OperationStarted     application/cloudnative-pg-parity   Initiated
+              automated sync to ''sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15''
+
+              50s         Normal   ResourceUpdated      application/cloudnative-pg-parity   Updated
+              sync status:  -> OutOfSync
+
+              50s         Normal   ResourceUpdated      application/cloudnative-pg-parity   Updated
+              health status:  -> Progressing
+
+              48s         Normal   OperationCompleted   application/cloudnative-pg-parity   Sync
+              operation to sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15
+              succeeded
+
+              46s         Normal   ResourceUpdated      application/cloudnative-pg-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              9s          Normal   ResourceUpdated      application/cloudnative-pg-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 12
+              artifact:
+                path: argocd-core-child.json
+                sha256: 7bc245bcefd2efbcc5d8064e77c41247ff0fe9d1fd362cf2c412285a8db1b23f
+                bytes: 19162
+              output: "{\n  \"metadata\": {\n    \"name\": \"cloudnative-pg-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"58a6bfb4-cc69-43d0-82d0-8102d1324637\"\
+                ,\n    \"resourceVersion\": \"1365\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-14T17:31:44Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster:argoproj.io/Application:argocd/cloudnative-pg-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"52444def-9639-4ec3-9475-b097a5f11f02\",\n      \"confighub.com/UnitSlug\"\
+                : \"cloudnative-pg-parity-app\"\n    },\n    \"managedFields\": [\n\
+                \      {\n        \"manager\": \"argocd-controller\",\n        \"\
+                operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T17:31:44Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T17:32:45Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"cnpg-controller-manager-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"cnpg-default-monitoring\",\n \
+                \       \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"cnpg-webhook-service\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default\",\n        \"name\": \"cloudnative-pg\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"admissionregistration.k8s.io\",\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"MutatingWebhookConfiguration\",\n        \"name\"\
+                : \"cnpg-mutating-webhook-configuration\",\n        \"status\": \"\
+                Synced\"\n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ValidatingWebhookConfigurat"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: dce21cae0a69f19fa71803218de9b16d9e210a68c4741aad4ff7908696422afa
+                bytes: 2533
+              output: "Name:               argocd/cloudnative-pg-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:50527/applications/cloudnative-pg-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                    STATUS  HEALTH   AGE    MESSAGE             \
+                \                                         REASON\nService/cnpg-webhook-service\
+                \                                          Synced  Healthy  2m15s\
+                \  service/cnpg-webhook-service serverside-applied              \n\
+                ValidatingWebhookConfiguration/cnpg-validating-webhook-configuration\
+                \  Synced           66s                                          \
+                \                       \nClusterRoleBinding/cloudnative-pg      \
+                \                               Synced           66s             \
+                \                                                    \nConfigMap/cnpg-controller-manager-config\
+                \                              Synced           2m15s  configmap/cnpg-controller-manager-config\
+                \ serverside-applied  \nConfigMap/cnpg-default-monitoring        \
+                \                             Synced           2m15s  configmap/cnpg-default-monitoring\
+                \ serverside-applied         \nServiceAccount/cloudnative-pg     \
+                \                                    Synced           2m15s  serviceaccount/cloudnative-pg\
+                \ serverside-applied             \nMutatingWebhookConfiguration/cnpg-mutating-webhook-configuration\
+                \      Synced           66s                                      \
+                \                           \nDeployment/cloudnative-pg          \
+                \                                   Synced  Healthy  2m15s  deployment.apps/cloudnative-pg\
+                \ serverside-applied            \n\u251C\u2500Secret/cnpg-ca-secret\
+                \                                                                2m14s\
+                \                                                               \n\
+                \u251C\u2500Secret/cnpg-webhook-cert                             \
+                \                                2m14s                           \
+                \                                    \n\u2514\u2500ReplicaSet/cloudnative-pg-d8f4779dd\
+                \                                         Healthy  2m15s         \
+                \                                                      \n  \u2514\u2500\
+                Pod/cloudnative-pg-d8f4779dd-gdvfn                               \
+                \         Healthy  2m15s                                         \
+                \                      \nClusterRole/cloudnative-pg              \
+                \                              Synced           66s              \
+                \                                                   \nClusterRole/cloudnative-pg-edit\
+                \                                       Synced           66s     \
+                \                                                            \nClusterRole/cloudnative-pg-view\
+                \                                       Synced           66s     \
+                \                                                            \nNamespace/default-oci\
+                \                                                 Synced         \
+                \  119s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"cloudnative-pg-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/cloudnative-pg-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"cloudnative-pg-parity\",\n      \"namespace\":\
+              \ \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci
+              targetRevision: latest
+          revision: sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T17:30:28Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T17:31:43Z'
+          finishedAt: '2026-06-14T17:31:44Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15
+          deployedAt: '2026-06-14T17:31:44Z'
+          deployStartedAt: '2026-06-14T17:31:43Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: cloudnative-pg-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T17:30:18Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1235\n  UID:         \
+              \      5e23302d-fa1b-4212-8f47-84693726c6f0\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T17:30:28Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T17:31:43Z\n\
+              \    Deployed At:        2026-06-14T17:31:44Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\n\
+              \    Source:\n      Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T17:31:44Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\n\
+              \        Source:\n          Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T17:31:43Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/cloudnative-pg-parity serverside-applied\n\
+              \        Name:        cloudnative-pg-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\n\
+              \      Source:\n        Path:              ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T17:31:45Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       cloudnative-pg-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n  Source\
+              \ Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared\
+              \ To:\n      Destination:\n        Namespace:  argocd\n        Server:\
+              \     https://kubernetes.default.svc\n      Source:\n        Path: \
+              \            ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     2m27s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     2m27s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  72s    argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15'\n\
+              \  Normal  ResourceUpdated     72s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  71s    argocd-application-controller  Sync operation to sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\
+              \ succeeded\n  Normal  ResourceUpdated     69s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                            MESSAGE
+
+              2m27s       Normal   ResourceUpdated      application/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster   Updated
+              sync status:  -> Synced
+
+              2m27s       Normal   ResourceUpdated      application/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster   Updated
+              health status:  -> Healthy
+
+              72s         Normal   OperationStarted     application/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster   Initiated
+              automated sync to ''sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15''
+
+              72s         Normal   ResourceUpdated      application/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              71s         Normal   OperationCompleted   application/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster   Sync
+              operation to sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15
+              succeeded
+
+              69s         Normal   ResourceUpdated      application/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: d68c47f07a1e88d55eeaac724e4970e24fe7507f7199a5227865cdbdd68d2a8b
+                bytes: 10753
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"5e23302d-fa1b-4212-8f47-84693726c6f0\"\
+                ,\n    \"resourceVersion\": \"1403\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T17:30:18Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T17:30:18Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T17:33:05Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://o"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 3cd809bc232fc3a75a7ac23840ac42200c45c3847dd26d5a34cb91d72b09405f
+                bytes: 1182
+              output: "Name:               argocd/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:50643/applications/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \               STATUS  HEALTH  AGE    MESSAGE                   \
+                \                                                                \
+                \      REASON\nApplication/cloudnative-pg-parity                 \
+                \               Synced          90s    application.argoproj.io/cloudnative-pg-parity\
+                \ serverside-applied                                \nApplication/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\
+                \  Synced          2m56s  application.argoproj.io/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"cloudnative-pg-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/cloudnative-pg-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c7001777f3d8c13796bd3308f3e3c5487ffc85ce4bd8c1374645c5af9005ca15\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"cloudnative-pg-parity\",\n      \"namespace\":\
+              \ \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/cloudnative-pg   1/1   1     1     2m35s'
+        pods: '# default
+
+          cloudnative-pg-d8f4779dd-gdvfn   1/1   Running   4 (96s ago)   2m35s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T17:30:18Z'
+    finishedAt: '2026-06-14T17:30:32Z'
+    elapsedSeconds: 13.754
+    timeoutSeconds: 900
+    command: helm upgrade --install cloudnative-pg cloudnative-pg --repo https://cloudnative-pg.github.io/charts
+      --version 0.28.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T17:30:38Z'
+    finishedAt: '2026-06-14T17:30:39Z'
+    elapsedSeconds: 0.425
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T17:30:39Z'
+    finishedAt: '2026-06-14T17:30:39Z'
+    elapsedSeconds: 0.147
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-mqe269k5-c7x.kubeconfig
+      --context kind-helm-expt-parity-cloudnativepg-mqe269k5-c7x apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/direct-apply-manifest.yaml
+    objectCount: 11
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T17:30:39Z'
+    finishedAt: '2026-06-14T17:30:49Z'
+    elapsedSeconds: 10.19
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T17:30:55Z'
+    finishedAt: '2026-06-14T17:30:55Z'
+    elapsedSeconds: 0.265
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T17:30:55Z'
+    finishedAt: '2026-06-14T17:31:26Z'
+    elapsedSeconds: 31.178
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+      --space helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg --target
+      helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci
+    objectCount: 12
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T17:31:26Z'
+    finishedAt: '2026-06-14T17:31:27Z'
+    elapsedSeconds: 0.505
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T17:31:27Z'
+    finishedAt: '2026-06-14T17:31:33Z'
+    elapsedSeconds: 6.715
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
+      --unit <12 unit(s)> --wait --timeout 5m
+    unitCount: 12
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T17:31:33Z'
+    finishedAt: '2026-06-14T17:31:34Z'
+    elapsedSeconds: 0.955
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster
+      cloudnative-pg-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/argo-application.json
+      --target helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T17:31:34Z'
+    finishedAt: '2026-06-14T17:31:35Z'
+    elapsedSeconds: 0.983
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T17:31:35Z'
+    finishedAt: '2026-06-14T17:32:36Z'
+    elapsedSeconds: 60.376
+    timeoutSeconds: 420
+    waitedSeconds: 60
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T17:33:14Z'
+    finishedAt: '2026-06-14T17:33:14Z'
+    elapsedSeconds: 0.103
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-cloudnativepg-mqe269k5-c7x\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-mqe269k5-c7x.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-cloudnativepg-mqe269k5-c7x\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-cloudnativepg-mqe269k5-c7x\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-cloudnativepg-mqe269k5-c7x\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-mqe269k5-c7x.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Names"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"cloudnative-pg\" does not exist. Installing it now.\nNAME:\
+      \ cloudnative-pg\nLAST DEPLOYED: Sun Jun 14 18:30:21 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nCloudNativePG operator should be installed in namespace \"default-helm\"\
+      .\nYou can now create a PostgreSQL cluster with 3 nodes as follows:\n\ncat <<EOF\
+      \ | kubectl apply -f -\n# Example of PostgreSQL cluster\napiVersion: postgresql.cnpg.io/v1\n\
+      kind: Cluster\nmetadata:\n  name: cluster-example\n  \nspec:\n  instances: 3\n\
+      \  storage:\n    size: 1Gi\nEOF\n\nkubectl get -A cluster"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/cloudnative-pg   1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=6
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 60s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

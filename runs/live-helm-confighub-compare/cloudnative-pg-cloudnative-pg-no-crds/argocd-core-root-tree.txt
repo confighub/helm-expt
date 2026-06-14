@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:50643/applications/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                        STATUS  HEALTH  AGE    MESSAGE                                                                                         REASON
+Application/cloudnative-pg-parity                                Synced          90s    application.argoproj.io/cloudnative-pg-parity serverside-applied
+Application/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster  Synced          2m56s  application.argoproj.io/helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster serverside-applied
