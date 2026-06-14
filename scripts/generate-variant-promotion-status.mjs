@@ -25,6 +25,7 @@ const outputs = {
 
 const OUTCOMES = "data/outcome-coverage/base-outcomes.csv";
 const RECEIPT_KIND = "VariantPromotionReceipt";
+const CHANGESET_PROMOTION_ISSUE = "https://github.com/confighub/helm-expt/issues/682";
 
 if (mode === "--generate") {
   const report = buildReport();
@@ -82,7 +83,7 @@ function buildReport() {
                 status: "proven-with-watch",
                 matrix: "watch",
                 reason: receipt.reason || "server-side promotion mechanics passed with a recorded product caution",
-                next: "resolve the recorded watch item, then rerun the promotion receipt for a full pass",
+                next: `resolve ${CHANGESET_PROMOTION_ISSUE}, then rerun the promotion receipt for a full pass`,
               }
             : {
                 status: "blocked",
@@ -221,6 +222,15 @@ function splitChartVersion(value) {
 function summary(rows) {
   const byStatus = countBy(rows, (row) => row.promotion_status);
   const byMatrix = countBy(rows, (row) => row.matrix_value);
+  const watchRows = rows.filter((row) => row.matrix_value === "watch");
+  const watchByReason = [...countBy(watchRows, (row) => row.reason).entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([reason, count]) => `| ${count} | ${reason} | [#682](${CHANGESET_PROMOTION_ISSUE}) |`)
+    .join("\n");
+  const watchExamples = watchRows
+    .slice(0, 10)
+    .map((row) => `| \`${row.chart}@${row.version}/${row.variant}\` | ${row.evidence} | ${row.next_action} |`)
+    .join("\n");
   const topTodos = rows
     .filter((row) => row.matrix_value === "todo")
     .slice(0, 20)
@@ -258,6 +268,20 @@ Matrix values:
 | Matrix value | Rows |
 | --- | ---: |
 ${[...byMatrix.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([status, count]) => `| ${status} | ${count} |`).join("\n")}
+
+## Watch Rows
+
+Watch means a receipt proved useful mechanics but recorded a named product
+caution. Do not treat watch as a production gate until the linked issue is
+resolved and the receipt reruns as pass.
+
+| Rows | Reason | Tracking |
+| ---: | --- | --- |
+${watchByReason || "| 0 | — | — |"}
+
+| Row | Evidence | Next action |
+| --- | --- | --- |
+${watchExamples || "| — | — | — |"}
 
 ## First TODO Rows
 

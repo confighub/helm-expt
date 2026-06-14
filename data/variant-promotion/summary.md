@@ -33,6 +33,22 @@ Matrix values:
 | todo | 189 |
 | watch | 3 |
 
+## Watch Rows
+
+Watch means a receipt proved useful mechanics but recorded a named product
+caution. Do not treat watch as a production gate until the linked issue is
+resolved and the receipt reruns as pass.
+
+| Rows | Reason | Tracking |
+| ---: | --- | --- |
+| 3 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682](https://github.com/confighub/helm-expt/issues/682) |
+
+| Row | Evidence | Next action |
+| --- | --- | --- |
+| `bitnami/nginx@24.0.2/http-clusterip` | runs/nginx-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `bitnami/redis@25.5.3/default` | runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `prometheus-community/kube-prometheus-stack@85.3.3/default` | runs/kube-prometheus-stack-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+
 ## First TODO Rows
 
 | Row | Status | Next action |
