@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 89
+pass: 90
 watch: 5
 blocked: 0
 not-started: 0
@@ -101,6 +101,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `nats/nats@2.14.0` | ha | pass | - | runs/live-helm-confighub-compare/nats-nats-ha/receipt.yaml |
 |  | `open-telemetry/opentelemetry-operator@0.114.0` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | default | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-default/receipt.yaml |
+|  | `percona/pg-operator@3.0.0` | no-crds | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-no-crds/receipt.yaml |
 |  | `percona/psmdb-operator@1.22.0` | default | pass | - | runs/live-helm-confighub-compare/percona-psmdb-operator-default/receipt.yaml |
 |  | `percona/pxc-operator@1.19.1` | default | pass | - | runs/live-helm-confighub-compare/percona-pxc-operator-default/receipt.yaml |
 |  | `prometheus-community/alertmanager@1.37.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/receipt.yaml |
