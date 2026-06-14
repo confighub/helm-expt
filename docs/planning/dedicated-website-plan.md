@@ -121,6 +121,11 @@ data/master-catalog-matrix/matrix.csv
 data/hook-disposition/top100-hook-dispositions.csv
 ```
 
+Detailed spec: [per-chart-fact-sheet-spec.md](./per-chart-fact-sheet-spec.md) —
+the full section list, the exact data source per item, a solid /
+needs-more-testing status for each, and the "level of support vs evidence depth"
+rule.
+
 ### 4. Variant Page
 
 Purpose:
