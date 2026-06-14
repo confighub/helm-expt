@@ -1,0 +1,1347 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-prometheus-29.9.0-default-live-parity-20260605
+spec:
+  chart: prometheus-community/prometheus
+  version: 29.9.0
+  base: default
+  result: watch
+  observedAt: '2026-06-14T21:06:38Z'
+  package:
+    path: packages/prometheus-community/prometheus/29.9.0
+  recipe:
+    path: recipes/prometheus-community/prometheus/29.9.0
+  variantRevision: recipes/prometheus-community/prometheus/29.9.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-prometheus-mqe9ydrc-geb
+    kubeContext: kind-helm-expt-parity-prometheus-mqe9ydrc-geb
+    namespace: monitoring
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: monitoring-helm
+      configHubKubectlApply: monitoring-apply
+      configHubOciArgo: monitoring-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-prometheus-mqe9ydrc-geb --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-prometheus-mqe9ydrc-geb"...
+
+        Deleting cluster "helm-expt-parity-prometheus-mqe9ydrc-geb" ...
+
+        Deleted nodes: ["helm-expt-parity-prometheus-mqe9ydrc-geb-control-plane"]
+
+        Deleting Space "helm-expt-parity-prometheus-mqe9ydrc-geb-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
+        --version 29.9.0 --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 08dacfbc1ecd3ef9956999398bbf30a7a8dd083dccde23c589853da525541d36
+      objectCount: 23
+      liveHelmManifestSHA256: 42733002673bfbce3c685ef07f00fae9f03e35769d99d7a1bd476a57754b1f73
+      liveHelmManifestObjectCount: 23
+      namespace: monitoring-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/prometheus-kube-state-metrics       1/1   1     1     71s
+
+          deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     71s
+
+          deployment.apps/prometheus-server                   1/1   1     1     71s
+
+          statefulset.apps/prometheus-alertmanager   1/1   71s
+
+          daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   71s'
+        pods: 'prometheus-alertmanager-0                            1/1   Running   0     71s
+
+          prometheus-kube-state-metrics-68ff7c5cc5-vlp5h       1/1   Running   0     71s
+
+          prometheus-prometheus-node-exporter-czp62            1/1   Running   0     71s
+
+          prometheus-prometheus-pushgateway-75b8bf7c77-nl5r5   1/1   Running   0     71s
+
+          prometheus-server-6cbdc8ffdf-7r8fp                   2/2   Running   0     71s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+        --non-interactive --namespace monitoring-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: e7005fe5e0a5b0f13cae999bcc09c96d4623415eb98f741e0a8ee9ca9c886128
+      objectCount: 24
+      namespace: monitoring-apply
+      manifestNamespaces:
+      - monitoring
+      - monitoring-apply
+      runtimeNamespaces: &id001
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# monitoring
+
+          deployment.apps/prometheus-kube-state-metrics       1/1   1     1     41s
+
+          deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     41s
+
+          deployment.apps/prometheus-server                   1/1   1     1     41s
+
+          statefulset.apps/prometheus-alertmanager   1/1   41s
+
+          daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   41s'
+        pods: '# monitoring
+
+          prometheus-alertmanager-0                            1/1   Running   0     41s
+
+          prometheus-kube-state-metrics-68ff7c5cc5-9wcc5       1/1   Running   0     41s
+
+          prometheus-prometheus-node-exporter-bvmpz            1/1   Running   0     41s
+
+          prometheus-prometheus-pushgateway-75b8bf7c77-29kzr   1/1   Running   0     41s
+
+          prometheus-server-6cbdc8ffdf-b28cv                   2/2   Running   0     41s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - monitoring
+        - monitoring-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 4
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "prometheus-kube-state-metrics"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "prometheus-server" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "prometheus-kube-state-metrics"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "prometheus-server" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+      controller: Argo CD OCI
+      app: prometheus-parity
+      manifestSHA256: fd5be4015e980e493760d8231550ce1a2857f1eae8abe649c904b45b561eaa90
+      objectCount: 24
+      namespace: monitoring-oci
+      manifestNamespaces:
+      - monitoring
+      - monitoring-oci
+      runtimeNamespaces: &id002
+      - monitoring
+      ociRevision: sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+      sync: OutOfSync
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: monitoring-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci
+              targetRevision: latest
+          revision: sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+          status: OutOfSync
+        health:
+          lastTransitionTime: '2026-06-14T21:17:41Z'
+          status: Healthy
+        summary:
+          images:
+          - quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0
+          - quay.io/prometheus/alertmanager:v0.32.1
+          - quay.io/prometheus/node-exporter:v1.11.1
+          - quay.io/prometheus/prometheus:v3.12.0
+          - quay.io/prometheus/pushgateway:v1.11.2
+          - registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T21:21:24Z'
+          finishedAt: '2026-06-14T21:21:26Z'
+          operationSyncResourceCount: 1
+          operationSyncResources:
+          - group: apps
+            kind: StatefulSet
+            namespace: ''
+            name: prometheus-alertmanager
+          syncResultResourceCount: 1
+          syncResultStatusCounts:
+            Synced: 1
+        history:
+        - id: 0
+          revision: sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+          deployedAt: '2026-06-14T21:17:03Z'
+          deployStartedAt: '2026-06-14T21:17:01Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: prometheus-alertmanager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: prometheus-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: monitoring-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: PersistentVolumeClaim
+          namespace: monitoring
+          name: prometheus-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: prometheus-alertmanager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: prometheus-alertmanager-headless
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: prometheus-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: prometheus-prometheus-node-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: prometheus-prometheus-pushgateway
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: prometheus-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: prometheus-alertmanager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: prometheus-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: prometheus-prometheus-node-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: prometheus-prometheus-pushgateway
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: prometheus-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: monitoring
+          name: prometheus-prometheus-node-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: monitoring
+          name: prometheus-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: monitoring
+          name: prometheus-prometheus-pushgateway
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: monitoring
+          name: prometheus-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: monitoring
+          name: prometheus-alertmanager
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: prometheus-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: prometheus-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: prometheus-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: prometheus-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         prometheus-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-prometheus-mqe9ydrc-geb-cluster:argoproj.io/Application:argocd/prometheus-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 98015c39-97eb-452c-8e0d-bdad7095e937\n              confighub.com/UnitSlug:\
+              \ prometheus-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind: \
+              \        Application\nMetadata:\n  Creation Timestamp:  2026-06-14T21:16:59Z\n\
+              \  Generation:          37\n  Resource Version:    2942\n  UID:    \
+              \             e95e7145-285c-445a-9fda-2ee8c37a97d5\nSpec:\n  Destination:\n\
+              \    Namespace:  monitoring-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T21:17:41Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T21:17:01Z\n    Deployed At:        2026-06-14T21:17:03Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\n\
+              \    Source:\n      Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T21:21:26Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Auto\
+              \ Heal Attempts Count:  6\n        Prune:                     true\n\
+              \        Resources:\n          Group:   apps\n          Kind:    StatefulSet\n\
+              \          Name:    prometheus-alertmanager\n        Revision:  sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\n\
+              \        Source:\n          Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T21:21:24Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       apps\n        Hook Phase:  Running\n\
+              \        Images:\n          quay.io/prometheus/alertmanager:v0.32.1\n\
+              \        Kind:        StatefulSet\n        Message:     statefulset.apps/prometheus-alertmanager\
+              \ serverside-applied\n        Name:        prometheus-alertmanager\n\
+              \        Namespace:   monitoring\n        Status:      Synced\n    \
+              \    Sync Phase:  Sync\n        Version:     v1\n      Revision:   \
+              \   sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\n\
+              \      Source:\n        Path:              ./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T21:21:26Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       ConfigMap\n\
+              \    Name:       prometheus-alertmanager\n    Namespace:  monitoring\n\
+              \    Status:     Synced\n    Version:    v1\n    Kind:       ConfigMap\n\
+              \    Name:       prometheus-server\n    Namespace:  monitoring\n   \
+              \ Status:     Synced\n    Version:    v1\n    Kind:       Namespace\n\
+              \    Name:       monitoring-oci\n    Status:     Synced\n    Version:\
+              \    v1\n    Kind:       PersistentVolumeClaim\n    Name:       prometheus-server\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       Service\n    Name:       prometheus-alertmanager\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       Service\n    Name:       prometheus-alertmanager-headless\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       Service\n    Name:       prometheus-kube-state-metrics\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       Service\n    Name:       prometheus-prometheus-node-exporter\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       Service\n    Name:       prometheus-prometheus-pushgateway\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       Service\n    Name:       prometheus-server\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       ServiceAccount\n    Name:       prometheus-alertmanager\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       ServiceAccount\n    Name:       prometheus-kube-state-metrics\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       ServiceAccount\n    Name:       prometheus-prometheus-node-exporter\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       ServiceAccount\n    Name:       prometheus-prometheus-pushgateway\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Kind:       ServiceAccount\n    Name:       prometheus-server\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Group:      apps\n    Kind:       DaemonSet\n    Name:  \
+              \     prometheus-prometheus-node-exporter\n    Namespace:  monitoring\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apps\n\
+              \    Kind:       Deployment\n    Name:       prometheus-kube-state-metrics\n\
+              \    Namespace:  monitoring\n    Status:     Synced\n    Version:  \
+              \  v1\n    Group:      apps\n    Kind:       Deployment\n    Name: \
+              \      prometheus-prometheus-pushgateway\n "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                          MESSAGE
+
+              6m52s       Normal   OperationStarted     application/prometheus-parity   Initiated
+              automated sync to ''sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96''
+
+              6m52s       Normal   ResourceUpdated      application/prometheus-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/prometheus-parity   Updated
+              health status:  -> Healthy
+
+              6m50s       Normal   OperationCompleted   application/prometheus-parity   Sync
+              operation to sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+              succeeded
+
+              6m49s       Normal   ResourceUpdated      application/prometheus-parity   Updated
+              health status: Healthy -> Progressing
+
+              6m47s       Normal   OperationStarted     application/prometheus-parity   Initiated
+              automated sync to ''sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96''
+
+              6m46s       Normal   OperationCompleted   application/prometheus-parity   Partial
+              sync operation to sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+              succeeded
+
+              6m44s       Normal   OperationStarted     application/prometheus-parity   Initiated
+              automated sync to ''sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96''
+
+              6m43s       Normal   OperationCompleted   application/prometheus-parity   Partial
+              sync operation to sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+              succeeded
+
+              6m36s       Normal   OperationStarted     application/prometheus-parity   Initiated
+              automated sync to ''sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96''
+
+              6m34s       Normal   OperationCompleted   application/prometheus-parity   Partial
+              sync operation to sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+              succeeded
+
+              6m15s       Normal   OperationStarted     application/prometheus-parity   Initiated
+              automated sync to ''sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96''
+
+              6m14s       Normal   OperationCompleted   application/prometheus-parity   Partial
+              sync operation to sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+              succeeded
+
+              6m12s       Normal   ResourceUpdated      application/prometheus-parity   Updated
+              health status: Progressing -> Healthy
+
+              5m14s       Normal   OperationStarted     application/prometheus-parity   Initiated
+              automated sync to ''sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96''
+
+              5m12s       Normal   OperationCompleted   application/prometheus-parity   Partial
+              sync operation to sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+              succeeded
+
+              2m29s       Normal   OperationStarted     application/prometheus-parity   Initiated
+              automated sync to ''sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96''
+
+              2m27s       Normal   OperationCompleted   application/prometheus-parity   Partial
+              sync operation to sha256:a494dc320d0336c5307662b4e6313cd00fc1d'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: OutOfSync
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 24
+              artifact:
+                path: argocd-core-child.json
+                sha256: eb11c2a732953d82a7a4322941d4c4e3b97f92d76660c71babce2149a26dc77c
+                bytes: 13938
+              output: "{\n  \"metadata\": {\n    \"name\": \"prometheus-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"e95e7145-285c-445a-9fda-2ee8c37a97d5\"\
+                ,\n    \"resourceVersion\": \"3144\",\n    \"generation\": 38,\n \
+                \   \"creationTimestamp\": \"2026-06-14T21:16:59Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-prometheus-mqe9ydrc-geb-cluster:argoproj.io/Application:argocd/prometheus-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"98015c39-97eb-452c-8e0d-bdad7095e937\",\n      \"confighub.com/UnitSlug\"\
+                : \"prometheus-parity-app\"\n    },\n    \"managedFields\": [\n  \
+                \    {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T21:16:59Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T21:24:02Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:autoHealAttemptsCount\"\
+                : {},\n                  \"f:prune\": {},\n                  \"f:resources\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"monitoring-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"monitoring\",\n        \"name\": \"prometheus-alertmanager\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"monitoring\",\n        \"name\": \"prometheus-server\",\n    \
+                \    \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                monitoring-oci\",\n        \"status\": \"Synced\"\n      },\n    \
+                \  {\n        \"version\": \"v1\",\n        \"kind\": \"PersistentVolumeClaim\"\
+                ,\n        \"namespace\": \"monitoring\",\n        \"name\": \"prometheus-server\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"monitoring\",\n        \"name\": \"prometheus-alertmanager\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"monitoring\",\n        \"name\": \"prometheus-alertmanager-headless\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"s"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 108a86996f8b486d5dd7b04a294238935f3684ceaee5996499331201c49a7647
+                bytes: 4226
+              output: "Name:               argocd/prometheus-parity\nProject:    \
+                \        default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          monitoring-oci\nURL:                http://localhost:64684/applications/prometheus-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        OutOfSync from latest (sha256:)\nHealth Status:\
+                \      Healthy\n\nKIND/NAME                                      \
+                \                      STATUS     HEALTH   AGE   MESSAGE         \
+                \                                             REASON\nService/prometheus-kube-state-metrics\
+                \                                Synced     Healthy  7m8s        \
+                \                                                       \nServiceAccount/prometheus-prometheus-node-exporter\
+                \                   Synced              7m8s                     \
+                \                                          \nClusterRole/prometheus-kube-state-metrics\
+                \                            Synced              7m8s            \
+                \                                                   \nConfigMap/prometheus-server\
+                \                                          Synced              7m8s\
+                \                                                               \n\
+                Namespace/monitoring-oci                                         \
+                \    Synced              13m                                     \
+                \                           \nService/prometheus-alertmanager    \
+                \                                  Synced     Healthy  7m8s      \
+                \                                                         \nService/prometheus-server\
+                \                                            Synced     Healthy  7m8s\
+                \                                                               \n\
+                ServiceAccount/prometheus-alertmanager                           \
+                \    Synced              7m8s                                    \
+                \                           \nServiceAccount/prometheus-server   \
+                \                                  Synced              7m8s      \
+                \                                                         \nDeployment/prometheus-kube-state-metrics\
+                \                             Synced     Healthy  7m8s           \
+                \                                                    \n\u2514\u2500\
+                ReplicaSet/prometheus-kube-state-metrics-68ff7c5cc5              \
+                \             Healthy  7m8s                                      \
+                \                         \n  \u2514\u2500Pod/prometheus-kube-state-metrics-68ff7c5cc5-97w9l\
+                \                          Healthy  7m8s                         \
+                \                                      \nStatefulSet/prometheus-alertmanager\
+                \                                  OutOfSync  Healthy  7m8s  statefulset.apps/prometheus-alertmanager\
+                \ serverside-applied  partitioned roll out complete: 1 new pods have\
+                \ been updated...\n\u251C\u2500PersistentVolumeClaim/storage-prometheus-alertmanager-0\
+                \                       Healthy  7m8s                            \
+                \                                   \n\u251C\u2500Pod/prometheus-alertmanager-0\
+                \                                                 Healthy  7m8s  \
+                \                                                             \n\u2514\
+                \u2500ControllerRevision/prometheus-alertmanager-78c98476f7      \
+                \                            7m8s                                \
+                \                               \nPersistentVolumeClaim/prometheus-server\
+                \                              Synced     Healthy  7m8s          \
+                \                                                     \nService/prometheus-alertmanager-headless\
+                \                             Synced     Healthy  7m8s           \
+                \                                                    \nService/prometheus-prometheus-node-exporter\
+                \                          Synced     Healthy  7m8s              \
+                \                                                 \nServiceAccount/prometheus-prometheus-pushgateway\
+                \                     Synced              7m8s                   \
+                \                                            \nDaemonSet/prometheus-prometheus-node-exporter\
+                \                        Synced     Healthy  7m8s                \
+                \                                               \n\u251C\u2500Pod/prometheus-prometheus-node-exporter-wm9kl\
+                \                                 Healthy  7m8s                  \
+                \                                             \n\u2514\u2500ControllerRevision/prometheus-prometheus-node-exporter-5ff96cdcbd\
+                \                      7m8s                                      \
+                \                         \nDeployment/prometheus-prometheus-pushgateway\
+                \                         Synced     Healthy  7m8s               \
+                \                                                \n\u2514\u2500ReplicaSet/prometheus-prometheus-pushgateway-75b8bf7c77\
+                \                       Healthy  7m8s                            \
+                \                                   \n  \u2514\u2500Pod/prometheus-prometheus-pushgateway-75b8bf7c77-nvc7g\
+                \                      Healthy  7m8s                             \
+                \                                  \nClusterRole/prometheus-server\
+                \                                        Synced              7m8s\
+                \                                                               \n\
+                ClusterRoleBinding/prometheus-server                             \
+                \    Synced              7m8s                                    \
+                \                           \nConfigMap/prometheus-alertmanager  \
+                \                                  Synced              7m8s      \
+                \                                                         \nService/prometheus-prometheus-pushgateway\
+                \                            Synced     Healthy  7m8s            \
+                \                                                   \nServiceAccount/prometheus-kube-state-metrics\
+                \                         Synced              7m8s               \
+                \                                                \nDeployment/prometheus-server\
+                \                                         Synced     Healthy  7m8s\
+                \                                                               \n\
+                \u2514\u2500ReplicaSet/prometheus-server-6cbdc8ffdf              \
+                \                         Healthy  7m8s                          \
+                \                                     \n  \u2514\u2500Pod/prometheus-server-6cbdc8ffdf-pdr7s\
+                \                                      Healthy  7m8s             \
+                \                                                  \nClusterRoleBinding/prometheus-kube-state-metrics\
+                \                     Synced              7m8s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              prometheus-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"sync\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/prometheus-parity\"\
+              ,\n      \"syncStatus\": \"OutOfSync\",\n      \"healthStatus\": \"\
+              Healthy\",\n      \"lastAttemptedRevision\": \"sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"prometheus-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-prometheus-mqe9ydrc-geb-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci
+              targetRevision: latest
+          revision: sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T21:08:14Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T21:16:58Z'
+          finishedAt: '2026-06-14T21:16:59Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+          deployedAt: '2026-06-14T21:16:59Z'
+          deployStartedAt: '2026-06-14T21:16:58Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-prometheus-mqe9ydrc-geb-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-prometheus-mqe9ydrc-geb-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: prometheus-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T21:08:03Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        12\n  Resource Version:  2828\n  UID:        \
+              \       3b375312-65e2-4540-890a-c7764c49580d\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T21:08:14Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T21:16:58Z\n\
+              \    Deployed At:        2026-06-14T21:16:59Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\n\
+              \    Source:\n      Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T21:16:59Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\n\
+              \        Source:\n          Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T21:16:58Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/prometheus-parity serverside-applied\n\
+              \        Name:        prometheus-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\n\
+              \      Source:\n        Path:              ./helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T21:20:04Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       prometheus-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     15m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     15m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m13s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96'\n\
+              \  Normal  ResourceUpdated     7m13s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m12s  argocd-application-controller  Sync operation to sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\
+              \ succeeded\n  Normal  ResourceUpdated     7m10s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                         MESSAGE
+
+              15m         Normal   ResourceUpdated      application/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster   Updated
+              sync status:  -> Synced
+
+              15m         Normal   ResourceUpdated      application/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster   Updated
+              health status:  -> Healthy
+
+              7m13s       Normal   OperationStarted     application/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster   Initiated
+              automated sync to ''sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96''
+
+              7m13s       Normal   ResourceUpdated      application/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m12s       Normal   OperationCompleted   application/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster   Sync
+              operation to sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96
+              succeeded
+
+              7m10s       Normal   ResourceUpdated      application/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 23fbd07f7281236d709f0ba3947bac2732d332c8db9666e4a06e4db87e0a7abd
+                bytes: 10691
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"3b375312-65e2-4540-890a-c7764c49580d\"\
+                ,\n    \"resourceVersion\": \"3171\",\n    \"generation\": 13,\n \
+                \   \"creationTimestamp\": \"2026-06-14T21:08:03Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T21:08:03Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T21:24:19Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.conf"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 6900f55dd05d5eb1067b4ca99f5fd23efd246470418f30faf0e652e35b2cc2d8
+                bytes: 1151
+              output: "Name:               argocd/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:64801/applications/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \            STATUS  HEALTH  AGE    MESSAGE                      \
+                \                                                                REASON\n\
+                Application/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster  Synced\
+                \          16m    application.argoproj.io/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\
+                \ serverside-applied  \nApplication/prometheus-parity            \
+                \                     Synced          7m31s  application.argoproj.io/prometheus-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              prometheus-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"sync\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/prometheus-parity\"\
+              ,\n      \"syncStatus\": \"OutOfSync\",\n      \"healthStatus\": \"\
+              Healthy\",\n      \"lastAttemptedRevision\": \"sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-prometheus-mqe9ydrc-geb-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"prometheus-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# monitoring
+
+          deployment.apps/prometheus-kube-state-metrics       1/1   1     1     7m29s
+
+          deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     7m29s
+
+          deployment.apps/prometheus-server                   1/1   1     1     7m29s
+
+          statefulset.apps/prometheus-alertmanager   1/1   7m29s
+
+          daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   7m29s'
+        pods: '# monitoring
+
+          prometheus-alertmanager-0                            1/1   Running   0     7m29s
+
+          prometheus-kube-state-metrics-68ff7c5cc5-97w9l       1/1   Running   0     7m29s
+
+          prometheus-prometheus-node-exporter-wm9kl            1/1   Running   0     7m29s
+
+          prometheus-prometheus-pushgateway-75b8bf7c77-nvc7g   1/1   Running   0     7m29s
+
+          prometheus-server-6cbdc8ffdf-pdr7s                   2/2   Running   0     7m29s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||monitoring
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 23
+      configHubObjectCount: 24
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 3f2c1e1bbf8a7e191f39bca794d0ac2ec61b3a1490da34eca38570a32b1d8136
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 23
+      configHubObjectCount: 24
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: 3f2c1e1bbf8a7e191f39bca794d0ac2ec61b3a1490da34eca38570a32b1d8136
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T21:08:03Z'
+    finishedAt: '2026-06-14T21:09:15Z'
+    elapsedSeconds: 72.142
+    timeoutSeconds: 900
+    command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
+      --version 29.9.0 --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T21:09:27Z'
+    finishedAt: '2026-06-14T21:09:27Z'
+    elapsedSeconds: 0.501
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+      --non-interactive --namespace monitoring-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T21:09:28Z'
+    finishedAt: '2026-06-14T21:09:28Z'
+    elapsedSeconds: 0.241
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqe9ydrc-geb.kubeconfig
+      --context kind-helm-expt-parity-prometheus-mqe9ydrc-geb apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/direct-apply-manifest.yaml
+    objectCount: 23
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T21:09:28Z'
+    finishedAt: '2026-06-14T21:10:09Z'
+    elapsedSeconds: 40.778
+    timeoutSeconds: 300
+    namespaces: monitoring
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T21:10:30Z'
+    finishedAt: '2026-06-14T21:10:30Z'
+    elapsedSeconds: 0.433
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+      --non-interactive --namespace monitoring-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T21:10:30Z'
+    finishedAt: '2026-06-14T21:11:39Z'
+    elapsedSeconds: 68.647
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+      --space helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus --target helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci
+    objectCount: 24
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T21:11:39Z'
+    finishedAt: '2026-06-14T21:11:39Z'
+    elapsedSeconds: 0.513
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T21:11:39Z'
+    finishedAt: '2026-06-14T21:16:48Z'
+    elapsedSeconds: 308.285
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+      --unit <24 unit(s)> --wait --timeout 5m
+    unitCount: 24
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T21:16:48Z'
+    finishedAt: '2026-06-14T21:16:49Z'
+    elapsedSeconds: 1.185
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-prometheus-mqe9ydrc-geb-cluster
+      prometheus-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/argo-application.json
+      --target helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T21:16:49Z'
+    finishedAt: '2026-06-14T21:16:50Z'
+    elapsedSeconds: 1.045
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-prometheus-mqe9ydrc-geb-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-14T21:16:50Z'
+    finishedAt: '2026-06-14T21:23:52Z'
+    elapsedSeconds: 422.459
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: OutOfSync
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T21:24:32Z'
+    finishedAt: '2026-06-14T21:24:32Z'
+    elapsedSeconds: 0.12
+    timeoutSeconds: 180
+    namespaces: monitoring
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-prometheus-mqe9ydrc-geb\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqe9ydrc-geb.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-prometheus-mqe9ydrc-geb\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-prometheus-mqe9ydrc-geb\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheus-mqe9ydrc-geb\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqe9ydrc-geb.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"prometheus\" does not exist. Installing it now.\nNAME: prometheus\n\
+      LAST DEPLOYED: Sun Jun 14 22:08:05 2026\nNAMESPACE: monitoring-helm\nSTATUS:\
+      \ deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n\
+      The Prometheus server can be accessed via port 80 on the following DNS name\
+      \ from within your cluster:\nprometheus-server.monitoring-helm.svc.cluster.local\n\
+      \n\nGet the Prometheus server URL by running these commands in the same shell:\n\
+      \  export POD_NAME=$(kubectl get pods --namespace monitoring-helm -l \"app.kubernetes.io/name=prometheus,app.kubernetes.io/instance=prometheus\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n  kubectl --namespace monitoring-helm\
+      \ port-forward $POD_NAME 9090\n\nPrometheus alertmanager can be accessed via\
+      \ port 9093 on the following DNS name from within your cluster:\nprometheus-alertmanager.monitoring-helm.svc.cluster.local\n\
+      \n\nGet the Alertmanager URL by running these commands in the same shell:\n\
+      \  export POD_NAME=$(kubectl get pods --namespace monitoring-"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# monitoring
+
+      deployment.apps/prometheus-kube-state-metrics       1/1   1     1     41s
+
+      deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     41s
+
+      deployment.apps/prometheus-server                   1/1   1     1     41s
+
+      statefulset.apps/prometheus-alertmanager   1/1   41s
+
+      daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   41s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=4
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=OutOfSync health=Healthy after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: monitoring
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: monitoring
