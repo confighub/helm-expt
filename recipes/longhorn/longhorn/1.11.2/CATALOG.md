@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/longhorn/longhorn/1.11.2/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/longhorn/longhorn/1.11.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/longhorn/longhorn/1.11.2/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/longhorn/longhorn/1.11.2/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Weirdness and mitigations | [recipes/longhorn/longhorn/1.11.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/longhorn/longhorn/1.11.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml](helm-pain-report.yaml) |

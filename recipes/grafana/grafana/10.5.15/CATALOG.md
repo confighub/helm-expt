@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/grafana/grafana/10.5.15/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/grafana/grafana/10.5.15/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/grafana/grafana/10.5.15/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/grafana/grafana/10.5.15/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Weirdness and mitigations | [recipes/grafana/grafana/10.5.15/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/grafana/grafana/10.5.15/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/grafana/10.5.15/helm-pain-report.yaml](helm-pain-report.yaml) |

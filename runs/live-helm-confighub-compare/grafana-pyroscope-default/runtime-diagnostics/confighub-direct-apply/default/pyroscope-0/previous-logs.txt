@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "pyroscope" in pod "pyroscope-0" not found

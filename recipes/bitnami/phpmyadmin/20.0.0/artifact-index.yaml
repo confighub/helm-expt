@@ -52,10 +52,10 @@ spec:
   proofSummary:
     adoptionBucket: "needs-useful-variant"
     userStatus: "proof-grade-needs-user-shaped-variant"
-    strongestEvidence: "render-parity"
+    strongestEvidence: "in-confighub-proof"
     proofLanes:
       renderParity: "1/1"
-      inConfigHub: "0/1"
+      inConfigHub: "1/1"
       localLive: "0/1"
       gitopsLive: "0/1"
       liveParity: "0/1"

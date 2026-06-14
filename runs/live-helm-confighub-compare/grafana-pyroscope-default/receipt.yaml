@@ -1,0 +1,874 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: grafana-pyroscope-2.0.2-default-live-parity-20260605
+spec:
+  chart: grafana/pyroscope
+  version: 2.0.2
+  base: default
+  result: watch
+  observedAt: '2026-06-14T16:22:02Z'
+  package:
+    path: packages/grafana/pyroscope/2.0.2
+  recipe:
+    path: recipes/grafana/pyroscope/2.0.2
+  variantRevision: recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-pyroscope-mqdzsdyc-1g4i
+    kubeContext: kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-pyroscope-mqdzsdyc-1g4i --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-pyroscope-mqdzsdyc-1g4i"...
+
+        Deleting cluster "helm-expt-parity-pyroscope-mqdzsdyc-1g4i" ...
+
+        Deleted nodes: ["helm-expt-parity-pyroscope-mqdzsdyc-1g4i-control-plane"]
+
+        Deleting Space "helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster" (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts --version 2.0.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/regular-helm-values.yaml --wait --timeout 8m
+      manifestSHA256: 24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5
+      objectCount: 18
+      liveHelmManifestSHA256: 545a4e01f99742e9fcc7f14973973b6968d4b481a0f395db49d72752c567f09f
+      liveHelmManifestObjectCount: 17
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: 'statefulset.apps/pyroscope         1/1   93s
+
+          statefulset.apps/pyroscope-alloy   1/1   93s'
+        pods: 'pyroscope-0         1/1   Running   0     93s
+
+          pyroscope-alloy-0   2/2   Running   0     93s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 4b49088a94d0189f2691db46a2ee8f15891e38ed51177297f7b1c756b3c40f8d
+      objectCount: 19
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/pyroscope         0/1   4m54s
+
+          statefulset.apps/pyroscope-alloy   1/1   4m54s'
+        pods: '# default
+
+          pyroscope-0         0/1   Running   0     4m54s
+
+          pyroscope-alloy-0   2/2   Running   0     4m54s'
+        notReady:
+        - namespace: default
+          pod: pyroscope-0
+          ready: 0/1
+          status: Running
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/events.txt
+            sha256: 9f129a059f553c22aaf78c2b6b437dbc14439e25a0824d2d43413a2c3adc0612
+            bytes: 5261
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/workloads-describe.txt
+            sha256: e30deb04abc1da9a3172a71a15a73f0e9dc800b610176409fac0932ed47e240b
+            bytes: 6716
+          podArtifacts:
+          - namespace: default
+            pod: pyroscope-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/describe.txt
+            sha256: 481ae98f0903073981bccb35f026c827399c01f79bdaab8d7ade94e9e602932c
+            bytes: 5846
+          - namespace: default
+            pod: pyroscope-0
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/logs.txt
+            sha256: 772d1d9aa48ee8664e21f44979b972fac86470dd10693f49d460a91e33d57d7e
+            bytes: 20034
+          - namespace: default
+            pod: pyroscope-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/previous-logs.txt
+            sha256: 901c6cc1f2c11627942d797944e5d8f676c6b94e4246643b6f7b2280613de90c
+            bytes: 104
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "pyroscope-alloy" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "pyroscope-alloy" deleted
+
+            customresourcedefinition.apiextensions.k8s.io "podlogs.monitoring.grafana.com" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|StatefulSet|default|pyroscope
+          - apps/v1|StatefulSet|default|pyroscope-alloy
+          - policy/v1|PodDisruptionBudget|default|pyroscope
+          - v1|ConfigMap|default|alloy-config-pyroscope
+          - v1|ConfigMap|default|pyroscope-config
+          - v1|ConfigMap|default|pyroscope-overrides-config
+          - v1|ServiceAccount|default|pyroscope
+          - v1|ServiceAccount|default|pyroscope-alloy
+          - v1|Service|default|pyroscope
+          - v1|Service|default|pyroscope-alloy
+          - v1|Service|default|pyroscope-alloy-cluster
+          - v1|Service|default|pyroscope-headless
+          - v1|Service|default|pyroscope-memberlist
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope
+      controller: Argo CD OCI
+      app: pyroscope-parity
+      manifestSHA256: 8ab95d178767799fe32bd990e9f9cd35bfafae5119fce0e0149c4532890f9ba8
+      objectCount: 19
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci
+              targetRevision: latest
+          revision: sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T16:37:20Z'
+          status: Progressing
+        summary:
+          images:
+          - docker.io/grafana/alloy:v1.12.2
+          - grafana/pyroscope:2.0.2
+          - quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T16:37:20Z'
+          finishedAt: '2026-06-14T16:37:22Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 19
+          syncResultStatusCounts:
+            Synced: 19
+        history:
+        - id: 0
+          revision: sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f
+          deployedAt: '2026-06-14T16:37:22Z'
+          deployStartedAt: '2026-06-14T16:37:20Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: alloy-config-pyroscope
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: pyroscope-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: pyroscope-overrides-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: pyroscope
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: pyroscope-alloy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: pyroscope-alloy-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: pyroscope-headless
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: pyroscope-memberlist
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: pyroscope
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: pyroscope-alloy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: podlogs.monitoring.grafana.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: pyroscope
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: pyroscope-alloy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: pyroscope
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: pyroscope-alloy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: pyroscope-alloy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default-oci
+          name: pyroscope-discovery
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default-oci
+          name: pyroscope-discovery
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         pyroscope-parity\nNamespace:    argocd\nLabels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster:argoproj.io/Application:argocd/pyroscope-parity\n              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID: def0508d-ead7-47cf-9e28-c8844620fdd3\n              confighub.com/UnitSlug: pyroscope-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T16:37:18Z\n  Generation:          10\n  Resource Version:    2778\n  UID:                 bd58c576-1902-40b0-8520-5e80705a2a4e\nSpec:\n  Destination:\n    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope\n    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n    Target Revision:\
+              \  latest\n  Sync Policy:\n    Automated:\n      Prune:      true\n      Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T16:37:20Z\n    Status:                Progressing\n  History:\n    Deploy Started At:  2026-06-14T16:37:20Z\n    Deployed At:        2026-06-14T16:37:22Z\n    Id:                 0\n    Initiated By:\n      Automated:  true\n    Revision:     sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\n    Source:\n      Path:             ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope\n      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n      Target Revision:  latest\n  Operation State:\n    Finished At:  2026-06-14T16:37:22Z\n    Message:      successfully synced (all tasks run)\n    Operation:\n      Initiated By:\n        Automated:  true\n\
+              \      Retry:\n        Limit:  5\n      Sync:\n        Prune:     true\n        Revision:  sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\n        Source:\n          Path:             ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope\n          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n          Target Revision:  latest\n        Sync Options:\n          ServerSideApply=true\n          CreateNamespace=true\n    Phase:       Succeeded\n    Started At:  2026-06-14T16:37:20Z\n    Sync Result:\n      Resources:\n        Group:       \n        Hook Phase:  Running\n        Kind:        Namespace\n        Message:     namespace/default-oci serverside-applied\n        Name:        default-oci\n        Namespace:   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       policy\n        Hook Phase:  Running\n        Kind:        PodDisruptionBudget\n\
+              \        Message:     poddisruptionbudget.policy/pyroscope serverside-applied\n        Name:        pyroscope\n        Namespace:   default\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       \n        Hook Phase:  Running\n        Kind:        ServiceAccount\n        Message:     serviceaccount/pyroscope serverside-applied\n        Name:        pyroscope\n        Namespace:   default\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       \n        Hook Phase:  Running\n        Kind:        ServiceAccount\n        Message:     serviceaccount/pyroscope-alloy serverside-applied\n        Name:        pyroscope-alloy\n        Namespace:   default\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       \n        Hook Phase:  Running\n        Kind:        ConfigMap\n        Message:     configmap/pyroscope-overrides-config serverside-applied\n\
+              \        Name:        pyroscope-overrides-config\n        Namespace:   default\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       \n        Hook Phase:  Running\n        Kind:        ConfigMap\n        Message:     configmap/pyroscope-config serverside-applied\n        Name:        pyroscope-config\n        Namespace:   default\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       \n        Hook Phase:  Running\n        Kind:        ConfigMap\n        Message:     configmap/alloy-config-pyroscope serverside-applied\n        Name:        alloy-config-pyroscope\n        Namespace:   default\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/podlogs.monitoring.grafana.com\
+              \ serverside-applied\n        Name:        podlogs.monitoring.grafana.com\n        Namespace:   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n        Hook Phase:  Running\n        Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/pyroscope-alloy reconciled. reconciliation required create\n                     missing rules added:\n                       {Verbs:[get list watch] APIGroups:[ discovery.k8s.io networking.k8s.io] Resources:[endpoints endpointslices ingresses pods services] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get list watch] APIGroups:[] Resources:[pods pods/log namespaces] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get list watch] APIGroups:[monitoring.grafana.com] Resources:[podlogs] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get list watch] APIGroups:[monitoring.coreos.com]\
+              \ Resources:[prometheusrules] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get list watch] APIGroups:[monitoring.coreos.com] Resources:[alertmanag"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                         MESSAGE
+
+              6m52s       Normal   OperationStarted     application/pyroscope-parity   Initiated automated sync to ''sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f''
+
+              6m52s       Normal   ResourceUpdated      application/pyroscope-parity   Updated sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/pyroscope-parity   Updated health status:  -> Progressing
+
+              6m50s       Normal   OperationCompleted   application/pyroscope-parity   Sync operation to sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f succeeded
+
+              6m49s       Normal   ResourceUpdated      application/pyroscope-parity   Updated sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 19
+              artifact:
+                path: argocd-core-child.json
+                sha256: e036e8e888f0e2a7a2c13c35d50fe285856b73612021acf22b427525b5a90337
+                bytes: 21485
+              output: "{\n  \"metadata\": {\n    \"name\": \"pyroscope-parity\",\n    \"namespace\": \"argocd\",\n    \"uid\": \"bd58c576-1902-40b0-8520-5e80705a2a4e\",\n    \"resourceVersion\": \"2887\",\n    \"generation\": 11,\n    \"creationTimestamp\": \"2026-06-14T16:37:18Z\",\n    \"annotations\": {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster:argoproj.io/Application:argocd/pyroscope-parity\",\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\": \"def0508d-ead7-47cf-9e28-c8844620fdd3\",\n      \"confighub.com/UnitSlug\": \"pyroscope-parity-app\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\",\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T16:37:18Z\",\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\": {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n              \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\": {}\n            }\n          },\n          \"f:spec\": {\n            \"f:destination\": {\n              \"f:namespace\": {},\n              \"f:server\": {}\n            },\n            \"f:project\": {},\n            \"f:source\": {\n              \"f:path\": {},\n              \"f:repoURL\": {},\n              \"f:targetRevision\": {}\n            },\n            \"f:syncPolicy\": {\n              \"f:automated\": {\n                \"f:prune\": {},\n                \"f:selfHeal\": {}\n              },\n              \"f:syncOptions\": {}\n            }\n          }\n        }\n      },\n      {\n        \"manager\": \"argocd-application-controller\",\n        \"operation\": \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T16:44:21Z\",\n        \"fieldsType\": \"FieldsV1\",\n\
+                \        \"fieldsV1\": {\n          \"f:status\": {\n            \".\": {},\n            \"f:controllerNamespace\": {},\n            \"f:health\": {\n              \".\": {},\n              \"f:lastTransitionTime\": {},\n              \"f:status\": {}\n            },\n            \"f:history\": {},\n            \"f:operationState\": {\n              \".\": {},\n              \"f:finishedAt\": {},\n              \"f:message\": {},\n              \"f:operation\": {\n                \".\": {},\n                \"f:initiatedBy\": {\n                  \".\": {},\n                  \"f:automated\": {}\n                },\n                \"f:retry\": {\n                  \".\": {},\n                  \"f:limit\": {}\n                },\n                \"f:sync\": {\n                  \".\": {},\n                  \"f:prune\": {},\n                  \"f:revision\": {},\n                  \"f:source\": {\n                    \".\": {},\n                    \"f:path\": {},\n    \
+                \                \"f:repoURL\": {},\n                    \"f:targetRevision\": {}\n                  },\n                  \"f:syncOptions\": {}\n                }\n              },\n              \"f:phase\": {},\n              \"f:startedAt\": {},\n              \"f:syncResult\": {\n                \".\": {},\n                \"f:resources\": {},\n                \"f:revision\": {},\n                \"f:source\": {\n                  \".\": {},\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              }\n            },\n            \"f:reconciledAt\": {},\n            \"f:resourceHealthSource\": {},\n            \"f:resources\": {},\n            \"f:sourceHydrator\": {},\n            \"f:sourceType\": {},\n            \"f:summary\": {\n              \".\": {},\n              \"f:images\": {}\n            },\n            \"f:sync\": {\n              \".\": {},\n              \"f:comparedTo\"\
+                : {\n                \".\": {},\n                \"f:destination\": {\n                  \".\": {},\n                  \"f:namespace\": {},\n                  \"f:server\": {}\n                },\n                \"f:source\": {\n                  \".\": {},\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              },\n              \"f:revision\": {},\n              \"f:status\": {}\n            }\n          }\n        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\",\n      \"path\": \"./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope\",\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\",\n      \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\",\n    \"syncPolicy\"\
+                : {\n      \"automated\": {\n        \"prune\": true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\": \"default\",\n        \"name\": \"alloy-config-pyroscope\",\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\": \"default\",\n        \"name\": \"pyroscope-config\",\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\": \"default\",\n        \"name\": \"pyroscope-overrides-config\",\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\n\
+                \      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\": \"default\",\n        \"name\": \"pyroscope\",\n        \"status\": \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\n        }\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\": \"default\",\n        \"name\": \"pyroscope-alloy\",\n        \"status\": \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\n        }\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\": \"default\",\n        \"name\": \"pyroscope-alloy-cluster\",\n        \"status\": \"Synced\",\n        "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 5b6315ba8562a0e953683c9ee9db4f4d0c5d4f9f7bfb95992d3f648ec0807a93
+                bytes: 6822
+              output: "Name:               argocd/pyroscope-parity\nProject:            default\nServer:             https://kubernetes.default.svc\nNamespace:          default-oci\nURL:                http://localhost:64496/applications/pyroscope-parity\nSource:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n  Target:           latest\n  Path:             ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope\nSyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\nSync Status:        Synced to latest (sha256:)\nHealth Status:      Progressing\n\nKIND/NAME                                                STATUS  HEALTH       AGE   MESSAGE                                              REASON\nConfigMap/alloy-config-pyroscope                         Synced               18m   configmap/alloy-config-pyroscope serverside-applied  \nService/pyroscope                                        Synced  Healthy      18m\
+                \   service/pyroscope serverside-applied                 \nService/pyroscope-alloy-cluster                          Synced  Healthy      18m   service/pyroscope-alloy-cluster serverside-applied   \nServiceAccount/pyroscope                                 Synced               18m   serviceaccount/pyroscope serverside-applied          \nCustomResourceDefinition/podlogs.monitoring.grafana.com  Synced  Healthy      7m8s                                                       CRD is healthy\nStatefulSet/pyroscope                                    Synced  Progressing  18m   statefulset.apps/pyroscope serverside-applied        Waiting for 1 pods to be ready...\n\u251C\u2500Pod/pyroscope-0                                                Progressing  18m                                                        \n\u2514\u2500ControllerRevision/pyroscope-84c4bcbb57                                     18m                                                        \nRoleBinding/pyroscope-discovery\
+                \                          Synced               7m8s  rolebinding.rbac.authorization.k8s.io/pyroscope-discovery reconciled. reconciliation required create\n                                                         missing subjects added:\n                                                                 {Kind:ServiceAccount APIGroup: Name:pyroscope Namespace:default}. rolebinding.rbac.authorization.k8s.io/pyroscope-discovery serverside-applied  \nConfigMap/pyroscope-config                               Synced                                                                                                                                                  18m   configmap/pyroscope-config serverside-applied            \nConfigMap/pyroscope-overrides-config                     Synced                                                                                                                                                  18m   configmap/pyroscope-overrides-config serverside-applied\
+                \  \nClusterRole/pyroscope-alloy                              Synced                                                                                                                                                  7m8s                                                           \nClusterRoleBinding/pyroscope-alloy                       Synced                                                                                                                                                  7m8s                                                           \nRole/pyroscope-discovery                                 Synced                                                                                                                                                  7m8s  role.rbac.authorization.k8s.io/pyroscope-discovery reconciled. reconciliation required create\n                                                         missing rules added:\n                                           \
+                \                      {Verbs:[get watch list] APIGroups:[ discovery.k8s.io] Resources:[endpointslices endpoints services pods] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/pyroscope-discovery serverside-applied  \nNamespace/default-oci                                    Synced                                                                                                                                                                                                                        13m                                                           \nService/pyroscope-memberlist                             Synced  Healthy                                                                                                                                                                                                               18m  service/pyroscope-memberlist serverside-applied          \nService/pyroscope-alloy                                  Synced\
+                \  Healthy                                                                                                                                                                                                               18m  service/pyroscope-alloy serverside-applied               \nService/pyroscope-headless                               Synced  Healthy                                                                                                                                                                                                               18m  service/pyroscope-headless serverside-applied            \nServiceAccount/pyroscope-alloy                           Synced                                                                                                                                                                                                                        18m  serviceaccount/pyroscope-alloy serverside-applied        \nStatefulSet/pyroscope-alloy\
+                \                              Synced  Healthy                                                                                                                                                                                                               18m  statefulset.apps/pyroscope-alloy serverside-applied      partitioned roll out complete: 1 new pods have been updated...\n\u251C\u2500Pod/pyroscope-alloy-0                                          Healthy                                                                                                                                                                                                               18m                                                           \n\u2514\u2500ControllerRevision/pyroscope-alloy-56c557c6d9                                                                                                                                                                                                    \
+                \                                    18m                                                           \nPodDisruptionBudget/pyroscope                            Synced  Healthy                                                                                                                                                                                                               18m  poddisruptionbudget.policy/pyroscope serverside-applied  PodDisruptionBudget has InsufficientPods"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\": \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\",\n      \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\",\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\": \"sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\"\n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"pyroscope-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\",\n      \"message\": \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/pyroscope-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Progressing\",\n      \"lastAttemptedRevision\": \"sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\"\n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\",\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"pyroscope-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci
+              targetRevision: latest
+          revision: sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T16:23:43Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T16:37:17Z'
+          finishedAt: '2026-06-14T16:37:18Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f
+          deployedAt: '2026-06-14T16:37:18Z'
+          deployStartedAt: '2026-06-14T16:37:17Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: pyroscope-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\nNamespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T16:23:35Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n  Generation:        14\n  Resource Version:  2810\n  UID:               aa2cc3f0-e2b5-4284-b674-948051c44b53\nSpec:\n  Destination:\n    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\n    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n    Target Revision:  latest\n  Sync Policy:\n    Automated:\n      Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n      CreateNamespace=false\n\
+              Status:\n  Controller Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T16:23:43Z\n    Status:                Healthy\n  History:\n    Deploy Started At:  2026-06-14T16:37:17Z\n    Deployed At:        2026-06-14T16:37:18Z\n    Id:                 0\n    Initiated By:\n      Automated:  true\n    Revision:     sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\n    Source:\n      Path:             ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\n      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n      Target Revision:  latest\n  Operation State:\n    Finished At:  2026-06-14T16:37:18Z\n    Message:      successfully synced (all tasks run)\n    Operation:\n      Initiated By:\n        Automated:  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:  sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\n        Source:\n          Path:\
+              \             ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\n          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n          Target Revision:  latest\n        Sync Options:\n          ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n          RespectIgnoreDifferences=true\n          CreateNamespace=false\n    Phase:       Succeeded\n    Started At:  2026-06-14T16:37:17Z\n    Sync Result:\n      Resources:\n        Group:       argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n        Message:     application.argoproj.io/pyroscope-parity serverside-applied\n        Name:        pyroscope-parity\n        Namespace:   argocd\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\n        Namespace:   argocd\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1alpha1\n      Revision:      sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\n      Source:\n        Path:              ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\n        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n        Target Revision:   latest\n  Reconciled At:           2026-06-14T16:43:21Z\n  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\n    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:      argoproj.io\n    Kind:       Application\n    Name:       pyroscope-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n      Source:\n        Path:             ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\n        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n        Target Revision:  latest\n    Revision:             sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\n    Status:               Synced\nEvents:\n  Type    Reason              Age    From                           Message\n  ----    ------              ----   ----                           -------\n  Normal  ResourceUpdated     20m    argocd-application-controller  Updated sync status:  -> Synced\n  Normal  ResourceUpdated     20m    argocd-application-controller  Updated health status:  -> Healthy\n  Normal  OperationStarted \
+              \   7m14s  argocd-application-controller  Initiated automated sync to 'sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f'\n  Normal  ResourceUpdated     7m14s  argocd-application-controller  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted  7m13s  argocd-application-controller  Sync operation to sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f succeeded\n  Normal  ResourceUpdated     7m11s  argocd-application-controller  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                         MESSAGE
+
+              20m         Normal   ResourceUpdated      application/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster   Updated sync status:  -> Synced
+
+              20m         Normal   ResourceUpdated      application/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster   Updated health status:  -> Healthy
+
+              7m14s       Normal   OperationStarted     application/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster   Initiated automated sync to ''sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f''
+
+              7m14s       Normal   ResourceUpdated      application/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster   Updated sync status: Synced -> OutOfSync
+
+              7m13s       Normal   OperationCompleted   application/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster   Sync operation to sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f succeeded
+
+              7m11s       Normal   ResourceUpdated      application/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster   Updated sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 0f75b1f870e74dfb31a09095404d1299b61321dc9a60e3ac78e34486be523485
+                bytes: 10688
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\",\n    \"namespace\": \"argocd\",\n    \"uid\": \"aa2cc3f0-e2b5-4284-b674-948051c44b53\",\n    \"resourceVersion\": \"2919\",\n    \"generation\": 15,\n    \"creationTimestamp\": \"2026-06-14T16:23:35Z\",\n    \"annotations\": {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\"helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\\\",\\\"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\"./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\": [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n    \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\",\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T16:23:35Z\",\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\": {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\": {}\n            },\n            \"f:finalizers\": {\n              \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n            }\n          },\n          \"f:spec\": {\n            \"f:destination\": {\n\
+                \              \"f:namespace\": {},\n              \"f:server\": {}\n            },\n            \"f:project\": {},\n            \"f:source\": {\n              \"f:path\": {},\n              \"f:repoURL\": {},\n              \"f:targetRevision\": {}\n            },\n            \"f:syncPolicy\": {\n              \"f:automated\": {\n                \"f:selfHeal\": {}\n              },\n              \"f:syncOptions\": {}\n            }\n          },\n          \"f:status\": {\n            \"f:controllerNamespace\": {},\n            \"f:health\": {\n              \"f:lastTransitionTime\": {},\n              \"f:status\": {}\n            },\n            \"f:operationState\": {\n              \"f:operation\": {\n                \"f:initiatedBy\": {\n                  \"f:automated\": {}\n                },\n                \"f:retry\": {\n                  \"f:limit\": {}\n                },\n                \"f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n                    \"f:repoURL\": {},\n                    \"f:targetRevision\": {}\n                  },\n                  \"f:syncOptions\": {}\n                }\n              },\n              \"f:startedAt\": {}\n            },\n            \"f:resourceHealthSource\": {},\n            \"f:sourceHydrator\": {},\n            \"f:sourceType\": {},\n            \"f:summary\": {},\n            \"f:sync\": {\n              \"f:comparedTo\": {\n                \"f:destination\": {\n                  \"f:namespace\": {},\n                  \"f:server\": {}\n                },\n                \"f:source\": {\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              },\n              \"f:revision\": {}\n            }\n          }\n        }\n      },\n      {\n        \"manager\": \"argocd-application-controller\",\n     \
+                \   \"operation\": \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T16:44:41Z\",\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\": {\n            \".\": {},\n            \"f:controllerNamespace\": {},\n            \"f:health\": {\n              \".\": {},\n              \"f:lastTransitionTime\": {},\n              \"f:status\": {}\n            },\n            \"f:history\": {},\n            \"f:operationState\": {\n              \".\": {},\n              \"f:finishedAt\": {},\n              \"f:message\": {},\n              \"f:operation\": {\n                \".\": {},\n                \"f:initiatedBy\": {\n                  \".\": {},\n                  \"f:automated\": {}\n                },\n                \"f:retry\": {\n                  \".\": {},\n                  \"f:limit\": {}\n                },\n                \"f:sync\": {\n                  \".\": {},\n                 \
+                \ \"f:revision\": {},\n                  \"f:source\": {\n                    \".\": {},\n                    \"f:path\": {},\n                    \"f:repoURL\": {},\n                    \"f:targetRevision\": {}\n                  },\n                  \"f:syncOptions\": {}\n                }\n              },\n              \"f:phase\": {},\n              \"f:startedAt\": {},\n              \"f:syncResult\": {\n                \".\": {},\n                \"f:resources\": {},\n                \"f:revision\": {},\n                \"f:source\": {\n                  \".\": {},\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              }\n            },\n            \"f:reconciledAt\": {},\n            \"f:resourceHealthSource\": {},\n            \"f:resources\": {},\n            \"f:sourceHydrator\": {},\n            \"f:sourceType\": {},\n            \"f:summary\": {},\n            \"\
+                f:sync\": {\n              \".\": {},\n              \"f:comparedTo\": {\n                \".\": {},\n                \"f:destination\": {\n                  \".\": {},\n                  \"f:namespace\": {},\n                  \"f:server\": {}\n                },\n                \"f:source\": {\n                  \".\": {},\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              },\n              \"f:revision\": {},\n              \"f:status\": {}\n            }\n          }\n        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n      \"repoURL\": \"oci://oci.hub.conf"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 8f4a487c9f3d1ae6ec83f9ecdaa0172b5eff8fb9a7f8fcbe4a9214bdb62f79ef
+                bytes: 1150
+              output: "Name:               argocd/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\nProject:            default\nServer:             https://kubernetes.default.svc\nNamespace:          argocd\nURL:                http://localhost:64612/applications/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\nSource:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci\n  Target:           latest\n  Path:             ./helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\nSyncWindow:         Sync Allowed\nSync Policy:        Automated\nSync Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\nKIND/NAME                                                     STATUS  HEALTH  AGE    MESSAGE                                                                                      REASON\nApplication/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster  Synced          21m    application.argoproj.io/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\
+                \ serverside-applied  \nApplication/pyroscope-parity                                  Synced          7m33s  application.argoproj.io/pyroscope-parity serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\": \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\",\n      \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\",\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\": \"sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\"\n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"pyroscope-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\",\n      \"message\": \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/pyroscope-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Progressing\",\n      \"lastAttemptedRevision\": \"sha256:f9f246a8ee4ef854e3f42582cfc49c17e854cbaa93a2585554fb928066454b1f\"\n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster\",\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"pyroscope-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/pyroscope         0/1   21m
+
+          statefulset.apps/pyroscope-alloy   1/1   21m'
+        pods: '# default
+
+          pyroscope-0         0/1   Running   0     21m
+
+          pyroscope-alloy-0   2/2   Running   0     21m'
+        notReady:
+        - namespace: default
+          pod: pyroscope-0
+          ready: 0/1
+          status: Running
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/events.txt
+            sha256: c8df61f8f5f21fd17e51fa7df41a0422b7c2dd53d9b36ff9f9e6e306cad0fa4f
+            bytes: 5261
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/workloads-describe.txt
+            sha256: da4bafd151f033bd71786a509bf02b7ea21b6f8403c4bb0fb21cbd955f41b46a
+            bytes: 7288
+          podArtifacts:
+          - namespace: default
+            pod: pyroscope-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/pyroscope-0/describe.txt
+            sha256: 45ee12d4d00309989b85cee130fa597224eabdc26a024197a2244685c6b9fbec
+            bytes: 5854
+          - namespace: default
+            pod: pyroscope-0
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/pyroscope-0/logs.txt
+            sha256: 5cabed8568a92a8f0951f575e35a8054df6c0ce3f6fc4dac818ab3a0c63c7c65
+            bytes: 20034
+          - namespace: default
+            pod: pyroscope-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/pyroscope-0/previous-logs.txt
+            sha256: 901c6cc1f2c11627942d797944e5d8f676c6b94e4246643b6f7b2280613de90c
+            bytes: 104
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 18
+      configHubObjectCount: 19
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 18
+      configHubObjectCount: 19
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T16:23:35Z'
+    finishedAt: '2026-06-14T16:25:10Z'
+    elapsedSeconds: 94.939
+    timeoutSeconds: 900
+    command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts --version 2.0.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/regular-helm-values.yaml --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T16:25:52Z'
+    finishedAt: '2026-06-14T16:25:53Z'
+    elapsedSeconds: 0.373
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --non-interactive --namespace default-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-14T16:25:53Z'
+    finishedAt: '2026-06-14T16:25:53Z'
+    elapsedSeconds: 0.045
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig --context kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i apply --server-side --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/confighub-rendered-crds.yaml
+    objectCount: 1
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T16:25:53Z'
+    finishedAt: '2026-06-14T16:25:53Z'
+    elapsedSeconds: 0.169
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig --context kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i apply --server-side --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/direct-apply-manifest.yaml
+    objectCount: 17
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-14T16:25:53Z'
+    finishedAt: '2026-06-14T16:30:57Z'
+    elapsedSeconds: 304.054
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T16:31:03Z'
+    finishedAt: '2026-06-14T16:31:04Z'
+    elapsedSeconds: 0.434
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T16:31:04Z'
+    finishedAt: '2026-06-14T16:32:01Z'
+    elapsedSeconds: 56.669
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --space helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --target helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci
+    objectCount: 19
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T16:32:01Z'
+    finishedAt: '2026-06-14T16:32:01Z'
+    elapsedSeconds: 0.558
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T16:32:01Z'
+    finishedAt: '2026-06-14T16:37:06Z'
+    elapsedSeconds: 305.202
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --unit <19 unit(s)> --wait --timeout 5m
+    unitCount: 19
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T16:37:06Z'
+    finishedAt: '2026-06-14T16:37:07Z'
+    elapsedSeconds: 1.051
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster pyroscope-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/argo-application.json --target helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T16:37:07Z'
+    finishedAt: '2026-06-14T16:37:09Z'
+    elapsedSeconds: 1.431
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-14T16:37:09Z'
+    finishedAt: '2026-06-14T16:44:11Z'
+    elapsedSeconds: 422.56
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-14T16:44:52Z'
+    finishedAt: '2026-06-14T16:47:54Z'
+    elapsedSeconds: 182.44
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i\" (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig)...\nCreating cluster \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i\" ...\n \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i\"\nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig\n\nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\nInstalling Argo CD...\nCreatin"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "pyroscope" does not exist. Installing it now.
+
+      NAME: pyroscope
+
+      LAST DEPLOYED: Sun Jun 14 17:23:37 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Thanks for deploying Grafana Pyroscope.
+
+
+      # Pyroscope UI & Grafana
+
+
+      Pyroscope database comes with a built-in UI, to access it from your localhost you can use:
+
+
+      ```
+
+      kubectl --namespace default-helm port-forward svc/pyroscope 4040:4040
+
+      ```
+
+
+      You can also use Grafana to explore Pyroscope data.
+
+      For that, you''ll need to add the Pyroscope data source to your Grafana instance and configure the query URL accordingly.
+
+      See https://grafana.com/docs/grafana/latest/datasources/grafana-pyroscope/ for more details.
+
+
+      The in-cluster query URL for the data source in Grafana is:
+
+
+      ```
+
+      http://pyroscope.default-helm.svc.cluster.local.:4040
+
+      ```
+
+
+      # Collecting profiles.
+
+
+
+      The Grafana Alloy has been installed to scrape and discover pprof profiles endpoint via pod annotations.
+
+
+      As an example, to star'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default
+
+      statefulset.apps/pyroscope         0/1   4m54s
+
+      statefulset.apps/pyroscope-alloy   1/1   4m54s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

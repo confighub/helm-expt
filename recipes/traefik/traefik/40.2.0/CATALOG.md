@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/traefik/traefik/40.2.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/traefik/traefik/40.2.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/traefik/traefik/40.2.0/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/traefik/traefik/40.2.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/traefik/traefik/40.2.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/traefik/traefik/40.2.0](../../../../packages/traefik/traefik/40.2.0) |
