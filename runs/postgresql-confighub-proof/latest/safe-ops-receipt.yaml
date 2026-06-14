@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-postgresql-postgresql --space helm-postgresql-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-postgresql-postgresql"
-    output: "Unit statefulset-postgresql-postgresql (c404c430-c75c-4a2a-8033-e40a5ba0b998) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-postgresql-postgresql (79bcc1a3-72cc-4c78-97ef-09a1e9dd9d3d) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-postgresql-confighub-proof --where \"Labels.Proof = 'postgresql-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req GRhVtYZLreYeTGBDyFMZAuwCvTFkrpWA: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req DMQUowWYmNJfvOAjIFScTGoLPEcmYHOh: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-postgresql-confighub-proof --where \"Labels.Proof = 'postgresql-confighub-proof'\""
     result: "pass"

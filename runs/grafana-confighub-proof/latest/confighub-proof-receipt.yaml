@@ -8,8 +8,8 @@ spec:
     context:
       organization: "Kubara"
       server: "https://hub.confighub.com"
-      cubClientVersion: "Version:    v0.1.71"
-      cubServerVersion: "v0.1.74"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
   package:
     path: "packages/grafana/grafana/10.5.15"
     name: "grafana-grafana"
@@ -40,7 +40,14 @@ spec:
         mode: "not-required"
         result: "pass"
       targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
         requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
           []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/grafana-generated-passwords"
@@ -49,7 +56,7 @@ spec:
     separatedSecretCount: 1
   deterministicPackage:
     command: "cub installer package packages/grafana/grafana/10.5.15 -o .tmp/confighub-proof/grafana-archives/grafana-a.tgz"
-    sha256: "bbf658cc190c376cb7aa41140eb419490f5d005b4c76018db926f9836f4395fc"
+    sha256: "f63f67e9c48f503bbbc36452905876c4a64ffa0bb0abf123ae2cb020286df0a9"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/grafana-generated-passwords"
@@ -71,13 +78,21 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/grafana-generated-passwords"
     result: "pass"
-    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-grafana-confighub-proof:\n  ~ deployment-grafana-grafana\n      New changes from update from /Users/alexis/Public/github-repos/helm-expt/.tmp/confighub-proof/grafana-generated-passwords/out/manifests/deployment-grafana-grafana.yaml:\n      Resource: apps/v1/Deployment grafana/grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1  (#3)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1.name  (#3)"
+    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-grafana-confighub-proof:\n  ~ deployment-grafana-grafana\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/grafana-generated-passwords/out/manifests/deployment-grafana-grafana.yaml:\n      Resource: apps/v1/Deployment grafana/grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1  (#2)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1.name  (#2)"
   serverSideVariant:
-    command: "cub variant create staging helm-grafana-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-grafana-confighub-proof --environment Staging --region local --namespace grafana --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-grafana-confighub-proof"
     downstreamSpace: "Grafana-staging"
     clonedUnitCount: 10
+    namespace: "grafana"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "watch"
+    reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
@@ -85,7 +100,8 @@ spec:
     revisionDiff: "pass"
     representativeUnit: "deployment-grafana-grafana"
   retention:
-    liveSpacesDeletedAfterProof: false
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
     spaces:
       - "helm-grafana-confighub-proof"
       - "Grafana-staging"

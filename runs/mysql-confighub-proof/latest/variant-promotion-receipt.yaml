@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "mysql-generated-passwords-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "bitnami/mysql"
+    chartVersion: "14.0.3"
+    packagePath: "packages/bitnami/mysql/14.0.3"
+    variant: "generated-passwords"
+    upstreamSpace: "helm-mysql-confighub-proof"
+    downstreamSpace: "MySQL-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-mysql-mysql runs/mysql-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-mysql-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-mysql-generated-passwords runs/mysql-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-mysql-confighub-proof --allow-exists"
+    dryRun: "cub variant promote MySQL-staging --dry-run -o mutations"
+    changeset: "cub changeset create mysql-generated-passwords-variant-promote-20260527 --space MySQL-staging --description ... --allow-exists"
+    promote: "cub variant promote MySQL-staging --changeset MySQL-staging/mysql-generated-passwords-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote MySQL-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-mysql-mysql"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=mysql-generated-passwords-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-mysql-generated-passwords"
+    upstreamUnitID: "218a8bb3-b7e6-490e-82f2-14f73cea5e47"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-mysql-generated-passwords"
+  changeset:
+    slug: "mysql-generated-passwords-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset mysql-generated-passwords-variant-promote-20260527 (bb3be557-a065-4d06-ba74-10e84c532f90)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-mysql-mysql\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-mysql-generated-passwords\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-mysql-generated-passwords"
+    addedUnitDownstreamUpstreamUnitID: "218a8bb3-b7e6-490e-82f2-14f73cea5e47"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

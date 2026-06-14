@@ -19,39 +19,39 @@ spec:
     -
       slug: "clusterrolebinding-grafana-clusterrolebinding"
       headRevisionNum: 2
-      dataHash: "d06306f9c879979d4392ad7329c9e72ffecfe28c6288fc530fbc31bf7059e718"
+      dataHash: "2146ab77aa747864c421a5d15153a0c065b2391e561e27feb4fd420ebb650d32"
     -
       slug: "clusterrole-grafana-clusterrole"
-      headRevisionNum: 2
-      dataHash: "f2eff57b946713fd835ae24a5316ba4e07528ce3029ce75e7b0af30d0e68d8f7"
+      headRevisionNum: 1
+      dataHash: "22eac23d084ad42121f04ec3ca269df49491c33ab2c78187cd5bb97b45a57902"
     -
       slug: "configmap-grafana-grafana"
-      headRevisionNum: 2
-      dataHash: "5d5ca7207aa12cd7448de904eec6a125e9141de0d3a5d20779b34f1a894a9e60"
+      headRevisionNum: 1
+      dataHash: "63af550b819b0efb964d25213d3e97c3b238f6d6957355bcf4daf03bbc3c8acd"
     -
       slug: "deployment-grafana-grafana"
       headRevisionNum: 2
-      dataHash: "5dfbc8d19c228c529c2f1b0fb32be35b3851d1bb120da6a55e2ead4006d82ea7"
+      dataHash: "c92acb6036c495d3c8c8d066b665d653599ba003843737d38a190ab5bba3b210"
     -
       slug: "namespace-grafana"
-      headRevisionNum: 2
-      dataHash: "079482289b2f62078832c77d1d3248d9d63a9903597a0f9e2f0686f86772523f"
+      headRevisionNum: 1
+      dataHash: "9a6d07873598075408cc98b6a419ba393d678c58128137d7856e392b676bdbbb"
     -
       slug: "rolebinding-grafana-grafana"
       headRevisionNum: 2
-      dataHash: "a6a54745f04956f263807a5d9bd3249ed5261342d12045830a8b8a1ef7c95b08"
+      dataHash: "d0daf596a17e1e240d2568b12ce23c527f2f797b923367fe8917fa4d5933eb21"
     -
       slug: "role-grafana-grafana"
-      headRevisionNum: 2
-      dataHash: "1bb182bfc6f2e6462a5a047f70e4a3ab2fde6fd482195a2d173584b35cda6776"
+      headRevisionNum: 1
+      dataHash: "7ee5f968b209b6d7734a2b59e81c2d72b2fb89af81d28c5731910c4089bd2466"
     -
       slug: "serviceaccount-grafana-grafana"
-      headRevisionNum: 2
-      dataHash: "c083b2aed3ced04e76b292492207ee7ebe5fcd95a931f0c5b404d456c19fd130"
+      headRevisionNum: 1
+      dataHash: "5e71e31ed1b6a5efe3f182877206506c63766268bb03b84a38df62f807199cb2"
     -
       slug: "service-grafana-grafana"
       headRevisionNum: 2
-      dataHash: "3a32924c5e4ccfb664b185f8b46ce54654f151ee5e3f42e2e449a91496c9db9e"
+      dataHash: "910b2e0eaa17556d92b9de40b63f9a7d7886237c15deb7e01b215bfd0905b781"
   validations:
     -
       function: "vet-format"

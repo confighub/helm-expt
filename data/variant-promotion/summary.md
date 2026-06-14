@@ -22,16 +22,16 @@ Status values:
 
 | Status | Rows |
 | --- | ---: |
-| available-needs-receipt | 183 |
+| available-needs-receipt | 177 |
 | missing-confighub-proof | 2 |
-| proven-with-watch | 7 |
+| proven-with-watch | 13 |
 
 Matrix values:
 
 | Matrix value | Rows |
 | --- | ---: |
-| todo | 185 |
-| watch | 7 |
+| todo | 179 |
+| watch | 13 |
 
 ## Watch Rows
 
@@ -41,17 +41,20 @@ resolved and the receipt reruns as pass.
 
 | Rows | Reason | Tracking |
 | ---: | --- | --- |
-| 7 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682](https://github.com/confighub/helm-expt/issues/682) |
+| 13 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682](https://github.com/confighub/helm-expt/issues/682) |
 
 | Row | Evidence | Next action |
 | --- | --- | --- |
+| `argo-cd/argo-cd@9.5.15/default` | runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `bitnami/mysql@14.0.3/generated-passwords` | runs/mysql-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | `bitnami/nginx@24.0.2/http-clusterip` | runs/nginx-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `bitnami/postgresql@18.6.7/generated-passwords` | runs/postgresql-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `bitnami/rabbitmq@16.0.14/generated-passwords` | runs/rabbitmq-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | `bitnami/redis@25.5.3/default` | runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | `external-secrets/external-secrets@2.5.0/default` | runs/external-secrets-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `grafana/grafana@10.5.15/generated-passwords` | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `hashicorp/vault@0.32.0/dev-mode` | runs/vault-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | `ingress-nginx/ingress-nginx@4.15.1/internal-clusterip` | runs/ingress-nginx-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `jetstack/cert-manager@v1.20.2/crds-enabled` | runs/cert-manager-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `metrics-server/metrics-server@3.13.0/default` | runs/metrics-server-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `prometheus-community/kube-prometheus-stack@85.3.3/default` | runs/kube-prometheus-stack-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 
 ## First TODO Rows
 
@@ -59,7 +62,6 @@ resolved and the receipt reruns as pass.
 | --- | --- | --- |
 | `aqua/trivy-operator@0.32.1/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts trivy-operator --base default --variant-promotion-proof --cleanup-spaces |
 | `aqua/trivy-operator@0.32.1/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts trivy-operator --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-cd@9.5.15/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-cd --base default --variant-promotion-proof --cleanup-spaces |
 | `argo-cd/argo-cd@9.5.15/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
 | `argo-cd/argo-cd@9.5.17/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-cd --base default --variant-promotion-proof --cleanup-spaces |
 | `argo-cd/argo-cd@9.5.17/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
@@ -77,6 +79,7 @@ resolved and the receipt reruns as pass.
 | `autoscaler/vertical-pod-autoscaler@0.9.0/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts vertical-pod-autoscaler --base no-crds --variant-promotion-proof --cleanup-spaces |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts aws-ebs-csi-driver --base default --variant-promotion-proof --cleanup-spaces |
 | `bitnami/apache@11.4.29/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts apache --base default --variant-promotion-proof --cleanup-spaces |
+| `bitnami/contour@21.1.4/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts contour --base default --variant-promotion-proof --cleanup-spaces |
 
 ## Regenerate
 

@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.49"
+      cubServerVersion: "v0.1.79"
   package:
     path: "packages/bitnami/mysql/14.0.3"
     name: "bitnami-mysql"
@@ -40,7 +40,14 @@ spec:
         mode: "not-required"
         result: "pass"
       targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
         requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
           []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/mysql-generated-passwords"
@@ -49,7 +56,7 @@ spec:
     separatedSecretCount: 1
   deterministicPackage:
     command: "cub installer package packages/bitnami/mysql/14.0.3 -o .tmp/confighub-proof/mysql-archives/mysql-a.tgz"
-    sha256: "8534d63c67cbc647c8ab6dab1899dc008838e9cb679561a7c79d7083e5405890"
+    sha256: "141a6b01c3e7b0276e22b8df64d3076e2849d0ae4270d3759e938d218d120a43"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/mysql-generated-passwords"
@@ -71,13 +78,21 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/mysql-generated-passwords"
     result: "pass"
-    summary: "No changes.\nImages in helm-mysql-confighub-proof (post-render):\n  init  StatefulSet/mysql [preserve-logs-symlinks] docker.io/bitnami/mysql:9.4.0-debian-12-r1\n      StatefulSet/mysql [mysql] docker.io/bitnami/mysql:9.4.0-debian-12-r1"
+    summary: "No changes.\nImages in helm-mysql-confighub-proof (post-render):\n  init  StatefulSet/mysql [preserve-logs-symlinks] docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1\n      StatefulSet/mysql [mysql] docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1"
   serverSideVariant:
-    command: "cub variant create staging helm-mysql-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-mysql-confighub-proof --environment Staging --region local --namespace mysql --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-mysql-confighub-proof"
-    downstreamSpace: "helm-mysql-confighub-proof-staging"
+    downstreamSpace: "MySQL-staging"
     clonedUnitCount: 9
+    namespace: "mysql"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "watch"
+    reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
@@ -89,7 +104,7 @@ spec:
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
     spaces:
       - "helm-mysql-confighub-proof"
-      - "helm-mysql-confighub-proof-staging"
+      - "MySQL-staging"
   observedFriction:
     - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
