@@ -13,7 +13,7 @@ that path is the operation under review.
 ```text
 large rows: 6
 minimum ConfigHub OCI objects: 50
-latest observed receipt: 2026-06-14T10:09:57Z
+latest observed receipt: 2026-06-14T12:52:24Z
 complete: 5
 controller-health-watch: 1
 ```
@@ -27,7 +27,7 @@ controller-health-watch: 1
 | `hashicorp/consul@2.0.0` | `secure-mesh-existing-secrets` | watch | 98 | 98 | controller-health-watch | Synced/Progressing | pass |  | kind-three-node; 3 nodes; pass | Ingress/consul/consul-consul-ui:Synced/Progressing | confighub-upload-elapsed | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | Keep as watch until the controller-health residue is explained or accepted for the target scope (Ingress/consul/consul-consul-ui:Synced/Progressing); add upload/apply elapsed-time evidence on rerun. |
 | `kyverno/kyverno@3.8.1` | `default` | pass | 70 |  | complete | Synced/Healthy | pass |  | none; pass |  | gitops-operation-elapsed; confighub-upload-elapsed | [receipt](../../runs/live-helm-confighub-compare/kyverno-kyverno-default/receipt.yaml) | Add upload/apply elapsed-time evidence in the next live run so this pass also proves progress visibility. |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `default` | pass | 125 |  | complete | Synced/Healthy | pass |  |  |  | gitops-operation-elapsed; confighub-upload-elapsed | [receipt](../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml) | Add upload/apply elapsed-time evidence in the next live run so this pass also proves progress visibility. |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | `no-crds` | pass | 115 |  | complete | Synced/Healthy | pass |  |  |  | gitops-operation-elapsed; confighub-upload-elapsed | [receipt](../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml) | Add upload/apply elapsed-time evidence in the next live run so this pass also proves progress visibility. |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | `no-crds` | pass | 115 |  | complete | Synced/Healthy | pass | upload 234.236s; unit apply 61.145s; app apply 0.992s; argo wait 40.266s | none; pass |  |  | [receipt](../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml) | Keep the evidence fresh before using as a large-operation example. |
 
 ## Reading Rule
 
