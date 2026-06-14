@@ -38,6 +38,15 @@ spec:
     summary: "The Consul secure-mesh base now proves target topology, lifecycle Secret staging, workload convergence, and semantic parity. The remaining watch condition is the Consul UI Ingress staying Progressing in Argo CD after sync success and workload readiness."
     interpretation: "This is a GitOps/controller-health review row, not a render parity defect and not a ConfigHub worker requirement."
     targetShapeBoundary: "The base needs a Kubernetes target with enough schedulable nodes for Consul server anti-affinity and quorum. ConfigHub remains workerless from the target cluster's point of view."
+    controllerHealthDecision:
+      decision: "keep-watch-for-target-without-ui-ingress-health"
+      reason: "The captured Argo core tree identifies exactly one Progressing child resource: Ingress/consul/consul-consul-ui. Regular Helm, ConfigHub direct apply, ConfigHub OCI/Argo sync, workload readiness, lifecycle Secret staging, and semantic parity all passed. The remaining issue is target/controller handling of the optional UI Ingress health signal."
+      currentTargetPolicy: "The proof target is acceptable for proving render parity, target topology, lifecycle staging, and workload convergence. It is not sufficient to turn the secure-mesh UI Ingress path into a full pass because the target does not prove an ingress-capable health policy for that Ingress."
+      passRoutes:
+        - "rerun on a target with an ingress controller and DNS/host policy that makes consul-consul-ui Healthy in Argo"
+        - "create and prove a secure-mesh base that disables or replaces the UI Ingress when the target has no ingress capability"
+        - "record a stricter target-scoped policy that explicitly accepts Argo Ingress Progressing for this UI surface, with the risk and operator check documented"
+      userMeaning: "A user can trust that the desired object set and workloads reached the expected state for this proof target. They should not treat this row as production-ready for UI ingress exposure until one of the pass routes is completed."
     argoEvidence:
       sync: "Synced"
       health: "Progressing"
@@ -70,8 +79,8 @@ spec:
         - "consul-namespace-reference-normalization"
         - "consul-statefulset-gitops-defaults"
   nextActions:
-    - "Keep the row as watch until the Consul UI Ingress health is explained, fixed for this target, or bounded as an accepted target-scoped controller-health residue."
-    - "Decide whether this target scope should disable/replace the UI Ingress, install an ingress controller, or accept the Argo Progressing signal as a bounded watch condition for this base."
+    - "Keep the row as watch for the current proof target because the Consul UI Ingress remains Synced/Progressing."
+    - "Pick one pass route before changing this row to pass: ingress-capable target, no-UI-Ingress/replaced-UI base, or explicit target-scoped acceptance policy for this UI Ingress health residue."
     - "Use data/gitops-health-residue/summary.md to distinguish aggregate controller-health residue from resource-level health residue."
     - "Do not change the recipe unless semantic parity, target facts, or workload readiness starts failing."
   notClaimed:
