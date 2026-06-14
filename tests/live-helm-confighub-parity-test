@@ -218,6 +218,19 @@ def write_yaml(path: Path, data: dict) -> None:
         path.write_text(json.dumps(data, indent=2) + "\n")
 
 
+def artifact(path: Path, text: str) -> dict:
+    text = "\n".join(line.rstrip(" \t") for line in text.splitlines()) + ("\n" if text.endswith("\n") else "")
+    return {
+        "path": path.name,
+        "sha256": write_text(path, text),
+        "bytes": len(text.encode("utf-8")),
+    }
+
+
+def safe_artifact_label(value: str) -> str:
+    return "".join(ch if ch.isalnum() or ch in "-_" else "-" for ch in value).strip("-") or "app"
+
+
 def load_yaml(path: Path) -> dict:
     if not yaml:
         raise RuntimeError("PyYAML is required for live parity tests")
@@ -991,7 +1004,7 @@ def schedulable_node_count(kubeconfig: Path, context: str) -> int:
     return count
 
 
-def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
+def argo_application_status(kubeconfig: Path, context: str, app: str, run_root: Path | None = None, label: str | None = None) -> dict:
     rc, out, err = kubectl(
         ["get", "application", app, "-n", "argocd", "-o", "json"],
         kubeconfig,
@@ -1034,7 +1047,7 @@ def argo_application_status(kubeconfig: Path, context: str, app: str) -> dict:
         context,
         timeout=60,
     )
-    argocd_core = argocd_core_status(kubeconfig, context, app)
+    argocd_core = argocd_core_status(kubeconfig, context, app, run_root, label)
     cub_scout = cub_scout_gitops_status(kubeconfig)
     operation_state = status.get("operationState") or {}
     operation = operation_state.get("operation") or {}
@@ -1143,7 +1156,7 @@ def count_by(items: list[dict], key_fn) -> dict:
     return counts
 
 
-def argocd_core_status(kubeconfig: Path, context: str, app: str) -> dict:
+def argocd_core_status(kubeconfig: Path, context: str, app: str, run_root: Path | None = None, label: str | None = None) -> dict:
     if shutil.which("argocd") is None:
         return {"result": "unavailable", "reason": "argocd CLI not found on PATH"}
     core_kubeconfig = kubeconfig_with_context_namespace(kubeconfig, context, "argocd")
@@ -1162,6 +1175,18 @@ def argocd_core_status(kubeconfig: Path, context: str, app: str) -> dict:
         if core_kubeconfig != kubeconfig:
             core_kubeconfig.unlink(missing_ok=True)
     result = "pass" if rc_json == 0 or rc_tree == 0 else "blocked"
+    artifact_prefix = safe_artifact_label(label or app)
+    json_artifact = None
+    tree_artifact = None
+    if run_root is not None:
+        json_artifact = artifact(
+            run_root / f"argocd-core-{artifact_prefix}.json",
+            json_out if rc_json == 0 else (json_err or json_out),
+        )
+        tree_artifact = artifact(
+            run_root / f"argocd-core-{artifact_prefix}-tree.txt",
+            tree_out if rc_tree == 0 else (tree_err or tree_out),
+        )
     summary = {}
     if rc_json == 0 and json_out:
         try:
@@ -1183,10 +1208,12 @@ def argocd_core_status(kubeconfig: Path, context: str, app: str) -> dict:
         "json": {
             "result": "pass" if rc_json == 0 else "blocked",
             "summary": summary,
+            "artifact": json_artifact,
             "output": json_out[:6000] if rc_json == 0 else (json_err or json_out)[:2000],
         },
         "tree": {
             "result": "pass" if rc_tree == 0 else "blocked",
+            "artifact": tree_artifact,
             "output": (tree_out if rc_tree == 0 else (tree_err or tree_out))[:8000],
         },
     }
@@ -2725,8 +2752,8 @@ def main() -> int:
                         break
                 time.sleep(10)
                 waited += 10
-        child_argo_status = argo_application_status(kubeconfig, context, child_app)
-        root_argo_status = argo_application_status(kubeconfig, context, cluster_space)
+        child_argo_status = argo_application_status(kubeconfig, context, child_app, run_root, "child")
+        root_argo_status = argo_application_status(kubeconfig, context, cluster_space, run_root, "root")
         mark_stage("configHub-oci-readiness")
         if child_argo_status.get("result") == "unavailable":
             oci_runtime = {

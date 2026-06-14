@@ -10,14 +10,14 @@ receipt contains so the next action is specific.
 
 ```text
 rows: 1
-aggregate-progressing-with-blank-resource-health: 1
+resource-or-condition-residue: 1
 ```
 
 ## Rows
 
-| Chart | Base | Result | Classification | Child App | Root App | Argo tree | Resources | Blank health | Residue | Receipt | Next action |
-| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | aggregate-progressing-with-blank-resource-health | Synced/Progressing | Synced/Healthy | pass | 97 | 97 | 0 | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | Decide the target-scoped controller-health policy: root Application is Healthy, child Application is Synced/Progressing, workloads converged, and the Argo core tree shows blank child-resource health. |
+| Chart | Base | Result | Classification | Child App | Root App | Argo tree | Resources | Healthy | Blank health | Residue | Full evidence | Receipt | Next action |
+| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- | --- | --- |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | resource-or-condition-residue | Synced/Progressing | Synced/Healthy | pass | 97 | 42 | 54 | Ingress/consul/consul-consul-ui:Synced/Progressing | [json](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-child.json) [tree](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argocd-core-child-tree.txt) | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | Name the specific resource or condition (Ingress/consul/consul-consul-ui:Synced/Progressing), fix the target/lifecycle issue or record a bounded watch policy, then rerun. |
 
 ## How To Read This
 

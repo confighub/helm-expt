@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 
 import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
@@ -51,18 +51,29 @@ function receiptRow(path) {
   const rootStatus = leg.rootArgoStatus ?? {};
   const argocdCore = appStatus.diagnostics?.argocdCore ?? {};
   const rootArgocdCore = rootStatus.diagnostics?.argocdCore ?? {};
+  const receiptDir = dirname(path);
+  const argocdCoreJson = readArgocdCoreJson(receiptDir, argocdCore.json?.artifact);
+  const argocdCoreArtifact = artifactRef(receiptDir, argocdCore.json?.artifact);
+  const argocdCoreTreeArtifact = artifactRef(receiptDir, argocdCore.tree?.artifact);
   const sync = appStatus.sync?.status ?? leg.sync ?? "";
   const health = appStatus.health?.status ?? leg.health ?? "";
   const rootSync = rootStatus.sync?.status ?? "";
   const rootHealth = rootStatus.health?.status ?? "";
   const operationPhase = appStatus.operationState?.phase ?? "";
   const syncResultStatusCounts = appStatus.operationState?.syncResultStatusCounts ?? {};
-  const resources = Array.isArray(appStatus.resources) ? appStatus.resources : [];
+  const resources = Array.isArray(argocdCoreJson?.status?.resources)
+    ? normalizeArgoResources(argocdCoreJson.status.resources)
+    : Array.isArray(appStatus.resources)
+    ? appStatus.resources
+    : [];
   const conditions = Array.isArray(appStatus.conditions) ? appStatus.conditions : [];
   const resourceHealthCounts = countBy(resources, (resource) => resource.health || "blank");
   const resourceStatusCounts = countBy(resources, (resource) => resource.status || "blank");
   const unhealthyResources = resources.filter((resource) => resource.health && !["Healthy", "Suspended"].includes(resource.health));
   const unsyncedResources = resources.filter((resource) => resource.status && resource.status !== "Synced");
+  const residueResources = [
+    ...new Set([...unhealthyResources, ...unsyncedResources].map((resource) => resourceIdentity(resource))),
+  ].sort();
   const healthResidueCount = unhealthyResources.length + unsyncedResources.length + conditions.length;
   const result = leg.result ?? spec.result ?? "";
 
@@ -86,6 +97,8 @@ function receiptRow(path) {
     operation_phase: operationPhase,
     argocd_core_result: argocdCore.result ?? "",
     argocd_core_tree_result: argocdCore.tree?.result ?? "",
+    argocd_core_json_artifact: argocdCoreArtifact,
+    argocd_core_tree_artifact: argocdCoreTreeArtifact,
     root_argocd_core_result: rootArgocdCore.result ?? "",
     conditions: conditions.length,
     resource_count: resources.length,
@@ -99,12 +112,49 @@ function receiptRow(path) {
     resource_health_unknown: resourceHealthCounts.Unknown ?? 0,
     resource_health_blank: resourceHealthCounts.blank ?? 0,
     residue_count: healthResidueCount,
+    residue_resources: residueResources.join("; "),
     next_action: nextAction(classification, {
       allSyncResultResourcesSynced,
       argocdCoreTreeCaptured: argocdCore.tree?.result === "pass",
       rootApplicationHealthy: rootSync === "Synced" && rootHealth === "Healthy",
+      residueResources,
     }),
   };
+}
+
+function readArgocdCoreJson(receiptDir, artifact) {
+  if (!artifact?.path) return null;
+  const path = join(receiptDir, artifact.path);
+  if (!existsSync(path)) return null;
+  try {
+    return JSON.parse(readFileSync(path, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function artifactRef(receiptDir, artifact) {
+  if (!artifact?.path) return "";
+  const path = join(receiptDir, artifact.path);
+  const parts = [relativeRepo(path)];
+  if (artifact.sha256) parts.push(`sha256:${artifact.sha256}`);
+  if (artifact.bytes !== undefined) parts.push(`${artifact.bytes} bytes`);
+  return parts.join(" ");
+}
+
+function normalizeArgoResources(resources) {
+  return resources.map((resource) => ({
+    kind: resource.kind ?? "",
+    namespace: resource.namespace ?? "",
+    name: resource.name ?? "",
+    status: resource.status ?? "",
+    health: resource.health?.status ?? resource.health ?? "",
+  }));
+}
+
+function resourceIdentity(resource) {
+  const namespace = resource.namespace ? `${resource.namespace}/` : "";
+  return `${resource.kind}/${namespace}${resource.name}:${resource.status || "blank"}/${resource.health || "blank"}`;
 }
 
 function classify({ result, sync, health, operationPhase, resources, healthResidueCount, resourceHealthCounts }) {
@@ -131,7 +181,9 @@ function nextAction(classification, evidence = {}) {
     "aggregate-progressing":
       "Inspect Argo controller health logic and resource tree; keep the row watch until the aggregate health reason is explained.",
     "resource-or-condition-residue":
-      "Name the specific resource or condition, fix the target/lifecycle issue or record a bounded watch policy, then rerun.",
+      evidence.residueResources?.length
+        ? `Name the specific resource or condition (${evidence.residueResources.join("; ")}), fix the target/lifecycle issue or record a bounded watch policy, then rerun.`
+        : "Name the specific resource or condition, fix the target/lifecycle issue or record a bounded watch policy, then rerun.",
     "sync-not-complete": "Inspect GitOps source/revision/sync state before treating this as workload parity.",
     "blocked-before-controller-health": "Resolve the named blocker before inspecting controller health.",
     "failed-before-controller-health": "Resolve the failed lane before inspecting controller health.",
@@ -172,12 +224,12 @@ ${Object.entries(counts)
 
 ## Rows
 
-| Chart | Base | Result | Classification | Child App | Root App | Argo tree | Resources | Blank health | Residue | Receipt | Next action |
-| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- |
+| Chart | Base | Result | Classification | Child App | Root App | Argo tree | Resources | Healthy | Blank health | Residue | Full evidence | Receipt | Next action |
+| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- | --- | --- |
 ${rows
   .map(
     (row) =>
-      `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.classification} | ${row.app_sync}/${row.app_health} | ${row.root_app_sync || "-"}/${row.root_app_health || "-"} | ${row.argocd_core_tree_result || "-"} | ${row.resource_count} | ${row.resource_health_blank} | ${row.residue_count} | [receipt](../../${row.receipt}) | ${row.next_action} |`,
+      `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.classification} | ${row.app_sync}/${row.app_health} | ${row.root_app_sync || "-"}/${row.root_app_health || "-"} | ${row.argocd_core_tree_result || "-"} | ${row.resource_count} | ${row.resource_health_healthy} | ${row.resource_health_blank} | ${row.residue_resources || row.residue_count} | ${artifactLinks(row)} | [receipt](../../${row.receipt}) | ${row.next_action} |`,
   )
   .join("\n")}
 
@@ -212,6 +264,8 @@ function toCsv(rows) {
     "operation_phase",
     "argocd_core_result",
     "argocd_core_tree_result",
+    "argocd_core_json_artifact",
+    "argocd_core_tree_artifact",
     "root_argocd_core_result",
     "conditions",
     "resource_count",
@@ -225,9 +279,23 @@ function toCsv(rows) {
     "resource_health_unknown",
     "resource_health_blank",
     "residue_count",
+    "residue_resources",
     "next_action",
   ];
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header])).join(",")).join("\n")}\n`;
+}
+
+function artifactLinks(row) {
+  const links = [];
+  if (row.argocd_core_json_artifact) {
+    const [path] = row.argocd_core_json_artifact.split(" ");
+    links.push(`[json](../../${path})`);
+  }
+  if (row.argocd_core_tree_artifact) {
+    const [path] = row.argocd_core_tree_artifact.split(" ");
+    links.push(`[tree](../../${path})`);
+  }
+  return links.join(" ") || "-";
 }
 
 function csvCell(value) {
