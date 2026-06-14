@@ -44,6 +44,8 @@ const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", 
 const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kps.csv");
 const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-production-packets", "summary.md");
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
+const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
+const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -138,6 +140,8 @@ function buildSite(generatedAt) {
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
+  const chartSkills = existsSync(chartSkillsJsonPath) ? JSON.parse(readFileSync(chartSkillsJsonPath, "utf8")).charts : [];
+  const chartEvidenceRouter = existsSync(chartEvidenceRouterPath) ? parseCsv(readFileSync(chartEvidenceRouterPath, "utf8")) : [];
   check(existsSync(hardChartPacketsSummaryPath), "data/hard-chart-production-packets/summary.md is missing; run npm run hard-charts:packets");
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
   const bestBaseByChart = new Map(bestBaseRows(baseReadiness).map((row) => [row.chart, row]));
@@ -159,6 +163,9 @@ function buildSite(generatedAt) {
         chart_page: `site/charts/${chartPageFileName(withStartFields)}`,
       };
     });
+  const publicChartKeys = new Set(catalogEntries.map((entry) => `${entry.chart}|${entry.version}`));
+  const publicChartSkills = chartSkills.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
+  const publicChartEvidenceRouter = chartEvidenceRouter.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const replacementByChart = new Map(latestReplacementDecisions.map((row) => [row.chart, row]));
   const latestActionByChart = new Map(latestActionQueue.map((row) => [row.chart, row]));
@@ -215,6 +222,8 @@ function buildSite(generatedAt) {
       scanDisposition: "data/scan-disposition-workdown/workdown.csv",
       highFanout: "data/high-fanout-demo/prometheus-kps.csv",
       lifecycleRoutes: "data/lifecycle-routes/routes.json",
+      chartSkills: "data/chart-skills/skills.json",
+      chartEvidenceRouter: "data/chart-evidence-router/router.csv",
     },
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
@@ -273,6 +282,8 @@ function buildSite(generatedAt) {
     scanDisposition,
     highFanout,
     lifecycleRoutes,
+    chartSkills: publicChartSkills,
+    chartEvidenceRouter: publicChartEvidenceRouter,
   };
   const chartPages = catalog.catalogEntries.map((entry) => ({
     fileName: chartPageFileName(entry),
@@ -1862,6 +1873,8 @@ function chartPageHtml(catalog, entry) {
   const chartUse = catalog.chartUseGuide.find((row) => row.chart === chartKey);
   const top100 = catalog.top100Readiness.find((row) => row.chart === chartKey);
   const userReadiness = catalog.top100UserReadiness.find((row) => row.chart === entry.chart && row.version === entry.version);
+  const chartSkill = catalog.chartSkills.find((row) => row.chart === entry.chart && row.version === entry.version);
+  const evidenceRoute = catalog.chartEvidenceRouter.find((row) => row.chart === entry.chart && row.version === entry.version);
   const extension = catalog.extensionSlots.find((row) => row.chart === chartKey);
   const proofRows = baseRows.map((row) => [
     row.base,
@@ -1881,6 +1894,8 @@ function chartPageHtml(catalog, entry) {
     ["Production disposition", "data/production-disposition/summary.md"],
     ["Support decision", support?.path ?? ""],
     ["Top-20 base readiness", "data/top20-base-readiness/summary.md"],
+    ["Chart skills", "data/chart-skills/summary.md"],
+    ["Chart evidence router", "data/chart-evidence-router/summary.md"],
     ["Current proof status", "docs/user/current-proof-status.md"],
   ].filter(([, path]) => path);
   const openDispositions = splitDisposition(production?.open_dispositions);
@@ -1899,8 +1914,22 @@ function chartPageHtml(catalog, entry) {
     row.route_name,
     executionModePlain(row.execution_mode),
     (row.alternatives ?? []).map((alt) => alt.route).join(", ") || "—",
-    row.safe_as_automatic ? "yes" : "no",
+    isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
   ]);
+  const skillRows = chartSkill?.applicable?.map((skill) => [
+    `<a href="../../${escapeHtml(skill.doc)}">${escapeHtml(skill.title)}</a>`,
+    skill.why,
+  ]) ?? [];
+  const factSheetRows = [
+    ["User status", evidenceRoute?.user_status || userReadiness?.user_status || "not recorded"],
+    ["Can I use it?", evidenceRoute?.chart_use_answer || "check the supported base and production boundary"],
+    ["First base", evidenceRoute?.first_base || entry.start_variant],
+    ["Current proof", evidenceRoute?.current_proof || entry.proof_status || "see proof lanes"],
+    ["Coverage", evidenceRoute?.coverage_status || "see coverage evidence"],
+    ["User must provide", evidenceRoute?.user_must_provide || userReadiness?.user_must_provide || "check target facts and base readiness"],
+    ["ConfigHub/installer absorbs", evidenceRoute?.routed_or_absorbed || userReadiness?.confighub_absorbs || "rendered objects, receipts, and checks"],
+    ["Next action", evidenceRoute?.next_action || top100?.next_action || support?.next_action || "none recorded"],
+  ];
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -1936,6 +1965,22 @@ function chartPageHtml(catalog, entry) {
         ["Not yet enabled", entry.not_yet_enabled || "none recorded"],
         ["Namespace", entry.namespace || "chart default"],
       ])}
+    </section>
+
+    <section aria-labelledby="playbooks">
+      <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
+      <p>This is the quick route for a human or agent: which operating playbook applies, what the current user-facing answer is, and what the next proof or product action would add.</p>
+      ${skillRows.length
+        ? markdownLikeTable([
+            ["Playbook", "Why it applies"],
+            ...skillRows,
+          ], { rawFirstColumn: true })
+        : "<p>No special operating playbook is assigned for this chart. Use the base readiness and proof lanes.</p>"}
+      ${markdownLikeTable([
+        ["Fact", "Current chart-level route"],
+        ...factSheetRows,
+      ])}
+      <p>Source data: <a href="../../data/chart-skills/summary.md">chart skills</a> and <a href="../../data/chart-evidence-router/summary.md">chart evidence router</a>.</p>
     </section>
 
     <section aria-labelledby="proof">

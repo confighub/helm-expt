@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-14T09:11:38.712Z",
+  "generatedAt": "2026-06-14T09:17:49.398Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -28,7 +28,9 @@
     "hardChartProductionPackets": "data/hard-chart-production-packets/summary.md",
     "scanDisposition": "data/scan-disposition-workdown/workdown.csv",
     "highFanout": "data/high-fanout-demo/prometheus-kps.csv",
-    "lifecycleRoutes": "data/lifecycle-routes/routes.json"
+    "lifecycleRoutes": "data/lifecycle-routes/routes.json",
+    "chartSkills": "data/chart-skills/skills.json",
+    "chartEvidenceRouter": "data/chart-evidence-router/router.csv"
   },
   "commandRoutes": [
     {
@@ -14372,6 +14374,1261 @@
       "live_status": "observed",
       "safe_as_automatic": false,
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+    }
+  ],
+  "chartSkills": [
+    {
+      "chart": "argo-cd/argo-cd",
+      "version": "9.5.15",
+      "top_skill": "live-parity",
+      "matched_signals": [
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/mongodb",
+      "version": "19.0.7",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "generated-facts",
+        "lookup",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/mysql",
+      "version": "14.0.3",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "generated-facts",
+        "lookup",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/nginx",
+      "version": "24.0.2",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "generated-facts",
+        "lookup",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/postgresql",
+      "version": "18.6.7",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "generated-facts",
+        "lookup",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/rabbitmq",
+      "version": "16.0.14",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "generated-facts",
+        "lookup",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/redis",
+      "version": "25.5.3",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "generated-facts",
+        "lookup",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "external-secrets/external-secrets",
+      "version": "2.5.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "grafana/grafana",
+      "version": "10.5.15",
+      "top_skill": "live-parity",
+      "matched_signals": [
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "grafana/loki",
+      "version": "7.0.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious",
+        "generated-facts",
+        "webhooks",
+        "crds",
+        "lookup",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "grafana/tempo",
+      "version": "1.24.4",
+      "top_skill": "live-parity",
+      "matched_signals": [
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "hashicorp/consul",
+      "version": "2.0.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious",
+        "webhooks",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "hashicorp/vault",
+      "version": "0.32.0",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "webhooks",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "ingress-nginx/ingress-nginx",
+      "version": "4.15.1",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "webhooks",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "jetstack/cert-manager",
+      "version": "v1.20.2",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "longhorn/longhorn",
+      "version": "1.11.2",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "generated-facts",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "metrics-server/metrics-server",
+      "version": "3.13.0",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "generated-facts",
+        "lookup",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious",
+        "hooks:2",
+        "generated-facts",
+        "webhooks",
+        "crds",
+        "lookup",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/prometheus",
+      "version": "29.8.0",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "generated-facts",
+        "stateful-storage",
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "secrets-store-csi-driver/secrets-store-csi-driver",
+      "version": "1.6.0",
+      "top_skill": "live-parity",
+      "matched_signals": [
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    }
+  ],
+  "chartEvidenceRouter": [
+    {
+      "rank": "1",
+      "chart": "argo-cd/argo-cd",
+      "version": "9.5.15",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "default",
+      "catalog_path": "recipes/argo-cd/argo-cd/9.5.15/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 1/2, live parity 2/2)",
+      "proof_lane_rows": "default;no-crds",
+      "proof_lane_summary": "default render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=missing; no-crds render=pass confighub=pass local=blocked gitops=pass/runtime-blocked live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml;recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/argo-cd/argo-cd/9.5.15",
+      "package_paths": "packages/argo-cd/argo-cd/9.5.15",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/argo-cd/argo-cd/9.5.15/source-lock.yaml;recipes/argo-cd/argo-cd/9.5.15/CATALOG.md;recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml;recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml;recipes/argo-cd/argo-cd/9.5.15/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/argo-cd/argo-cd/9.5.15/value-model.yaml;recipes/argo-cd/argo-cd/9.5.15/helm-plan.yaml;recipes/argo-cd/argo-cd/9.5.15/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "crds;existing-secret;extension-slots",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "no-crds:Argo CD OCI:blocked",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/argo-cd-argo-cd/no-crds/latest.yaml",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml;runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/receipt.yaml",
+      "production_decisions": "default:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/argo-cd-argo-cd/support-decision.yaml",
+      "top500_route": "",
+      "user_must_provide": "an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base)",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases",
+      "next_action": "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
+    },
+    {
+      "rank": "2",
+      "chart": "bitnami/mongodb",
+      "version": "19.0.7",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "generated-passwords",
+      "catalog_path": "recipes/bitnami/mongodb/19.0.7/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "existing-secret-replicaset;generated-passwords",
+      "proof_lane_summary": "existing-secret-replicaset render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; generated-passwords render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml;recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/bitnami/mongodb/19.0.7",
+      "package_paths": "packages/bitnami/mongodb/19.0.7",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/bitnami/mongodb/19.0.7/source-lock.yaml;recipes/bitnami/mongodb/19.0.7/CATALOG.md;recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml;recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml;recipes/bitnami/mongodb/19.0.7/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/bitnami/mongodb/19.0.7/value-model.yaml;recipes/bitnami/mongodb/19.0.7/helm-plan.yaml;recipes/bitnami/mongodb/19.0.7/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "generated-secrets;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage",
+      "quirk_route": "P0: model remote dependency closure in chart facts and source/dependency lock evidence: dependency closure facts plus refresh-survival check",
+      "quirk_evidence": "mongodb/charts/common/templates/_capabilities.tpl;mongodb/charts/common/templates/_secrets.tpl;mongodb/templates/secrets.yaml;mongodb/templates/mcp/ingress-tls-secret.yaml",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/bitnami-mongodb-generated-passwords/receipt.yaml;runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml",
+      "production_decisions": "generated-passwords:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/bitnami-mongodb/support-decision.yaml",
+      "top500_route": "rank 28: catalog-supported: proof:2 revision(s): production-review-ready: review source/current-version drift and refresh recipe if needed",
+      "user_must_provide": "a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
+      "next_action": "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
+    },
+    {
+      "rank": "3",
+      "chart": "bitnami/mysql",
+      "version": "14.0.3",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "generated-passwords",
+      "catalog_path": "recipes/bitnami/mysql/14.0.3/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "existing-secret;generated-passwords",
+      "proof_lane_summary": "existing-secret render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; generated-passwords render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml;recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/bitnami/mysql/14.0.3",
+      "package_paths": "packages/bitnami/mysql/14.0.3",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/bitnami/mysql/14.0.3/source-lock.yaml;recipes/bitnami/mysql/14.0.3/CATALOG.md;recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml;recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml;recipes/bitnami/mysql/14.0.3/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/bitnami/mysql/14.0.3/value-model.yaml;recipes/bitnami/mysql/14.0.3/helm-plan.yaml;recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage",
+      "quirk_route": "P0: model remote dependency closure in chart facts and source/dependency lock evidence: dependency closure facts plus refresh-survival check",
+      "quirk_evidence": "mysql/charts/common/templates/_capabilities.tpl;mysql/charts/common/templates/_secrets.tpl;mysql/templates/tls-secret.yaml;mysql/templates/primary/statefulset.yaml",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/bitnami-mysql-generated-passwords/receipt.yaml;runs/live-helm-confighub-compare/bitnami-mysql-existing-secret/receipt.yaml",
+      "production_decisions": "generated-passwords:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/bitnami-mysql/support-decision.yaml",
+      "top500_route": "rank 24: catalog-supported: proof:2 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
+      "next_action": "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
+    },
+    {
+      "rank": "4",
+      "chart": "bitnami/nginx",
+      "version": "24.0.2",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "http-clusterip",
+      "catalog_path": "recipes/bitnami/nginx/24.0.2/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "existing-tls-ingress;http-clusterip",
+      "proof_lane_summary": "existing-tls-ingress render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; http-clusterip render=pass confighub=pass local=pass gitops=pass/runtime-pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml;recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/bitnami/nginx/24.0.2",
+      "package_paths": "packages/bitnami/nginx/24.0.2",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/bitnami/nginx/24.0.2/source-lock.yaml;recipes/bitnami/nginx/24.0.2/CATALOG.md;recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml;recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml;recipes/bitnami/nginx/24.0.2/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/bitnami/nginx/24.0.2/value-model.yaml;recipes/bitnami/nginx/24.0.2/helm-plan.yaml;recipes/bitnami/nginx/24.0.2/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities",
+      "quirk_route": "P0: model remote dependency closure in chart facts and source/dependency lock evidence: dependency closure facts plus refresh-survival check",
+      "quirk_evidence": "nginx/charts/common/templates/_capabilities.tpl;nginx/charts/common/templates/_secrets.tpl;nginx/templates/ingress-tls-secret.yaml;nginx/templates/tls-secret.yaml",
+      "runtime_gitops_results": "http-clusterip:Argo CD OCI:pass",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/bitnami-nginx/http-clusterip/latest.yaml",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip/receipt.yaml;runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml",
+      "production_decisions": "http-clusterip:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/bitnami-nginx/support-decision.yaml",
+      "top500_route": "rank 48: catalog-supported: proof:2 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
+      "next_action": "choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision"
+    },
+    {
+      "rank": "5",
+      "chart": "bitnami/postgresql",
+      "version": "18.6.7",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "generated-passwords",
+      "catalog_path": "recipes/bitnami/postgresql/18.6.7/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "existing-secret;generated-passwords",
+      "proof_lane_summary": "existing-secret render=pass confighub=pass local=pass gitops=pass/runtime-pass live-parity=pass two-cluster=pass; generated-passwords render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/variant-revision.yaml;recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/bitnami/postgresql/18.6.7",
+      "package_paths": "packages/bitnami/postgresql/18.6.7",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/bitnami/postgresql/18.6.7/source-lock.yaml;recipes/bitnami/postgresql/18.6.7/CATALOG.md;recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/variant-revision.yaml;recipes/bitnami/postgresql/18.6.7/helm-pain-report.yaml;recipes/bitnami/postgresql/18.6.7/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/bitnami/postgresql/18.6.7/value-model.yaml;recipes/bitnami/postgresql/18.6.7/helm-plan.yaml;recipes/bitnami/postgresql/18.6.7/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage",
+      "quirk_route": "P0: model remote dependency closure in chart facts and source/dependency lock evidence: dependency closure facts plus refresh-survival check",
+      "quirk_evidence": "postgresql/charts/common/templates/_capabilities.tpl;postgresql/charts/common/templates/_secrets.tpl;postgresql/templates/secrets.yaml;postgresql/templates/tls-secrets.yaml",
+      "runtime_gitops_results": "existing-secret:Flux OCI:pass",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/bitnami-postgresql/existing-secret/latest.yaml",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/bitnami-postgresql-generated-passwords/receipt.yaml;runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/receipt.yaml",
+      "production_decisions": "generated-passwords:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/bitnami-postgresql/support-decision.yaml",
+      "top500_route": "rank 7: catalog-supported: proof:2 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
+      "next_action": "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
+    },
+    {
+      "rank": "6",
+      "chart": "bitnami/rabbitmq",
+      "version": "16.0.14",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "generated-passwords",
+      "catalog_path": "recipes/bitnami/rabbitmq/16.0.14/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "existing-secret;generated-passwords",
+      "proof_lane_summary": "existing-secret render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; generated-passwords render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml;recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/bitnami/rabbitmq/16.0.14",
+      "package_paths": "packages/bitnami/rabbitmq/16.0.14",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/bitnami/rabbitmq/16.0.14/source-lock.yaml;recipes/bitnami/rabbitmq/16.0.14/CATALOG.md;recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml;recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml;recipes/bitnami/rabbitmq/16.0.14/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/bitnami/rabbitmq/16.0.14/value-model.yaml;recipes/bitnami/rabbitmq/16.0.14/helm-plan.yaml;recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage",
+      "quirk_route": "P0: model remote dependency closure in chart facts and source/dependency lock evidence: dependency closure facts plus refresh-survival check",
+      "quirk_evidence": "rabbitmq/charts/common/templates/_capabilities.tpl;rabbitmq/templates/svc-headless.yaml;rabbitmq/charts/common/templates/_secrets.tpl;rabbitmq/templates/ingress-tls-secrets.yaml",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml;runs/live-helm-confighub-compare/bitnami-rabbitmq-existing-secret/receipt.yaml",
+      "production_decisions": "generated-passwords:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/bitnami-rabbitmq/support-decision.yaml",
+      "top500_route": "rank 20: catalog-supported: proof:2 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
+      "next_action": "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
+    },
+    {
+      "rank": "7",
+      "chart": "bitnami/redis",
+      "version": "25.5.3",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "default",
+      "catalog_path": "recipes/bitnami/redis/25.5.3/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "default;reuse-existing-secret",
+      "proof_lane_summary": "default render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; reuse-existing-secret render=pass confighub=pass local=pass gitops=pass/runtime-pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml;recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/bitnami/redis/25.5.3",
+      "package_paths": "packages/bitnami/redis/25.5.3",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/bitnami/redis/25.5.3/source-lock.yaml;recipes/bitnami/redis/25.5.3/CATALOG.md;recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml;recipes/bitnami/redis/25.5.3/helm-pain-report.yaml;recipes/bitnami/redis/25.5.3/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/bitnami/redis/25.5.3/value-model.yaml;recipes/bitnami/redis/25.5.3/helm-plan.yaml;recipes/bitnami/redis/25.5.3/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "generated-secrets;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage",
+      "quirk_route": "P0: model remote dependency closure in chart facts and source/dependency lock evidence: dependency closure facts plus refresh-survival check",
+      "quirk_evidence": "redis/charts/common/templates/_capabilities.tpl;redis/charts/common/templates/_secrets.tpl;redis/templates/tls-secret.yaml;redis/templates/scripts-configmap.yaml",
+      "runtime_gitops_results": "reuse-existing-secret:Flux OCI:pass",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/bitnami-redis/reuse-existing-secret/latest.yaml",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/bitnami-redis-default/receipt.yaml;runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/receipt.yaml",
+      "production_decisions": "default:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/bitnami-redis/support-decision.yaml",
+      "top500_route": "rank 6: catalog-supported: proof:2 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
+      "next_action": "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
+    },
+    {
+      "rank": "8",
+      "chart": "external-secrets/external-secrets",
+      "version": "2.5.0",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "default",
+      "catalog_path": "recipes/external-secrets/external-secrets/2.5.0/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "default;no-crds",
+      "proof_lane_summary": "default render=pass confighub=pass local=pass gitops=pass/runtime-pass+blocked live-parity=pass two-cluster=pass; no-crds render=pass confighub=pass local=pass gitops=pass/runtime-blocked live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml;recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/external-secrets/external-secrets/2.5.0",
+      "package_paths": "packages/external-secrets/external-secrets/2.5.0",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/external-secrets/external-secrets/2.5.0/source-lock.yaml;recipes/external-secrets/external-secrets/2.5.0/CATALOG.md;recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml;recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml;recipes/external-secrets/external-secrets/2.5.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/external-secrets/external-secrets/2.5.0/value-model.yaml;recipes/external-secrets/external-secrets/2.5.0/helm-plan.yaml;recipes/external-secrets/external-secrets/2.5.0/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "crds;existing-secret;extension-slots",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "default:Argo CD OCI:pass;default:Argo CD OCI:pass;default:Argo CD OCI:blocked;no-crds:Argo CD OCI:blocked",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml;data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml;data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml;data/runtime-gitops/receipts/external-secrets-external-secrets/no-crds/latest.yaml",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml;runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/receipt.yaml",
+      "production_decisions": "default:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/external-secrets-external-secrets/support-decision.yaml",
+      "top500_route": "",
+      "user_must_provide": "an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base)",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases",
+      "next_action": "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
+    },
+    {
+      "rank": "9",
+      "chart": "grafana/grafana",
+      "version": "10.5.15",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "existing-secret-ingress",
+      "catalog_path": "recipes/grafana/grafana/10.5.15/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "existing-secret-ingress;generated-passwords",
+      "proof_lane_summary": "existing-secret-ingress render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; generated-passwords render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml;recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/grafana/grafana/10.5.15",
+      "package_paths": "packages/grafana/grafana/10.5.15",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/grafana/grafana/10.5.15/source-lock.yaml;recipes/grafana/grafana/10.5.15/CATALOG.md;recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml;recipes/grafana/grafana/10.5.15/helm-pain-report.yaml;recipes/grafana/grafana/10.5.15/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/grafana/grafana/10.5.15/value-model.yaml;recipes/grafana/grafana/10.5.15/helm-plan.yaml;recipes/grafana/grafana/10.5.15/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "extension-slots",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/grafana-grafana-generated-passwords/receipt.yaml;runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/receipt.yaml",
+      "production_decisions": "generated-passwords:superseded:not-production-supported-because-source-chart-is-deprecated",
+      "production_decision_paths": "data/production-support-decisions/grafana-grafana/support-decision.yaml",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
+      "next_action": "resolve image digests for each affected variant before production OCI support"
+    },
+    {
+      "rank": "10",
+      "chart": "grafana/loki",
+      "version": "7.0.0",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "single-binary-filesystem",
+      "catalog_path": "recipes/grafana/loki/7.0.0/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "simple-scalable-minio;single-binary-filesystem",
+      "proof_lane_summary": "simple-scalable-minio render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; single-binary-filesystem render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml;recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/grafana/loki/7.0.0",
+      "package_paths": "packages/grafana/loki/7.0.0",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/grafana/loki/7.0.0/source-lock.yaml;recipes/grafana/loki/7.0.0/CATALOG.md;recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml;recipes/grafana/loki/7.0.0/helm-pain-report.yaml;recipes/grafana/loki/7.0.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/grafana/loki/7.0.0/value-model.yaml;recipes/grafana/loki/7.0.0/helm-plan.yaml;recipes/grafana/loki/7.0.0/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "crds;generated-secrets;webhooks;extension-slots;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage",
+      "quirk_route": "P0: model remote dependency closure in chart facts and source/dependency lock evidence: dependency closure facts plus refresh-survival check",
+      "quirk_evidence": "loki/charts/minio/templates/_helpers.tpl;loki/charts/minio/templates/console-ingress.yaml;loki/charts/minio/templates/ingress.yaml;loki/templates/monitoring/dashboards/configmap-1.yaml",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml;runs/live-helm-confighub-compare/grafana-loki-simple-scalable-minio/receipt.yaml",
+      "production_decisions": "single-binary-filesystem:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/grafana-loki/support-decision.yaml",
+      "top500_route": "rank 10: catalog-supported: proof:2 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts",
+      "next_action": "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
+    },
+    {
+      "rank": "11",
+      "chart": "grafana/tempo",
+      "version": "1.24.4",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "local-persistent",
+      "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 1/2, live parity 1/2)",
+      "proof_lane_rows": "local-persistent;s3-query-observability",
+      "proof_lane_summary": "local-persistent render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; s3-query-observability render=pass confighub=pass local=blocked gitops=missing live-parity=missing two-cluster=pass",
+      "variant_revisions": "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml;recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/grafana/tempo/1.24.4",
+      "package_paths": "packages/grafana/tempo/1.24.4",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/grafana/tempo/1.24.4/source-lock.yaml;recipes/grafana/tempo/1.24.4/CATALOG.md;recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml;recipes/grafana/tempo/1.24.4/helm-pain-report.yaml;recipes/grafana/tempo/1.24.4/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/grafana/tempo/1.24.4/value-model.yaml;recipes/grafana/tempo/1.24.4/helm-plan.yaml;recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "extension-slots",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml",
+      "production_decisions": "local-persistent:superseded:not-production-supported-because-source-chart-is-deprecated",
+      "production_decision_paths": "data/production-support-decisions/grafana-tempo/support-decision.yaml",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
+      "next_action": "resolve image digests for each affected variant before production OCI support"
+    },
+    {
+      "rank": "12",
+      "chart": "hashicorp/consul",
+      "version": "2.0.0",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "default-control-plane",
+      "catalog_path": "recipes/hashicorp/consul/2.0.0/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 1/2, live parity 1/2)",
+      "proof_lane_rows": "default-control-plane;secure-mesh-existing-secrets",
+      "proof_lane_summary": "default-control-plane render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; secure-mesh-existing-secrets render=pass confighub=pass local=fail gitops=watch/runtime-blocked live-parity=watch two-cluster=pass",
+      "variant_revisions": "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml;recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/hashicorp/consul/2.0.0",
+      "package_paths": "packages/hashicorp/consul/2.0.0",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/hashicorp/consul/2.0.0/source-lock.yaml;recipes/hashicorp/consul/2.0.0/CATALOG.md;recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml;recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml;recipes/hashicorp/consul/2.0.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/hashicorp/consul/2.0.0/value-model.yaml;recipes/hashicorp/consul/2.0.0/helm-plan.yaml;recipes/hashicorp/consul/2.0.0/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "webhooks;extension-slots;install-vs-upgrade-divergence;required-values;tpl;capabilities;rbac;storage",
+      "quirk_route": "P2: promote version-conditional rendering into chart facts and variant-path coverage: chart facts axis plus capability/version matrix row",
+      "quirk_evidence": "consul/templates/server-statefulset.yaml",
+      "runtime_gitops_results": "secure-mesh-existing-secrets:Flux OCI:blocked",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/hashicorp-consul/secure-mesh-existing-secrets/latest.yaml",
+      "gitops_health_residue": "secure-mesh-existing-secrets:aggregate-progressing-with-blank-resource-health",
+      "gitops_health_residue_evidence": "runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml;data/gitops-health-residue/summary.md",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml;runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml",
+      "production_decisions": "default-control-plane:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/hashicorp-consul/support-decision.yaml",
+      "top500_route": "rank 57: catalog-supported: proof:2 revision(s): production-review-ready: review source/current-version drift and refresh recipe if needed",
+      "user_must_provide": "a StorageClass / storage decision; webhook/cert readiness at delivery time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision",
+      "next_action": "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
+    },
+    {
+      "rank": "13",
+      "chart": "hashicorp/vault",
+      "version": "0.32.0",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "default",
+      "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 3/3, local live 2/3, live parity 2/3)",
+      "proof_lane_rows": "default;dev-mode;ha-raft-ui",
+      "proof_lane_summary": "default render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; dev-mode render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; ha-raft-ui render=pass confighub=pass local=blocked gitops=missing live-parity=missing two-cluster=pass",
+      "variant_revisions": "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml;recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/variant-revision.yaml;recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/hashicorp/vault/0.32.0",
+      "package_paths": "packages/hashicorp/vault/0.32.0",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/hashicorp/vault/0.32.0/source-lock.yaml;recipes/hashicorp/vault/0.32.0/CATALOG.md;recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml;recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml;recipes/hashicorp/vault/0.32.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/hashicorp/vault/0.32.0/value-model.yaml;recipes/hashicorp/vault/0.32.0/helm-plan.yaml;recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "webhooks;extension-slots;required-values;tpl;capabilities;rbac;storage",
+      "quirk_route": "P1: promote version-conditional rendering into chart facts and variant-path coverage: chart facts axis plus capability/version matrix row",
+      "quirk_evidence": "vault/templates/server-ha-active-service.yaml;vault/templates/server-ha-standby-service.yaml;vault/templates/server-headless-service.yaml",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/hashicorp-vault-dev-mode/receipt.yaml;runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml",
+      "production_decisions": "dev-mode:rejected:not-production-supported-because-vault-dev-mode-is-local-only",
+      "production_decision_paths": "data/production-support-decisions/hashicorp-vault/support-decision.yaml",
+      "top500_route": "rank 12: catalog-supported: proof:3 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "a StorageClass / storage decision; webhook/cert readiness at delivery time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
+      "next_action": "resolve image digests for each affected variant before production OCI support"
+    },
+    {
+      "rank": "14",
+      "chart": "ingress-nginx/ingress-nginx",
+      "version": "4.15.1",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "internal-clusterip",
+      "catalog_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 3/3, local live 3/3, live parity 3/3)",
+      "proof_lane_rows": "admission-disabled;default;internal-clusterip",
+      "proof_lane_summary": "admission-disabled render=pass confighub=pass local=pass gitops=pass/runtime-watch live-parity=pass two-cluster=pass; default render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; internal-clusterip render=pass confighub=pass local=pass gitops=pass/runtime-pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml;recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml;recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/ingress-nginx/ingress-nginx/4.15.1",
+      "package_paths": "packages/ingress-nginx/ingress-nginx/4.15.1",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml;recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md;recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml;recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml;recipes/ingress-nginx/ingress-nginx/4.15.1/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/ingress-nginx/ingress-nginx/4.15.1/value-model.yaml;recipes/ingress-nginx/ingress-nginx/4.15.1/helm-plan.yaml;recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "webhooks;required-values;tpl;capabilities;rbac",
+      "quirk_route": "P1: promote version-conditional rendering into chart facts and variant-path coverage: chart facts axis plus capability/version matrix row",
+      "quirk_evidence": "ingress-nginx/templates/NOTES.txt;ingress-nginx/templates/controller-daemonset.yaml;ingress-nginx/templates/controller-deployment.yaml",
+      "runtime_gitops_results": "admission-disabled:Argo CD OCI:watch;internal-clusterip:Argo CD OCI:pass",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/ingress-nginx-ingress-nginx/admission-disabled/latest.yaml;data/runtime-gitops/receipts/ingress-nginx-ingress-nginx/internal-clusterip/latest.yaml",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml;runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml;runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-default/receipt.yaml",
+      "production_decisions": "internal-clusterip:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/ingress-nginx-ingress-nginx/support-decision.yaml",
+      "top500_route": "rank 3: catalog-supported: proof:3 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "webhook/cert readiness at delivery time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
+    },
+    {
+      "rank": "15",
+      "chart": "jetstack/cert-manager",
+      "version": "v1.20.2",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "crds-enabled",
+      "catalog_path": "recipes/jetstack/cert-manager/v1.20.2/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "crds-enabled;default",
+      "proof_lane_summary": "crds-enabled render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; default render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml;recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/jetstack/cert-manager/v1.20.2",
+      "package_paths": "packages/jetstack/cert-manager/v1.20.2",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml;recipes/jetstack/cert-manager/v1.20.2/CATALOG.md;recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml;recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml;recipes/jetstack/cert-manager/v1.20.2/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/jetstack/cert-manager/v1.20.2/value-model.yaml;recipes/jetstack/cert-manager/v1.20.2/helm-plan.yaml;recipes/jetstack/cert-manager/v1.20.2/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "extension-slots",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/receipt.yaml;runs/live-helm-confighub-compare/jetstack-cert-manager-default/receipt.yaml",
+      "production_decisions": "crds-enabled:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/jetstack-cert-manager/support-decision.yaml",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
+      "next_action": "write or fix the receipt for target fact preflight"
+    },
+    {
+      "rank": "16",
+      "chart": "longhorn/longhorn",
+      "version": "1.11.2",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "default",
+      "catalog_path": "recipes/longhorn/longhorn/1.11.2/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "default;ui-ingress",
+      "proof_lane_summary": "default render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; ui-ingress render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml;recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/longhorn/longhorn/1.11.2",
+      "package_paths": "packages/longhorn/longhorn/1.11.2",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/longhorn/longhorn/1.11.2/source-lock.yaml;recipes/longhorn/longhorn/1.11.2/CATALOG.md;recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml;recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml;recipes/longhorn/longhorn/1.11.2/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/longhorn/longhorn/1.11.2/value-model.yaml;recipes/longhorn/longhorn/1.11.2/helm-plan.yaml;recipes/longhorn/longhorn/1.11.2/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "required-values;generated-facts;tpl;rbac",
+      "quirk_route": "P2: classify generated values as generated facts, target facts, or existing-secret bases: generated-facts policy plus field reachability row",
+      "quirk_evidence": "longhorn/templates/NOTES.txt;longhorn/templates/crds.yaml",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml;runs/live-helm-confighub-compare/longhorn-longhorn-ui-ingress/receipt.yaml",
+      "production_decisions": "default:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/longhorn-longhorn/support-decision.yaml",
+      "top500_route": "rank 19: catalog-supported: proof:2 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "target facts at variant time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; cluster lookups lifted into declared target facts",
+      "next_action": "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
+    },
+    {
+      "rank": "17",
+      "chart": "metrics-server/metrics-server",
+      "version": "3.13.0",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "default",
+      "catalog_path": "recipes/metrics-server/metrics-server/3.13.0/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "default;external-tls-ca",
+      "proof_lane_summary": "default render=pass confighub=pass local=pass gitops=pass/runtime-pass live-parity=pass two-cluster=pass; external-tls-ca render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/variant-revision.yaml;recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/metrics-server/metrics-server/3.13.0",
+      "package_paths": "packages/metrics-server/metrics-server/3.13.0",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/metrics-server/metrics-server/3.13.0/source-lock.yaml;recipes/metrics-server/metrics-server/3.13.0/CATALOG.md;recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/variant-revision.yaml;recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml;recipes/metrics-server/metrics-server/3.13.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/metrics-server/metrics-server/3.13.0/value-model.yaml;recipes/metrics-server/metrics-server/3.13.0/helm-plan.yaml;recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "generated-secrets;existing-secret;lookup;generated-facts;capabilities;rbac",
+      "quirk_route": "P0: add an APIService readiness model and runtime observation route: chart facts axis plus lifecycle observation receipt",
+      "quirk_evidence": "metrics-server/templates/_helpers.tpl;metrics-server/templates/pdb.yaml;metrics-server/templates/psp.yaml;metrics-server/templates/apiservice.yaml",
+      "runtime_gitops_results": "default:Argo CD OCI:pass",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml;runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/receipt.yaml",
+      "production_decisions": "default:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/metrics-server-metrics-server/support-decision.yaml",
+      "top500_route": "rank 11: catalog-supported: proof:2 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; cluster lookups lifted into declared target facts",
+      "next_action": "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
+    },
+    {
+      "rank": "18",
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "default",
+      "catalog_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "default;no-crds",
+      "proof_lane_summary": "default render=pass confighub=pass local=pass gitops=pass/runtime-pass live-parity=pass two-cluster=pass; no-crds render=pass confighub=pass local=pass gitops=pass/runtime-pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/prometheus-community/kube-prometheus-stack/85.3.3",
+      "package_paths": "packages/prometheus-community/kube-prometheus-stack/85.3.3",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/source-lock.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-plan.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "maintained-observed: preflight-or-presync;postsync-check-or-observation;upgrade-action-with-receipt;preserve-ordering;preserve-cleanup-policy;webhook-readiness-observation;target-facts-or-preflight",
+      "hooks_evidence": "data/hook-lifecycle/maintained-hook-queue.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+      "quirks": "hooks;crds;generated-secrets;existing-secret;webhooks;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage",
+      "quirk_route": "P0: model remote dependency closure in chart facts and source/dependency lock evidence: dependency closure facts plus refresh-survival check",
+      "quirk_evidence": "kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-createSecret.yaml;kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-patchWebhook.yaml",
+      "runtime_gitops_results": "default:Argo CD OCI:pass;no-crds:Argo CD OCI:pass",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml",
+      "production_decisions": "default:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml",
+      "top500_route": "rank 1: catalog-supported: proof:2 revision(s): production-review-ready: review source/current-version drift and refresh recipe if needed",
+      "user_must_provide": "an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
+      "next_action": "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
+    },
+    {
+      "rank": "19",
+      "chart": "prometheus-community/prometheus",
+      "version": "29.8.0",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "server-only-ephemeral",
+      "catalog_path": "recipes/prometheus-community/prometheus/29.8.0/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "default;server-only-ephemeral",
+      "proof_lane_summary": "default render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; server-only-ephemeral render=pass confighub=pass local=pass gitops=pass/runtime-pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml;recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/prometheus-community/prometheus/29.8.0",
+      "package_paths": "packages/prometheus-community/prometheus/29.8.0",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/prometheus-community/prometheus/29.8.0/source-lock.yaml;recipes/prometheus-community/prometheus/29.8.0/CATALOG.md;recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml;recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml;recipes/prometheus-community/prometheus/29.8.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/prometheus-community/prometheus/29.8.0/value-model.yaml;recipes/prometheus-community/prometheus/29.8.0/helm-plan.yaml;recipes/prometheus-community/prometheus/29.8.0/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "generated-secrets;extension-slots;required-values;generated-facts;tpl;capabilities;rbac;storage",
+      "quirk_route": "P0: model remote dependency closure in chart facts and source/dependency lock evidence: dependency closure facts plus refresh-survival check",
+      "quirk_evidence": "prometheus/charts/prometheus-node-exporter/templates/daemonset.yaml;prometheus/templates/deploy.yaml;prometheus/charts/kube-state-metrics/templates/NOTES.txt;prometheus/charts/prometheus-node-exporter/templates/NOTES.txt",
+      "runtime_gitops_results": "server-only-ephemeral:Flux OCI:pass",
+      "runtime_gitops_receipts": "data/runtime-gitops/receipts/prometheus-community-prometheus/server-only-ephemeral/latest.yaml",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml;runs/live-helm-confighub-compare/prometheus-community-prometheus-default/receipt.yaml",
+      "production_decisions": "server-only-ephemeral:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml",
+      "top500_route": "rank 5: catalog-supported: proof:2 revision(s): production-review-ready: record target-scoped support decision and refresh live/e2e observation lane",
+      "user_must_provide": "a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts",
+      "next_action": "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
+    },
+    {
+      "rank": "20",
+      "chart": "secrets-store-csi-driver/secrets-store-csi-driver",
+      "version": "1.6.0",
+      "user_status": "ready-to-try",
+      "chart_use_answer": "yes-public-catalog",
+      "first_base": "default",
+      "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md",
+      "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
+      "proof_lane_rows": "default;sync-secret-rotation",
+      "proof_lane_summary": "default render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass; sync-secret-rotation render=pass confighub=pass local=pass gitops=pass live-parity=pass two-cluster=pass",
+      "variant_revisions": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/variant-revision.yaml;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
+      "package_paths": "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
+      "coverage_status": "covered",
+      "coverage_evidence": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/source-lock.yaml;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/variant-revision.yaml;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-pain-report.yaml;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/value-model.yaml;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-plan.yaml;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/installer-package-receipt.yaml;data/production-disposition/summary.md;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "extension-slots",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml;runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/receipt.yaml",
+      "production_decisions": "default:supported:fresh-target-evidence-passed",
+      "production_decision_paths": "data/production-support-decisions/secrets-store-csi-driver-secrets-store-csi-driver/support-decision.yaml",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
+      "next_action": "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
     }
   ]
 }
