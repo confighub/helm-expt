@@ -44,7 +44,10 @@ spec:
       operationState: "Succeeded"
       conditions: "none"
       residueClassification: "aggregate-progressing-with-blank-resource-health"
-      perResourceHealthResidue: "none recorded in the receipt"
+      resourceTree: "captured with argocd --core using the argocd control-plane namespace"
+      rootApplication: "Synced and Healthy"
+      childApplication: "Synced and Progressing"
+      perResourceHealthResidue: "none recorded in the Application status or argocd --core tree"
       resourceHealthBreakdown:
         source: "data/gitops-health-residue/residue.csv"
         resourceCount: 97
@@ -63,7 +66,7 @@ spec:
         - "consul-statefulset-gitops-defaults"
   nextActions:
     - "Keep the row as watch until Argo CD aggregate health is explained or the supported scope explicitly accepts the controller-health residue."
-    - "On the next live rerun, capture the Argo resource tree or equivalent controller health details if Argo remains Progressing with no per-resource residue."
+    - "Decide whether this target scope accepts Argo aggregate Progressing when the root Application is Healthy, the child Application is Synced, workloads converge, and all child resources have blank health."
     - "Use data/gitops-health-residue/summary.md to distinguish aggregate controller-health residue from resource-level health residue."
     - "Do not change the recipe unless semantic parity, target facts, or workload readiness starts failing."
   notClaimed:

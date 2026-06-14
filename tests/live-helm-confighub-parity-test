@@ -21,6 +21,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -944,6 +945,28 @@ def kubectl_must(args: list[str], kubeconfig: Path, context: str, step: str, tim
     return out
 
 
+def kubeconfig_with_context_namespace(kubeconfig: Path, context: str, namespace: str) -> Path:
+    if not yaml:
+        return kubeconfig
+    try:
+        config = load_yaml(kubeconfig)
+        matched = False
+        for item in config.get("contexts") or []:
+            if item.get("name") != context:
+                continue
+            item.setdefault("context", {})["namespace"] = namespace
+            matched = True
+            break
+        if not matched:
+            return kubeconfig
+        config["current-context"] = context
+        with tempfile.NamedTemporaryFile("w", prefix="helm-expt-argocd-core-", suffix=".kubeconfig", delete=False) as handle:
+            yaml.safe_dump(config, handle, sort_keys=False)
+            return Path(handle.name)
+    except Exception:
+        return kubeconfig
+
+
 def schedulable_node_count(kubeconfig: Path, context: str) -> int:
     out = kubectl_must(
         ["get", "nodes", "-o", "json"],
@@ -1123,7 +1146,8 @@ def count_by(items: list[dict], key_fn) -> dict:
 def argocd_core_status(kubeconfig: Path, context: str, app: str) -> dict:
     if shutil.which("argocd") is None:
         return {"result": "unavailable", "reason": "argocd CLI not found on PATH"}
-    env = {**os.environ, "KUBECONFIG": str(kubeconfig)}
+    core_kubeconfig = kubeconfig_with_context_namespace(kubeconfig, context, "argocd")
+    env = {**os.environ, "KUBECONFIG": str(core_kubeconfig)}
     base_command = [
         "argocd", "app", "get", app,
         "--core",
@@ -1131,8 +1155,12 @@ def argocd_core_status(kubeconfig: Path, context: str, app: str) -> dict:
         "--app-namespace", "argocd",
         "--hard-refresh",
     ]
-    rc_json, json_out, json_err = sh([*base_command, "-o", "json"], timeout=120, env=env)
-    rc_tree, tree_out, tree_err = sh([*base_command, "-o", "tree=detailed"], timeout=120, env=env)
+    try:
+        rc_json, json_out, json_err = sh([*base_command, "-o", "json"], timeout=120, env=env)
+        rc_tree, tree_out, tree_err = sh([*base_command, "-o", "tree=detailed"], timeout=120, env=env)
+    finally:
+        if core_kubeconfig != kubeconfig:
+            core_kubeconfig.unlink(missing_ok=True)
     result = "pass" if rc_json == 0 or rc_tree == 0 else "blocked"
     summary = {}
     if rc_json == 0 and json_out:
@@ -1150,6 +1178,8 @@ def argocd_core_status(kubeconfig: Path, context: str, app: str) -> dict:
             summary = {"jsonError": str(exc)}
     return {
         "result": result,
+        "coreNamespace": "argocd",
+        "temporaryKubeconfigNamespace": core_kubeconfig != kubeconfig,
         "json": {
             "result": "pass" if rc_json == 0 else "blocked",
             "summary": summary,
@@ -2617,6 +2647,7 @@ def main() -> int:
                 units.append(name)
         if not units:
             raise RuntimeError(f"no workload units found in {wspace}")
+        mark_stage("configHub-oci-apply")
         rc, apply_out, apply_err = sh(["cub", "unit", "apply", "--space", wspace, "--unit", ",".join(units), "--wait", "--timeout", "5m"], timeout=360)
         if rc != 0:
             raise RuntimeError(f"unit apply failed: {(apply_err or apply_out)[:1000]}")
