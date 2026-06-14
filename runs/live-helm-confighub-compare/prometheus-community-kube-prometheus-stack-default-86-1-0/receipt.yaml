@@ -1,0 +1,2206 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-86.1.0-default-live-parity-20260605
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: 86.1.0
+  base: default
+  result: pass
+  observedAt: '2026-06-14T20:49:03Z'
+  package:
+    path: packages/prometheus-community/kube-prometheus-stack/86.1.0
+  recipe:
+    path: recipes/prometheus-community/kube-prometheus-stack/86.1.0
+  variantRevision: recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch
+    kubeContext: kind-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch
+    namespace: monitoring
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: monitoring-helm
+      configHubKubectlApply: monitoring-apply
+      configHubOciArgo: monitoring-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch"...
+
+        Deleting cluster "helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch" ...
+
+        Deleted nodes: ["helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-control-plane"]
+
+        Deleting Space "helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
+        --repo https://prometheus-community.github.io/helm-charts --version 86.1.0
+        --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 58c19d82e70831986861de45eba5697418105140625afa840f5e329f1c21d1dd
+      objectCount: 124
+      liveHelmManifestSHA256: 2f009a69faa88a15e9a7dec142b9287660bac402581ed2d455e72051ce3557c0
+      liveHelmManifestObjectCount: 114
+      namespace: monitoring-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     108s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     108s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     108s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   97s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   97s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   108s'
+        pods: 'alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     97s
+
+          kube-prometheus-stack-grafana-689f864759-4nzjr              3/3   Running   0     108s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-9zt98   1/1   Running   0     108s
+
+          kube-prometheus-stack-operator-6cd9d8fb8d-gf9xk             1/1   Running   0     108s
+
+          kube-prometheus-stack-prometheus-node-exporter-khp9m        1/1   Running   0     108s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     97s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/86.1.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+        --non-interactive --namespace monitoring-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 0e97aba8e33525aa0045603e2fece2fe84e5d4a8a3d4e8383c6a9d464e2f7a06
+      objectCount: 125
+      namespace: monitoring-apply
+      manifestNamespaces:
+      - kube-system
+      - monitoring
+      - monitoring-apply
+      runtimeNamespaces: &id001
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# monitoring
+
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     20s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     20s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     20s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   19s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   19s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   20s'
+        pods: '# monitoring
+
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     19s
+
+          kube-prometheus-stack-grafana-689f864759-vwj5w              3/3   Running   0     20s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-g4vvn   1/1   Running   0     20s
+
+          kube-prometheus-stack-operator-6cd9d8fb8d-hvjgn             1/1   Running   0     20s
+
+          kube-prometheus-stack-prometheus-node-exporter-4vwt5        1/1   Running   0     20s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     19s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - monitoring
+        - monitoring-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 20
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "kube-prometheus-stack-grafana-clusterrole"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kube-prometheus-stack-kube-state-metrics"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kube-prometheus-stack-operator"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "kube-prometheus-stack-prometheus"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "kube-prometheus-stack-grafana-clusterrolebinding"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "kube-prometheus-stack-kube-state-metrics"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "kube-prometheus-stack-operator"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "kube-prometheus-stack-prometheus"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "alertmanagerconfigs.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "alertmanagers.monitoring.coreos.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "podmonitors.monitoring.coreos.com"
+            deleted
+
+            customr'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - kube-system
+          objectCount: 0
+          preservedPreExistingObjects:
+          - v1|Service|kube-system|kube-prometheus-stack-coredns
+          - v1|Service|kube-system|kube-prometheus-stack-kube-controller-manager
+          - v1|Service|kube-system|kube-prometheus-stack-kube-etcd
+          - v1|Service|kube-system|kube-prometheus-stack-kube-proxy
+          - v1|Service|kube-system|kube-prometheus-stack-kube-scheduler
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+      controller: Argo CD OCI
+      app: kube-prometheus-stack-parity
+      manifestSHA256: 4a9c5b91ac282272c6813c7e43a9b84b3ec7bd08ed756095d2cd2b2b5231e8df
+      objectCount: 125
+      namespace: monitoring-oci
+      manifestNamespaces:
+      - kube-system
+      - monitoring
+      - monitoring-oci
+      runtimeNamespaces: &id002
+      - monitoring
+      ociRevision: sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-monitoring-alertmanager-kube-prometheus-stack-alertmanager.yaml
+      - secret-monitoring-kube-prometheus-stack-grafana.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: monitoring-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci
+              targetRevision: latest
+          revision: sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T21:01:39Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/grafana/grafana:13.0.1-security-01
+          - quay.io/kiwigrid/k8s-sidecar:2.7.3
+          - quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0
+          - quay.io/prometheus-operator/prometheus-operator:v0.91.0
+          - quay.io/prometheus/alertmanager:v0.32.1
+          - quay.io/prometheus/node-exporter:v1.11.1-distroless
+          - quay.io/prometheus/prometheus:v3.12.0-distroless
+          - registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T21:01:14Z'
+          finishedAt: '2026-06-14T21:01:20Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 123
+          syncResultStatusCounts:
+            Synced: 123
+        history:
+        - id: 0
+          revision: sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac
+          deployedAt: '2026-06-14T21:01:20Z'
+          deployStartedAt: '2026-06-14T21:01:14Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-alertmanager-overview
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-apiserver
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-cluster-total
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-controller-manager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-etcd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-grafana
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-grafana-config-dashboards
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-grafana-datasource
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-grafana-overview
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s-coredns
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s-resources-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s-resources-multicluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s-resources-namespace
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s-resources-node
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s-resources-pod
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s-resources-workload
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s-resources-workloads-namespace
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-kubelet
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-namespace-by-pod
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-namespace-by-workload
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-node-cluster-rsrc-use
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-node-rsrc-use
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-nodes
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-nodes-aix
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-nodes-darwin
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-persistentvolumesusage
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-pod-total
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-proxy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-scheduler
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: monitoring
+          name: kube-prometheus-stack-workload-total
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: monitoring-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: kube-system
+          name: kube-prometheus-stack-coredns
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: kube-system
+          name: kube-prometheus-stack-kube-controller-manager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: kube-system
+          name: kube-prometheus-stack-kube-etcd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: kube-system
+          name: kube-prometheus-stack-kube-proxy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: kube-system
+          name: kube-prometheus-stack-kube-scheduler
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: kube-prometheus-stack-alertmanager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: kube-prometheus-stack-grafana
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: kube-prometheus-stack-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus-node-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: kube-prometheus-stack-alertmanager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: kube-prometheus-stack-grafana
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: kube-prometheus-stack-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus-node-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: kube-prometheus-stack-admission
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: kube-prometheus-stack-admission
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: alertmanagerconfigs.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: alertmanagers.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: podmonitors.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: probes.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: prometheusagents.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: prometheuses.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: prometheusrules.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: scrapeconfigs.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: servicemonitors.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: thanosrulers.monitoring.coreos.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus-node-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: monitoring
+          name: kube-prometheus-stack-grafana
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: monitoring
+          name: kube-prometheus-stack-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: Alertmanager
+          namespace: monitoring
+          name: kube-prometheus-stack-alertmanager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: Prometheus
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-alertmanager.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-config-reloaders
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-etcd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-general.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s.rules.container-cpu-usage-seconds-tot
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s.rules.container-memory-cache
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s.rules.container-memory-rss
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s.rules.container-memory-swap
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s.rules.container-memory-working-set-by
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s.rules.container-resource
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-k8s.rules.pod-owner
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-apiserver-availability.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-apiserver-burnrate.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-apiserver-histogram.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-apiserver-slos
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-prometheus-general.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-prometheus-node-recording.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-scheduler.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubelet.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubernetes-apps
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubernetes-resources
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubernetes-storage
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubernetes-system
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubernetes-system-apiserver
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubernetes-system-controller-manager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubernetes-system-kube-proxy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubernetes-system-kubelet
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-kubernetes-system-scheduler
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-node-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-node-exporter.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-node-network
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-node.rules
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: PrometheusRule
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-alertmanager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-apiserver
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-coredns
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-grafana
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-controller-manager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-etcd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-proxy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-scheduler
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-kubelet
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: monitoring.coreos.com
+          kind: ServiceMonitor
+          namespace: monitoring
+          name: kube-prometheus-stack-prometheus-node-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kube-prometheus-stack-grafana-clusterrole
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kube-prometheus-stack-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kube-prometheus-stack-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kube-prometheus-stack-prometheus
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kube-prometheus-stack-grafana-clusterrolebinding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kube-prometheus-stack-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kube-prometheus-stack-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kube-prometheus-stack-prometheus
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kube-prometheus-stack-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster:argoproj.io/Application:argocd/kube-prometheus-stack-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ e9673c21-d270-4e51-9903-49de88741c7a\n              confighub.com/UnitSlug:\
+              \ kube-prometheus-stack-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T21:01:10Z\n\
+              \  Generation:          10\n  Resource Version:    3596\n  UID:    \
+              \             b9712d94-912c-4db3-8bb4-8feb3547a028\nSpec:\n  Destination:\n\
+              \    Namespace:  monitoring-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T21:01:39Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T21:01:14Z\n    Deployed At:        2026-06-14T21:01:20Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T21:01:20Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T21:01:14Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/monitoring-oci\
+              \ serverside-applied\n        Name:        monitoring-oci\n        Namespace:\
+              \   monitoring-oci\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
+              \     serviceaccount/kube-prometheus-stack-prometheus serverside-applied\n\
+              \        Name:        kube-prometheus-stack-prometheus\n        Namespace:\
+              \   monitoring\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/kube-prometheus-stack-operator serverside-applied\n\
+              \        Name:        kube-prometheus-stack-operator\n        Namespace:\
+              \   monitoring\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/kube-prometheus-stack-kube-state-metrics serverside-applied\n\
+              \        Name:        kube-prometheus-stack-kube-state-metrics\n   \
+              \     Namespace:   monitoring\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        ServiceAccount\n\
+              \        Message:     serviceaccount/kube-prometheus-stack-alertmanager\
+              \ serverside-applied\n        Name:        kube-prometheus-stack-alertmanager\n\
+              \        Namespace:   monitoring\n        Status:      Synced\n    \
+              \    Sync Phase:  Sync\n        Version:     v1\n        Group:    \
+              \   \n        Hook Phase:  Running\n        Kind:        ServiceAccount\n\
+              \        Message:     serviceaccount/kube-prometheus-stack-prometheus-node-exporter\
+              \ serverside-applied\n        Name:        kube-prometheus-stack-prometheus-node-exporter\n\
+              \        Namespace:   monitoring\n        Status:      Synced\n    \
+              \    Sync Phase:  Sync\n        Version:     v1\n        Group:    \
+              \   \n        Hook Phase:  Running\n        Kind:        ServiceAccount\n\
+              \        Message:     serviceaccount/kube-prometheus-stack-grafana serverside-applied\n\
+              \        Name:        kube-prometheus-stack-grafana\n        Namespace:\
+              \   monitoring\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ConfigMap\n        Message:     configmap/kube-prometheus-stack-k8s-resources-multicluster\
+              \ serverside-applied\n        Name:        kube-prometheus-stack-k8s-resources-multicluster\n\
+              \        Namespace:   monitoring\n        Status:      Synced\n    \
+              \    Sync Phase:  Sync\n        Version:     v1\n        Group:    \
+              \   \n        Hook Phase:  Running\n        Kind:        ConfigMap\n\
+              \        Message:     configmap/kube-prometheus-stack-etcd serverside-applied\n\
+              \        Name:        kube-prometheus-stack-etcd\n        Namespace:\
+              \   monitoring\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ConfigMap\n        Message:     configmap/kube-prometheus-stack-kubelet\
+              \ serverside-applied\n        Name:        kube-prometheus-stack-kubelet\n\
+              \        Namespace:   monitoring\n        Status:      Synced\n    \
+              \    Sync Phas"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                     MESSAGE
+
+              34s         Normal   OperationStarted     application/kube-prometheus-stack-parity   Initiated
+              automated sync to ''sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac''
+
+              34s         Normal   ResourceUpdated      application/kube-prometheus-stack-parity   Updated
+              sync status:  -> OutOfSync
+
+              34s         Normal   ResourceUpdated      application/kube-prometheus-stack-parity   Updated
+              health status:  -> Healthy
+
+              29s         Normal   ResourceUpdated      application/kube-prometheus-stack-parity   Updated
+              health status: Healthy -> Degraded
+
+              28s         Normal   OperationCompleted   application/kube-prometheus-stack-parity   Sync
+              operation to sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac
+              succeeded
+
+              27s         Normal   ResourceUpdated      application/kube-prometheus-stack-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              9s          Normal   ResourceUpdated      application/kube-prometheus-stack-parity   Updated
+              health status: Degraded -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 123
+              artifact:
+                path: argocd-core-child.json
+                sha256: 45748d8ae2e7a4bb7afcbfa48f341a7af5949610e6333bea99f38bc2f4712f01
+                bytes: 98252
+              output: "{\n  \"metadata\": {\n    \"name\": \"kube-prometheus-stack-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"b9712d94-912c-4db3-8bb4-8feb3547a028\"\
+                ,\n    \"resourceVersion\": \"3627\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-14T21:01:10Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster:argoproj.io/Application:argocd/kube-prometheus-stack-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"e9673c21-d270-4e51-9903-49de88741c7a\",\n      \"confighub.com/UnitSlug\"\
+                : \"kube-prometheus-stack-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T21:01:10Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T21:02:01Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"monitoring-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"monitoring\",\n        \"name\": \"kube-prometheus-stack-alertmanager-overview\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"monitoring\",\n        \"name\": \"kube-prometheus-stack-apiserver\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"monitoring\",\n        \"name\": \"kube-prometheus-stack-cluster-total\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"monitoring\",\n        \"name\": \"kube-prometheus-stack-controller-manager\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"monitoring\",\n        \"name\": \"kube-prometheus-stack-etcd\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"monitoring\",\n        \"name\": \"kube-prometheus-stack-grafana\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Config"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 4a6dc135173acffd69937d4e8a533dcf1292d0d866385b9915629db2791e66f2
+                bytes: 27920
+              output: "Name:               argocd/kube-prometheus-stack-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          monitoring-oci\nURL:                http://localhost:63488/applications/kube-prometheus-stack-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                                       STATUS  HEALTH   AGE    MESSAGE\
+                \                                                                \
+                \                                                  REASON\nServiceMonitor/kube-prometheus-stack-grafana\
+                \                                             Synced           54s\
+                \    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-grafana\
+                \ serverside-applied                                    \nServiceMonitor/kube-prometheus-stack-kube-proxy\
+                \                                          Synced           54s  \
+                \  servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-proxy\
+                \ serverside-applied                                 \nConfigMap/kube-prometheus-stack-proxy\
+                \                                                    Synced      \
+                \     57s    configmap/kube-prometheus-stack-proxy serverside-applied\
+                \                                                                \
+                \ \nService/kube-prometheus-stack-alertmanager                   \
+                \                            Synced  Healthy  56s    service/kube-prometheus-stack-alertmanager\
+                \ serverside-applied                                             \
+                \               \nPrometheusRule/kube-prometheus-stack-config-reloaders\
+                \                                    Synced           54s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-config-reloaders\
+                \ serverside-applied                           \nPrometheusRule/kube-prometheus-stack-kube-apiserver-availability.rules\
+                \                   Synced           54s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-apiserver-availability.rules\
+                \ serverside-applied          \nClusterRoleBinding/kube-prometheus-stack-prometheus\
+                \                                      Synced           56s      \
+                \                                                                \
+                \                                                       \nConfigMap/kube-prometheus-stack-k8s-resources-namespace\
+                \                                  Synced           57s    configmap/kube-prometheus-stack-k8s-resources-namespace\
+                \ serverside-applied                                             \
+                \  \nConfigMap/kube-prometheus-stack-node-rsrc-use               \
+                \                             Synced           57s    configmap/kube-prometheus-stack-node-rsrc-use\
+                \ serverside-applied                                             \
+                \            \nConfigMap/kube-prometheus-stack-persistentvolumesusage\
+                \                                   Synced           57s    configmap/kube-prometheus-stack-persistentvolumesusage\
+                \ serverside-applied                                             \
+                \   \nService/kube-prometheus-stack-kube-scheduler               \
+                \                              Synced  Healthy  9m12s  service/kube-prometheus-stack-kube-scheduler\
+                \ serverside-applied                                             \
+                \             \nClusterRole/kube-prometheus-stack-grafana-clusterrole\
+                \                                    Synced           56s        \
+                \                                                                \
+                \                                                     \nClusterRole/kube-prometheus-stack-prometheus\
+                \                                             Synced           56s\
+                \                                                                \
+                \                                                             \nValidatingWebhookConfiguration/kube-prometheus-stack-admission\
+                \                           Synced           56s                 \
+                \                                                                \
+                \                                            \nPrometheusRule/kube-prometheus-stack-k8s.rules.container-resource\
+                \                        Synced           54s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-resource\
+                \ serverside-applied               \nPrometheusRule/kube-prometheus-stack-kube-scheduler.rules\
+                \                                Synced           54s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-scheduler.rules\
+                \ serverside-applied                       \nServiceMonitor/kube-prometheus-stack-kube-etcd\
+                \                                           Synced           54s \
+                \   servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-etcd\
+                \ serverside-applied                                  \nServiceMonitor/kube-prometheus-stack-prometheus\
+                \                                          Synced           54s  \
+                \  servicemonitor.monitoring.coreos.com/kube-prometheus-stack-prometheus\
+                \ serverside-applied                                 \nClusterRole/kube-prometheus-stack-kube-state-metrics\
+                \                                     Synced           56s       \
+                \                                                                \
+                \                                                      \nConfigMap/kube-prometheus-stack-k8s-resources-node\
+                \                                       Synced           57s    configmap/kube-prometheus-stack-k8s-resources-node\
+                \ serverside-applied                                             \
+                \       \nConfigMap/kube-prometheus-stack-kubelet                \
+                \                                  Synced           57s    configmap/kube-prometheus-stack-kubelet\
+                \ serverside-applied                                             \
+                \                  \nPrometheusRule/kube-prometheus-stack-prometheus\
+                \                                          Synced           54s  \
+                \  prometheusrule.monitoring.coreos.com/kube-prometheus-stack-prometheus\
+                \ serverside-applied                                 \nService/kube-prometheus-stack-kube-etcd\
+                \                                                  Synced  Healthy\
+                \  9m12s  service/kube-prometheus-stack-kube-etcd serverside-applied\
+                \                                                               \n\
+                ServiceAccount/kube-prometheus-stack-operator                    \
+                \                        Synced           57s    serviceaccount/kube-prometheus-stack-operator\
+                \ serverside-applied                                             \
+                \            \nPrometheus/kube-prometheus-stack-prometheus       \
+                \                                       Synced  Healthy  54s    prometheus.monitoring.coreos.com/kube-prometheus-stack-prometheus\
+                \ serverside-applied                                     All instances\
+                \ are available\n\u251C\u2500ConfigMap/prometheus-kube-prometheus-stack-prometheus-rulefiles-0\
+                \                                       54s                      \
+                \                                                                \
+                \                                       \n\u251C\u2500Secret/prometheus-kube-prometheus-stack-prometheus\
+                \                                                      54s       \
+                \                                                                \
+                \                                                      \n\u251C\u2500\
+                Secret/prometheus-kube-prometheus-stack-prometheus-thanos-prometheus-http-client-file\
+                \                   54s                                          \
+                \                                                                \
+                \                   \n\u251C\u2500Secret/prometheus-kube-prometheus-stack-prometheus-tls-assets-0\
+                \                                         54s                    \
+                \                                                                \
+                \                                         \n\u251C\u2500Secret/prometheus-kube-prometheus-stack-prometheus-web-config\
+                \                                           54s                  \
+                \                                                                \
+                \                                           \n\u251C\u2500Service/prometheus-operated "
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kube-prometheus-stack-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kube-prometheus-stack-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kube-prometheus-stack-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci
+              targetRevision: latest
+          revision: sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T20:50:44Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T21:01:08Z'
+          finishedAt: '2026-06-14T21:01:10Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac
+          deployedAt: '2026-06-14T21:01:10Z'
+          deployStartedAt: '2026-06-14T21:01:08Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kube-prometheus-stack-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T20:50:36Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        11\n  Resource Version:  3190\n  UID:        \
+              \       d5973cdb-8b7c-4601-9729-665f1c9a9e2a\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T20:50:44Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T21:01:08Z\n\
+              \    Deployed At:        2026-06-14T21:01:10Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T21:01:10Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T21:01:08Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/kube-prometheus-stack-parity\
+              \ serverside-applied\n        Name:        kube-prometheus-stack-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\n\
+              \      Source:\n        Path:              ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T21:01:10Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       kube-prometheus-stack-parity\n    Namespace:  argocd\n    Status:\
+              \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     11m   argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     11m   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  67s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac'\n\
+              \  Normal  ResourceUpdated     67s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  65s   argocd-application-controller  Sync operation to sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\
+              \ succeeded\n  Normal  ResourceUpdated     61s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                  MESSAGE
+
+              11m         Normal   ResourceUpdated      application/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster   Updated
+              sync status:  -> Synced
+
+              11m         Normal   ResourceUpdated      application/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster   Updated
+              health status:  -> Healthy
+
+              67s         Normal   OperationStarted     application/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster   Initiated
+              automated sync to ''sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac''
+
+              67s         Normal   ResourceUpdated      application/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              65s         Normal   OperationCompleted   application/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster   Sync
+              operation to sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac
+              succeeded
+
+              61s         Normal   ResourceUpdated      application/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 579f35c34aee4f57c2388faeb3e8e296d456f04fc9b61f212af1b19a09644fc6
+                bytes: 10877
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"d5973cdb-8b7c-4601-9729-665f1c9a9e2a\"\
+                ,\n    \"resourceVersion\": \"3665\",\n    \"generation\": 12,\n \
+                \   \"creationTimestamp\": \"2026-06-14T20:50:36Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\\\",\\\
+                \"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\"\
+                :{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\\\"\
+                ,\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T20:50:36Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T21:02:27Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 63835b4eb90f7a18dc5a4bf4d32407685a01a88bf8e28979fe276263bb25d9a9
+                bytes: 1237
+              output: "Name:               argocd/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:63607/applications/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                     STATUS  HEALTH  AGE  MESSAGE               \
+                \                                                                \
+                \                REASON\nApplication/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\
+                \  Synced          12m  application.argoproj.io/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\
+                \ serverside-applied  \nApplication/kube-prometheus-stack-parity \
+                \                              Synced          94s  application.argoproj.io/kube-prometheus-stack-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kube-prometheus-stack-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kube-prometheus-stack-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:71f58766fa0e2adde4ffdd081eb0aad67d35749895be8df89302411cc973eaac\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kube-prometheus-stack-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# monitoring
+
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     87s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     87s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     87s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   86s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   85s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   87s'
+        pods: '# monitoring
+
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     86s
+
+          kube-prometheus-stack-grafana-689f864759-t6bbp              3/3   Running   0     87s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-cb45c   1/1   Running   0     87s
+
+          kube-prometheus-stack-operator-6cd9d8fb8d-wbcrw             1/1   Running   0     87s
+
+          kube-prometheus-stack-prometheus-node-exporter-dkrfq        1/1   Running   0     87s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     85s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||monitoring
+    semanticNormalizations: &id003
+    - prune-null-fields
+    - prune-empty-metadata-maps
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 124
+      configHubObjectCount: 125
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 4472b0dababd206e1f005dd3d9f8e63cebe5cfea6a72b65bc9dfe6e66f822921
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 124
+      configHubObjectCount: 125
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      - prune-empty-metadata-maps
+      comparisonSHA256: 4472b0dababd206e1f005dd3d9f8e63cebe5cfea6a72b65bc9dfe6e66f822921
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T20:50:39Z'
+    finishedAt: '2026-06-14T20:52:07Z'
+    elapsedSeconds: 88.116
+    timeoutSeconds: 900
+    command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack --repo
+      https://prometheus-community.github.io/helm-charts --version 86.1.0 --namespace
+      monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T20:52:45Z'
+    finishedAt: '2026-06-14T20:52:48Z'
+    elapsedSeconds: 2.137
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/86.1.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+      --non-interactive --namespace monitoring-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-14T20:52:53Z'
+    finishedAt: '2026-06-14T20:52:54Z'
+    elapsedSeconds: 0.798
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig
+      --context kind-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/confighub-rendered-crds.yaml
+    objectCount: 10
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T20:53:01Z'
+    finishedAt: '2026-06-14T20:53:02Z'
+    elapsedSeconds: 0.684
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig
+      --context kind-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/direct-apply-manifest.yaml
+    objectCount: 114
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T20:53:02Z'
+    finishedAt: '2026-06-14T20:53:22Z'
+    elapsedSeconds: 20.509
+    timeoutSeconds: 300
+    namespaces: monitoring
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T20:53:46Z'
+    finishedAt: '2026-06-14T20:53:48Z'
+    elapsedSeconds: 2.004
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/86.1.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+      --non-interactive --namespace monitoring-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T20:53:54Z'
+    finishedAt: '2026-06-14T20:59:35Z'
+    elapsedSeconds: 340.426
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+      --space helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+      --target helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci
+    objectCount: 125
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T20:59:35Z'
+    finishedAt: '2026-06-14T20:59:35Z'
+    elapsedSeconds: 0.62
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T20:59:35Z'
+    finishedAt: '2026-06-14T21:00:55Z'
+    elapsedSeconds: 79.984
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
+      --unit <123 unit(s)> --wait --timeout 5m
+    unitCount: 123
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T21:00:55Z'
+    finishedAt: '2026-06-14T21:00:56Z'
+    elapsedSeconds: 1.124
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster
+      kube-prometheus-stack-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/argo-application.json
+      --target helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T21:00:56Z'
+    finishedAt: '2026-06-14T21:00:57Z'
+    elapsedSeconds: 0.908
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T21:00:58Z'
+    finishedAt: '2026-06-14T21:01:48Z'
+    elapsedSeconds: 50.342
+    timeoutSeconds: 420
+    waitedSeconds: 50
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T21:02:45Z'
+    finishedAt: '2026-06-14T21:02:45Z'
+    elapsedSeconds: 0.19
+    timeoutSeconds: 180
+    namespaces: monitoring
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.i"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"kube-prometheus-stack\" does not exist. Installing it now.\n\
+      NAME: kube-prometheus-stack\nLAST DEPLOYED: Sun Jun 14 21:50:42 2026\nNAMESPACE:\
+      \ monitoring-helm\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nkube-prometheus-stack has been installed. Check its\
+      \ status by running:\n  kubectl --namespace monitoring-helm get pods -l \"release=kube-prometheus-stack\"\
+      \n\nGet Grafana 'admin' user password by running:\n\n  kubectl --namespace monitoring-helm\
+      \ get secrets kube-prometheus-stack-grafana -o jsonpath=\"{.data.admin-password}\"\
+      \ | base64 -d ; echo\n\nAccess Grafana local instance:\n\n  export POD_NAME=$(kubectl\
+      \ --namespace monitoring-helm get pod -l \"app.kubernetes.io/name=grafana,app.kubernetes.io/instance=kube-prometheus-stack\"\
+      \ -oname)\n  kubectl --namespace monitoring-helm port-forward $POD_NAME 3000\n\
+      \nGet your grafana admin user password by running:\n\n  kubectl get secret --namespace\
+      \ monitoring-helm -l app.kubernetes.io/component=admin-secret -o jsonpath=\"\
+      {.ite"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=2 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# monitoring
+
+      deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     20s
+
+      deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     20s
+
+      deployment.apps/kube-prometheus-stack-operator             1/1   1     1     20s
+
+      statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   19s
+
+      statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   19s
+
+      daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   20s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=20
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=2 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 50s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: monitoring
+        name: kube-prometheus-stack-admission
+        keys:
+        - cert
+        - key
+        lane: configHubKubectlApply
+      - namespace: monitoring-apply
+        name: kube-prometheus-stack-admission
+        keys:
+        - cert
+        - key
+        lane: configHubKubectlApply
+        sourceNamespace: monitoring
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: monitoring
+        name: kube-prometheus-stack-admission
+        keys:
+        - cert
+        - key
+        lane: configHubOciArgo
+      - namespace: monitoring-oci
+        name: kube-prometheus-stack-admission
+        keys:
+        - cert
+        - key
+        lane: configHubOciArgo
+        sourceNamespace: monitoring
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: monitoring
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: monitoring
