@@ -1,0 +1,1153 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: argo-cd-argocd-image-updater-1.2.2-default-live-parity-20260605
+spec:
+  chart: argo-cd/argocd-image-updater
+  version: 1.2.2
+  base: default
+  result: pass
+  observedAt: '2026-06-14T21:49:49Z'
+  package:
+    path: packages/argo-cd/argocd-image-updater/1.2.2
+  recipe:
+    path: recipes/argo-cd/argocd-image-updater/1.2.2
+  variantRevision: recipes/argo-cd/argocd-image-updater/1.2.2/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-argocdimageupdater-mqebhwzn-1o51
+    kubeContext: kind-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-argocdimageupdater-mqebhwzn-1o51
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-argocdimageupdater-mqebhwzn-1o51"...
+
+        Deleting cluster "helm-expt-parity-argocdimageupdater-mqebhwzn-1o51" ...
+
+        Deleted nodes: ["helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-control-plane"]
+
+        Deleting Space "helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argocd-image-updater argocd-image-updater --repo
+        https://argoproj.github.io/argo-helm --version 1.2.2 --namespace default-helm
+        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2
+      objectCount: 11
+      liveHelmManifestSHA256: 4f348e4241b2c22e5a085b7c33754406ed95ec53929313adfc363a3991063297
+      liveHelmManifestObjectCount: 11
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/argocd-image-updater-controller   1/1   1     1     38s
+        pods: argocd-image-updater-controller-54d8dbbcf-5wjvj   1/1   Running   0     38s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argocd-image-updater/1.2.2
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 66dcf359ee66e6d2b0bf898594fd1711a6e4a73a24b0e30cd50eb6e84eaca606
+      objectCount: 12
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/argocd-image-updater-controller   1/1   1     1     31s'
+        pods: '# default
+
+          argocd-image-updater-controller-55684755d8-zc6z6   1/1   Running   0     31s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "argocd-image-updater" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argocd-image-updater" deleted
+
+            customresourcedefinition.apiextensions.k8s.io "imageupdaters.argocd-image-updater.argoproj.io"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|argocd-image-updater-controller
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|argocd-image-updater
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|argocd-image-updater-leader-election-rolebinding
+          - rbac.authorization.k8s.io/v1|Role|default|argocd-image-updater
+          - rbac.authorization.k8s.io/v1|Role|default|argocd-image-updater-leader-election-role
+          - v1|ConfigMap|default|argocd-image-updater-config
+          - v1|ConfigMap|default|argocd-image-updater-ssh-config
+          - v1|ServiceAccount|default|argocd-image-updater
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+      controller: Argo CD OCI
+      app: argocd-image-updater-parity
+      manifestSHA256: c7b1f7e319a18cf7c4829ebe18455c6e5ef7cd7a1626083c9274a17f00591199
+      objectCount: 12
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci
+              targetRevision: latest
+          revision: sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T21:53:36Z'
+          status: Healthy
+        summary:
+          images:
+          - quay.io/argoprojlabs/argocd-image-updater:v1.2.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T21:53:36Z'
+          finishedAt: '2026-06-14T21:53:37Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 12
+          syncResultStatusCounts:
+            Synced: 12
+        history:
+        - id: 0
+          revision: sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca
+          deployedAt: '2026-06-14T21:53:37Z'
+          deployStartedAt: '2026-06-14T21:53:36Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: argocd-image-updater-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: argocd-image-updater-ssh-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: argocd-image-updater
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: imageupdaters.argocd-image-updater.argoproj.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: argocd-image-updater-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: argocd-image-updater
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: argocd-image-updater
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: argocd-image-updater
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: argocd-image-updater-leader-election-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: argocd-image-updater
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: argocd-image-updater-leader-election-rolebinding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         argocd-image-updater-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster:argoproj.io/Application:argocd/argocd-image-updater-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 5c32d228-89aa-488f-ac91-2e93930d4802\n              confighub.com/UnitSlug:\
+              \ argocd-image-updater-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T21:53:34Z\n\
+              \  Generation:          7\n  Resource Version:    1309\n  UID:     \
+              \            4e046eca-46b4-4a09-b6df-4e45ed511644\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T21:53:36Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T21:53:36Z\n    Deployed At:        2026-06-14T21:53:37Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\n\
+              \    Source:\n      Path:             ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T21:53:37Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\n\
+              \        Source:\n          Path:             ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T21:53:36Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/argocd-image-updater serverside-applied\n       \
+              \ Name:        argocd-image-updater\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ConfigMap\n        Message:     configmap/argocd-image-updater-config\
+              \ serverside-applied\n        Name:        argocd-image-updater-config\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        ConfigMap\n    \
+              \    Message:     configmap/argocd-image-updater-ssh-config serverside-applied\n\
+              \        Name:        argocd-image-updater-ssh-config\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apiextensions.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        CustomResourceDefinition\n\
+              \        Message:     customresourcedefinition.apiextensions.k8s.io/imageupdaters.argocd-image-updater.argoproj.io\
+              \ serverside-applied\n        Name:        imageupdaters.argocd-image-updater.argoproj.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/argocd-image-updater\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[create] APIGroups:[]\
+              \ Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n        \
+              \               {Verbs:[create delete get list patch update watch] APIGroups:[argocd-image-updater.argoproj.io]\
+              \ Resources:[imageupdaters] ResourceNames:[] NonResourceURLs:[]}\n \
+              \                      {Verbs:[update] APIGroups:[argocd-image-updater.argoproj.io]\
+              \ Resources:[imageupdaters/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get patch update] APIGroups:[argocd-image-updater.argoproj.io]\
+              \ Resources:[imageupdaters/status] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list patch update watch] APIGroups:[argoproj.io]\
+              \ Resources:[applications] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/argocd-image-updater\
+              \ serverside-applied\n        Name:        argocd-image-updater\n  \
+              \      Namespace:   default-oci\n        Status:      Synced\n     \
+              \   Sync Phase:  Sync\n        Version:     v1\n        Group:     \
+              \  rbac.authorization.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/argocd-image-updater\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:argocd-image-updater Namespace:default}. clusterrolebinding.rbac"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                    MESSAGE
+
+              4s          Normal   OperationStarted     application/argocd-image-updater-parity   Initiated
+              automated sync to ''sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca''
+
+              4s          Normal   ResourceUpdated      application/argocd-image-updater-parity   Updated
+              sync status:  -> OutOfSync
+
+              4s          Normal   ResourceUpdated      application/argocd-image-updater-parity   Updated
+              health status:  -> Healthy
+
+              3s          Normal   OperationCompleted   application/argocd-image-updater-parity   Sync
+              operation to sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca
+              succeeded
+
+              1s          Normal   ResourceUpdated      application/argocd-image-updater-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 12
+              artifact:
+                path: argocd-core-child.json
+                sha256: 0671c1f7160fd3699eb5ab90fe25b7f7bad0d1be611d6e78e30c3a3facf1bbbe
+                bytes: 16871
+              output: "{\n  \"metadata\": {\n    \"name\": \"argocd-image-updater-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"4e046eca-46b4-4a09-b6df-4e45ed511644\"\
+                ,\n    \"resourceVersion\": \"1329\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T21:53:34Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster:argoproj.io/Application:argocd/argocd-image-updater-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"5c32d228-89aa-488f-ac91-2e93930d4802\",\n      \"confighub.com/UnitSlug\"\
+                : \"argocd-image-updater-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T21:53:34Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T21:53:48Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"argocd-image-updater-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"argocd-image-updater-ssh-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"argocd-image-updater\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apiextensions.k8s.io\",\n        \"version\": \"v1\",\n      \
+                \  \"kind\": \"CustomResourceDefinition\",\n        \"name\": \"imageupdaters.argocd-image-updater.argoproj.io\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\",\n          \"message\": \"CRD is healthy\"\
+                \n        }\n      },\n      {\n        \"group\": \"apps\",\n   \
+                \     \"version\": \"v1\",\n        \"kind\": \"Deployment\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"argocd-image-updater-controller\"\
+                ,\n        \"status\": \"Synced\",\n     "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 6d2ba10ff2cca183673a350567588b827d8ed8a38fdebe459d18c43b3e0fcd5a
+                bytes: 3617
+              output: "Name:               argocd/argocd-image-updater-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:49581/applications/argocd-image-updater-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                       STATUS  HEALTH   AGE   MESSAGE           \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                            REASON\nClusterRole/argocd-image-updater\
+                \                                         Synced           20s   \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                              \nClusterRoleBinding/argocd-image-updater\
+                \                                  Synced           20s          \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                       \nRole/argocd-image-updater\
+                \                                                Synced          \
+                \ 118s  role.rbac.authorization.k8s.io/argocd-image-updater reconciled.\
+                \ reconciliation required update. role.rbac.authorization.k8s.io/argocd-image-updater\
+                \ serverside-applied                                             \
+                \                           \nRole/argocd-image-updater-leader-election-role\
+                \                           Synced           118s  role.rbac.authorization.k8s.io/argocd-image-updater-leader-election-role\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/argocd-image-updater-leader-election-role\
+                \ serverside-applied                              \nRoleBinding/argocd-image-updater\
+                \                                         Synced           118s  rolebinding.rbac.authorization.k8s.io/argocd-image-updater\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/argocd-image-updater\
+                \ serverside-applied                                             \
+                \             \nNamespace/default-oci                            \
+                \                        Synced           81s                    \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                             \nServiceAccount/argocd-image-updater\
+                \                                      Synced           118s  serviceaccount/argocd-image-updater\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                \
+                \           \nDeployment/argocd-image-updater-controller         \
+                \                      Synced  Healthy  118s  deployment.apps/argocd-image-updater-controller\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                               \n\
+                \u2514\u2500ReplicaSet/argocd-image-updater-controller-55684755d8\
+                \                          Healthy  118s                         \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                       \n  \u2514\u2500Pod/argocd-image-updater-controller-55684755d8-zc6z6\
+                \                         Healthy  118s                          \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                      \nRoleBinding/argocd-image-updater-leader-election-rolebinding\
+                \             Synced           118s  rolebinding.rbac.authorization.k8s.io/argocd-image-updater-leader-election-rolebinding\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/argocd-image-updater-leader-election-rolebinding\
+                \ serverside-applied  \nConfigMap/argocd-image-updater-config    \
+                \                                Synced           118s  configmap/argocd-image-updater-config\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                \
+                \         \nConfigMap/argocd-image-updater-ssh-config            \
+                \                    Synced           118s  configmap/argocd-image-updater-ssh-config\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                \
+                \     \nCustomResourceDefinition/imageupdaters.argocd-image-updater.argoproj.io\
+                \  Synced  Healthy  20s                                          \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \       CRD is healthy"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argocd-image-updater-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/argocd-image-updater-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\",\n     \
+              \ \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argocd-image-updater-parity\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci
+              targetRevision: latest
+          revision: sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T21:51:23Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T21:53:33Z'
+          finishedAt: '2026-06-14T21:53:34Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca
+          deployedAt: '2026-06-14T21:53:34Z'
+          deployStartedAt: '2026-06-14T21:53:33Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: argocd-image-updater-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T21:51:13Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        9\n  Resource Version:  1277\n  UID:         \
+              \      9a6d9143-2056-40eb-a00a-9b4c29309505\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T21:51:23Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T21:53:33Z\n\
+              \    Deployed At:        2026-06-14T21:53:34Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\n\
+              \    Source:\n      Path:             ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T21:53:34Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\n\
+              \        Source:\n          Path:             ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T21:53:33Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/argocd-image-updater-parity\
+              \ serverside-applied\n        Name:        argocd-image-updater-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\n\
+              \      Source:\n        Path:              ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T21:53:36Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       argocd-image-updater-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     2m35s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     2m35s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  25s    argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca'\n\
+              \  Normal  ResourceUpdated     25s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  24s    argocd-application-controller  Sync operation to sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\
+              \ succeeded\n  Normal  ResourceUpdated     22s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                  MESSAGE
+
+              2m35s       Normal   ResourceUpdated      application/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster   Updated
+              sync status:  -> Synced
+
+              2m35s       Normal   ResourceUpdated      application/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster   Updated
+              health status:  -> Healthy
+
+              25s         Normal   OperationStarted     application/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster   Initiated
+              automated sync to ''sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca''
+
+              25s         Normal   ResourceUpdated      application/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              24s         Normal   OperationCompleted   application/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster   Sync
+              operation to sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca
+              succeeded
+
+              22s         Normal   ResourceUpdated      application/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 1c3b8b89d492bdc78802d9eab8993eb0e469a6e8879488c0cd400d57c9c70967
+                bytes: 10874
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"9a6d9143-2056-40eb-a00a-9b4c29309505\"\
+                ,\n    \"resourceVersion\": \"1377\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-14T21:51:13Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\\\",\\\
+                \"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\"\
+                :{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\\\"\
+                ,\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T21:51:13Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T21:54:12Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: f0cca15f0757d337ac264410e0891eb7b741799ce771c2d3faa9f65df47335e0
+                bytes: 1239
+              output: "Name:               argocd/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:49701/applications/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                     STATUS  HEALTH  AGE   MESSAGE              \
+                \                                                                \
+                \                 REASON\nApplication/argocd-image-updater-parity\
+                \                                Synced          48s   application.argoproj.io/argocd-image-updater-parity\
+                \ serverside-applied                                \nApplication/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\
+                \  Synced          3m9s  application.argoproj.io/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argocd-image-updater-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/argocd-image-updater-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\",\n     \
+              \ \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:024d8f5ad1fe55cde18376b0958fe3e43dd04f8aebbcaf152e44809eede4adca\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argocd-image-updater-parity\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/argocd-image-updater-controller   1/1   1     1     2m24s'
+        pods: '# default
+
+          argocd-image-updater-controller-55684755d8-zc6z6   1/1   Running   0     2m24s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T21:51:13Z'
+    finishedAt: '2026-06-14T21:51:53Z'
+    elapsedSeconds: 39.269
+    timeoutSeconds: 900
+    command: helm upgrade --install argocd-image-updater argocd-image-updater --repo
+      https://argoproj.github.io/argo-helm --version 1.2.2 --namespace default-helm
+      --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T21:51:58Z'
+    finishedAt: '2026-06-14T21:51:59Z'
+    elapsedSeconds: 0.441
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argocd-image-updater/1.2.2
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-14T21:51:59Z'
+    finishedAt: '2026-06-14T21:51:59Z'
+    elapsedSeconds: 0.06
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig
+      --context kind-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/confighub-rendered-crds.yaml
+    objectCount: 1
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T21:51:59Z'
+    finishedAt: '2026-06-14T21:51:59Z'
+    elapsedSeconds: 0.138
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig
+      --context kind-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/direct-apply-manifest.yaml
+    objectCount: 10
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T21:51:59Z'
+    finishedAt: '2026-06-14T21:52:30Z'
+    elapsedSeconds: 30.485
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T21:52:35Z'
+    finishedAt: '2026-06-14T21:52:36Z'
+    elapsedSeconds: 0.259
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argocd-image-updater/1.2.2
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T21:52:36Z'
+    finishedAt: '2026-06-14T21:53:11Z'
+    elapsedSeconds: 35.402
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+      --space helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+      --target helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci
+    objectCount: 12
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T21:53:11Z'
+    finishedAt: '2026-06-14T21:53:12Z'
+    elapsedSeconds: 0.58
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T21:53:12Z'
+    finishedAt: '2026-06-14T21:53:18Z'
+    elapsedSeconds: 6.253
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
+      --unit <12 unit(s)> --wait --timeout 5m
+    unitCount: 12
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T21:53:18Z'
+    finishedAt: '2026-06-14T21:53:19Z'
+    elapsedSeconds: 1.156
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster
+      argocd-image-updater-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/argo-application.json
+      --target helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T21:53:19Z'
+    finishedAt: '2026-06-14T21:53:20Z'
+    elapsedSeconds: 0.839
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T21:53:20Z'
+    finishedAt: '2026-06-14T21:53:40Z'
+    elapsedSeconds: 20.144
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T21:54:23Z'
+    finishedAt: '2026-06-14T21:54:23Z'
+    elapsedSeconds: 0.104
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-argocdimageupdater-mqebhwzn-1o51\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-argocdimageupdater-mqebhwzn-1o51\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https:/"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "argocd-image-updater" does not exist. Installing it now.
+
+      NAME: argocd-image-updater
+
+      LAST DEPLOYED: Sun Jun 14 22:51:15 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/argocd-image-updater-controller   1/1   1     1     31s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

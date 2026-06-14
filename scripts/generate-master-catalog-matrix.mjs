@@ -49,6 +49,8 @@ const SOURCES = {
   decisions: "data/production-support-decisions/decisions.csv",
   activeProof: "data/live-parity-rerun-plan/rerun-plan.csv",
   variantPromotion: "data/variant-promotion/status.csv",
+  liveCompare: "data/live-helm-confighub-compare/summary.csv",
+  kindParity: "data/live-kind-parity/summary.csv",
 };
 
 // Spine columns come from base-outcomes (the derived lane superset).
@@ -110,6 +112,16 @@ const COLUMN_PROVENANCE = [
     source: "variant-promotion/status.csv",
     carried: "server-side ConfigHub promotion status, matrix value, evidence path, reason, and next action",
     dropped: "none; follow the source when you need the full per-row promotion route",
+  },
+  {
+    source: "live-helm-confighub-compare/summary.csv",
+    carried: "exact chart/version/base live GitOps/OCI and live Helm-vs-ConfigHub parity result, overriding older aggregate outcome rows when a newer receipt exists",
+    dropped: "receipt reason and path; follow the source when diagnosing the run itself",
+  },
+  {
+    source: "live-kind-parity/summary.csv",
+    carried: "exact chart/version/base two-cluster kind parity result, overriding older aggregate outcome rows when a newer receipt exists",
+    dropped: "semantic parity details, reason, related lifecycle evidence, and receipt path",
   },
   {
     source: "live-parity-rerun-plan/rerun-plan.csv",
@@ -180,6 +192,8 @@ function buildReport(generatedAt) {
   const lifecycleRoutesByChart = indexBy(lifecycleRoutes.filter((row) => !row.base_or_variant), (row) => row.chart);
   const decisions = indexBy(readCsv(SOURCES.decisions), (row) => `${row.chart}|${row.version}|${row.supported_base}`);
   const variantPromotion = indexBy(readCsv(SOURCES.variantPromotion), (row) => `${row.chart}|${row.version}|${row.variant}`);
+  const liveCompare = indexBy(readCsv(SOURCES.liveCompare), (row) => `${row.chart}|${row.version}|${row.variant}`);
+  const kindParity = indexBy(readCsv(SOURCES.kindParity), (row) => `${row.chart}|${row.version}|${row.base}`);
   const activeProofRows = readCsv(SOURCES.activeProof);
   const activeProof = indexBy(activeProofRows, (row) => `${row.chart}|${row.version}|${row.base}`);
 
@@ -224,6 +238,8 @@ function buildReport(generatedAt) {
       const hookEvidenceVersion = exactHook || !hook ? "" : hook.version;
       const decision = decisions.get(`${chartName}|${version}|${variant}`);
       const promotion = variantPromotion.get(`${chartName}|${version}|${variant}`);
+      const liveCompareResult = liveCompare.get(`${chartName}|${version}|${variant}`)?.result;
+      const kindParityResult = kindParity.get(`${chartName}|${version}|${variant}`)?.result;
       const active = activeProof.get(`${chartName}|${version}|${variant}`);
       const hookCount = hook ? Number(hook.source_hook_count) : null;
       // A chart whose source scan flags hooks but that has no disposition row
@@ -280,6 +296,14 @@ function buildReport(generatedAt) {
         github_catalog_url: `${GITHUB_BLOB_ROOT}/${recipeCatalogPath}`,
         github_package_base_url: `${GITHUB_TREE_ROOT}/${packageBasePath}`,
       };
+      if (liveCompareResult) {
+        const value = normalizeLane(liveCompareResult);
+        row.lane_gitops_oci_live = value;
+        row.lane_live_dual_parity = value;
+      }
+      if (kindParityResult) {
+        row.lane_two_cluster_kind = normalizeLane(kindParityResult);
+      }
       if (row.lane_lifecycle_observed === "todo" && !needsLifecycleLane(row)) {
         row.lane_lifecycle_observed = "n/a";
       }
