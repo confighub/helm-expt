@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/cert-manager-crds-enabled
 cub installer package packages/jetstack/cert-manager/v1.20.2 -o .tmp/confighub-proof/cert-manager-archives/cert-manager-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/cert-manager-crds-enabled --space helm-cert-manager-confighub-proof --component CertManager --layer App --environment Demo --owner ConfigHubHelm --variant crds-enabled --unit-label Component=CertManager --unit-label HelmChart=jetstack-cert-manager --unit-label HelmChartVersion=v1.20.2 --unit-label Variant=crds-enabled --unit-label Proof=cert-manager-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/cert-manager-crds-enabled
-cub variant create staging helm-cert-manager-confighub-proof --environment Staging --region local --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-cert-manager-confighub-proof --environment Staging --region local --namespace cert-manager --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m
 cub unit list --space helm-cert-manager-confighub-proof --where "Labels.Proof = 'cert-manager-confighub-proof'"
 cub function vet vet-format --space helm-cert-manager-confighub-proof --where "Labels.Proof = 'cert-manager-confighub-proof'"
 cub unit apply --space helm-cert-manager-confighub-proof --where "Labels.Proof = 'cert-manager-confighub-proof'" --dry-run

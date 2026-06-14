@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "ingress-nginx-internal-clusterip-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "ingress-nginx/ingress-nginx"
+    chartVersion: "4.15.1"
+    packagePath: "packages/ingress-nginx/ingress-nginx/4.15.1"
+    variant: "internal-clusterip"
+    upstreamSpace: "helm-ingress-nginx-confighub-proof"
+    downstreamSpace: "IngressNGINX-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-ingress-nginx-ingress-nginx-controller runs/ingress-nginx-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-ingress-nginx-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-ingress-nginx-internal-clusterip runs/ingress-nginx-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-ingress-nginx-confighub-proof --allow-exists"
+    dryRun: "cub variant promote IngressNGINX-staging --dry-run -o mutations"
+    changeset: "cub changeset create ingress-nginx-internal-clusterip-variant-promote-20260527 --space IngressNGINX-staging --description ... --allow-exists"
+    promote: "cub variant promote IngressNGINX-staging --changeset IngressNGINX-staging/ingress-nginx-internal-clusterip-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote IngressNGINX-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-ingress-nginx-ingress-nginx-controller"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=ingress-nginx-internal-clusterip-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-ingress-nginx-internal-clusterip"
+    upstreamUnitID: "502881b0-83ff-43fd-8c19-746ae30ba030"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-ingress-nginx-internal-clusterip"
+  changeset:
+    slug: "ingress-nginx-internal-clusterip-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset ingress-nginx-internal-clusterip-variant-promote-20260527 (b7cc5564-90e9-4261-aa13-7419fe9a3aa7)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-ingress-nginx-ingress-nginx-controller\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-ingress-nginx-internal-clusterip\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-ingress-nginx-internal-clusterip"
+    addedUnitDownstreamUpstreamUnitID: "502881b0-83ff-43fd-8c19-746ae30ba030"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."
