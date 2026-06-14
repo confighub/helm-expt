@@ -1,0 +1,1048 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: coredns-coredns-1.45.2-default-live-parity-20260605
+spec:
+  chart: coredns/coredns
+  version: 1.45.2
+  base: default
+  result: pass
+  observedAt: '2026-06-14T19:23:53Z'
+  package:
+    path: packages/coredns/coredns/1.45.2
+  recipe:
+    path: recipes/coredns/coredns/1.45.2
+  variantRevision: recipes/coredns/coredns/1.45.2/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-coredns-mqe6a9dk-84a
+    kubeContext: kind-helm-expt-parity-coredns-mqe6a9dk-84a
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-coredns-mqe6a9dk-84a --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-coredns-mqe6a9dk-84a"...
+
+        Deleting cluster "helm-expt-parity-coredns-mqe6a9dk-84a" ...
+
+        Deleted nodes: ["helm-expt-parity-coredns-mqe6a9dk-84a-control-plane"]
+
+        Deleting Space "helm-expt-parity-coredns-mqe6a9dk-84a-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install coredns coredns --repo https://coredns.github.io/helm
+        --version 1.45.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/coredns-coredns-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34
+      objectCount: 5
+      liveHelmManifestSHA256: 86bbfafe2b197fb6cb255e1cdb571bfc71a6719fcd803983fbe8a54f1e3cf106
+      liveHelmManifestObjectCount: 5
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/coredns   1/1   1     1     34s
+        pods: coredns-7ccf947fbb-5c8zf   1/1   Running   0     34s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/coredns/coredns/1.45.2
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-coredns-mqe6a9dk-84a-coredns
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: a14e64f8e3d6fe0f140e07336d8ed3ce975b75d0196575de5639efa24c04dcc3
+      objectCount: 6
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/coredns   1/1   1     1     41s'
+        pods: '# default
+
+          coredns-7cc48f7fdc-4zjn9   1/1   Running   0     41s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "coredns" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "coredns" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|coredns
+          - v1|ConfigMap|default|coredns
+          - v1|Service|default|coredns
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-coredns-mqe6a9dk-84a-coredns
+      controller: Argo CD OCI
+      app: coredns-parity
+      manifestSHA256: 4d0c38de63bfe2d5c8381c4890f66a1261fb6fbe591b8319be0da0bf6da0150d
+      objectCount: 6
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-coredns-mqe6a9dk-84a-coredns
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci
+              targetRevision: latest
+          revision: sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T19:27:45Z'
+          status: Healthy
+        summary:
+          images:
+          - coredns/coredns:1.13.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T19:27:45Z'
+          finishedAt: '2026-06-14T19:27:48Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 6
+          syncResultStatusCounts:
+            Synced: 6
+        history:
+        - id: 0
+          revision: sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649
+          deployedAt: '2026-06-14T19:27:48Z'
+          deployStartedAt: '2026-06-14T19:27:45Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-coredns-mqe6a9dk-84a-coredns
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: coredns
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: coredns
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: coredns
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: coredns
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: coredns
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         coredns-parity\nNamespace:    argocd\nLabels: \
+              \      <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-coredns-mqe6a9dk-84a-cluster:argoproj.io/Application:argocd/coredns-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 7c0d888e-1623-4ff2-961e-1c2155c56d69\n              confighub.com/UnitSlug:\
+              \ coredns-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:    \
+              \     Application\nMetadata:\n  Creation Timestamp:  2026-06-14T19:27:43Z\n\
+              \  Generation:          7\n  Resource Version:    1230\n  UID:     \
+              \            eac36ff9-fb09-4043-a85e-238d6d66ec84\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-coredns-mqe6a9dk-84a-coredns\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T19:27:45Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T19:27:45Z\n    Deployed At:        2026-06-14T19:27:48Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\n\
+              \    Source:\n      Path:             ./helm-expt-parity-coredns-mqe6a9dk-84a-coredns\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T19:27:48Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\n\
+              \        Source:\n          Path:             ./helm-expt-parity-coredns-mqe6a9dk-84a-coredns\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T19:27:45Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ConfigMap\n        Message:     configmap/coredns\
+              \ serverside-applied\n        Name:        coredns\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/coredns reconciled.\
+              \ reconciliation required create\n                     missing rules\
+              \ added:\n                       {Verbs:[list watch] APIGroups:[] Resources:[endpoints\
+              \ services pods namespaces] ResourceNames:[] NonResourceURLs:[]}\n \
+              \                      {Verbs:[list watch] APIGroups:[discovery.k8s.io]\
+              \ Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/coredns\
+              \ serverside-applied\n        Name:        coredns\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRoleBinding\n\
+              \        Message:     clusterrolebinding.rbac.authorization.k8s.io/coredns\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:default Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/coredns\
+              \ serverside-applied\n        Name:        coredns\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/coredns\
+              \ serverside-applied\n        Name:        coredns\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          coredns/coredns:1.13.1\n    \
+              \    Kind:        Deployment\n        Message:     deployment.apps/coredns\
+              \ serverside-applied\n        Name:        coredns\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\n\
+              \      Source:\n        Path:              ./helm-expt-parity-coredns-mqe6a9dk-84a-coredns\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T19:27:48Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       ConfigMap\n\
+              \    Name:       coredns\n    Namespace:  default\n    Status:     Synced\n\
+              \    Version:    v1\n    Kind:       Namespace\n    Name:       default-oci\n\
+              \    Status:     Synced\n    Version:    v1\n    Kind:       Service\n\
+              \    Name:       coredns\n    Namespace:  default\n    Status:     Synced\n\
+              \    Version:    v1\n    Group:      apps\n    Kind:       Deployment\n\
+              \    Name:       coredns\n    Namespace:  default\n    Status:     Synced\n\
+              \    Version:    v1\n    Group:      rbac.authorization.k8s.io\n   \
+              \ Kind:       ClusterRole\n    Name:       coredns\n    Status:    \
+              \ Synced\n    Version:    v1\n    G"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                       MESSAGE
+
+              6s          Normal   OperationStarted     application/coredns-parity   Initiated
+              automated sync to ''sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649''
+
+              6s          Normal   ResourceUpdated      application/coredns-parity   Updated
+              sync status:  -> OutOfSync
+
+              6s          Normal   ResourceUpdated      application/coredns-parity   Updated
+              health status:  -> Healthy
+
+              3s          Normal   OperationCompleted   application/coredns-parity   Sync
+              operation to sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649
+              succeeded
+
+              1s          Normal   ResourceUpdated      application/coredns-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 6
+              artifact:
+                path: argocd-core-child.json
+                sha256: f89e6c39a20b313fe61a7a65b36de4b1e8697a64f3b16ccb798cc73bb2bb05aa
+                bytes: 11405
+              output: "{\n  \"metadata\": {\n    \"name\": \"coredns-parity\",\n \
+                \   \"namespace\": \"argocd\",\n    \"uid\": \"eac36ff9-fb09-4043-a85e-238d6d66ec84\"\
+                ,\n    \"resourceVersion\": \"1252\",\n    \"generation\": 8,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T19:27:43Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-coredns-mqe6a9dk-84a-cluster:argoproj.io/Application:argocd/coredns-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"7c0d888e-1623-4ff2-961e-1c2155c56d69\",\n      \"confighub.com/UnitSlug\"\
+                : \"coredns-parity-app\"\n    },\n    \"managedFields\": [\n     \
+                \ {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T19:27:43Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T19:28:05Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-coredns-mqe6a9dk-84a-coredns\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"coredns\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"coredns\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"apps\",\n        \"version\": \"v1\",\n        \"\
+                kind\": \"Deployment\",\n        \"namespace\": \"default\",\n   \
+                \     \"name\": \"coredns\",\n        \"status\": \"Synced\",\n  \
+                \      \"health\": {\n          \"status\": \"Healthy\"\n        }\n\
+                \      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterRole\"\
+                ,\n        \"name\": \"coredns\",\n        \"status\": \"Synced\"\n\
+                \      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterRoleBinding\"\
+                ,\n        \"name\": \"coredns\",\n        \"status\": \"Synced\"\n\
+                \      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\",\n\
+                \      \"comparedTo\": {\n        \"source\": {\n          \"repoURL\"\
+                : \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-m"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 4ba956e1198281070005eedffc8f07894aad2fd851abfef861031d814de247a3
+                bytes: 1261
+              output: "Name:               argocd/coredns-parity\nProject:       \
+                \     default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:57353/applications/coredns-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-coredns-mqe6a9dk-84a-coredns\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                         STATUS  HEALTH  \
+                \ AGE   MESSAGE                                     REASON\nService/coredns\
+                \                   Synced  Healthy  2m5s  service/coredns serverside-applied\
+                \          \nDeployment/coredns                Synced  Healthy  2m5s\
+                \  deployment.apps/coredns serverside-applied  \n\u2514\u2500ReplicaSet/coredns-7cc48f7fdc\
+                \           Healthy  2m5s                                        \
+                \      \n  \u2514\u2500Pod/coredns-7cc48f7fdc-4zjn9          Healthy\
+                \  2m5s                                              \nClusterRole/coredns\
+                \               Synced           30s                             \
+                \                  \nClusterRoleBinding/coredns        Synced    \
+                \       30s                                               \nConfigMap/coredns\
+                \                 Synced           2m5s  configmap/coredns serverside-applied\
+                \        \nNamespace/default-oci             Synced           79s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"coredns-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/coredns-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-coredns-mqe6a9dk-84a-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-coredns-mqe6a9dk-84a-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"coredns-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-coredns-mqe6a9dk-84a-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-coredns-mqe6a9dk-84a-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci
+              targetRevision: latest
+          revision: sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T19:25:34Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T19:27:41Z'
+          finishedAt: '2026-06-14T19:27:43Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649
+          deployedAt: '2026-06-14T19:27:43Z'
+          deployStartedAt: '2026-06-14T19:27:41Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-coredns-mqe6a9dk-84a-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: coredns-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-coredns-mqe6a9dk-84a-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T19:25:24Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1208\n  UID:         \
+              \      cf31b968-3350-4d7a-890e-0cdf5c789dbb\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T19:25:34Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T19:27:41Z\n\
+              \    Deployed At:        2026-06-14T19:27:43Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\n\
+              \    Source:\n      Path:             ./helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T19:27:43Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\n\
+              \        Source:\n          Path:             ./helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T19:27:41Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/coredns-parity serverside-applied\n\
+              \        Name:        coredns-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-coredns-mqe6a9dk-84a-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\n\
+              \      Source:\n        Path:              ./helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T19:27:43Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       coredns-parity\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     2m45s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     2m45s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  38s    argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649'\n\
+              \  Normal  ResourceUpdated     38s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  36s    argocd-application-controller  Sync operation to sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\
+              \ succeeded\n  Normal  ResourceUpdated     33s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                      MESSAGE
+
+              2m45s       Normal   ResourceUpdated      application/helm-expt-parity-coredns-mqe6a9dk-84a-cluster   Updated
+              sync status:  -> Synced
+
+              2m45s       Normal   ResourceUpdated      application/helm-expt-parity-coredns-mqe6a9dk-84a-cluster   Updated
+              health status:  -> Healthy
+
+              38s         Normal   OperationStarted     application/helm-expt-parity-coredns-mqe6a9dk-84a-cluster   Initiated
+              automated sync to ''sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649''
+
+              38s         Normal   ResourceUpdated      application/helm-expt-parity-coredns-mqe6a9dk-84a-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              36s         Normal   OperationCompleted   application/helm-expt-parity-coredns-mqe6a9dk-84a-cluster   Sync
+              operation to sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649
+              succeeded
+
+              33s         Normal   ResourceUpdated      application/helm-expt-parity-coredns-mqe6a9dk-84a-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 97cd275a7abcb3e5a3c64d7732965db1f5099415ee3dcb180abf419b4bbe888b
+                bytes: 10630
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-coredns-mqe6a9dk-84a-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"cf31b968-3350-4d7a-890e-0cdf5c789dbb\"\
+                ,\n    \"resourceVersion\": \"1294\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T19:25:24Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-coredns-mqe6a9dk-84a-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-coredns-mqe6a9dk-84a-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T19:25:24Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T19:28:34Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 706d2f0b5a28df5eb2d5b1b7e079af5f6152d2ad7e89cc7f2c3a065f22907d29
+                bytes: 1121
+              output: "Name:               argocd/helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:57476/applications/helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-coredns-mqe6a9dk-84a-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \         STATUS  HEALTH  AGE    MESSAGE                         \
+                \                                                          REASON\n\
+                Application/coredns-parity                                 Synced\
+                \          62s    application.argoproj.io/coredns-parity serverside-applied\
+                \                                 \nApplication/helm-expt-parity-coredns-mqe6a9dk-84a-cluster\
+                \  Synced          3m21s  application.argoproj.io/helm-expt-parity-coredns-mqe6a9dk-84a-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"coredns-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/coredns-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-coredns-mqe6a9dk-84a-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-coredns-mqe6a9dk-84a-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:2e3b6619b2fcc905cbba8eeadcd13d109f4b201b9dca0611159905deca82b649\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"coredns-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-coredns-mqe6a9dk-84a-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/coredns   1/1   1     1     2m33s'
+        pods: '# default
+
+          coredns-7cc48f7fdc-4zjn9   1/1   Running   0     2m33s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T19:25:24Z'
+    finishedAt: '2026-06-14T19:26:01Z'
+    elapsedSeconds: 37.087
+    timeoutSeconds: 900
+    command: helm upgrade --install coredns coredns --repo https://coredns.github.io/helm
+      --version 1.45.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/coredns-coredns-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T19:26:12Z'
+    finishedAt: '2026-06-14T19:26:13Z'
+    elapsedSeconds: 0.372
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/coredns/coredns/1.45.2
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-coredns-mqe6a9dk-84a-coredns
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T19:26:13Z'
+    finishedAt: '2026-06-14T19:26:13Z'
+    elapsedSeconds: 0.105
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-coredns-mqe6a9dk-84a.kubeconfig
+      --context kind-helm-expt-parity-coredns-mqe6a9dk-84a apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/coredns-coredns-default/direct-apply-manifest.yaml
+    objectCount: 5
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T19:26:13Z'
+    finishedAt: '2026-06-14T19:26:54Z'
+    elapsedSeconds: 40.607
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T19:26:59Z'
+    finishedAt: '2026-06-14T19:26:59Z'
+    elapsedSeconds: 0.262
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/coredns/coredns/1.45.2
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-coredns-mqe6a9dk-84a-coredns
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T19:26:59Z'
+    finishedAt: '2026-06-14T19:27:23Z'
+    elapsedSeconds: 23.256
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-coredns-mqe6a9dk-84a-coredns
+      --space helm-expt-parity-coredns-mqe6a9dk-84a-coredns --target helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci
+    objectCount: 6
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T19:27:23Z'
+    finishedAt: '2026-06-14T19:27:23Z'
+    elapsedSeconds: 0.704
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-coredns-mqe6a9dk-84a-coredns
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T19:27:23Z'
+    finishedAt: '2026-06-14T19:27:28Z'
+    elapsedSeconds: 5.048
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-coredns-mqe6a9dk-84a-coredns
+      --unit <6 unit(s)> --wait --timeout 5m
+    unitCount: 6
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T19:27:28Z'
+    finishedAt: '2026-06-14T19:27:30Z'
+    elapsedSeconds: 1.259
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-coredns-mqe6a9dk-84a-cluster
+      coredns-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/coredns-coredns-default/argo-application.json
+      --target helm-expt-parity-coredns-mqe6a9dk-84a-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T19:27:30Z'
+    finishedAt: '2026-06-14T19:27:31Z'
+    elapsedSeconds: 1.192
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-coredns-mqe6a9dk-84a-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T19:27:31Z'
+    finishedAt: '2026-06-14T19:27:51Z'
+    elapsedSeconds: 20.138
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T19:28:46Z'
+    finishedAt: '2026-06-14T19:28:46Z'
+    elapsedSeconds: 0.106
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-coredns-mqe6a9dk-84a\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-coredns-mqe6a9dk-84a.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-coredns-mqe6a9dk-84a\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-coredns-mqe6a9dk-84a\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-coredns-mqe6a9dk-84a\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-coredns-mqe6a9dk-84a.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace "
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "coredns" does not exist. Installing it now.
+
+      NAME: coredns
+
+      LAST DEPLOYED: Sun Jun 14 20:25:27 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      CoreDNS is now running in the cluster as a cluster-service.
+
+
+      It can be tested with the following:
+
+
+      1. Launch a Pod with DNS tools:
+
+
+      kubectl run -it --rm --restart=Never --image=infoblox/dnstools:latest dnstools
+
+
+      2. Query the DNS server:
+
+
+      / # host kubernetes'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/coredns   1/1   1     1     41s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
